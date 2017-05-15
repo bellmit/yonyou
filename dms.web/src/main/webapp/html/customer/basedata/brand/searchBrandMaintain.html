@@ -1,0 +1,125 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">品牌</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" id="brandName"
+									name="brandName" data-url="/brand/Charge/brand"
+									data-model="customer" data-lableDesc="BRAND_NAME"
+									data-labelValue="BRAND_CODE">
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车系</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" id="seriesName"
+									name="seriesName" data-url="/brand/Charge/series"
+									data-model="customer" data-lableDesc="SERIES_NAME"
+									data-labelValue="SERIES_CODE">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车型</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" id="ModelName"
+									name="ModelName" data-url="/brand/Charge/model"
+									data-model="customer" data-lableDesc="MODEL_NAME"
+									data-labelValue="MODEL_CODE">
+								</select>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> 
+							<a href="javascript:;" class="btn blue"><i
+							class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+		<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">全品牌数据信息</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+					 <a data-width="modal-lg"
+						class="btn btn-outline"
+						data-url="customer/basedata/brand/brandImport.html"
+						data-toggle="modal"> <i class="fa fa-plus-square"></i> 导入
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+
+
+
+
+<script type="text/javascript">
+	$(document).one("onload.dms", function(event, container) {
+		new Datatable().initPagination({
+			src : "dms_table",
+			container : container,
+			url : dmsCommon.getDmsPath()["customer"] + "/customer/allBrand",
+			rowID : "T_ID",
+			sortName : "T_ID",
+			sortOrder : "desc,desc,desc",
+			columns : [ {
+				field : "MAKE_NAME",
+				title : "经销商名称"
+			}, {
+				field : "MAKE_CODE",
+				title : "经销商代码"
+			}, {
+				field : "BRAND_NAME",
+				title : "品牌名称"
+			}, {
+				field : "BRAND_CODE",
+				title : "品牌代码"
+			}, {
+				field : "SERIES_NAME",
+				title : "车系名称"
+			}, {
+				field : "SERIES_CODE",
+				title : "车系代码"
+			}, {
+				field : "MODEL_NAME",
+				title : "车型名称"
+			}, {
+				field : "MODEL_CODE",
+				title : "车型代码"
+			}, {
+				field : "MODEL_YEAR",
+				title : "年款"
+			},
+
+			]
+
+		});
+	});
+</script>

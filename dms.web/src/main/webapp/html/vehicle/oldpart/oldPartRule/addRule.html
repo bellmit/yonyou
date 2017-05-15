@@ -1,0 +1,122 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">旧件标记规则新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="modal-body">
+					<div class="row">
+							<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">规则编号</label>
+								<div class="col-xs-8">
+									<input type="text"  
+										id="ruleCode" class="form-control"
+										name="ruleCode" data-fieldName="RULE_CODE">
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">规则名称</label>
+							<div class="col-xs-8">
+								<input type="text" id="ruleName" name="ruleName"
+								class="form-control"	data-fieldName="RULE_NAME">
+							</div>
+						</div>
+					</div>
+						</div>
+						<div class="row">
+				<div class="col-xs-12 col-sm-6  ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">含税索赔价>:</label>
+							<div class="col-xs-4">
+								<input type="text" id="noOrderPrice" name="noOrderPrice"
+							class="form-control"		data-fieldName="NO_ORDER_PRICE">
+							</div>
+							<label class="control-label col-xs-4">元为保修件</label>
+						</div>
+					</div>
+			<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">含税索赔价<=:</label>
+							<div class="col-xs-4">
+								<input type="text" id="destroyPrice" name="destroyPrice"
+								class="form-control"	data-fieldName="DESTROY_PRICE">
+							</div>
+							<label class="control-label col-xs-4">元为自销毁件</label>
+						</div>
+					</div>
+				</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">状态</label>
+							<div class="col-xs-8">
+								<select id="status" name="status" class="bs-select form-control"
+									data-type="oemDict" data-dictCode="1001">
+								</select>
+							</div>
+						</div>
+					</div>
+		
+				<div class="row">
+				<div class="col-xs-12 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">备注</label>
+							<div class="col-xs-8">
+								<textarea  id="remark" name="remark"
+									data-fieldName="REMARK">
+									</textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/oldPartRule/add" data-model="vehicle" data-method="POST"
+				data-callBack="true" class="btn blue"
+				data-toggle="confirmation"> <i class="fa fa-save"></i>新增
+			</a>
+			 <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+	
+<div class="tabbable-custom ">
+	<ul class="nav nav-tabs">
+		<li class="active">
+			<a href="#tab_brand" data-toggle="tab" id="brandTab">保修件剔出列表</a>
+		</li>
+		<li >
+			<a href="#tab_serials" data-toggle="tab" id="seriesTab">自销毁件剔出列表</a>
+		</li>
+	</ul>
+	<div class="tab-content">
+		<div class="tab-pane fade in active" id="tab_brand" data-url="vehicle/oldpart/oldPartRule/importRuleup.html">
+		</div>
+		<div class="tab-pane  fade" id="tab_serials" data-url="vehicle/oldpart/oldPartRule/importRuledrop.html">
+		</div>
+
+	</div>
+</div>
+
+<script type="text/javascript">
+//页面加载后初始化
+$(document).one("onload.dms",function(event,container){
+	
+	$("#brandTab",container).on("dms.click",function(event){
+		console.log("into tab click");
+	});
+	
+});
+	
+</script>

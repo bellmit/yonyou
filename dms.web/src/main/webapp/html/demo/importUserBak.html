@@ -1,0 +1,161 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="pannel-name">用户基本信息</div>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 ">
+						<div class="form-group">
+							<label class="control-label col-md-3">导入文件</label>
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <div class="input-group ">
+                                    <div class="form-control uneditable-input input-fixed input-medium">
+                                        <i class="fa fa-file fileinput-exists"></i>&nbsp;
+                                        <span class="fileinput-filename"> </span>
+                                    </div>
+                                    <span class="input-group-addon btn default btn-file">
+                                        <span class="fileinput-new">选择文件 </span>
+                                        <span class="fileinput-exists"> 重新选择 </span>
+                                        <input type="file" class="importData" id="fileupload" name="file"> </span>
+                                    <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> 删除 </a>
+                                </div>
+                            </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-actions">
+			<a class="btn blue" data-url="/demoUsers/upload" data-model="demo" >
+				<i class="fa fa-save"></i>保存</a>
+			<a data-goback="page" href="demo/searchUser2.html" class="btn blue ajaxify">
+			<i class="fa fa-reply"></i>返回</a>
+		</div>
+	</form>
+</div>
+
+
+
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one("onload.dms",function(event,container){
+// 		 $('#fileupload',container).fileupload({
+// 		        url : dmsCommon.getDmsPath()["demo"] + "/demoUsers/upload",
+// 		        dataType: 'json',
+// 		        autoUpload: false,
+// 		        maxFileSize: 9,
+// 		        i18n:{maxFileSize:"超过最大"},
+// 		        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+// 		        formData:{param1:"p1",param2:"p2"},
+// 		        done: function (e, data) {
+
+// 		        },
+// 		        progressall: function (e, data) {
+// 		            var progress = parseInt(data.loaded / data.total * 100, 10);
+// 		            $('#progress .progress-bar').css(
+// 		                    'width',
+// 		                    progress + '%'
+// 		            );
+// 		        },
+// 		        add: function (e, data) {
+// 		        	data.context = ("#testBtn",container).click(function () {
+
+// 	                    data.submit();
+// 	                });
+// 		        },
+// 		        submit:function(e,data){
+
+// 		        },
+// 		        fail: function (e, data) {
+
+// 		        }
+// 		    }).prop('disabled', !$.support.fileInput)
+// 		        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+		 
+// 		 $('#fileupload',container).fileupload({
+// 		        url : dmsCommon.getDmsPath()["demo"] + "/demoUsers/upload",
+// 		        dataType: 'json',
+// 		        autoUpload: true,
+// 		        maxFileSize: 5242880,
+// 		        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+// 		        formData:{param1:"p1",param2:"p2"},
+// 		        add: function (e, data) {
+
+// 		        	data.context = ("#testBtn",container).click(function () {
+
+// 	                    data.submit();
+// 	                });
+// 		        },
+// 		        done: function (e, data) {
+
+
+// 		        },
+// 		        progressall: function (e, data) {
+
+// 		            var progress = parseInt(data.loaded / data.total * 100, 10);
+// 		            $('#progress .progress-bar').css(
+// 		                    'width',
+// 		                    progress + '%'
+// 		            );
+// 		        },
+// 		        submit:function(e,data){
+
+// 		        	var index = data.index,file = data.files[index];
+// 		        	if(file&&file.error){
+
+// 		        	}
+
+// 		        },
+// 		        fail: function (e, data) {
+
+// 		        }
+// 		    }).on('fileuploadprocessalways', function (e, data) {
+
+// 		    	var index = data.index,file = data.files[index];
+// 		    	if(file&&file.error){
+
+// 		    	}
+// 	    }).prop('disabled', !$.support.fileInput)
+// 		        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+		 
+// 		$('#fileupload',container).fileupload({
+// 	        url : dmsCommon.getDmsPath()["demo"] + "/demoUsers/upload",
+// 	        dataType: 'json',
+// 	        autoUpload: false,
+// 	        maxFileSize: 5242880,
+// 	        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+// 	        formData:{param1:"p1",param2:"p2"}
+// 	    }).on('fileuploadadd', function (e, data) {
+
+// 	        	data.context = ("#testBtn",container).click(function () {
+
+//                 data.submit();
+//             });
+// 	    }).on('c', function (e, data) {
+
+// 	    	var index = data.index,file = data.files[index];
+// 	    	if(file&&file.error){
+
+// 	    	}
+//     	}).on('fileuploadprogressall', function (e, data) {
+
+//             var progress = parseInt(data.loaded / data.total * 100, 10);
+//             $('#progress .progress-bar').css(
+//                     'width',
+//                     progress + '%'
+//             );
+//         }).on('fileuploaddone', function (e, data) {
+
+
+//         }).on('fileuploadfail', function (e, data) {
+
+//         }).prop('disabled', !$.support.fileInput)
+// 	        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+		 
+		 
+	});
+
+	
+</script>

@@ -1,0 +1,35 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12">
+					<div class="form-group">
+						<label class="control-label col-xs-4">领料人</label>
+						<div class="col-xs-8">
+							  <select id="receiver" name="receiver" class="bs-select form-control" data-url="/basedata/ttRepairOrder/employees/dict" data-model="repair" data-labelValue="EMPLOYEE_NO" data-lableDesc="EMPLOYEE_NAME"  >
+							  </select>
+						</div>
+					</div>
+				</div>	
+				</div>
+			</div>
+		</div>
+	</form>
+	
+	<div class="modal-footer center-block">
+			 <a class="btn blue" data-onclickEvent="true"><i class="fa fa-save hidden"></i>确定</a> 
+				<a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			$("#receiver1",getElementContext()).setDmsValue($("#receiver").val());
+			$("a[data-dismiss='modal']",container).click();
+		});
+	});
+</script>

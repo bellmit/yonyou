@@ -1,0 +1,140 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">公司代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="companyCode" name="companyCode">
+							</div>
+						</div>
+					</div>
+					<!-- <div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">经销商简称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="companyShortName" name="companyShortName">
+							</div>
+						</div>
+					</div> -->		
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">公司名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="companyName" name="companyName">
+							</div>
+						</div>
+					</div>	
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name" >公司信息</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+	<div class="modal-footer center-block">
+			 <a class="btn blue" data-onclickEvent="true"><i class="fa fa-save hidden"></i>确定</a> 
+				<a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["manage"] + "/queryDealers/queryCom",
+			rowID : "COMPANY_ID",
+			sortName : "COMPANY_CODE",
+			sortOrder : "asc",
+			isFormParam:true,
+			isQueryFirst:true,
+			autoHeight:false,
+			columns : [ 
+			    {radio:true,sortable : true},
+			    {field : "COMPANY_CODE",title : "公司代码"}, 
+				{field : "COMPANY_SHORTNAME",title : "公司简称"}, 
+				{field : "COMPANY_NAME",title : "公司名称"}, 
+				{field : "STATUS",title : "状态" ,codeFormat : {type:"oemDict",codeType:"1001"}}
+			]
+
+		});
+		
+		//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			var selectRow = $("#dms_table",container).dmsTable().getSelections();
+			if(selectRow.length>0){
+				var companyId = selectRow[0]["COMPANY_ID"];
+				var companyCode = selectRow[0]["COMPANY_CODE"];
+				var companyName = selectRow[0]["COMPANY_NAME"];
+				var companyShortName = selectRow[0]["COMPANY_SHORTNAME"];
+				var companyEn = selectRow[0]["COMPANY_EN"];
+				var provinceId = selectRow[0]["PROVINCE_ID"];
+				var cityId = selectRow[0]["CITY_ID"];
+				var phone = selectRow[0]["PHONE"];
+				var fax = selectRow[0]["FAX"];
+				var address = selectRow[0]["ADDRESS"];
+				var zipCode = selectRow[0]["ZIP_CODE"];
+				var ctcaiCode = selectRow[0]["CTCAI_CODE"];
+				var swtCode = selectRow[0]["SWT_CODE"];
+				var elinkCode = selectRow[0]["ELINK_CODE"];
+				var dcCode = selectRow[0]["DC_CODE"];
+				var lmsCode = selectRow[0]["LMS_CODE"];
+				var jecCode = selectRow[0]["JEC_CODE"];
+				$("#companyId.add",getElementContext()).setDmsValue(companyId);
+				$("#companyShortname",getElementContext()).setDmsValue(companyShortName);
+				$("#dealerName.add",getElementContext()).setDmsValue(companyName);
+				$("#dealerShortname.add",getElementContext()).setDmsValue(companyShortName);
+				$("#marketing",getElementContext()).setDmsValue(companyEn);
+				$("#dealerCode_",getElementContext()).setDmsValue(companyCode);
+				$("#dealerCodeA_",getElementContext()).setDmsValue(companyCode+"A");
+				$("#province.add",getElementContext()).setDmsValue(provinceId);
+				$("#city",getElementContext()).setDmsValue(cityId);
+				$("#zipCode",getElementContext()).setDmsValue(zipCode);
+				$("#linkManMobile",getElementContext()).setDmsValue(phone);
+				$("#faxNo",getElementContext()).setDmsValue(fax);
+				$("#address",getElementContext()).setDmsValue(address);
+				/* var dealers = "";
+				var dealerShortName = "";
+				for(var i = 0 ;i<selectRow.length;i++){
+					if(dealers==""){
+						dealers = selectRow[i]["DEALER_NAME"];
+					}else{
+						dealers =dealers+","+selectRow[i]["DEALER_NAME"];
+					}
+					dealerShortName = selectRow[i]["DEALER_SHORTNAME"];
+					dealerCode = selectRow[i]["DEALER_CODE"];
+					status = selectRow[i]["STATUS"];
+				}
+				$("#dealerName",getElementContext()).setDmsValue(dealers);
+				$("#dealerName",getElementContext()).setDmsValue(dealers);
+				$("#dealerShortname",getElementContext()).setDmsValue(dealerShortName);
+				$("#dealerCode",getElementContext()).setDmsValue(dealerCode);
+				$("#status",getElementContext()).setDmsValue(status); */
+			}else{
+				dmsCommon.tip({status:"warning",msg:"请选择所需要的经销商！"});//总共的状态类型：info、success、error、warning
+				return false;
+			}
+			$("a[data-dismiss='modal']",container).click();
+		}); 
+	});
+</script>

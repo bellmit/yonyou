@@ -1,0 +1,59 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+	<div class="modal-header">
+			<div class="modal-title">配件车型组</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>	
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_model_group"></table>
+		</div>
+	</div>
+		<!-- 底部按钮 -->
+		<div class="modal-footer center-block">
+			<a   class="btn blue"  data-toggle="confirmation"  data-beforeRequest="true">
+				<i class="fa fa-save" ></i>确定</a>
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+
+	$(document).one("onload.dms",function(event,container){
+		 //alert($("#customerCode",getElementContext()).val());
+		// $("#customerCode",container).val($("#customerCode",getElementContext()).val());
+		new Datatable().initPagination({
+			src : "dms_model_group",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/stockmanage/allocateInOders/findPartModelGroup",
+			rowID : "PART_MODEL_GROUP_CODE",
+			sortOrder : "asc",
+			autoHeight: false,
+			//isQueryFirst:false,
+			columns : [ 
+				{checkbox:true,isVisible:function(column){return true;}},
+				{field:"PART_MODEL_GROUP_CODE",title:"配件车型组代码"},
+			 	{field:"PART_MODEL_GROUP_NAME",title:"配件车型组名称"},
+			],onLoadSuccess : function() {
+			}
+		});
+		 $("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			//将选中的表格里的数据写入到前一个页面的查询条件中
+		   $("a[data-dismiss='modal']",container).click();//关闭窗口
+		   var selectRow = $("#dms_model_group",container).dmsTable().getSelections();//获取选中行内的数据
+		   var group=[];
+		   $(selectRow).each(function(index){
+			   group[index]=selectRow[index].PART_MODEL_GROUP_CODE;
+		   });
+		 //  alert(group.toString());
+		  //将表格里的数据传到前一个页面
+		    $("#partModelGroupCode",getElementContext()).val(group.toString());//客户代码
+			 returnResult.status =true;
+		}); 
+	});
+	
+
+</script>

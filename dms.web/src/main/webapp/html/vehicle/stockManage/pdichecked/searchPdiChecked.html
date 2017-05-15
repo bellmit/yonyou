@@ -1,0 +1,309 @@
+<div class="dms-search"  data-pageInitCallBack= "true">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">VIN</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="vin" name="vin">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">检查日</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" >
+									<input type="text" class="form-control" name="beginDate" disabled = "disabled"
+										id="beginDate"> <span class="input-group-addon">至</span>
+									<input type="text" class="form-control" name="endDate"  disabled = "disabled"
+										id="endDate"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-5">是否完成PDI检查</label> 	
+						    <div class="col-xs-7">
+								<select class="bs-select form-control" name="IsCompletePDI"
+									id="IsCompletePDI" data-dictCode="8999" data-value="89991002" data-existsDefault = "false">
+								</select>
+							</div> 
+						</div>
+					 </div>
+					    
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">PDI检查结果</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" name="pdiResult"
+									id="pdiResult" data-dictCode="9000"  >
+								</select>
+							</div>
+						</div>
+					</div>
+				   
+				   <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">故障描述</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="PDI_REMARK"
+									name="PDI_REMARK">
+							</div>
+						</div>
+					</div>
+					
+				
+					
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">提交日</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" >
+									<input type="text" class="form-control" name="beginDate1" disabled = "disabled"
+										id="beginDate1"> <span class="input-group-addon">至</span>
+									<input type="text" class="form-control" name="endDate1"  disabled = "disabled"
+										id="endDate1"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+			
+				 
+				 <!-- 	<div class="col-xs-12 col-sm-12 col-md-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-2 col-sm-2">PDI检查时间</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" 
+									 data-date-format="yyyy/mm/dd">
+									<input type="text" class="form-control" 
+										name="pDIStartDate" id="pDIStartDate"> <span
+										class="input-group-addon">至</span> <input type="text"
+										class="form-control"  name="pDIEndDate"
+										id="pDIEndDate">
+										 <span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                  </span>
+									</div>	 
+							
+							</div>
+						</div>
+					</div> -->	
+					
+						<!-- <div class="col-xs-12 col-sm-12 col-md-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-2 col-sm-2">PDI检查提交时间</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" 
+									 data-date-format="yyyy/mm/dd">
+									<input type="text" class="form-control" 
+										name="submitStartDate" id="submitStartDate"> <span
+										class="input-group-addon">至</span> <input type="text"
+										class="form-control"  name="pDIEndSubmitDate"
+										id="pDIEndSubmitDate">
+										 <span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                  </span>
+									</div>	 
+							
+							</div>
+						</div>
+					</div>	 -->
+
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name">PDI检查</div>
+				<div class="pannel-button">
+					<div class="btn-group btn-group-sm">
+						<!-- <a class="btn btn-outline" data-url="vehicle/stockManage/pdichecked/addPDIChecked.html" id="approve"
+							data-toggle="modal"  data-width="modal-lg"> <i class="fa fa-plus-square"></i> 鐎光剝鐗�
+					    </a> -->
+						 <a href="javascript:;"
+							data-url="/stockManage/PDIChecked/export/excel"
+							data-model="vehicle" data-method="downLoad"
+							data-toggle="confirmation" class="btn btn-outline "><i
+							class="fa fa-upload"></i>导出</a>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="veInspectList"></table>
+			</div>
+
+
+		</div>
+
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event, container) {
+							    var isReceive=$("#IsCompletePDI",container).val();
+								if(isReceive=="89991001"){
+									$("#PDI_REMARK",container).removeAttr("disabled");
+									$("#pdiResult",container).removeAttr("disabled");
+									$("#PDI_REMARK",container).removeAttr("disabled");
+									$("#submitStartDate",container).removeAttr("disabled");
+									$("#pDIEndSubmitDate",container).removeAttr("disabled");
+									$("#pDIStartDate",container).removeAttr("disabled");
+									$("#pDIEndDate",container).removeAttr("disabled");
+									$("#approve",container).removeAttr("disabled");
+								}else{
+									$("#PDI_REMARK",container).attr("disabled","disabled");
+									$("#pdiResult",container).attr("disabled","disabled");
+									$("#PDI_REMARK",container).attr("disabled","disabled");
+									$("#submitStartDate",container).attr("disabled","disabled");
+									$("#pDIEndSubmitDate",container).attr("disabled","disabled");
+									$("#pDIStartDate",container).attr("disabled","disabled");
+									$("#pDIEndDate",container).attr("disabled","disabled");
+									$("#approve",container).attr("disabled","disabled");
+								}
+						new Datatable().initPagination({
+									src : "veInspectList",
+									container : container,
+									url : dmsCommon.getDmsPath()["vehicle"]
+											+ "/stockManage/PDIChecked",
+									rowID : "VIN",
+									/* selectItemName:"VEHICLE_INSPECT_ID", */
+									sortName : "VIN",
+									sortOrder : "asc",
+									autoHeight : false,
+									columns : [ 
+										        {checkbox:true,sortable : false},
+											    {field : "VIN",title : "PDI检查",
+												operateFormat : [ 
+													{type : "edit",url : "vehicle/stockManage/pdichecked/addPDIChecked.html",openWidth : "modal-lg",
+													      callBack:function(response){
+								                    	    $("#veInspectList",getElementContext()).dmsTable().refreshTableWithForm(); 
+								                    	   }, isShow:function(value, row, index){
+									                    	   if(row.PDI_RESULT== null){
+									                    	   	   return true;
+									                    	   }else{
+									                    	   	   return false;
+									                    	   } 
+								                             }
+								                      }
+                                                    ]}, 
+                                            {
+        												field : "SE_NO",
+        												title : "入库单号"
+        									},
+											{
+												field : "VIN",
+												title : "VIN"
+											},
+											{
+												field : "TH_REPORT_NO",
+												title : "技术报告号"
+											},
+											{
+												field : "PDI_RESULT",
+												title : "PDI检查结果",
+												codeFormat : {type:"dict",codeType:"9000"}
+											},
+											{
+												field : "PDI_CHECK_DATE",
+												title : "PDI检查日期",
+												dateFormat : {
+													format : "YYYY-MM-DD "
+												}
+											},
+											{
+												field : "PDI_SUBMIT_DATE",
+												title : "PDI检查提交日期",
+												dateFormat : {
+													format : "YYYY-MM-DD"
+												}
+											}, {
+												field : "MILEAGE",
+												title : "公里数"
+											}, {
+												field : "PDI_URL",
+												title : "PDI检查表jpg附件"
+											}, {
+												field : "BRAND_NAME",
+												title : "品牌"
+											}, {
+												field : "SERIES_NAME",
+												title : "车系"
+											}, {
+												field : "MODEL_NAME",
+												title : "车型"
+											}, {
+												field : "CONFIG_NAME",
+												title : "配置"
+											}, {
+												field : "PDI_REMARK",
+												title : "故障描述",
+												maxlength : 5000
+											} ],
+										
+											onLoadSuccess : function() {
+												var rownu = $("#veInspectList",container).dmsTable().getTableRows();
+												if(rownu<=0){
+													$("a[data-method='downLoad']",container).attr("disabled","true");
+												}else{
+													$("a[data-method='downLoad']",container).removeAttr("disabled");
+												}
+											}
+								});
+						
+						//通过判断是否检查，对其他的搜索框进行禁用
+						$("#IsCompletePDI",container).bindChange(function(obj){
+							var isReceive=$("#IsCompletePDI",container).val();
+							if(isReceive=="89991001"){
+								$("#PDI_REMARK",container).removeAttr("disabled");
+								$("#pdiResult",container).removeAttr("disabled");
+								$("#PDI_REMARK",container).removeAttr("disabled");
+								$("#beginDate",container).removeAttr("disabled");
+								$("#endDate",container).removeAttr("disabled");
+								$("#beginDate1",container).removeAttr("disabled");
+								$("#endDate1",container).removeAttr("disabled");
+								$("#approve",container).removeAttr("disabled");
+							}else{
+								$("#PDI_REMARK",container).attr("disabled","disabled");
+								$("#pdiResult",container).attr("disabled","disabled");
+								$("#PDI_REMARK",container).attr("disabled","disabled");
+								$("#beginDate",container).attr("dmsDisabled","dmsDisabled");
+								$("#endDate",container).attr("dmsDisabled","dmsDisabled");
+								$("#beginDate1",container).setElementReadOnly();
+								$("#endDate1",container).setElementReadOnly();
+								$("#approve",container).attr("disabled","disabled");
+							}
+						});  
+					});
+</script>

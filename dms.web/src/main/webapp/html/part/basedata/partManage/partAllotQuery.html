@@ -1,0 +1,192 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 " data-tableSelect="true">
+						<div class="form-group"> 
+								<label class="control-label col-xs-4 ">调出经销商</label> 
+ 								<div class="col-xs-8">
+									<div class="input-group">
+									<input id="dealerCode" readonly
+										name="fromDlrCode" class="form-control" type="text"
+										 /> <span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="part/basedata/partManage/searchDealers3.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 " data-tableSelect="true">
+						<div class="form-group"> 
+								<label class="control-label col-xs-4" >调入经销商</label> 
+ 								<div class="col-xs-8">
+									<div class="input-group">
+									<input id="dealerCode_" readonly
+										name="toDlrCode" class="form-control" type="text"
+										 /> <span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="part/basedata/partManage/searchDealers4.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+					</div>		
+					
+					<!--/span-->
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">出库单号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="outNo" name="outNo">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">入库单号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="inNo" name="inNo">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">日期类型</label>
+							<div class="col-xs-8">
+								<select id="dateType" name="dateType" class="bs-select form-control" data-dictCode="9334" data-type="oemDict" >
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					
+					
+					
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">日期范围</label>
+							<div class="col-xs-8 ">
+								 <div class="input-group input-daterange" data-opens="right">
+		                             <input type="text" class="form-control" readonly  name="beginDate" id="beginDate">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="endDate" id="endDate">
+		                             <span class="input-group-btn">
+                                         <button class="btn default input-clear" type="button">
+                                            <i class="fa fa-close"></i>
+                                        </button>
+                                      </span> 
+		                        </div>
+							</div>
+						</div>
+					</div>		
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">信息列表 </div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+					<a class="btn btn-outline" href="javascript:;"  data-url="/partAllot/download" data-model="part" data-method="downLoad" data-toggle="confirmation"> <i
+								class="fa fa-download " ></i> 下载
+							</a>  
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="partList"></table>
+		</div>
+	</div>
+		
+		
+	</form>
+	
+	
+</div>
+<script type="text/javascript">
+ $(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "partList",
+		container:container,
+		url : dmsCommon.getDmsPath()["part"] + "/partAllot/queryAllotInfo",
+		rowID : "OUT_ID",
+		sortName : "OUT_ID",
+		sortOrder : "asc",
+		autoHeight:false,
+		columns : [ 
+			        {field :"OUT_ID",title : "操作",operateFormat : [
+			                                                     	{type:"detail",url:"part/basedata/partManage/partAllotDetail.html",openType:"jump",doubleClick:false   } 
+			                                                     ]
+			    },
+		       	{title: "调出经销商代码", field: 'FROM_DLR_CODE'},
+				{title: "调出经销商名称", field: 'OUT_DEALER_SHORTNAME'},
+				{title: "调入经销商代码", field: 'TO_DLR_CODE'},
+				{title: "调入经销商名称", field: 'IN_DEALER_SHORTNAME'},
+				{title: "调拨类型", field: 'ALLOCATE_TYPE'},
+				{title: "出库单号", field: 'OUT_NO'},
+				{title: "入库单号", field: 'IN_NO'},
+				{title: "出库金额", field: 'OUT_AMOUNT'},
+				{title: "出库成本金额", field: 'COST_AMOUNT'},
+				{title: "入库金额", field: 'IN_AMOUNT'},
+				{title: "含税DNP行价", field: 'DNP_AMOUNT'},
+				{title: "含税MSRP行价", field: 'MSRP_AMOUNT'},
+				{title: "出库日期", field: 'OUT_DATE'},
+				{title: "入库日期", field: 'IN_DATE'},
+				{title: "状态", field: 'STATUS'},
+		    	
+		]
+		
+	});
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		var beginDate=document.getElementById("beginDate").value;
+		var endDate=document.getElementById("endDate").value;
+		var dateType=document.getElementById("dateType").value;
+		console.log(beginDate);
+		console.log(endDate);
+		console.log(endDate);
+		if((beginDate||endDate)!='' && dateType==''){
+			dmsCommon.tip({status:"warning",msg:"请选择日期类型！"});
+			return;
+		}
+		if(dateType!=''&&(beginDate==''&& endDate=='')){
+			dmsCommon.tip({status:"warning",msg:"请选择日期范围！"});
+			return;
+		}
+	}); 
+});
+    
+</script>

@@ -1,0 +1,172 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">旧件返还地新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="modal-body">
+					<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">返还地代码</label>
+								<div class="col-xs-8">
+									<input type="text"  
+										id="returnaddrCode" class="form-control required"
+										name="returnaddrCode" data-fieldName="RETURNADDR_CODE">
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">返还地名称</label>
+							<div class="col-xs-8">
+								<input type="text" id="returnaddrName" name="returnaddrName"
+								class="form-control required"	data-fieldName="RETURNADDR_NAME">
+							</div>
+						</div>
+					</div>
+							<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">状态</label>
+							<div class="col-xs-8">
+								<select id="status" name="status" class="bs-select form-control"
+								data-existsDefault="false" 	data-type="oemDict" data-dictCode="1001" data-value="10011001">
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">所在省份</label>
+								<div class="col-xs-8">
+									<select id="province" 
+										class="bs-select form-control required" name="provinceId"
+										data-url="/custcomVehicleManage/province"
+										data-model="vehicle" data-labelValue="REGION_CODE"
+										data-lableDesc="REGION_NAME"  data-live-search="fales" data-size="5"  data-fieldName="PROVINCE_NAME">
+									</select>	
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">所在城市</label>
+								<div class="col-xs-8">
+									<select id="city" parent="province"
+										class="bs-select form-control required" name="cityId"
+										data-url="/custcomVehicleManage/{[province]}/city"
+										data-model="vehicle" data-labelValue="REGION_CODE"
+										data-lableDesc="REGION_NAME"  data-live-search="fales" data-size="5"  data-fieldName="CITY_NAME">
+									</select>	
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">所在区县</label>
+								<div class="col-xs-8">
+									<select id="town" parent="city"
+										class="bs-select form-control required" name="countyId"
+										data-url="/custcomVehicleManage/{[city]}/town"
+										data-model="vehicle" data-labelValue="REGION_CODE"
+										data-lableDesc="REGION_NAME"  data-live-search="fales" data-size="5"  data-fieldName="COUNTY_NAME">
+									</select>	
+								</div>
+							</div>
+						</div>
+			</div>
+				<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">联系人</label>
+							<div class="col-xs-8">
+								<input type="text" id="linkMan" name="linkMan"
+								class="form-control required"	data-fieldName="LINK_MAN">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">联系电话</label>
+							<div class="col-xs-8">
+								<input type="text" id="linkTel" name="linkTel"
+								class="form-control required"	data-fieldName="LINK_TEL">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">邮编</label>
+							<div class="col-xs-8">
+								<input type="text" id="postCode" name="postCode"
+								class="form-control required"	data-fieldName="POST_CODE">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">详细地址</label>
+							<div class="col-xs-8">
+								<input type="text" id="address" name="address"
+								class="form-control required"	data-fieldName="ADDRESS">
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				
+						<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">备注</label>
+									<div class="col-xs-8">
+										<textarea id="remark" name="remark" cols="62" rows="3" maxlength="600" 
+							onkeydown="www_zzjs_net(this.form.remark,this.form.remLen,300)" onkeyup="www_zzjs_net(this.form.remark,this.form.remLen,300)" data-fieldName="REMARK"></textarea>
+							    可输入300字，还剩<span  id="remLen"><font color="red">300</font></span>字 
+									</div>
+								</div>
+							</div>
+						</div>
+				</div>
+					</div>
+			</div>
+		<div class="modal-footer center-block">
+			<a data-url="/oldPartReturn/add" data-model="vehicle" data-method="POST"
+				data-callBack="true" class="btn blue"
+				data-toggle="confirmation"> <i class="fa fa-save"></i>新增
+			</a>
+			 <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+function www_zzjs_net(field, countfield, maxlimit) {
+	console.log("123456");
+	if (field.value.length > maxlimit)
+	field.value = field.value.substring(0,maxlimit);
+	else
+	document.getElementById('remLen').innerHTML = '<font color="red">'+(maxlimit - field.value.length)+'</font>';
+}
+	//页面加载后初始化
+	$(document).one("onload.dms",function(event,container){
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	});
+</script>

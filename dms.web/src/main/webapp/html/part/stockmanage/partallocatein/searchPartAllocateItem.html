@@ -1,0 +1,131 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-body">
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">调拨入库单选择</div>
+				</div>
+				<div class="panel-body">
+				<div class="row" data-seldate="true">
+						<div class=" col-xs-12 col-sm-6 col-md-3 ">
+							<div class="form-group">
+								<label class="control-label col-xs-6">调拨入库单号</label>
+								<div class="col-xs-6">
+									<input type="text" class="form-control" id="allocateInNo"  name="allocateInNo" />
+								</div>
+							</div>
+						</div>
+					<div class=" col-sm-6 col-md-3">
+						<div class="query-btn ">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> 
+						</div>
+				</div>	
+			</div>
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_item"></table>
+				</div>
+			</div>
+		</div>
+		<!-- 底部按钮 -->
+		<div class="modal-footer center-block">
+				<a   class="btn blue"  data-toggle="confirmation"  data-beforeRequest="true">
+				<i class="fa fa-save" ></i>确定</a>
+				 <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	   new Datatable().initPagination({
+			src : "dms_item",
+			url :dmsCommon.getDmsPath()["part"] + "/stockmanage/allocateInOders",
+			rowID : "ALLOCATE_IN_NO",
+			sortName : "ALLOCATE_IN_NO", 
+			sortOrder : "asc",
+			autoHeight: false,
+			//isQueryFirst:false,
+			columns:[
+						{radio:true,isVisible:function(column){return true;}},
+						 {field:"ALLOCATE_IN_NO",title:"调拨入库单号"},
+			    			{field:"CUSTOMER_CODE",title:"供应商代码"},
+			    			{field:"CUSTOMER_NAME",title:"供应商名称"},
+			    			{field:"STOCK_IN_DATE",title:"入库日期",dateFormat : {format : "YYYY-MM-DD HH:mm:ss"}},
+			    			{field:"STOCK_IN_VOUCHER",title:"入库凭证"},
+			    			{field:"HANDLER",title:"经手人"},
+			    			{field:"LOCK_USER",title:"锁定人"},
+			    			{field:"IS_IDLE_ALLOCATION",title:"是否呆滞调拨",inputCheckBoxFormat : {type : "dict",codeType : "1057" ,disabled:true}},
+			    			{field:"IS_NET_TRANSFER",title:"是否网内调拨",inputCheckBoxFormat : {type : "dict",codeType : "1057" ,disabled:true}}
+			    	  ],onLoadSuccess : function() {
+						}
+		});
+	 
+	   
+		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			//将选中的表格里的数据写入到前一个页面的查询条件中
+			var selectRow = $("#dms_item",container).dmsTable().getSelections();
+			if(!selectRow){
+				dmsCommon.tip({status:"error",msg:"请选择一行！"});
+				returnResult.status =false;
+				return ;
+			}
+			//关闭窗口
+		   $("a[data-dismiss='modal']",container).click();
+		
+		   var selectRow = $("#dms_item",container).dmsTable().getSelections();
+		   if(selectRow[0].IS_NET_TRANSFER !='10571001'&&selectRow[0].IS_IDLE_ALLOCATION !='10571001'){
+			   //自采件调拨（激活新增按钮）
+				 $("#add",getElementContext()).removeAttr("disabled");
+			 }
+		   //console.log(selectRow);
+		   var date=new Date(selectRow[0].STOCK_IN_DATE);
+		   var year=date.getFullYear();//2017
+		   var mon=date.getMonth()+1;//4
+			var day=date.getDate();//20
+			if((mon+"").length=1){
+				mon='0'+mon;
+			}
+			var stockInDate=year+"-"+mon+"-"+day;
+		   $("#allocateInNo",getElementContext()).setDmsValue(selectRow[0].ALLOCATE_IN_NO);
+		   $("#customerCode",getElementContext()).val(selectRow[0].CUSTOMER_CODE);//客户代码
+		   
+		   if(selectRow[0].IS_IDLE_ALLOCATION=='10571001'){
+			   $("#isIdleAllocation",getElementContext()).selectpicker('val',12781001);
+		   }else{
+			   $("#isIdleAllocation",getElementContext()).selectpicker('val',12781002);
+		   }
+		   if(selectRow[0].IS_NET_TRANSFER=='10571001'){
+			   $("#isNetTransfer",getElementContext()).selectpicker('val',12781001);//是否网内调拨
+		   }else{
+			   $("#isNetTransfer",getElementContext()).selectpicker('val',12781002);
+		   }
+		  
+		   $("#stockInDate",getElementContext()).val(stockInDate);
+		   $("#stockInVoucher",getElementContext()).val(selectRow[0].STOCK_IN_VOUCHER);
+		   $("#customerName",getElementContext()).val(selectRow[0].CUSTOMER_NAME);
+		   $("#remark",getElementContext()).val(selectRow[0].REMARK);
+		   
+		   
+		   
+		   $("#create",getElementContext()).attr("disabled","disabled");//关闭新建按钮
+		   $("#find1",getElementContext()).attr("disabled","disabled");//关闭新建按钮
+		   //打开 新增、修改、删除、		入账、作废、取消、
+		   if(selectRow[0].IS_NET_TRANSFER=='10571002'&&selectRow[0].IS_IDLE_ALLOCATION=='10571002'){
+			   $("#add",getElementContext()).removeAttr("disabled");
+		   }
+		   $("#stockInDate", getElementContext()).removeElementReadOnly();//打开日历功能
+		   
+		   $("#enterRecord",getElementContext()).removeAttr("disabled");
+		   $("#obsolete",getElementContext()).removeAttr("disabled");
+		   $("#excel",getElementContext()).removeAttr("disabled");
+		   //$("#print",getElementContext()).removeAttr("disabled");
+		   $("#cancel",getElementContext()).removeAttr("disabled");
+			 returnResult.status =true;
+		});
+	});
+</script>
+
+
+	

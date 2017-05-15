@@ -1,0 +1,2002 @@
+<div  class="dms-edit ajaxrest" data-url="/customerManage/potentialcus/{[CUSTOMER_NO]}" data-model="customer" data-pageInitCallBack="true">
+		<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">客户信息编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="tabbable-custom " id="tabcontainer">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#tab_basreceive" data-toggle="tab">基础信息</a></li>
+					<li><a href="#tab_Receiveopinion" data-toggle="tab">客户意向报价</a></li>
+					<!-- <li><a href="#tab_owner" data-toggle="tab">保有车辆信息</a></li> -->
+					<li><a href="#tab_task" data-toggle="tab">客户跟进记录</a></li>
+					<!-- <li><a href="#tab_qssale" data-toggle="tab">QS-Sales流程</a></li> -->
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane fade in active" id="tab_basreceive">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<div class="pannel-name">个人/公司信息</div>
+								<div class="pannel-tools">
+									<a href="javascript:;" class="expand"> <i
+										class="fa fa-chevron-down"></i></a>
+								</div>
+							</div>
+							<div class="panel-body">
+								<div class="row">
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4"><span style="color:Red">*</span>客户名称</label>
+											<div class="col-xs-8">
+												<input id="customerName" name="customerName"
+													data-fieldName="CUSTOMER_NAME"
+													class="form-control required" maxlength="120" type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4" hidden="hidden">
+										<div class="form-group">
+											<label class="control-label col-xs-4"><span style="color:Red">*</span>客户编号</label>
+											<div class="col-xs-8">
+												<input id="customerNo" name="customerNo"
+													data-fieldName="CUSTOMER_NO" disabled
+													class="form-control required" maxlength="120" type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">客户类型</label>
+											<div class="col-xs-8">
+												<select id="customerType" name="customerType"
+													data-fieldName="CUSTOMER_TYPE"
+													class="bs-select form-control" data-dictCode="1018"
+												    data-existsDefault="false">
+												 </select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4"><span style="color:Red">*</span>性别</label>
+											<div class="col-xs-8">
+												<select id="gender" name="gender" data-fieldName="GENDER"
+													class="form-control required" data-dictCode="1006"
+													>
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+								
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">出生日期</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker"
+													data-orientation="top right">
+													<input id="birthday" name="birthday" readonly data-fieldName="BIRTHDAY"
+														class="form-control" type="text" value="" /> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+														<button class="btn default date-reset" type="button">
+															<i class="fa fa-times"></i>
+														</button>
+													</span>
+
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">证件类型</label>
+											<div class="col-xs-8">
+												<select id="ctCode" name="ctCode" data-fieldName="CT_CODE"
+													class="bs-select form-control" data-dictCode="1239"
+													data-value="">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">证件号码</label>
+											<div class="col-xs-8 ">
+												<input id="certificateNo" name="certificateNo" disabled data-fieldName="CERTIFICATE_NO"
+													class="form-control " type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">是否大客户</label>
+											<div class="col-xs-8">
+												<select id="isBigCustomer" name="isBigCustomer" data-fieldName="IS_BIG_CUSTOMER"
+													class="form-control" data-dictCode="1278"></select>
+
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">大客户类型</label>
+											<div class="col-xs-8">
+												<select id="kaType" name="kaType" disabled="disabled"  data-fieldName="KA_TYPE"
+													class="form-control" data-dictCode="1597"></select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group" data-companySelect="true">
+											<label class="control-label col-xs-4">公司名称</label>
+											<div class="col-xs-8">
+												<div class="input-group">
+
+													<input type="text" class="form-control" id="companyName"
+														name="companyName" data-fieldName="COMPANY_NAME" disabled="disabled"
+														maxlength="120"> <span class="input-group-btn">
+														<button class="btn default btn-sm" type="button"  id="companyNameBtn"
+															data-url="customer/potentialcus/customerInfo/searchCompanyName.html"
+															data-toggle="modal" data-width="modal-md">
+															<i class="fa fa-list-alt"></i>
+														</button>
+														<button class="btn default input-clear" type="button"  id="companyNameBtnX">
+															<i class="fa fa-close"></i>
+														</button>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-6 col-md-4" hidden="hidden">
+										<div class="form-group" data-campaignSelect="true">
+											<label class="control-label col-xs-4">意向车系</label>
+											<div class="col-xs-8">
+											<input id="intentSeries" name="intentSeries"  data-fieldName="INTENT_SERIES"
+													class="form-control " type="text" />
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group" data-campaignSelect="true">
+											<label class="control-label col-xs-4"><span style="color:Red">*</span>意向车系</label>
+											<div class="col-xs-7">
+											<input id="seriesName" name="seriesName"  data-fieldName="SERIES_NAME"
+													class="form-control required" type="text" disabled="disabled"/>
+									
+											</div>
+											<div class="col-xs-1">
+											<button class="btn default btn-sm" type="button" 
+															data-url="customer/potentialcus/customerInfo/intentSeries.html"
+															data-toggle="modal" data-width="modal-sm">
+															<i class="fa fa-list-alt"></i>
+											</button>
+									
+											</div>
+											
+										</div>
+									</div>
+									
+									<div class="col-xs-12 col-sm-6 col-md-4" >
+										<div class="form-group">
+											<label class="control-label col-xs-4">客户重要评级</label>
+											<div class="col-xs-8">
+												<select id="customerImportantLevel"
+													name="customerImportantLevel"
+													data-fieldName="CUSTOMER_IMPORTANT_LEVEL"
+													class="bs-select form-control" data-dictCode="1399"
+													data-value="">
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-12 col-md-8">
+										<div class="form-group">
+											<label class="control-label col-xs-4 col-sm-2">细节感知描述</label>
+											<div class="col-xs-8 col-sm-10">
+												<input id="detailDesc" name="detailDesc"  data-fieldName="DETAIL_DESC" class="form-control" 
+													maxlength="120" type="text" />
+
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+
+
+
+									<!--/span-->
+									<div class="col-xs-12 col-sm-12 col-md-8" hidden="hidden">
+										<div class="form-group">
+											<label class="control-label col-xs-4 col-sm-2">客户评级描述</label>
+											<div class="col-xs-8 col-sm-10">
+												<input id="cusRatingDesc" name="cusRatingDesc"
+													class="form-control" type="text" maxlength="120" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4" hidden="hidden">
+										<div class="form-group">
+											<label class="control-label col-xs-4">客户导向类别</label>
+											<div class="col-xs-8">
+												<select id="cusOrientSort" name="cusOrientSort"
+													data-fieldName="CUS_ORIENT_SORT"
+													class="bs-select form-control" data-dictCode="1400"
+													data-value="">
+													<!-- 取消前台字典显示data-excludeItems="13101006,13101005,13101008,13101009" -->
+												</select>
+											</div>
+										</div>
+									</div>
+
+
+
+
+									<!--/span-->
+
+									<div class="col-xs-12 col-sm-6 col-md-4" hidden="hidden">
+										<div class="form-group">
+											<label class="control-label col-xs-4">适宜联系时间</label>
+											<div class="col-xs-8">
+												<select id="betterContactTime" name="betterContactTime"
+													class="bs-select form-control" data-dictCode="1410"
+													data-value=""></select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4" hidden="hidden">
+										<div class="form-group">
+											<label class="control-label col-xs-4">适宜联系时间段</label>
+											<div class="col-xs-8">
+												<select id="betterContactPeriod" name="betterContactPeriod"
+													class="bs-select form-control" data-dictCode="1412"
+													data-value=""></select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+
+
+
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<div class="pannel-name">基本信息</div>
+								<div class="pannel-tools">
+									<a href="javascript:;" class="expand"> <i
+										class="fa fa-chevron-down"></i></a>
+								</div>
+							</div>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">联系人</label>
+											<div class="col-xs-8">
+												<input id="contactorName" name="contactorName" data-fieldName="CONTACTOR_NAME"
+													class="form-control" type="text" maxlength="30" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4"><span style="color:Red">*</span>联系电话</label>
+											<div class="col-xs-8">
+												<input id="contactorMobile" name="contactorMobile"
+													data-fieldName="CONTACTOR_MOBILEANDPHONE"
+													class="form-control required" type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4" hidden="hidden">
+										<div class="form-group">
+											<label class="control-label col-xs-4">联系方式</label>
+											<div class="col-xs-8">
+												<select id="bestContactType" name="bestContactType"
+													data-fieldName="BEST_CONTACT_TYPE"
+													class="bs-select form-control" data-dictCode="1331"
+													data-value=""></select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4" hidden="hidden">
+										<div class="form-group">
+											<label class="control-label col-xs-4">联系人电话</label>
+											<div class="col-xs-8">
+												<input id="contactorPhone" name="contactorPhone"
+													class="form-control" type="text" maxlength="30" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">省份</label>
+											<div class="col-xs-8">
+												<select id="province" class="bs-select form-control" data-fieldName="PROVINCE"
+													name="province" data-type="region">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">城市</label>
+											<div class="col-xs-8">
+												<select parent="province" class="bs-select form-control" data-fieldName="CITY"
+													name="city" id="city">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">区县</label>
+											<div class="col-xs-8">
+												<select parent="city" id="district" data-fieldName="DISTRICT"
+													class="bs-select form-control" name="district">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">邮编</label>
+											<div class="col-xs-8 ">
+												<input id="zipCode" name="zipCode" data-fieldName="ZIP_CODE"
+													class="form-control zipCode" type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-12 col-md-8">
+										<div class="form-group">
+											<label class="control-label col-xs-4 col-sm-2">地址</label>
+											<div class="col-xs-8 col-sm-10">
+												<input id="address" name="address" class="form-control"
+													maxlength="120" type="text"  data-fieldName="ADDRESS"/>
+
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+
+									<div class="col-xs-12 col-sm-6 col-md-4" hidden="hidden">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">邮箱</label>
+											<div class="col-xs-8 ">
+												<input id="eMail" name="eMail" class="form-control email"
+													type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+
+									<div class="col-xs-12 col-sm-6 col-md-4" hidden="hidden">
+										<div class="form-group">
+											<label class="control-label col-xs-4">行业</label>
+											<div class="col-xs-8">
+												<select id="industryFirst" name="industryFirst"
+													class="bs-select form-control" data-dictCode="3001"
+													data-value="">
+												</select>
+											</div>
+										</div>
+									</div>
+
+
+								</div>
+
+							</div>
+						</div>
+						<!--/span-->
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<div class="pannel-name">客户来源信息</div>
+								<div class="pannel-tools">
+									<a href="javascript:;" class="expand"> <i
+										class="fa fa-chevron-down"></i></a>
+								</div>
+							</div>
+							<div class="panel-body">
+								<div class="row">
+								<!-- 	<div class="col-xs-12 col-sm-6 col-md-4" id="cusSourse1">
+										<div class="form-group">
+											<label class="control-label col-xs-4"><span style="color:Red">*</span>客户来源</label>
+											<div class="col-xs-8">
+												<select id="cusSource" name="cusSource"
+													data-fieldName="CUS_SOURCE"
+													class="bs-select form-control required"
+													data-dictCode="1311">
+												</select>
+											</div>
+										</div>
+									</div> -->
+										<div class="col-xs-12 col-sm-6 col-md-4" id="cusSourse2">
+										<div class="form-group">
+											<label class="control-label col-xs-4"><span style="color:Red">*</span>客户来源</label>
+											<div class="col-xs-8">
+												<select id="cusSource" name="cusSource"
+													data-fieldName="CUS_SOURCE"
+													class="bs-select form-control required"
+													data-dictCode="1311" >
+												</select>
+											</div>
+										</div>
+									</div>
+									
+										<div class="col-xs-12 col-sm-6 col-md-4" hidden="hidden">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">客户来源</label>
+											<div class="col-xs-8 ">
+												<input id="sourceH" name="sourceH" class="form-control" data-fieldName="CUS_SOURCE"
+													type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+							<!-- 		<div class="col-xs-12 col-sm-6 col-md-4" >
+										<div class="form-group">
+											<label class="control-label col-xs-4">信息渠道</label>
+											<div class="col-xs-8">
+												<select id="mediaType" name="mediaType"
+													data-fieldName="MEDIA_TYPE" class="bs-select form-control"
+													data-dictCode="1298" data-value="">
+												</select>
+											</div>
+										</div>
+									</div> -->
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group" data-campaignSelect="true">
+											<label class="control-label col-xs-4">市场活动</label>
+											<div class="col-xs-8">
+												<div class="input-group">
+
+													<input type="text" class="form-control" id="campaignName"
+														name="campaignName" data-fieldName="CAMPAIGN_NAME"
+														maxlength="120" disabled="disabled" readonly> <span
+														class="input-group-btn">
+														<button class="btn default btn-sm" type="button"
+															disabled="disabled" id="campaignBtn"
+															data-url="customer/potentialcus/customerInfo/searchMarketingActivity.html"
+															data-toggle="modal" data-width="modal-lg">
+															<i class="fa fa-list-alt"></i>
+														</button>
+														<button class="btn default input-clear" type="button">
+															<i class="fa fa-close"></i>
+														</button>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+											<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">信息渠道</label>
+								<div class="col-xs-8">
+									<select id="mediaType" name="mediaType" data-fieldName="MEDIA_TYPE"
+										class="bs-select form-control " data-dictCode="1298"
+										data-value="" data-excludeItems="12981005">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">渠道细分</label>
+								<div class="col-xs-8">
+									<select id="mediaDetail" parent="mediaType" data-fieldName="MEDIA_DETAIL"
+										class="bs-select form-control" name="mediaDetail"
+										data-url="/customerManage/visitingRecord/{[mediaType]}/mediaDetail"
+										data-model="customer" data-labelValue="MEDIA_DETAIL"
+										data-lableDesc="MEDIA_DETAIL_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4" hidden="hidden">
+										<div class="form-group" data-campaignSelect="true">
+											<label class="control-label col-xs-4">活动编号</label>
+											<div class="col-xs-8">
+												<input id="campaignCode" name="campaignCode"
+													data-fieldName="CAMPAIGN_CODE" class="form-control"
+													type="text" maxlength="30" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group" data-tableSelect="true">
+											<label class="control-label col-xs-4">推荐人</label>
+											<div class="col-xs-8">
+												<div class="input-group">
+
+													<input type="text" class="form-control"
+														id="oldCustomerName" disabled="disabled"
+														name="oldCustomerName" data-fieldName="OLD_CUSTOMER_NAME"
+														maxlength="120"> <span class="input-group-btn">
+														<button class="btn default btn-sm" type="button"
+															disabled="disabled"
+															data-url="customer/potentialcus/customerInfo/searchcarInfo.html"
+															data-toggle="modal" data-width="modal-lg"
+															id="oldCustomerBtn">
+															<i class="fa fa-list-alt"></i>
+														</button>
+														<button class="btn default input-clear" type="button">
+															<i class="fa fa-close"></i>
+														</button>
+													</span>
+												</div>
+											</div>
+										</div>
+
+									</div>
+
+									<div class="col-xs-12 col-sm-6 col-md-4" hidden="hidden">
+										<div class="form-group" data-tableSelect="true">
+											<label class="control-label col-xs-4">推荐人VIN</label>
+											<div class="col-xs-8">
+												<input id="oldCustomerVin" name="oldCustomerVin"
+													data-fieldName="OLD_CUSTOMER_VIN" class="form-control"
+													type="text" maxlength="30" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4"><span style="color:Red">*</span>初始级别</label>
+											<div class="col-xs-8">
+												<select id="initLevel" name="initLevel"
+													data-fieldName="INIT_LEVEL" disabled
+													class="bs-select form-control required"
+													data-dictCode="1310" data-value="13101005"
+													>
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-12 col-md-8">
+										<div class="form-group">
+											<label class="control-label col-xs-4 col-sm-2">购车因素</label>
+											<div class="col-xs-8 col-sm-10">
+												<select id="buyReason"
+													class="bs-select form-control" name="buyReason"
+													data-dictCode="1376" multiple data-live-search="true" data-fieldName="BUY_REASON"
+													data-existsDefault="false">
+												</select>
+											</div>
+
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">意向级别</label>
+											<div class="col-xs-8">
+												<select id="intentLevel" name="intentLevel"
+													data-fieldName="INTENT_LEVEL" disabled="disabled"
+													class="bs-select form-control" data-dictCode="1310"
+													data-value="13101005"
+													>
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">销售顾问</label>
+											<div class="col-xs-8">
+												<select id="soldBy" name="soldBy" data-fieldName="SOLD_BY"
+													class="bs-select form-control" disabled
+													data-url="/basedata/employees/-1/salesConsultant"
+													data-model="manage" data-labelValue="USER_ID"
+													data-lableDesc="USER_NAME">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4"><span style="color:Red">*</span>是否到店</label>
+											<div class="col-xs-8">
+												<select id="isToShop" name="isToShop" data-fieldName="IS_TO_SHOP"  disabled data-value="12781002"
+													class="bs-select form-control required" data-dictCode="1278"></select>
+
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">到店时间</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker">
+													<input id="timeToShop" name="timeToShop" data-fieldName="TIME_TO_SHOP"
+														class="form-control" type="text" disabled /> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button" disabled>
+															<i class="fa fa-calendar"></i>
+														</button>
+														<button class="btn default date-reset" type="button" disabled>
+															<i class="fa fa-times"></i>
+														</button>
+													</span>
+
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4" hidden="hidden">
+										<div class="form-group">
+											<label class="control-label col-xs-4">是否二次到店</label>
+											<div class="col-xs-8">
+												<select id="isSecondTehShop" name="isSecondTehShop"
+													class="bs-select form-control" data-dictCode="1278"></select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 " hidden="hidden">
+										<div class="form-group">
+											<label class="control-label col-xs-4">二次到店时间</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker">
+													<input id="secondArriveTime" name="secondArriveTime"
+														readonly class="form-control" type="text" value="" /> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button"
+															disabled="disabled">
+															<i class="fa fa-calendar"></i>
+														</button>
+														<button class="btn default date-reset" type="button"
+															disabled="disabled">
+															<i class="fa fa-times"></i>
+														</button>
+													</span>
+
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">是否试乘试驾</label>
+											<div class="col-xs-8">
+												<select id="isTestDrive" name="isTestDrive" data-fieldName="IS_TEST_DRIVE"
+													disabled="disabled" class="bs-select form-control"
+													data-dictCode="1278" 
+													data-existsDefault="false"></select>
+											</div>
+										</div>
+									</div>
+
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 " hidden="hidden">
+										<div class="form-group">
+											<label class="control-label col-xs-4">试乘试驾时间</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker">
+													<input id="testDriveDate" name="testDriveDate" readonly
+														class="form-control" type="text" value="" data-fieldName="TEST_DRIVE_DATE"/> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button"
+															disabled="disabled">
+															<i class="fa fa-calendar"></i>
+														</button>
+														<button class="btn default date-reset" type="button"
+															disabled="disabled">
+															<i class="fa fa-times"></i>
+														</button>
+													</span>
+
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4" hidden="hidden">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">试驾陪乘人员</label>
+											<div class="col-xs-8 ">
+												<input id="testDriveDccompany" name="testDriveDccompany"
+													class="form-control  number" type="text" max="99" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4" hidden="hidden">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">DCRC顾问</label>
+											<div class="col-xs-8 ">
+												<input id="dcrcService" name="dcrcService"
+													class="form-control  number" type="text" max="99" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4"><span style="color:Red">*</span>是否首次购车</label>
+											<div class="col-xs-8">
+												<select id="isFirstBuy" name="isFirstBuy" data-fieldName="IS_FIRST_BUY"
+													class="bs-select form-control required" data-dictCode="1278"
+													data-value=""></select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-5"><span style="color:Red">*</span>非首次购车类型</label>
+											<div class="col-xs-7">
+												<select id="rebuyCustomerType" name="rebuyCustomerType" data-fieldName="REBUY_CUSTOMER_TYPE"
+													class="form-control required" data-dictCode="1054"
+													data-value=""></select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4" hidden="hidden">
+										<div class="form-group">
+											<div class="col-xs-12">
+												<input type="checkbox" name="isPersonDriveCar"
+													id="isPersonDriveCar" data-dictCode="1057"
+													data-dictLabel="是否亲自驾车" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4" hidden="hidden">
+										<div class="form-group">
+											<label class="control-label col-xs-4">购车目的</label>
+											<div class="col-xs-8">
+												<select id="buyPurpose" name="buyPurpose"
+													class="bs-select form-control" data-dictCode="1346"
+													data-value="">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4 col-sm-2 col-md-1 ">备注</label>
+											<div class="col-xs-8 col-sm-10 col-md-11">
+												<textarea id="remark" name="remark" class="form-control" data-fieldName="REMARK"
+													maxlength="120" rows="2" cols=""></textarea>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+								</div>
+
+							</div>
+						</div>
+						<!--/span-->
+							<div class="panel panel-default table-panel">
+							<div class="panel-heading">
+								<div class="pannel-name">跟进信息</div>
+								<div class="pannel-button">
+									<div class="btn-group btn-group-sm"></div>
+
+								</div>
+								<div class="panel-body">
+									<table
+										class="table table-striped table-bordered table-hover table-responsive"
+										id="followList1">
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default" hidden="hidden">
+							<div class="panel-heading">
+								<div class="pannel-name">联系人信息</div>
+								<div class="pannel-tools">
+									<a href="javascript:;" class="collapse"> <i
+										class="fa fa-chevron-down"></i></a>
+								</div>
+							</div>
+							<div class="panel-body">
+
+								<div class="panel-heading">
+									<div class="pannel-name"></div>
+									<div class="pannel-button">
+										<div class="btn-group btn-group-sm">
+											<a class="btn btn-outline"
+												data-url="customer/potentialcus/customerInfo/addCusContactor.html"
+												data-toggle="modal" data-width="modal-lg"><i
+												class="fa fa-plus-square"></i>添加联系人</a>
+										</div>
+									</div>
+
+								</div>
+								<div class="panel-body">
+									<table
+										class="table table-striped table-bordered table-hover table-responsive"
+										id="linkManList">
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane" id="tab_Receiveopinion">
+						<div class="panel panel-default table-panel">
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">采购方式</label>
+											<div class="col-xs-8">
+												<select id="purchaseType" name="purchaseType"
+													class="bs-select form-control" data-dictCode="1363"
+													data-fieldName="PURCHASE_TYPE">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">支付方式</label>
+											<div class="col-xs-8">
+												<select id="billType" name="billType"
+													class="bs-select form-control" data-dictCode="1025"
+													data-fieldName="BILL_TYPE">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">决策者</label>
+											<div class="col-xs-8">
+												<input id="decisionMaker" name="decisionMaker"
+													data-fieldName="DECISION_MAKER" class="form-control"
+													type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">预算金额</label>
+											<div class="col-xs-8">
+												<input id="budgetAmount" name="budgetAmount"
+													class="form-control number" type="text" maxlength="30" data-fieldName="BUDGET_AMOUNT"/>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">预算是否充足</label>
+											<div class="col-xs-8">
+												<select id="isBudgetEnough" name="isBudgetEnough"
+													class="bs-select form-control" data-dictCode="1278"
+													data-fieldName="IS_BUDGET_ENOUGH">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+								</div>
+							</div>
+							<div class="panel-heading">
+								<div class="pannel-name">保有车辆信息</div>
+								<div class="pannel-button">
+									<div class="btn-group btn-group-sm">
+										<a class="btn btn-outline" id="newBtnkeepCarList" disabled
+											data-url="customer/potentialcus/customerInfo/addKeepVehicle.html"
+											data-toggle="modal" data-width="modal-lg"><i
+											class="fa fa-plus-square"></i>添加 </a>
+											
+											<a class="btn btn-outline" id="keepCarListeditBtn" data-beforeShowEvent="true" disabled
+											data-url="customer/potentialcus/customerInfo/editKeepVehicle.html"
+											data-toggle="modal" data-width="modal-lg"><i
+											class="fa fa-plus-square"></i>修改 </a>
+											
+									</div>
+								</div>
+
+							</div>
+							<div class="panel-body">
+								<table
+									class="table table-striped table-bordered table-hover table-responsive"
+									id="keepCarList">
+								</table>
+							</div>
+						</div>
+						<div class="panel panel-default table-panel">
+							<div class="panel-heading">
+								<div class="pannel-name">当前意向车型信息</div>
+								<div class="pannel-button">
+									<div class="btn-group btn-group-sm">
+										<a class="btn btn-outline"
+											data-url="customer/potentialcus/customerInfo/addIntentList.html"
+											data-toggle="modal" data-width="modal-lg"><i
+											class="fa fa-plus-square"></i>添加 </a>
+											<a class="btn btn-outline" id="intentListBtn" data-beforeShowEvent="true" disabled
+											data-url="customer/potentialcus/customerInfo/editIntentList.html"
+											data-toggle="modal" data-width="modal-lg"><i
+											class="fa fa-plus-square"></i>修改 </a>
+									</div>
+								</div>
+
+							</div>
+							<div class="panel-body">
+								<table
+									class="table table-striped table-bordered table-hover table-responsive"
+									id="intentList">
+								</table>
+							</div>
+						</div>
+						<div class="panel panel-default table-panel">
+							<div class="panel-heading">
+								<div class="pannel-name">历史意向车型信息</div>
+								<div class="pannel-button">
+									<div class="btn-group btn-group-sm"></div>
+								</div>
+
+							</div>
+							<div class="panel-body">
+								<table
+									class="table table-striped table-bordered table-hover table-responsive"
+									id="historyIntentList">
+								</table>
+							</div>
+						</div>
+					</div>
+					<!-- 	<div class="tab-pane" id="tab_owner">
+						
+					</div> -->
+					<div class="tab-pane" id="tab_task">
+						<div class="panel panel-default table-panel">
+							<div class="panel-heading">
+								<div class="pannel-name">跟进信息</div>
+								<div class="pannel-button">
+									<div class="btn-group btn-group-sm"></div>
+
+								</div>
+								<div class="panel-body">
+									<table
+										class="table table-striped table-bordered table-hover table-responsive"
+										id="followList">
+									</table>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			 <a data-url="/customerManage/potentialcus/{[CUSTOMER_NO]}" data-model="customer"
+				data-method="PUT" data-callBack="true" data-beforeRequest="true"
+				class="btn blue" id="saveBtn" name="saveBtn" data-onclickEvent1='true'
+				data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+			</a> <a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消
+			</a>
+
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	var checkMobile=0;
+	var phoneOrmobile=0;
+	var cSourse=0;
+	new Datatable().initLocale({
+		src : "intentList",
+		undefinedText : "",
+		container:container,
+		url : dmsCommon.getDmsPath()["customer"] + "/customerManage/potentialcus/{[CUSTOMER_NO]}/intents",
+		columns : [ {title : "操作",operateFormat : [ {type : "localDel",isShow:function(value, row, index){
+			   if(row.IS_ECO_INTENT_MODEL=="12781001"){
+				   return false;
+        	   }else{
+        		   return true;
+        	   }      
+		   },onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){}}]}, 
+			{field : "INTENT_BRAND",inputField:"intentBrand",title : "意向品牌", inputHiddenFormat : {}},
+            {field : "BRAND_NAME",inputField:"brandName",title : "意向品牌", inputHiddenFormat : {}},
+            {field : "INTENT_SERIES",title : "意向车系",inputField:"intentSeries", inputHiddenFormat : {}},
+            {field : "SERIES_NAME",inputField:"seriesName",title : "意向车系", inputHiddenFormat : {}},
+            {field : "INTENT_MODEL",inputField:"intentModel",title : "意向车型", inputHiddenFormat : {}},
+            {field : "MODEL_NAME",inputField:"modelName",title : "意向车型", inputHiddenFormat : {}},
+            {field : "INTENT_CONFIG",title : "意向配置",inputField:"intentConfig", inputHiddenFormat : {}},
+            {field : "CONFIG_NAME",title : "意向配置",inputField:"configName", inputHiddenFormat : {}},
+            {field : "INTENT_COLOR",title : "意向颜色",inputField:"intentColor", inputHiddenFormat : {}},
+            {field : "COLOR_NAME",title : "意向颜色",inputField:"colorName", inputHiddenFormat : {}},
+            {field : "PURCHASE_COUNT",title : "购买数量",inputField:"purchaseCount", inputHiddenFormat : {}},
+            {field : "COMPETITOR_BRAND",title : "竞争品牌",inputField:"competitorBrand", inputHiddenFormat : {}},
+            {field : "COMPETITOR_SERIES",title : "竞争车系",inputField:"competitorSeries", inputHiddenFormat : {}},
+            {field : "QUOTED_AMOUNT",title : "报价金额",inputField:"quotedAmount", inputHiddenFormat : {}},
+            {field : "SALES_QUOTE_DATE",title : "报价日期",inputField:"salesQuoteDate",dateFormat : {format:"YYYY-MM-DD"}, inputHiddenFormat : {}},
+            {field : "SUG_RETAIL_PRICE",title : "建议零售价",inputField:"sugRetailPrice", inputHiddenFormat : {}},
+            {field : "WS_INTENT_PRICE",title : "批售意向价",inputField:"wsIntentPrice", inputHiddenFormat : {}},
+            {field : "INTENDING_BUY_TIME",title : "预计购买时间段",codeFormat : {type:"dict",codeType:"1354"},inputField:"intendingBuyTime", inputHiddenFormat : {}},
+            {field : "QUOTED_REMARK",title : "报价备注",inputField:"quotedRemark", inputHiddenFormat : {}},
+            {field : "IS_MAIN_MODEL",title : "主要车型",inputField:"isMainModel",codeFormat : {type:"dict",codeType:"1278"}, inputHiddenFormat : {}},
+            {field : "CHOOSE_REASON",title : "适合车型原因",inputField:"chooseReason", inputHiddenFormat : {}},
+            {field : "OTHER_REQUIREMENTS",title : "其他意见",inputField:"otherRequirements", inputHiddenFormat : {}},
+            {field : "IS_ECO_INTENT_MODEL",title : "是否官网意向车型",inputField:"isEcoIntentModel",codeFormat : {type:"dict",codeType:"1278"}, inputHiddenFormat : {}},
+            {field : "RETAIL_FINANCE",title : "零售金融",inputField:"retailFinance", inputHiddenFormat : {}},
+            {field : "DEPOSIT_AMOUNT",title : "定金金额",inputField:"depositAmount", inputHiddenFormat : {}},
+            {field : "EC_ORDER_NO",title : "官网订单编号",inputField:"ecOrderNo", inputHiddenFormat : {}},
+            {field : "DETERMINED_TIME",title : "下定日期",inputField:"determinedTime",dateFormat : {format:"YYYY-MM-DD"}, inputHiddenFormat : {}},
+            {radio:true}
+         ] ,	onLoadSuccess : function() {
+         	 $("#intentList", container).find("th[data-field='INTENT_BRAND']").hide();
+             $("#intentList", container).find("input[name='intentBrand']").parent().hide();
+             $("#intentList", container).find("th[data-field='INTENT_SERIES']").hide();
+             $("#intentList", container).find("input[name='intentSeries']").parent().hide();
+             $("#intentList", container).find("th[data-field='INTENT_MODEL']").hide();
+             $("#intentList", container).find("input[name='intentModel']").parent().hide();
+             $("#intentList", container).find("th[data-field='INTENT_COLOR']").hide();
+             $("#intentList", container).find("input[name='intentColor']").parent().hide();
+             $("#intentList", container).find("th[data-field='INTENT_CONFIG']").hide();
+             $("#intentList", container).find("input[name='intentConfig']").parent().hide();  
+		} , onClickRow(rowData, element){
+			if(rowData.IS_ECO_INTENT_MODEL==12781002){
+				 $("#intentListBtn",container).removeAttr("disabled");
+			}
+	        
+}
+	});
+	new Datatable().initLocale({
+		src : "historyIntentList",
+		container:container,
+		undefinedText : "",
+		/* url : dmsCommon.getDmsPath()["customer"] + "/customerManage/potentialcus/{[CUSTOMER_NO]}/intents", */
+		columns : [ {title : "操作",operateFormat : [ {type : "localDel",onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){}}]}, 
+			{field : "INTENT_BRAND",inputField:"intentBrand",title : "意向品牌",inputSelectFormat : {url:"/basedata/brandsdict",model:"manage",labelValue:"BRAND_CODE",lableDesc:"BRAND_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"}},
+	        {field : "INTENT_SERIES",inputField:"intentSeries",title : "意向车系", inputSelectFormat : {url:"/basedata/selectSeries",model:"manage",labelValue:"SERIES_CODE",lableDesc:"SERIES_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"}},
+	        {field : "INTENT_MODEL",inputField:"intentModel",title : "意向车型", inputSelectFormat : {url:"/basedata/intentionModel",model:"manage",labelValue:"MODEL_CODE",lableDesc:"MODEL_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"}},
+	        {field : "INTENT_COLOR",title : "意向颜色",inputField:"intentColor", inputSelectFormat : {url:"/basedata/colors/colorInfo/dicts",model:"repair",labelValue:"COLOR_CODE",lableDesc:"COLOR_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"}},
+	        {field : "INTENT_CONFIG",title : "意向配置",inputField:"intentConfig", inputHiddenFormat : {}},
+	        {field : "PURCHASE_COUNT",title : "购买数量"},
+            {field : "COMPETITOR_BRAND",title : "竞争品牌"},
+            {field : "QUOTED_AMOUNT",title : "报价金额"},
+            {field : "SALES_QUOTE_DATE",title : "报价日期",dateFormat : {format:"YYYY-MM-DD"}},
+            {field : "SUG_RETAIL_PRICE",title : "建议零售价"},
+            {field : "WS_INTENT_PRICE",title : "批售意向价"},
+            {field : "INTENDING_BUY_TIME",title : "预计购买时间段",codeFormat : {type:"dict",codeType:"1354"}},
+            {field : "QUOTED_REMARK",title : "报价备注"},
+            {field : "IS_MAIN_MODEL",title : "主要车型",codeFormat : {type:"dict",codeType:"1278"}}
+            ]
+	});
+	new Datatable().initLocale({
+		src : "keepCarList",
+		container:container,
+		undefinedText : "",
+		url : dmsCommon.getDmsPath()["customer"] + "/customerManage/potentialcus/{[CUSTOMER_NO]}/keepCar",
+		columns : [ {field : "ITEM_ID",inputField:"itemId", inputHiddenFormat : {},title : "操作",operateFormat : [ {type : "localDel",onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){}}]}, 
+		        {field : "BRAND",inputField:"brand",title : "品牌名称", inputHiddenFormat : {}},
+                {field : "BRAND_NAME",inputField:"brandName",title : "品牌名称", inputHiddenFormat : {}},
+	            {field : "SERIES_NAME",inputField:"seriesName",title : "车系名称", inputHiddenFormat : {}},
+	            {field : "MODEL_NAME",inputField:"modelName",title : "车型名称", inputHiddenFormat : {}},
+	            {field : "VIN",inputField:"vin",title : "VIN", inputHiddenFormat : {}},/* ,minWidth:50 */
+	            {field : "VEHICLE_COUNT",inputField:"vehicleCount",title : "车辆数量", inputHiddenFormat : {}},
+	            {field : "PURCHASE_DATE",inputField:"purchaseDate",title : "首次上牌日期", inputHiddenFormat : {},dateFormat : {format:"YYYY-MM-DD"}},
+	            {field : "REMARK",inputField:"remark",title : "备注", inputHiddenFormat : {}},
+	            {field : "COLOR_NAME",inputField:"colorName",title : "颜色", inputHiddenFormat : {}},
+	            {field : "LICENSE",inputField:"license",title : "车牌号", inputHiddenFormat : {}},
+	            {field : "ENGINE_NUM",inputField:"engineNum",title : "发动机号", inputHiddenFormat : {}},
+	            {field : "MILEAGE",title : "里程数",inputField:"mileage", inputHiddenFormat : {},numberFormat : {decimal:2}},
+	            {field : "PRODUCTION_DATE",title : "出厂日期",inputField:"productionDate", inputHiddenFormat : {},dateFormat : {format:"YYYY-MM-DD"}},
+	            {field : "GEAR_FORM",title : "排挡形式",inputField:"gearForm", inputHiddenFormat : {}},
+	            {field : "FUEL_TYPE",title : "燃料种类",inputField:"fuelType", inputHiddenFormat : {}},
+	            {field : "USE_TYPE",title : "使用性质",inputField:"useType",codeFormat : {type:"dict",codeType:"1052"},inputHiddenFormat : {}},
+	            {field : "TRAFFIC_INSURE_INFO",title : "交强险信息",inputField:"trafficInsureInfo",codeFormat : {type:"dict",codeType:"1055"},inputHiddenFormat : {}},
+	            {field : "DRIVING_LICENSE",title : "机动车行驶证",inputField:"drivingLicense",codeFormat : {type:"dict",codeType:"1055"},disabled:true, inputHiddenFormat : {}},
+	            {field : "BUSINESS_INSURE_INFO",title : "商业险信息",inputField:"businessInsureInfo",codeFormat : {type:"dict",codeType:"1055",disabled:true}, inputHiddenFormat : {}},
+	            {field : "REGISTRY",title : "登记证书",inputField:"registry",codeFormat : {type:"dict",codeType:"1055"}, inputHiddenFormat : {}},
+	            {field : "ORIGIN_CERTIFICATE",title : "来历凭证",inputField:"originCertificate",codeFormat : {type:"dict",codeType:"1055"}, inputHiddenFormat : {}},
+	            {field : "PURCHASE_TAX",title : "购置税凭证",inputField:"purchaseTax",codeFormat : {type:"dict",codeType:"1055"}, inputHiddenFormat : {}},
+	            {field : "VEHICLE_AND_VESSEL_TAX",title : "车船使用税",inputField:"vehicleAndVesselTax",codeFormat : {type:"dict",codeType:"1055"}, inputHiddenFormat : {}},
+	            {field : "TRAFFIC_INSURE_DATA",title : "交强有效期",inputField:"trafficInsureData", inputHiddenFormat : {},dateFormat : {format:"YYYY-MM-DD"}},
+	            {field : "ANNUAL_INSPECTION_DATE",title : "年检有效期",inputField:"annualInspectionDate", inputHiddenFormat : {},dateFormat : {format:"YYYY-MM-DD"}},
+	            {field : "SCRAP_DATE",title : "强制报废期",inputField:"scrapDate", inputHiddenFormat : {},dateFormat : {format:"YYYY-MM-DD"}},
+	            {field : "PROCEDURE_SPECIAL_EXPLAIN",title : "手续项目特殊说明",inputField:"procedureSpecialExplain", inputHiddenFormat : {}},
+	            {field : "FILE_MESSAGE_A",title : "检查报告ID1",inputField:"fileMessageA", inputHiddenFormat : {}},
+	            {field : "FILE_URLMESSAGE_A",title : "检查报告1",inputField:"fileUrlmessageA", inputHiddenFormat : {}},
+	            {field : "FILE_MESSAGE_B",title : "旧车行驶证ID",inputField:"fileMessageB", inputHiddenFormat : {}},
+	            {field : "FILE_URLMESSAGE_B",title : "旧车行驶证",inputField:"fileUrlmessageB", inputHiddenFormat : {}},
+	            {field : "FILE_MESSAGE_C",title : "检查报告ID2",inputField:"fileMessageC", inputHiddenFormat : {}},
+	            {field : "FILE_URLMESSAGE_C",title : "检查报告2",inputField:"fileUrlmessageC", inputHiddenFormat : {}},
+	            {field : "IS_ASSESSED",title : "是否评估",inputField:"isAssessed", codeFormat : {type:"dict",codeType:"1278"},inputHiddenFormat : {}},
+	       /*      {field : "SERIES_NAME",title : "车系",inputField:"seriesName", inputHiddenFormat : {}},
+	            {field : "MODEL_NAME",title : "车型",inputField:"modelName", inputHiddenFormat : {}}, */
+	            {field : "VEHICLE_ALLOCATION",title : "车辆配置",inputField:"vehicleAllocation", inputHiddenFormat : {}},
+	            {field : "ASSESSED_PRICE",title : "评估价格",inputField:"assessedPrice", inputHiddenFormat : {}},
+	            {field : "OTHER_ACCESSORY",title : "其他附件",inputField:"otherAccessory", inputHiddenFormat : {}},
+	            {radio:true}
+	            
+	         ],	onLoadSuccess : function() {
+	        	 
+	         $("#keepCarList", container).find("th[data-field='BRAND_NAME']").hide();
+             $("#keepCarList", container).find("input[name='brandName']").parent().hide();
+	         $("#keepCarList", container).find("th[data-field='SERIES_NAME']").hide();
+              $("#keepCarList", container).find("input[name='seriesName']").parent().hide();
+              $("#keepCarList", container).find("th[data-field='MODEL_NAME']").hide();
+              $("#keepCarList", container).find("input[name='modelName']").parent().hide();
+              $("#keepCarList", container).find("th[data-field='VEHICLE_ALLOCATION']").hide();
+              $("#keepCarList", container).find("input[name='vehicleAllocation']").parent().hide();
+			} , onClickRow(rowData, element){
+	         $("#keepCarListeditBtn",container).removeAttr("disabled");
+     
+
+	}
+	});
+	new Datatable().initLocale({
+		src : "followList",
+		container:container,
+		undefinedText : "",
+		url : dmsCommon.getDmsPath()["customer"] + "/customerManage/potentialcus/{[CUSTOMER_NO]}/follow",
+		columns : [ 
+		     {field : "SCENE",title : "经过情形"},
+		        {field : "PRIOR_GRADE",title : "促进前客户级别", codeFormat : {type:"dict",codeType:"1310"}},
+	            {field : "NEXT_GRADE",title : "促进后客户级别", codeFormat : {type:"dict",codeType:"1310"}},
+	            {field : "SCHEDULE_DATE",title : "计划日期",dateFormat : {format:"YYYY-MM-DD"}},
+	            {field : "ACTION_DATE",title : "执行日期",dateFormat : {format:"YYYY-MM-DD"}},
+	            {field : "AUDITING_REMARK",title : "审核意见", inputHiddenFormat : {}},
+	            {field : "CUSTOMER_NAME",title : "客户名称"},
+	            {field : "CONTACTOR_NAME",title : "联系人"},
+	            {field : "PHONE",title : "电话"},            
+	            {field : "MOBILE",title : "手机", inputHiddenFormat : {}},
+	            {field : "PROM_WAY",title : "跟进方式", codeFormat : {type:"dict",codeType:"1325"}},
+	            {field : "PROM_CONTENT",title : "跟进内容", inputHiddenFormat : {}},
+		        {field : "CREATE_TYPE",title : "活动类型",codeFormat : {type:"dict",codeType:"1329"}},
+	            {field : "CUSTOMER_NO",title : "客户编号"},
+	            {field : "BOOKING_CUSTOMER_TYPE",title : "是否邀约",codeFormat : {type:"dict",codeType:"1278"}},
+	            {field : "BOOKING_DATE",title : "邀约日期",dateFormat : {format:"YYYY-MM-DD"}},
+	           
+	            {field : "PROM_RESULT",title : "跟进结果", codeFormat : {type:"dict",codeType:"1334"}},
+	            {field : "SCENE",title : "经过情形", inputHiddenFormat : {}},
+	            {field : "NEXT_PROM_DATE",title : "下次预定时间",dateFormat : {format:"YYYY-MM-DD"}},
+	            {field : "NEXT_BOOKING_DATE",title : "下次邀约日期",dateFormat : {format:"YYYY-MM-DD"}},
+	            {field : "USER_NAME",title : "销售顾问"},
+	            {field : "BRAND_NAME",title : "意向品牌"},
+	            {field : "SERIES_NAME",title : "意向车系"},
+	            {field : "MODEL_NAME",title : "意向车型"},
+	            {field : "CONFIG_NAME",title : "意向配置"},
+	            {field : "COLOR_NAME",title : "意向颜色"},
+	            {field : "INTENT_MODEL",title : "意向车型",visible:false, inputHiddenFormat : {}},
+	            {field : "INTENT_SERIES",title : "意向车系",visible:false, inputHiddenFormat : {}},
+	            {field : "INTENT_COLOR",title : "意向颜色",visible:false, inputHiddenFormat : {}},
+	            {field : "INTENT_BRAND",title : "意向品牌",visible:false, inputHiddenFormat : {}},
+	            {field : "INTENT_CONFIG",title : "意向配置",visible:false, inputHiddenFormat : {}},
+	            {field : "LAST_SCENE",title : "上次跟进的经过情形", inputHiddenFormat : {}},
+	            {field : "LMS_REMARK",title : "LMS校验反馈", inputHiddenFormat : {}},
+	            {field : "IS_BIG_CUSTOMER",title : "是否大客户", codeFormat : {type:"dict",codeType:"1278"}}
+         ]
+	});
+	new Datatable().initLocale({
+		src : "followList1",
+		container:container,
+		undefinedText : "",
+		url : dmsCommon.getDmsPath()["customer"] + "/customerManage/potentialcus/{[CUSTOMER_NO]}/follow",
+		columns : [ 
+		     {field : "SCENE",title : "经过情形"},
+		        {field : "PRIOR_GRADE",title : "促进前客户级别", codeFormat : {type:"dict",codeType:"1310"}},
+	            {field : "NEXT_GRADE",title : "促进后客户级别", codeFormat : {type:"dict",codeType:"1310"}},
+	            {field : "SCHEDULE_DATE",title : "计划日期",dateFormat : {format:"YYYY-MM-DD"}},
+	            {field : "ACTION_DATE",title : "执行日期",dateFormat : {format:"YYYY-MM-DD"}},
+	            {field : "AUDITING_REMARK",title : "审核意见", inputHiddenFormat : {}},
+	            {field : "CUSTOMER_NAME",title : "客户名称"},
+	            {field : "CONTACTOR_NAME",title : "联系人"},
+	            {field : "PHONE",title : "电话"},            
+	            {field : "MOBILE",title : "手机", inputHiddenFormat : {}},
+	            {field : "PROM_WAY",title : "跟进方式", codeFormat : {type:"dict",codeType:"1325"}},
+	            {field : "PROM_CONTENT",title : "跟进内容", inputHiddenFormat : {}},
+		        {field : "CREATE_TYPE",title : "活动类型",codeFormat : {type:"dict",codeType:"1329"}},
+	            {field : "CUSTOMER_NO",title : "客户编号"},
+	            {field : "BOOKING_CUSTOMER_TYPE",title : "是否邀约",codeFormat : {type:"dict",codeType:"1278"}},
+	            {field : "BOOKING_DATE",title : "邀约日期",dateFormat : {format:"YYYY-MM-DD"}},
+	        
+	            {field : "PROM_RESULT",title : "跟进结果", codeFormat : {type:"dict",codeType:"1334"}},
+	            {field : "SCENE",title : "经过情形", inputHiddenFormat : {}},
+	            {field : "NEXT_PROM_DATE",title : "下次预定时间",dateFormat : {format:"YYYY-MM-DD"}},
+	            {field : "NEXT_BOOKING_DATE",title : "下次邀约日期",dateFormat : {format:"YYYY-MM-DD"}},
+	            {field : "USER_NAME",title : "销售顾问"},
+	            {field : "BRAND_NAME",title : "意向品牌"},
+	            {field : "SERIES_NAME",title : "意向车系"},
+	            {field : "MODEL_NAME",title : "意向车型"},
+	            {field : "CONFIG_NAME",title : "意向配置"},
+	            {field : "COLOR_NAME",title : "意向颜色"},
+	            {field : "INTENT_MODEL",title : "意向车型",visible:false, inputHiddenFormat : {}},
+	            {field : "INTENT_SERIES",title : "意向车系",visible:false, inputHiddenFormat : {}},
+	            {field : "INTENT_COLOR",title : "意向颜色",visible:false, inputHiddenFormat : {}},
+	            {field : "INTENT_BRAND",title : "意向品牌",visible:false, inputHiddenFormat : {}},
+	            {field : "INTENT_CONFIG",title : "意向配置",visible:false, inputHiddenFormat : {}},
+	            {field : "LAST_SCENE",title : "上次跟进的经过情形", inputHiddenFormat : {}},
+	            {field : "LMS_REMARK",title : "LMS校验反馈", inputHiddenFormat : {}},
+	            {field : "IS_BIG_CUSTOMER",title : "是否大客户", codeFormat : {type:"dict",codeType:"1278"}}
+         ]
+	});
+	new Datatable().initLocale({
+		src : "linkManList",
+		container:container,
+		url : dmsCommon.getDmsPath()["customer"] + "/customerManage/potentialcus/{[CUSTOMER_NO]}/linkMan",
+		columns : [ {title : "操作",operateFormat : [
+		      
+            {type : "localDel",onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){}}]}, 
+            {field : "COMPANY",title : "单位名称",inputField:"company", inputHiddenFormat : {}},
+            {field : "CONTACTOR_DEPARTMENT",title : "所属部门",inputField:"contactorDepartment", extendDefaultFormat : {}},
+            {field : "CONTACTOR_NAME",title : "联系人",inputField:"contactorName", inputHiddenFormat : {}},
+            {field : "GENDER",title : "性别",codeFormat : {type:"dict",codeType:"1006"},inputField:"gender", extendDefaultFormat : {}},
+            {field : "IS_DEFAULT_CONTACTOR",title : "是否默认联系人",codeFormat : {type:"dict",codeType:"1278"},inputField:"isDefaultContactor", inputHiddenFormat : {}},
+            {field : "CONTACTOR_TYPE",title : "联系人类型",codeFormat : {type:"dict",codeType:"1330"},inputField:"contactorType", inputHiddenFormat : {}},
+            {field : "POSITION_NAME",title : "职位名称",inputField:"positionName", inputHiddenFormat : {}},
+            {field : "BEST_CONTACT_TYPE",title : "最佳联系方式",codeFormat : {type:"dict",codeType:"1331"},inputField:"bestContactType", extendDefaultFormat : {}},
+            {field : "BEST_CONTACT_TIME",title : "最佳联系时间",codeFormat : {type:"dict",codeType:"1125"},inputField:"bestContactTime", inputHiddenFormat : {}},
+            {field : "PHONE",title : "电话",inputField:"phone", inputHiddenFormat : {}},
+            {field : "MOBILE",title : "手机",inputField:"mobile", inputHiddenFormat : {}},
+            {field : "E_MAIL",title : "E_MAIL",inputField:"eMail", inputHiddenFormat : {}},
+            {field : "FAX",title : "传真",inputField:"fax", inputHiddenFormat : {}},
+            {field : "REMARK",title : "备注",inputField:"remark",inputHiddenFormat: {}}
+         ]
+	});
+	$("#isToShop",container).bindChange(function(obj){
+ 		var isToShop=$("#isToShop",container).val();
+	       if(isToShop=="12781001"){
+	    	   $("#timeToShop",container).setDmsValue(new Date());
+	    	   $("#timeToShop",container).attr("disabled","disabled");
+		      }else{
+		    	  $("#timeToShop",container).setDmsValue("");
+		    	  $("#timeToShop",container).attr("disabled","disabled");
+		      }
+		
+	});
+	$("#cusSource",container).bindChange(function(obj){
+ 		var cusSource=$("#cusSource",container).val();
+ 		
+		if(cusSource=="13111003"||cusSource=="13111017"||cusSource=="13111018"||cusSource=="13111019"){
+			
+			$("#campaignName",container).removeAttr("disabled");
+			$("#campaignBtn",container).removeAttr("disabled");
+			$("#campaignName",container).addClass("required");
+			$("#campaignName").val("");
+			$("#campaignCode").val("");	
+		}else{
+			$("#campaignName",container).attr("disabled","disabled");
+			$("#campaignBtn",container).attr("disabled","disabled");
+			$("#campaignName",container).removeClass("required");
+			$("#campaignName").val("");	
+			$("#campaignCode").val("");	
+		}
+	if(cusSource=="13111005"){
+			
+			$("#oldCustomerName",container).removeAttr("disabled");
+			$("#oldCustomerBtn",container).removeAttr("disabled");
+			$("#oldCustomerName",container).addClass("required");
+			$("#oldCustomerName").val("");
+			$("#oldCustomerVIN").val("");	
+		}else{
+			$("#oldCustomerName",container).attr("disabled","disabled");
+			$("#oldCustomerBtn",container).attr("disabled","disabled");
+			$("#oldCustomerName",container).removeClass("required");
+			$("#oldCustomerName").val("");	
+			$("#oldCustomerVIN").val("");	
+		}
+		
+	}); 
+	$("#isFirstBuy",container).bindChange(function(obj){
+ 		var isFirstBuy=$("#isFirstBuy",container).val();
+		if(isFirstBuy=="12781002"){
+			$("#rebuyCustomerType",container).removeAttr("disabled");
+			$("#rebuyCustomerType",container).addClass("required");
+			$("#rebuyCustomerType").val("");
+			
+			
+		}else{
+			$("#rebuyCustomerType",container).attr("disabled","disabled");
+			$("#rebuyCustomerType",container).removeClass("required");
+			$("#rebuyCustomerType").val("");	
+
+		}
+
+		
+	});
+	$("#rebuyCustomerType",container).bindChange(function(obj){
+		var rebuyCustomerType=$("#rebuyCustomerType",container).val();
+		if(rebuyCustomerType==10541002){
+			$("#newBtnkeepCarList",container).removeAttr("disabled");
+		}else{
+			$("#newBtnkeepCarList",container).attr("disabled","disabled");
+		}
+	});
+	$("#isBigCustomer",container).bindChange(function(obj){
+ 		var isBigCustomer=$("#isBigCustomer",container).val();
+		if(isBigCustomer=="12781001"){
+			$("#kaType",container).removeAttr("disabled");
+			$("#kaType",container).addClass("required");		
+			$("#kaType").val("");
+			$("#companyName",container).removeAttr("disabled");
+			$("#companyName",container).addClass("required");
+			$("#companyName").val("");
+			$("#companyNameBtn",container).removeAttr("disabled");
+			$("#companyNameBtnX",container).removeAttr("disabled");
+			
+			
+		}else{
+			$("#kaType",container).attr("disabled","disabled");
+			$("#kaType",container).removeClass("required");
+			$("#kaType").val("");	
+			$("#companyName",container).attr("disabled","disabled");
+			$("#companyName",container).removeClass("required");
+			$("#companyName").val("");	
+			$("#companyNameBtn",container).attr("disabled","disabled");
+			$("#companyNameBtnX",container).attr("disabled","disabled");
+
+		}
+		
+
+		
+	});
+	$("#customerType",container).bindChange(function(obj){
+		var customerType=$("#customerType",container).val();
+		if(customerType=="10181001"){
+			$("#gender",container).removeAttr("disabled");
+			$("#gender",container).addClass("required");
+			$("#gender").val("");
+			$("#companyName",container).removeClass("required");
+			$("#companyName").val("");	
+			
+		}else{
+			$("#gender",container).attr("disabled","disabled");
+			$("#gender",container).removeClass("required");
+			$("#gender").val("");	
+			$("#companyName",container).removeAttr("disabled");
+			$("#companyName",container).addClass("required");
+			$("#companyName").val("");
+			$("#companyNameBtn",container).removeAttr("disabled");
+			$("#companyNameBtnX",container).removeAttr("disabled");
+
+		}
+	});
+
+	$("#ctCode",container).bindChange(function(obj){
+		var ctCode=$("#ctCode",container).val();
+		if(ctCode!=null&&ctCode!=""&&ctCode!=undefined){
+			
+			if(ctCode==12391001){
+				$("#certificateNo",container).addClass("IDNumber");
+			}else{
+				$("#certificateNo",container).removeClass("IDNumber");
+			}
+			$("#certificateNo",container).removeAttr("disabled");
+			$("#certificateNo",container).addClass("required"); 
+			$("#certificateNo").val("");
+		}else{
+			$("#certificateNo",container).attr("disabled","disabled");
+			$("#certificateNo").val("");
+			$("#certificateNo",container).removeClass("required");
+			$("#certificateNo",container).removeClass("IDNumber");
+		}
+	});
+	
+	$("#certificateNo",container).bindChange(function(obj){
+		var certificateNo=$("#certificateNo",container).val();
+		var ctCode=$("#ctCode",container).val();
+		if(ctCode==12391001){
+			var  birthday = "";
+			if(certificateNo.length==18){
+				birthday=certificateNo.substr(6,8);
+				birthday = birthday.replace(/(.{4})(.{2})/,"$1-$2-");
+			}else if(certificateNo.length==15){
+				birthday = "19"+certificateNo.substr(6,6);
+				birthday = birthday.replace(/(.{4})(.{2})/,"$1-$2-");
+			}
+			$("#birthday").val(birthday);
+		}
+	});
+	
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+		var equalserise = false;
+		var fIsMoDel = false;
+		var fBuyTime = true;
+		var fBuyCount = true;
+		var ffBuyTime = true;
+		var ffBuyCount = true;
+		var IsMoDel = true;
+		var NIsMoDel = false;
+		var mainModel=0;
+		var intentSeries=$("#intentSeries",container).val();
+		var seriesName=$("#seriesName",container).val();
+		if(seriesName==null||seriesName==undefined||seriesName==""){
+			dmsCommon.tip({status:"warning",msg:"请选择意向车系!"});
+			returnResult.status =false;
+			return ;
+		}
+		var isFirstBuy=$("#isFirstBuy",container).val();
+		if(isFirstBuy==null||isFirstBuy==undefined||isFirstBuy==""){
+			dmsCommon.tip({status:"warning",msg:"是否首次购车不能为空!"});
+			returnResult.status =false;
+			return ;
+		}
+		var customerName=$("#customerName",container).val();
+		if(customerName==null||customerName==undefined||customerName==""){
+			dmsCommon.tip({status:"warning",msg:"客户名称不能为空!"});
+			returnResult.status =false;
+			return ;
+		}
+		var gender=$("#gender",container).val();
+		var customerType=$("#customerType",container).val();
+		if(customerType=='10181001'){
+			if(gender==null||gender==undefined||gender==""){
+				dmsCommon.tip({status:"warning",msg:"性别不能为空!"});
+				returnResult.status =false;
+				return ;
+			}
+		}
+	
+		var contactorMobile=$("#contactorMobile",container).val();
+		if(contactorMobile==null||contactorMobile==undefined||contactorMobile==""){
+			dmsCommon.tip({status:"warning",msg:"联系电话不能为空!"});
+			returnResult.status =false;
+			return ;
+		}
+		var cusSource=$("#cusSource",container).val();
+		if(cusSource==null||cusSource==undefined||cusSource==""){
+			dmsCommon.tip({status:"warning",msg:"客户来源不能为空!"});
+			returnResult.status =false;
+			return ;
+		}
+		var sourceH=$("#sourceH",container).val();
+		if(cusSource=='13111016'&&sourceH!='13111016'){
+			dmsCommon.tip({status:"warning",msg:"该客户不是DCC转入，不能更改客户来源为DCC转入!"});
+			returnResult.status =false;
+			return ;
+		}
+		
+		var initLevel=$("#initLevel",container).val();
+		if(initLevel==null||initLevel==undefined||initLevel==""){
+			dmsCommon.tip({status:"warning",msg:"初始级别不能为空!"});
+			returnResult.status =false;
+			return ;
+		}
+		var isBigCustomer=$("#isBigCustomer",container).val();
+		
+			var rownum = $("#intentList",container).dmsTable().getTableRows();
+			var rownu = $("#intentList",container).dmsTable().getRowDataByIndex();
+			var birthday=$("#birthday",container).val();
+			if(birthday!=null&&birthday!=''&&birthday!=0&&birthday!=undefined){
+				if((new Date()).Format("yyyy-MM-dd")<(new Date(birthday)).Format("yyyy-MM-dd")){
+					dmsCommon.tip({status:"warning",msg:"生日不能大于当前日期!"});
+					returnResult.status = false;
+					return ;
+				}
+			}
+			
+			if(rownum==0){
+				dmsCommon.tip({status:"warning",msg:"请增加意向信息!"});
+				returnResult.status =false;
+				return ;
+			}
+			if(isBigCustomer=="12781001"){
+				IsMoDel=false;
+			if(rownum==1){
+				
+				$(rownu).each(function(index){
+					//IsMoDel = true;
+					
+					if(rownu[index].IS_MAIN_MODEL=="12781001"){
+						fIsMoDel = true;	
+						   IsMoDel=true;
+						    if(intentSeries!=rownu[index].INTENT_SERIES){
+							   equalserise = true;
+						   }
+						   if(rownu[index].INTENDING_BUY_TIME==null||rownu[index].INTENDING_BUY_TIME==0||rownu[index].INTENDING_BUY_TIME==""||rownu[index].INTENDING_BUY_TIME==undefined){
+							   fBuyTime = false;
+						   }
+						   if(rownu[index].PURCHASE_COUNT==null||rownu[index].PURCHASE_COUNT==0||rownu[index].PURCHASE_COUNT==""||rownu[index].PURCHASE_COUNT==undefined){
+							   fBuyCount = false;
+						   }
+					}
+					   /* } */
+			  		});
+			}
+			if(rownum>=2){
+				
+				$(rownu).each(function(index){
+					
+					console.log(JSON.stringify(rownu));
+					   if(rownu[index].IS_MAIN_MODEL=="12781001"){
+						   if(intentSeries!=rownu[index].INTENT_SERIES){
+							   equalserise = true;
+						   }
+						   mainModel++;
+						   IsMoDel = true;						 
+						   if(rownu[index].INTENDING_BUY_TIME==null||rownu[index].INTENDING_BUY_TIME==0||rownu[index].INTENDING_BUY_TIME==""||rownu[index].INTENDING_BUY_TIME==undefined){
+							   ffBuyTime = false;
+						   }
+						   if(rownu[index].PURCHASE_COUNT==null||rownu[index].PURCHASE_COUNT==0||rownu[index].PURCHASE_COUNT==""||rownu[index].PURCHASE_COUNT==undefined){
+							   ffBuyCount = false;
+						   }
+					   }
+			  		});
+			}
+			if(mainModel>1){
+				dmsCommon.tip({status:"warning",msg:"主要意向存在多条,请重新选择!"});
+				returnResult.status =false;
+				return ;
+			}
+			
+		}else{
+	if(rownum==1){
+				
+				$(rownu).each(function(index){
+					
+					console.log(JSON.stringify(rownu));
+						    if(intentSeries!=rownu[index].INTENT_SERIES){
+							   equalserise = true;
+						   }
+			  		});
+			}
+			if(rownum>=2){
+				
+				NIsMoDel = true;
+				$(rownu).each(function(index){
+					
+					console.log(JSON.stringify(rownu));
+					   if(rownu[index].IS_MAIN_MODEL=="12781001"){
+						   if(intentSeries!=rownu[index].INTENT_SERIES){
+							   equalserise = true;
+						   }
+						   mainModel++;
+						   NIsMoDel = false;						 
+					   }
+			  		});
+			}
+			if(mainModel>1){
+				dmsCommon.tip({status:"warning",msg:"主要意向存在多条,请重新选择!"});
+				returnResult.status =false;
+				return ;
+			}
+			
+		}
+		if(equalserise){
+			dmsCommon.tip({status:"warning",msg:"基础信息中的意向车系和当前意向车型信息中的主要意向不一致请重新填写意向信息!"});
+			returnResult.status =false;
+			return ;
+		}
+		if(!fBuyTime){
+			dmsCommon.tip({status:"warning",msg:"大客户主要意向的预计购买时间段不能为空!"});
+			returnResult.status =false;
+			return ;
+		}
+		if(!fBuyCount){
+			dmsCommon.tip({status:"warning",msg:"大客户主要意向的购买数量不能为空!"});
+			returnResult.status =false;
+			return ;
+		}
+		if(!IsMoDel){
+			dmsCommon.tip({status:"warning",msg:"请选择一条主要意向!"});
+			returnResult.status =false;
+			return ;
+		}
+		if(NIsMoDel){
+			dmsCommon.tip({status:"warning",msg:"请选择一条主要意向!"});
+			returnResult.status =false;
+			return ;
+		}
+		if(!ffBuyTime){
+			dmsCommon.tip({status:"warning",msg:"大客户主要意向的预计购买时间段不能为空!"});
+			returnResult.status =false;
+			return ;
+		}
+		if(!ffBuyCount){
+			dmsCommon.tip({status:"warning",msg:"大客户主要意向的购买数量不能为空!"});
+			returnResult.status =false;
+			return ;
+		}
+		if(checkMobile==1){
+			dmsCommon.tip({status:"warning",msg:"修改后的客户手机号已经存在，请重新填写！"});
+			returnResult.status = false;
+			return ;
+		}
+		if(phoneOrmobile==0){
+			dmsCommon.tip({status:"warning",msg:"请输入正确的手机或者电话号码！"});
+			returnResult.status = false;
+			return ;
+		}
+		if(cSourse==1){
+			dmsCommon.tip({status:"warning",msg:"该客户为官网客户，不能更改客户类型！"});
+			returnResult.status = false;
+			return ;
+		}
+		if(cSourse==2){
+			dmsCommon.tip({status:"warning",msg:"该客户非官网客户，不能更改为官网客户！"});
+			returnResult.status = false;
+			return ;
+		}
+		returnResult.status = true;
+	});
+	 $("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){
+			var havebig="{[userInfo.haveBigCustomer]}";
+			
+			if(havebig==12781002){
+				 $("#isBigCustomer",container).attr("disabled","disabled");
+			}
+			var rebuyCustomerType=$("#rebuyCustomerType",container).val();
+			if(rebuyCustomerType==10541002){
+				$("#newBtnkeepCarList",container).removeAttr("disabled");
+			}
+	 });
+	$("a[data-onclickEvent1='true']",container).on("dms.click",function(event){
+		
+		CheckCustomerContactorMobile($("#contactorMobile",container).val(),$("#customerNo",container).val());
+		CheckPhoneOrMobile($("#contactorMobile",container).val());
+		var Source = $("#cusSource",container).val();
+		if(Source!=null&&Source!=undefined&&Source!=""&&Source!=0){
+			CheckCusSourse(Source,$("#customerNo",container).val());
+		}
+		
+	});
+	 var CheckCusSourse=function(Source,customerNo){
+			dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["customer"] + "/customerManage/potentialcus/Check/CheckCusSourse/"+Source+"/"+customerNo,
+				type : 'GET',
+				sucessCallBack : function(data) {
+					cSourse=data;
+				}
+			});
+			
+	 }
+	 var CheckCustomerContactorMobile=function(str,customerNo){
+			dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["customer"] + "/customerManage/potentialcus/Check/CheckCustomerContactorMobile/"+str+"/"+customerNo,
+				type : 'GET',
+				sucessCallBack : function(data) {
+				       checkMobile=data;
+				}
+			});
+			
+	 }
+	 var CheckPhoneOrMobile=function(str,customerNo){
+			dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["customer"] + "/customerManage/potentialcus/Check/PhoneOrMobile/"+str,
+				type : 'GET',
+				sucessCallBack : function(data) {
+				       phoneOrmobile=data;
+				}
+			});
+			
+	 }
+	
+		//弹出页面打开前执行函数
+		$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+		
+			
+			    if(event.target.id=='intentListBtn'){
+			    	var selectRow = $("#intentList",container).dmsTable().getSelections();
+					var coSerise = "";
+					var coBrand ="";
+					var coSeries = "";
+					var puCOUNT = "";
+					var quCOUNT = "";
+					var sugRPrice ="";
+					var wsIPrice ="";
+					var salesQuoteDate="";
+					if(selectRow[0].COMPETITOR_SERIES!=null&&selectRow[0].COMPETITOR_SERIES!=undefined){
+						coSerise=selectRow[0].COMPETITOR_SERIES;
+					}
+					if(selectRow[0].PURCHASE_COUNT!=null&&selectRow[0].PURCHASE_COUNT!=undefined){
+						
+						puCOUNT=selectRow[0].PURCHASE_COUNT;
+					}
+					if(selectRow[0].COMPETITOR_BRAND!=null&&selectRow[0].COMPETITOR_BRAND!=undefined){
+						coBrand=selectRow[0].COMPETITOR_BRAND;
+					}
+					if(selectRow[0].COMPETITOR_SERIES!=null&&selectRow[0].COMPETITOR_SERIES!=undefined){
+						coSeries=selectRow[0].COMPETITOR_SERIES;
+					}
+					if(selectRow[0].QUOTED_AMOUNT!=null&&selectRow[0].QUOTED_AMOUNT!=undefined){
+						quCOUNT=selectRow[0].QUOTED_AMOUNT;
+					}
+					if(selectRow[0].SALES_QUOTE_DATE!=null&&selectRow[0].SALES_QUOTE_DATE!=undefined){
+						salesQuoteDate=(new Date(selectRow[0].SALES_QUOTE_DATE)).Format("yyyy-MM-dd");
+					}
+					if(selectRow[0].SUG_RETAIL_PRICE!=null&&selectRow[0].SUG_RETAIL_PRICE!=undefined){
+						sugRPrice=selectRow[0].SUG_RETAIL_PRICE;
+					}
+					if(selectRow[0].WS_INTENT_PRICE!=null&&selectRow[0].WS_INTENT_PRICE!=undefined){
+						wsIPrice=selectRow[0].WS_INTENT_PRICE;
+					}
+					var intendingBtime ="";
+					//
+					if(selectRow[0].INTENDING_BUY_TIME!=null&&selectRow[0].INTENDING_BUY_TIME!=undefined){
+						intendingBtime=selectRow[0].INTENDING_BUY_TIME;
+						
+					}
+					var quotedRmk ="";
+					if(selectRow[0].QUOTED_REMARK!=null&&selectRow[0].QUOTED_REMARK!=undefined){
+						quotedRmk=selectRow[0].QUOTED_REMARK;
+					}
+					var chooseRon ="";
+					if(selectRow[0].CHOOSE_REASON!=null&&selectRow[0].CHOOSE_REASON!=undefined){
+						chooseRon=selectRow[0].CHOOSE_REASON;
+					}
+					var otherRequirements ="";
+					if(selectRow[0].OTHER_REQUIREMENTS!=null&&selectRow[0].OTHER_REQUIREMENTS!=undefined){
+						otherRequirements=selectRow[0].OTHER_REQUIREMENTS;
+					}
+					var isEcoModel ="";
+					if(selectRow[0].IS_ECO_INTENT_MODEL!=null&&selectRow[0].IS_ECO_INTENT_MODEL!=undefined){
+						isEcoModel=selectRow[0].IS_ECO_INTENT_MODEL;
+					}
+					var retailFin = "";
+					if(selectRow[0].RETAIL_FINANCE!=null&&selectRow[0].RETAIL_FINANCE!=undefined){
+						wsIPrice=selectRow[0].RETAIL_FINANCE;
+					}
+					var depositAm = "";
+					if(selectRow[0].DEPOSIT_AMOUNT!=null&&selectRow[0].DEPOSIT_AMOUNT!=undefined){
+						depositAm=selectRow[0].DEPOSIT_AMOUNT;
+					}
+					var ecOrderN ="";
+					if(selectRow[0].EC_ORDER_NO!=null&&selectRow[0].EC_ORDER_NO!=undefined){
+						ecOrderN=selectRow[0].EC_ORDER_NO;
+					}
+						$(this).data("pageData",{IS_MAIN_MODEL:selectRow[0].IS_MAIN_MODEL,
+                                               INTENT_BRAND:selectRow[0].INTENT_BRAND,
+                                               INTENT_SERIES:selectRow[0].INTENT_SERIES,
+                                               INTENT_MODEL:selectRow[0].INTENT_MODEL,
+                                               INTENT_CONFIG:selectRow[0].INTENT_CONFIG,
+                                               INTENT_COLOR:selectRow[0].INTENT_COLOR,
+                                               rowindex:selectRow[0].index,
+                                               PURCHASE_COUNT:puCOUNT,
+                                               COMPETITOR_BRAND:coBrand,
+                                               COMPETITOR_SERIES:coSerise,
+                                               QUOTED_AMOUNT:quCOUNT,
+                                               SALES_QUOTE_DATE:salesQuoteDate,
+                                               SUG_RETAIL_PRICE:sugRPrice,
+                                               WS_INTENT_PRICE:wsIPrice,
+                                               INTENDING_BUY_TIME:intendingBtime,
+                                               QUOTED_REMARK:quotedRmk,
+                                               CHOOSE_REASON:chooseRon,
+                                               OTHER_REQUIREMENTS:otherRequirements,
+                                               IS_ECO_INTENT_MODEL:isEcoModel,
+                                               RETAIL_FINANCE:retailFin,
+                                               DEPOSIT_AMOUNT:depositAm,
+                                               EC_ORDER_NO:ecOrderN});
+						/* $(this).data("pageData",{INTENT_BRAND:selectRow[0].INTENT_BRAND}); */
+			    }
+			    
+			    if(event.target.id=='keepCarListeditBtn'){
+			    	var selectRow = $("#keepCarList",container).dmsTable().getSelections();
+					var kVIN="";
+					if(selectRow[0].VIN!=null&&selectRow[0].VIN!=undefined){
+						kVIN=selectRow[0].VIN;
+					}
+					var kVEHICLE_COUNT=""
+					if(selectRow[0].VEHICLE_COUNT!=null&&selectRow[0].VEHICLE_COUNT!=undefined){
+						
+						kVEHICLE_COUNT=selectRow[0].VEHICLE_COUNT;
+					}
+					var kPURCHASE_DATE="";
+					if(selectRow[0].PURCHASE_DATE!=null&&selectRow[0].PURCHASE_DATE!=undefined){
+						kPURCHASE_DATE=(new Date(selectRow[0].PURCHASE_DATE)).Format("yyyy-MM-dd");
+					}
+					var kREMARK="";
+					if(selectRow[0].REMARK!=null&&selectRow[0].REMARK!=undefined){
+						kREMARK=selectRow[0].REMARK;
+					}
+					var kCOLOR_NAME="";
+					if(selectRow[0].COLOR_NAME!=null&&selectRow[0].COLOR_NAME!=undefined){
+						kCOLOR_NAME=selectRow[0].COLOR_NAME;
+					}
+					var kLICENSE ="";
+					if(selectRow[0].LICENSE!=null&&selectRow[0].LICENSE!=undefined){
+						kLICENSE=selectRow[0].LICENSE;
+					}
+					var kENGINE_NUM ="";
+					if(selectRow[0].ENGINE_NUM!=null&&selectRow[0].ENGINE_NUM!=undefined){
+						kENGINE_NUM=selectRow[0].ENGINE_NUM;
+					}
+					var kMILEAGE ="";
+					if(selectRow[0].MILEAGE!=null&&selectRow[0].MILEAGE!=undefined){
+						kMILEAGE=selectRow[0].MILEAGE;
+					}
+					var kPRODUCTION_DATE ="";
+					//
+					if(selectRow[0].PRODUCTION_DATE!=null&&selectRow[0].PRODUCTION_DATE!=undefined){
+						kPRODUCTION_DATE=(new Date(selectRow[0].PRODUCTION_DATE)).Format("yyyy-MM-dd");
+						
+					}
+					var kGEAR_FORM ="";
+					if(selectRow[0].GEAR_FORM!=null&&selectRow[0].GEAR_FORM!=undefined){
+						kGEAR_FORM=selectRow[0].GEAR_FORM;
+					}
+					var kFUEL_TYPE ="";
+					if(selectRow[0].FUEL_TYPE!=null&&selectRow[0].FUEL_TYPE!=undefined){
+						kFUEL_TYPE=selectRow[0].FUEL_TYPE;
+					}
+					var kUSE_TYPE ="";
+					if(selectRow[0].USE_TYPE!=null&&selectRow[0].USE_TYPE!=undefined){
+						kUSE_TYPE=selectRow[0].USE_TYPE;
+					}
+					var kTRAFFIC_INSURE_INFO ="";
+					if(selectRow[0].TRAFFIC_INSURE_INFO!=null&&selectRow[0].TRAFFIC_INSURE_INFO!=undefined){
+						kTRAFFIC_INSURE_INFO=selectRow[0].TRAFFIC_INSURE_INFO;
+					}
+					var kDRIVING_LICENSE = "";
+					if(selectRow[0].DRIVING_LICENSE!=null&&selectRow[0].DRIVING_LICENSE!=undefined){
+						kDRIVING_LICENSE=selectRow[0].DRIVING_LICENSE;
+					}
+					var kBUSINESS_INSURE_INFO = "";
+					if(selectRow[0].BUSINESS_INSURE_INFO!=null&&selectRow[0].BUSINESS_INSURE_INFO!=undefined){
+						kBUSINESS_INSURE_INFO=selectRow[0].BUSINESS_INSURE_INFO;
+					}
+					var kREGISTRY ="";
+					if(selectRow[0].REGISTRY!=null&&selectRow[0].REGISTRY!=undefined){
+						kREGISTRY=selectRow[0].REGISTRY;
+					}
+					
+					////////
+					var kORIGIN_CERTIFICATE ="";
+					//
+					if(selectRow[0].ORIGIN_CERTIFICATE!=null&&selectRow[0].ORIGIN_CERTIFICATE!=undefined){
+						kORIGIN_CERTIFICATE=selectRow[0].ORIGIN_CERTIFICATE;
+						
+					}
+					var kPURCHASE_TAX ="";
+					if(selectRow[0].PURCHASE_TAX!=null&&selectRow[0].PURCHASE_TAX!=undefined){
+						kPURCHASE_TAX=selectRow[0].PURCHASE_TAX;
+					}
+					var kVEHICLE_AND_VESSEL_TAX ="";
+					if(selectRow[0].VEHICLE_AND_VESSEL_TAX!=null&&selectRow[0].VEHICLE_AND_VESSEL_TAX!=undefined){
+						kVEHICLE_AND_VESSEL_TAX=selectRow[0].VEHICLE_AND_VESSEL_TAX;
+					}
+					var kTRAFFIC_INSURE_DATA ="";
+					if(selectRow[0].TRAFFIC_INSURE_DATA!=null&&selectRow[0].TRAFFIC_INSURE_DATA!=undefined){
+						kTRAFFIC_INSURE_DATA=(new Date(selectRow[0].TRAFFIC_INSURE_DATA)).Format("yyyy-MM-dd");
+					}
+					var kANNUAL_INSPECTION_DATE ="";
+					if(selectRow[0].ANNUAL_INSPECTION_DATE!=null&&selectRow[0].ANNUAL_INSPECTION_DATE!=undefined){
+						kANNUAL_INSPECTION_DATE=(new Date(selectRow[0].ANNUAL_INSPECTION_DATE)).Format("yyyy-MM-dd");
+					}
+					var kSCRAP_DATE = "";
+					if(selectRow[0].SCRAP_DATE!=null&&selectRow[0].SCRAP_DATE!=undefined){
+						kSCRAP_DATE=(new Date(selectRow[0].SCRAP_DATE)).Format("yyyy-MM-dd");
+					}
+					var kPROCEDURE_SPECIAL_EXPLAIN = "";
+					if(selectRow[0].PROCEDURE_SPECIAL_EXPLAIN!=null&&selectRow[0].PROCEDURE_SPECIAL_EXPLAIN!=undefined){
+						kPROCEDURE_SPECIAL_EXPLAIN=selectRow[0].PROCEDURE_SPECIAL_EXPLAIN;
+					}
+					var kFILE_URLMESSAGE_A ="";
+					if(selectRow[0].FILE_URLMESSAGE_A!=null&&selectRow[0].FILE_URLMESSAGE_A!=undefined){
+						kFILE_URLMESSAGE_A=selectRow[0].FILE_URLMESSAGE_A;
+					}
+					
+					var kFILE_URLMESSAGE_B ="";
+					if(selectRow[0].FILE_URLMESSAGE_B!=null&&selectRow[0].FILE_URLMESSAGE_B!=undefined){
+						kFILE_URLMESSAGE_B=selectRow[0].FILE_URLMESSAGE_B;
+					}
+					var kFILE_URLMESSAGE_C = "";
+					if(selectRow[0].FILE_URLMESSAGE_C!=null&&selectRow[0].FILE_URLMESSAGE_C!=undefined){
+						kFILE_URLMESSAGE_C=selectRow[0].FILE_URLMESSAGE_C;
+					}
+					var kIS_ASSESSED = "";
+					if(selectRow[0].IS_ASSESSED!=null&&selectRow[0].IS_ASSESSED!=undefined){
+						kIS_ASSESSED=selectRow[0].IS_ASSESSED;
+					}
+					var kVEHICLE_ALLOCATION ="";
+					if(selectRow[0].VEHICLE_ALLOCATION!=null&&selectRow[0].VEHICLE_ALLOCATION!=undefined){
+						kVEHICLE_ALLOCATION=selectRow[0].VEHICLE_ALLOCATION;
+					}
+					var kASSESSED_PRICE = "";
+					if(selectRow[0].ASSESSED_PRICE!=null&&selectRow[0].ASSESSED_PRICE!=undefined){
+						kASSESSED_PRICE=selectRow[0].ASSESSED_PRICE;
+					}
+					var kOTHER_ACCESSORY ="";
+					if(selectRow[0].OTHER_ACCESSORY!=null&&selectRow[0].OTHER_ACCESSORY!=undefined){
+						kOTHER_ACCESSORY=selectRow[0].OTHER_ACCESSORY;
+					}
+						$(this).data("pageData",{BRAND_NAME:selectRow[0].BRAND_NAME,
+							                     SERIES_NAME:selectRow[0].SERIES_NAME,
+							                     MODEL_NAME:selectRow[0].MODEL_NAME,
+							                     VIN:kVIN,
+                                               rowindex:selectRow[0].index,
+                                               VEHICLE_COUNT:kVEHICLE_COUNT,
+                                               PURCHASE_DATE:kPURCHASE_DATE,
+                                               REMARK:kREMARK,
+                                               COLOR_NAME:kCOLOR_NAME,
+                                               LICENSE:kLICENSE,
+                                               ENGINE_NUM:kENGINE_NUM,
+                                               MILEAGE:kMILEAGE,
+                                               PRODUCTION_DATE:kPRODUCTION_DATE,
+                                               GEAR_FORM:kGEAR_FORM,
+                                               FUEL_TYPE:kFUEL_TYPE,
+                                               USE_TYPE:kUSE_TYPE,
+                                               TRAFFIC_INSURE_INFO:kTRAFFIC_INSURE_INFO,
+                                               DRIVING_LICENSE:kDRIVING_LICENSE,
+                                               BUSINESS_INSURE_INFO:kBUSINESS_INSURE_INFO,                                               
+                                               REGISTRY:kREGISTRY,
+                                               ORIGIN_CERTIFICATE:kORIGIN_CERTIFICATE,
+                                               PURCHASE_TAX:kPURCHASE_TAX,
+                                               VEHICLE_AND_VESSEL_TAX:kVEHICLE_AND_VESSEL_TAX,
+                                               TRAFFIC_INSURE_DATA:kTRAFFIC_INSURE_DATA,
+                                               ANNUAL_INSPECTION_DATE:kANNUAL_INSPECTION_DATE,
+                                               SCRAP_DATE:kSCRAP_DATE,
+                                               PROCEDURE_SPECIAL_EXPLAIN:kPROCEDURE_SPECIAL_EXPLAIN,
+                                               FILE_URLMESSAGE_A:kFILE_URLMESSAGE_A,
+                                               FILE_URLMESSAGE_B:kFILE_URLMESSAGE_B,
+                                               FILE_URLMESSAGE_C:kFILE_URLMESSAGE_C,
+                                               IS_ASSESSED:kIS_ASSESSED,
+                                               VEHICLE_ALLOCATION:kVEHICLE_ALLOCATION,
+                                               ASSESSED_PRICE:kASSESSED_PRICE,
+                                               OTHER_ACCESSORY:kOTHER_ACCESSORY});
+						/* $(this).data("pageData",{INTENT_BRAND:selectRow[0].INTENT_BRAND}); */
+			    }
+				returnResult.status = true;
+				/* $(container).data("pageData",{CUSTOMER_NO:customerNo}); */
+		          /* dmsCommon.refreshPageByUrl("customer/potentialcus/customerInfo/editCusInfo.html",container); */
+			}); 
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+	//关闭窗口
+		var buyReason=$("#buyReason",container).val();
+		var certificateNo=$("#certificateNo",container).val();
+		$("#certificateNo",getElementContext()).setDmsValue(certificateNo);
+		$("#daiban",getElementContext()).setDmsValue(buyReason);
+		$("a[data-dismiss='modal']",container).click();
+	}); 
+	Date.prototype.Format = function(fmt)   
+	{ //author: meizz   
+	  var o = {   
+	    "M+" : this.getMonth()+1,                 //月份   
+	    "d+" : this.getDate(),                    //日   
+	    "h+" : this.getHours(),                   //小时   
+	    "m+" : this.getMinutes(),                 //分   
+	    "s+" : this.getSeconds(),                 //秒   
+	    "q+" : Math.floor((this.getMonth()+3)/3), //季度   
+	    "S"  : this.getMilliseconds()             //毫秒   
+	  };   
+	  if(/(y+)/.test(fmt))   
+	    fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));   
+	  for(var k in o)   
+	    if(new RegExp("("+ k +")").test(fmt))   
+	  fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
+	  return fmt;   
+	};
+
+});	
+</script>

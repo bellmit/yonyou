@@ -1,0 +1,73 @@
+<div class ="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">审核记录</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default ">
+				<div class="panel-heading">
+					<div class="pannel-name">审核记录</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="auditList">
+					</table>
+				</div>
+			</div>
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">处理意见</div>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<div class="col-xs-12">
+									<textarea id="auditingPostil" name="auditingPostil" class="form-control"
+										rows="5" cols="" data-fieldName= "AUDITING_POSTIL"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			 	<a data-dismiss="modal" class="btn blue"><i class="fa fa-minus-square"></i>关闭</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "auditList",
+			container:container,
+			rowID:"SO_NO",
+			url : dmsCommon.getDmsPath()["retail"] + "/ordermanage/salesSynthesis/{[SO_NO]}/auditing", 
+			sortName : "SO_NO", 
+			sortOrder : "asc",
+			autoHeight:false,
+			columns : [  
+			            {field : "SO_NO", title : "销售单号"},
+			            {field : "SUBMIT_AUDITED_BY_NAME",title : "提交审核人"},
+			            {field : "COMMIT_TIME",title : "提交时间",dateFormat : {format:"YYYY-MM-DD"}},
+			            {field : "AUDITING_DATE",title : "审核时间",dateFormat : {format:"YYYY-MM-DD"}},
+			            {field : "AUDITING_RESULT",title : "审核结果",codeFormat : {type:"dict",codeType:"1416"}},
+			            {field : "AUDITED_BY_NAME",title : "审核人"},
+			            {field : "AUDITED_BY_IDENTITY",title : "审核类型",codeFormat : {type:"dict",codeType:"1417"}}
+			         ],
+	         onClickRow(rowData, element){
+	 			var AUDITING_POSTIL= rowData.AUDITING_POSTIL;
+				 if(AUDITING_POSTIL==null || AUDITING_POSTIL==""){
+					 var AUDITING_POSTIL="空";
+					 $("#auditingPostil").setDmsValue(AUDITING_POSTIL);
+				 }else{
+				 	$("#auditingPostil").setDmsValue(AUDITING_POSTIL);
+				 }
+			} 
+		});
+	});
+</script>

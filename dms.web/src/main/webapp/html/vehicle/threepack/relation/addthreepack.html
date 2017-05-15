@@ -1,0 +1,129 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">配件信息新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="modal-body">
+					<div class="row">
+					<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">项目编码</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control required" id="itemNo" name="itemNo"  
+									data-url="/relation/item" data-model="vehicle"
+									data-lableDesc="ITEM_NO" data-labelValue="ID">
+								</select>
+							</div>
+						</div>
+					</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">项目名称</label>
+								<div class="col-xs-8">
+									<select class="bs-select form-control required"   data-existsDefault="false"
+										id="itemName" parent="itemNo" data-url="/relation/itemName/{[itemNo]}"
+										 data-model="vehicle" data-lableDesc="ITEM_NAME" data-labelValue="ITEM_NAME"
+										name="itemName"  >
+										</select>
+								</div>
+							</div>
+						</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">小类代码</label>
+								<div class="col-xs-8">
+									<select class="bs-select form-control required" id="minclassNo" name="minclassNo" 
+									parent="itemNo" data-url="/relation/itemMin/{[itemNo]}" data-model="vehicle" 
+									data-lableDesc="MINCLASS_NO" data-labelValue="ID">
+								</select>
+								</div>
+							</div>
+						</div>
+							<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">小类名称</label>
+								<div class="col-xs-8">
+									<select class="bs-select form-control required"   data-existsDefault="false" 
+										id="minclassName" parent="minclassNo" data-url="/relation/itemMinName/{[minclassNo]}"
+										 data-model="vehicle" data-lableDesc="MINCLASS_NAME" data-labelValue="MINCLASS_NAME"
+										name="minclassName"  >
+										</select>
+								</div>
+							</div>
+						</div>
+						</div>
+						
+						<div class="row">
+					<div class="col-xs-12 col-sm-6  "
+						data-tableSelect="true">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件代码</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input id="partCode" readonly name="partCode"
+										class="form-control required" type="text" data-fieldName="PART_CODE" />
+									<span class="input-group-btn">
+										<button class="btn default btn-sm" type="button"
+											data-url="vehicle/threepack/relation/searchAllRelation.html"
+											data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+							<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件名称</label>
+								<div class="col-xs-8">
+									<select class="bs-select form-control required"   data-existsDefault="false"
+										id="partName"  parent="partCode" data-url="/relation/partName/{[partCode]}" data-model="vehicle" 
+										name="partName" data-lableDesc="PART_NAME" data-labelValue="PART_NAME" >
+										</select>
+								</div>
+							</div>
+						</div>
+				</div>
+					
+					
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/relation/add" data-model="vehicle" data-method="POST"
+				data-callBack="true" class="btn blue" data-toggle="confirmation">
+				<i class="fa fa-save"></i>保存
+			</a> <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				//新增页面的回调函数
+				$("a[data-callBack='true']", container).on(
+						"callBack.dms",
+						function(event, response) {
+							//关闭窗口
+							$("a[data-dismiss='modal']", container).click();
+							//刷新表格
+							$("#dms_table", getElementContext()).dmsTable()
+									.refreshTableWithForm();
+						});
+			});
+</script>

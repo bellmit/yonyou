@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+<!-- 	<listener> -->
+<!-- 		<listener-class>org.javalite.instrumentation.ActiveJdbcInstrumentationListener</listener-class> -->
+<!-- 	</listener> -->
+<!-- 	<listener> -->
+<!-- 		<listener-class>com.yonyou.f4.mvc.listener.ContextListener</listener-class> -->
+<!-- 	</listener> -->
+<!-- 	<listener> -->
+<!-- 		<listener-class>com.yonyou.f4.mvc.listener.RequestListener</listener-class> -->
+<!-- 	</listener> -->
+<!-- 	<listener> -->
+<!-- 		<listener-class>com.yonyou.f4.mvc.listener.SessionListener</listener-class> -->
+<!-- 	</listener> -->
+	
+	<context-param>
+		<param-name>spring.profiles.active</param-name>
+		<param-value>source</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+
+	<!-- 编码过滤器 -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<async-supported>true</async-supported>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	
+	<!-- 消息转换拦截 -->
+	<filter>
+		<filter-name>RequestReplacedFilter</filter-name>
+		<filter-class>com.yonyou.dms.interf.filter.HttpServletRequestReplacedFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>RequestReplacedFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping> 
+
+	<servlet>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:applicationContext_interface.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<url-pattern>/apiCommon/rest/*</url-pattern>
+	</servlet-mapping>
+	
+</web-app>

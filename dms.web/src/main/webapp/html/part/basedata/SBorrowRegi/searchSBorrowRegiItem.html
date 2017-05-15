@@ -1,0 +1,108 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-body">
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">借进单号选择</div>
+				</div>
+				<div class="panel-body">
+				<div class="row" data-seldate="true">
+						<div class=" col-xs-12 col-sm-6 col-md-3 ">
+							<div class="form-group">
+								<label class="control-label col-xs-6">借进单号</label>
+								<div class="col-xs-6">
+									<input type="text" class="form-control" id="borrowNo"  name="borrowNo" />
+								</div>
+							</div>
+						</div>
+					<div class=" col-sm-6 col-md-3">
+						<div class="query-btn ">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> 
+						</div>
+				</div>	
+			</div>
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_item"></table>
+				</div>
+			</div>
+		</div>
+		<!-- 底部按钮 -->
+		<div class="modal-footer center-block">
+				<a   class="btn blue"  data-toggle="confirmation"  data-beforeRequest="true">
+				<i class="fa fa-save" ></i>确定</a>
+				 <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	   new Datatable().initPagination({
+			src : "dms_item",
+			url :dmsCommon.getDmsPath()["part"] + "/basedata/PartBorrowRegi",
+			rowID : "BORROW_NO",
+			sortName : "BORROW_NO", 
+			sortOrder : "asc",
+			autoHeight: false,
+			//isQueryFirst:false,
+			columns:[
+						{radio:true,isVisible:function(column){return true;}},
+						 {field:"BORROW_NO",title:"借进单号"},
+			    			{field:"CUSTOMER_CODE",title:"客户代码"},
+			    			{field:"CUSTOMER_NAME",title:"客户名称"},
+			    			{field:"BORROW_DATE",title:"借进日期",dateFormat : {format : "YYYY-MM-DD HH:mm:ss"}},
+			    			{field:"EMPLOYEE_NAME",title:"经手人",inputHiddenFormat:{hiddenField:"HANDLER"}},
+			    			{field:"LOCK_USER",title:"锁定人"}
+			    	  ],onLoadSuccess : function() {
+						}
+		});
+	 
+	   
+		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			//将选中的表格里的数据写入到前一个页面的查询条件中
+			var selectRow = $("#dms_item",container).dmsTable().getSelections();
+			if(!selectRow){
+				dmsCommon.tip({status:"error",msg:"请选择一行！"});
+				returnResult.status =false;
+				return ;
+			}
+			//关闭窗口
+		   $("a[data-dismiss='modal']",container).click();
+		
+		   var selectRow = $("#dms_item",container).dmsTable().getSelections();
+		   //console.log(selectRow);
+		   var date=new Date(selectRow[0].BORROW_DATE);
+		   var year=date.getFullYear();//2017
+		   var mon=date.getMonth()+1;//4
+			var day=date.getDate();//20
+			if((mon+"").length=1){
+				mon='0'+mon;
+			}
+			var stockInDate=year+"-"+mon+"-"+day;
+		   $("#borrowNo",getElementContext()).setDmsValue(selectRow[0].BORROW_NO);
+		   $("#customerCode",getElementContext()).val(selectRow[0].CUSTOMER_CODE);//客户代码
+		   $("#customerName",getElementContext()).val(selectRow[0].CUSTOMER_NAME);
+		   $("#borrowDate", getElementContext()).removeElementReadOnly();//打开日历功能
+		   $("#borrowDate",getElementContext()).val(stockInDate);
+		   
+		   
+		   
+		   
+		   $("#create",getElementContext()).attr("disabled","disabled");//关闭新建按钮
+		   $("#find1",getElementContext()).attr("disabled","disabled");//关闭新建按钮
+		   //打开 新增、修改、删除、		入账、作废、取消、
+		   
+		    $("#add",getElementContext()).removeAttr("disabled");
+		   $("#enterRecord",getElementContext()).removeAttr("disabled");
+		   $("#obsolete",getElementContext()).removeAttr("disabled");
+		   //$("#print",getElementContext()).removeAttr("disabled");
+		   $("#cancel",getElementContext()).removeAttr("disabled");
+			 returnResult.status =true;
+		});
+	});
+</script>
+
+
+	

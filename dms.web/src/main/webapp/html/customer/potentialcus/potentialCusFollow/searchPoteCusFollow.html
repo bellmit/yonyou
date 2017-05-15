@@ -1,0 +1,333 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+		   <div class="panel-heading">
+								<div class="pannel-name">查询条件</div>
+								<div class="pannel-tools">
+									<a href="javascript:;" class=collapse> <i
+										class="fa fa-chevron-down"></i></a>
+								</div>
+			   </div>
+			<div class="panel-body">
+				<div class="row ">
+			
+					<!--/span-->
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">意向车系</label>
+							<div class="col-xs-8">
+								<select id="series"
+									class="bs-select form-control" name="intentSeries"
+									data-url="/basedata/selectSeries"
+									data-model="manage" data-labelValue="SERIES_CODE"
+									data-lableDesc="SERIES_NAME">
+								</select>
+							<!-- 	<select id="series" parent="brand"
+									class="bs-select form-control" name="intentSeries"
+									data-url="/basedata/brandsdictC/{[brand]}/seriessdictC"
+									data-model="manage" data-labelValue="SERIES_CODE"
+									data-lableDesc="SERIES_NAME">
+
+								</select> -->
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">意向车型</label>
+							<div class="col-xs-8">
+								 <select id="model"
+									class="bs-select form-control" name="intentModel"
+									data-url="/basedata/intentionModel"
+									data-model="manage" data-labelValue="MODEL_CODE"
+									data-lableDesc="MODEL_NAME">
+
+								</select> 
+						<!-- 		<select id="model" parent="series"
+									class="bs-select form-control" name="intentModel"
+									data-url="/basedata/brandsdictC/{[brand]}/seriessdictC/{[series]}/modelsdictC"
+									data-model="manage" data-labelValue="MODEL_CODE"
+									data-lableDesc="MODEL_NAME">
+
+								</select> -->
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2">下次来店日期</label>
+								<div class="col-xs-8 col-sm-10">
+									<div class="input-group input-daterange">
+										<input type="text" class="form-control" readonly
+											name="nextbooking_startdate" id="nextbooking_startdate"> <span
+											class="input-group-addon">至</span> <input type="text"
+											class="form-control" readonly name="nextbooking_enddate"
+											id="nextbooking_enddate"> <span class="input-group-btn">
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+						<!--/span-->
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">意向配置</label>
+							<div class="col-xs-8">
+								 <select id="confi"  class="bs-select form-control"
+									name="intentConfig"
+									data-url="/basedata/selectConfig"
+									data-model="manage" data-labelValue="CONFIG_CODE"
+									data-lableDesc="CONFIG_NAME">
+								</select>
+							<!-- 	<select id="confi" parent="model" class="bs-select form-control"
+									name="intentConfig"
+									data-url="/basedata/brandsdict/{[brand]}/seriessdict/{[series]}/modelsdict/{[model]}/packagesdict"
+									data-model="manage" data-labelValue="PACKAGE_ID"
+									data-lableDesc="CONFIG_NAME">
+								</select> -->
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">意向颜色</label>
+							<div class="col-xs-8">
+								<select id="color" class="bs-select form-control" name="intentColor"
+									data-url="/basedata/colors/colorinfo/dicts" data-model="repair"
+									data-labelValue="COLOR_ID" data-lableDesc="COLOR_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+			</div>
+			<div class="row ">
+			
+					<!--/span-->
+					
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					   <div class="form-group">
+						   <label class="control-label col-xs-4"  id="aName">是否已执行</label>
+						   <label class="control-label col-xs-4"  id="bName" hidden="hidden">是否审核</label>
+											<div class="col-xs-8">
+												<select id="executeStatus" name="executeStatus"
+													 class="bs-select form-control"
+													data-dictCode="1278" data-value="12781002"></select>
+											</div>
+										</div>
+				</div>
+					<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group form-group-xs m-b-xs">
+							<label class="control-label col-xs-4">销售顾问</label>
+							<div class="col-xs-8">
+								<select id="soldBy" name="soldBy" data-ajaxSync="true"
+									class="bs-select form-control"
+									data-url="/basedata/employees/-1/salesConsultant"
+									data-model="manage" data-labelValue="USER_ID" data-value="{[userInfo.userId]}"
+									data-lableDesc="USER_NAME" >
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否接受邀约</label>
+							<div class="col-xs-8">
+								<select id="bookingCustomerType" name="bookingCustomerType"
+									class="bs-select form-control" data-dictCode="1278"
+									data-value=""></select>
+
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+							<div class="col-xs-12 col-sm-12 col-md-8 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2">计划日</label>
+								<div class="col-xs-8 col-sm-10">
+									<div class="input-group input-daterange">
+										<input type="text" class="form-control" readonly
+											name="schedule_startdate" id="schedule_startdate"> <span
+											class="input-group-addon">至</span> <input type="text"
+											class="form-control" readonly name="schedule_enddate"
+											id="schedule_enddate"> <span class="input-group-btn">
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								
+							</div>
+						</div>
+					</div>
+				
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">促前客户级别</label>
+							<div class="col-xs-8">
+								<select id="priorGrade" name="priorGrade"
+									class="bs-select form-control"
+									data-excludeItems="13101006,13101007,13101008,13101009" data-dictCode="1310"
+									data-value=""></select>
+
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">促后客户级别</label>
+							<div class="col-xs-8">
+								<select id="nextGrade" name="nextGrade"
+									class="bs-select form-control"
+									data-excludeItems="13101006,13101007,13101008,13101009" data-dictCode="1310"
+									data-value=""></select>
+
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+							
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否超期</label>
+							<div class="col-xs-8">
+								<select id="isLate" name="isLate"
+									class="bs-select form-control" data-dictCode="1278"
+									data-value=""></select>
+
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					
+						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2">执行日</label>
+								<div class="col-xs-8 col-sm-10">
+									<div class="input-group input-daterange" >
+										<input type="text" class="form-control" readonly
+											name="action_startdate" id="action_startdate"> <span
+											class="input-group-addon">至</span> <input type="text"
+											class="form-control" readonly name="action_enddate"
+											id="action_enddate"> <span class="input-group-btn">
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+		
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">客户编号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="customerNo"
+									name="customerNo">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">客户名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="customerName"
+									name="customerName">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+				
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">意向品牌</label>
+							<div class="col-xs-8">
+								<select id="brand" class="bs-select form-control"
+									name="intentBrand" data-url="/basedata/brandsdict"
+									data-model="manage" data-labelValue="BRAND_CODE"
+									data-lableDesc="BRAND_NAME">
+
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2">邀约日</label>
+								<div class="col-xs-8 col-sm-10">
+									<div class="input-group input-daterange">
+										<input type="text" class="form-control" readonly
+											name="booking_startdate" id="booking_startdate"> <span
+											class="input-group-addon">至</span> <input type="text"
+											class="form-control" readonly name="booking_enddate"
+											id="booking_enddate"> <span class="input-group-btn">
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+					<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+		</div>
+	</form>
+		<div class="tabbable-custom ">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#tab_DayStatistics" data-toggle="tab" id="DayStatistics" data-onclickEvent='true'>日访问活动计划</a></li>
+			<li><a href="#tab_MonthStatistics" data-toggle="tab" id="MonthStatistics" data-onclickEvent='true'>日访问活动指导审核</a></li>
+		</ul>
+		<div class="tab-content">
+				<div class="tab-pane fade in active" id="tab_DayStatistics" data-url="customer/potentialcus/potentialCusFollow/searchDayActivityPlan.html">
+				</div>
+			<div class="tab-pane fade in active" id="tab_MonthStatistics" data-url="customer/potentialcus/potentialCusFollow/searchDayActivityAudit.html">
+			</div>
+		</div>
+	</div>
+</div>
+ <script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event,response){
+		 if(event.target.id=='DayStatistics'){
+			
+			 $("#aName",container).removeAttr("hidden");
+			 $("#bName",container).attr("hidden","hidden"); 
+			//$("#changeName",container).attr("Caption","1");
+		 }
+        if(event.target.id=='MonthStatistics'){
+        	$("#bName",container).removeAttr("hidden");
+			 $("#aName",container).attr("hidden","hidden"); 
+        	
+        }
+		});
+});		
+</script> 

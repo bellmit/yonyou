@@ -1,0 +1,56 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">新增故障描述</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body" data-parentTable="partInfoTable">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">故障描述</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i
+							class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body" data-parentTable="partInfoTable">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-8">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2">描述</label>
+								<div class="col-xs-11 col-md-10">
+									<!-- <textarea id="pdiRemark" name="pdiRemark"
+										class="form-control" rows="2" maxlength="120" cols="">
+									</textarea> -->
+								<textarea name="pdiRemark" class="form-control" id="pdiRemark" rows="3" cols="" maxlength="500"  ></textarea>
+								</div>
+							 </div>
+						 </div>
+					 </div>
+				 </div>
+			</div>
+		</div>
+		
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-onclickEvent="true" data-validate="true"><i
+				class="fa fa-save"></i>确定</a> <a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+    $(document).one("onload.dms",function(event, container) {
+	//事件点击 --新增故障描述
+	$("a[data-onclickEvent='true']", container).on("dms.click",
+			function(event) {
+				var formJson = $("div[data-parentTable='partInfoTable']",container).serializeFormJson();
+				$("#dms_table3", getElementContext()).dmsTable().appendRow(formJson);
+				$("a[data-dismiss='modal']", container).click();		
+			});
+     });
+</script>

@@ -1,0 +1,57 @@
+<div class="dms-edit ajaxrest"
+	data-url="/questionnaire/{[QUESTION_CODE]}/searchAnswerGroup"
+	data-model="customer">
+	<form class="form-horizontal">
+
+		<div class="modal-header">
+			<div class="modal-title">建立关联</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+
+			<div class="panel panel-default table-panel">
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="answerAAA">
+					</table>
+				</div>
+			</div>
+			<div class="modal-footer">
+				 <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>关闭</a>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+<script type="text/javascript">
+ 	$(document).one("onload.dms",function(event,container){
+ 		var questionnaireCode = "{[QUESTIONNAIRE_CODE]}";
+ 		
+		new Datatable().initPagination({
+			src : "answerAAA",
+			container:container,
+			url : dmsCommon.getDmsPath()["customer"] + "/questionnaire/seachQuestions/"+questionnaireCode,
+			rowID : "QUESTION_CODE",
+			sortName : "QUESTION_CODE",
+			sortOrder : "asc",
+			autoHeight : false,
+			columns : [
+				{field : "QUESTION_CODE",title : "问题编号"},
+				{field : "QUESTION_TYPE",title : "问题类型"}, 
+				{field : "QUESTION_NAME",title : "问题名称"}, 
+				{field : "QUESTION_CONTENT",title : "问题内容"}, 
+				{field : "QUESTION_DESC",title : "问题说明"}, 
+				{field : "SORT_NUM",title : "排列位置"}, 
+				{field : "DOWN_TAG",title : "OEM下发",codeFormat : {type:"dict",codeType:"1278"}},  
+				]
+		});
+		
+
+		
+	});
+</script>  

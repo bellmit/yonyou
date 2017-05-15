@@ -1,0 +1,85 @@
+<div class="dms-edit" 
+	data-model="manage">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">用户信息新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">用户基本信息</div>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">性别</label>
+								<div class="col-xs-8">
+									<select id="sex" name="sex" class="bs-select form-control"
+										data-dictCode="1002" data-value="" data-fieldName="sex">
+									</select>
+									<input type="hidden" id="userIds" name="userIds" value = "">
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">出生日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker">
+										<input id="birdthday" name="bridthday" readonly
+											class="form-control" type="text" value=""
+											data-fieldName="birthday" /> <span class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/demoUsers/selectUpdate" data-model="demo"
+				data-method="PUT" data-callBack='true' data-beforeRequest="true"
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>保存</a> <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	
+	$(document).one("onload.dms",function(event,container){
+		
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#userList",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+		
+		//执行保存前的执行函数(方案一)
+		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			var selectIds = $("#userList",getElementContext()).dmsTable().getSelectionIds();
+			$("#userIds",container).val(selectIds);
+			returnResult.status = true; //定义返回值
+		});
+		
+	});
+	
+</script>

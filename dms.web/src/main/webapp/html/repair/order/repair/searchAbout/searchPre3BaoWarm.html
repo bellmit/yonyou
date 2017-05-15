@@ -1,0 +1,32 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">车辆预警计算结果</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-xs-12 col-md-12 col-lg-12">
+					<div class="panel panel-default table-panel">
+						<div class="panel-body">
+							<table class="table table-striped table-bordered table-hover table-responsive"
+								id="dms_table"></table>
+						</div>
+					</div>
+				</div> 					
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>关闭</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		dmsRepair.initPre3BaoWarm("dms_table");
+	});
+</script>

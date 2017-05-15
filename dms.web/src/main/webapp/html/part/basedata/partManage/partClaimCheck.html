@@ -1,0 +1,206 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" data-tableSelect="true">
+						<div class="form-group"> 
+								<label class="control-label col-xs-4">经销商</label> 
+ 								<div class="col-xs-8">
+									<div class="input-group">
+									<input id="dealerCode" readonly
+										name="dealerCode" class="form-control" type="text"
+										 /> <span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="part/basedata/partManage/searchDealers3.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+					</div>	
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件分类</label>
+							<div class="col-xs-8">
+								<select  class="bs-select form-control" id=partReportMethod name="partReportMethod"  data-dictCode="8003" data-type="oemDict">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">索赔要求</label>
+							<div class="col-xs-8">
+								<select  class="bs-select form-control" id="partClaimRequirement" name="partClaimRequirement"  data-dictCode="8006" data-type="oemDict">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">索赔性质</label>
+							<div class="col-xs-8">
+								<select  class="bs-select form-control" id="partClaimNature" name="partClaimNature"  data-dictCode="8007" data-type="oemDict">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件编号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="partCode" name="partCode">
+							</div>
+						</div>
+					</div>
+					
+					
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="partName" name="partName">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">交货单号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="deliverNo" name="deliverNo">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">状态</label>
+							<div class="col-xs-8">
+								<select id="claimStatus" name="claimStatus" class="bs-select form-control" data-dictCode="8011" data-type="oemDict" 
+									data-excludeItems="80111002,80111001,80111005,80111006,80111007,80111008" >
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">索赔单号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="claimNo" name="claimNo">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">提报时间</label>
+							<div class="col-xs-10 ">
+								 <div class="input-group input-daterange" data-opens="right">
+		                             <input type="text" class="form-control" readonly  name="startDate">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="endDate">
+		                             <span class="input-group-btn">
+                                         <button class="btn default input-clear" type="button">
+                                            <i class="fa fa-close"></i>
+                                        </button>
+                                      </span> 
+		                        </div>
+							</div>
+						</div>
+					</div>		
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">信息列表 </div>
+			
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="partList"></table>
+		</div>
+	</div>
+		
+	</form>
+	
+	
+</div>
+<script type="text/javascript">
+ $(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "partList",
+		container:container,
+		url : dmsCommon.getDmsPath()["part"] + "/partClaimManage/checkClaim",
+		rowID : "REPORT_DATE",
+		autoHeight:false,
+		sortName : "REPORT_DATE",
+		sortOrder : "desc",
+		columns : [ 
+		    //{checkbox:true,sortable : false}, 	   
+		    //{title: "经销商代码", field:'DEALER_CODE'},
+		    {field :"CLAIM_ID",title : "操作",operateFormat : [
+		                                                     {type:"edit",url:"part/basedata/partManage/reissueDeliveryOrderEntry.html",title :"补发运单录入",openType:"jump",doubleClick:false,
+		                                                    	  isShow:function(value, row, index){
+		                                                    		
+		                                                    		  if(row.CLAIM_STATUS=="80111004"){
+		                                                    			  return true;
+		                                                    		  }else{
+		                                                    			  return false;
+		                                                    		  }
+		                                                   	  		}
+		                                                     	 },
+		                                                     	 {type:"edit",url:"part/basedata/partManage/claimCheckDetail.html",title :"审核",openType:"jump",doubleClick:false,
+			                                                    	  isShow:function(value, row, index){
+			                                                    		
+			                                                    		  if(row.CLAIM_STATUS=="80111004"){
+			                                                    			  return false;
+			                                                    		  }else{
+			                                                    			  return true;
+			                                                    		  }
+			                                                   	  		}
+			                                                     	 }
+		                                                      ]
+		    },
+		    {title: "经销商名称", field:'DEALER_SHORTNAME'},
+			{title: "提报时间", field: 'REPORT_DATE'},
+			{title: "订单类型", field: 'ORDER_TYPE',codeFormat : {type:"oemDict",codeType:"8004"}},
+			{title: "配件编号", field:'PART_CODE'},
+			{title: "配件名称", field: 'PART_NAME'},
+			{title: "索赔数量", field: 'CLAIM_NUM'},
+			{title: "索赔要求", field: 'CLAIM_REQUIRE',codeFormat : {type:"oemDict",codeType:"8006"}},
+			{title: "索赔性质", field: 'CLAIM_PROPERTY',codeFormat : {type:"oemDict",codeType:"8007"}},
+			{title: "状态", field: 'CLAIM_STATUS',codeFormat : {type:"oemDict",codeType:"8011"}}
+		    
+		]
+		
+	});
+	
+});
+    
+</script>

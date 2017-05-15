@@ -1,0 +1,409 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">订单类型</label>
+							<div class="col-xs-8">
+								<select id="orderType" name="orderType" class="bs-select form-control" data-type="oemDict" data-dictCode="9016">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-3" >订单状态</label>
+							<div class="col-xs-4">
+								<select id="orderStatus1" name="orderStatus1" class="bs-select form-control" data-type="oemDict" data-dictCode="7003"></select>
+							</div>
+								<label class="control-label col-xs-1" >-</label>
+							<div class="col-xs-4">
+								
+							<select id="orderStatus2" parent="orderStatus1"
+									class="bs-select form-control" name="orderStatus2"
+									data-url="/salesOrderQuery/findsalesOrder/{[orderStatus1]}"
+									data-model="vehicle" data-labelValue="CODE_DESC"
+									data-lableDesc="CODE_DESC">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">品牌</label>
+							<div class="col-xs-8">
+								<select id="brandId"
+									class="bs-select form-control" name="brandCode"
+									data-url="/basedata/material/brand/90081001"
+									data-model="manage" data-labelValue="BRAND_ID"
+									data-lableDesc="BRAND_NAME">
+								</select>
+								
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车系</label>
+							<div class="col-xs-8">
+								<select id="seriesId" parent="brandId"
+									class="bs-select form-control" name="seriesName"
+									data-url="/basedata/material/series/90081001/{[brandId]}"
+									data-model="manage" data-labelValue="SERIES_ID"
+									data-lableDesc="SERIES_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车款</label>
+							<div class="col-xs-8">
+								<select id="groupId" parent="seriesId"
+									class="bs-select form-control" name="groupName"
+									data-url="/basedata/material/group/90081001/{[seriesId]}"
+									data-model="manage" data-labelValue="GROUP_ID"
+									data-lableDesc="GROUP_NAME" >
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">年款</label>
+							<div class="col-xs-8">
+								<select id="modelId" parent="groupId"
+									class="bs-select form-control" name="modelYear"
+									data-url="/basedata/material/modelYear/90081001/{[groupId]}"
+									data-model="manage" data-labelValue="MODEL_YEAR"
+									data-lableDesc="MODEL_YEAR">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">颜色</label>
+							<div class="col-xs-8">
+								<select id="colorId" parent="modelId"
+									class="bs-select form-control" name="colorName"
+									data-url="/basedata/material/color/90081001/{[groupId]}/{[modelId]}"
+									data-model="manage" data-labelValue="COLOR_CODE"
+									data-lableDesc="COLOR_NAME" >
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">内饰</label>
+							<div class="col-xs-8">
+								<select id="trimId" parent="colorId"
+									class="bs-select form-control" name="trimName"
+									data-url="/basedata/material/trim/90081001/{[groupId]}/{[modelId]}/{[colorId]}"
+									data-model="manage" data-labelValue="TRIM_CODE"
+									data-lableDesc="TRIM_NAME" >
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">订单号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="orderNo" name="orderNo">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">SO号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="soNo" name="soNo">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">VIN</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="vin" name="vin">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">销售大区</label>
+							<div class="col-xs-8">
+								<select id="bigOrg"
+									class="bs-select form-control" name="bigOrgName"
+									data-url="/basedata/orgManage/bigOrg"
+									data-model="manage" data-labelValue="BIG_ORG"
+									data-lableDesc="BIG_ORG_NAME" multiple data-live-search="fales" data-size="5" data-existsDefault = "false" >
+								</select>
+								
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">销售小区</label>
+							<div class="col-xs-8">
+								<select id="smallOrg" parent="bigOrg"
+									class="bs-select form-control" name="smallOrgName"
+									data-url="/basedata/orgManage/{[bigOrg]}/smallOrg"
+									data-model="manage" data-labelValue="SMALL_ORG"
+									data-lableDesc="SMALL_ORG_NAME" multiple data-live-search="fales" data-size="5" data-existsDefault = "false" >
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-3">节点状态</label>
+							<div class="col-xs-4">
+								<select id="nodeStatus1" name="nodeStatus1" class="bs-select form-control" data-type="oemDict" data-dictCode="7001"></select>
+							</div>
+							<label class="control-label col-xs-1">-</label>
+							<div class="col-xs-4">
+								<select id="nodeStatus2" name="nodeStatus2" class="bs-select form-control" data-type="oemDict" data-dictCode="7001"></select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" data-tableSelect="true">
+						<div class="form-group">
+							<label class="control-label col-xs-4">经销商代码</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+								<input id="dealerCode" readonly
+									name="dealerCode" class="form-control" type="text"
+									data-fieldName="dealer_code" /> <span
+										class="input-group-btn" >
+										<button class="btn default btn-sm" type="button" data-url="manage/basedata/dealers/searchDealers.html" data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>	
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">付款方式</label>
+							<div class="col-xs-8">
+								<select id="paymentType" name="paymentType" class="bs-select form-control" data-type="oemDict" data-dictCode="9018"></select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车辆用途</label>
+							<div class="col-xs-8">
+								<select id="vehicleUsageType" name="vehicleUsageType" class="bs-select form-control" data-type="oemDict" data-dictCode="7010"></select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">提报日期</label>
+							<div class="col-xs-8">
+								<div class="input-group input-daterange" data-opens="right">
+									<input type="text" class="form-control" name="beginDate" id="beginDate">
+								    <span class="input-group-addon">至</span>
+								    <input type="text" class="form-control"  name="endDate" id="endDate">
+									<span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">确认日期</label>
+							<div class="col-xs-8">
+								<div class="input-group input-daterange" data-opens="right">
+									<input type="text" class="form-control" name="arStartDate" id="arStartDate">
+								    <span class="input-group-addon">至</span>
+								    <input type="text" class="form-control"  name="arEndDate" id="arEndDate">
+									<span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否置顶</label>
+							<div class="col-xs-8">
+								<select id="isTop" name="isTop" class="bs-select form-control" data-type="oemDict" data-dictCode="1004">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">开票日期</label>
+							<div class="col-xs-8 ">
+								<div class="input-group input-daterange" data-opens="right">
+									<input type="text" class="form-control" name="invoiceBeginDate" id="invoiceBeginDate">
+								    <span class="input-group-addon">至</span>
+								    <input type="text" class="form-control"  name="invoiceEndDate" id="invoiceEndDate">
+									<span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否发送</label>
+							<div class="col-xs-8">
+								<select id="isSend" name="isSend" class="bs-select form-control" data-type="oemDict" data-dictCode="1004">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否截停</label>
+							<div class="col-xs-8">
+								<select id="isfreeze" name="isfreeze" class="bs-select form-control" data-type="oemDict" data-dictCode="1004">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-3 ">订单年月/周</label>
+							<div class="col-xs-2">
+								<select id="orderYear"
+									class="bs-select form-control" name="orderYear"
+									data-url="/basedata/date/year"
+									data-model="manage" data-labelValue="ORDER_YEAR"
+									data-lableDesc="ORDER_YEAR">
+								</select>
+							</div>
+							<label class="control-label col-xs-1">年</label>
+							<div class="col-xs-2">
+								<select id="orderMonth" parent="orderYear"
+									class="bs-select form-control" name="orderMonth"
+									data-url="/basedata/date/month"
+									data-model="manage" data-labelValue="ORDER_MONTH"
+									data-lableDesc="ORDER_MONTH">
+								</select>
+							</div>
+							<label class="control-label col-xs-1">月</label>
+							<div class="col-xs-2">
+								<select id="orderWeek" parent="orderMonth"
+									class="bs-select form-control" name="orderWeek"
+									data-url="/basedata/date/{[orderYear]}/{[orderMonth]}"
+									data-model="manage" data-labelValue="ORDER_WEEK"
+									data-lableDesc="ORDER_WEEK">
+								</select>
+							</div>
+							<label class="control-label col-xs-1">周</label>
+						</div>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i class="fa fa-search"></i> 查询 </a>
+							<a href="javascript:;" class="btn blue"><i class="fa fa-undo"></i>重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">销售订单查询</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+					<a href="javascript:;" data-url="/salesOrderQuery/export/excel"
+						data-model="vehicle" data-method="downLoad"
+						data-toggle="confirmation" class="btn btn-outline "><i
+						class="fa fa-download"></i>下载</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/salesOrderQuery",
+			rowID : "EC_ORDER_NO",
+			sortName : "ORDER_NO",
+			sortOrder : "asc",
+			isQueryFirst: false,
+			columns : [ 
+			    {field : "ORDER_NO",title : "操作",operateFormat : [
+					   {type:"detail",url:"vehicle/order/k4OrderQueryManage/salesOrderQueryDetail.html",openType:"jump"}
+                   ]
+                },  
+        		{field : "ORDER_NO1"				,title : "订单号"}, 
+        		{field : "ORDER_YEAR_M"				,title : "订单年月"}, 
+        		{field : "ORDER_WEEK"				,title : "执行周"}, 
+			    {field : "ORDER_TYPE"				,title : "订单类型",codeFormat : {type:"oemDict",codeType:"9016"}}, 
+			    {field : "EC_ORDER_NO"				,title : "官网订单号"}, 
+			    {field : "ORDER_STATUS"				,title : "订单状态",codeFormat : {type:"oemDict",codeType:"2007"}}, 
+			    {field : "OAPLLAYSTATUS"			,title : "调整申请状态",codeFormat : {type:"oemDict",codeType:"2025"}}, 
+			    {field : "ORG_NAME2"				,title : "大区"}, 
+			    {field : "ORG_NAME"					,title : "小区"}, 
+			    {field : "DEALER_CODE"				,title : "经销商代码"}, 
+			    {field : "DEALER_SHORTNAME"			,title : "经销商名称"}, 
+			    {field : "VIN"						,title : "VIN"}, 
+			    {field : "NODE_STATUS"				,title : "车辆节点状态",codeFormat : {type:"oemDict",codeType:"7001"}}, 
+			    {field : "BRAND_CODE"				,title : "品牌"}, 
+				{field : "SERIES_NAME"				,title : "车系"},
+				{field : "MODEL_CODE"				,title : "CPOS"}, 
+				{field : "MODEL_YEAR"				,title : "年款"},
+				{field : "GROUP_NAME"				,title : "车款"}, 
+				{field : "COLOR_NAME"				,title : "颜色"},
+				{field : "TRIM_NAME"				,title : "内饰"}, 
+				{field : "WHOLESALE_PRICE"			,title : "批售价"}, 
+				{field : "MSRP_PRICE"				,title : "MSRP",numberFormat : {decimal:2}}, 
+				{field : "PAYMENT_TYPE"				,title : "付款方式",codeFormat : {type:"oemDict",codeType:"9018"}},
+				{field : "ORDER_DATE"				,title : "提报日期"}, 
+				{field : "DEAL_ORDER_AFFIRM_DATE"	,title : "确认日期"},
+				{field : "SO_CREATE_DATE"	        ,title : "SO创建时间"},
+				{field : "SO_NO"	                ,title : "SO号"},
+				{field : "ORDER_AMOUNT"	            ,title : "最终付款金额"},
+			    {field : "IS_SEND"					,title : "订单发送状态",codeFormat : {type:"oemDict",codeType:"1004"}}, 
+				{field : "SO_CR_FAILURE_REASON"		,title : "配车失败原因"}, 
+				{field : "SO_CR_FAILURE_DATE"		,title : "配车失败时间"},
+				{field : "SEND_DATE"				,title : "订单发送时间"},
+				{field : "ETA_DATE"					,title : "预计送达时间"},
+				{field : "IS_TOP"					,title : "是否置顶"},
+				{field : "IS_FREEZE"				,title : "是否截停",codeFormat : {type:"oemDict",codeType:"1004"}},
+			    {field : "FINANCING_STATUS"			,title : "财务状态",codeFormat : {type:"oemDict",codeType:"9024"}},
+			    {field : "R_DEALER_CODE"			,title : "交车经销商代码"},
+			    {field : "R_DEALER_SHORTNAME"		,title : "交车经销商名称"}
+			]
+		});
+	});
+</script>

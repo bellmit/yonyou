@@ -1,0 +1,135 @@
+<div class="dms-edit ajaxrest" data-url="/partObsoleteMaterialRelese/applyPartObsoleteMaterialRelese/{[RELEASE_ID]}" data-model="part" >
+	<form class="form-horizontal" >
+		
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="panel-body">
+	    		<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+							<div class="form-group">
+								<label class="control-label col-xs-4">申请配件代码:</label>
+								<div class="col-xs-8">
+									<input type="hidden" name="releaseId" id="releaseId" data-fieldName="RELEASE_ID" />	
+									<input type="hidden" name="applyDealerCode" id="applyDealerCode" data-fieldName="DEALER_CODE"" />	
+									<input id="partCode" name="partCode" class="form-control" type="text" data-fieldName="PART_CODE"/> 
+									</div>	
+							</div>
+						</div> 
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+							<div class="form-group">
+								<label class="control-label col-xs-4">申请配件名称:</label>
+								<div class="col-xs-8">
+									<input id="partName" name="partName" class="form-control" type="text"data-fieldName="PART_NAME"/> 
+									</div>	
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件单价:</label>
+								<div class="col-xs-8">
+									<input id="salesPrice" name="salesPrice" class="form-control" type="text"data-fieldName="SALES_PRICE"/> 
+									</div>	
+							</div>
+						</div> 
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+							<div class="form-group">
+								<label class="control-label col-xs-4">数量:</label>
+								<div class="col-xs-8">
+									<input id="mayApplyNum" name="mayApplyNum" class="form-control" type="text" data-fieldName="APPLY_NUMBER"/> 
+									</div>	
+							</div>
+						</div> 
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+							<div class="form-group">
+								<label class="control-label col-xs-4">申请数量:</label>
+								<div class="col-xs-8">
+									<input id="applyNum" name="applyNum" class="form-control required digits" type="text" onkeyup="value=value.replace(/[^0-9]/g,'');checkApplyNum(this);"/> 
+								</div>	
+							</div>
+						</div> 
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+							<div class="form-group">
+								<label class="control-label col-xs-4">申请金额:</label>
+								<div class="col-xs-8">
+									<input id="applyMoney" name="applyMoney" class="form-control" type="text"/> 
+									</div>	
+							</div>
+						</div> 
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+							<div class="form-group">
+								<label class="control-label col-xs-4">申请经销商:</label>
+								<div class="col-xs-8">
+									<input id="applyDealerName" name="applyDealerName" class="form-control" type="text"data-fieldName="DEALER_SHORTNAME"/> 
+									</div>	
+							</div>
+						</div> 
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系人:</label>
+								<div class="col-xs-8">
+									<input id="linkmanName" name="linkmanName" class="form-control required " type="text"/> 
+									</div>	
+							</div>
+						</div> 
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系电话:</label>
+								<div class="col-xs-8">
+									<input id="linkmanTel" name="linkmanTel" class="form-control required " type="text"/> 
+									</div>	
+							</div>
+						</div> 
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+							<div class="form-group">
+								<label class="control-label col-xs-4">详细地址:</label>
+								<div class="col-xs-8">
+									<input id="linkmanAddress" name="linkmanAddress" class="form-control" type="text"data-fieldName="ADDRESS"/> 
+									</div>	
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+							<div class="form-group">
+								<label class="control-label col-xs-4">邮编:</label>
+								<div class="col-xs-8">
+									<input id="zipCode" name="zipCode" class="form-control required " type="text"data-fieldName="ZIP_CODE"/> 
+									</div>	
+							</div>
+						</div> 
+    				</div>	
+							
+					</div>
+				</div>
+			</div>
+		
+		
+		<div class="panel-footer">
+			<div style="text-align:center">
+			<a  data-url="/partObsoleteMaterialRelese/applyRelease" data-model="part" data-method="PUT" data-onclickEvent="true" data-callBack='true'
+			class="btn blue" data-toggle="confirmation" ><i class="fa fa-save"></i>申请</a> 
+					 			
+			<a  data-goback="page" href="part/basedata/partObsoleteMaterial/PartObsoleteMaterialReleseDealer.html"
+			class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>	
+			</div>						
+		</div>
+		
+	</form>
+</div>
+<script type="text/javascript">
+
+function checkApplyNum(applyNum){
+	var mayApplyNum = document.getElementById("mayApplyNum").value;
+	var applyNumber = applyNum.value;
+	if(parseInt(applyNumber) > parseInt(mayApplyNum)){
+		dmsCommon.tip({status:"warning",msg:"申请数量不能大于可申请数量！"});
+		applyNum.value = mayApplyNum;
+		applyNumber = mayApplyNum;
+	} 
+	var salesPrice = document.getElementById("salesPrice").value;
+	document.getElementById("applyMoney").value = applyNumber*salesPrice;
+}
+
+$(document).one("onload.dms",function(event,container){
+	
+});
+    
+</script>

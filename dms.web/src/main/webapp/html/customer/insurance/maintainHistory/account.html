@@ -1,0 +1,499 @@
+<div class="dms-edit ajaxrest"
+	data-url="/customer/insurance/{[OWNER_NO]}/account/{[RO_NO]}/sale/{[SALES_PART_NO]}" data-model="customer"
+	data-pageInitCallBack="true">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">明细</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="tabbable-custom " id="tabcontainer">
+				<div class="tab-content">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="pannel-name">工单信息</div>
+							<div class="pannel-tools">
+								<a href="javascript:;" class="expand"> <i
+									class="fa fa-chevron-down"></i></a>
+							</div>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3">
+									<div class="form-group">
+										<label class="control-label col-xs-4">工单号</label>
+										<div class="col-xs-8">
+											<input id="roNo" name="roNo" data-fieldName="RO_NO"
+												disabled="disabled" class="form-control" type="text" />
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3">
+									<div class="form-group">
+										<label class="control-label col-xs-4">车牌号</label>
+										<div class="col-xs-8">
+											<input id="license" name="license" data-fieldName="LICENSE"
+												class="form-control" type="text" disabled="disabled" />
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3">
+									<div class="form-group">
+										<label class="control-label col-xs-4">VIN</label>
+										<div class="col-xs-8">
+											<input id="vin" name="vin" data-fieldName="VIN"
+												class="form-control" type="text" disabled="disabled" />
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3">
+									<div class="form-group">
+										<label class="control-label col-xs-4">发动机号</label>
+										<div class="col-xs-8">
+											<input id="engineNo" name="engineNo" type="text"
+												disabled="disabled" class="form-control"
+												data-dictCode="ENGINE_NO" />
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3 ">
+									<div class="form-group">
+										<label class="control-label col-xs-4">工单类型</label>
+										<div class="col-xs-8">
+											<select id="roType" class="bs-select form-control"
+												name="roType" data-fieldName="RO_TYPE" data-dictCode="1253"
+												disabled="disabled">
+											</select>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3 ">
+									<div class="form-group">
+										<label class="control-label col-xs-4">维修类型</label>
+										<div class="col-xs-8">
+											<select id="repairTypeCode" class="bs-select form-control"
+												name="repairTypeCode" data-fieldName="REPAIR_TYPE_CODE" disabled="disabled">
+											</select>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3 ">
+									<div class="form-group">
+										<label class="control-label col-xs-4">客户经理</label>
+										<div class="col-xs-8">
+											<select id="serviceAdvisor" class="bs-select form-control" name="serviceAdvisor"
+												data-fieldName="SERVICE_ADVISOR" disabled="disabled">
+											</select>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3">
+									<div class="form-group">
+										<label class="control-label col-xs-4">开单日期</label>
+										<div class="col-xs-8">
+											<div class="input-group date date-picker"
+												data-defaultToday="false" data-date-end-date="+0d"
+												data-orientation="top right">
+												<input id="roCreateDate" name="roCreateDate"
+													class="form-control" type="text"
+													data-fieldName="RO_CREATE_DATE" /> <span
+													class="input-group-btn">
+													<button class="btn default date-set" type="button">
+														<i class="fa fa-calendar"></i>
+													</button>
+													<button class="btn default date-reset" type="button">
+														<i class="fa fa-times"></i>
+													</button>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3 ">
+									<div class="form-group">
+										<label class="control-label col-xs-4">进厂里程</label>
+										<div class="col-xs-8">
+											<input id="inMileage" name="inMileage" type="text"
+												disabled="disabled" class="form-control"
+												data-fieldName="IN_MILEAGE" />
+										</div>
+									</div>
+								</div>
+								<!-- /span -->
+								<div class="col-xs-12 col-sm-6 col-md-3 ">
+									<div class="form-group">
+										<label class="control-label col-xs-4">出厂里程</label>
+										<div class="col-xs-8">
+											<input id="outMileage" name="outMileage" type="text"
+												disabled="disabled" class="form-control"
+												data-fieldName="OUT_MILEAGE" />
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3 ">
+									<div class="form-group">
+										<label class="control-label col-xs-4">保险公司</label>
+										<div class="col-xs-8">
+											<select id="insurationCode" class="bs-select form-control" name="insurationCode"
+												data-fieldName="INSURATION_CODE" disabled="disabled">
+											</select>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3">
+									<div class="form-group">
+										<label class="control-label col-xs-4">上牌日期</label>
+										<div class="col-xs-8">
+											<div class="input-group date date-picker"
+												data-defaultToday="false" data-date-end-date="+0d"
+												data-orientation="top right">
+												<input id="licenseDate" name="licenseDate" class="form-control" type="text"
+													data-fieldName="LICENSE_DATE" /> <span class="input-group-btn">
+													<button class="btn default date-set" type="button">
+														<i class="fa fa-calendar"></i>
+													</button>
+													<button class="btn default date-reset" type="button">
+														<i class="fa fa-times"></i>
+													</button>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3 ">
+									<div class="form-group">
+										<label class="control-label col-xs-4">送修人姓名</label>
+										<div class="col-xs-8">
+											<input id="deliverer" name="deliverer" type="text" disabled="disabled"
+												class="form-control" data-fieldName="DELIVERER" />
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3 ">
+									<div class="form-group">
+										<label class="control-label col-xs-4">送修人电话</label>
+										<div class="col-xs-8">
+											<input id="delivererPhone" name="delivererPhone" type="text" disabled="disabled"
+												class="form-control" data-fieldName="DELIVERER_PHONE" />
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3 ">
+									<div class="form-group">
+										<label class="control-label col-xs-4">送修人手机</label>
+										<div class="col-xs-8">
+											<input id="delivererMobile" name="delivererMobile" type="text" disabled="disabled"
+												class="form-control" data-fieldName="DELIVERER_MOBILE" />
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3 ">
+									<div class="form-group">
+										<label class="control-label col-xs-4">估价单号</label>
+										<div class="col-xs-8">
+											<input id="estimateNo" name="estimateNo" type="text" disabled="disabled"
+												class="form-control" data-fieldName="ESTIMATE_NO" />
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3 ">
+									<div class="form-group">
+										<label class="control-label col-xs-4">车主</label>
+										<div class="col-xs-8">
+											<input id="ownerName" name="ownerName" type="text" disabled="disabled"
+												class="form-control" data-fieldName="OWNER_NAME" />
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3">
+									<div class="form-group">
+										<label class="control-label col-xs-4">预交车时间</label>
+										<div class="col-xs-8">
+											<div class="input-group date date-picker"
+												data-defaultToday="false" data-date-end-date="+0d"
+												data-orientation="top right">
+												<input id="endTimeSupposed" name="endTimeSupposed" class="form-control" type="text"
+													data-fieldName="END_TIME_SUPPOSED" /> <span class="input-group-btn">
+													<button class="btn default date-set" type="button">
+														<i class="fa fa-calendar"></i>
+													</button>
+													<button class="btn default date-reset" type="button">
+														<i class="fa fa-times"></i>
+													</button>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6">
+									<div class="form-group">
+										<label class="control-label col-xs-2">检查结果</label>
+										<div class="col-xs-10">
+											<input id="customerDesc" name="customerDesc" type="text" disabled="disabled"
+												class="form-control" data-fieldName="CUSTOMER_DESC" />
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6">
+									<div class="form-group">
+										<label class="control-label col-xs-2">送修问题</label>
+										<div class="col-xs-10">
+											<input id="roTroubleDesc" name="roTroubleDesc" type="text" disabled="disabled"
+												class="form-control" data-fieldName="RO_TROUBLE_DESC" />
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="row">
+								<!--/span-->
+								<div class="tabbable-custom ">
+									<ul class="nav nav-tabs">
+										<li class="active"><a href="#tab_MaintainProject" data-toggle="tab"
+											id="MaintainProject" data-beforeShowEvent="true">维修项目</a></li>
+										<li><a href="#tab_MaintainMaterial" data-toggle="tab"
+											id="MaintainMaterial" data-beforeShowEvent="true">维修材料</a></li>
+										<li><a href="#tab_SellMaterial" data-toggle="tab"
+											id="SellMaterial" data-beforeShowEvent="true">销售材料</a></li>
+										<li><a href="#tab_AccessoryProject" data-toggle="tab"
+											id="AccessoryProject" data-beforeShowEvent="true">附加项目</a></li>
+										<li><a href="#tab_AccessoryManage" data-toggle="tab"
+											id="AccessoryManage" data-beforeShowEvent="true">辅料管理费</a></li>
+									</ul>
+									<div class="tab-content">
+										<div class="tab-pane fade in active" id="tab_MaintainProject"
+											data-url="customer\insurance\maintainHistory\maintainHistoryProject\searchMaintainProject.html">
+										</div>
+										<div class="tab-pane fade in active" id="tab_MaintainMaterial"
+											data-url="customer\insurance\maintainHistory\maintainHistoryProject\searchMaintainMaterial.html">
+										</div>
+										<div class="tab-pane fade in active" id="tab_SellMaterial"
+											data-url="customer\insurance\maintainHistory\maintainHistoryProject\searchSellMaterial.html">
+										</div>
+										<div class="tab-pane fade in active" id="tab_AccessoryProject"
+											data-url="customer\insurance\maintainHistory\maintainHistoryProject\searchAccessoryProject.html">
+										</div>
+										<div class="tab-pane fade in active" id="tab_AccessoryManage"
+											data-url="customer\insurance\maintainHistory\maintainHistoryProject\searchAccessoryManage.html">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="pannel-name">结算单信息</div>
+							<div class="pannel-tools">
+								<a href="javascript:;" class="expand"> <i
+									class="fa fa-chevron-down"></i></a>
+							</div>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3">
+									<div class="form-group">
+										<label class="control-label col-xs-4">结算单号</label>
+										<div class="col-xs-8">
+											<input id="balanceNo" name="balanceNo" type="text" disabled="disabled"
+												class="form-control" data-dictCode="BALANCE_NO" />
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3">
+									<div class="form-group">
+										<label class="control-label col-xs-4">结算时间</label>
+										<div class="col-xs-8">
+											<div class="input-group date date-picker"
+												data-defaultToday="false" data-date-end-date="+0d"
+												data-orientation="top right">
+												<input id="balanceTime" name="balanceTime" class="form-control" type="text"
+													data-fieldName="BALANCE_TIME" /> <span class="input-group-btn">
+													<button class="btn default date-set" type="button">
+														<i class="fa fa-calendar"></i>
+													</button>
+													<button class="btn default date-reset" type="button">
+														<i class="fa fa-times"></i>
+													</button>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3 ">
+									<div class="form-group">
+										<label class="control-label col-xs-4">优惠模式</label>
+										<div class="col-xs-8">
+											<select id="discountModeCode" class="bs-select form-control" name="discountModeCode"
+												data-fieldName="DISCOUNT_MODE_CODE" disabled="disabled">
+											</select>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3 ">
+									<div class="form-group">
+										<label class="control-label col-xs-4">结算员</label>
+										<div class="col-xs-8">
+											<select id="balanceHandler" class="bs-select form-control" name="balanceHandler"
+												data-fieldName="BALANCE_HANDLER" disabled="disabled">
+											</select>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3">
+									<div class="form-group">
+										<label class="control-label col-xs-4">原结算单号</label>
+										<div class="col-xs-8">
+											<input id="lastBalanceNo" name="lastBalanceNo" type="text" disabled="disabled"
+												class="form-control" data-fieldName="LAST_BALANCE_NO" />
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3">
+									<div class="form-group">
+										<label class="control-label col-xs-4">发票编号</label>
+										<div class="col-xs-8">
+											<input id="invoiceNo" name="invoiceNo" type="text" disabled="disabled" 
+												class="form-control" data-fieldName="INVOICE_NO" />
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3 ">
+									<div class="form-group">
+										<label class="control-label col-xs-4">发票类型</label>
+										<div class="col-xs-8">
+											<select id="invoiceTypeCode" class="bs-select form-control" name="invoiceTypeCode"
+												data-fieldName="INVOICE_TYPE_CODE" disabled="disabled">
+											</select>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3 ">
+									<div class="form-group">
+										<label class="control-label col-xs-4">支付方式</label>
+										<div class="col-xs-8">
+											<select id="payTypeCode" class="bs-select form-control" name="payTypeCode"
+												data-fieldName="PAY_TYPE_CODE" disabled="disabled">
+											</select>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3">
+									<div class="form-group">
+										<label class="control-label col-xs-4">合同号</label>
+										<div class="col-xs-8">
+											<input id="contractNo" name="contractNo" type="text" disabled="disabled"
+												class="form-control" data-fieldName="CONTRACT_NO" />
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3">
+									<div class="form-group">
+										<label class="control-label col-xs-4">合同证号</label>
+										<div class="col-xs-8">
+											<input id="contractCard" name="contractCard" type="text" disabled="disabled"
+												class="form-control" data-fieldName="CONTRACT_CARD" />
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3">
+									<div class="form-group">
+										<label class="control-label col-xs-4">应收金额</label>
+										<div class="col-xs-8">
+											<input id="receiveAmount" name="receiveAmount" type="text" disabled="disabled"
+												class="form-control" data-fieldName="RECEIVE_AMOUNT" />
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3">
+									<div class="form-group">
+										<label class="control-label col-xs-4">减免金额</label>
+										<div class="col-xs-8">
+											<input id="derateAmount" name="derateAmount" type="text" disabled="disabled"
+												class="form-control" data-fieldName="DERATE_AMOUNT" />
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3">
+									<div class="form-group">
+										<label class="control-label col-xs-4">电子账户ID</label>
+										<div class="col-xs-8">
+											<input id="cardId" name="cardId" type="text" disabled="disabled"
+												class="form-control" data-fieldName="CARD_ID" />
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-3">
+									<div class="form-group">
+										<label class="control-label col-xs-4">抵扣金额</label>
+										<div class="col-xs-8">
+											<input id="subObbAmout" name="subObbAmout" type="text" disabled="disabled"
+												class="form-control" data-fieldName="SUB_OBB_AMOUNT" />
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /span--------------------------------------- -->
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<!-- <a data-url="/ordermanage/salesOrders" data-model="retail"
+				data-method="POST" data-callBack="true" class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i> </a>
+			<a data-url="/ordermanage/salesOrders" data-model="retail"
+				data-method="POST" data-callBack="true" class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i></a>  -->
+			<a class="btn blue" data-onclickEvent="true" data-callBack="true"><i class="fa fa-save"></i>打印工单</a>
+			<a class="btn blue" data-onclickEvent="true" data-callBack="true"><i class="fa fa-save"></i>打印结算单 </a>
+			<a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms", function(event, container) {
+	});
+</script>

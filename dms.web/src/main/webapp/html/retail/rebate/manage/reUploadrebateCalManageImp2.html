@@ -1,0 +1,331 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+
+				<div class="row ">
+					<div class="form-group">
+						<label class="control-label col-xs-3" style="margin-left:-55px;">1.点击“<font color="red">模版</font>”按钮,下载上传模版</label>
+						<div class="col-xs-3">
+							<a href="javascript:;" 
+								data-url="/rebate/downloadTemple/rebateCalManageImpTemplate" 
+								data-model="retail" data-method="downLoad"
+								class="btn blue ajaxrest" data-validate = "false">
+								<i class="fa fa-download"></i> 模版</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="row ">
+					<div class="col-xs-12">	
+						<div class="form-group">
+							<label class="control-label col-xs-4" style="margin-left:-80px;">2.点击“<font color="red">浏览</font>”按钮，找到您所要导入的文件</label>
+							<div class="col-xs-3">
+                             	<input type="file" class="importData" id="fileupload" name="file">
+                            </div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row ">
+					<div class="form-group">
+						<label class="control-label col-xs-2" style="margin-left:-23px">3.选择商务政策适用时段</label>
+						<div class="col-xs-1">
+							  <select id="rYearId" class="bs-select form-control"
+								name="rYear"  data-url="/rebate/reUploadFile/{[LOG_ID]}"  
+								 data-existsDefault="false"  data-model="retail"
+								data-labelValue="START_YEAR2" data-lableDesc="START_YEAR2" >
+							</select>  
+						</div>
+						<label class="control-label col-xs-1" style="margin-left:-80px;">年</label>
+						<div class="col-xs-1">
+							<select id="rMonthId" class="bs-select form-control" 
+								data-url="/rebate/reUploadFile/startMonthList/{[LOG_ID]}"
+								 data-model="retail" data-existsDefault="false"
+								name="rMonth"  data-labelValue="START_MONTH2"
+								 data-lableDesc="START_MONTH2" >
+							</select>
+						</div>
+						<label class="control-label col-xs-2" style="margin-left:-165px;">月-</label>
+						<div class="col-xs-1">
+							<select id="eYearId" class="bs-select form-control"
+								name="eYear" data-url="/rebate/reUploadFile/endYearList/{[LOG_ID]}"
+								 data-model="retail" data-existsDefault="false"
+								data-labelValue="END_YEAR2" data-lableDesc="END_YEAR2">
+							</select>
+						</div>
+						<label class="control-label col-xs-1" style="margin-left:-80px;">年</label>
+						<div class="col-xs-1">
+							<select id="eMonthId" class="bs-select form-control" 
+								data-url="/rebate/reUploadFile/endMonthList/{[LOG_ID]}" data-model="retail"
+								name="eMonth"  data-labelValue="END_MONTH2" data-existsDefault="false"
+								 data-lableDesc="END_MONTH2">
+							</select>
+						</div>
+						<label class="control-label col-xs-2" style="margin-left:-170px;">月</label>
+					</div>
+				</div>
+
+				<div class="row ">
+					<label class="control-label col-xs-4" style="margin-left:-233px">4.输入商务政策名称</label>
+					<div class="col-xs-4">
+						<input id="businessPolicyId" name="businessPolicyName" class="form-control"
+							 type="text" data-url=""
+							  data-model="retail" data-fieldName="BUSINESS_POLICY_NAME"
+							  readonly />
+					</div>
+					<div class="col-xs-1"><font color="red">*</font></div>
+				</div>
+				
+				<div class="row" style="margin-top:5px;">
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4" style="margin-left:-20px;">5.选择上传方式</label>
+							<div class="col-xs-6">
+								<select id="uploadWayId" class="bs-select form-control" data-existsDefault="false"
+									name="uploadWayName" data-type="oemDict"   data-dictCode="9117" data-value="91191007">
+								</select>
+							</div>
+							<div class="col-xs-1"><font color="red">*</font></div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- <div class="row" >
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4" style="margin-left:-20px;">6.商务政策类型</label>
+							<div class="col-xs-6">
+								<select id="businessPolicyTypeId" class="bs-select form-control"
+									name="businessPolicyTypeName" 
+									data-url="/rebate/reUploadFile/getBusinessPolicyType/{[LOG_ID]}" data-model="retail"
+							 		data-labelValue="BUSINESS_POLICY_TYPE" 
+							 		data-lableDesc="BUSINESS_POLICY_TYPE"  
+									 data-existsDefault="false" data-value="BUSINESS_POLICY_TYPE">
+								</select>
+							</div>
+							<div class="col-xs-1"><font color="red">*</font></div>
+						</div>
+					</div>
+				</div> -->
+				
+				<div class="row" >
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4" style="margin-left:-20px;">6.商务政策类型</label>
+							<div class="col-xs-6">
+								<select id="businessPolicyTypeId" class="bs-select form-control"
+									name="businessPolicyTypeName"  data-type="oemDict"
+									  data-dictCode="9118" data-existsDefault="false"
+									 data-alwaysRefresh="true" data-value="91181001" >
+								</select>
+							</div>
+							<div class="col-xs-1"><font color="red">*</font></div>
+						</div>
+					</div>
+				</div>
+				
+				
+				<div class="row ">
+					<div class="form-group">
+						<label class="control-label col-xs-3" style="margin-left:5px;">7.上传说明 &nbsp<font color="red">单次上传文件至多10000行,数据为空的请填入“NULL”值表示！</font></label>
+					</div>
+				</div>
+				
+				<div class="row" >
+					<div class="col-md-offset-5">
+						<a  id="interimImportId" href="javascript:;"  class="btn blue"  
+						data-url="/rebate/uploadFile" data-beforeRequest="true"
+						data-model="retail" data-callBack="true" 
+						data-errorCallBack="true"  data-toggle="confirmation" 
+						data-method="importData">
+						<i class="fa fa-upload">确定</i>
+					</a>
+					<a data-goback="page"  href="retail/rebate/manage/searchRebate.html"
+						class="btn blue ajaxify"><i class="fa fa-reply"></i>取消</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		
+		<div class="panel panel-default table-panel margin-top-5" id="errorInfoPanpel">
+				<div class="panel-heading">
+					<div class="pannel-name">错误信息列表</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="errorList">
+					</table>
+				</div>
+		</div>
+		
+		<div class="panel panel-default table-panel margin-top-5" id="rebateCalManagePanpel">
+			<div class="panel-heading">
+				<div class="pannel-name">返利核算管理导入</div>
+			</div>
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="rebate_cal_manage_table">
+	 			</table>
+			</div>
+			<div class="form-actions">
+				<a class="btn blue" href="javascript:;"
+				  data-url="/rebate/rebateCalManage/importExcel"
+				 data-model="retail" data-method="POST" data-toggle="confirmation"
+				 data-callBack="true"   id="rebateCalManageImportId" >
+					<i class="fa fa-upload"></i>导入
+				</a>
+			</div>	
+		</div>
+		
+	</form>
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one("onload.dms",function(event,container){
+		
+		//选择商务政策适用时段开始年
+		// data-url="/rebate/reUploadFile/{[LOG_ID]}"   data-model="retail"
+		dmsCommon.ajaxRestRequest({
+				container : container,
+				url : dmsCommon.getDmsPath()["retail"] + "/rebate/reUploadFile/{[LOG_ID]}",
+				type: 'GET',
+				sucessCallBack : function(data) {
+					$("#rYearId",getElementContext()).setDmsValue(data[0].START_YEAR2);
+				} 
+		});  
+		
+		//选择商务政策适用时段开始月
+		dmsCommon.ajaxRestRequest({
+				container : container,
+				url : dmsCommon.getDmsPath()["retail"] + "/rebate/reUploadFile/startMonthList/{[LOG_ID]}",
+				type: 'GET',
+				sucessCallBack : function(data) {
+					$("#rMonthId",getElementContext()).setDmsValue(data[0].START_MONTH2);
+				} 
+			});
+		
+		//选择商务政策适用时段截至年
+		dmsCommon.ajaxRestRequest({
+				container : container,
+				url : dmsCommon.getDmsPath()["retail"] + "/rebate/reUploadFile/endYearList/{[LOG_ID]}",
+				type: 'GET',
+				sucessCallBack : function(data) {
+					$("#eYearId",getElementContext()).setDmsValue(data[0].END_YEAR2);
+				} 
+			});
+		
+		//选择商务政策适用时段截至月
+		dmsCommon.ajaxRestRequest({
+				container : container,
+				url : dmsCommon.getDmsPath()["retail"] + "/rebate/reUploadFile/endMonthList/{[LOG_ID]}",
+				type: 'GET',
+				sucessCallBack : function(data) {
+					$("#eMonthId",getElementContext()).setDmsValue(data[0].END_MONTH2);
+				} 
+			});
+		
+		//获取商务政策名称
+		dmsCommon.ajaxRestRequest({
+				container : container,
+				url : dmsCommon.getDmsPath()["retail"] + "/rebate/reUploadFile/getBusinessPolicyName/{[LOG_ID]}",
+				type: 'GET',
+				sucessCallBack : function(data) {
+					$("#businessPolicyId",getElementContext()).setDmsValue(data[0].BUSINESS_POLICY_NAME);
+				} 
+			});
+		
+		//选择上传方式
+		$("#uploadWayId",getElementContext()).setDmsValue("91191007");
+		
+		//商务政策类型
+		$("#businessPolicyTypeId",getElementContext()).setDmsValue("91181001");
+		
+		//错误信息创建表格
+		new Datatable().initLocale({
+			src : "errorList",
+			container:container,
+			columns : [ 
+			            {field : "rowNO",title : "行号"},
+			            {field : "errorMsg",title : "错误原因"}
+			         ]
+		});
+		
+		//创建导入数据表格
+		new Datatable().initLocale({
+			src : "rebate_cal_manage_table",
+			container:container,
+			columns : [
+						{field : "BUSINESS_POLICY_NAME",title : "商务政策"},
+	                    {field : "APPLICABLE_TIME",title : "适用时段"},
+	                    {field : "RELEASE_DATE",title : "发布日期"},
+	                    {field : "START_MONTH",title : "起始月"},
+	                    {field : "END_MONTH",title : "结束月"},
+	                    {field : "DEALER_CODE",title : "经销商代码"},
+	                    {field : "DEALER_NAME",title : "经销商名称"},
+	                    {field : "VIN",title : "VIN"},
+	                    {field : "MODEL_NAME",title : "车型"},
+	                    {field : "COUNT",title : "COUNT"},
+	                    {field : "NOMAL_BONUS",title : "常规奖金"},
+	                    {field : "SPECIAL_BONUS",title : "特批奖金"},
+	                    {field : "BACK_BONUSES_EST",title : "追溯奖金(估算)"},
+	                    {field : "BACK_BONUSES_DOWN",title : "追溯奖金(下发)"},
+	                    {field : "NEW_INCENTIVES",title : "新经销商返利"}
+					]
+		});
+		
+		$("#errorInfoPanpel",container).hide();
+		$("#rebateCalManagePanpel",container).hide();
+		
+		//导入临时表前函数
+		$("#interimImportId[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			var uploadWay=document.getElementById("uploadWayId");
+			var businessPolicyType=document.getElementById("businessPolicyTypeId");
+			if(uploadWay.value==""){
+				alert("请选择上传方式！");
+				returnResult.status =false;
+				return ;
+			}
+			if(businessPolicyType.value==""){
+				alert("请选择商务政策类型！");
+				returnResult.status =false;
+				return ;
+			}
+			returnResult.status = true;
+		});
+		
+		//当确定临时表成功后的回调
+		$("#interimImportId[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			dmsCommon.ajaxRestRequest({
+				src : "rebate_cal_manage_table",
+				container : container,
+				url : dmsCommon.getDmsPath()["retail"] + "/rebate/findTmpList",
+				type: 'GET',
+				sucessCallBack : function(data) {
+					//显示
+					$("#rebateCalManagePanpel",container).show();
+					$("#rebate_cal_manage_table",getElementContext()).dmsTable().refreshLocalData(data);
+				} 
+			});
+		}); 
+		
+		//当错误的情况下的回调
+		$("#interimImportId[data-errorCallBack='true']",container).on("errorCallBack.dms",function(event,response){
+			//显示
+			$("#errorInfoPanpel",container).show();
+			$("#errorList",getElementContext()).dmsTable().refreshLocalData(response);
+		});
+		
+		//当导入主表成功湖返回返利核算管理页面
+		$("#rebateCalManageImportId[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			dmsCommon.refreshPageByUrl("retail/rebate/manage/searchRebate.html",container);
+		}); 
+		
+	});
+
+	
+</script>

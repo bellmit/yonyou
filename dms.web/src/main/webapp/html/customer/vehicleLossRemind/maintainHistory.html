@@ -1,0 +1,103 @@
+<div class="tabbable-custom ">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<div class="pannel-name">维修历史</div>
+			<div class="pannel-tools"></div>
+		</div>
+		<div class="panel-body">
+			<div class="row" data-tableSelect='true'>
+				<!-- /span -->
+				<div class="col-xs-12 col-sm-6">
+					<div class="form-group">
+						<label class="control-label col-xs-4">车牌号</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" id="license"
+								data-fieldName="LICENSE" name="license" disabled="disabled">
+						</div>
+					</div>
+				</div>
+				<!-- /span -->
+				<div class="col-xs-12 col-sm-6">
+					<div class="form-group">
+						<label class="control-label col-xs-4">VIN</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" id="vin" name="vin"
+								data-fieldName="VIN" disabled="disabled">
+						</div>
+					</div>
+				</div>
+				<!-- /span -->
+				<div class="col-xs-12 col-sm-6">
+					<div class="form-group">
+						<label class="control-label col-xs-4">发动机号</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" id="engineNO"
+								name="engineNO" disabled="disabled" data-fieldName="ENGINE_NO">
+						</div>
+					</div>
+				</div>
+				<!-- /span -->
+				<div class="col-xs-12 col-sm-6">
+					<div class="form-group">
+						<label class="control-label col-xs-4">车主</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" id="ownerName"
+								name="ownerName" disabled="disabled" data-fieldName="OWNER_NAME">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="#tab_mainitainlocalhistory" data-toggle="tab">本地维修历史</a></li>
+		<li><a href="#tab_maintainlocalproject" data-toggle="tab">本地维修项目</a></li>
+		<li><a href="#tab_maintainlocalarmature" data-toggle="tab">本地维修配件</a></li>
+	</ul>
+	<div class="tab-content">
+		<div class="tab-pane fade" id="tab_mainitainlocalhistory"
+			data-url="customer/solicitude/maintainHistory/mainitainlocalhistory.html">
+		</div>
+		<div class="tab-pane fade " id="tab_maintainlocalproject"
+			data-url="customer/solicitude/maintainHistory/maintainlocalproject.html">
+		</div>
+		<div class="tab-pane fade " id="tab_maintainlocalarmature"
+			data-url="customer/solicitude/maintainHistory/maintainlocalarmature.html">
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				//新增页面回调函数
+				$("a[data-callBack='true']", container).on(
+						"callBack.dms",
+						function(event, response) {
+							//关闭窗口
+							$("a[data-dismiss='modal']", container).click();
+							//刷新表格
+							$("#dms_loss", getElementContext())
+									.dmsTable().refreshTableWithForm();
+						});
+
+				var selectRow = $("#dms_loss", getElementContext())
+						.dmsTable().getFirstSelection();
+				$("div[data-tableSelect='true']", container).initHtmlContent(
+						selectRow);
+				
+			    $("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+		    	 var vins = '';
+		    	 for(var i = 0;i<selectRow.length;i++){
+					 if(i==selectRow.length-1){
+						 vins +=selectRow[i].VIN;
+					 }else{
+						 vins +=selectRow[i].VIN+',';
+					 }
+		    	 }
+		    	 $("#vin2",container).val(vins);
+		    	 $("#vin",container).removeClass("required");
+		    	 
+		    	}); 
+		});
+</script>

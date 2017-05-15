@@ -1,0 +1,79 @@
+<div class="panel panel-default table-panel">
+	<div class="panel-heading">
+		<div class="pannel-name">维修项目</div>
+		<div class="pannel-button">
+			<div class="btn-group btn-group-sm"></div>
+		</div>
+	</div>
+	<div class="panel-body">
+		<table
+			class="table table-striped table-bordered table-hover table-responsive"
+			id="maintain_project">
+		</table>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	//维修项目
+	new Datatable().initPagination({
+		src : "maintain_project",
+		container:container,
+		rowID:"RO_NO",
+		url : dmsCommon.getDmsPath()["customer"] + "/customer/insurance/maintainHistory/maintainHistoryProject/{[RO_NO]}/MaintainProject",
+		sortName : "RO_NO", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+		sortOrder : "asc",
+		pageSize:5,
+		undefinedText : "",
+		autoHeight:false,
+		columns : [
+			    {field : "MANAGE_SORT_CODE",title : "收费类别"}, 
+	            {field : "CHARGE_PARTITION_CODE",title : "收费区分"},
+	            {field : "REPAIR_TYPE_CODE",title : "维修类型"},
+	            {field : "TROUBLE_CAUSE",title : "故障原因"}, 
+	            {field : "LABOUR_CODE",title : "维修项目代码"},
+	            {field : "LABOUR_NAME",title : "维修项目名称"},
+	            {field : "PACKAGE_CODE",title : "组合代码"}, 
+	            {field : "MODEL_LABOUR_CODE",title : "维修车型分组代码"},
+	            {field : "LABOUR_PRICE",title : "工时单价"},
+	            {field : "STD_LABOUR_HOUR",title : "标准工时"}, 
+	            {field : "LABOUR_AMOUNT",title : "工时费"},
+	            {field : "ASSIGN_LABOUR_HOUR",title : "派工工时"},	
+	            {field : "DISCOUNT_AMOUNT",title : "优惠金额"}, 
+	            {field : "DISCOUNT",title : "折扣率"},
+	            {field : "RECEIVE_AMOUNT",title : "实收金额"},
+	            {field : "WORKER_TYPE_CODE",title : "工种"}, 
+	            {field : "ASSIGN_TAG",title : "派工标志"},
+	            {field : "CONSIGN_EXTERIOR",title : "是否委外"},
+	            {field : "NEEDLESS_REPAIR",title : "是否不修"}, 
+	            {field : "TECHNICIAN_NAME",title : "责任技师"},
+	            {field : "PRE_CHECK",title : "是否预检"},
+	            {field : "INTER_RETURN",title : "是否内返"}, 
+	            {field : "ACTIVITY_CODE",title : "活动编号"},
+	            {field : "MAINTAIN_PACKAGE_CODE",title : "保养套餐代码"},	
+	            {field : "TROUBLE_DESC",title : "检查结果"},
+	            {field : "REMARK",title : "备注"}
+		       ]
+	});
+	$("a[id='maintain_project']",getElementContext()).on("dms.click",function(event){
+		$("#maintain_project",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["customer"] + "/customer/insurance/maintainHistory/maintainHistoryProject/"+$("#RO_NO").val()+"/MaintainProject");
+	 });
+	 $("a[id='MaintainProject']",getElementContext()).click();
+		$("#RO_NO").bindChange(function(obj){
+	    $("#maintain_project",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["customer"] + "/customer/insurance/maintainHistory/maintainHistoryProject/"+$("#RO_NO").val()+"/MaintainProject");
+	});
+	//触发点击事件
+	/* $("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+		var maintainProject = $("#RO_NO").val();
+		if(maintainProject==""){
+			dmsCommon.tip({status:"warning",msg:"请单击选择父表格数据"});//总共的状态类型：info、success、error、warning
+			returnResult.status = false;
+		}else{
+			var parentTableRow = $("#maintain_project",getElementContext()).dmsTable().getParentTabelRow();
+			//设置页面初始化值
+			$(this).data("pageData",parentTableRow);
+	
+			returnResult.status = true;
+		}
+	});	 */
+});	
+</script>

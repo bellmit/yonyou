@@ -1,0 +1,104 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">选择订单</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default hidden">
+				<div class="panel-body ">
+					<div class="row ">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">条件</label>
+								<div class="col-xs-8">
+									<input id="ownerName" name="ownerName" class="form-control"
+										type="text" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+
+					</div>
+
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="customerList">
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-onclickEvent="true"><i
+				class="fa fa-save"></i>确定</a> <a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+ 	new Datatable().initPagination({
+		src : "customerList",
+		//rowID:"OWNER_ID",
+		container:container,
+		url : dmsCommon.getDmsPath()["part"] + "/partOrder/placeAnorder/selectPartOrder",
+		sortName : "CREATED_AT", 
+		sortOrder : "desc",
+		autoHeight:false,
+		columns : [ 
+		            {radio:true,sortable : false},
+		            {field : "ORDER_NO",title : "订单编号"},
+	                {field : "MAIN_ORDER_TYPE",title : "订单分类"},
+	                {field : "ORDER_SUM",title : "订单总额"},
+	                {field : "PART_ORDER_TYPE",title : "订单类型",codeFormat : {type:"dict",codeType:"1248"}},
+		            {field : "ITEM_COUNT",title : "订单项数"},
+		            {field : "FILLIN_TIME",title : "填单日期",visible : true,dateFormat : {format:"YYYY-MM-DD"}},
+		            {field : "ORDER_DATE",title : "订货日期",dateFormat : {format:"YYYY-MM-DD"}},
+		            {field : "GKFWB_DATE",title : "需求日期",dateFormat : {format:"YYYY-MM-DD"}},
+		            {field : "CONTACTOR_NAME",title : "联系人"},
+		            {field : "ORDER_STATUS",title : "订单状态",codeFormat : {type:"dict",codeType:"1361"}},
+		            {field : "OWNER_PROPERTY",title : "锁定人"},
+		            {field : "REMARK",title : "备注"},
+		            {field : "IS_VALID",title : "是否有效",codeFormat : {type:"dict",codeType:"1278"}}
+		         ]
+	});
+ 	
+ 	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		var selectRow = $("#customerList",container).dmsTable().getFirstSelection();
+		if(selectRow.ORDER_STATUS=='13611012'){
+	    	dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["customer"] + "/createNewDMSOrder/"+selectRow.ORDER_NO+"/createNewDMSOrder",
+				type : 'GET',
+				sucessCallBack : function(data) {
+					selectRow=data;
+				}
+			}); 
+		};
+		$("#partOrderItem",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["part"] + "/partOrder/placeAnorder/"+selectRow.ORDER_NO+"/queryDetail");
+		$("button[id='deliveryNo1']").attr("disabled","disabled");
+		$("a[id='add']",getElementContext()).attr("disabled","disabled");
+		//关闭窗口
+		$("#status",getElementContext()).setDmsValue('U');
+		$("div[data-tablePartOrderSelect='true']",getElementContext()).initHtmlContent(selectRow);
+		$('input[data-Change="true"]',getElementContext()).bindChange(function(obj){
+		 	var status=$("#status",getElementContext()).val();
+			if(!isStringNull(status)&&status=='U'){
+				$("a[id='save_a']",getElementContext()).removeAttr("disabled");
+				$("a[id='update_u']",getElementContext()).attr("disabled","disabled");
+				$("a[id='delete_d']",getElementContext()).attr("disabled","disabled");
+			}
+		});
+		console.log(JSON.stringify(selectRow));
+		$("a[data-dismiss='modal']",container).click();
+	});
+});	
+</script>

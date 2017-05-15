@@ -1,0 +1,174 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					
+					
+					<!--/span-->
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">往来类型</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" data-dictCode="9333" data-type="oemDict" id="accountType" name="accountType" >
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">金税发票号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="invoiceNo" name="invoiceNo">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">往来日期</label>
+							<div class="col-xs-8 ">
+								 <div class="input-group input-daterange"  data-opens="right">
+		                             <input type="text" class="form-control" readonly  name="startDate" id="startDate">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="endDate" id="endDate">
+		                             <span class="input-group-btn">
+                                         <button class="btn default input-clear" type="button">
+                                            <i class="fa fa-close"></i>
+                                        </button>
+                                      </span> 
+		                        </div>
+							</div>
+						</div>
+					</div>		
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							
+							<a class="btn btn-outline" href="javascript:;" data-onclickEvent="true" data-url="/partAccountManage/downloadCurrentAccount" data-model="part" data-method="downLoad" data-toggle="confirmation"> <i
+								class="fa fa-download " ></i> 导出
+							</a>  
+						</div>
+				</div>
+		</div>
+		<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">信息列表 </div>
+			
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dmsList"></table>
+		</div>
+	</div>
+		
+		
+		<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">信息列表 </div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="partList"></table>
+		</div>
+	</div>
+		
+	</div>
+		
+	</div>
+		
+	</form>
+	
+	
+</div>
+<script type="text/javascript">
+ $(document).one("onload.dms",function(event,container){
+	 
+	 new Datatable().initPagination({
+			src : "dmsList",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/partAccountManage/queryCurrent",
+			rowID : "",
+			sortName : "",
+			sortOrder : "asc",
+			autoHeight:false,
+			columns : [ 
+			       	 {title: "期初数", field:'saldv'},
+			         {title: "期末数", field:'cum'},
+			         {title: "本期来款合计", field:'sumin'},
+			         {title: "本期开票合计", field:'sumout'},
+			         
+			]
+			
+		});
+	 
+	new Datatable().initPagination({
+		src : "partList",
+		container:container,
+		url : dmsCommon.getDmsPath()["part"] + "/partAccountManage/queryCurrentAccount",
+		rowID : "OUT_ID",
+		sortName : "OUT_ID",
+		sortOrder : "asc",
+		autoHeight:false,
+		columns : [ 
+		       	 {title: "往来日期", field:'opZdate'},
+		         {title: "摘要", field:'opSummary'},
+		         {title: "销售凭证", field:'opVbeln'},
+		         {title: "行项目号", field:'opPosnr'},
+		         {title: "配件号", field:'opMatnr'},
+		         {title: "数量", field:'opKwmeng'},
+		         {title: "金额", field:'opNetwr'},
+		         {title: "税额", field:'opMwsbp'},
+		         {title: "总金额", field:'opTotal'},
+		         {title: "金税发票号", field:'opJins'},
+		         {title: "往来类型", field:'opType'}
+		       
+		]
+		
+	});
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		var startDate=document.getElementById("startDate").value;
+		var endDate=document.getElementById("endDate").value;
+		
+		if(endDate!='' && startDate==''){
+			dmsCommon.tip({status:"warning",msg:"往来日期开始时间不能为空!"});
+			return;
+		}
+		if(startDate!=''&& endDate==''){
+			dmsCommon.tip({status:"warning",msg:"往来日期结束时间不能为空！"});
+			return;
+		}
+		var d1 = new Date(startDate.replace(/-/g,"/"));
+		var d2 = new Date(endDate.replace(/-/g,"/"));    
+		var times = d2.getTime()-d1.getTime();  
+		var days = times/(24*60*60*1000);  
+		if (days>90) {
+			dmsCommon.tip({status:"warning",msg:"往来日期最长跨度不能超过三个月!"});
+			return;
+		}
+	}) ;
+});
+    
+</script>

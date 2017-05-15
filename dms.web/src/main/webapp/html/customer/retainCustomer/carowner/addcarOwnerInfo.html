@@ -1,0 +1,377 @@
+<div class="dms-add" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">车主信息新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default col-md-6">
+				<div class="panel-heading">
+					<div class="pannel-name">车主信息</div>
+					<input type="hidden" id = "dmsFuncIds" value={[dmsFuncIds]} name="dmsFuncIds"/>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车主编号</label>
+								<div class="col-xs-8">
+									<input id="ownerNo" name="ownerNo" disabled="disabled" class="form-control" type="text" />
+								</div>
+							</div>
+						</div>
+					 <!--/span-->
+					 <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车主名称</label>
+								<div class="col-xs-8">
+									<input id="ownerName" name="ownerName" class="form-control required" maxlength="120" type="text" />
+								</div>
+							</div>
+						</div>
+					 <!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车主性质</label>
+								<div class="col-xs-8">
+									<select id="ownerProperty" name="ownerProperty" class="bs-select form-control required"
+										data-dictCode="1507" data-value="">
+									</select>
+								</div>
+							</div>
+						</div>
+					 <!--/span-->
+					 <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车主性别</label>
+								<div class="col-xs-8">
+									<select id="gender" name="gender" class="bs-select form-control"
+										data-dictCode="1002" data-value="">
+									</select>
+								</div>
+							</div>
+						</div>
+					 <!--/span-->
+					 <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">电话</label>
+								<div class="col-xs-8">
+									<input id="phone" name="phone" class="form-control required" type="text" maxlength="30"
+									 data-valueUrl="/basedata/BasicParameters/1017/basicom_phone"    data-valueType="parameter" />
+												   
+								</div>
+							</div>
+						</div>
+					 <!--/span-->
+					  <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">手机</label>
+								<div class="col-xs-8">
+									<input id="mobile" name="mobile" class="form-control required phone" type="text" />
+								</div>
+							</div>
+						</div>
+					 <!--/span-->
+					 <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">省份</label>
+								<div class="col-xs-8">
+								     <select id="province" class="bs-select form-control required" 
+								     data-valueUrl="/basedata/BasicParameters/1017/basicom_province" data-valueType="parameter"
+								     name="province" data-type="region">
+								     </select>
+								</div>
+							</div>
+						</div>
+					 <!--/span-->
+					  <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">城市</label>
+								<div class="col-xs-8">
+								    <select parent="province" class="bs-select form-control required" 
+								    data-valueUrl="/basedata/BasicParameters/1017/basicom_city" data-valueType="parameter"
+								    name="city" id = "city"  > 
+								    </select>
+								</div>
+							</div>
+						</div>
+					 <!--/span-->
+					  <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">区县</label>
+								<div class="col-xs-8">
+								     <select parent="city" id="district" class="bs-select form-control required" 
+								     data-valueUrl="/basedata/BasicParameters/1017/basicom_county" data-valueType="parameter"
+								     name="district" ></select>
+								</div>
+							</div>
+						</div>
+					 <!--/span-->
+					   <div class="col-xs-12 col-sm-12 col-md-8">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2">地址</label>
+								<div class="col-xs-8 col-sm-10">
+									<input id="address" name="address" class="form-control required" maxlength="120" type="text" />
+								</div>
+							</div>
+						</div>
+					 <!--/span-->
+					 <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">邮编</label>
+								<div class="col-xs-8 ">
+									<input id="zipCode" name="zipCode" class="form-control required zipCode" type="text" 
+									 data-valueUrl="/basedata/BasicParameters/1017/basicom_zipcode"   data-valueType="parameter"/>
+												
+								</div>
+							</div>
+						</div>
+					 <!--/span-->
+					  <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">证件类别</label>
+								<div class="col-xs-8">
+									<select id="ctCode" name="ctCode" class="bs-select form-control"
+										data-dictCode="1508" data-value="">
+									</select>
+								</div>
+							</div>
+						</div>
+					 <!--/span-->
+					 <div class="col-xs-12 col-sm-12 col-md-8">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2">证件号</label>
+								<div class="col-xs-8 col-sm-10">
+									<input id="certificateNo" name="certificateNo" class="form-control " type="text" maxlength="30"/>
+								</div>
+							</div>
+						</div>
+					 <!--/span-->
+					  <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">邮箱</label>
+								<div class="col-xs-8 ">
+									<input id="eMail" name="eMail" class="form-control email"  minlength="3" maxlength="18" type="text" />
+								</div>
+							</div>
+						</div>
+					 <!--/span-->
+					 <div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">生日</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker" >
+										<input id="birthday" name="birthday" readonly class="form-control" type="text" value="" />
+											<span class="input-group-btn">
+											    <button class="btn default date-set" type="button">
+													<i class="fa fa-calendar"></i>
+											    </button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										   </span>
+
+									</div>
+								</div>
+							</div>
+						</div>
+                   <!--/span-->
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">月收入</label>
+								<div class="col-xs-8">
+									<select id="familyIncome" name="familyIncome" class="bs-select form-control"
+										data-dictCode="1509" data-value="">
+									</select>
+								</div>
+							</div>
+						</div>
+					 <!--/span-->
+					 <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">学历</label>
+								<div class="col-xs-8">
+									<select id="eduLevel" name="eduLevel" class="bs-select form-control"
+										data-dictCode="1035" data-value="">
+									</select>
+								</div>
+							</div>
+						</div>
+					 <!--/span-->
+					 <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">婚姻状况</label>
+								<div class="col-xs-8">
+									<select id="ownerMarriage" name="ownerMarriage" class="bs-select form-control"
+										data-dictCode="1036" data-value="">
+									</select>
+								</div>
+							</div>
+						</div>
+					 <!--/span-->
+					 <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">爱好</label>
+								<div class="col-xs-8 ">
+									<input id="hobby" name="hobby" class="form-control" type="text" maxlength="120" />
+								</div>
+							</div>
+						</div>
+					 <!--/span-->
+					  <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">预收款</label>
+								<div class="col-xs-8 ">
+									<input id="prePay" name="prePay" class="form-control" type="text" disabled="disabled"/>
+								</div>
+							</div>
+						</div>
+					 <!--/span-->
+					  <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">欠款金额</label>
+								<div class="col-xs-8 ">
+									<input id="arrearageAmount" name="arrearageAmount" class="form-control" type="text" disabled="disabled"/>
+								</div>
+							</div>
+						</div>
+					 <!--/span-->
+					  <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">税号</label>
+								<div class="col-xs-8 ">
+									<input id="taxNo" name="taxNo" class="form-control" maxlength="30" type="text" />
+								</div>
+							</div>
+						</div>
+					 <!--/span-->
+					  <div class="col-xs-12 col-sm-12 col-md-8">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2">备注</label>
+								<div class="col-xs-8 col-sm-10">
+									<input id="remark" name="remark" class="form-control" type="text" maxlength="120" />
+								</div>
+							</div>
+						</div>
+					 <!--/span-->
+					  <div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">建档日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date datetime dmsDisabled" data-defaultNow="true" id="foundDate">
+										<input id="foundDate" name="foundDate" readonly class="form-control" type="text" value=""  />
+										<span class="input-group-addon "><span class="fa fa-calendar"></span></span>
+									</div>
+								</div>
+							</div>
+						</div>
+                   <!--/span-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/customerManage/carowner" data-model="customer" data-method="POST"
+				data-callBack="true"  class="btn blue" data-beforeRequest="true" 
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> <a
+				data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	
+$(document).one("onload.dms",function(event,container){
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		if($("#dmsFuncIds").val().match(/[^]*\{[\s\S]*?\}/g)){
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		}
+		
+	});
+	
+	$("#district",container).bindChange(function(obj){
+		var provinceValue =$('option:selected',$("#province",container)).text()+",";
+		var city=$('option:selected',$("#city",container)).text();//$("#city").find("option:selected").text();
+		if(city!="市辖区"&&city!="县"){
+			provinceValue=provinceValue+city;
+		}
+		provinceValue=provinceValue+$('option:selected',$(obj,container)).text();
+		if($(obj).val()){
+			 $("#address",container).attr("value",provinceValue);
+		}
+	});
+	
+	$("#ownerProperty",container).bindChange(function(obj){
+		if($(obj).selectpicker('val')=='15071002'){ 
+			$("#gender",container).addClass("required");
+			$("#gender",container).removeAttr("disabled");
+		}else{
+			$("#gender",container).removeClass("required");
+			$("#gender",container).attr("disabled","disabled");
+			$("#gender",container).selectpicker('val','');
+		}
+		 $("#contactorPhone",container).attr("value",$(obj).val());
+	});
+	$("#phone",container).bindChange(function(obj){
+		if($.trim($("#phone",container).val())&&$("#phone",container).validateElement()){
+			$("#mobile",container).removeClass("required");
+		}else{
+			$("#mobile",container).addClass("required");
+		}
+	});
+	$("#mobile",container).bindChange(function(obj){
+		if($.trim($("#mobile",container).val())&&$("#mobile",container).validateElement()){
+			$("#phone",container).removeClass("required");
+		}else{
+			$("#phone",container).addClass("required");
+		}
+	});
+	$("#ctCode",container).bindChange(function(obj){
+		var ctCode=$("#ctCode",container).selectpicker('val');
+		if(ctCode){
+			$("#certificateNo",container).addClass("required");
+			$("#certificateNo",container).removeClass("IDNumber");
+			if(ctCode=='15081001'){
+				$("#certificateNo",container).addClass("IDNumber");
+			}
+			
+
+		}else{
+			$("#certificateNo",container).removeClass("required");
+			$("#certificateNo",container).removeClass("IDNumber");
+		}
+	});
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+		var ctCode=$("#ctCode",container).selectpicker('val');
+		if(ctCode){
+			$("#certificateNo",container).addClass("required");
+			$("#certificateNo",container).removeClass("IDNumber");
+			if(ctCode=='15081001'){
+				$("#certificateNo",container).addClass("IDNumber");
+			}
+			if(!$("#certificateNo",container).validateElement()){
+				returnResult.status = false; //定义返回值
+				return;
+			}
+		}else{
+			$("#certificateNo",container).removeClass("required");
+			$("#certificateNo",container).removeClass("IDNumber");
+		}
+		returnResult.status = true; //定义返回值
+	
+	});
+	//$("div[id='foundDate']",container).setContainerReadOnly();
+});
+
+</script>

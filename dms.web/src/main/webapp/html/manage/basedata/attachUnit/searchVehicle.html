@@ -1,0 +1,46 @@
+<div class="dms-search">
+	
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >挂靠单位</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" data-url="manage/basedata/attachUnit/addVehicle.html" data-width="modal-md"
+								data-toggle="modal"> <i class="fa fa-plus-square"></i> 新增
+							</a> 
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["manage"] + "/basedata/attachunit",
+			rowID : "ATTACHUNIT_ID",
+			sortName : "UNIT_ATTACHCODE",
+			sortOrder : "asc",
+			autoHeight : false,
+			undefinedText : "",
+			columns : [ 
+			    {field : "ATTACHUNIT_ID",title : "操作",operateFormat : [
+                       {type:"edit",url:"manage/basedata/attachUnit/editVehicle.html",openWidth:"modal-md",doubleClick:true}
+                     /*   {type:"del",url:"/basedata/attachunit/{[ATTACHUNIT_ID]}",model:"manage",callBack:function(response){
+                    	   $("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+                       }} */
+                   ]
+                },  
+			    {field : "UNIT_ATTACHCODE",title : "挂靠单位代码"}, 
+				{field : "UNIT_ATTACHNAME",title : "挂靠单位名称"}
+				/* {field : "IS_VALID",title : "是否有效",codeFormat : {type:"dict",codeType:"1004"}} */
+			]
+
+		});
+	});
+</script>

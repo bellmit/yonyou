@@ -1,0 +1,93 @@
+<div class="dms-edit ajaxrest" data-url="/partObsoleteMaterialDefine/modifyPartObsoleteMaterialDefine/{[DEFINE_ID]}" data-model="part" data-pageInitCallBack="true" >
+	<form class="form-horizontal" >
+		
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="panel-body">
+	    		<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 "> 
+							<div class="form-group">
+								<label class="control-label col-xs-4">呆滞品定义名称:</label>
+								<div class="col-xs-8">
+									<input id="defineName" 
+										name="defineName" class="form-control" type="text"
+										data-fieldName="OM_NAME"/> 
+									</div>	
+							</div>
+						</div> 
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">积压期（月）:</label>
+								<div class="col-xs-8">
+									<select id="overstockMonth"
+										class="bs-select form-control" name="overstockMonth"
+										data-url="/partObsoleteMaterialDefine/queryMonth"
+										data-model="part" data-labelValue="stockMonth" data-fieldName="OVERSTOCK_MONTH"
+										data-lableDesc="stockMonthName"  data-size="5" data-existsDefault = "false" >
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">发布有效期（月）:</label>
+								<div class="col-xs-8">
+								    <select id="releaseMonth"
+										class="bs-select form-control" name="releaseMonth"
+										data-url="/partObsoleteMaterialDefine/queryMonth"
+										data-model="part" data-labelValue="stockMonth"  data-fieldName="RELEASE_MONTH"
+										data-lableDesc="stockMonthName"   data-size="5" data-existsDefault = "false" >
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+    					<label class="control-label col-xs-4">备注:</label>
+        				<div class="col-xs-8">
+							<textarea id="remark" name="remark" cols="70" rows="3" maxlength="450" 
+							onkeydown="www_zzjs_net(this.form.remark,this.form.remLen,150)" onkeyup="www_zzjs_net(this.form.remark,this.form.remLen,150)" data-fieldName="REMARK"></textarea>
+							    共可输入150字，还剩<span  id="remLen"><font color="red">150</font></span>字 
+       					 </div>
+    					</div>
+    					
+    				</div>	
+							
+					</div>
+				</div>
+			</div>
+		
+		
+		<div class="panel-footer">
+			<div style="text-align:center">
+			<a  data-url="/partObsoleteMaterialDefine/updatePartObsoleteMaterialDefine/{[DEFINE_ID]}" data-model="part" data-method="PUT" data-callBack='true'
+			class="btn blue" data-toggle="confirmation" ><i class="fa fa-save"></i>保存</a> 
+					 			
+			<a  data-goback="page" href="part/basedata/partObsoleteMaterial/partObsoleteMaterialDefine.html"
+			class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>	
+			</div>						
+		</div>
+		
+	</form>
+</div>
+<script type="text/javascript">
+
+
+
+function www_zzjs_net(field, countfield, maxlimit) {
+	console.log("123456");
+	if (field.value.length > maxlimit)
+	field.value = field.value.substring(0,maxlimit);
+	else
+	document.getElementById('remLen').innerHTML = '<font color="red">'+(maxlimit - field.value.length)+'</font>';
+}
+$(document).one("onload.dms",function(event,container){
+	$("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){
+		document.getElementById('remLen').innerHTML = '<font color="red">'+(150 - document.getElementById('remark').value.length)+'</font>';
+	});
+
+});
+    
+</script>

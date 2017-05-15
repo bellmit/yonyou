@@ -1,0 +1,179 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">工单选择</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">工单号</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="roNo" name="roNo">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车牌号</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control license" id="license"
+										name="license">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-3 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">客户经理</label>
+								<div class="col-xs-8">
+									<select id="serviceAdvisor" class="bs-select form-control"
+										name="serviceAdvisor" data-fieldName="SERVICE_ADVISOR"
+										class="bs-select form-control "
+										data-url="/basedata/employees/-1/salesConsultant"
+										data-model="manage" data-labelValue="USER_ID"
+										data-lableDesc="USER_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">车主</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input type="text" class="form-control" id="ownerName"
+											name="ownerName"> <span class="input-group-btn"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row ">
+						<div class="col-xs-12">
+							<div class="query-btn">
+								<a href="javascript:;" class="btn blue"> <i
+									class="fa fa-search"></i> 查询
+								</a> <a href="javascript:;" class="btn blue"><i
+									class="fa fa-undo"></i> 重置</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">工单信息</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_table">
+					</table>
+				</div>
+			</div>
+		</div>
+		<input type="hidden" id="MODEL" name="MODEL"/>
+		<input type="hidden" id="CHIEF_TECHNICIAN" name="CHIEF_TECHNICIAN"/>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-onclickEvent="true"><i
+				class="fa fa-save"></i>确定</a> <a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>关闭
+			</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	$("#roNo",container).val($("#roNo",getElementContext()).val());
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		    url : dmsCommon.getDmsPath()["repair"] + "/basedata/freeSettlement",
+			rowID : "RO_NO",
+			sortName : "RO_NO",
+			sortOrder : "asc",
+			autoHeight: false,
+			onDblClickRow:function(rowData,trElement){
+				var selectRow = $("#dms_table",container).dmsTable().getSelections();
+				$("#roNo",getElementContext()).val(selectRow[0].RO_NO);
+				$("#license",getElementContext()).val(selectRow[0].LICENSE);
+				$("#roType",getElementContext()).selectpicker('val',selectRow[0].RO_TYPE);
+				$("#repairTypeCode",getElementContext()).selectpicker('val',selectRow[0].REPAIR_TYPE_CODE);
+				$("#serviceAdvisor",getElementContext()).selectpicker('val',selectRow[0].SERVICE_ADVISOR);
+				$("#model",getElementContext()).selectpicker('val',$("#MODEL",container).val());
+				$("#roCreateDate",getElementContext()).val((new Date(selectRow[0].RO_CREATE_DATE)).Format("yyyy-MM-dd"));
+				$("#ownerName",getElementContext()).val(selectRow[0].OWNER_NAME);
+				$("#chiefTechnician",getElementContext()).selectpicker('val',$("#CHIEF_TECHNICIAN",container).val());
+				$("#ro",getElementContext()).removeAttr("disabled");
+				$("#cal",getElementContext()).removeAttr("disabled");
+				$("#new",getElementContext()).removeAttr("disabled");
+				$("#tables",getElementContext()).dmsTable().refreshTableWithForm();
+				$("a[data-dismiss='modal']",container).click();
+			},
+			columns : [ 
+				{radio:true},
+				{field : "RO_NO",title : "工单号"},
+	            {field : "RO_TYPE",title : "工单类型",codeFormat : {type:"dict",codeType:"1253"}},
+	            {field : "REPAIR_TYPE_CODE",title : "维修类型"},
+	            {field : "LICENSE",title : "车牌号"},
+	            {field : "SCHEME_STATUS",title : "三包状态"},
+	            {field : "VIN",title : "VIN"},
+	            {field : "OWNER_NAME",title : "车主"},
+	            {field : "SERVICE_ADVISOR",title : "客户经理"},
+	            {field : "RO_CREATE_DATE",title : "开单日期",dateFormat : {format:"YYYY-MM-DD"}}, 
+	            {field : "RO_STATUS",title : "工单状态",codeFormat : {type:"dict",codeType:"1255"}},
+	            {field : "LOCK_USER",title : "锁定人"},
+	            {field : "COMPLETE_TAG",title : "竣工标识",codeFormat : {type:"dict",codeType:"1278"}},
+	            {field : "END_TIME_SUPPOSED",title : "预交车时间"},
+	            {field : "SALES_PART_NO",title : "配件销售单号"},
+	            {field : "SO_NO",title : "销售订单号"}
+			]
+
+		});
+	
+ 	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		var selectRow = $("#dms_table",container).dmsTable().getSelections();
+		if(!selectRow){
+			dmsCommon.tip({status:"warning",msg:"请选择表格数据"});
+			returnResult.status = false;
+			return ;
+		}
+		$("#roNo",getElementContext()).val(selectRow[0].RO_NO);
+		$("#license",getElementContext()).val(selectRow[0].LICENSE);
+		$("#roType",getElementContext()).val(selectRow[0].RO_TYPE);
+		$("#repairTypeCode",getElementContext()).val(selectRow[0].REPAIR_TYPE_CODE);
+		$("#serviceAdvisor",getElementContext()).val(selectRow[0].SERVICE_ADVISOR);
+		$("#model",getElementContext()).val($("#MODEL",container).val());
+		$("#roCreateDate",getElementContext()).val((new Date(selectRow[0].RO_CREATE_DATE)).Format("yyyy-MM-dd"));
+		$("#ownerName",getElementContext()).val(selectRow[0].OWNER_NAME);
+		$("#chiefTechnician",getElementContext()).val($("#CHIEF_TECHNICIAN",container).val());
+		$("#ro",getElementContext()).removeAttr("disabled");
+		$("#cal",getElementContext()).removeAttr("disabled");
+		$("#new",getElementContext()).removeAttr("disabled");
+		$("#tables",getElementContext()).dmsTable().refreshTableWithForm();
+		$("a[data-dismiss='modal']",container).click();
+	});
+});	
+Date.prototype.Format = function (fmt) { //author: wx
+    var o = {
+        "M+": this.getMonth() + 1, //月份 
+        "d+": this.getDate(), //日 
+        "h+": this.getHours(), //小时 
+        "m+": this.getMinutes(), //分 
+        "s+": this.getSeconds(), //秒 
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+        "S": this.getMilliseconds() //毫秒 
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
+</script>

@@ -1,0 +1,116 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.yonyou.dms</groupId>
+		<artifactId>dms.parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<!-- 此模块是用来进行系统管理 -->
+	<artifactId>dms.gacfca</artifactId>
+	<packaging>jar</packaging>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.javalite</groupId>
+				<artifactId>activejdbc-instrumentation</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.yonyou.dms</groupId>
+			<artifactId>dms.common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.yonyou.dms</groupId>
+			<artifactId>dms.commonSales</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.yonyou.dms</groupId>
+			<artifactId>dms.manage</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+		  <groupId>com.yonyou.f4</groupId>
+		  <artifactId>de</artifactId>
+		  <version>[1.0,)</version>
+		</dependency>
+		<dependency>
+		    <groupId>dom4j</groupId>
+		    <artifactId>dom4j</artifactId>
+		    <version>1.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>jaxen</groupId>
+			<artifactId>jaxen</artifactId>
+			<version>1.1.6</version>
+		</dependency>
+		<dependency>
+		  <groupId>axis</groupId>
+		  <artifactId>axis</artifactId>
+		  <version>1.4</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>org.json</groupId>
+		  <artifactId>json</artifactId>
+		  <version>20160810</version>
+		</dependency>
+		<dependency>
+  			<groupId>net.sf.json-lib</groupId>
+ 			<artifactId>json-lib</artifactId>
+ 			<version>2.4</version>
+            <classifier>jdk15</classifier>
+		</dependency>
+<!-- 		<dependency> -->
+<!-- 		    <groupId>org.apache.solr</groupId> -->
+<!-- 		    <artifactId>solr-solrj</artifactId> -->
+<!-- 		    <version>4.10.2</version> -->
+<!-- 		</dependency> -->
+		
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.2</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.4.4</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>commons-beanutils</groupId>
+		  <artifactId>commons-beanutils</artifactId>
+		  <version>20030211.134440</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.ow2.util.bundles</groupId>
+		  <artifactId>commons-collections-3.2.1</artifactId>
+		  <version>1.0.0</version>
+		</dependency>
+<!-- 		<dependency> -->
+<!-- 		  <groupId>springframework</groupId> -->
+<!-- 		  <artifactId>spring-remoting</artifactId> -->
+<!-- 		  <version>1.2.6</version> -->
+<!-- 		</dependency> -->
+
+		<!-- 单元测试 -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+		</dependency>
+		
+	</dependencies>
+</project>

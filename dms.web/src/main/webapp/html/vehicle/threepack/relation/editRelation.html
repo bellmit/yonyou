@@ -1,0 +1,101 @@
+<div class="dms-edit ajaxrest" data-url="/relation/{[ID]}" data-model="vehicle" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">配件信息修改</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">项目编码</label>
+								<div class="col-xs-8">
+										<input type="text" id="itemNo" name="itemNo" readonly class="form-control "
+										data-fieldName="ITEM_NO">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">项目名称</label>
+								<div class="col-xs-8">
+									<input type="text" id="itemName" name="itemName" readonly
+									class="form-control "	data-fieldName="item_name">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">小类代码</label>
+								<div class="col-xs-8">
+									<input type="text" id="minclassNo" readonly name="minclassNo" 
+									class="form-control "	data-fieldName="MINCLASS_NO">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">小类名称</label>
+								<div class="col-xs-8">
+									<input type="text" id="minclassName" readonly
+									class="form-control "	name="minclassName" data-fieldName="MINCLASS_NAME">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件代码</label>
+								<div class="col-xs-8">
+									<input type="text" id="partCode" name="partCode"
+									class="form-control"	data-fieldName="part_code">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件名称</label>
+								<div class="col-xs-8">
+									<input type="text" id="partName" name="partName"
+									class="form-control"	data-fieldName="part_name">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/relation/{[ID]}" data-model="vehicle" data-method="PUT"
+				data-callBack="true" class="btn blue" data-toggle="confirmation">
+				<i class="fa fa-save"></i>保存
+			</a> <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				//新增页面的回调函数
+				$("a[data-callBack='true']", container).on(
+						"callBack.dms",
+						function(event, response) {
+							//关闭窗口
+							$("a[data-dismiss='modal']", container).click();
+							//刷新表格
+							$("#dms_table", getElementContext()).dmsTable()
+									.refreshTableWithForm();
+						});
+			});
+</script>

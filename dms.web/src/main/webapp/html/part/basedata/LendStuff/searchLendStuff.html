@@ -1,0 +1,281 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">工单号</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input id="roNo" name="roNo" class="form-control " type="text" />
+									<span class="input-group-btn">
+										<button class="btn default btn-sm" type="button"
+											data-url="part/basedata/LendStuff/searchCustomer.html"
+											data-toggle="modal" data-width="modal-lg">
+											<i class="fa icon-search"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车牌号</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="license" disabled="disabled"
+									name="license">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">工单类型</label>
+							<div class="col-xs-8 ">
+								<select id="roType" name="roType" data-dictCode="1253" disabled="disabled"
+									data-excludeItems="12531003" class="bs-select form-control">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">维修类型</label>
+							<div class="col-xs-8 ">
+								<select id="repairTypeCode" name="repairTypeCode"
+									class="bs-select form-control"
+									data-url="/basedata/lendStuff/queryType" data-model="part"
+									data-labelValue="REPAIR_TYPE_CODE" disabled="disabled"
+									data-lableDesc="REPAIR_TYPE_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车型</label>
+							<div class="col-xs-8">
+								<select id="model" class="bs-select form-control" name="model"
+									data-url="/basedata/selectModel" data-model="customer"
+									data-labelValue="MODEL_CODE" data-fieldName="MODEL" disabled="disabled"
+									data-lableDesc="MODEL_NAME" data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">客户经理</label>
+							<div class="col-xs-8">
+								<select id="serviceAdvisor" class="bs-select form-control"
+									name="serviceAdvisor" data-fieldName="SERVICE_ADVISOR"
+									class="bs-select form-control " disabled="disabled"
+									data-url="/basedata/employees/-1/salesConsultant"
+									data-model="manage" data-labelValue="USER_ID"
+									data-lableDesc="USER_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">开单日期</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="roCreateDate"
+									disabled="disabled" name="roCreateDate">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车主</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="ownerName"
+									disabled="disabled" name="ownerName">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">指定技师</label>
+							<div class="col-xs-8">
+								<select id="chiefTechnician" class="bs-select form-control"
+									name="chiefTechnician" data-fieldName="SERVICE_ADVISOR"
+									class="bs-select form-control " disabled="disabled"
+									data-url="/basedata/employees/-1/salesConsultant"
+									data-model="manage" data-labelValue="USER_ID"
+									data-lableDesc="USER_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row hidden">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-errorCallBack="true" id="bbb"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+						
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-button">
+					<div class="btn-group btn-group-sm">
+						<a class="btn btn-outline" 
+							data-onclickEvent="true" id="new" disabled="disabled"
+							data-url="part/basedata/LendStuff/addPart.html"
+							data-toggle="modal" data-width="modal-lg"> <i
+							class="fa fa-plus-square"></i> 新增</a>
+						<a class="btn btn-outline " data-onclickEvent='true' id="del" disabled="disabled"> <i
+							class="fa fa-plus-square"></i> 删除</a>
+						<a class="btn btn-outline"  disabled="disabled"
+							data-onclickEvent="true" id="return"
+							data-url="part/basedata/LendStuff/backPart.html"
+							data-toggle="modal" data-width="modal-lg"> <i
+							class="fa fa-plus-square"></i> 退料</a>
+						<a class="btn btn-outline"
+							data-onclickEvent="true" id="ro" disabled="disabled"
+							data-url="part/basedata/LendStuff/detailRepair.html"
+							data-toggle="modal" data-width="modal-lg"> <i
+							class="fa fa-plus-square"></i> 修理项目</a>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="tables"></table>
+			</div>
+			<div class="modal-footer">
+				<a 	class="btn hidden" data-width="modal-lg"  
+					data-url="part/basedata/LendStuff/quantityPart.html"  
+					data-width="modal-lg" id="add1" data-toggle="modal"> 
+					<i class="fa fa-plus-square"></i> 出库</a>
+				<a 	class="btn hidden ajaxrest" id="add2" 
+					data-url="/basedata/lendStuff/save" data-errorCallBack="true" data-method="PUT" data-model="part"> <i
+					class="fa fa-plus-square"></i> 出库</a>
+				<a  id="outters" data-onclickEvent="true" data-callBack="true" data-model="part"
+					data-url="/basedata/lendStuff/queryStocks" class="btn hidden ajaxrest"
+					data-method="PUT"> <i class="fa fa-save"></i>查询库存</a> 
+				<a  id="outter" data-onclickEvent="true" class="btn blue ajaxrest" disabled="disabled"> <i class="fa fa-save"></i>出库</a>	
+				<a  class="btn blue" data-onclickEvent="true" data-width="modal-lg"
+					data-url="part/basedata/LendStuff/pageLendStuff.html" disabled="disabled"
+					id="prind" data-toggle="modal"><i class="fa fa-download"></i>打印借料单</a>			
+				<a  class="btn blue" data-onclickEvent="true" id="cal" disabled="disabled"
+				    data-width="modal-lg"> <i class="fa fa-undo"></i> 取消</a>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "tables",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/basedata/lendStuff/query",
+			rowID : "ITEM_ID",
+			sortName : "", 
+			sortOrder : "asc",
+			autoHeight : false,
+			isFormParam:true,
+			undefinedText : "",
+			isQueryFirst : false,
+			columns : [ 
+				{radio:true,sortable : false},
+				{field : "STORAGE_CODE",title : "仓库",inputHiddenFormat:{}}, 
+				{field : "STORAGE_POSITION_CODE",title : "库位代码",inputHiddenFormat:{}},
+				{field : "PART_NO",title : "配件代码",inputHiddenFormat:{}},
+				{field : "PART_NAME",title : "配件名称",inputTextFormat:{}},
+			    {field : "UNIT_CODE",title : "单位",inputHiddenFormat : {hiddenFieldName:"ITEM_ID,AMOUNT,PART_SALES_AMOUNT,PART_SALES_PRICE,UNIT_CODE,IS_FINISHED,sign",hiddenField:"ITEM_ID,AMOUNT,PART_SALES_AMOUNT,PART_SALES_PRICE,UNIT_CODE,IS_FINISHED,sign"},visible : true}, 
+				{field : "USEABLE_STOCK",title : "可用库存",inputHiddenFormat:{}},
+				{field : "LEND_QUANTITY",title : "借出数量",inputTextFormat:{}}, 
+				{field : "BORROWER",title : "借用人",inputSelectFormat : {
+					url : "/basedata/employees/-1/salesConsultant",
+					model : "manage",
+					labelValue : "USER_ID",
+					lableDesc : "USER_NAME",
+					attr : "data-existsdefault='false'"
+				}}
+			],
+			onClickRow : function(rows,$this){
+				if(rows.IS_FINISHED=='12781001'){
+					$("#return",container).removeAttr("disabled");
+				}else{
+					$("#return",container).attr("disabled","disabled");
+				}
+				if(rows.sign=='A'){
+					$("#del",container).removeAttr("disabled");
+				}else{
+					$("#del",container).attr("disabled","disabled");
+				}
+				$("input[name^='PART_NAME']").bindChange(function(obj) {
+					$("#outter",container).removeAttr("disabled");
+	    		 });
+				$("input[name^='LEND_QUANTITY']").bindChange(function(obj) {
+					$("#outter",container).removeAttr("disabled");
+	    		 });
+				$("select[name^='BORROWER']").bindChange(function(obj) {
+					$("#outter",container).removeAttr("disabled");
+	    		 });
+			}
+		});
+		$('a[data-beforeRequest="true"]',container).on('beforeRequest.dms',function(event,returnResult){
+		});
+		$("#OBLIGATED_NO",container).bindChange(function(obj){
+			//刷新表格
+			$("#tables").dmsTable().refreshTableWithForm();
+			if(document.getElementById("tables").rows.length>0){
+				$('#edit').removeAttr("disabled");
+			}
+			var s=$.trim($("#OBLIGATED_NO",container).val());
+			if(s!=""&&s!=null){
+				$('#close').removeAttr("disabled");
+			}
+		});
+		
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(){
+			if($(this).attr('id')=='outter'){
+				$("a[id='outters']",container).click();
+			}
+			if($(this).attr('id')=='cal'){
+				dmsCommon.refreshPageByUrl("part/basedata/LendStuff/searchLendStuff.html",container);//刷新页面
+			}
+			if($(this).attr('id')=='return'){
+				if(!selectRow){
+					dmsCommon.tip({status:"warning",msg:"请选择表格数据"});
+					returnResult.status = false;
+					return ;
+				}
+			}
+			if($(this).attr('id')=='del'){
+				var ind=$("#tables",container).dmsTable().getSelections()[0].index;
+				$("#tables",container).dmsTable().deleteRowByIndex(ind);
+			}
+		});
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+				if(response==1){
+					$("a[id='add1']",container).click();
+				}else{
+					$("a[id='add2']",container).click();
+				}
+				$("#prind",container).removeAttr("disabled");
+		});
+		$("a[data-errorCallBack='true']",container).on("errorCallBack.dms",function(event,response){
+			if($(this).attr('id')=='bbb'){
+				dmsCommon.refreshPageByUrl("part/basedata/LendStuff/searchLendStuff.html",container);
+			}
+			if($(this).attr('id')=='add2'){
+				$("#prind",container).attr("disabled","disabled");
+			}
+		});
+	});
+	
+</script>

@@ -1,0 +1,49 @@
+<div class="dms-search">
+ <form class="form-horizontal">
+ 	<div class="modal-header">
+			<div class="modal-title">公司信息详情</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+	</div>
+	<div class="modal-body">
+		<div class="panel  panel-default table-panel">
+		   		<div class="panel-body">
+					<table class="table table-striped table-bordered table-hover table-responsive"
+						id="dms-table">
+					</table>
+				</div>
+		</div>
+		<div class="panel-footer">
+			<div style="text-align:center">
+				<a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>返回</a>
+			</div>						
+		</div>
+	</div>
+ </form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+ 	new Datatable().initPagination({
+		src:"dms-table",
+		container:container,
+	    url : dmsCommon.getDmsPath()["manage"] + "/organization/dealerInfoMain/{[company_id]}",
+	    rowID:"DEALER_ID",
+	    sortName:"DEALER_ID",
+	    sortOrder:"ASC",
+		columns : [
+		      {field:"DEALER_ID",title : "操作",operateFormat : [
+                    {type:"edit",url:"manage/basedata/organization/dealerInfoDetailEdit.html",openWidth:"modal-lg"}
+                 ]
+              },
+		      {field:"DEALER_CODE",title:"经销商代码"},
+		      {field:"DEALER_SHORTNAME",title:"经销商名称"},
+		      {field:"DEALER_TYPE",title:"经销商类型",codeFormat : {type:"oemDict",codeType:"1077"}},
+	      ]
+	});
+ 	
+ 	
+});
+</script>

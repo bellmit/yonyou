@@ -1,0 +1,270 @@
+<div class="dms-search">
+<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">收款编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">收款单号</label>
+								<div class="col-xs-8 col-md-9">
+									<input id="receiveNo" name="receiveNo" class="form-control"
+										type="text" disabled="disabled" /> <input type="hidden"
+										class="form-control" id="soNoId" name="soNoId"
+										value="{[key1]}" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">付款方式</label>
+								<div class="col-xs-8 col-md-9">
+									<select class="bs-select form-control required" id="payTypeCode"
+									name="payTypeCode" data-dictCode="1405">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">收款金额</label>
+								<div class="col-xs-8 col-md-9">
+									<input id="receiveAmount" name="receiveAmount" type="text"
+										class="form-control required decimal" maxDigit="12" maxPrecision="2" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">票据号码</label>
+								<div class="col-xs-8 col-md-9">
+									<input id="billNo" name="billNo"
+										class="form-control required" type="text" maxlength="30">
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">收款类型</label>
+								<div class="col-xs-8 col-md-9">
+									<select class="bs-select form-control required" id="gatheringType"
+									name="gatheringType" data-dictCode="1425">
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">收款日期</label>
+								<div class="col-xs-8 col-md-9">
+									<div class="input-group date date-picker" data-defaultToday = "true" data-orientation="top right">
+										<input id="receiveDate" name="receiveDate" readonly
+											class="form-control required required" type="text" value="" /> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">付款人</label>
+								<div class="col-xs-8 col-md-9">
+									<input id="customerNo" name="customerNo"
+										class="form-control required" type="text" maxlength="30"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">可用储值</label>
+								<div class="col-xs-8 col-md-9">
+									<input id="ORDER_RECEIVABLE_SUMT" name="ORDER_RECEIVABLE_SUMT" disabled="disabled"
+										class="form-control required" type="text" maxlength="30"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">本次使用储值</label>
+								<div class="col-xs-8 col-md-9">
+									<input id="ORDER_RECEIVABLE_SUMT" name="ORDER_RECEIVABLE_SUMT" disabled="disabled"
+										class="form-control required" type="text" maxlength="30"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">登记人</label>
+								<div class="col-xs-8 col-md-9">
+									<input disabled="disabled"
+										class="form-control required" type="text" maxlength="30" value="{[userInfo.userName]}" id="decorder" name="decorder"/>
+								<input  disabled="disabled"
+										class="form-control required" type="hidden" maxlength="30" value="{[userInfo.employeeNo]}"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">是否销账</label>
+								<div class="col-xs-8 col-md-9">
+									<select class="bs-select form-control" id="writeoffTag"
+									name="writeoffTag" data-dictCode="1004" data-value="10041001" data-existsDefault="false">
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">销账人</label>
+								<div class="col-xs-8 col-md-9">
+
+									<input id="writeoffBy" name="writeoffBy"
+											class="form-control" type="text" maxlength="30"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">销账日期</label>
+								<div class="col-xs-8 col-md-9">
+									<div class="input-group date date-picker" data-orientation="top right" id="writeoffDateF">
+										<input id="writeoffDate" name="writeoffDate" readonly
+											class="form-control" type="text"
+											data-fieldName="WRITEOFF_DATE" /> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+											<button class="btn default date-reset" type="button">
+												<i class="fa fa-times"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2 col-md-1">备注</label>
+								<div class="col-xs-8 col-sm-10 col-md-11">
+									<textarea id="remark" name="remark" class="form-control"
+										rows="3" cols=""></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+				<a data-url="/ordermanage/settleOrders/settleCollection" data-model="retail"
+					data-method="POST" data-callBack="true" data-onclickEvent="true"
+					class="btn blue" data-toggle="confirmation"><i
+					class="fa fa-save"></i>保存
+				</a>
+				<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消
+				</a>
+			</div>
+</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	$("#customerNo",container).setDmsValue($("#customerName",getElementContext()).val());//付款人默认为客户
+	$("#ORDER_RECEIVABLE_SUMT",container).setDmsValue($("#arrearageAmount",getElementContext()).val());
+	$("#receiveAmount",container).setDmsValue($("#ORDER_RECEIVABLE_SUMT",container).val());//收款金额默认为应收金额
+	$("#writeoffDate",container).addClass("required");
+	$("#writeoffBy",container).addClass("required");
+	$("#writeoffBy",container).setDmsValue($("#decorder",container).val());//销账人默认收款人，经办人默认收款人
+	$("#writeoffDate",container).setDmsValue(moment().format("YYYY-MM-DD"));
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		var receiveAmount = $("#receiveAmount",container).val();//收款金额 
+		var arrearageAmount = $("#arrearageAmount",getElementContext()).val();//应收金额(欠款总额)
+		var receivableSum = $("#ORDER_PAYED_AMOUNT",getElementContext()).val();	
+		var writeoffTag = $("#writeoffTag",container).val();//是否销账
+		var GATHERED_SUM = $("#GATHERED_SUM",getElementContext()).val();//收款总金额 
+		var ORDER_PAYED_SUM = $("#ORDER_PAYED_SUM",getElementContext()).val();//订单支出
+		var USABLE_AMOUNT = $("#USABLE_AMOUNT",getElementContext()).val();//可用金额
+		var UN_WRITEOFF_SUM = $("#UN_WRITEOFF_SUM",getElementContext()).val();//未销账金额 
+		//为空加零
+		USABLE_AMOUNT=addzero(USABLE_AMOUNT);
+		UN_WRITEOFF_SUM=addzero(UN_WRITEOFF_SUM);
+		ORDER_PAYED_SUM=addzero(ORDER_PAYED_SUM);
+		if(writeoffTag==10041001){
+			$("#ORDER_PAYED_SUM",getElementContext()).setDmsValue( parseFloat(ORDER_PAYED_SUM)+ parseFloat(receiveAmount));	
+		}
+		if(writeoffTag==10041002){
+			$("#UN_WRITEOFF_SUM",getElementContext()).setDmsValue( parseFloat(UN_WRITEOFF_SUM)+ parseFloat(receiveAmount));
+			$("#USABLE_AMOUNT",getElementContext()).setDmsValue( parseFloat(USABLE_AMOUNT)+ parseFloat(receiveAmount));
+		}
+		$("#GATHERED_SUM",getElementContext()).setDmsValue( parseFloat(GATHERED_SUM)+ parseFloat(receiveAmount));
+		$("#ORDER_PAYED_AMOUNT",getElementContext()).setDmsValue( parseFloat(receivableSum)+ parseFloat(receiveAmount));
+		$("#arrearageAmount",getElementContext()).setDmsValue( parseFloat(arrearageAmount)- parseFloat(receiveAmount));
+		
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		
+	});
+	//绑定onchange 事件
+	$("#writeoffTag",container).bindChange(function(obj){
+		var writeoffTag= $("#writeoffTag").find("option:checked").val();
+		if(parseInt(writeoffTag)==10041001){
+			$("#writeoffDate",container).addClass("required");
+			$("#writeoffBy",container).addClass("required");
+			$("#writeoffBy",container).setDmsValue($("#decorder",container).val());//销账人默认收款人，经办人默认收款人
+			$("#writeoffDate",container).setDmsValue(moment().format("YYYY-MM-DD"));
+			
+		}else{ 
+			$("#writeoffDate",container).removeClass("required");
+			$("#writeoffBy",container).removeClass("required");
+			$("#writeoffBy",container).setDmsValue('');
+			$("#writeoffDate",container).setDmsValue("");
+		
+		}
+	});
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.onConfirm",function(event,returnResult){		
+		var receiveAmount = $("#receiveAmount",container).val();//收款金额 
+		var arrearageAmount = $("#arrearageAmount",getElementContext()).val();//应收金额(欠款总额)
+		if(parseFloat(receiveAmount*1)>parseFloat(arrearageAmount*1)){
+			dmsCommon.tip({status:"warning",msg:"收款金额不能大于欠款金额！"});
+			returnResult.status = false;
+			return ;
+		}
+	});
+	//为‘’加0
+	var addzero = function(obj){
+		if(obj==null||obj==''){
+			obj=parseFloat(0);
+		}
+		return obj;
+	};
+});
+</script>

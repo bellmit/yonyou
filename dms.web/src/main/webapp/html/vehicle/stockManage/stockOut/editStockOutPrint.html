@@ -1,0 +1,140 @@
+<link rel="stylesheet" type="text/css" href="../assets/layouts/layout/css/PrintArea.css">
+<div class="dms-edit PrintArea">
+	<div class="panel panel-default panel-print">
+		<div class="panel-body">
+			<div class="print-title">
+				<div class="row h1Title">
+					<div class="col-xs-12">
+						<label >{[userInfo.dealerName]}</label>
+					</div>
+				</div>
+				<div class="row h2Title">
+					<div class="col-xs-12">
+						<label><span id="title"></span></label>
+					</div>
+				</div>
+				<div class="row print-gap">
+			
+				</div>
+				<div class="row print-singleRow">
+					<div class="col-xs-4">
+						<label class="control-label col-xs-4">出库单号:</label>
+						<span  class="form-show col-xs-4" id="seNo"></span>
+					</div>
+					<div class="col-xs-4">
+						<label class="control-label col-xs-4">出库日期:</label>
+						<span class="form-show col-xs-4 text-left" id="inDate"></span>
+					</div>
+					<div class="col-xs-4">
+						<label class="control-label col-xs-4">开单日期:</label>
+						<span class="form-show col-xs-5 text-left" id="sheetDate"></span>
+					</div>
+				</div>
+				<div class="row print-singleRow">
+					<div class="col-xs-4">
+						<label class="control-label col-xs-4">客户/经销商:</label>
+						<span class="form-show col-xs-4" id="vendorName"></span>
+					</div>
+					<div class="col-xs-4">
+						<label class="control-label col-xs-4">联系方式:</label>
+						<span class="form-show col-xs-2" id="phone"></span>
+					</div>
+				</div>
+			</div>
+			<div class=" print-table">
+				<div class="panel panel-default table-panel">
+					<div class="panel-body">
+						<table class="table table-striped table-bordered table-hover table-responsive"
+								id="dms_table">
+						</table>
+					</div>
+				</div>
+			
+			<div class="row print-gap">
+					
+			</div>
+			<div class="row print-singleRow">
+				<div class="col-xs-12">
+					<div class="col-xs-4">
+						<label class="control-label col-xs-4">车辆数量:</label>
+						<span class="form-show col-xs-2" id="amount"></span>
+					</div>
+					<div class="col-xs-4">
+						<label class="text-left">库管员签字:</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+</div>
+<div class="print-without">
+	<a id="print" class="btn blue printfy"><i class="fa fa-print"></i>打印</a>
+    <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		var seNo = $("#SdNo",getElementContext()).val();//出库单号
+		var vins = $("#vins",getElementContext()).val();//VIN号
+		var inType = $("#stockOut",getElementContext()).val();//出库类型
+		var deDate = $("#createDate",getElementContext()).val()//开单日期
+		$("#seNo",container).html(seNo);
+		$("#sheetDate",container).html(deDate);
+		if(inType=='13241001'){
+			$("#title").html('销售出库');
+		}else if(inType=='13241004'){
+			$("#title").html('采购退回出库');
+		}
+		new Datatable().initLocale({
+			src : "dms_table",
+			container:container,
+			rowID:"VIN",
+			url : dmsCommon.getDmsPath()["vehicle"] + "/basedata/stockOut/loadPrintInfo/"+vins,
+			undefinedText : "",
+			columns : [
+			           {field:"MODEL_NAME",title:"车型"},
+			           {field:"COLOR_NAME",title:"颜色"},
+			           {field:"VIN",title:"VIN码"},
+			           {field:"STORAGE_NAME",title:"仓库"},
+			           {field:"latest_stock_out_date",title:"出库日期",visible:false},
+			           {field:"CUSTOMER_NAME",title:"客户名称",visible:false},
+			           {field:"PHONE",title:"电话",visible:false},
+			           {field:"SEC_CUSTOMER_NAME",title:"二网客户名称",visible:false},
+			           {field:"FETCHER_PHONE",title:"二网电话",visible:false},
+			           {field:"DIRECTIVE_PRICE",title:"销售指导价",numberFormat : {decimal:2}},
+			           {field:"purchase_price",title:"采购价",numberFormat : {decimal:2}},
+			           {field:"PRODUCT_CODE",title:"产品代码"}
+			           ],
+			onLoadSuccess : function(row){
+				$("#inDate",container).html(msToDay(row[0].latest_stock_out_date));
+				$("#amount",container).html(row.length);
+				if(inType=='13241006'){//二网
+					$("#vendorName").html(row[parseInt(row.length)-1].SEC_CUSTOMER_NAME);
+					$("#phone").html(row[parseInt(row.length)-1].FETCHER_PHONE);
+				}else{
+					$("#vendorName").html(row[parseInt(row.length)-1].CUSTOMER_NAME);
+					$("#phone").html(row[parseInt(row.length)-1].PHONE);
+				}
+			}
+		});
+});
+	Number.prototype.formatMoney = function (places, symbol, thousand, decimal) {
+        places = !isNaN(places = Math.abs(places)) ? places : 2;
+        symbol = symbol !== undefined ? symbol : "";
+        thousand = thousand || ",";
+        decimal = decimal || ".";
+        var number = this,
+            negative = number < 0 ? "-" : "",
+            i = parseInt(number = Math.abs(+number || 0).toFixed(places), 10) + "",
+            j = (j = i.length) > 3 ? j % 3 : 0;
+        return symbol + negative + (j ? i.substr(0, j) + thousand : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousand) + (places ? decimal + Math.abs(number - i).toFixed(places).slice(2) : "");
+    };
+    var msToDay = function(time){
+		var date = new Date(time);
+		return date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate()+" ";
+	}
+    var msToDay = function(time){
+		var date = new Date(time);
+		return date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate()+" ";
+	}
+</script>

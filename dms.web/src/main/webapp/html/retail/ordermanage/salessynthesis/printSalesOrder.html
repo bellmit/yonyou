@@ -1,0 +1,463 @@
+<link rel="stylesheet" type="text/css" 
+	href="../assets/layouts/layout/css/PrintArea.css">
+<div class="dms-edit PrintArea ajaxrest" data-url="/ordermanage/salesSynthesis/{[SO_NO]}" data-model="retail" data-pageInitCallBack="true">
+	<div class="panel panel-default panel-print">
+		<div class="panel-body">
+			<div class="print-title">
+				<div class="row h1Title">
+					<div class="col-xs-12">
+						<label>{[userInfo.dealerName]}</label>
+					</div>
+				</div>
+				<div class="row h2Title">
+					<div class="col-xs-12">
+						<label>汽车销售明细单</label>
+					</div>
+				</div>
+			</div>
+			<div class="print-main">
+				<div class="row">
+					<div class="col-xs-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">开单日期</label>
+							<div class="col-xs-8">
+								<span class="form-show" data-date-format="YYYY-MM-DD " data-fieldName="SHEET_CREATE_DATE"></span>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">订单类型</label>
+							<div class="col-xs-8">
+								<span class="form-show"  id="businessType"  ></span>
+								<select  class="form-show hidden dmsDisabled" id="selectBusinessType" data-dictCode="1300"   data-existsDefault = "false" data-fieldName="BUSINESS_TYPE"></select>
+								
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">订单编号</label>
+							<div class="col-xs-8">
+								<span class="form-show" data-fieldName="SO_NO"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">销售顾问</label>
+							<div class="col-xs-8">
+								<span class="form-show" data-fieldName="USER_NAME"></span>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">合约编号</label>
+							<div class="col-xs-8">
+								<span class="form-show" data-fieldName="CONTRACT_NO"></span>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">签约日期</label>
+							<div class="col-xs-8">
+								<span class="form-show" data-fieldName="CONTRACT_DATE" data-date-format="YYYY-MM-DD "></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">客户名称</label>
+							<div class="col-xs-8">
+								<span class="form-show" data-fieldName="CUSTOMER_NAME"></span>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+				<!-- 	<div class="col-xs-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">性别</label>
+							<div class="col-xs-8">
+							    <span class="form-show" id="gender" ></span>
+								<select  class="form-show hidden dmsDisabled" id="selectGender" data-dictCode="1002"   data-fieldName="GENDER"  data-existsDefault = "false"></select>
+							</div>
+						</div>
+					</div>
+					/span -->
+					<div class="col-xs-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">电话</label>
+							<div class="col-xs-8">
+								<span class="form-show" data-fieldName="MOBILE"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-8">
+						<div class="form-group">
+							<label class="control-label col-xs-2">联系地址</label>
+							<div class="col-xs-10">
+								<span class="form-show" data-fieldName="ADDRESS"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">车辆信息</div>
+				</div>
+				<div >
+					<div class="print-main">
+						<div class="row">
+							<div class="col-xs-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">车系</label>
+									<div class="col-xs-8">
+										<span class="form-show" data-fieldName="SERIES_NAME"></span>
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+							<div class="col-xs-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">车型</label>
+									<div class="col-xs-8">
+										<span class="form-show" data-fieldName="MODEL_NAME"></span>
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+							<div class="col-xs-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">配置</label>
+									<div class="col-xs-8">
+										<span class="form-show" data-fieldName="CONFIG_NAME"></span>
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+						</div>
+						<div class="row">
+							<div class="col-xs-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">发动机号</label>
+									<div class="col-xs-8">
+										<span class="form-show" data-fieldName="ENGINE_NO"></span>
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+							<div class="col-xs-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">车架号</label>
+									<div class="col-xs-8">
+										<span class="form-show" data-fieldName="VIN"></span>
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+							<div class="col-xs-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">产品代码</label>
+									<div class="col-xs-8">
+										<span class="form-show" data-fieldName="PRODUCT_CODE"></span>
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+						</div>
+						<div class="row">
+							<div class="col-xs-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">颜色</label>
+									<div class="col-xs-8">
+										<span class="form-show" data-fieldName="COLOR_NAME"></span>
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+							<div class="col-xs-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">合格证号</label>
+									<div class="col-xs-8">
+										<span class="form-show" data-fieldName="CERTIFICATE_NUMBER"></span>
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class=" print-table">
+				<div class="panel panel-default table-panel" id="panelSoDecrodateList">
+					<div class="panel-heading">
+						<div class="pannel-name">装潢项目明细</div>
+					</div>
+					<div class="panel-body">
+						<table
+							class="table table-striped table-bordered table-hover table-responsive"
+							id="soDecrodateList">
+						</table>
+					</div>
+				</div>
+				<div class="panel panel-default table-panel" id="panelSoDecrodatePartList">
+					<div class="panel-heading">
+						<div class="pannel-name">装潢材料明细</div>
+					</div>
+					<div class="panel-body">
+						<table
+							class="table table-striped table-bordered table-hover table-responsive"
+							id="soDecrodatePartList">
+						</table>
+					</div>
+				</div>
+				<div class="panel panel-default table-panel" id="panelSoServicesList">
+					<div class="panel-heading">
+						<div class="pannel-name">服务项目明细</div>
+					</div>
+					<div class="panel-body">
+						<table
+							class="table table-striped table-bordered table-hover table-responsive"
+							id="soServicesList">
+						</table>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="panel panel-default ">
+				<div class="panel-heading">
+					<div class="pannel-name">财务收费信息</div>
+				</div>
+				<div >
+					<div class="print-main">
+						<div class="row">
+							<div class="col-xs-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">车辆价格</label>
+									<div class="col-xs-8">
+										<span class="form-show" data-fieldName="DIRECTIVE_PRICE"></span>
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+							<div class="col-xs-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">装潢金额</label>
+									<div class="col-xs-8">
+										<span class="form-show" data-fieldName="UPHOLSTER_SUM"></span>
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+							<div class="col-xs-4">
+								<div class="form-group">
+									<label class="control-label col-xs-5">服务项目金额</label>
+									<div class="col-xs-7">
+										<span class="form-show" data-fieldName="SERVICE_SUM"></span>
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+						</div>
+						<div class="row">
+							<div class="col-xs-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">赠送金额</label>
+									<div class="col-xs-8">
+										<span class="form-show" data-fieldName="PRESENT_SUM"></span>
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+							<div class="col-xs-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">抵扣金额</label>
+									<div class="col-xs-8">
+										<span class="form-show" data-fieldName="OFFSET_AMOUNT"></span>
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+							<div class="col-xs-4">
+								<div class="form-group">
+									<label class="control-label col-xs-5">合计金额</label>
+									<div class="col-xs-7">
+										<span class="form-show" data-fieldName="ORDER_RECEIVABLE_SUM"></span>
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+						</div>
+						<div class="row">
+						 <div class="col-xs-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">备注</label>
+									<div class="col-xs-8">
+										<span class="form-show" data-fieldName="REMARK"></span>
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+						</div>
+				
+					</div>
+				</div>
+			</div>
+				<div class="print-foot">
+			
+				<div class="row">
+				
+					<div class="col-xs-3" >
+						<div class="form-group">
+							<label class="control-label col-xs-6" >客户签名:</label>
+							<div class="col-xs-6" >
+								<span class="form-show print-groove"></span>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-3" >
+						<div class="form-group">
+							<label class="control-label col-xs-6">销售顾问:</label>
+							<div class="col-xs-6" >
+								<span class="form-show print-groove"></span>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-3" >
+						<div class="form-group">
+							<label class="control-label col-xs-6">销售经理:</label>
+							<div class="col-xs-6">
+								<span class="form-show print-groove"></span>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-3" >
+						<div class="form-group">
+							<label class="control-label col-xs-6" >财务:</label>
+							<div class="col-xs-6">
+								<span class="form-show print-groove"></span>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+<div class="print-without">
+	<a id="print" class="btn blue printfy"><i class="fa fa-print"></i>打印</a>
+	<a data-info="editOrder"
+		href="retail/ordermanage/salessynthesis/searchSalesSynthesis.html"
+		class="btn blue ajaxify" data-beforeShowEvent="true"><i
+		class="fa fa-reply"></i>返回</a>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms", function(event, container) {
+		 $("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){
+			 $("#gender",container).setDmsValue($('option:selected',$("#selectGender",container)).text());
+			 $("#businessType",container).setDmsValue($('option:selected',$("#selectBusinessType",container)).text());
+			 debugger;
+			 console.log("---------------"+$('option:selected',$("#selectGender",container)));
+		 });
+		//装潢项目明细
+		new Datatable().initLocale({
+			src : "soDecrodateList",
+			container:container,
+			rowID : "SO_DECRODATE_ID",
+			url : dmsCommon.getDmsPath()["retail"]+ "/ordermanage/salesOrders/{[SO_NO_ID]}/decorationproject",
+			mergeTotal:{
+				megerCellNumber:4,
+				megerCellName:"合计"
+			},
+			columns : [
+	                   {field : "LABOUR_CODE",title : "装潢项目代码"}, 
+			           {field : "LABOUR_NAME",title : "装潢项目名称"},
+			           {field : "LABOUR_PRICE",title : "工时单价"}, 
+			           {field : "DISCOUNT",title : "折扣率"}, 
+			           {field : "STD_LABOUR_HOUR",title : "标准工时"}, 
+			           {field : "AFTER_DISCOUNT_AMOUNT",title : "应收金额"}
+	                  ],onLoadSuccess : function() {
+	                	  var rownu = $("#soDecrodateList",container).dmsTable().getTableRows();
+	      				  if(rownu<=0){
+	      					$("#panelSoDecrodateList",container).addClass("hidden");
+	      				  }else{
+	      					$("#panelSoDecrodateList",container).removeClass("hidden");
+	      					}
+						}
+		});
+		//装潢材料明细
+		new Datatable().initLocale({
+			src : "soDecrodatePartList",
+			container:container,
+			rowID : "DECRODATE_PART_ID",
+			url : dmsCommon.getDmsPath()["retail"]+ "/ordermanage/salesOrders/{[SO_NO_ID]}/deracotionmaterial",
+			mergeTotal:{
+				megerCellNumber:4,
+				megerCellName:"合计"
+			},
+			columns : [
+	                   {field : "PART_NAME",title : "材料名称"}, 
+			           {field : "ACCOUNT_MODE",title : "结算方式",codeFormat : {type:"dict",codeType:"1406"}},
+			           {field : "SALES_PRICE",title : "销售价"}, 
+			           {field : "DISCOUNT",title : "折扣率"},  
+			           {field : "PART_QUANTITY",title : "数量"},  
+			           {field : "AFTER_DISCOUNT_AMOUNT",title : "应收金额"}
+	                  ],onLoadSuccess : function() {
+	                	  var rownu = $("#soDecrodatePartList",container).dmsTable().getTableRows();
+	      				  if(rownu<=0){
+	      					$("#panelSoDecrodatePartList",container).addClass("hidden");
+	      				  }else{
+	      					$("#panelSoDecrodatePartList",container).removeClass("hidden");
+	      					}
+						}
+		});
+		//服务项目明细
+		new Datatable().initLocale({
+			src : "soServicesList",
+			container:container,
+			rowID : "SO_SERVICES_ID",
+			url : dmsCommon.getDmsPath()["retail"]+ "/ordermanage/salesOrders/{[SO_NO_ID]}/serviceproject",
+			mergeTotal:{
+				megerCellNumber:4,
+				megerCellName:"合计"
+			},
+			columns : [
+	                   {field : "SERVICE_NAME",title : "服务项目名名称"}, 
+			           {field : "SERVICE_TYPE",title : "服务类别",codeFormat : {type:"dict",codeType:"1402"}},
+			           {field : "ACCOUNT_MODE",title : "结算方式",codeFormat : {type:"dict",codeType:"1406"}},
+			           {field : "DIRECTIVE_PRICE",title : "销售指导价"}, 
+			           {field : "DIRECTIVE_PRICE",title : "应收金额"}
+	                  ],onLoadSuccess : function() {
+	                	  var rownu = $("#soServicesList",container).dmsTable().getTableRows();
+	      				  if(rownu<=0){
+	      					$("#panelSoServicesList",container).addClass("hidden");
+	      				  }else{
+	      					$("#panelSoServicesList",container).removeClass("hidden");
+	      					}
+						}
+		});
+
+	});
+</script>

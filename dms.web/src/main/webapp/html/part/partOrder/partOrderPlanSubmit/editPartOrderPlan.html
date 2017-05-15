@@ -1,0 +1,75 @@
+<div class="dms-edit ajaxrest" data-url="/partOrder/partSubmit/{[ORDER_NO]}" data-model="part">
+
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<!-- 			<div class="modal-title">修改</div>
+ -->
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">订单编号</label>
+								<div class="col-xs-8">
+									<input id="orderNo" name="orderNo" class="form-control"
+										type="text" data-fieldName="ORDER_NO" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">订单类型</label>
+								<div class="col-xs-8">
+									<select id="partOrderType" name="partOrderType"
+										data-fieldName="PART_ORDER_TYPE"
+										class="bs-select form-control " data-dictCode="1248"
+										data-excludeItems="12481001,12481002,12481012">
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">备注</label>
+								<div class="col-xs-8">
+									<input id="remark" name="remark" class="form-control"
+									data-isExcludeReadOnly="true"	type="text" data-fieldName="REMARK" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+		<div class="modal-footer center-block">
+		    <a data-url="/partOrder/partSubmit/{[ORDER_NO]}/updateDmsPtOrderRemark" data-model="part" data-method="POST" data-isExcludeReadOnly="true"
+				data-callBack="true" class="btn blue" data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+			</a> 
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms", function(event, container) {
+	dmsCommon.setContainerReadOnly(container);
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,value){
+		$("#ptpartOrder",getElementContext()).dmsTable().refreshTableWithForm();
+		$("a[data-dismiss='modal']",container).click();
+	})
+});		
+</script>

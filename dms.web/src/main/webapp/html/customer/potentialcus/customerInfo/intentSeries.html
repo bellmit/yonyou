@@ -1,0 +1,75 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">选择车系</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+				
+					<div class="col-xs-12 ">
+						<div class="form-group ">
+						<label class="control-label col-xs-4">意向品牌</label>
+							<div class="col-xs-8">
+								<select id="brand" class="form-control"
+									name="intentBrand" data-url="/basedata/brandsdict"
+									data-model="manage" data-labelValue="BRAND_CODE"
+									data-lableDesc="BRAND_NAME">
+								</select>
+						</div>
+						</div>
+					</div>
+									<!--/span-->
+							    <div class="col-xs-12" >
+							        <div class="form-group" >
+							        <label class="control-label col-xs-4">意向车系</label>
+									<div class="col-xs-8">
+								<select id="series" parent="brand"
+									class="form-control" name="intentSeries"
+									data-url="/basedata/brandsdictC/{[brand]}/seriessdictC"
+									data-model="manage" data-labelValue="SERIES_CODE"
+									data-lableDesc="SERIES_NAME">
+								</select>
+									</div>
+								     </div>
+							     </div>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-onclickEvent="true"><i class="fa fa-save"></i>确定</a> 
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one("onload.dms",function(event,container){
+		//弹出页面打开前执行函数
+	 /* 	 var str='';
+		var selectRow = $("#cusList",getElementContext()).dmsTable().getSelections();
+		   	$(selectRow).each(function(index){
+			   str+=selectRow[index].CUSTOMER_NO+',';
+	  		});
+	  		/* var selectIds = $("#cusList",getElementContext()).dmsTable().getSelectionIds(); */
+		  /*  	$("#noList").val(str); */ 
+		//新增页面的回调函数
+		//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			$("#intentSeries",getElementContext()).setDmsValue($("#series",container).val());
+			$("#seriesName",getElementContext()).setDmsValue($('option:selected',$("#series",container)).text());
+			//var city=$('option:selected',$("#city",container)).text();
+
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+		});
+	});
+</script>

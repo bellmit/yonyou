@@ -1,0 +1,1465 @@
+<div class="dms-edit ajaxrest"
+	data-url="/customer/insurance/{[OWNER_NO]}" data-model="customer"
+	data-pageInitCallBack="true">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">车辆明细</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"><iclass="fafa-remove">
+					</i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="tabbable-custom " id="tabcontainer">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#tab_basic" data-toggle="tab">基本信息</a></li>
+					<li><a href="#tab_insurance" data-toggle="tab">保险报修</a></li>
+					<li><a href="#tab_memoinfo" data-toggle="tab">车主备注</a></li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane fade in active" id="tab_basic">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<div class="pannel-name">基本信息</div>
+								<div class="pannel-tools">
+									<a href="javascript:;" class="expand"> <i
+										class="fa fa-chevron-down"></i></a>
+								</div>
+							</div>
+							<div class="panel-body">
+								<div class="row">
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">车主编号</label>
+											<div class="col-xs-8">
+												<input id="ownerNo" name="ownerNo" data-fieldName="OWNER_NO"
+													disabled="disabled" class="form-control" type="text" />
+													<input type="hidden" id="HobbyContact" />
+													<input type="hidden" id="credit" />
+													<input type="hidden" id="istrace1" />
+													<input type="hidden" id="traceTime1" />
+													<input type="hidden" id="address" />
+													<input type="hidden" id="zipCode" />
+													<input type="hidden" id="company" /> 
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">车主</label>
+											<div class="col-xs-8">
+												<input id="ownerName" name="ownerName"
+													data-fieldName="OWNER_NAME" class="form-control"
+													type="text" disabled="disabled" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">车牌号</label>
+											<div class="col-xs-8">
+												<input id="license" name="license" data-fieldName="LICENSE"
+													class="form-control" type="text" disabled="disabled" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">VIN</label>
+											<div class="col-xs-8">
+												<input id="vin" name="vin" data-fieldName="VIN"
+													class="form-control" disabled="disabled" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">发动机号</label>
+											<div class="col-xs-8">
+												<input id="engineNo" name="engineNo" type="text"
+													class="form-control" data-dictCode="ENGINE_NO" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">排气量</label>
+											<div class="col-xs-8">
+												<input id="exhaustQuantity" name="exhaustQuantity"
+													data-fieldName="EXHAUST_QUANTITY" class="form-control"
+													type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">年款</label>
+											<div class="col-xs-8">
+												<input id="yearModel" name="yearModel"
+													data-fieldName="YEAR_MODEL" class="form-control"
+													disabled="disabled" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">制造日期</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker"
+													data-defaultToday="false" data-date-end-date="+0d"
+													data-orientation="top right">
+													<input id="productDate" name="productDate"
+														class="form-control" type="text"
+														data-fieldName="PRODUCT_DATE" /> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+														<button class="btn default date-reset" type="button">
+															<i class="fa fa-times"></i>
+														</button>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">品牌</label>
+											<div class="col-xs-8">
+												<select id="brand" class="bs-select form-control"
+													data-ajaxSync="true" name="brand" data-fieldName="BRAND"
+													data-url="/basedata/brandsdict" data-model="manage"
+													data-labelValue="BRAND_CODE" data-lableDesc="BRAND_NAME"
+													data-alwaysRefresh="true">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!-- /span -->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">车系</label>
+											<div class="col-xs-8">
+												<select id="series" class="bs-select form-control"
+													name="series" data-url="/basedata/selectSeries" disabled="disabled"
+													data-model="manage" data-labelValue="SERIES_CODE" data-fieldName="SERIES"
+													data-lableDesc="SERIES_NAME" data-alwaysRefresh="true">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">车型</label>
+											<div class="col-xs-8">
+												<select id="model" class="bs-select form-control"
+													name="model" data-url="/basedata/selectModel" disabled="disabled"
+													data-model="manage" data-labelValue="MODEL_CODE" data-fieldName="MODEL"
+													data-lableDesc="MODEL_NAME" data-alwaysRefresh="true">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">配置</label>
+											<div class="col-xs-8">
+												<select id="apAckAge" class="bs-select form-control"
+													name="apAckAge" data-ajaxSync="true" data-fieldName="APACKAGE"
+													data-url="/basedata/selectConfig" data-model="manage"
+													data-labelValue="CONFIG_CODE" data-lableDesc="CONFIG_NAME">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">是否绑定微信号</label>
+											<div class="col-xs-8 ">
+												<select id="" class="bs-select form-control" name=""
+													data-fieldName="" data-dictCode="1278" >
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">绑定时间</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker"
+													data-defaultToday="false" data-date-end-date="+0d"
+													data-orientation="top right">
+													<input id="" name=""
+														class="form-control" type="text"
+														data-fieldName="" /> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+														<button class="btn default date-reset" type="button">
+															<i class="fa fa-times"></i>
+														</button>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">旧发动机号</label>
+											<div class="col-xs-8 ">
+												<input id="engineNoOld" name="engineNoOld"
+													data-fieldName="ENGINE_NO_OLD" class="form-control"
+													type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">客户经理</label>
+											<div class="col-xs-8">
+												<select id="" class="bs-select form-control" name=""
+													data-fieldName="SERVICE_ADVISOR" class="bs-select form-control "
+													data-url="/basedata/employees/-1/salesConsultant"
+													data-model="manage" data-labelValue="USER_ID"
+													data-value="{[userInfo.userId]}" data-lableDesc="USER_NAME" >
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">排挡类别</label>
+											<div class="col-xs-8 ">
+												<input id="shifeType" name="shifeType" data-fieldName="SHIFT_TYPE" class="form-control"
+													type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group" data-campaignSelect="true">
+											<label class="control-label col-xs-4">燃料类别</label>
+											<div class="col-xs-8">
+												<select id="fuelType" class="bs-select form-control" name="fuelType"
+													data-fieldName="FUEL_TYPE" data-dictCode="1238">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group" data-campaignSelect="true">
+											<label class="control-label col-xs-4">营运性质</label>
+											<div class="col-xs-8">
+												<select id="businessKind" class="bs-select form-control" name="businessKind"
+													data-fieldName="BUSINESS_KIND" data-dictCode="1194">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group" data-campaignSelect="true">
+											<label class="control-label col-xs-4">指定技师</label>
+											<div class="col-xs-8">
+												<select id="chieftechnician"  name="chieftechnician"
+													data-fieldName="CHIEF_TECHNICIAN" class="bs-select form-control"
+													data-url="/basedata/employees/-1/salesConsultant"
+													data-model="manage" data-labelValue="USER_ID"
+													data-value="{[userInfo.userId]}" data-lableDesc="USER_NAME">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group" data-campaignSelect="true">
+											<label class="control-label col-xs-4">颜色</label>
+											<div class="col-xs-8">
+												<select class="bs-select form-control" id="colors"
+													data-fieldName="COLOR" name="color" data-ajaxSync="true"
+													data-url="/basedata/colors/colorinfo/dicts"
+													data-model="repair" data-labelValue="COLOR_CODE"
+													data-lableDesc="COLOR_NAME">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group" data-campaignSelect="true">
+											<label class="control-label col-xs-4">车辆用途</label>
+											<div class="col-xs-8">
+												<select id="vehiclePurpose" class="bs-select form-control" name="vehiclePurpose"
+													data-fieldName="VEHICLE_PURPOSE" data-dictCode="1193">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">变速箱号</label>
+											<div class="col-xs-8 ">
+												<input id="gearBox" name="gearBox" data-fieldName="GEAR_BOX" class="form-control"
+													type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">钥匙号</label>
+											<div class="col-xs-8 ">
+												<input id="keynumber" name="keynumber" data-fieldName="KEY_NUMBER" class="form-control"
+													type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">厂牌型号</label>
+											<div class="col-xs-8 ">
+												<input id="brandModel" name="brandModel" data-fieldName="BRAND_MODEL" class="form-control"
+													type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">内饰色</label>
+											<div class="col-xs-8 ">
+												<input id="innerColor" name="innerColor" data-fieldName="INNER_COLOR" class="form-control"
+													type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">续保专员</label>
+											<div class="col-xs-8">
+												<select id="insuranceAdvisor" class="bs-select form-control"
+													data-ajaxSync="true" name="insuranceAdvisor" data-fieldName="INSURANCE_ADVISOR"
+													data-url="/basedata/employees/-1/salesConsultant" data-model="manage"
+													data-labelValue="USER_ID"
+													data-value="{[userInfo.userId]}" data-lableDesc="USER_NAME">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">定保专员</label>
+											<div class="col-xs-8">
+												<select id="maintainAdvisor" class="bs-select form-control" 
+													data-fieldName="MAINTAIN_ADVISOR"
+													data-ajaxSync="true" name="maintainAdvisor"
+													data-url="/basedata/employees/-1/salesConsultant" data-model="manage"
+													data-labelValue="USER_ID"
+													data-value="{[userInfo.userId]}" data-lableDesc="USER_NAME">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">产地</label>
+											<div class="col-xs-8 ">
+												<input id="productingArea" name="productingArea" 
+													data-fieldName="PRODUCTING_AREA" class="form-control"
+													type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">DCRC专员</label>
+											<div class="col-xs-8">
+												<select id="dcrcAdvisor" class="bs-select form-control"
+													data-ajaxSync="true" name="dcrcAdvisor" data-fieldName="PRODUCTING_AREA"
+													data-url="/basedata/employees/-1/salesConsultant" data-model="manage"
+													data-labelValue="USER_ID"
+													data-value="{[userInfo.userId]}" data-lableDesc="USER_NAME">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">运营车挂方式</label>
+											<div class="col-xs-8">
+												<select id="insuranceAdvisor" class="bs-select form-control"
+													data-ajaxSync="true" name="" data-url=""
+													data-model="customer" data-labelValue="" data-lableDesc=""
+													data-alwaysRefresh="true">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">挂靠单位</label>
+											<div class="col-xs-8">
+												<select id="unitAttachcode" class="bs-select form-control"
+													data-ajaxSync="true" name="unitAttachcode" data-url=""
+													data-model="customer" data-labelValue="" data-lableDesc=""
+													data-alwaysRefresh="true">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">VSN</label>
+											<div class="col-xs-8 ">
+												<input id="vsn" name="vsn" data-fieldName="VSN" class="form-control"
+													type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">排放标准</label>
+											<div class="col-xs-8"> 
+												<select id="dischargeStandrd" class="bs-select form-control" name="dischargeStandrd"
+													data-fieldName="DISCHARGE_STANDARD" data-dictCode="3010">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">置换意向车型</label>
+											<div class="col-xs-8 ">
+												<input id="replaceIntentModel" name="replaceIntentModel" data-fieldName="REBUY_INTENT_MODEL" 
+													disabled="disabled"
+													class="form-control" type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-4">置换日期</label>
+												<div class="col-xs-8">
+													<div class="input-group date date-picker"
+														data-defaultToday="false" data-date-end-date="+0d"
+														data-orientation="top right">
+														<input id="replaceDate" name="replaceDate" class="form-control"
+															type="text" data-fieldName="REPLACE_DATE" disbaled="disabled"/> <span
+															class="input-group-btn">
+															<button class="btn default date-set" type="button">
+																<i class="fa fa-calendar"></i>
+															</button>
+															<button class="btn default date-reset" type="button">
+																<i class="fa fa-times"></i>
+															</button>
+														</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">延长质保合同编号</label>
+											<div class="col-xs-8 ">
+												<input id="" name="" data-fieldName="" class="form-control"
+													type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">购买方式</label>
+											<div class="col-xs-8">
+												<select id="waysToBuy" class="bs-select form-control" name="waysToBuy"
+													data-fieldName="WAYS_TO_BUY" data-dictCode="1067">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">保修手册号码</label>
+											<div class="col-xs-8 ">
+												<input id="handbookNo" name="handbookNo" data-fieldName="HANDBOOK_NO" class="form-control"
+													type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">更换发动机事项说明</label>
+											<div class="col-xs-8 ">
+												<input id="" name="" data-fieldName="" class="form-control"
+													type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">重构意向车型</label>
+											<div class="col-xs-8 ">
+												<input id="rebuyIntentModel" name="rebuyIntentModel" data-fieldName="REBUY_INTENT_MODEL" disabled="disabled"
+													class="form-control" type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">重构日期</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker"
+													data-defaultToday="false" data-date-end-date="+0d"
+													data-orientation="top right">
+													<input id="rebuyDate" name="rebuyDate" class="form-control"
+														type="text" data-fieldName="REBUY_DATE" disabled="disabled"/> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+														<button class="btn default date-reset" type="button">
+															<i class="fa fa-times"></i>
+														</button>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<div class="pannel-name"></div>
+								<div class="pannel-tools">
+									<a href="javascript:;" class="expand"> <i
+										class="fa fa-chevron-down"></i></a>
+								</div>
+							</div>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">经销商</label>
+											<div class="col-xs-8">
+												<select id="DEALER_CODE" class="bs-select form-control"
+													name="DEALER_CODE"
+													data-url="/stockManage/safeguard/findDealerInfo"
+													data-value="{[userInfo.dealerCode]}" data-model="customer"
+													data-labelValue="dealer_code"
+													data-lableDesc="DEALER_SHORTNAME">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">销售顾问</label>
+											<div class="col-xs-8">
+												<select id="consultant" class="bs-select form-control"
+													data-ajaxSync="true" name="consultant"
+													data-url="/basedata/employees/-1/salesConsultant" data-model="manage"
+													data-labelValue="USER_ID"
+													data-value="{[userInfo.userId]}" data-lableDesc="USER_NAME">
+												</select>
+											</div>
+										</div>
+									</div>
+									
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">开票日期</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker"
+													data-defaultToday="false" data-date-end-date="+0d"
+													data-orientation="top right">
+													<input id="" name=""
+														class="form-control" type="text"
+														data-fieldName="" /> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+														<button class="btn default date-reset" type="button">
+															<i class="fa fa-times"></i>
+														</button>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">销售里程</label>
+											<div class="col-xs-8">
+												<input id="salesMileage" name="salesMileage" data-fieldName="SALES_MILEAGE" disabled="disabled"
+													class="form-control" type="text" maxlength="120" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">上牌日期</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker"
+													data-defaultToday="false" data-date-end-date="+0d"
+													data-orientation="top right">
+													<input id="licenseDate" name="licenseDate"
+														class="form-control" type="text"
+														data-fieldName="LICENSE_DATE" /> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+														<button class="btn default date-reset" type="button">
+															<i class="fa fa-times"></i>
+														</button>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">本公司购车</label>
+											<div class="col-xs-8">
+												<select id="isSelfCompany" name="isSelfCompany" data-fieldName="IS_SELF_COMPANY" class="form-control"
+													data-dictCode="1278">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">客户编号</label>
+											<div class="col-xs-8">
+												<input id="customerNo" name="customerNo" data-fieldName="CUSTOMER_NO" disabled="disabled"
+													class="form-control" type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">营运证日期</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker"
+													data-defaultToday="false" data-date-end-date="+0d"
+													data-orientation="top right">
+													<input id="businessDate" name="businessDate"
+														class="form-control" type="text"
+														data-fieldName="BUSINESS_DATE" /> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+														<button class="btn default date-reset" type="button">
+															<i class="fa fa-times"></i>
+														</button>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">合约编号</label>
+											<div class="col-xs-8">
+												<input id="contractNo" name="contractNo" data-fieldName="CONTRACT_NO" class="form-control phone" type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">签约日期</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker"
+													data-defaultToday="false" data-date-end-date="+0d"
+													data-orientation="top right">
+													<input id="contractDate" name="contractDate"
+														class="form-control" type="text"
+														data-fieldName="CONTRACT_DATE" /> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+														<button class="btn default date-reset" type="button">
+															<i class="fa fa-times"></i>
+														</button>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">VIP编号</label>
+											<div class="col-xs-8">
+												<input id="vipNo" name="vipNo" data-fieldName="VIP_NO"
+													class="form-control email" type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">预收款</label>
+											<div class="col-xs-8 ">
+												<input id="prePay" name="prePay" class="form-control"
+													disbaled="disabled" type="text" data-fieldName="PRE_PAY" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">优惠模式</label>
+											<div class="col-xs-8">
+												<select id="discountModeCode" name="discountModeCode" data-fieldName="DISCOUNT_MODE_CODE" class="form-control"
+													data-dictCode="">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">优惠截止日期</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker"
+													data-defaultToday="false" data-date-end-date="+0d"
+													data-orientation="top right">
+													<input id="discountexpireDate" name="discountexpireDate"
+														class="form-control" type="text"
+														data-fieldName="DISCOUNT_EXPIRE_DATE" /> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+														<button class="btn default date-reset" type="button">
+															<i class="fa fa-times"></i>
+														</button>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">固定资产管理号</label>
+											<div class="col-xs-8">
+												<input id="" name="" class="form-control"
+													disbaled="disabled" type="text" data-fieldName="" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">欠款金额</label>
+											<div class="col-xs-8">
+												<input id="ArrearageAmount" name="ArrearageAmount" class="form-control"
+													disbaled="disabled" type="text" data-fieldName="ARREARAGE_AMOUNT" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<div class="pannel-name">送修人</div>
+								<div class="pannel-tools">
+									<a href="javascript:;" class="expand"> <i
+										class="fa fa-chevron-down"></i></a>
+								</div>
+							</div>
+							<div class="panel-body">
+								<!--/span-->
+								<div class="row">
+									<div class="col-xs-12 ">
+										<div class="input-group">
+											<span class="input-group-btn">
+												<button id="tb" class="btn default btn-sm btn-green "
+													type="button">
+													<i class="fa">自动同步车主信息</i>
+												</button>
+											</span>
+
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="row">
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">姓名</label>
+											<div class="col-xs-8">
+												<input id="deliverer" name="deliverer"
+													data-fieldName="DELIVERER" class="form-control" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">性别</label>
+											<div class="col-xs-8">
+												<select id="delivererGender" name="delivererGender" data-fieldName="DELIVERER_GENDER"
+													class="form-control" data-dictCode="1006">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">与车主关系</label>
+											<div class="col-xs-8">
+												<input id="delivererRelationToOwner" name="delivererRelationToOwner" class="form-control" type="text"
+													data-fieldName="DELIVERER_RELATION_TO_OWNER" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">喜欢的联络方式</label>
+											<div class="col-xs-8">
+												<select id="delivererHobbyContact" class="bs-select form-control" name="delivererHobbyContact"
+													data-fieldName="DELIVERER_HOBBY_CONTACT" data-dictCode="1231" >
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">电话</label>
+											<div class="col-xs-8">
+												<input id="delivererPhone" name="delivererPhone" class="form-control mobile"
+													type="text" data-fieldName="DELIVERER_PHONE" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">手机</label>
+											<div class="col-xs-8">
+												<input id="delivererMobile" name="delivererMobile" data-fieldName="DELIVERER_MOBILE" class="form-control phone" type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">身份证号</label>
+											<div class="col-xs-8">
+												<input id="delivererCredit" name="delivererCredit" data-fieldName="DELIVERER_CREDIT" class="form-control" type="text" maxLength="18" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">邮编</label>
+											<div class="col-xs-8">
+												<input id="contactorZipCode" name="contactorZipCode" class="form-control email" type="text" data-fieldName="ZIP_CODE" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">是否三日电访</label>
+											<div class="col-xs-8">
+												<select id="istrace" class="bs-select form-control" data-fieldName="IS_TRACE" name="istrace" data-dictCode="1278">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">三日电访时间</label>
+											<div class="col-xs-8">
+												<select id="traceTime" class="bs-select form-control" data-fieldName="TRACE_TIME" data-dictCode="1125" name="traceTime">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">地址</label>
+											<div class="col-xs-8">
+												<input id="delivererAddress" name="delivererAddress" class="form-control" type="text" data-fieldName="DELIVERER_ADDRESS" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">工作单位</label>
+											<div class="col-xs-8">
+												<select id="delivererCompany" class="bs-select form-control" name="delivererCompany"
+													data-type="region" data-fieldName="DELIVERER_COMPANY" >
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<div class="pannel-name"></div>
+								<div class="pannel-tools">
+									<a href="javascript:;" class="expand"> <i
+										class="fa fa-chevron-down"></i></a>
+								</div>
+							</div>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-xs-12 col-sm-12 col-md-12">
+										<div class="form-group">
+											<label class="control-label col-xs-4 col-sm-1">备注</label>
+											<div class="col-xs-8 col-sm-11">
+												<input type="text" class="form-control" id="remark"
+													name="remark" data-fieldName="REMARK">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /span----------------------------- -->
+					<div class="tab-pane" id="tab_insurance">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<div class="pannel-name">保修</div>
+								<div class="pannel-tools">
+									<a href="javascript:;" class="expand"> <i
+										class="fa fa-chevron-down"></i></a>
+								</div>
+							</div>
+							<div class="panel-body">
+								<div class="row">
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">行驶里程</label>
+											<div class="col-xs-8">
+												<input type="text" id="mileage" name="mileage" diasbled="disabled"
+													data-fieldName="MILEAGE" class="form-control" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">换表里程</label>
+											<div class="col-xs-8">
+												<input type="text" id="" name="" diasbled="disabled"
+													data-fieldName="" class="form-control" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">日平均行驶里程</label>
+											<div class="col-xs-8">
+												<input id="dailyAverageMileage" name="dailyAverageMileage" 
+													diasbled="disabled" data-fieldName="DAILY_AVERAGE_MILEAGE"
+													class="form-control" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">保修日期</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker"
+													data-defaultToday="false" data-date-end-date="+0d"
+													data-orientation="top right">
+													<input id="" name="" class="form-control" type="text"
+														data-fieldName="" /> <span class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+														<button class="btn default date-reset" type="button">
+															<i class="fa fa-times"></i>
+														</button>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">保修起始里程</label>
+											<div class="col-xs-8">
+												<div class="input-group">
+													<input type="text" class="form-control digits"
+														id="nextMaintainMileage" name="nextMaintainMileage" /> <span
+														class="input-group-addon">至</span> <input type="text"
+														class="form-control digits" id="nextMaintainMileage"
+														name="nextMaintainMileageTo" />
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">首次进厂日期</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker"
+													data-defaultToday="false" data-date-end-date="+0d"
+													data-orientation="top right">
+													<input id="firstInDate" name="firstInDate" class="form-control" type="text"
+														data-fieldName="FIRST_IN_DATE" /> <span class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+														<button class="btn default date-reset" type="button">
+															<i class="fa fa-times"></i>
+														</button>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">上次维修日期</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker"
+													data-defaultToday="false" data-date-end-date="+0d"
+													data-orientation="top right">
+													<input id="LastMaintainDate" name="LastMaintainDate" class="form-control" type="text"
+														data-fieldName="LAST_MAINTAIN_DATE" /> <span class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+														<button class="btn default date-reset" type="button">
+															<i class="fa fa-times"></i>
+														</button>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">上次维修里程</label>
+											<div class="col-xs-8">
+												<input type="text" id="LastMaintainMileage" name="LastMaintainMileage" diasbled="disabled"
+													data-fieldName="LAST_MAINTAIN_MILEAGE" class="form-control"> </input>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">上次验车日期</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker"
+													data-defaultToday="false" data-date-end-date="+0d"
+													data-orientation="top right">
+													<input id="lastInspectDate" name="lastInspectDate" class="form-control" type="text"
+														data-fieldName="LAST_INSPECT_DATE" /> <span class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+														<button class="btn default date-reset" type="button">
+															<i class="fa fa-times"></i>
+														</button>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">下次保养日期</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker"
+													data-defaultToday="false" data-date-end-date="+0d"
+													data-orientation="top right">
+													<input id="nextMaintainDate" name="nextMaintainDate" class="form-control" type="text"
+														data-fieldName="NEXT_MAINTAIN_DATE" /> <span class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+														<button class="btn default date-reset" type="button">
+															<i class="fa fa-times"></i>
+														</button>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">下次保养里程</label>
+											<div class="col-xs-8">
+												<input type="text" id="nextMaintainMileage" name="nextMaintainMileage" diasbled="disabled"
+													data-fieldName="NEXT_MAINTAIN_MILEAGE" class="form-control" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">下次验车日期</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker"
+													data-defaultToday="false" data-date-end-date="+0d"
+													data-orientation="top right">
+													<input id="" name="" class="form-control" type="text"
+														data-fieldName="" /> <span class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+														<button class="btn default date-reset" type="button">
+															<i class="fa fa-times"></i>
+														</button>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">加装说明</label>
+											<div class="col-xs-8">
+												<input type="text" id="addequipment" name="addequipment" data-fieldName="ADD_EQUIPMENT"
+													class="form-control" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">注意事项</label>
+											<div class="col-xs-8">
+												<inout type="text" id="attentionInfo" name="attentionInfo" data-fieldName="ATTENTION_INFO"
+													class="form-control" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">待办事项</label>
+											<div class="col-xs-8">
+												<input type="text" id="prepareJob" name="prepareJob" data-fieldName="PREPARE_JOB"
+													class="form-control" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">上次保养日期</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker"
+													data-defaultToday="false" data-date-end-date="+0d"
+													data-orientation="top right">
+													<input id="LastMaintenanceDate" name="LastMaintenanceDate" class="form-control" type="text"
+														data-fieldName="LAST_MAINTENANCE_DATE" /> <span class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+														<button class="btn default date-reset" type="button">
+															<i class="fa fa-times"></i>
+														</button>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">上次保养里程</label>
+											<div class="col-xs-8">
+												<input type="text" id="LastMaintenanceMileage" name="LastMaintenanceMileage" data-fieldName="LAST_MAINTENANCE_MILEAGE"
+													class="form-control" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">新车关怀日期</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker"
+													data-defaultToday="false" data-date-end-date="+0d"
+													data-orientation="top right">
+													<input id="nerVehicleDat" name="nerVehicleDat" class="form-control" type="text"
+														data-fieldName="NEW_VEHICLE_DATE" /> <span class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+														<button class="btn default date-reset" type="button">
+															<i class="fa fa-times"></i>
+														</button>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">是否激活</label>
+											<div class="col-xs-8 ">
+												<select id="isValid" class="bs-select form-control" name="isValid"
+													data-fieldName="IS_VALID" disabled="disabled">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">不激活原因</label>
+											<div class="col-xs-8 ">
+												<select id="noValidReason" class="bs-select form-control" name="noValidReason"
+													data-fieldName="NO_VALID_REASON" >
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">产品代码</label>
+											<div class="col-xs-8">
+												<input type="text" id="productCode" name="productCode" data-fieldName="PRODUCT_CODE"
+													class="form-control" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+								</div>
+							</div>
+							<div class="panel-body">
+								<table
+									class="table table-striped table-bordered table-hover table-responsive"
+									id="insurance">
+								</table>
+							</div>
+						</div>
+					</div>
+					
+					<!-- /span----------------------------- -->
+					<div class="tab-pane" id="tab_memoinfo">
+						<div class="panel panel-default table-panel">
+							<div class="panel-heading">
+								<div class="pannel-name">车辆备注</div>
+								<div class="panel-body">
+									<div class="inner">
+										<div class="row">
+											<div class="col-lg-12">
+												<textarea id="memoInfo" name="memoInfo" data-fieldName="MEMO_INFO"
+												 class="form-control" rows="18" cols="12" type="text"/>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="panel-body">
+								<table
+									class="table table-striped table-bordered table-hover table-responsive"
+									id="dms_memoInfo">
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /span--------------------------------------- -->
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/customer/insurance/vehicle/{[VIN]}" data-model="customer" data-method="PUT"
+				data-callBack="true"  class="btn blue"
+				id="saveBtn" name="saveBtn" data-onclickEvent1='true'
+				data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+			</a> <a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms", function(event, container) {
+		new Datatable().initPagination({
+			src : "insurance",
+			rowID : "VIN",
+			container : container,
+			url : dmsCommon.getDmsPath()["customer"] + "/customer/insurance/insurance/{[VIN]}",
+			sortName : "VIN",
+			sortOrder : "asc",
+			autoHeight : false,
+			undefinedText : "",
+			columns : [
+	        {
+				field : "INSURANCE_TYPE_NAME",
+				title : "险种"
+			}, {
+				field : "INSURATION_CODE",
+				title : "保险公司"
+			}, {
+				field : "INSURANCE_BEGIN_DATE",
+				title : "保险开始时间"
+			}, {
+				field : "INSURANCE_END_DATE",
+				title : "保险结束时间"
+			}, {
+				field : "INSURANCE_BILL_NO",
+				title : "保单号"
+			}, {
+				field : "RE_INSURE",
+				title : "是否续保"
+			},  {
+				field : "ACTUAL_EXPENDING",
+				title : "实际费用"
+			}, {
+				field : "COMPLETED_BY",
+				title : "专员"
+			}, {
+				field : "COMPLETED_DATE",
+				title : "完工日期"
+			}, {
+				field : "INSURANCE_INTRO_MAN",
+				title : "保险介绍人"
+			}, {
+				field : "RECORD_DATE",
+				title : "登记日期"
+			}, {
+				field : "RECORDER",
+				title : "登记人"
+			}, {
+				field : "IS_INSURE_REMIND",
+				title : "是否续保提醒"
+			}, {
+				field : "INSURANCE_BUY_DATE",
+				title : "投保日期"
+			}, {
+				field : "IS_SELF_COMPANY_INSURANCE",
+				title : "是否本公司投保"
+			}, {
+				field : "IS_SALE_CREATE",
+				title : "是否销售订单创建"
+			}, {
+				field : "REMARK",
+				title : "备注"
+			}, ],
+		});		
+		
+		$("#tb", container).on(
+				'click',
+				function() {
+					$("#deliverer", container).val(
+							$("#ownerName", container).val());
+					$("#delivererGender", container).val(
+							$("#gender", container).val());
+					$("#delivererRelationToOwner", container).val(
+							$("#relationToOwner", container).val());
+					$("#delivererHobbyContact", container).val(
+							$("#HobbyContact", container).val());
+					$("#delivererPhone", container).val(
+							$("#phone", container).val());
+					$("#contactorMobile", container).val(
+							$("#mobile", container).val());
+					$("#delivererCredit", container).val(
+							$("#credit", container).val());
+					$("#istrace", container).selectpicker(
+							'val', $("#istrace1", container).val());
+					$("#traceTime", container).selectpicker('val',
+							$("#traceTime1", container).val());
+					
+					$("#delivererAddress", container).selectpicker(
+							'val', $("#address", container).val());
+					$("#contactorZipCode", container).selectpicker(
+							'val', $("#zipCode", container).val());
+					$("#delivererCompany", container).val(
+							$("#company", container).val());
+				});
+		
+		//新增页面回调函数
+		$("a[data-callBack='true']", container).on(
+				"callBack.dms",
+				function(event, response) {
+					//关闭窗口
+					$("a[data-dismiss='modal']", container).click();
+					//刷新表格
+					$("#dms_insurance", getElementContext())
+							.dmsTable().refreshTableWithForm();
+				});
+		
+	});
+</script>

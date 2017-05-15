@@ -1,0 +1,63 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+			<div class="modal-title">配件车型组信息新增</div>
+		</div>
+		<div class="modal-body">
+    		<div class="panel panel-default">
+				<div class="panel-body">
+		            <div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">配件车型组代码</label>
+						<div class="col-xs-8">
+							<input id="part_model_group_code" name="part_model_group_code" maxlength="4" class="form-control required systemCode" type="text" />
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">配件车型组名称</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control required" maxlength="20" id="part_model_group_name" name="part_model_group_name">
+					    </div>
+					</div>
+				</div>
+				
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">是否OEM</label>
+						<div class="col-xs-8">
+							<select  id="oem_tag" name="oem_tag"  class="bs-select form-control" disabled="disabled" data-existsDefault="false" data-dictCode="1278" data-value="12781002" >
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/basedata/partModelGroup" data-model="part" data-method="POST" data-callBack="true"  class="btn blue" data-toggle="confirmation" ><i
+				class="fa fa-save" data-onclickEvent="true"></i>保存</a>
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+ $(document).one("onload.dms",function(event,container){
+	//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_part_model_group",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	});
+</script>

@@ -1,0 +1,259 @@
+<div class="dms-edit ajaxrest">
+	<form class="form-horizontal">
+	<div class="modal-header">
+			
+			 <div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			  </div>
+		</div>
+		<div class="panel panel-default" >
+		
+		                   <div class="panel-heading">
+								<div class="pannel-name">客户保修登记卡</div>
+
+								<div class="pannel-tools">
+									<a href="javascript:;" class="expand"> <i
+										class="fa fa-chevron-down"></i></a>
+								</div>
+							</div>
+			<div class="panel-body">
+				<div class="row">
+					
+				     <div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">客户类型</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control required" id="payMode"
+									name="payMode" data-dictCode="1405">
+								</select>
+							</div>
+						</div>
+					</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">客户名称</label>
+							<div class="col-xs-8">
+								<input id="customerName" name="customerName"
+									data-fieldName="CUSTOMER_NAME" class="form-control" type="text"
+									 />
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">联系人姓名</label>
+							<div class="col-xs-8">
+								<input id="customerName" name="customerName"
+									data-fieldName="CUSTOMER_NAME" class="form-control" type="text"
+									disabled="disabled" />
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">联系人手机</label>
+							<div class="col-xs-8">
+								<input id="customerName" name="customerName"
+									data-fieldName="CUSTOMER_NAME" class="form-control" type="text"
+									disabled="disabled" />
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">性别</label>
+											<div class="col-xs-8">
+												<select id="gender" name="gender" data-fieldName="GENDER"
+													class="bs-select form-control required" data-dictCode="1002" data-excludeItems="10021003"
+													data-value="">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									
+							<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">邮编</label>
+											<div class="col-xs-8 ">
+												<input id="zipCode" name="zipCode"  class="form-control required zipCode" type="text" 
+												 data-valueUrl="/basedata/BasicParameters/1017/basicom_zipcode" 
+												 data-valueType="parameter" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">证件类型</label>
+											<div class="col-xs-8">
+												<select id="ctCode" name="ctCode"
+													class="bs-select form-control" data-dictCode="1508"
+													data-value=""  >
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">证件号</label>
+											<div class="col-xs-8 ">
+												<input id="certificateNo" name="certificateNo"
+													class="form-control " type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-12 col-md-8">
+										<div class="form-group">
+											<label class="control-label col-xs-4 col-sm-2">地址</label>
+											<div class="col-xs-8 col-sm-10">
+												<input id="address" name="address" class="form-control required" maxlength="120" type="text" />
+													
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">邮箱</label>
+											<div class="col-xs-8 ">
+												<input id="eMail" name="eMail" class="form-control email"
+													type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									
+									<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">VIN号</label>
+							<div class="col-xs-8 ">
+								<div class="input-group">
+									<input type="text" class="form-control" id="vin" name="vin"
+										data-fieldName="VIN" readonly />
+									<input type="hidden" class="form-control" id="vsStockId" name="vsStockId"
+										data-fieldName="VS_STOCK_ID" />
+									<input type="hidden" class="form-control" id="vehicleId" name="vehicleId"
+										data-fieldName="VEHICLE_ID" />
+									<span class="input-group-btn">
+										<button class="btn default btn-sm" type="button"
+											data-url="retail/ordermanage/salesorder/selectVIN.html"
+											data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">品牌</label>
+							<div class="col-xs-8">
+								<select id="brand" class="bs-select form-control" name="brand"
+									data-url="/basedata/brandsdict" data-model="manage"
+									data-labelValue="BRAND_CODE" data-lableDesc="BRAND_NAME"
+									 data-fieldName="BRAND_CODE" disabled="disabled">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车系</label>
+							<div class="col-xs-8">
+								<select id="seriess" parent="brand"
+									class="bs-select form-control" name="series"
+									data-url="/basedata/brandsdictC/{[brand]}/seriessdictC"
+									data-model="manage" data-labelValue="SERIES_CODE" data-fieldName="SERIES_CODE"
+									data-lableDesc="SERIES_NAME" disabled="disabled">
+								</select>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车型</label>
+							<div class="col-xs-8">
+								<select id="models" parent="seriess"
+									class="bs-select form-control" name="model"
+									data-url="/basedata/brandsdictC/{[brand]}/seriessdictC/{[seriess]}/modelsdictC"
+									data-model="manage" data-labelValue="MODEL_CODE" data-fieldName="MODEL_CODE"
+									data-lableDesc="MODEL_NAME" disabled="disabled">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">颜色</label>
+							<div class="col-xs-8">
+								<select id="models" parent="seriess"
+									class="bs-select form-control" name="model"
+									data-url="/basedata/brandsdictC/{[brand]}/seriessdictC/{[seriess]}/modelsdictC"
+									data-model="manage" data-labelValue="MODEL_CODE" data-fieldName="MODEL_CODE"
+									data-lableDesc="MODEL_NAME" disabled="disabled">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配置</label>
+							<div class="col-xs-8">
+								<select id="models" parent="seriess"
+									class="bs-select form-control" name="model"
+									data-url="/basedata/brandsdictC/{[brand]}/seriessdictC/{[seriess]}/modelsdictC"
+									data-model="manage" data-labelValue="MODEL_CODE" data-fieldName="MODEL_CODE"
+									data-lableDesc="MODEL_NAME" disabled="disabled">
+								</select>
+							</div>
+						</div>
+					</div>
+                    	
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group form-group-xs m-b-xs">
+							<label class="control-label col-xs-4">销售顾问</label>
+							<div class="col-xs-8">
+								<select id="consultant" name="consultant"
+									class="bs-select form-control required"
+									data-url="/basedata/employees/-1/salesConsultant"
+									data-model="manage" data-labelValue="EMPLOYEE_NO" data-value="{[userInfo.employeeNo]}"
+									data-lableDesc="EMPLOYEE_NAME" data-fieldName="CONSULTANT">
+								</select>
+							</div>
+						</div>
+		
+
+					
+							
+				
+							<!--/span-->
+							 
+			
+				</div>
+			</div>
+		</div>
+		</div>
+
+
+		<div class="form-actions">
+		
+				
+			<a data-goback="page" href="retail/ordermanage/salesorder/searchSalesOrder.html"
+				class="btn blue ajaxify"><i class="fa fa-reply"></i>保存</a>
+			<a data-goback="page" href="retail/ordermanage/salesorder/searchSalesOrder.html"
+				class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>
+		</div>
+	</form>
+</div>

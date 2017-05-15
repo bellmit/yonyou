@@ -1,0 +1,95 @@
+<div class="dms-edit ajaxrest" data-url="/basedata/reservationLimit/{[BOOKING_ID]}" data-model="repair" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">预约限量设置新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12   ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">预约类型</label>
+								<div class="col-xs-8">
+									<select id="bookingTypeCode" name="bookingTypeCode"
+										data-fieldName="BOOKING_TYPE_CODE"
+										class="bs-select form-control required" 
+										data-url="/basedata/repairtypes/getRepairTypes/item"
+										data-model="manage" data-labelValue=REPAIR_TYPE_CODE
+										data-lableDesc="REPAIR_TYPE_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">预约开始时间</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input type="text" id="beginTime" name="beginTime" data-fieldName="BEGIN_TIME"
+											class="form-control timepicker timepicker timepicker-24 required">
+										<span class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-clock-o"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12   ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">预约结束时间</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input type="text" id="endTime" name="endTime" data-fieldName="END_TIME"
+											class="form-control timepicker timepicker-24 required">
+										<span class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-clock-o"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">预约限量</label>
+								<div class="col-xs-8">
+									<input id="saturation" name="saturation" data-fieldName="SATURATION"
+										class="form-control required digits" min ="1"  maxDigit="4" type="text"
+										data-fieldName="repair_type_code" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a data-url="/basedata/reservationLimit/{[BOOKING_ID]}" data-model="repair"
+				data-method="PUT" data-callBack="true" class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> <a
+				data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	//新增页面回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+});	
+</script>

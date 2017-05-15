@@ -1,0 +1,249 @@
+<div class="dms-edit ajaxrest" data-url="/recallActivityBuild/recallEdit/{[RECALL_ID]}"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title"> 召回活动建立修改</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">基本信息</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+			
+	    		<div class="modal-body">
+					<div class="row">
+					
+															
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">召回编号：</label>
+								<div class="col-xs-8">
+									<input id="recallNo" name="recallNo" data-fieldName="RECALL_NO" class="form-control required" maxlength="20" type="text" />
+									<input id="recallOldNo" name="recallOldNo" data-fieldName="RECALL_NO" class="form-control "  type="hidden" />
+									<input id="recallId" name="recallId" data-fieldName="RECALL_ID" class="form-control "  type="hidden" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">召回名称：</label>
+								<div class="col-xs-8">
+									<input id="recallName" name="recallName" data-fieldName="RECALL_NAME" class="form-control required" maxlength="50" type="text" />
+								</div>
+							</div>
+						</div>
+					
+
+						
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4">召回类别:</label>
+							<div class="col-xs-8">
+									<select id="recallTheme" name="recallTheme" data-fieldName="RECALL_THEME" class="bs-select form-control required" data-type="oemDict" data-dictCode="7041"  data-value="" >
+									</select>
+							</div>
+						</div>
+					</div>	
+					
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4">召回参与方式:</label>
+							<div class="col-xs-8">
+									<select id="recallType" name="recallType" data-fieldName="RECALL_TYPE" class="bs-select form-control required" data-type="oemDict" data-dictCode="7042"  data-value="" >
+									</select>	
+							</div>
+						</div>
+					</div>	
+					
+
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">召回开始日期：</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker" >
+										<input id="recallStartDate" name="recallStartDate" readonly data-fieldName="RECALL_START_DATE"
+											class="form-control required"
+											type="text" value="" /> <span class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+
+									</div>
+								</div>
+							</div>
+						</div>						
+					
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">召回结束日期：</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker" >
+										<input id="recallEndDate" name="recallEndDate" readonly data-fieldName="RECALL_END_DATE"
+											class="form-control required"
+											type="text" value="" /> <span class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+					
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">工时费用：</label>
+								<div class="col-xs-8">
+									<input id="manHourCost" name="manHourCost" data-fieldName="MAN_HOUR_COST" type="text" 
+										class="form-control " />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否固定费用: </label>
+								<div class="col-xs-8">
+									<select id="isFixedCost" name="isFixedCost" data-fieldName="IS_FIXED_COST" class="bs-select form-control required" data-type="oemDict" data-dictCode="1004" data-value=""   >
+									</select>
+								</div>
+							</div>
+						</div> 
+						
+
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件费用：</label>
+								<div class="col-xs-8">
+									<input id="partCost" name="partCost" data-fieldName="PART_COST" type="text"
+										class="form-control " />
+								</div>
+							</div>
+						</div>
+
+			 			<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">其他费用：</label>
+								<div class="col-xs-8">
+									<input id="otherCost" name="otherCost" data-fieldName="OTHER_COST" type="text"
+										class="form-control " />
+								</div>
+							</div>
+						</div>
+						
+																			
+					<div class="col-xs-12 col-sm-6 col-md-12 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">召回活动说明：</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input type="text" class="form-control" id="recallExplain" name="recallExplain" data-fieldName="RECALL_EXPLAIN" maxlength="100">
+									<span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                 </span>
+                                 </div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-12 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">索赔申请指导：</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input type="text" class="form-control" id="claimApplyGuidance" name="claimApplyGuidance" data-fieldName="CLAIM_APPLY_GUIDANCE" maxlength="250">
+									<span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                 </span>
+                                 </div>
+							</div>
+						</div> 
+					</div>	 
+
+					</div>
+				</div>
+			</div>
+
+
+
+						
+	</div>
+
+		<div class="modal-footer center-block">
+			<a data-url="/recallActivityBuild/recallEditSave" data-model="vehicle" data-method="POST"
+				data-callBack="true" class="btn blue" data-beforeRequest="true" 
+				data-toggle="confirmation"> <i class="fa fa-save"></i>修改
+				</a> 
+		 	<a class="btn blue" data-url="vehicle/activityRecallManage/recallServiceImport.html" data-width="modal-lg"
+								data-toggle="modal"> <i class="fa fa-upload"></i> 召回VIN导入
+				</a>  
+			
+		 	<a class="btn blue" data-url="" data-width="modal-lg"
+								data-toggle="modal"> <i class="fa fa-edit"></i> 召回项目添加
+				</a> 
+		 	<a class="btn blue" data-url="vehicle/activityRecallManage/recallServiceDealerInit.html" data-width="modal-lg"
+								data-toggle="modal"> <i class="fa fa-edit"></i> 参与经销商范围
+				</a>   
+			<a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消
+				</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one("onload.dms",function(event,container){
+		//alert("111");
+		
+		
+		
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			//$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#orderList", getElementContext()).dmsTable().refreshTableWithForm();
+
+		});
+				
+		//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			//$("#addressList",getElementContext()).dmsTable().appendBlankRow();
+		});
+		
+		//事件点击
+		$("a[data-onclickEvent1='true']",container).on("dms.click",function(event){
+			//$("#addressList",getElementContext()).dmsTable().appendBlankRow();
+		});
+		
+		//发送请求前执行事件
+		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			//alert("发送请求前执行事件");			
+			//debugger;
+			returnResult.status = true;
+		});
+		
+	});
+</script>

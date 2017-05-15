@@ -1,0 +1,112 @@
+<div class="dms-edit ajaxrest" data-url="/activitySummaryDlr/summaryDlrDeatilQuery/{[ACTIVITY_ID]}/{[ACTIVITY_CODE]}/{[ACTIVITY_NAME]}/{[IN_AMOUNT]}"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">服务活动总结维护</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+	    		<div class="modal-title">基本信息</div>
+					<div class="row">
+
+					
+					<div class="col-xs-12 col-sm-6 col-md-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">活动名称</label>
+								<div class="col-xs-8">		
+									<input id="activityName" name="activityName"  data-fieldName="ACTIVITY_NAME"  readonly class="form-control required" maxlength="30" type="text" />
+									<input id="activityId" name="activityId" data-fieldName="ACTIVITY_ID"   type="hidden" />
+								</div>
+							</div>
+						</div>
+					
+						<div class="col-xs-12 col-sm-6 col-md-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">进厂台次</label>
+								<div class="col-xs-8">
+									<input id="inAmount" name="inAmount" data-fieldName="IN_AMOUNT"  readonly class="form-control  required" maxlength="30" type="text" />									
+								</div>
+							</div>
+						</div>			
+	
+					<div class="col-xs-12 col-sm-6 col-md-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">保修内数量</label>
+								<div class="col-xs-8">
+									<input id="inGuarantee" name="inGuarantee" data-fieldName="IN_GUARANTEE"  readonly class="form-control required" maxlength="30" type="text" />									
+								</div>
+							</div>
+						</div>	
+				
+					
+						<div class="col-xs-12 col-sm-6 col-md-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">保修外数量</label>
+								<div class="col-xs-8">
+									<input id="outGuarantee" name="outGuarantee" data-fieldName="OUT_GUARANTEE" readonly  class="form-control required" maxlength="30" type="text" />									
+								</div>
+							</div>
+						</div>			
+						
+
+						
+				
+					
+						<div class="col-xs-12 col-sm-6 col-md-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2">活动效果自我评价</label>
+								<div class="col-xs-10">
+									<input id="evaluate" name="evaluate" data-fieldName="EVALUATE" class="form-control required " maxlength="1500" type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2">建议及改进措施</label>
+								<div class="col-xs-10">
+									<input id="measures" name="measures" data-fieldName="MEASURES"  class="form-control required " maxlength="1500"  type="text" />
+								</div>
+							</div>
+						</div>
+	
+																	
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/activitySummaryDlr/summaryUpdateSave" data-model="vehicle"
+				data-method="PUT" data-callBack='true'
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>上报</a> <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	
+	
+	</form>
+		
+
+	
+	
+	
+	
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+		
+	})
+</script>

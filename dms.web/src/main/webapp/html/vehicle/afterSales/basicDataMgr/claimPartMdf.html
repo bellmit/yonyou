@@ -1,0 +1,93 @@
+<div class="dms-edit ajaxrest" data-url="/ClaimPart/getClaimPart/{[ID]}" data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">索赔配件质保期维护</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+					<div class="col-xs-12 col-sm-6 " data-tableSelect="true">
+						<div class="form-group">
+								<label class="control-label col-xs-4">配件代码：</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+									<input id="partCode" readonly
+										name="partCode" class="form-control" type="text"
+										data-fieldName="PART_CODE" /> 
+					                 <input id="id" readonly name="id" class="form-control" type="hidden"/> 
+										<span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="vehicle/afterSales/basicDataMgr/searchPartCode.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+					</div>
+					
+					
+				<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">配件名称：</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control"  id="partName" name="partName"  data-fieldName="PART_NAME"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">质保里程（月）：</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control"  id="qualityTime" name="qualityTime"  data-fieldName="QUALITY_TIME" />
+							</div>
+						</div>
+					</div>
+						<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">质保公里（公里）：</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control"  id="qualityMileage" name="qualityMileage"  data-fieldName="QUALITY_MILEAGE" />
+							</div>
+						</div>
+					</div>
+				
+				
+				
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/ClaimPart/edit/{[ID]}" data-model="vehicle"
+				data-method="PUT" data-callBack='true'
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>修改</a> <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	})
+</script>
+

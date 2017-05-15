@@ -1,0 +1,12 @@
+package com.yonyou.dms.vehicle.service.oldPart;
+
+import java.util.List;
+import java.util.Map;
+
+import com.yonyou.dms.framework.DAO.PageInfoDto;
+
+public interface DealerOldPartClipPrintService {
+	PageInfoDto findClipPrint(Map<String, String> queryParam);
+
+	List<Map> queryEmpInfoforExport(Map<String, String> queryParam)  throws Exception;
+}

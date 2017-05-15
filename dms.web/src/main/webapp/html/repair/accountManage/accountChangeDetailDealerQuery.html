@@ -1,0 +1,139 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+						
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">时间区间</label>
+							<div class="col-xs-8 col-sm-10">
+								 <div class="input-group input-daterange" data-maxDays = "30" data-opens="right">
+		                             <input type="text" class="form-control" readonly  name="beginDate">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="endDate">
+		                             <span class="input-group-btn">
+                                         <button class="btn default input-clear" type="button">
+                                            <i class="fa fa-close"></i>
+                                        </button>
+                                      </span> 
+		                        </div>
+							</div>
+						</div>
+					</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">账户类型</label>
+							<div class="col-xs-8">
+								<select id="accType" name="accType"
+									class="bs-select form-control" data-type="oemDict" data-dictCode="9018"
+									data-value=""></select>
+
+							</div>
+						</div>
+					</div>
+				
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true">
+								<i class="fa fa-search"></i> 查询
+							</a> 
+								<a class="btn blue" ><i class="fa fa-undo"></i>重置 </a>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default table-panel">
+					<div class="panel-heading">
+						<div class="pannel-name">账户余额查询</div>
+						<a href="javascript:;" class="btn"
+								data-url="/k4AccountManage/downLoad" data-model="repair"
+								data-method="downLoad" data-toggle="confirmation"><i
+								class="fa fa-download"></i> 下载 </a>
+						
+					</div>
+					<div class="panel-body">
+						<table
+							class="form-group  table table-striped table-bordered table-hover table-responsive"
+							id="dms_table"></table>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+	</form>
+
+
+</div>
+<script type="text/javascript">
+	//查询
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				new Datatable().initPagination({
+					src : "dms_table",
+					container : container,
+					url : dmsCommon.getDmsPath()["repair"]
+							+ "/k4AccountManage/accountChangeDetailQuery",
+					rowID : "",
+					isQueryFirst : true,
+					pageSize : 5,
+					isQueryFirst:false,
+					//当需要开启显示明细时才实现，否则不实现
+					/* detailFormatter : function(index, row, element) {
+						return row.NAME;
+					}, */
+					columns : [
+					
+					{
+						field : "OPERA_DATE",
+						title : "日期"
+						
+					}, {
+						field : "ACC_TYPE",
+						title : "账户类型"
+					}, {
+						field : "AMOUNT_A",
+						title : "打款金额"
+					}, {
+						field : "AMOUNT_B",
+						title : "扣款金额(不含税)"
+					}, {
+						field : "AMOUNT_C",
+						title : "扣款金额(含税)"
+					}, {
+						field : "EVIDENCE_NO",
+						title : "凭证号"
+					}, {
+						field : "VIN",
+						title : "VIN"
+					}, {
+						field : "INVOICE_NO",
+						title : "SAP发票号"
+					}, {
+						field : "ORDER_NO",
+						title : "销售订单号"
+					}, {
+						field : "REMARK",
+						title : "描述"
+					}
+					]
+
+				});
+				//事件点击
+				$("a[data-onclickEvent='true']", container).on("dms.click",
+						function(event) {
+							//debugger
+							/* var selectRow = $("#dms_table", container)
+									.dmsTable().getFirstSelection();
+
+							$("div[data-tableSelect='true']",
+									getElementContext()).initHtmlContent(
+									selectRow);
+							//关闭窗口
+							$("a[data-dismiss='modal']", container).click(); */
+						});
+
+			});
+</script>

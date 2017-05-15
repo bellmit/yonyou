@@ -1,0 +1,97 @@
+<div class="dms-edit" data-url="" data-model="">
+<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">维修历史</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">车主车辆信息</div>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车牌号：</label>
+								<div class="col-xs-8 ">
+									<span class="col-xs-12 form-show" name="license2"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">VIN：</label>
+								<div class="col-xs-8 ">
+									<span class="col-xs-12 form-show" name="vin2"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">发动机号：</label>
+								<div class="col-xs-8 ">
+									<span class="col-xs-12 form-show" name="engineNo"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车主：</label>
+								<div class="col-xs-8 ">
+									<span class="col-xs-12 form-show" name="ownerName"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- tab页 -->
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="tabbable-custom ">
+							<ul class="nav nav-tabs">
+							 	<li class="active">
+									<a href="#tab_local_history" data-toggle="tab">本地维修历史 </a>
+								</li>
+								 <li>
+									<a href="#tab_local_project" data-toggle="tab">本地维修项目</a>
+								</li>
+								<li>
+									<a href="#tab_local_part" data-toggle="tab">本地维修配件</a>
+								</li>
+								<li>
+									<a href="#tab_oem_history" data-toggle="tab">OEM维修历史 </a>
+								</li>
+							</ul>
+							<div class="tab-content">
+								<div class="tab-pane  fade" id="tab_local_history" data-url="repair/order/repair/repairOrderTab/localHistory.html">
+								</div>
+								<div class="tab-pane  fade" id="tab_local_project" data-url="repair/order/repair/repairOrderTab/localProject.html">
+								</div>
+								<div class="tab-pane  fade" id="tab_local_part" data-url="repair/order/repair/repairOrderTab/localPart.html">
+								</div>
+								<div class="tab-pane  fade" id="tab_oem_history" data-url="repair/order/repair/repairOrderTab/oemHistory.html">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		//给窗体头部赋值
+		$("span[name='license2']",container).html($("#license",getElementContext()).val());
+		$("span[name='vin2']",container).html($("#vin",getElementContext()).val());
+		$("span[name='engineNo']",container).html($("#engineNo",getElementContext()).val());
+		$("span[name='ownerName']",container).html($("#ownerName",getElementContext()).val());
+	});
+	
+</script>

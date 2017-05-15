@@ -1,0 +1,947 @@
+<div class="dms-edit ajaxrest" data-url="/customerManage/visitingRecord/{[VISITING_RECORD_ID]}" data-model="customer">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">客户信息编辑</div>
+			 <div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			  </div>
+		</div>
+		<div class="modal-body">
+			<div class="tabbable-custom ">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#tab_basreceive" data-toggle="tab">基础信息</a></li>
+					<li><a href="#tab_Receiveopinion" data-toggle="tab">客户意向报价</a></li>
+					<li><a href="#tab_owner" data-toggle="tab">保有车辆信息</a></li>
+					<li><a href="#tab_task" data-toggle="tab">客户跟进记录</a></li>
+					<!-- <li><a href="#tab_qssale" data-toggle="tab">QS-Sales流程</a></li> -->
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane fade in active" id="tab_basreceive">
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<div class="row">
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group" data-tableSelect="true">
+											<label class="control-label col-xs-4">客户名称</label>
+											<input id="visitingRecordId" name="visitingRecordId" data-fieldName="VISITING_RECORD_ID"
+												 class="form-control" type="hidden" />
+											<div class="col-xs-8">
+												<input id="customerName" name="customerName" 
+												 data-fieldName="CUSTOMER_NAME" class="form-control required" maxlength="120" type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">客户类型</label>
+											<div class="col-xs-8">
+												<select id="customerType" name="customerType"
+													class="bs-select form-control required" data-dictCode="1507"
+													data-value=""></select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">客户性别</label>
+											<div class="col-xs-8">
+												<select id="gender" name="gender" data-fieldName="GENDER"
+													class="bs-select form-control required" data-dictCode="1002" data-excludeItems="10021003"
+													data-value="">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group" data-tableSelect="true">
+											<label class="control-label col-xs-4">手机</label>
+											<div class="col-xs-8">
+												<input id="mobile" name="mobile" data-fieldName="MOBILE"
+													class="form-control required phone" type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group" data-tableSelect="true">
+											<label class="control-label col-xs-4">电话</label>
+											<div class="col-xs-8">
+												<input id="phone" name="phone" 
+													class="form-control" type="text"  maxlength="30"
+													 data-valueUrl="/basedata/BasicParameters/1017/basicom_phone" 
+												     data-valueType="parameter" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">出生日期</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker" data-orientation="top right">
+													<input id="birthday" name="birthday" readonly
+														class="form-control" type="text" value="" /> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+													</span>
+
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">省份</label>
+											<div class="col-xs-8">
+												<select id="province" class="bs-select form-control required"
+												 data-valueUrl="/basedata/BasicParameters/1017/basicom_province" 
+												 data-valueType="parameter"
+													name="province" 
+													data-type="region">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">城市</label>
+											<div class="col-xs-8">
+												<select parent="province" class="bs-select form-control required" 
+												data-valueUrl="/basedata/BasicParameters/1017/basicom_city" 
+												 data-valueType="parameter"
+												name="city" id="city" >
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">区县</label>
+											<div class="col-xs-8">
+												<select parent="city" id="district"
+													class="bs-select form-control required" name="district" 
+													data-valueUrl="/basedata/BasicParameters/1017/basicom_county" 
+												    data-valueType="parameter" >
+													
+													</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-12 col-md-8">
+										<div class="form-group">
+											<label class="control-label col-xs-4 col-sm-2">地址</label>
+											<div class="col-xs-8 col-sm-10">
+												<input id="address" name="address" class="form-control required" maxlength="120" type="text" />
+													
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">邮编</label>
+											<div class="col-xs-8 ">
+												<input id="zipCode" name="zipCode"  class="form-control required zipCode" type="text" 
+												 data-valueUrl="/basedata/BasicParameters/1017/basicom_zipcode" 
+												 data-valueType="parameter" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">邮箱</label>
+											<div class="col-xs-8 ">
+												<input id="eMail" name="eMail" class="form-control email"
+													type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">证件类型</label>
+											<div class="col-xs-8">
+												<select id="ctCode" name="ctCode"
+													class="bs-select form-control" data-dictCode="1508"
+													data-value=""  >
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">证件号</label>
+											<div class="col-xs-8 ">
+												<input id="certificateNo" name="certificateNo"
+													class="form-control " type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">学历</label>
+											<div class="col-xs-8">
+												<select id="eduLevel" name="eduLevel"
+													class="bs-select form-control" data-dictCode="1035"
+													data-value="">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">婚姻状况</label>
+											<div class="col-xs-8">
+												<select id="marriage" name="marriage"
+													class="bs-select form-control" data-dictCode="1036"
+													data-value="">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">家庭月收入</label>
+											<div class="col-xs-8">
+												<select id="familyIncome" name="familyIncome" 
+													class="bs-select form-control" data-dictCode="1509"
+													data-value="">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">小孩人数</label>
+											<div class="col-xs-8 ">
+												<input id="childrenNumber" name="childrenNumber"
+													class="form-control  number" type="text" max="99"/>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-12 col-md-8">
+										<div class="form-group">
+											<label class="control-label col-xs-4 col-sm-2">爱好</label>
+											<div class="col-xs-8 col-sm-10">
+												<input id="hobby" name="hobby" class="form-control"
+													type="text"  maxlength="120"/>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">客户来源</label>
+											<div class="col-xs-8">
+												<select id="cusSource" name="cusSource" data-fieldName="CUS_SOURCE"
+													class="bs-select form-control required" data-dictCode="1512">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">信息渠道</label>
+											<div class="col-xs-8">
+												<select id="mediaType" name="mediaType" data-fieldName="MEDIA_TYPE"
+													class="bs-select form-control required" data-dictCode="1513"
+													data-value="">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" data-tableSelect="true">
+								<label class="control-label col-xs-4">市场活动</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+									
+										<input type="text" class="form-control required" id="customerName"
+											name="customerName" data-fieldName="CUSTOMER_NAME" maxlength="120">
+										
+									
+										 <span class="input-group-btn">
+											<button class="btn default btn-sm" type="button"
+												data-url="customer/potentialcus/visitReception/searchMarketingActivity.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+	                                            			<i class="fa fa-close"></i>
+	                                    				</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" data-tableSelect="true">
+								<label class="control-label col-xs-4">推荐人</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+									
+										<input type="text" class="form-control required" id="customerName"
+											name="customerName" data-fieldName="CUSTOMER_NAME" maxlength="120">
+										
+									
+										 <span class="input-group-btn">
+											<button class="btn default btn-sm" type="button"
+												data-url="customer/potentialcus/visitReception/searchCusReferrer.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+	                                            			<i class="fa fa-close"></i>
+	                                    				</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+							<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">初始级别</label>
+											<div class="col-xs-8">
+												<select id="intentLevel" name="intentLevel" data-fieldName="INTENT_LEVEL"
+													class="bs-select form-control required" data-dictCode="1310"
+													data-value="" data-excludeItems="13101006,13101005,13101008,13101009">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">意向级别</label>
+											<div class="col-xs-8">
+												<select id="intentLevel" name="intentLevel" data-fieldName="INTENT_LEVEL"
+													class="bs-select form-control required" data-dictCode="1310"
+													data-value="" data-excludeItems="13101006,13101005,13101008,13101009">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">销售顾问</label>
+											<div class="col-xs-8">
+												<select id="consultant" name="consultant" data-fieldName="CONSULTANT"
+													data-fieldName="CONSULTANT" class="bs-select form-control required"
+													data-url="/basedata/employees/10061001/employeesdict"
+													data-model="manage" data-labelValue="EMPLOYEE_NO"
+													data-lableDesc="EMPLOYEE_NAME" >
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">是否首次到店</label>
+											<div class="col-xs-8">
+												<select id="isFirstArrive" name="isFirstArrive"  disabled="disabled"
+													class="bs-select form-control" data-dictCode="1004" ></select>
+													
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">首次到店时间</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker">
+													<input id="firstArriveTime" name="firstArriveTime" readonly
+														class="form-control" type="text" value="" disabled="disabled" /> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button" disabled="disabled">
+															<i class="fa fa-calendar"></i>
+														</button>
+                                              <button class="btn default date-reset" type="button" disabled="disabled">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+													</span>
+
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">是否二次到店</label>
+											<div class="col-xs-8">
+												<select id="isSecondTehShop" name="isSecondTehShop" disabled="disabled"
+													class="bs-select form-control" data-dictCode="1004"  ></select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">二次到店时间</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker">
+													<input id="secondArriveTime" name="secondArriveTime" readonly
+														class="form-control" type="text" value=""  disabled="disabled"/> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button" disabled="disabled">
+															<i class="fa fa-calendar"></i>
+														</button>
+                                              <button class="btn default date-reset" type="button" disabled="disabled">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+													</span>
+
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">是否试乘试驾</label>
+											<div class="col-xs-8">
+												<select id="isValid" name="isValid"
+													class="bs-select form-control" data-dictCode="1004"
+													data-value="10041001" data-existsDefault="false"></select>
+											</div>
+										</div>
+									</div>
+									
+									<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">试驾陪乘人员</label>
+											<div class="col-xs-8 ">
+												<input id="childrenNumber" name="childrenNumber"
+													class="form-control  number" type="text" max="99"/>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">是否首次购车</label>
+											<div class="col-xs-8">
+												<select id="isValid" name="isValid"
+													class="bs-select form-control" data-dictCode="1004"
+													data-value="10041001" data-existsDefault="false"></select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-5">非首次购车类型</label>
+											<div class="col-xs-7">
+												<select id="isValid" name="isValid"
+													class="bs-select form-control" data-dictCode="1004"
+													data-value="10041001" data-existsDefault="false"></select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+							    <div class="col-xs-12 col-sm-6 col-md-4">
+							        <div class="form-group">
+									<div class="col-xs-12">
+									<input type="checkbox"  name="isWash" id="isWash" data-dictCode="1013" data-dictLabel="是否亲自驾车"  />
+									</div>
+								     </div>
+							     </div>
+							<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">购车目的</label>
+											<div class="col-xs-8">
+												<select id="buyPurpose" name="buyPurpose"
+													class="bs-select form-control" data-dictCode="1514"
+													data-value="">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-md-12 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4 col-sm-2 col-md-1 ">购车因素</label>
+											<div class="col-xs-8 col-sm-10 col-md-11">
+												<input id="buyReasonList" name="buyReasonList"
+													type="checkbox" data-dictCode="1515" data-allFlag="false" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									
+
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<div class="pannel-name">联系人信息</div>
+								<div class="pannel-tools">
+									<a href="javascript:;" class="expand"> <i
+										class="fa fa-chevron-down"></i></a>
+								</div>
+							</div>
+							<div class="panel-body">
+								
+									<div class="panel-heading">
+								<div class="pannel-name"></div>
+								<div class="pannel-button">
+									<div class="btn-group btn-group-sm">
+										<a class="btn btn-outline"
+											data-url="customer/potentialcus/visitReception/addCusContactor.html"
+											data-toggle="modal" data-width="modal-lg"><i
+											class="fa fa-plus-square"></i>添加联系人</a>
+									</div>
+								</div>
+
+							</div>
+							<div class="panel-body">
+								<table
+									class="table table-striped table-bordered table-hover table-responsive"
+									id="intentList4">
+								</table>
+							</div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane fade in active" id="tab_Receiveopinion">
+						<div class="panel panel-default table-panel">
+						<div class="panel-body">
+								<div class="row">
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">采购方式</label>
+											<div class="col-xs-8">
+												<select id="buyPurpose" name="buyPurpose"
+													class="bs-select form-control" data-dictCode="1514"
+													data-value="">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">支付方式</label>
+											<div class="col-xs-8">
+												<select id="buyPurpose" name="buyPurpose"
+													class="bs-select form-control" data-dictCode="1514"
+													data-value="">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">决策者</label>
+											<div class="col-xs-8">
+												<input id="contactorName" name="contactorName" data-autoSyncValue="#customerName"
+													data-fieldName="CUSTOMER_NAME" class="form-control"
+													type="text" maxlength="30" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">预算金额</label>
+											<div class="col-xs-8">
+												<input id="contactorName" name="contactorName" data-autoSyncValue="#customerName"
+													data-fieldName="CUSTOMER_NAME" class="form-control"
+													type="text" maxlength="30" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-4">
+							        <div class="form-group">
+									<div class="col-xs-12">
+									<input type="checkbox"  name="isWash" id="isWash" data-dictCode="1013" data-dictLabel="预算是否充足"  />
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+								</div>
+								</div>
+							<div class="panel-heading">
+								<div class="pannel-name">意向信息</div>
+								<div class="pannel-button">
+									<div class="btn-group btn-group-sm">
+										<a class="btn btn-outline"
+											data-url="customer/potentialcus/visitReception/addVisitIntent.html"
+											data-toggle="modal" data-width="modal-lg"><i
+											class="fa fa-plus-square"></i>添加 </a>
+									</div>
+								</div>
+
+							</div>
+							<div class="panel-body">
+								<table
+									class="table table-striped table-bordered table-hover table-responsive"
+									id="intentList2">
+								</table>
+							</div>
+						</div>
+							<div class="panel panel-default table-panel">
+							<div class="panel-heading">
+								<div class="pannel-name">历史意向信息</div>
+								<div class="pannel-button">
+									<div class="btn-group btn-group-sm">
+										<!-- <a  class="btn btn-outline ajaxify" id="jumpdetail" data-onclickEvent="true"> <i
+								         class="fa fa-plus-square"></i>明细
+							            </a> -->
+									</div>
+								</div>
+
+							</div>
+							<div class="panel-body">
+								<table
+									class="table table-striped table-bordered table-hover table-responsive"
+									id="intentList1">
+								</table>
+							</div>
+						</div>
+					</div>
+						<div class="tab-pane fade in active" id="tab_owner">
+						<div class="panel panel-default table-panel">
+							<div class="panel-heading">
+								<div class="pannel-name">保有车辆信息</div>
+								<div class="pannel-button">
+									<div class="btn-group btn-group-sm">
+										<a class="btn btn-outline"
+											data-url="customer/potentialcus/visitReception/addKeepVehicle.html"
+											data-toggle="modal" data-width="modal-lg"><i
+											class="fa fa-plus-square"></i>添加 </a>
+									</div>
+								</div>
+
+							</div>
+							<div class="panel-body">
+								<table
+									class="table table-striped table-bordered table-hover table-responsive"
+									id="intentList">
+								</table>
+							</div>
+						</div>
+					</div>
+						<div class="tab-pane fade in active" id="tab_task">
+						<div class="panel panel-default table-panel">
+							<div class="panel-heading">
+								<div class="pannel-name">跟进信息</div>
+								<div class="pannel-button">
+									<div class="btn-group btn-group-sm">
+								
+								</div>
+
+							</div>
+							<div class="panel-body">
+								<table
+									class="table table-striped table-bordered table-hover table-responsive"
+									id="intentList3">
+								</table>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		</div>
+		<div class="modal-footer center-block">
+		
+		    <a data-url="" data-model="customer" data-method="PUT" data-callBack="true" class="btn blue"data-toggle="confirmation"><i class="fa fa-save"></i>上报</a>
+		
+			<a data-url="/customerManage/potentialcus" data-model="customer"
+				data-method="POST" data-callBack="true" class="btn blue"
+				data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+			</a> 
+			<a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消</a>
+				
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initLocale({
+		src : "intentList",
+		container:container,
+		url : dmsCommon.getDmsPath()["customer"] + "/customerManage/visitingRecord/{[VISITING_RECORD_ID]}/intents",
+		columns : [ {title : "操作",operateFormat : [ {type : "localDel",onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){}}]}, 
+		            {field : "INTENT_BRAND",inputField:"intentBrand",title : "品牌",inputSelectFormat : {url:"/basedata/brandsdict",model:"manage",labelValue:"BRAND_CODE",lableDesc:"BRAND_NAME"}},
+		            {field : "INTENT_SERIES",inputField:"intentSeries",title : "VIN",inputSelectFormat : {url:"/basedata/brandsdictC/{[intentBrand]}/seriessdictC",model:"manage",labelValue:"SERIES_CODE",lableDesc:"SERIES_NAME",parent:"intentBrand"}},
+		            {field : "INTENT_MODEL",inputField:"intentModel",title : "购车数量",inputSelectFormat : {url:"/basedata/brandsdictC/{[intentBrand]}/seriessdictC/{[intentSeries]}/modelsdictC",model:"manage",labelValue:"MODEL_CODE",lableDesc:"MODEL_NAME",parent:"intentSeries"}},
+		            {field : "INTENT_CONFIG",inputField:"intentConfig",title : "购买时间",inputSelectFormat : {url:"/basedata/brandsdictC/{[intentBrand]}/seriessdictC/{[intentSeries]}/modelsdictC/{[intentModel]}/packagesdictC",model:"manage",labelValue:"CONFIG_CODE",lableDesc:"CONFIG_NAME",parent:"intentModel"}},
+		            {field : "INTENT_COLOR",inputField:"intentColor",title : "颜色",inputSelectFormat : {url:"/basedata/colors/colorinfo/dicts",model:"repair",labelValue:"COLOR_ID",lableDesc:"COLOR_NAME"}},
+		            {field : "IS_MAIN_INTENT",inputField:"isMainIntent",title : "车牌",inputSelectFormat : {type : "dict",codeType : "1004"}},
+		            {field : "QUOTED_PRICE",inputField:"quotedPrice",title : "发动机号",inputNumberFormat : {decimal : 2,validate:{validateClass:"money",validateAttr:'maxDigit="30"'}}},
+		            {field : "QUOTED_PRICE",inputField:"quotedPrice",title : "里程数",inputNumberFormat : {decimal : 2,validate:{validateClass:"money",validateAttr:'maxDigit="30"'}}},
+		            {field : "QUOTED_PRICE",inputField:"quotedPrice",title : "登记证书",inputNumberFormat : {decimal : 2,validate:{validateClass:"money",validateAttr:'maxDigit="30"'}}},
+		            {field : "QUOTED_PRICE",inputField:"quotedPrice",title : "机动车行驶证",inputNumberFormat : {decimal : 2,validate:{validateClass:"money",validateAttr:'maxDigit="30"'}}},
+		            {field : "REMARK",inputField:"remark",title : "备注",inputTextFormat : {validate:{validateClass:"required",validateAttr:' maxlength="120"'}}}
+		         ]
+	});
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		$("#intentList",getElementContext()).dmsTable().appendBlankRow();
+	});
+	
+	//事件点击
+	$("a[data-onclickEvent1='true']",container).on("dms.click",function(event){
+		$("#intentList",getElementContext()).dmsTable().appendBlankRow();
+	});
+	$("#district",container).bindChange(function(obj){
+		var provinceValue =$('option:selected',$("#province",container)).text()+",";
+		var city=$('option:selected',$("#city",container)).text();//$("#city").find("option:selected").text();
+		if(city!="市辖区"&&city!="县"){
+			provinceValue=provinceValue+city;
+		}
+		provinceValue=provinceValue+$('option:selected',$(obj,container)).text();
+		if($(obj).val()){
+			 $("#address",container).attr("value",provinceValue);
+			 $("#contactorAddress",container).attr("value",provinceValue);
+		}
+	});
+	$("#customerType",container).bindChange(function(obj){
+		if($(obj).selectpicker('val')=='15071002'){ 
+			$("#gender",container).addClass("required");
+			$("#gender",container).removeAttr("disabled");
+		}else{
+			$("#gender",getElementContext()).selectpicker('val','');
+			$("#gender",container).removeClass("required");
+			$("#gender",container).attr("disabled","disabled");
+
+		}
+	});
+	$("#ctCode",container).bindChange(function(obj){
+		var ctCode=$("#ctCode",container).selectpicker('val');
+		//$("#certificateNo",container).addClass("required");
+		$("#certificateNo",container).removeClass("IDNumber");
+		if(ctCode=='15081001'){
+			$("#certificateNo",container).addClass("IDNumber");
+		}
+	});
+});	
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initLocale({
+		src : "intentList2",
+		container:container,
+		url : dmsCommon.getDmsPath()["customer"] + "/customerManage/visitingRecord/{[VISITING_RECORD_ID]}/intents",
+		columns : [ {title : "操作",operateFormat : [ {type : "localDel",onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){}}]}, 
+		            {field : "INTENT_BRAND",inputField:"intentBrand",title : "品牌",inputSelectFormat : {url:"/basedata/brandsdict",model:"manage",labelValue:"BRAND_CODE",lableDesc:"BRAND_NAME"}},
+		            {field : "INTENT_SERIES",inputField:"intentSeries",title : "车系",inputSelectFormat : {url:"/basedata/brandsdictC/{[intentBrand]}/seriessdictC",model:"manage",labelValue:"SERIES_CODE",lableDesc:"SERIES_NAME",parent:"intentBrand"}},
+		            {field : "INTENT_MODEL",inputField:"intentModel",title : "车型",inputSelectFormat : {url:"/basedata/brandsdictC/{[intentBrand]}/seriessdictC/{[intentSeries]}/modelsdictC",model:"manage",labelValue:"MODEL_CODE",lableDesc:"MODEL_NAME",parent:"intentSeries"}},
+		            {field : "INTENT_CONFIG",inputField:"intentConfig",title : "配置",inputSelectFormat : {url:"/basedata/brandsdictC/{[intentBrand]}/seriessdictC/{[intentSeries]}/modelsdictC/{[intentModel]}/packagesdictC",model:"manage",labelValue:"CONFIG_CODE",lableDesc:"CONFIG_NAME",parent:"intentModel"}},
+		            {field : "INTENT_COLOR",inputField:"intentColor",title : "颜色",inputSelectFormat : {url:"/basedata/colors/colorinfo/dicts",model:"repair",labelValue:"COLOR_ID",lableDesc:"COLOR_NAME"}},
+		            {field : "IS_MAIN_INTENT",inputField:"isMainIntent",title : "是否主要意向",inputSelectFormat : {type : "dict",codeType : "1004"}},
+		            {field : "QUOTED_PRICE",inputField:"quotedPrice",title : "意向报价",inputNumberFormat : {decimal : 2,validate:{validateClass:"money",validateAttr:'maxDigit="30"'}}},
+		            {field : "REMARK",inputField:"remark",title : "备注",inputTextFormat : {validate:{validateClass:"required",validateAttr:' maxlength="120"'}}}
+		         ]
+	});
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		$("#intentList2",getElementContext()).dmsTable().appendBlankRow();
+	});
+	
+	//事件点击
+	$("a[data-onclickEvent1='true']",container).on("dms.click",function(event){
+		$("#intentList2",getElementContext()).dmsTable().appendBlankRow();
+	});
+	$("#district",container).bindChange(function(obj){
+		var provinceValue =$('option:selected',$("#province",container)).text()+",";
+		var city=$('option:selected',$("#city",container)).text();//$("#city").find("option:selected").text();
+		if(city!="市辖区"&&city!="县"){
+			provinceValue=provinceValue+city;
+		}
+		provinceValue=provinceValue+$('option:selected',$(obj,container)).text();
+		if($(obj).val()){
+			 $("#address",container).attr("value",provinceValue);
+			 $("#contactorAddress",container).attr("value",provinceValue);
+		}
+	});
+	$("#customerType",container).bindChange(function(obj){
+		if($(obj).selectpicker('val')=='15071002'){ 
+			$("#gender",container).addClass("required");
+			$("#gender",container).removeAttr("disabled");
+		}else{
+			$("#gender",getElementContext()).selectpicker('val','');
+			$("#gender",container).removeClass("required");
+			$("#gender",container).attr("disabled","disabled");
+
+		}
+	});
+	$("#ctCode",container).bindChange(function(obj){
+		var ctCode=$("#ctCode",container).selectpicker('val');
+		//$("#certificateNo",container).addClass("required");
+		$("#certificateNo",container).removeClass("IDNumber");
+		if(ctCode=='15081001'){
+			$("#certificateNo",container).addClass("IDNumber");
+		}
+	});
+});	
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initLocale({
+		src : "intentList1",
+		container:container,
+		url : dmsCommon.getDmsPath()["customer"] + "/customerManage/visitingRecord/{[VISITING_RECORD_ID]}/intents",
+		columns : [ {title : "操作",operateFormat : [ {type : "localDel",onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){}}]}, 
+		            {field : "INTENT_BRAND",inputField:"intentBrand",title : "品牌",inputSelectFormat : {url:"/basedata/brandsdict",model:"manage",labelValue:"BRAND_CODE",lableDesc:"BRAND_NAME"}},
+		            {field : "INTENT_SERIES",inputField:"intentSeries",title : "车系",inputSelectFormat : {url:"/basedata/brandsdictC/{[intentBrand]}/seriessdictC",model:"manage",labelValue:"SERIES_CODE",lableDesc:"SERIES_NAME",parent:"intentBrand"}},
+		            {field : "INTENT_MODEL",inputField:"intentModel",title : "车型",inputSelectFormat : {url:"/basedata/brandsdictC/{[intentBrand]}/seriessdictC/{[intentSeries]}/modelsdictC",model:"manage",labelValue:"MODEL_CODE",lableDesc:"MODEL_NAME",parent:"intentSeries"}},
+		            {field : "INTENT_CONFIG",inputField:"intentConfig",title : "配置",inputSelectFormat : {url:"/basedata/brandsdictC/{[intentBrand]}/seriessdictC/{[intentSeries]}/modelsdictC/{[intentModel]}/packagesdictC",model:"manage",labelValue:"CONFIG_CODE",lableDesc:"CONFIG_NAME",parent:"intentModel"}},
+		            {field : "INTENT_COLOR",inputField:"intentColor",title : "颜色",inputSelectFormat : {url:"/basedata/colors/colorinfo/dicts",model:"repair",labelValue:"COLOR_ID",lableDesc:"COLOR_NAME"}},
+		            {field : "IS_MAIN_INTENT",inputField:"isMainIntent",title : "是否主要意向",inputSelectFormat : {type : "dict",codeType : "1004"}},
+		            {field : "QUOTED_PRICE",inputField:"quotedPrice",title : "意向报价",inputNumberFormat : {decimal : 2,validate:{validateClass:"money",validateAttr:'maxDigit="30"'}}},
+		            {field : "REMARK",inputField:"remark",title : "备注",inputTextFormat : {validate:{validateClass:"required",validateAttr:' maxlength="120"'}}}
+		         ]
+	});
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		$("#intentList2",getElementContext()).dmsTable().appendBlankRow();
+	});
+	
+	//事件点击
+	$("a[data-onclickEvent1='true']",container).on("dms.click",function(event){
+		$("#intentList2",getElementContext()).dmsTable().appendBlankRow();
+	});
+	$("#district",container).bindChange(function(obj){
+		var provinceValue =$('option:selected',$("#province",container)).text()+",";
+		var city=$('option:selected',$("#city",container)).text();//$("#city").find("option:selected").text();
+		if(city!="市辖区"&&city!="县"){
+			provinceValue=provinceValue+city;
+		}
+		provinceValue=provinceValue+$('option:selected',$(obj,container)).text();
+		if($(obj).val()){
+			 $("#address",container).attr("value",provinceValue);
+			 $("#contactorAddress",container).attr("value",provinceValue);
+		}
+	});
+	$("#customerType",container).bindChange(function(obj){
+		if($(obj).selectpicker('val')=='15071002'){ 
+			$("#gender",container).addClass("required");
+			$("#gender",container).removeAttr("disabled");
+		}else{
+			$("#gender",getElementContext()).selectpicker('val','');
+			$("#gender",container).removeClass("required");
+			$("#gender",container).attr("disabled","disabled");
+
+		}
+	});
+	$("#ctCode",container).bindChange(function(obj){
+		var ctCode=$("#ctCode",container).selectpicker('val');
+		//$("#certificateNo",container).addClass("required");
+		$("#certificateNo",container).removeClass("IDNumber");
+		if(ctCode=='15081001'){
+			$("#certificateNo",container).addClass("IDNumber");
+		}
+	});
+});	
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initLocale({
+		src : "intentList3",
+		container:container,
+		url : dmsCommon.getDmsPath()["customer"] + "/customerManage/visitingRecord/{[VISITING_RECORD_ID]}/intents",
+		columns : [ {title : "操作",operateFormat : [ {type : "localDel",onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){}}]}, 
+		            {field : "INTENT_BRAND",inputField:"intentBrand",title : "活动类型",inputSelectFormat : {url:"/basedata/brandsdict",model:"manage",labelValue:"BRAND_CODE",lableDesc:"BRAND_NAME"}},
+		            {field : "INTENT_SERIES",inputField:"intentSeries",title : "客户编号",inputSelectFormat : {url:"/basedata/brandsdictC/{[intentBrand]}/seriessdictC",model:"manage",labelValue:"SERIES_CODE",lableDesc:"SERIES_NAME",parent:"intentBrand"}},
+		            {field : "INTENT_MODEL",inputField:"intentModel",title : "客户是否接受邀约",inputSelectFormat : {url:"/basedata/brandsdictC/{[intentBrand]}/seriessdictC/{[intentSeries]}/modelsdictC",model:"manage",labelValue:"MODEL_CODE",lableDesc:"MODEL_NAME",parent:"intentSeries"}},
+		            {field : "INTENT_CONFIG",inputField:"intentConfig",title : "邀约日期",inputSelectFormat : {url:"/basedata/brandsdictC/{[intentBrand]}/seriessdictC/{[intentSeries]}/modelsdictC/{[intentModel]}/packagesdictC",model:"manage",labelValue:"CONFIG_CODE",lableDesc:"CONFIG_NAME",parent:"intentModel"}},
+		            {field : "INTENT_COLOR",inputField:"intentColor",title : "客户名称",inputSelectFormat : {url:"/basedata/colors/colorinfo/dicts",model:"repair",labelValue:"COLOR_ID",lableDesc:"COLOR_NAME"}},
+		            {field : "IS_MAIN_INTENT",inputField:"isMainIntent",title : "联系人",inputSelectFormat : {type : "dict",codeType : "1004"}},
+		            {field : "QUOTED_PRICE",inputField:"quotedPrice",title : "电话",inputNumberFormat : {decimal : 2,validate:{validateClass:"money",validateAttr:'maxDigit="30"'}}},
+		            {field : "",title : "促进前客户级别"},
+		            {field : "",title : "促进后客户级别"},
+		            {field : "",title : "计划日期"},
+		            {field : "",title : "执行日期"},
+		            {field : "",title : "跟进方式"},
+		            {field : "",title : "销售顾问"},
+		            {field : "",title : "是否大客户"},
+		            {field : "",title : "品牌"},
+		            {field : "",title : "车系"},
+		            {field : "",title : "车型"},
+		            {field : "",title : "配置"},
+		            {field : "",title : "颜色"},
+		            {field : "REMARK",inputField:"remark",title : "备注",inputTextFormat : {validate:{validateClass:"required",validateAttr:' maxlength="120"'}}}
+		         ]
+	});
+
+
+});	
+
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initLocale({
+		src : "intentList4",
+		container:container,
+		url : dmsCommon.getDmsPath()["customer"] + "/customerManage/visitingRecord/{[VISITING_RECORD_ID]}/intents",
+		columns : [ {title : "操作",operateFormat : [ {type : "localDel",onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){}}]}, 
+		            {field : "",title : "单位名称"},
+		            {field : "",title : "所属部门"},
+		            {field : "",title : "联系人"},
+		            {field : "",title : "性别"},
+		            {field : "",title : "是否默认联系人"},
+		            {field : "",title : "最佳联系时间"},
+		            {field : "",title : "电话"},
+		            {field : "",title : "手机"},
+		            {field : "",title : "E_MAIL"},
+		            {field : "",title : "传真"},
+		            {field : "",title : "地址"},
+		            {field : "REMARK",inputField:"remark",title : "备注",inputTextFormat : {validate:{validateClass:"required",validateAttr:' maxlength="120"'}}}
+		         ]
+	});
+
+
+});
+</script>

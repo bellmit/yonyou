@@ -1,0 +1,69 @@
+<div class="dms-edit ajaxrest" data-url="/basedata/repairpositions/{[REPAIR_POSITION_ID]}" data-model="repair" >
+	<form class="form-horizontal">
+	<div class="modal-header">
+			<div class="modal-title">工位信息编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group form-group-xs m-b-xs">
+								<label class="control-label col-xs-4">工位代码</label>
+							<div class="col-xs-8">
+								<input id="labourPositionCode" name="labourPositionCode" disabled="disabled" class="form-control required" maxlength="4" type="text" data-fieldName="labour_position_code"/>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<div class="form-group form-group-xs m-b-xs">
+						<label class="control-label col-xs-4">工位名称</label>
+						<div class="col-xs-8">
+							<input id="labourPositionName" name="labourPositionName" class="form-control required" type="text" maxlength="20" data-fieldName="labour_position_name" />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<div class="form-group form-group-xs m-b-xs">
+						<label class="control-label col-xs-4">工位类型</label>
+						<div class="col-xs-8">
+							<select id="labourPositionType" name="labourPositionType" class="bs-select form-control" data-dictCode="1201" data-fieldName="labour_position_type" >
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<div class="form-group form-group-xs m-b-xs">
+						<label class="control-label col-xs-4">是否有效</label>
+						<div class="col-xs-8">
+						   <select id="isValid" name="isValid" class="bs-select form-control" data-dictCode="1004" data-fieldName="is_valid" data-existsDefault="false">
+							</select>
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+	</div>
+</div>
+			<div class="modal-footer">
+				<a data-url="/basedata/repairpositions/{[REPAIR_POSITION_ID]}" data-model="repair" data-method="PUT" data-callBack="true"  class="btn blue"  data-toggle="confirmation"><i class="fa fa-save"></i>保存</a>
+				<a data-dismiss="modal" class="btn blue" ><i
+				class="fa fa fa-undo"></i>取消</a>
+			</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		//新增页面回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	}); 
+</script>

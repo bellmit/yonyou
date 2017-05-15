@@ -1,0 +1,60 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">部门选择</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div id="departTree" ></div>
+				<input type="hidden" name="orgCodeSelect" id="orgCodeSelect">
+				<input type="hidden" name="orgNameSelect" id="orgNameSelect"> 				
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a  class="btn blue" data-onclickEvent="true"> <i class="fa fa-save"></i>确定</a>
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+
+$(document).one("onload.dms",function(event,container){
+	//树初始化
+	$('#departTree',container).jstree({ 'core' : {
+		'data' : {
+		'url':dmsCommon.getDmsPath()["manage"] + "/basedata/orgs/",
+		'data':function(node){
+			return{'id':node.id}
+		}}},
+		"plugins" : ["changed"]
+	});	
+	
+	//树节点选择
+	$('#departTree',container).on('changed.jstree', function (e, data) {
+		var orgCode = data.changed.selected; 
+		if(orgCode!=""){
+			dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["manage"] + "/basedata/orgs/"+orgCode,
+				type : 'GET',
+				sucessCallBack : function(data) {
+					if(data){
+						$("#orgCodeSelect",container).val(data.ORG_CODE);
+						$("#orgNameSelect",container).val(data.ORG_NAME);					
+					}
+				}
+			});
+		} 
+	});
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event,response){
+		$("#orgCode",getElementContext()).valChange($("#orgCodeSelect",container).val());
+		$("#orgName",getElementContext()).val($("#orgNameSelect",container).val());
+		$("a[data-dismiss='modal']",container).click();
+	});
+	
+});
+</script>

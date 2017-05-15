@@ -1,0 +1,97 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">激活客户</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+				
+					<div class="col-xs-12 ">
+						<div class="form-group ">
+						<label class="control-label col-xs-4">销售顾问</label>
+							<div class="col-xs-8">
+								<select id="soldBy" name="soldBy"
+									class="bs-select form-control required"
+									data-url="/basedata/employees/-1/salesConsultant"
+									data-model="manage" data-labelValue="USER_ID" 
+									data-lableDesc="USER_NAME" >
+								</select>
+						</div>
+						</div>
+					</div>
+						<div class="col-xs-12">
+										<div class="form-group">
+											<label class="control-label col-xs-4">意向级别</label>
+											<div class="col-xs-8">
+												<select id="intentLevel" name="intentLevel" data-fieldName="INTENT_LEVEL"
+													 class="bs-select form-control required" data-dictCode="1310"
+													data-value="" data-excludeItems="13101006,13101007,13101008,13101009">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<!--/span-->
+							    <div class="col-xs-12" hidden="hidden">
+							        <div class="form-group" >
+							        <label class="control-label col-xs-4">隐藏</label>
+									<div class="col-xs-8">
+									<input  name="activeList" id="activeList" data-fieldName="ACTIVE_LIST"
+									class="form-control" type="text" />
+									</div>
+								     </div>
+							     </div>
+							      <div class="col-xs-12" hidden="hidden">
+							        <div class="form-group" >
+							        <label class="control-label col-xs-4">隐藏</label>
+									<div class="col-xs-8">
+									<input  name="activeIntentId" id="activeIntentId" data-fieldName="ACTIVE_INTENT_ID"
+									class="form-control" type="text" />
+									</div>
+								     </div>
+							     </div>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/customerManage/potentialcus/active/activeList" data-model="customer" data-method="PUT"
+				data-callBack="true" class="btn blue" 
+				data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+			</a> <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one("onload.dms",function(event,container){
+		//弹出页面打开前执行函数
+	 	 var str='';
+		 var strr='';
+		var selectRow = $("#cusList",getElementContext()).dmsTable().getSelections();
+		   	$(selectRow).each(function(index){
+			  
+			   str+=selectRow[index].CUSTOMER_NO+',';
+			   strr+=selectRow[index].INTENT_ID+',';
+	  		});
+	  		/* var selectIds = $("#cusList",getElementContext()).dmsTable().getSelectionIds(); */
+		   	$("#activeList").val(str);
+		   	$("#activeIntentId").val(strr);
+		//新增页面的回调函数
+ 		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#cusList",getElementContext()).dmsTable().refreshTableWithForm();
+		}); 
+	});
+</script>

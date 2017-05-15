@@ -1,0 +1,277 @@
+<div class="dms-search">
+
+	<div class="modal-header">
+		<div class="modal-title">权限粘贴</div>
+		<div class="modal-close">
+			<a data-dismiss="modal" class="btn btn-lg"> <i
+				class="fa fa-remove"></i></a>
+		</div>
+	</div>
+	<div class="modal-body">
+		<form class="form-horizontal">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+				      
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">员工编号</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="employeeNo"
+										name="employeeNo">
+								</div>
+							</div>
+						</div>
+						<!-- <div class="col-xs-12 col-sm-6 col-md-4  hidden">
+							<div class="form-group">
+								<label class="control-label col-xs-4">用户状态</label>
+								<div class="col-xs-8">
+									<select id="userState" name="userState"
+										class="bs-select form-control" data-dictCode="1210" data-value="12101001"></select>
+								</div>
+							</div>
+						</div> -->
+						<!--/span-->
+					</div>
+					<div class="row ">
+						<div class="col-xs-12 ">
+							<div class="query-btn">
+								<a href="javascript:;" class="btn blue"> <i
+									class="fa fa-search"></i>查询
+								</a>
+								<a href="javascript:;" class="btn blue"><i class="fa fa-undo"></i>重置</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">账号选择</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_table">
+					</table>
+				</div>
+			</div>
+		</form>
+	</div>
+	<form class="form-horizontal">
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">权限选择</div>
+				</div>
+				<div class="panel-body">
+					<div class="row" data-parentTable="customerList">
+						<!--/span-->
+			             	<div class="col-xs-12 ">
+							<div class="form-group">
+								<div class="col-xs-12">
+										<input id="isPermCheckRadio" name="isPermCheckRadio" type="radio"
+										data-dictCode="5038" data-value="50381001" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"></label>
+								<div class="col-xs-8">
+								<input type="hidden" id="parentId" name="parentId" />
+								<input type="hidden" id="targetId" name="targetId" />
+								
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal-footer center-block">
+				<a data-url="/basedata/users/copUserPermission" data-model="manage"
+					data-method="PUT" data-callBack="true" class="btn blue"
+					data-beforeRequest="true" data-toggle="confirmation"><i
+					class="fa fa-save"></i>确定</a> <a data-dismiss="modal" class="btn blue">
+					<i class="fa fa-undo"></i>取消
+				</a>
+			</div>
+
+		</div>
+
+	</form>
+
+
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	$("#parentId",container).setDmsValue($("#userId",getElementContext()).val());
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["manage"] + "/basedata/employees/permission/items",
+		rowID : "USER_ID",
+		sortName : "USER_ID", 
+		sortOrder : "asc",
+		autoHeight:false,
+		pageSize:5,
+		columns : [ 
+		    {radio:true,sortable : false},
+            {field : "EMPLOYEE_NO",title : "员工编号"},
+            {field : "USER_CODE",title : "账号",inputHiddenFormat : {hiddenField:"USER_ID"}},
+			{field : "EMPLOYEE_NAME",title : "姓名"}, 
+			{field : "ORG_NAME",title : "部门",inputHiddenFormat : {hiddenField:"ORG_CODE"}}, 
+			{field : "IS_ONJOB",title : "在职状态",codeFormat : {type:"dict",codeType:"1008"}},
+			{field : "USER_STATUS",title : "状态",codeFormat : {type:"dict",codeType:"1210"}}
+		],onCheck:function(row){
+			var selectRow = $("#dms_table",container).dmsTable().getFirstSelection();
+			$("#targetId",container).setDmsValue(selectRow.USER_ID);
+		}
+	});
+
+ 	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+ 		var selectRow = $("#dms_table",container).dmsTable().getFirstSelection();
+ 		if(selectRow==undefined){
+			dmsCommon.tip({status:"warning",msg:"请选择一条数据"});//总共的状态类型：info、success、error、warning
+			returnResult.status = false;
+			return;
+		}
+		 returnResult.status = true; //定义返回值
+	});
+ 	//事件点击
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		var selectRow = $("#dms_table",container).dmsTable().getFirstSelection();
+		//关闭窗口
+		 // $(container).data("pageData",{USER_ID:selectRow.USER_ID});
+         // dmsCommon.refreshPageByUrl("manage/basedata/employeePermission/editEmployeePermission.html",container);
+	     var listTree=$('#treeMenuAction',getElementContext()).data('listTree');//取存的对象
+		 var listtreeMenuAction=response.treeMenuAction;
+		 var listtreeMenuRange=response.treeMenuRange;///
+         if(response.isPermCheckRadio=='50381001'){
+        	//新拿到的菜单，看是否已经打勾，没勾的勾上
+             for (var i = 0; i <response.treejson.length; i++) {
+  			   if(response.treejson[i].state.checked==true){
+  				   var id=response.treejson[i].id;
+  				   var ischeck=  $.jstree.reference("#using_json_2",getElementContext()).is_selected(id);//判断树是否勾上
+  				   if(ischeck==false){
+  					   $.jstree.reference("#using_json_2",getElementContext()).check_node(id);//勾上
+  					   var ischeck=  $.jstree.reference("#using_json_2",getElementContext()).is_selected(id);//判断树是否勾上
+  				   }	   
+  			   }
+  		    };
+  		    //新拿控制权限，看是否已经打勾，没勾的勾上
+  		    for (var i = 0; i <response.userCtrl.length; i++) {
+				   if(response.userCtrl[i].state.checked==true){
+					   var id=response.userCtrl[i].id;
+					   var ischeck=  $.jstree.reference("#tree_2",getElementContext()).is_selected(id);//判断树是否勾上
+					   if(ischeck==false){
+						   $.jstree.reference("#tree_2",getElementContext()).check_node(id);//勾上
+						   var ischeck=  $.jstree.reference("#tree_2",getElementContext()).is_selected(id);//判断树是否勾上
+					   }	   
+				   }
+			  }; 
+			  //克隆一个listtreeMenuAction，当遍历时发现有相同的菜单id的，就去掉，最后剩下的，push到新的listTree.action中
+			    //发现相同的菜单时listTree.action自身也会去掉，然后加入一个合并后的action
+			    var listtreeMenuActionClone = listtreeMenuAction.concat();
+			    var listtreeActionClone = listTree.action.concat();
+			    for (var i = 0; i <listtreeMenuAction.length; i++) {
+					for(var j=0;j<listTree.action.length;j++){
+						var oneAction=listtreeMenuAction[i];
+						var strs= new Array(); //定义一数组 
+						strs=oneAction.split("-"); //字符分割 
+						var menuId=strs[0];
+						menuId = menuId.replace(new RegExp("\"",'gm'),"");
+						//另一个的
+						var oneAction2=listTree.action[j];
+						var strs2= new Array(); //定义一数组 
+						strs2=oneAction2.split("-"); //字符分割 
+						var menuId2=strs2[0];
+						menuId2 = menuId2.replace(new RegExp("\"",'gm'),"");
+						//如果菜单id相同，去掉重复的，加上新组合的
+						if(menuId==menuId2){
+						//去掉此menuid的项
+					    listtreeMenuActionClone=$.grep(listtreeMenuActionClone,function(value){		
+						return value.indexOf(menuId)==-1;
+						});
+						
+					    listtreeActionClone=$.grep(listtreeActionClone,function(value){		
+						return value.indexOf(menuId2)==-1;
+						});
+						//两个已逗号分割的字符串去重合并
+						var astr =strs[1].replace(/\s/ig,'');//去掉字符串中所有空格
+					    var bstr =strs2[1].replace(/\s/ig,'');//去掉字符串中所有空格
+					    var s = "," + astr + ",";
+					    var a  = bstr.split(",");
+					    for(var k=0;k<a.length;k++){
+					       if(s.indexOf(","+ a[k] +",")==-1){
+					          s += a[k] + ",";
+					       }    
+					    }
+					    s = s.substr(1,s.length-2);
+					    var newAction=menuId+'-'+s;
+						listtreeActionClone.push(newAction);
+						console.log("---"+listtreeActionClone);
+						}
+					}	
+			    };
+			    //合并两个筛选过的数组
+			    var allAction = listtreeActionClone.concat(listtreeMenuActionClone);
+			    listTree.action=allAction;
+			    ////----------------------------------------这是一条分割线，后期会合并 
+			     //克隆一个listtreeMenuRange，当遍历时发现有相同的菜单id的，就去掉，最后剩下的，push到新的listTree.range中
+			    //发现相同的菜单时listTree.range自身也会去掉，然后加入一个合并后的range
+			    var listtreeMenuRangeClone = listtreeMenuRange.concat();
+			    var listtreeRangeClone = listTree.range.concat();
+			    for (var i = 0; i <listtreeMenuRange.length; i++) {
+					for(var j=0;j<listTree.range.length;j++){
+						var oneRange=listtreeMenuRange[i];
+						var strs= new Array(); //定义一数组 
+						strs=oneRange.split("-"); //字符分割 
+						var menuId=strs[0];
+						menuId = menuId.replace(new RegExp("\"",'gm'),"");
+						//另一个的
+						var oneRange2=listTree.range[j];
+						var strs2= new Array(); //定义一数组 
+						strs2=oneRange2.split("-"); //字符分割 
+						var menuId2=strs2[0];
+						menuId2 = menuId2.replace(new RegExp("\"",'gm'),"");
+						//如果菜单id相同，去掉重复的，加上新组合的
+						if(menuId==menuId2){
+						//去掉此menuid的项
+					    listtreeMenuRangeClone=$.grep(listtreeMenuRangeClone,function(value){		
+						return value.indexOf(menuId)==-1;
+						});
+						
+					    listtreeRangeClone=$.grep(listtreeRangeClone,function(value){		
+						return value.indexOf(menuId2)==-1;
+						});
+						//两个已逗号分割的字符串去重合并
+						var astr =strs[1].replace(/\s/ig,'');//去掉字符串中所有空格
+					    var bstr =strs2[1].replace(/\s/ig,'');//去掉字符串中所有空格
+					    var s = "," + astr + ",";
+					    var a  = bstr.split(",");
+					    for(var k=0;k<a.length;k++){
+					       if(s.indexOf(","+ a[k] +",")==-1){
+					          s += a[k] + ",";
+					       }    
+					    }
+					    s = s.substr(1,s.length-2);
+					    var newRange=menuId+'-'+s;
+						listtreeRangeClone.push(newRange);
+						}
+					}	
+			    };
+			    //合并两个筛选过的数组
+			    var allRange = listtreeRangeClone.concat(listtreeMenuRangeClone);
+			    listTree.range=allRange;
+         }
+         $("div[data-tableSelect1='true']",getElementContext()).initHtmlContent(selectRow);
+ 		$("a[data-dismiss='modal']",container).click();
+
+	});
+ 	
+});		
+</script>

@@ -1,0 +1,45 @@
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">预览</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+
+				<div class="panel-body" data-parentTable ="partInfoTable">
+					<div class="row">
+						<img id="pictodown_img_id" src=""/>
+				     </div>
+			
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-toggle="confirmation" data-onclickEvent1="true" data-onclickEvent="true" data-validate="true" data-beforeRequest="true"><i
+				class="fa fa-save"></i>确定</a> <a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+
+<script type="text/javascript">
+
+$(document).one("onload.dms",function(event,container){
+	var str=$("#fileUrloldA",getElementContext()).val();
+		dmsCommon.ajaxRestRequest({
+			url:dmsCommon.getDmsPath()["web"]+"/common/commonDatas/getCurrentToken",
+			type:'GET',
+			async:false,
+	        sucessCallBack:function(data){
+	        	currentToken = data;
+	        	var url ="/dms.web/web/rest/basedata/download"+str+"/filestore";
+				var urlwithfuncid=getDmsFuncIdUrl(url,currentToken);
+				$("#pictodown_img_id").attr("src",urlwithfuncid);
+	        }
+		});
+	
+});	
+</script>

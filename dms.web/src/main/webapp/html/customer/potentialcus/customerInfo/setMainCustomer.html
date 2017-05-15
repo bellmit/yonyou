@@ -1,0 +1,158 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">选择主要客户</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+	        <div class="panel panel-default" >
+				<div class="panel-body">
+					<div class="row">
+					    <div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-md-5">是否预收款合并</label>
+								<div class="col-md-7">
+									<select id="isReceive" name="isReceive" 
+										class="form-control required" data-dictCode="1278"
+										data-value="12781002" ></select>
+								</div>
+							</div>
+						</div>
+					 	<div class="col-md-12" hidden="hidden">
+							<div class="form-group" >
+								<label class="control-label col-md-2">隐藏</label>
+								<div class="col-md-10">
+									<input name="mainCusList" id="mainCusList"
+										data-fieldName="MAIN_CUS_LIST" class="form-control" type="text"
+										max="120" />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12" hidden="hidden">
+							<div class="form-group" >
+								<label class="control-label col-md-2">隐藏</label>
+								<div class="col-md-10">
+									<input name="mainCus" id="mainCus"
+										data-fieldName="MAIN_CUS" class="form-control" type="text"
+										max="120" />
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">客户信息</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="mainCustomerList">
+					</table>
+				</div>
+			</div>
+		</div>
+			<div class="modal-footer center-block">
+			<a id="savebtn" disabled='disabled' data-url="/customerManage/potentialcus/mainCustomer/unite" data-model="customer" data-method="PUT" data-callBack="true"  data-beforeRequest="true" data-onclickEvent1="true" class="btn blue" data-toggle="confirmation" ><i class="fa fa-save"></i>保存</a>
+			
+			 <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+			
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	var flag = false;
+	 var str='';
+		var selectRow = $("#cusList",getElementContext()).dmsTable().getSelections();
+		   	$(selectRow).each(function(index){
+			   str+=selectRow[index].CUSTOMER_NO+',';
+	  		});
+			$("#mainCusList").val(str);
+ 	new Datatable().initPagination({
+		src : "mainCustomerList",
+		container:container,
+		url : dmsCommon.getDmsPath()["customer"] + "/customerManage/potentialcus/maincustomer/"+str,
+		sortName : "CUSTOMER_NO", 
+		sortOrder : "asc",
+		isQueryFirst:true,
+		autoHeight:false,
+		
+		columns : [ 
+		            {radio:true},
+		           
+		            {field : "CUSTOMER_NO",title : "客户编号"},
+					{field : "CUSTOMER_NAME",title : "客户名称"}, 
+
+		         ]
+	});
+	$("a[data-onclickEvent1='true']",container).on("dms.click",function(event){
+		var sselectRow = $("#cusList",getElementContext()).dmsTable().getSelections();
+		var ssRow = $("#mainCustomerList",container).dmsTable().getSelections();
+		var strr='';
+	  	$(sselectRow).each(function(index){
+	  		if(sselectRow[index].CUSTOMER_NO!=ssRow[0].CUSTOMER_NO){
+	  			strr+=sselectRow[index].CUSTOMER_NO+',';
+	  		}
+	  		});
+		checkoutMobile(strr);
+	});
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+	
+		var sRow = $("#mainCustomerList",container).dmsTable().getSelections();
+		if(!sRow){
+			dmsCommon.tip({status:"warning",msg:"请选择主客户!"});
+			returnResult.status =false;
+			return ;
+		}
+		if(flag){
+			dmsCommon.tip({status:"warning",msg:"存在批售单不能合并!"});
+			returnResult.status =false;
+			return ;
+		}
+		var s='';
+	 	$(sRow).each(function(index){
+			   s+=sRow[index].CUSTOMER_NO;
+	  		});
+		$("#mainCus").val(s);
+		returnResult.status = true;
+	});
+	
+	$("#isReceive",container).bindChange(function(obj){
+		var isReceive=$("#isReceive",container).val();
+		if(isReceive=="12781001"){
+			$("#savebtn",container).removeAttr("disabled");
+			
+			
+		}else{
+			$("#savebtn",container).attr("disabled","disabled");
+
+		}
+	});
+	 var checkoutMobile=function(str){
+			dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["customer"] + "/customerManage/potentialcus/maincustomer/check/"+str,
+				type : 'GET',
+				sucessCallBack : function(data) {
+					if(data.length>0){
+						flag = true;//总共的状态类型：info、success、error、warning
+					}
+				}
+			});
+			
+	 }
+ 	
+	//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#cusList",getElementContext()).dmsTable().refreshTableWithForm();
+	}); 
+});		
+</script>

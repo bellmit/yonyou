@@ -1,0 +1,89 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">车主编号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="ownerNo" name="ownerNo" >
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车主名称</label>
+							<div class="col-xs-8">
+							<input type="text" class="form-control" id="ownerName" name="ownerName" >
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">VIN</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="vin" name="vin" >
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">手机</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="mobile" name="mobile" >
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a>  <a href="javascript:;" class="btn btn-sm blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >微信平台车主信息回传</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+			url : dmsCommon.getDmsPath()["customer"] + "/customer/customerWeChat",
+			rowID : "OWNER_NO",
+			sortName : "OWNER_NO",
+			undefinedText : "",
+			columns : [ 
+			    {field : "OWNER_NO",title : "车主编号"},
+				{field : "VIN",title : "VIN"}, 
+				{field : "OWNER_NAME",title : "车主名称"},
+				{field : "MOBILE",title : "手机"}, 
+				{field : "GENDER",title : "性别"}, 
+				{field : "ADDRESS",title : "地址"},
+				{field : "E_MAIL",title : "邮箱"}, 
+				{field : "ZIP_CODE",title : "邮编"}, 
+				{field : "CREATE_DATE",title : "变更日期"}
+			]
+
+		});
+	});
+	
+</script>

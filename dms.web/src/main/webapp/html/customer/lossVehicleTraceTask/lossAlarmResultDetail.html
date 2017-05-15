@@ -1,0 +1,210 @@
+<div class="dms-edit ajaxrest"
+	data-url="/customer/lossVehicleTraceTask/{[VIN]}" data-model="customer" data-pageInitCallBack="true">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="pannel-name">流失报警回访信息录入</div>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">问卷选择</label>
+							<div class="col-xs-8">
+								<select id="Questionaire" name="Questionaire"
+									class="bs-select form-control ">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">跟踪员</label>
+							<div class="col-xs-8 ">
+								<input type="hidden" class="form-control" id="traceItemId"
+									name="traceItemId" data-fieldName="TRACE_ITEM_ID"> <select
+									id="trancer" name="trancer" class="bs-select form-control "
+									data-url="/basedata/employees/-1/salesConsultant"
+									disabled="disabled" data-model="manage"
+									data-labelValue="USER_ID" data-value=""
+									data-lableDesc="USER_NAME" data-fieldName="TRANCER">
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">跟踪时间</label>
+							<div class="col-xs-8 ">
+								<div class="input-group date date-picker">
+									<input type="text" class="form-control" disabled="disabled"
+										data-fieldName="INPUT_DATE" name="INPUT_DATE" id="INPUT_DATE" /><span
+										class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+
+			<div class="panel panel-default table-panel">
+
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_table"></table>
+				</div>
+			</div>
+			<div class="row ">
+				<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">跟踪状态</label>
+						<div class="col-xs-8">
+							<select class="bs-select form-control" name="traceStatus"
+								data-fieldName="TRACE_STATUS" id="traceStatus"
+								data-dictCode="1237" data-existsDefault="true">
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<div class="form-group">
+					<label class="control-label col-xs-1">备注</label>
+					<div class="col-xs-11">
+						<textarea id="remark" name="remark" data-fieldName="REMARK"
+							class="form-control" rows="3" cols=""></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">跟踪记录</div>
+					<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline"
+								data-url="customer/lossVehicleTraceTask/addTaskLog.html"
+								data-width="modal-sm" data-toggle="modal"> <i
+								class="fa fa-plus-square"></i> 新增
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_tms"></table>
+				</div>
+			</div>
+			<div class="modal-footer center-block">
+				<a id="complainHistory" data-toggle="modal" data-width="modal-lg"
+					data-url="customer/lossVehicleTraceTask/taskHistory.html"
+					class="btn blue" class="btn btn-outline"> <i class="fa fa-edit" />回访历史
+				</a> <a data-url="" data-model="customer" data-method="POST"
+					data-callBack="true" data-beforeRequest="true" class="btn blue"
+					data-toggle="confirmation"> <i class="fa fa-save "></i>保存
+				</a> <a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消
+				</a>
+			</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document)
+			.one(
+					"onload.dms",
+					function(event, container) {
+						new Datatable().initPagination({
+							src : "dms_table",
+							url : dmsCommon.getDmsPath()["customer"] + "",
+							container : container,
+							rowID : "VIN",
+							sortName : "",
+							sortOrder : "asc",
+							autoHeight : false,
+							undefinedText : "",
+							columns : [ {
+								field : "QUESTIONNAIRE_NAME",
+								title : "问卷"
+							}, {
+								field : "QUESTION_NAME",
+								title : "问题名称"
+							}, {
+								field : "QUESTION_CONTENT",
+								title : "问题内容"
+							}, {
+								field : "QUESTION_TYPE",
+								title : "类型"
+							}, {
+								field : "IS_MUST_FILLED",
+								title : "必填"
+							}, {
+								field : "ANSWER",
+								title : "答案"
+							}, {
+								field : "REMARK",
+								title : "备注"
+							} ],
+						});
+
+						new Datatable()
+								.initPagination({
+									src : "dms_tms",
+									url : dmsCommon.getDmsPath()["customer"]
+											+ "/customer/lossVehicleTraceTask/taskLog",
+									container : container,
+									rowID : "TRACE_TASK_LOG_ID",
+									sortName : "TRACE_TASK_LOG_ID",
+									sortOrder : "asc",
+									autoHeight : false,
+									undefinedText : "",
+									columns : [
+											{
+												title : "操作",
+												operateFormat : [ {type : "localDel",onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){}} ]
+											}, {
+												field : "TRACE_LOG_DATE",
+												title : "跟踪时间"
+											}, {
+												field : "TRACE_LOG_DESC",
+												title : "描述",
+												inputTextFormat : {}
+											} ],
+								});
+						$("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){
+							$("#dms_tms", getElementContext())
+							.dmsTable().refreshTableWithForm();
+						}); 
+						//新增页面回调函数
+						$("a[data-callBack='true']", container).on(
+								"callBack.dms",
+								function(event, response) {
+									//关闭窗口
+									$("a[data-dismiss='modal']", container)
+											.click();
+									//刷新表格
+									$("#dms_tms", getElementContext())
+											.dmsTable().refreshTableWithForm();
+								});
+
+						$("a[data-beforeRequest='true']", container).on(
+								"beforeRequest.dms",
+								function(event, returnResult) {
+									if (true) {
+										//					//获取提醒内容
+										//					var context = $("#remindContent",container).val();
+										//					//往提醒内容赋值
+										//					$("#remindContent",container).val(context+"("+first+")");
+										returnResult.status = true;
+									} else {
+										returnResult.status = false;
+									}
+								});
+					});
+</script>

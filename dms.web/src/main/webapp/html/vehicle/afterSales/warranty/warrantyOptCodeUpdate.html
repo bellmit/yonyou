@@ -1,0 +1,70 @@
+<div class="dms-edit ajaxrest" data-url="/warrantyOptCode/{[ID]}" data-model="vehicle"  data-pageInitCallBack="true">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="modal-header">
+				<div class="modal-title">操作代码维护修改</div>
+				<div class="modal-close">
+					<a data-dismiss="modal" class="btn btn-lg"> <i
+						class="fa fa-remove"></i></a>
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 " >
+						<div class="form-group">
+							<label class="control-label col-xs-4">操作代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control required" charlength="7" id="optCode" name="optCode" data-fieldName="OPT_CODE">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">操作代码描述</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="optNameEn" name="optNameEn" maxlength="90" data-fieldName="OPT_NAME_EN"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">操作代码描述(中文)</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="optNameCn" name="optNameCn"  maxlength="90" data-fieldName="OPT_NAME_CN"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">状态</label>
+							<div class="col-xs-8">
+								<select id="status" name="status"class="bs-select form-control required" data-type="oemDict"
+									data-dictCode="1001" data-fieldName="STATUS"  data-existsDefault="false">
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			
+		<a id ="save" data-url="/warrantyOptCode/updateOptCode/{[ID]}" data-model="vehicle" data-method="PUT" data-callBack='true'
+			class="btn blue" data-toggle="confirmation" data-onclickEvent="true"><i class="fa fa-save"></i>保存</a> 			
+				<a data-dismiss="modal" class="btn blue"><i	class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+
+	$(document).one("onload.dms", function(event, container) {
+
+		//表格刷新和关闭
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	})
+</script>

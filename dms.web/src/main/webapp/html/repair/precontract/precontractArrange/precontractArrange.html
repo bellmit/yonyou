@@ -1,0 +1,727 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+									<div class="form-group">
+										<label class="control-label col-xs-4">预约单号</label>
+										<div class="col-xs-8">
+											<input type="text"  disabled="disabled"  class="form-control" id="bookingOrderNo" name="bookingOrderNo">
+										</div>
+									</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">车牌号</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input type="text" class="form-control " id="license" name="license"
+											data-fieldName="License" maxlength="120"> <span
+											class="input-group-btn" >
+											<button class="btn default btn-sm hidden" type="button" id="license1"
+												data-url="repair/precontract/precontractArrange/chooseVin.html"
+												data-toggle="modal" data-width="modal-lg"> 
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default btn-sm " type="button" id="monitorRemind"
+												data-url="repair/precontract/precontractArrange/monitorRemindForm.html"
+												data-toggle="modal" data-width="modal-lg"> 
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">VIN</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input type="text" class="form-control " id="vin" name="vin"  disabled="disabled" 
+											data-fieldName="VIN" maxlength="120"> <span
+											class="input-group-btn">
+											<button class="btn default btn-sm" type="button"   
+												data-url="repair/precontract/precontractArrange/maintainHistory.html"
+												data-toggle="modal" data-width="modal-lg"> 
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">资料来源</label>
+								<div class="col-xs-8">
+									<select id="bookingSource" name="bookingSource"
+										class="bs-select form-control required" data-dictCode="1279"
+										data-fieldName="BOOKINGSOURCE">
+									</select>
+								</div>
+							</div>
+						</div>
+								
+						</div>
+						<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">预约类别</label>
+								<div class="col-xs-8">
+								<select id="bookingTypeCode" name="bookingTypeCode"
+									class="bs-select form-control"
+									data-url="/precontract/chooseVin/getBookingTypes/item"
+									data-model="repair" data-labelValue="BOOKING_TYPE_CODE"
+									data-lableDesc="BOOKING_TYPE_NAME">
+								</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">客户经理</label>
+								<div class="col-xs-6">
+									<select id="service" name="service"
+										class="bs-select form-control"
+										data-url="/basedata/employees/-1/salesConsultant"
+										data-model="manage" data-labelValue="USER_ID"
+										data-lableDesc="USER_NAME">
+									</select>
+								</div>
+								<span class="input-group-btn">
+									<button class="btn default btn-sm" type="button"
+										data-url="customer/retainCustomer/salesGathering/searchCusChoice.html"
+										data-toggle="modal" data-width="modal-lg">
+										<i class="fa fa-list-alt"></i>
+									</button>
+									<button class="btn default input-clear" type="button">
+										<i class="fa fa-close"></i>
+									</button>
+								</span>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">预约进厂时间</label>
+								<div class="col-xs-8">
+								<div class="input-group date datetime  required" data-defaultNow = "true">
+										<input id="bookingComeTime" name="bookingComeTime" readonly
+											class="form-control required"
+											type="text" value="" />
+										 <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+					                    <span class="input-group-addon"><span class="fa fa-times"></span></span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">指定技师</label>
+								<div class="col-xs-6">
+									<select id="technicain" name="technician"
+										class="bs-select form-control"
+										data-url="/basedata/employees/-1/salesConsultant"
+										data-model="manage" data-labelValue="USER_ID"
+										data-lableDesc="USER_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+						</div>
+						<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">工位</label>
+								<div class="col-xs-6">
+									<select id="oepairPosition" name="oepairPosition"
+										class="bs-select form-control"
+										data-url="/basedata/employees/-1/salesConsultant"
+										data-model="manage" data-labelValue="USER_ID"
+										data-lableDesc="USER_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车主</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input type="text" class="form-control " id="ownerName" name="ownerName"
+											data-fieldName="OWNER_NAME" maxlength="120"> <span
+											class="input-group-btn">
+											<button class="btn default btn-sm" type="button"
+												data-url="customer/retainCustomer/salesGathering/searchCusChoice.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系人</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control required" id="contactorName" name="contactorName">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系人电话</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control required" id="contactorPhone" name="contactorPhone">
+								</div>
+							</div>
+						</div>
+						</div>
+						<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系人手机</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control required" id="contactorMobile" name="contactorMobile">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">进厂行驶里程</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="mileage" name="mileage">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌</label>
+								<div class="col-xs-8">
+									<select id="brand" class="bs-select form-control"
+										name="brandId" data-url="/basedata/brandsdict2"
+										data-model="manage" data-labelValue="BRAND_CODE"
+										data-lableDesc="BRAND_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系</label>
+								<div class="col-xs-8">
+									<select id="series" parent="brand"  
+										class="bs-select form-control" name="seriesId"
+										data-url="/basedata/brandsdict/{[brand]}/seriessdict"
+										data-model="manage" data-labelValue="SERIES_CODE"
+										data-lableDesc="SERIES_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+						</div>
+						<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车型</label>
+							<div class="col-xs-8">
+								<select id="model" parent="series"
+									class="bs-select form-control" name="modelName"
+									data-url="/basedata/brandsdictC/{[brand]}/seriessdictC/{[series]}/modelsdictC"
+									data-model="manage" data-labelValue="MODEL_CODE"
+									data-lableDesc="MODEL_NAME" data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+						</div>
+						
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">工时单价</label>
+								<div class="col-xs-8">
+								<select id="labourprice" class="bs-select form-control required" 
+										name="labourprice" data-url="/basedata/repairtypes/labourprice/item"
+										data-model="repair" data-labelValue="LABOUR_PRICE"
+										data-fieldName="LABOUR_PRICE" data-lableDesc="LABOUR_PRICE"
+										data-alwaysRefresh="true">
+								</select>
+							</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">上次进厂时间</label>
+								<div class="col-xs-8">
+								<div class="input-group date datetime"   >
+										<input id="lastComeDate" name="lastComeDate" readonly  
+											class="form-control "
+											type="text" value="" />
+										 <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+					                    <span class="input-group-addon"><span class="fa fa-times"></span></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">预估金额</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="estimateAmount" name="estimateAmount">
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">推荐人</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input type="text" class="form-control" id="empName" name="empName"> <span
+											class="input-group-btn">
+											<button class="btn default btn-sm" type="button"
+											data-url="repair/precontract/precontractArrange/selectEmployee.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">推荐单位</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input type="text" class="form-control" id="customerName" name="customerName"> <span
+											class="input-group-btn">
+											<button class="btn default btn-sm" type="button"
+											data-url="repair/precontract/precontractArrange/selectOwner.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4"></label>
+								<div class="col-xs-8 ">
+									<input type="checkbox" name="lackPart" id="lackPart" data-dictCode="1057" data-dictLabel="缺料预约" />
+								</div>
+							</div>
+						</div>
+						</div>
+						<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">预约准时率</label>
+							<div class="col-xs-8">
+								<input type="text"  disabled="disabled"  class="form-control" id="preconnSuccRate" name="preconnSuccRate" disabled="disabled">
+							</div>
+						</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">预约总次数</label>
+							<div class="col-xs-8">
+								<input type="text"  disabled="disabled"  class="form-control" id="preconnAmount" name="preconnAmount" disabled="disabled">
+							</div>
+						</div>
+						</div>
+						<div class="form-group col-sm-6 col-md-4 col-lg-3 ">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">发动机号</label>
+							<div class="col-xs-8">
+								<input type="text"  disabled="disabled"  class="form-control" id="engineNo" name="engineNo">
+							</div>
+						</div>
+						</div>
+				
+					</div>
+			</div>
+			</div>
+						<div class="panel panel-default table-panel">
+							<div class="panel-heading">
+								<div class="pannel-name">预约项目</div>
+								<div class="pannel-button">
+									<div class="btn-group btn-group-sm">
+									<a class="btn btn-outline"
+											data-url="repair/precontract/precontractArrange/selectLabour.html"
+											data-toggle="modal" data-width="modal-lg" ><i
+											class="fa fa-plus-square"></i> 新增</a>
+									</div>
+								</div>
+							</div>
+							<div class="panel-body">
+								<table
+									class="table table-striped table-bordered table-hover table-responsive"
+									id="dms_table"></table>
+							</div>
+							</div>
+						<div class="panel panel-default table-panel">
+							<div class="panel-heading">
+								<div class="pannel-name">预约配件</div>
+								<div class="pannel-button">
+									<div class="btn-group btn-group-md">
+									<a class="btn btn-outline"
+											data-url="repair/precontract/precontractArrange/addPartForm.html"
+											data-toggle="modal" data-width="modal-lg"><i
+											class="fa fa-plus-square"></i> 新增</a>
+									</div>
+								</div>
+							</div>
+							<div class="panel-body">
+								<table
+									class="table table-striped table-bordered table-hover table-responsive"
+									id="dms_tablepart"></table>
+							</div>
+							</div>
+						<div class="panel panel-default table-panel">
+							<div class="panel-heading">
+								<div class="pannel-name">预约附加项目</div>
+								<div class="pannel-button">
+									<div class="btn-group btn-group-sm">
+									<a class="btn btn-outline"
+											data-url="repair/precontract/precontractArrange/AddItemName.html"
+											data-toggle="modal" data-width="modal-lg" ><i
+											class="fa fa-plus-square"></i> 新增</a>
+									</div>
+								</div>
+							</div>
+							<div class="panel-body">
+								<table
+									class="table table-striped table-bordered table-hover table-responsive"
+									id="dms_tableitem"></table>
+							</div>
+							</div>
+						<div class="panel panel-default">
+							<div class="row" >
+							<div class="col-xs-12 col-sm-6 ">
+								<div class="form-group">
+									<label class="control-label col-xs-4">检查结果</label>
+									<div class="col-xs-8">
+										<div class="input-group">
+										<input type="text" class="form-control" id="troubleDescB" name="troubleDescB"
+											data-fieldName="troubleDesc" maxlength="120"> <span
+											class="input-group-btn" >
+											<button class="btn default btn-sm " type="button" id="troubleDescB"
+												data-url="repair/precontract/precontractArrange/searchTroubleDescB.html"
+												data-toggle="modal" data-width="modal-lg"> 
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+										</div>
+									</div>
+									</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 ">
+								<div class="form-group">
+									<label class="control-label col-xs-4">顾客需求</label>
+									<div class="col-xs-8">
+										<input type="text" class="form-control" id="cusNeed" name="cusNeed">
+									</div>
+								</div>
+							</div>
+							</div>	
+						<div class="row" >
+						
+							<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4"></label>
+								<div class="col-xs-8 ">
+									<input type="checkbox" name="isDrive" id="isDrive" data-dictCode="1057" data-dictLabel="是否提车" />
+								</div>
+					    	</div>
+					    	</div>
+					    	<div class="col-xs-12 col-sm-6 col-md-4">	
+							<div class="form-group">
+									<label class="control-label col-xs-4">提车地址</label>
+									<div class="col-xs-8">
+									<input type="text" class="form-control" id="driveAdd" name="driveAdd">
+									</div>
+							</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-4">	
+							<div class="form-group">
+									<label class="control-label col-xs-4">备注</label>
+									<div class="col-xs-8">
+									<input type="text" class="form-control" id="remarkB" name="remarkB">
+									</div>
+							</div>
+							</div>
+						</div>			
+					</div>
+			<div class="panel-body">
+				 <a data-url="repair/precontract/precontractArrange/appointmentList.html" data-width="modal-lg" data-toggle="modal" class="btn blue"><i
+				class="fa fa-minus-square"></i>预约情况</a>
+				 <a data-url="repair/order/repair/appointment/appointmentList.html" data-width="modal-lg" data-toggle="modal" class="btn blue"><i
+				class="fa fa-minus-square"></i>维修建议</a>
+				 <a data-url="repair/order/repair/appointment/appointmentList.html" data-width="modal-lg" data-toggle="modal" class="btn blue"><i
+				class="fa fa-minus-square"></i>导入建议</a>
+			 	<a data-url="repair/order/repair/appointment/appointmentList.html" data-width="modal-lg" data-toggle="modal" class="btn blue"><i
+				class="fa fa-minus-square"></i>投书历史</a>
+			</div>
+			<div class="modal-footer">
+				 <a data-url="repair/precontract/precontractArrange/appointmentList.html" data-width="modal-lg" data-toggle="modal" class="btn blue"><i
+				class="fa fa-minus-square"></i>维修组合</a>
+				 <a class="btn blue" data-onclickEvent="true"><i class="fa fa-save hidden"></i>确定</a> 
+				 <a data-url="repair/order/repair/appointment/appointmentList.html" data-width="modal-lg" data-toggle="modal" class="btn blue"><i
+				class="fa fa-minus-square"></i>打印预约单</a>
+			</div>
+		</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",	function(event, container) {
+				new Datatable().initPagination({
+					src : "dms_table",
+					container : container,
+					url : dmsCommon.getDmsPath()[""]+ "",
+					rowID : "TROUBLE_DESC",
+					sortName : "TROUBLE_DESC",
+					/* selectItemName:"VIN", *///当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+					sortOrder : "asc",
+					autoHeight : false,
+					undefinedText : "",
+					columns : [ 
+						{
+							field : "TROUBLE_DESC",
+							title : "操作",
+							operateFormat : [
+								{	type : "edit",
+										url : "retail/vehicle/market/updateMarketPlan.html",
+										openWidth : "modal-lg"
+									},//默认不支持双击操作
+								 {type : "del",url : "/markting/marktingPlan/{[CAMPAIGN_CODE]}/plan",model : "retail",
+									callBack : function(response) {
+										$("#campaign_plan",getElementContext()).dmsTable().refreshTableWithForm();
+									}
+								}  
+									]
+						},
+						
+					{
+						field : "dealer_code",
+						visible : false
+					}, {
+						field : "TROUBLE_DESC",
+						title : "故障描述"
+					}, {
+						field : "MODEL_LABOUR_CODE",
+						title : "维修车型分组代码"
+					}, {
+						field : "LABOUR_CODE",
+						title : "维修项目代码"
+					}, {
+						field : "LABOUR_NAME",
+						title : "维修项目名称"
+					}, {
+						field : "STD_LABOUR_HOUR",
+						title : "标准工时"
+					}, {
+						field : "LABOUR_AMOUNT",
+						title : "工时费"
+					}, {
+						field : "ACTIVITY_CODE",
+						title : "活动编号"
+					}, {
+						field : "BOOKING_TYPE_CODE",
+						title : "组合代码"
+					}, {
+						field : "PACKAGE_CODE",
+						title : "接受预约日"
+					}, 
+					]
+				});
+
+				new Datatable().initPagination({
+					src : "dms_tablepart",
+					container : container,
+					url : dmsCommon.getDmsPath()["repair"]+ + "/precontract/chooseVin/"+$("#bookingOrderNo").val()+"/bookingpart");
+					rowID : "PART_NO",
+					sortName : "PART_NO",
+					/* selectItemName:"VIN", *///当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+					sortOrder : "asc",
+					autoHeight : false,
+					undefinedText : "",
+					columns : [ 
+					 {
+						field : "STORAGE_CODE",
+						title : "仓库代码"
+					}, {
+						field : "PART_NO",
+						title : "配件代码"
+					}, {
+						field : "PART_NAME",
+						title : "配件名称"
+					}, {
+						field : "BOOKING_QUANTITY",
+						title : "预约数量"
+					}, {
+						field : "IS_OBLIGATED",
+						title : "预留"
+					}, {
+						field : "ACTIVITY_CODE",
+						title : "活动编号"
+					}, {
+						field : "BOOKING_TYPE_CODE",
+						title : "组合代码"
+					}, 
+					]
+				});
+				
+				new Datatable().initPagination({
+					src : "dms_tablepartitem",
+					container : container,
+					url : dmsCommon.getDmsPath()["repair"]+ "/precontract/chooseVin/"+$("#bookingOrderNo").val()+"/bookingpartitem");
+					rowID : "TROUBLE_DESC",
+					sortName : "TROUBLE_DESC",
+					/* selectItemName:"VIN", *///当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+					sortOrder : "asc",
+					autoHeight : false,
+					undefinedText : "",
+					columns : [ 
+					{field : "STORAGE_CODE",title : "操作",
+					operateFormat : [ {type : "localDel",onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){}}]}, 
+	
+					 {
+						field : "STORAGE_CODE",
+						title : "仓库代码"
+					}, {
+						field : "PART_NO",
+						title : "配件代码"
+					}, {
+						field : "PART_NAME",
+						title : "配件名称"
+					}, {
+						field : "BOOKING_QUANTITY",
+						title : "预约数量"
+					}, {
+						field : "IS_OBLIGATED",
+						title : "预留",codeFormat:{type:"dict",codeType:"1278"}
+					}, {
+						field : "ACTIVITY_CODE",
+						title : "活动编号"
+					}, {
+						field : "BOOKING_TYPE_CODE",
+						title : "组合代码"
+					}, 
+					]
+				});
+				
+				new Datatable().initPagination({
+					src : "dms_tableitem",
+					container : container,
+					url : dmsCommon.getDmsPath()["repair"]+ "/precontract/chooseVin/"+$("#bookingOrderNo").val()+"/bookingitem");
+					rowID : "ADD_ITEM_CODE",
+					sortName : "ADD_ITEM_CODE",
+					/* selectItemName:"VIN", *///当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+					sortOrder : "asc",
+					autoHeight : false,
+					undefinedText : "",
+					columns : [ 
+					{field : "ADD_ITEM_CODE",title : "操作",
+					operateFormat : [ {type : "localDel",onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){}}]}, 
+					 {
+						field : "ADD_ITEM_CODE",
+						title : "附加项目代码"
+					}, {
+						field : "ADD_ITEM_NAME",
+						title : "附加项目名称"
+					}, {
+						field : "REMARK",
+						title : "备注"
+					}, 
+					]
+				});
+
+				//保存前事件
+				$('a[data-beforeRequest="true"]', container).on(
+						'beforeRequest.dms',
+						function(event, returnResult) {
+							var vin = "";
+							if (text != null) {
+								$(text).each(function(e) {
+									vins += text[e].VIN + ';';
+								});
+								$("#vins", container).val(vins);
+								returnResult.status = true;
+							} else {
+								dmsCommon.tip({
+									status : "warning",
+									msg : "请选择记录！"
+								});
+								returnResult.status = false;
+								return;
+							}
+						});
+				
+				$("#license",container).on('keyup',function(e){
+					if(e.keyCode=='13'){
+						$("#license1",container).click();
+					}
+				});
+				$("#bookingOrderNo").bindChange(function(obj){
+				    $("#dms_table",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["repair"] + "/precontract/chooseVin/"+$("#bookingOrderNo").val()+"/bookingpart");
+				    $("#dms_tablepart",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["repair"] + "/precontract/chooseVin/"+$("#bookingOrderNo").val()+"/bookingpartitem");
+				    $("#dms_tablepartitem",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["repair"] + "/precontract/chooseVin/"+$("#bookingOrderNo").val()+"/bookingitem");
+					dmsCommon.ajaxRestRequest({ url:dmsCommon.getDmsPath()['repair']+"/precontract/chooseVin/"+$("#vin").val()+"/"+$("#license").val()+"+"/booking"],
+						  type: "GET",
+						  sucessCallBack : function(modelData) {
+						if(modelData.length>=1){
+				});
+				
+				$("#driveAdd",container).setElementReadOnly();
+				$("input[name='isDrive']").click(function(){
+					if($("input[name='isDrive']").is(':checked')){
+							$("#driveAdd",container).removeElementReadOnly();
+							
+						}else{
+							$("#driveAdd",container).setElementReadOnly();
+						}
+				    });
+
+				//新增页面的回调函数
+				$("a[data-callBack='true']", container).on(
+						"callBack.dms",
+						function(event, response) {
+							//关闭窗口
+							$("a[data-dismiss='modal']", container).click();
+							//刷新表格
+							$("#dms_table", getElementContext()).dmsTable()
+									.refreshTableWithForm();
+						});
+			});
+</script>

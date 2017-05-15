@@ -1,0 +1,106 @@
+<div class="dms-search">
+<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">盘点单选择</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">盘点单号</label>
+								<div class="col-xs-8">
+								<input type="hidden" value="{[userInfo.userId]}" id="userId"/>
+									<input id="INVENTORY_NO" name="INVENTORY_NO"
+										class="form-control" type="text" />
+										<input id="IS_CONFIRMED" name="IS_CONFIRMED"
+										class="form-control" type="hidden" value="10041001"/>
+										<input id="selctType" name="selectType" type="hidden" value="profit">
+								</div>
+							</div>
+						</div>
+
+
+						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2">盘点日期</label>
+								<div class="col-xs-8 col-sm-10">
+									<div class="input-group input-daterange"
+										 data-defaultDays="7">
+										<input type="text" class="form-control" readonly
+											name="BENGIN_DATE"> <span class="input-group-addon">至</span>
+										<input type="text" class="form-control" readonly
+											name="END_DATE">
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row ">
+							<div class="col-xs-12 ">
+								<div class="query-btn">
+									<a href="javascript:;" class="btn blue"> <i
+										class="fa fa-search"></i>查询
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+			<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+					<div class="pannel-name">盘点单信息</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="InventoryList">
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-onclickEvent="true"><i class="fa fa-save"></i>确定</a>
+			<a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消</a>
+		</div>
+</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	 new Datatable().initPagination({
+			src : "InventoryList",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/basedata/reportPayOff/findInventroy", 
+			rowID:"INVENTORY_NO",
+			sortName : "INVENTORY_NO",
+			sortOrder : "asc",
+			autoHeight:false,
+			columns : [ 
+						{radio:true,sortable : false},
+						{field : "INVENTORY_NO",title : "盘点单号"},
+						{field : "INVENTORY_DATE",title : "盘点日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}}, 
+						{field : "HANDLER1",title : "经手人"}, 
+						{field : "HANDLER",title : "经手人1",visible : false},
+						{field : "HANDLER1",title : "操作员"}, 
+						{field : "REMARK",title : "备注"}, 
+						{field : "LOCK_USER",title : "锁定人"},
+						{field : "LOCK_USERU",title : "锁定人1",visible : false}
+			         ]
+		});
+		//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			var selectRow = $("#InventoryList",container).dmsTable().getFirstSelection();
+			if(selectRow.LOCK_USERU==$("#userId",container).val()||selectRow.LOCK_USERU==""||selectRow.LOCK_USERU==null){
+				$("div[data-tableSelect='true']",getElementContext()).initHtmlContent(selectRow);
+				$("a[data-dismiss='modal']",container).click();
+			}else{
+				dmsCommon.tip({status:"warning",msg:"此订单已锁定!"});
+			}
+		});
+	});
+</script>

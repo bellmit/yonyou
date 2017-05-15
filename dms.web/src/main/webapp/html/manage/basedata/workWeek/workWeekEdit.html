@@ -1,0 +1,104 @@
+<div class="dms-edit ajaxrest" data-url="/basedata/workWeek/{[WEEK_ID]}" data-model="manage">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">修改工作周</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<input type="hidden" name="weekId" data-fieldName="week_id">
+					<div class="row">
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">工作年</label>
+								<div class="col-xs-8" >
+									<select id="workYear" data-fieldName="work_year"
+										class="bs-select form-control dmsDisabled" name="workYear"
+										data-url="/basedata/workWeek/getYear"
+										data-model="manage" data-labelValue="work_year"
+										data-lableDesc="work_year" >
+									</select>
+								</div>
+							</div>
+						</div>													
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">工作月</label>
+								<div class="col-xs-8">
+									<select id="workMonth" data-fieldName="work_month"
+										class="bs-select form-control dmsDisabled" name="workMonth"
+										data-url="/basedata/workWeek/getMonth"
+										data-model="manage" data-labelValue="work_month"
+										data-lableDesc="work_month" >
+									</select>	
+								</div>
+							</div>
+						</div>	
+						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">工作周</label>
+								<div class="col-xs-8" >
+									  <input class="form-control required dmsDisabled" type="text" id="workWeek" name="workWeek" data-fieldName="work_week"/>
+								</div>
+							</div>
+						</div>						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">状态</label>
+								<div class="col-xs-8" >
+									<select class="bs-select form-control" id="status" name="status"  data-fieldName="status"
+										data-type="oemDict" data-dictCode="1001" data-existsDefault = "false">
+									</select>
+								</div>
+							</div>
+						</div>
+						
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-xs-2">日期范围</label>
+							<div class="col-xs-8">
+								 <div class="input-group date input-daterange"  data-opens="right">
+		                             <input type="text" class="form-control required" readonly  name="startDate" data-fieldName="start_date" >
+		                             <span class="input-group-addon" >至</span>
+		                             <input type="text" class="form-control required" readonly  name="endDate" data-fieldName="end_date" >
+		                             <span class="input-group-btn">
+                                         <button class="btn default input-clear" type="button">
+                                            <i class="fa fa-close"></i>
+                                        </button>
+                                      </span> 
+		                        </div>
+							</div>
+						</div>
+					</div>								
+										
+					</div>					
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<div class="modal-footer center-block">
+				<a data-url="/basedata/workWeek/edit" data-model="manage" data-method="PUT"
+				 data-callBack="true"  class="btn blue "data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+				</a> 
+				<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+});
+
+</script>

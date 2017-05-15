@@ -1,0 +1,158 @@
+<div class="dms-search">
+<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">销售单信息</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row" data-tableSelect="true">
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销售单号</label>
+								<div class="col-xs-8 ">
+									<input type="text" class="form-control" name="soNo" id="soNo">
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">VIN号</label>
+								<div class="col-xs-8">
+									<input id="vin" name="vin"
+										class="form-control required" type="text"  data-fieldName="VIN"/>
+								</div>
+							</div>
+						</div>
+
+						
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">潜客名称</label>
+								<div class="col-xs-8 ">
+									<input type="text" class="form-control" name="customerName" id="customerName">
+								</div>
+							</div>
+				    </div>
+				    
+				    	<!--/span-->
+						<div class="hidden ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">订单状态</label>
+								<div class="col-xs-8">
+									<select id="NotINsoStatus" name="NotINsoStatus"
+										class="bs-select form-control required" data-dictCode="1404"
+										data-fieldName="complaint_main_type" multiple data-value="14041012,14041011"></select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						
+						<!--/span-->
+						<div class="hidden ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">业务类型</label>
+								<div class="col-xs-8">
+									<select id="NotINbusinessType" name="NotINbusinessType"
+										class="bs-select form-control required" data-dictCode="1403"
+										data-fieldName="complaint_main_type" data-value="14031003"></select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+				    
+					</div>
+					<div class="row ">
+						<div class="col-xs-12 ">
+							<div class="query-btn">
+								<a href="javascript:;" class="btn blue"> <i
+									class="fa fa-search"></i>查询
+								</a> 
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">销售订单</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="complaintSaleList">
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-onclickEvent="true"><i class="fa fa-save"></i>确定</a>
+			<a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消</a>
+		</div>
+</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+ 	new Datatable().initPagination({
+		src : "complaintSaleList",
+		rowID:"SO_NO_ID",
+		container:container,
+	 	url : dmsCommon.getDmsPath()["retail"] + "/ordermanage/salesOrders/cusComplaint/SalesOrderSel",
+		sortName : "SO_NO_ID", 
+		sortOrder : "asc",
+		autoHeight:false,
+		isQueryFirst:false,
+		columns : [ 
+		            {radio:true},
+		            {field : "SO_NO",title : "销售单号"},
+		            {field : "VIN",title : "VIN号"},
+		            {field : "CUSTOMER_NAME",title : "潜客名称"},
+		            {field : "PHONE",title : "潜客电话"},
+		            {field : "MOBILE",title : "潜客手机"},
+		            {field : "EMPLOYEE_NAME",title : "服务顾问",inputHiddenFormat : {hiddenField:"CONSULTANT"}},
+		            {field : "SALES_DATE",title : "开单日期",dateFormat : {format:"YYYY-MM-DD"}},
+		            {field : "SO_STATUS",title : "订单状态",codeFormat : {type:"dict",codeType:"1404"}},
+		            {field : "license",title : "车牌号",visible : false},
+		            {field : "ADDRESS",title : "客户地址",visible : false},
+		            {field : "LINK_ADDRESS",title : "车主地址",visible : false},
+		            {field : "MILEAGE",title : "行驶里程",visible : false},
+		            {field : "OWNER_NAME",title : "车主",visible : false}
+		         ]
+	});
+ 	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		var selectRow = $("#complaintSaleList",container).dmsTable().getFirstSelection();
+		$("div[data-tableSelect1='true']",getElementContext()).initHtmlContent(selectRow);
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+	});
+	var formJson = $("div[data-parentTable='ownerInfoTable,replaceList']",getElementContext()).serializeFormJson();
+		if(formJson){
+			  $("#vin",container).setDmsValue(formJson.vin);
+			 // $(".fa-search",container).click();
+		}
+		$("#soNo",container).bindChange(function(obj){
+			if($("#soNo",container).val()){
+				$("#vin",container).removeClass("required");
+			}else{
+				$("#vin",container).addClass("required");
+			}
+			$("#vin",container).validateElement();
+		});
+		$("#customerName",container).bindChange(function(obj){
+			if($("#customerName",container).val()){
+				$("#vin",container).removeClass("required");
+			}else{
+				$("#vin",container).addClass("required");
+			}
+			$("#vin",container).validateElement();
+		});
+});
+</script>

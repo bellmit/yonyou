@@ -1,0 +1,178 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+		<div class="modal-title">旧件仓库维护</div>
+			<div class="panel-body">
+				<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">索赔单号</label>
+								<div class="col-xs-8">
+									<input type="text"  
+										id="repairNo" class="form-control"
+										name="repairNo" >
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">旧件代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="oldpPartNo" name="oldpPartNo">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">是否匹配成功</label>
+							<div class="col-xs-8">
+								<select id="returnState" name="returnState" class="bs-select form-control"
+									data-type="oemDict" data-dictCode="1004">
+								</select>
+							</div>
+						</div>
+					</div>
+				
+								<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"
+						data-tableSelect="true">
+						<div class="form-group">
+							<label class="control-label col-xs-4">选择经销商</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input id="dealerCode" readonly name="dealerCode"
+										class="form-control" type="text" data-fieldName="dealer_code" />
+									<span class="input-group-btn">
+										<button class="btn default btn-sm" type="button"
+											data-url="manage/basedata/dealers/searchDealer.html"
+											data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-6  ">
+						<div class="form-group">
+							<label class="control-label col-xs-2">审核通过日期</label>
+							<div class="col-xs-10">
+								<div class="input-group input-daterange" data-opens="right">
+									<input type="text" class="form-control" readonly
+										name="beginDate"> <span class="input-group-addon">-</span>
+									<input type="text" class="form-control" readonly
+										name="endDate"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">VIN号</label>
+							<div class="col-xs-8">
+								<textarea id="vin" name="vin" cols="30" rows="2" maxlength="600" 
+							></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+					</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a>
+							
+								 <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+		
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+				<div class="pannel-name" >GCS保单信息</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a href="javascript:;" data-url="/gcsbd/export/excel"
+								data-model="vehicle" data-method="downLoad"
+								class="btn btn-outline ajaxrest" data-validate="false"><i
+								class="fa fa-download"></i>下载</a>			
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+
+	$(document)
+			.one(
+					"onload.dms",
+					function(event, container) {
+						new Datatable()
+								.initPagination({
+									src : "dms_table",
+									container : container,
+									url : dmsCommon.getDmsPath()["vehicle"]
+											+ "/gcsbd",
+									rowID : "GCS_ID",
+									sortName : "GCS_ID",
+									sortOrder : "asc",
+									columns : [
+											{
+												field : "DEALER_CODE",
+												title : "经销商代码"
+											}, {
+												field : "DEALER_NAME",
+												title : "经销商名称",
+											}, {
+												field : "REPAIR_NO",
+												title : "索赔单号"
+											}, {
+												field : "VIN",
+												title : "VIN码"
+											}, {
+												field : "PART_CODE",
+												title : "配件代码",
+											}, {
+												field : "PART_NAME",
+												title : "配件名称"
+											}, {
+												field : "PART_COUNT",
+												title : "数量"
+											}, {
+												field : "IS_MAPPING",
+												title : "是否匹配成功"
+													,codeFormat : {type:"oemDict",codeType:"1004"}
+											}, {
+												field : "PRICE",
+												title : "单价"
+											}, {
+												field : "SUBTOTAL",
+												title : "小计"
+											}, {
+												field : "CREATE_DATE",
+												title : "导入日期"
+											}, {
+												field : "PAYMENT_DATE",
+												title : "审核通过日期"
+											}]
+			   
+								});
+					});
+</script>

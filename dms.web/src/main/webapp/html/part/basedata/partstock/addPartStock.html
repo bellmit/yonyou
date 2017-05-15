@@ -1,0 +1,604 @@
+<div class="dms-add ">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">配件库存编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group form-group-xs m-b-xs">
+								<label class="control-label col-xs-4 ">仓库</label>
+								<div class="col-xs-8">
+									<input type="hidden" name="STORAGE_CODE" data-fieldName="STORAGE_CODE"/>
+									<select id="STORAGE_CODE" name="STORAGE_CODE"
+										class="bs-select form-control required" 
+										data-url="/partStocks/StockCode" data-model="part"  data-labelValue="STORAGE_CODE"
+										data-lableDesc="STORAGE_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group form-group-xs m-b-xs">
+								<label class="control-label col-xs-4">库存数量</label>
+								<div class="col-xs-8 ">
+									<input id="STOCK_QUANTITY" name="STOCK_QUANTITY"
+										class="form-control" type="text" readonly="readonly"
+										data-fieldName="STOCK_QUANTITY" maxlength="40" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">建议销售价</label>
+								<div class="col-xs-8">
+									<input id="INSTRUCT_PRICE" name="INSTRUCT_PRICE" value="0"
+										class="form-control" type="text"  />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">库位代码</label>
+								<div class="col-xs-8">
+									<input id="STORAGE_POSITION_CODE" name="STORAGE_POSITION_CODE"
+										class="bs-select form-control"
+										data-fieldName="STORAGE_POSITION_CODE"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">借进数量</label>
+								<div class="col-xs-8">
+									<input id="BORROW_QUANTITY" name="BORROW_QUANTITY"
+										class="form-control" type="text" readonly="readonly"
+										data-fieldName="BORROW_QUANTITY" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">索赔价</label>
+								<div class="col-xs-8">
+									<input id="CLAIM_PRICE" name="CLAIM_PRICE" class="form-control"
+										type="text" value="0" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件类别</label>
+								<div class="col-xs-8">
+									<input id="PART_GROUP_CODE" name="PART_GROUP_CODE"
+										class="form-control" type="text" readonly="readonly"
+										data-fieldName="PART_GROUP_CODE" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">借出数量</label>
+								<div class="col-xs-8">
+									<input id="LEND_QUANTITY" name="LEND_QUANTITY"
+										class="form-control" type="text" readonly="readonly"
+										data-fieldName="LEND_QUANTITY" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">最小库存</label>
+								<div class="col-xs-8">
+									<input id="MIN_STOCK" name="MIN_STOCK" class="form-control"
+										type="text" value="0" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">安全库存</label>
+								<div class="col-xs-8">
+									<input id="SAFE_STOCK" name="SAFE_STOCK" class="form-control"
+										type="text" value="0" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">最大库存</label>
+								<div class="col-xs-8">
+									<input id="MAX_STOCK" name="MAX_STOCK" class="form-control"
+										type="text" value="0" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">不含税进价</label>
+								<div class="col-xs-8">
+									<input id="LATEST_PRICE" name="LATEST_PRICE" 
+										class="form-control" type="text" value="0" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">成本金额</label>
+								<div class="col-xs-8">
+									<input id="COST_AMOUNT" name="COST_AMOUNT" class="form-control" readonly="readonly"
+										type="text" data-fieldName="COST_AMOUNT" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件代码</label>
+								<div class="col-xs-8">
+									<input id="PART_NO" name="PART_NO" class="form-control required" maxlength="27"
+										type="text" data-fieldName="PART_NO" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件名称</label>
+								<div class="col-xs-8">
+									<input id="PART_NAME" name="PART_NAME" class="form-control required" maxlength="120"
+										type="text" data-fieldName="PART_NAME" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">替代配件</label>
+								<div class="col-xs-8">
+									<input id="OPTION_NO" name="OPTION_NO" class="form-control" readonly="readonly"
+										type="text" data-fieldName="OPTION_NO" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">拼音代码</label>
+								<div class="col-xs-8">
+									<input id="SPELL_CODE" name="SPELL_CODE" class="form-control"
+										type="text" data-fieldName="SPELL_CODE" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">含税进价</label>
+								<div class="col-xs-8">
+									<input id="COST_PRICE" name="COST_PRICE" readonly="readonly"
+										class="form-control" type="text" data-fieldName="COST_PRICE" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">税率</label>
+								<div class="col-xs-8">
+									<input id="partName" class="form-control" readonly="readonly"
+										type="text" maxlength="120" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">最小包装数</label>
+								<div class="col-xs-8">
+									<input id="MIN_PACKAGE" name="MIN_PACKAGE" class="form-control" 
+										type="text" value="0" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">产地</label>
+								<div class="col-xs-8">
+									<input id="PRODUCTING_AREA" name="PRODUCTING_AREA" 
+										class="form-control" type="text" maxlength="150"
+										data-fieldName="PRODUCTING_AREA" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车型组集</label>
+								<div class="col-xs-8">
+									<div class="input-group" data-seledate='true'>
+										<input id="PART_MODEL_GROUP_CODE_SET" name="PART_MODEL_GROUP_CODE_SET"
+											data-fieldName="PART_MODEL_GROUP_CODE" readonly="readonly"
+											class="form-control " type="text" />
+										<div class="input-group-btn">
+											<button class="btn default btn-sm" type="button" data-url="part/basedata/partinfo/partModelGroup.html"
+												data-toggle="modal" data-info="license">
+												<i class="fa fa-search" />
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">单位</label>
+								<div class="col-xs-8">
+									<select id="UNIT_CODE" name="UNIT_CODE"
+										data-url="/basedata/partInfos/partGroupCode" data-model="part"
+										data-labelValue="UNIT_CODE" data-lableDesc="UNIT_NAME"
+										class="bs-select form-control" data-fieldName="UNIT_CODE">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销售限价</label>
+								<div class="col-xs-8">
+									<input id="LIMIT_PRICE" name="LIMIT_PRICE"
+										class="form-control  decimal" type="text" readonly="readonly" data-value="0.0"
+										data-fieldName="LIMIT_PRICE" maxDigit="8" maxPrecision="2" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">加价率</label>
+								<div class="col-xs-8">
+									<input id="ADD_RATE" name="ADD_RATE" class="form-control" readonly="readonly"
+										type="text" maxlength="120" data-fieldName="ADD_RATE" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group form-group-xs m-b-xs">
+								<label class="control-label col-xs-4">销售价</label>
+								<div class="col-xs-8 ">
+									<input id="SALES_PRICE" name="SALES_PRICE" class="form-control"  
+										type="text" value="0" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">九大类</label>
+								<div class="col-xs-8">
+									<select id="PART_MAIN_TYPE" name="PART_MAIN_TYPE" 
+										class="bs-select form-control" data-dictCode="1366"
+										data-fieldName="PART_MAIN_TYPE">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件特殊类别</label>
+								<div class="col-xs-8">
+									<select id="PART_SPE_TYPE" name="PART_SPE_TYPE"
+										class="bs-select form-control  " data-dictCode="1364"
+										data-fieldName="PART_SPE_TYPE">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">保险价</label>
+								<div class="col-xs-8">
+									<input id="INSURANCE_PRICE" name="INSURANCE_PRICE"
+										class="form-control" type="text"
+										value="0" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">原产地代码</label>
+								<div class="col-xs-8">
+									<input id="ORI_PRO_CODE" name="ORI_PRO_CODE" class="form-control" readonly="readonly"
+										type="text" maxlength="120" data-fieldName="ORI_PRO_CODE" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">用品大分类</label>
+								<div class="col-xs-8">
+									<input id="BIG_CATEGORY_CODE" name="BIG_CATEGORY_CODE" 
+										class="form-control" type="text" readonly="readonly"
+										data-fieldName="BIG_CATEGORY_CODE" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">用品中分类</label>
+								<div class="col-xs-8">
+									<input id="SUB_CATEGORY_CODE" name="SUB_CATEGORY_CODE"
+										class="form-control" type="text" readonly="readonly"
+										data-fieldName="SUB_CATEGORY_CODE" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">用品小分类</label>
+								<div class="col-xs-8">
+									<input id="THD_CATEGORY_CODE" name="THD_CATEGORY_CODE"
+										class="form-control" type="text" readonly="readonly"
+										data-fieldName="THD_CATEGORY_CODE" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否用品</label>
+								<div class="col-xs-8">
+									<select id="IS_THINGS" name="IS_THINGS" 
+										class="bs-select form-control" data-dictCode="1278"
+										data-fieldName="IS_THINGS">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否寄售</label>
+								<div class="col-xs-8">
+									<select id="IS_STORAGE_SALE" name="IS_STORAGE_SALE" 
+										class="bs-select form-control" data-dictCode="1278"
+										data-fieldName="IS_STORAGE_SALE">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否建议采购</label>
+								<div class="col-xs-8">
+									<select id="IS_SUGGEST_ORDER" name="IS_SUGGEST_ORDER"
+										class="bs-select form-control" data-dictCode="1278"
+										data-fieldName="IS_SUGGEST_ORDER">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-8">
+							<div class="form-group">
+								<label class="control-label col-xs-2">备注</label>
+								<div class="col-xs-10">
+									<input id="REMARK" name="REMARK" class="form-control" maxlength="400"
+										type="text" data-fieldName="REMARK" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否下发</label>
+								<div class="col-xs-8">
+									<select id="DOWN_TAG" name="DOWN_TAG"
+										class="bs-select form-control" disabled="disabled" data-dictCode="1278"
+										data-fieldName="DOWN_TAG" data-value="12781002">
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<div class="pannel-name">单项配件月用量各项权值设定</div>
+								</div>
+								<div class="panel-body">
+									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+										<div class="form-group">
+											<div class="col-xs-6">
+											<input id="checkbox" name="checkbox" type="checkbox" data-dictCode="1057"
+													data-dictLabel="取默认值" />
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6	">
+										<div class="form-group">
+											<label class="control-label col-xs-5">月用量算法</label>
+											<div class="col-xs-7">
+												<select id="MONTHLY_QTY_FORMULA" name="MONTHLY_QTY_FORMULA"
+													class="bs-select form-control" data-dictCode="1345"
+													data-fieldName="MONTHLY_QTY_FORMULA">
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+										<div class="form-group">
+											<label class="control-label col-xs-4">一月</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control" value="0.0" id="JAN_MODULUS" name="JAN_MODULUS">
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+										<div class="form-group">
+											<label class="control-label col-xs-4">二月</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control" value="0.0" id="FEB_MODULUS" name="FEB_MODULUS">
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+										<div class="form-group">
+											<label class="control-label col-xs-4">三月</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control" value="0.0" id="MAR_MODULUS" name="MAR_MODULUS">
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+										<div class="form-group">
+											<label class="control-label col-xs-4">四月</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control" value="0.0" id="APR_MODULUS" name="APR_MODULUS">
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+										<div class="form-group">
+											<label class="control-label col-xs-4">五月</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control" value="0.0" id="MAY_MODULUS" name="MAY_MODULUS">
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+										<div class="form-group">
+											<label class="control-label col-xs-4">六月</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control" value="0.0" id="JUN_MODULUS" name="JUN_MODULUS">
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+										<div class="form-group">
+											<label class="control-label col-xs-4">七月</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control" value="0.0" id="JUL_MODULUS" name="JUL_MODULUS">
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+										<div class="form-group">
+											<label class="control-label col-xs-4">八月</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control" value="0.0" id="AUG_MODULUS" name="AUG_MODULUS">
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+										<div class="form-group">
+											<label class="control-label col-xs-4">九月</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control" value="0.0" id="SEP_MODULUS" name="SEP_MODULUS">
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+										<div class="form-group">
+											<label class="control-label col-xs-4">十月</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control" value="0.0" id="OCT_MODULUS" name="OCT_MODULUS">
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+										<div class="form-group">
+											<label class="control-label col-xs-4">十一月</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control" value="0.0" id="NOV_MODULUS" name="NOV_MODULUS">
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+										<div class="form-group">
+											<label class="control-label col-xs-4">十二月</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control" value="0.0" id="DEC_MODULUS" name="DEC_MODULUS">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name">销售记录</div>
+			</div>
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="dms_table"></table>
+			</div>
+			<label>&nbsp;&nbsp;<b>成本价不含税</b></label>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/partStocks/partinster" id='save'
+				data-model="part" data-method="POST" data-callBack="true"
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>保存</a> 
+				<a data-dismiss="modal" class="btn blue"> <i
+				class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/partStocks/partInfo/selectp/{[PART_NO]}/{[STORAGE_CODE]}",
+			rowID : "YEAR",
+			sortName : "YEAR",
+			sortOrder : "asc",
+			autoHeight:false,
+			undefinedText : "",
+			columns : [ 
+                {field:"YEAR",title:"年度"},
+    			{field:"MONTH",title:"月度"},
+    			{field:"OUT_QUANTITY",title:"出库数量"},
+    			{field:"IN_QUANTITY",title:"入库数量"}
+			]
+		});
+	var index = dmsCommon.getSystemParamInfo("2034","2034");//税率
+	$("#partName",container).val(index)
+	
+	$("input[name='checkbox']",container).bindChange(function(obj){//月用量默认值
+		var JAN_MODULUS = dmsCommon.getSystemParamInfo("3003","3003");
+		$("#JAN_MODULUS",container).val(JAN_MODULUS)
+		var FEB_MODULUS = dmsCommon.getSystemParamInfo("3004","3004");
+		$("#FEB_MODULUS",container).val(FEB_MODULUS)
+		var MAR_MODULUS = dmsCommon.getSystemParamInfo("3005","3005");
+		$("#MAR_MODULUS",container).val(MAR_MODULUS)
+		var APR_MODULUS = dmsCommon.getSystemParamInfo("3006","3006");
+		$("#APR_MODULUS",container).val(APR_MODULUS)
+		var MAY_MODULUS = dmsCommon.getSystemParamInfo("3007","3007");
+		$("#MAY_MODULUS",container).val(MAY_MODULUS)
+		var JUN_MODULUS = dmsCommon.getSystemParamInfo("3008","3008");
+		$("#JUN_MODULUS",container).val(JUN_MODULUS)
+		var JUL_MODULUS = dmsCommon.getSystemParamInfo("3009","3009");
+		$("#JUL_MODULUS",container).val(JUL_MODULUS)
+		var AUG_MODULUS = dmsCommon.getSystemParamInfo("3010","3010");
+		$("#AUG_MODULUS",container).val(AUG_MODULUS)
+		var SEP_MODULUS = dmsCommon.getSystemParamInfo("3011","3011");
+		$("#SEP_MODULUS",container).val(SEP_MODULUS)
+		var OCT_MODULUS = dmsCommon.getSystemParamInfo("3012","3012");
+		$("#OCT_MODULUS",container).val(OCT_MODULUS)
+		var DEC_MODULUS = dmsCommon.getSystemParamInfo("3013","3013");
+		$("#DEC_MODULUS",container).val(DEC_MODULUS)
+		var NOV_MODULUS = dmsCommon.getSystemParamInfo("3014","3014");
+		$("#NOV_MODULUS",container).val(NOV_MODULUS)
+	});
+
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	});
+</script>

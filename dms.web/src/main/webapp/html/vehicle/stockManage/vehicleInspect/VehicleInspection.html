@@ -1,0 +1,403 @@
+<div class="dms-edit ajaxrest" data-url="/stockManage/vehicleInspect/{[VEHICLE_INSPECT_ID]}" data-model="vehicle" data-pageInitCallBack="true">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="pannel-name">车辆验收</div>
+			</div>
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">VIN:</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control dmsDisabled" id="vin"
+									name="vin" data-fieldName="VIN">
+								<input type="hidden" class="form-control dmsDisabled"
+									id="inspectStatus" name="inspectStatus"
+									data-fieldName="INSPECT_STATUS">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">业务类型</label>
+							<div class="col-xs-8">
+								<select id="vbType" name="vbType"
+									class="bs-select form-control dmsDisabled"
+									data-fieldName="VB_TYPE" data-dictCode="1317"
+									data-value="">
+								</select>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">业务单号:</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control dmsDisabled"
+									id="bussinessNo" name="bussinessNo"
+									data-fieldName="BUSSINESS_NO">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">单据日期</label>
+							<div class="col-xs-8">
+								<div class="input-group date date-picker"
+									data-orientation="down right">
+									<input id="bussinessDate" name="bussinessDate" readonly
+										class="form-control dmsDisabled" type="text" value="" data-fieldName="BUSSINESS_DATE"/> <span
+										class="input-group-btn">
+										<button class="btn default date-set" type="button">
+											<i class="fa fa-calendar"></i>
+										</button>
+										<button class="btn default date-reset" type="button">
+											<i class="fa fa-times"></i>
+										</button>
+									</span>
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">质损状态</label>
+							<div class="col-xs-8">
+								<input id="marStatus" name="marStatus"
+									type="radio" data-fieldName="MAR_STATUS"
+									data-dictCode="1040" data-value="10401001"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">验收人</label>
+							<div class="col-xs-8">
+								<select id="inspectPerson" name="inspectPerson"
+									class="bs-select form-control required"
+									data-url="/basedata/employees/employees/dict?ROLE=10061006"
+									data-model="manage" 
+									data-labelValue="EMPLOYEE_NO" data-lableDesc="EMPLOYEE_NAME" data-value="{[userInfo.employeeNo]}">
+								</select>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="pannel-name">车辆信息</div>
+				<div class="pannel-tools">
+					<a href="javascript:;" class="collapse"> <i
+						class="fa fa-chevron-down"></i></a>
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">产品代码:</label>
+							<div class="col-xs-8">
+							<input type="hidden" class="form-control dmsDisabled"
+									id="storagePositionCode" name="storagePositionCode"
+									data-fieldName="STORAGE_POSITION_CODE">
+							<input type="hidden" class="form-control dmsDisabled"
+									id="storageCode" name="storageCode"
+									data-fieldName="STORAGE_CODE">
+								<input type="text" class="form-control dmsDisabled"
+									id="productCode" name="productCode"
+									data-fieldName="PRODUCT_CODE">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">产品名称:</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control dmsDisabled"
+									id="productName" name="productName"
+									data-fieldName="PRODUCT_NAME">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">发动机号:</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control dmsDisabled"
+									id="engineNo" name="engineNo"
+									data-fieldName="ENGINE_NO">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">钥匙号:</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control dmsDisabled"
+									id="keyNo" name="keyNo"
+									data-fieldName="KEY_NO">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">合格证:</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control dmsDisabled"
+									id="certificateNumber" name="certificateNumber"
+									data-fieldName="CERTIFICATE_NUMBER">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">排气量:</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control dmsDisabled"
+									id="exhaustQuantity" name="exhaustQuantity"
+									data-fieldName="EXHAUST_QUANTITY">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">排放标准:</label>
+							<div class="col-xs-8">
+									<select id="dischargeStandard" name="dischargeStandard"
+										class="bs-select form-control dmsDisabled" data-dictCode="1510"
+										data-fieldName="DISCHARGE_STANDARD"	data-value="">
+									</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">产地:</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control dmsDisabled"
+									id="productingArea" name="productingArea"
+									data-fieldName="PRODUCTING_AREA">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">生产日期</label>
+							<div class="col-xs-8">
+								<div class="input-group date date-picker"
+									data-orientation="down right">
+									<input id="productDate" name="productDate" readonly
+										class="form-control dmsDisabled" data-fieldName="PRODUCT_DATE" type="text" value="" /> <span
+										class="input-group-btn">
+										<button class="btn default date-set" type="button">
+											<i class="fa fa-calendar"></i>
+										</button>
+										<button class="btn default date-reset" type="button">
+											<i class="fa fa-times"></i>
+										</button>
+									</span>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">出厂日期</label>
+							<div class="col-xs-8">
+								<div class="input-group date date-picker"
+									data-orientation="down right">
+									<input id="factoryDate" name="factoryDate" readonly
+										class="form-control dmsDisabled" data-fieldName="FACTORY_DATE" type="text" value="" /> <span
+										class="input-group-btn">
+										<button class="btn default date-set" type="button">
+											<i class="fa fa-calendar"></i>
+										</button>
+										<button class="btn default date-reset" type="button">
+											<i class="fa fa-times"></i>
+										</button>
+									</span>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+				</div>
+			</div>
+		</div>
+
+		<div class="tabbable-custom ">
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="#tab_inspectionDetail"
+					data-toggle="tab">车辆验收明细</a></li>
+				<li><a href="#tab_PDIinspection" data-toggle="tab">PDI检查</a></li>
+			</ul>
+			<div class="tab-content">
+				<div class="tab-pane fade in active" id="tab_inspectionDetail">
+					<div class="panel panel-default table-panel">
+						<div class="panel-heading">
+							<div class="pannel-name">验收明细</div>
+							<div class="pannel-button">
+								<div class="btn-group btn-group-sm">
+									<a class="btn btn-outline" href="javascript:;"
+										data-onclickEvent="true"> <i class="fa fa-plus-square"></i>
+										新增
+									</a>
+								</div>
+							</div>
+
+						</div>
+						<div class="panel-body">
+							<table
+								class="table table-striped table-bordered table-hover table-responsive"
+								id="inspectMarList">
+							</table>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="pannel-name">附件上传</div>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-xs-12 ">
+									<div class="form-group">
+										<div class="col-xs-12">
+											<input type="file" class="importFiles" id="fileupload" data-inputName="inspectDmsFileIds" multiple name="dmsFile" data-billId="{[VEHICLE_INSPECT_ID]}"  data-billType="10421005">
+												
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--/span-->
+				<div class="tab-pane fade in active" id="tab_PDIinspection">
+					<div class="panel panel-default table-panel">
+						<div class="panel-heading">
+							<div class="pannel-name">检查结果</div>
+
+						</div>
+						<div class="panel-body">
+							<table
+								class="table table-striped table-bordered table-hover table-responsive"
+								id="inspenctItem">
+
+							</table>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		<div class="panel-body">
+			<div class="modal-footer center-block">
+			   <a  data-url="/stockManage/vehicleInspect/inspectFinish/{[VEHICLE_INSPECT_ID]}" data-model="vehicle"
+				    data-method="PUT" data-callBack="true"  
+					class="btn blue" data-toggle="confirmation"><i
+					class="fa fa-save"></i>验收完成</a>
+				<a  data-url="/stockManage/vehicleInspect/{[VEHICLE_INSPECT_ID]}" data-model="vehicle" id="addStockINspect"
+				    data-method="PUT"  data-fileUploadBtn="true"
+					class="btn blue" data-toggle="confirmation"><i
+					class="fa fa-save"></i>保存</a> <a data-goback="page" data-onclickEvent1="true"
+					href="vehicle/stockManage/vehicleInspect/searchVeInspect.html"
+					class="btn blue ajaxify"> <i class="fa fa-undo"></i>取消
+				</a>
+			</div>
+		</div>
+
+	</form>
+
+
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initLocale({
+		src : "inspectMarList",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/stockManage/vehicleInspect/InspctionMar/{[VEHICLE_INSPECT_ID]}",
+		rowID : "VEHICLE_INSPECT_ID",
+		columns : [ {title : "操作",operateFormat : [ {type : "localDel",onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){}}]}, 
+		            
+		            {field : "MAR_POSITION",inputHiddenFormat : {},inputField:"marPosition",title : "质损部位",inputSelectFormat : {type : "dict",codeType : "1418",defaultValue:"14181001"}},
+		            {field : "MAR_DEGREE",inputHiddenFormat : {},inputField:"marDegree",title : "质损程度",inputSelectFormat : {type : "dict",codeType : "1419",defaultValue:"14191001"}},
+		            {field : "MAR_TYPE",inputHiddenFormat : {},inputField:"marType",title : "质损性质",inputSelectFormat : {type : "dict",codeType : "1420",defaultValue:"14201001"}},
+		            {field : "MAR_REMARK",inputHiddenFormat : {},inputField:"marRemark",title : "质损说明",inputTextFormat : {}}
+                    
+		         ]
+	});
+	
+	 new Datatable().initLocale({
+			src : "inspenctItem",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/stockManage/vehicleInspect/pdiInspction/{[BUSSINESS_NO]}",
+			sortOrder : "asc",
+			rowID : "PDI_INSPECT_ID",
+			columns : [ 
+			            {field : "TYPE_NAME",inputField:"inspectCategory",title : "检查分类",inputHiddenFormat : {hiddenField:"INSPECT_CATEGORY"}, maxLengthFormat : {length:20}},
+			            {field : "CODE_CN_DESC",inputField:"inspectItem",title : "检查项目",inputHiddenFormat : {hiddenField:"INSPECT_ITEM"}, maxLengthFormat : {length:20}},
+			            {field : "IS_PROBLEM",inputField:"isProblem",title : "是否有问题",inputRadioFormat : {type : "dict",codeType : "1004",defaultValue:"10041002"}},
+			            {field : "INSPECT_DESCRIBE",inputField:"inspectDescribe",title : "问题描述",inputTextFormat : {}} 
+			         ], onLoadSuccess : function() {
+					    	 //事件点击
+							$("input[type='radio'][data-inputname='isProblem']",container).bindChange(function(obj){
+					 			if($("input[data-inputname='isProblem']:checked",$(obj).closest("tr")).val()=='10041001'){
+					 				$("input[data-inputname='inspectDesCribe']",$(obj).closest("tr")).addClass("required");
+					 			}else{
+					 				$("input[data-inputname='inspectDesCribe']",$(obj).closest("tr")).removeClass("required");
+								}
+								
+							});
+					    } 
+		});
+	
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		$("a[data-onclickEvent1='true']",container).click();
+		$("#inspectMarList",getElementContext()).dmsTable().appendBlankRow();
+	});
+	$("a[data-callBack='true']",container).on("dms.click",function(event){
+		
+	});
+	
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-onclickEvent1='true']",container).click();
+		//刷新表格
+		$("#veInspectList",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+	$("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){
+		//设置成只读属性
+		if($("#inspectStatus",container).val()=='10391002'){
+			  $("#addStockINspect",container).setContainerReadOnly();
+		}
+	});
+	$("input[type='radio'][name='inspectionResult']:first",container).parents("label").attr("class","hidden");
+	});		
+</script>

@@ -1,0 +1,1578 @@
+<div class="dms-add" data-pageInitCallBack="true"  data-tableProductSelect="true">
+	<form class="form-horizontal">
+		<div class="modal-body">
+			<div class="row" data-selectRepairOrder="true">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="pannel-name">维修信息</div>
+							<div class="pannel-tools">
+								<a href="javascript:;" class="collapse"> <i class="fa fa-chevron-down"></i></a>
+							</div>
+						</div>
+						<div style="margin-top: 5px;"></div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									<label class="control-label col-xs-4">工单号</label>
+									<div class="col-xs-8">
+										<div class="input-group">
+										    <input id="roNo" name="roNo" class="form-control" type="text" />
+											<span class="input-group-btn">
+												<button class="btn default btn-sm" type="button" data-url="repair/order/repair/searchAbout/searchRepairOrder.html"
+													data-toggle="modal" data-width="modal-lg"> <i class="fa icon-search"></i>
+												</button>
+										   	</span>
+										   	<input type="hidden" name="modifyNum"/>
+										   	<span class="input-group-addon" id="modifyNum">0</span>
+									   </div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									<label class="control-label col-xs-4">工单类型</label>
+									<div class="col-xs-8">
+										<select class="bs-select form-control" id="roType" name="roType" data-fieldName="RO_TYPE" 
+											data-dictCode="1253" data-excludeItems="12531003" disabled="disabled">
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									<label class="control-label col-xs-4">维修类型</label>
+									<div class="col-xs-8">
+										<select id="repairType" class="bs-select form-control" 
+										name="repairType" data-fieldName="REPAIR_TYPE_CODE" disabled="disabled">
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									<label class="control-label col-xs-4">开单时间</label>
+									<div class="col-xs-8">
+										<div class="input-group date datetime" data-defaultNow="true" data-dateEndDate="now" data-pickerPosition="top-left">
+						                    <input class="form-control" id="createDate" name="createDate" size="19" type="text" data-fieldName="RO_CREATE_DATE" value="" readonly>
+						                    <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+						                </div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									<label class="control-label col-xs-4">预开工时间</label>
+									<div class="col-xs-8">
+										<div class="input-group date datetime" data-defaultNow="true" data-dateEndDate="now" data-pickerPosition="top-left">
+						                    <input class="form-control" id="estimateBeginTime" name="estimateBeginTime" data-fieldName="ESTIMATE_BEGIN_TIME" size="19" type="text" value="" readonly>
+						                    <span class="input-group-addon" ><span class="fa fa-calendar"  ></span></span>
+						                </div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									<label class="control-label col-xs-4">预交车时间</label>
+									<div class="col-xs-8">
+										<div class="input-group date datetime" data-defaultNow="true" 
+										data-dateEndDate="now" data-pickerPosition="top-left">
+						                    <input class="form-control" size="19" type="text" id="endTimeSupposed" 
+						                    name="endTimeSupposed" data-fieldName="END_TIME_SUPPOSED" value="" readonly>
+						                    <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+						                </div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									<label class="control-label col-xs-4">工时单价</label>
+									<div class="col-xs-8">
+										<select id="labourPrice" class="bs-select form-control"
+											name="labourPrice" data-url="/basedata/repairtypes/labourprice/item" data-model="repair" data-fieldName="LABOUR_PRICE"
+											data-labelValue="LABOUR_PRICE" data-lableDesc="LABOUR_PRICE" disabled="disabled">
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<div class="form-group">
+										<label class="control-label col-xs-4">车顶号</label>
+										<div class="col-xs-6">
+											<select class="bs-select form-control" id="carTopType" name="carTopType" data-fieldName="VEHICLE_TOP_DESC" 
+												data-dictCode="1284" data-excludeItems="" disabled="disabled">
+											</select>
+										</div>
+										<div class="col-xs-2">
+											<input type="text" class="form-control" id="sequenceNo" 
+											name="sequenceNo" data-fieldName="SEQUENCE_NO" readonly="readonly">
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<div class="form-group">
+										<label class="control-label col-xs-4">原工单号</label>
+										<div class="col-xs-8">
+											<div class="input-group">
+											    <input id="priRoNo" name="priRoNo" class="form-control " 
+											    type="text" data-fieldName="PRIMARY_RO_NO" readonly="readonly"/>
+												<span class="input-group-btn">
+													<button class="btn default btn-sm" type="button" data-url=""
+														data-toggle="modal" data-width="modal-lg"
+														disabled="disabled" id="priRoNoBtn"> <i class="fa icon-search"></i>
+													</button>
+											   	</span>
+										   </div>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<div class="form-group">
+										<label class="control-label col-xs-4">安全故障</label>
+										<div class="col-xs-8">
+											<select class="bs-select form-control" id="seriousSafetyStatus" 
+											name="seriousSafetyStatus" data-fieldName="SERIOUS_SAFETY_STATUS" 
+												data-dictCode="1817" data-excludeItems="" disabled="disabled">
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<div class="form-group">
+										<label class="control-label col-xs-4">指定技师</label>
+										<div class="col-xs-8">
+											<select id="technician" class="bs-select form-control"
+												name="technician" data-url="/order/repair/querytechnician" 
+												data-model="repair" data-fieldName="CHIEF_TECHNICIAN"
+												data-labelValue="EMPLOYEE_NO" data-lableDesc="EMPLOYEE_NAME"
+												disabled="disabled">
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<div class="form-group">
+										<label class="control-label col-xs-4">保险公司</label>
+										<div class="col-xs-8">
+											<select id="insure" class="bs-select form-control"
+												name="insure" data-url="/vehicle/insProposal/insCompany" 
+												data-model="vehicle" data-fieldName="INSURATION_CODE"
+												data-labelValue="INSURATION_CODE" data-lableDesc="INSURATION_NAME"
+												disabled="disabled">
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<div class="form-group">
+										<label class="control-label col-xs-4">出险单号</label>
+										<div class="col-xs-8">
+											<input id="insuranceNO" name="insuranceNO" 
+											 readonly="readonly"
+												class="form-control" type="text"/>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<div class="form-group">
+										<label class="control-label col-xs-4">理赔单号</label>
+										<div class="col-xs-8">
+											<input id="insurationCode" name="insurationCode" 
+											data-fieldName="INSURATION_NO" readonly="readonly"
+												class="form-control" type="text"/>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<div class="form-group">
+										<label class="control-label col-xs-4">进厂原因</label>
+										<div class="col-xs-8">
+											<select class="bs-select form-control" id="inReason" 
+											name="inReason" data-fieldName="IN_REASON" 
+												data-dictCode="1817" data-excludeItems=""
+												disabled="disabled">
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 btn-circle" style="margin-bottom: 2px;">
+								<a class="btn blue col-xs-12 col-sm-12 col-md-12 col-lg-12" id="activeBtn"  
+								data-width="modal-lg" data-toggle="modal"  
+								data-url="repair/order/repair/selectActivity.html"
+								>服务活动</a>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-bottom: 2px;">
+								<a class="btn blue col-xs-12 col-sm-12 col-md-12 col-lg-12" 
+								data-width="modal-lg" data-toggle="modal"  
+								data-url="repair/order/repair/searchAbout/searchRepairGroup.html"
+								id="reGroupBtn"   disabled="disabled"> 维修组合</a>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-bottom: 2px;">
+								<a class="btn blue col-xs-12 col-sm-12 col-md-12 col-lg-12"
+								id="mtActiveBtn"   disabled="disabled"> 保养活动</a>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-bottom: 2px;">
+								<a class="btn blue col-xs-12 col-sm-12 col-md-12 col-lg-12"
+								 data-width="modal-lg" data-toggle="modal" data-beforeRequest="true" 
+								 data-url="repair/order/repair/repairHistory.html"
+								 id="reHistoryBtn"   disabled="disabled"> 维修历史</a>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-bottom: 2px;">
+								<a class="btn blue col-xs-12 col-sm-12 col-md-12 col-lg-12"
+								id="printPickBtn"   disabled="disabled"> 打印拣料单</a> 
+							</div>
+						</div>
+					</div>
+					<!-- <div class="panel panel-default">
+						<div class="panel-body">
+							<div class="row">
+							</div>
+						</div>
+					</div> -->
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<div class="form-group">
+										<div class="col-xs-12">
+											<input id="checkIsActivity" name="checkIsActivity" 
+											type="checkbox" data-fieldName="IS_ACTIVITY"
+												data-dictCode="1057" data-dictLabel="是否参加活动"
+												disabled="disabled"/>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<div class="form-group">
+										<label class="control-label col-xs-4">预约单号</label>
+										<div class="col-xs-8">
+										 <input id="bookingOrderNo2" name="bookingOrderNo2" class="form-control " type="hidden"/>
+											<input id="bookingOrderNo" name="bookingOrderNo" 
+											data-fieldName="RESERVE_ID" readonly="readonly"
+												class="form-control" type="text"/>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<div class="form-group">
+										<label class="control-label col-xs-4">客户经理</label>
+										<div class="col-xs-8">
+											<select id="serviceAdvisor" class="bs-select form-control"
+												name="serviceAdvisor" data-url="/basedata/ownerWeChatBooking/findEmployee" 
+												data-model="repair" data-fieldName="SERVICE_ADVISOR"
+												data-labelValue="EMPLOYEE_NO" data-lableDesc="EMPLOYEE_NAME"
+												disabled="disabled">
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
+					<!-- 车主车辆信息 -->
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="pannel-name">车主车辆信息</div>
+							<div class="pannel-tools">
+								<a href="javascript:;" class="collapse"> <i class="fa fa-chevron-down"></i></a>
+							</div>
+						</div>
+						<div style="margin-top: 5px;"></div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">车牌号</label>
+									<div class="col-xs-8">
+										<div class="input-group">
+										    <input id="license" t="13" name="license" 
+										    class="form-control " type="text" data-fieldName="LICENSE"
+										    readonly="readonly"/>
+											<span class="input-group-btn">
+												<button  id="licenseBtn" class="btn default btn-sm" type="button" 
+												data-url="repair/order/repair/searchAbout/queryCar.html"
+												data-beforeShowEvent="true"	data-toggle="modal" data-width="modal-lg"
+												disabled="disabled"> <i class="fa icon-search"></i>
+												</button>
+										   	</span>
+									   </div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">VIN</label>
+									<div class="col-xs-8">
+										<div class="input-group">
+										 <input id="vin2" name="vin2" class="form-control " type="hidden"/>
+										    <input id="vin" name="vin" class="form-control " type="text" data-fieldName="VIN"
+										    />
+											<span class="input-group-btn">
+												<button class="btn default btn-sm" type="button" data-url="repair/order/repair/searchAbout/vehicleDetails.html"
+													data-beforeShowEvent="true" data-toggle="modal" data-width="modal-lg"
+													id="qvinBtn"  disabled="disabled"> <i class="fa icon-search"></i>
+												</button>
+												<button class="btn default btn-sm" type="button" data-url="repair/order/repair/searchAbout/vehicleWarnInfo.html"
+													data-beforeShowEvent="true" data-toggle="modal" data-width="modal-lg"
+													id="wvinBtn"  disabled="disabled"> <i class="fa fa-sitemap"></i>
+												</button>
+										   	</span>
+									   </div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+								<div class="form-group">
+									<label class="control-label col-xs-6">进厂行驶里程</label>
+									<div class="col-xs-6">
+										<input id="inMileage" name="inMileage" data-fieldName="IN_MILEAGE"
+										 readonly="readonly"
+											class="form-control" type="text"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">车主</label>
+									<div class="col-xs-8">
+										<div class="input-group">
+										   <input id="ownerName" name="ownerName" readonly="readonly"
+											data-fieldName="OWNER_NAME" class="form-control" type="text" />
+											<span class="input-group-btn">
+												<button class="btn default btn-sm" type="button" data-url="repair/order/repair/searchOwnerDetails.html"
+													data-toggle="modal" data-width="modal-lg"
+													id="ownerNameBtn" disabled="disabled"> <i class="fa icon-search"></i>
+												</button>
+										   	</span>
+									   </div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">发动机号</label>
+									<div class="col-xs-8">
+										<input id="engineNo" name="engineNo" data-fieldName="ENGINE_NO" 
+										readonly="readonly"
+											class="form-control" type="text"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+								<div class="form-group">
+									<label class="control-label col-xs-6">出厂行驶里程</label>
+									<div class="col-xs-6">
+										<input id="outMileage" name="outMileage" data-fieldName="OUT_MILEAGE"
+										 readonly="readonly"
+											class="form-control" type="text"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">品牌</label>
+									<div class="col-xs-8">
+										<select id="brand" class="bs-select form-control"
+											name="brand" data-url="/basedata/brandsdict" data-model="manage" data-fieldName="BRAND"
+											data-labelValue="BRAND_CODE" data-lableDesc="BRAND_NAME"
+											disabled="disabled">
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">车系</label>
+									<div class="col-xs-8">
+										<select id="series" class="bs-select form-control" parent="brand"
+											name="series" data-url="/basedata/brandsdict/{[brand]}/seriessdict" data-model="manage" data-fieldName="SERIES"
+											data-labelValue="SERIES_CODE" data-lableDesc="SERIES_NAME"
+											disabled="disabled">
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+								<div class="form-group">
+									<label class="control-label col-xs-6">车型</label>
+									<div class="col-xs-6">
+										<select id="model" class="bs-select form-control" parent="series"
+											name="model" data-url="/basedata/brandsdict/{[brand]}/seriessdict/{[series]}/modelsdict" 
+											data-model="manage" data-fieldName="MODEL"
+											data-labelValue="MODEL_CODE" data-lableDesc="MODEL_NAME" data-alwaysRefresh="true"
+											disabled="disabled">
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">送修人姓名</label>
+									<div class="col-xs-8">
+										<input id="deliverer" name="deliverer" data-fieldName="DELIVERER" 
+										readonly="readonly"
+											class="form-control" type="text"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">送修人性别</label>
+									<div class="col-xs-8">
+										<select id="delivvererGender" name="delivvererGender" 
+										data-fieldName="DELIVERER_GENDER" disabled="disabled"
+												class="form-control" data-dictCode="1006">
+											</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+								<div class="form-group">
+									<label class="control-label col-xs-6">送修人手机</label>
+									<div class="col-xs-6">
+										<input id="delivererMobile" name="delivererMobile" 
+										data-fieldName="DELIVERER_MOBILE" readonly="readonly"
+											class="form-control" type="text"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
+								<div class="form-group">
+									<label class="control-label col-xs-2">送修问题</label>
+									<div class="col-xs-10">
+										<input id="memCustomerDesc" name="memCustomerDesc" 
+										class="form-control" type="text" data-fieldName="RO_TROUBLE_DESC" 
+										readonly="readonly"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+								<div class="form-group">
+									<label class="control-label col-xs-6">开票日期</label>
+									<div class="col-xs-6">
+										<div class="input-group date date-picker">
+											<input id="salesDate" name="salesDate" data-fieldName="SALES_DATE"
+												class="form-control" type="text" readonly="readonly"/> 
+											<span class="input-group-btn">
+												<button class="btn default date-set" type="button"
+												disabled="disabled">
+													<i class="fa fa-calendar" ></i>
+												</button>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
+								<div class="form-group">
+									<label class="control-label col-xs-2">检查结果</label>
+									<div class="col-xs-10">
+										<input id="troubleDesc" name="troubleDesc" class="form-control" 
+										type="text" data-fieldName="RO_TROUBLE_DESC" 
+										readonly="readonly"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+								<div class="form-group">
+									<label class="control-label col-xs-6">进厂油位</label>
+									<div class="col-xs-6">
+										<input id="oilLevel" name="oilRemain" type="text" data-fieldName="OIL_REMAINS" 
+										readonly="readonly"/>
+									</div>
+								</div>
+							</div>
+								<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+									<div class="form-group">
+										<div class="col-xs-12">
+											<input id="checkIsFactory" name="checkIsFactory" type="checkbox" data-fieldName="IS_CUSTOMER_IN_ASC"
+												data-dictCode="1057" data-dictLabel="客户是否在厂"
+												disabled="disabled"/>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+									<div class="form-group">
+										<div class="col-xs-12">
+											<input id="checkIsQuality" name="checkIsQuality" type="checkbox" data-fieldName="IS_SEASON_CHECK"
+												data-dictCode="1057" data-dictLabel="是否质检"
+												disabled="disabled"/>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+									<div class="form-group">
+										<div class="col-xs-12">
+											<input id="checkIsTake" name="checkIsTake" type="checkbox" data-fieldName="IS_OLD_PART"
+												data-dictCode="1057" data-dictLabel="是否带走旧件"
+												disabled="disabled"/>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+									<div class="form-group">
+										<div class="col-xs-12">
+											<input id="checkIsGiveUp" name="checkIsGiveUp" type="checkbox" data-fieldName="IS_ABANDON_ACTIVITY"
+												data-dictCode="1057" data-dictLabel="是否放弃活动"
+												disabled="disabled"/>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+									<div class="form-group">
+										<div class="col-xs-12">
+											<input id="checkIsWash" name="checkIsWash" type="checkbox" data-fieldName="IS_WASH"
+												data-dictCode="1057" data-dictLabel="是否洗车"
+												disabled="disabled"/>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+									<div class="form-group">
+										<div class="col-xs-12">
+											<input id="checkIsRoad" name="checkIsRoad" type="checkbox" data-fieldName="NEED_ROAD_TEST"
+												data-dictCode="1057" data-dictLabel="是否路试"
+												disabled="disabled"/>
+										</div>
+									</div>
+								</div>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+									<div class="form-group">
+										<label class="control-label col-xs-4">车主编号</label>
+										<div class="col-xs-8">
+											<div class="input-group">
+											    <input id="ownerNo" name="ownerNo" class="form-control" type="text" 
+											    readonly="readonly" data-fieldName="OWNER_NO"/>
+												<span class="input-group-btn">
+													<button class="btn default btn-sm" type="button" data-url="repair/order/repair/searchAbout/searchOwner.html"
+														data-toggle="modal" data-width="modal-lg"
+														disabled="disabled"> <i class="fa icon-search"></i>
+													</button>
+											   	</span>
+										   </div>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">车主性质</label>
+										<div class="col-xs-6">
+											<select class="bs-select form-control" name="ownerProperty"
+												id="ownerProperty" data-dictCode="1190" disabled="disabled"
+												data-fieldName="OWNER_PROPERTY" data-existsDefault="true">
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">下次保养里程</label>
+										<div class="col-xs-6">
+											<input id="nextMaintainMileage" name="nextMaintainMileage" 
+											data-fieldName="NEXT_MAINTAIN_MILEAGE" readonly="readonly"
+												class="form-control" type="text"/>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+									<div class="form-group">
+										<label class="control-label col-xs-4">颜色</label>
+										<div class="col-xs-8">
+											<select class="bs-select form-control" id="colors"
+												data-fieldName="COLOR" name="color" data-ajaxSync="true"
+												data-url="/basedata/colors/colorinfo/dicts"
+												disabled="disabled" data-model="repair"
+												data-labelValue="COLOR_CODE" data-lableDesc="COLOR_NAME"
+												disabled="disabled">
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">配置</label>
+										<div class="col-xs-6">
+											<select id="config" class="bs-select form-control" parent="model"
+												name="config" data-url="/basedata/brandsdict/{[brand]}/seriessdict/{[series]}/modelsdict/{[model]}/packagesdict" data-model="manage" data-fieldName="APACKAGE"
+												data-labelValue="CONFIG_CODE" data-lableDesc="CONFIG_NAME"
+												disabled="disabled">
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">预计下次保养日期</label>
+										<div class="col-xs-6">
+											<div class="input-group date date-picker">
+												<input id="nextMaintainDate" name="nextMaintainDate"  data-fieldName="NEXT_MAINTAIN_DATE"
+													class="form-control" type="text" readonly="readonly"/> 
+												<span class="input-group-btn">
+													<button class="btn default date-set" type="button" 
+													id="nextMdateBtn" disabled="disabled">
+														<i class="fa fa-calendar"></i>
+													</button>
+													<button class="btn default btn-sm" type="button" id="calculate" 
+													disabled="disabled" data-onclickEvent='true'> <i class="fa icon-search"></i>
+													</button>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+									<div class="form-group">
+										<div class="col-xs-1">
+											<input id="checkIsTrace" name="checkIsTrace" type="checkbox" data-fieldName="IS_TRACE"
+												data-dictCode="1057" disabled="disabled"/>
+										</div>
+										<label class="control-label col-xs-4">&nbsp;三日电访时间</label>
+										<div class="col-xs-7">
+											<select class="bs-select form-control" id="traceTime" name="traceTime" data-fieldName="TRACE_TIME" 
+												data-dictCode="1125" data-excludeItems="" disabled="disabled">
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">上次换表日期</label>
+										<div class="col-xs-6">
+											<input id="changeDate" name="changeDate" data-fieldName="CHANGE_DATE" 
+											readonly="readonly"
+												class="form-control" type="text"/>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+									<div class="form-group">
+										<div class="col-xs-3">
+											<input id="isChangeOdograph" name="isChangeOdograph"
+											 type="checkbox" data-fieldName="IS_CHANGE_ODOGRAPH"
+												data-dictCode="1057" data-dictLabel="换表"
+												disabled="disabled"/>
+										</div>
+										<label class="control-label col-xs-3">换表里程</label>
+										<div class="col-xs-6">
+											<input id="changeMileage" name="changeMileage" 
+											data-fieldName="CHANGE_MILEAGE" readonly="readonly"
+												class="form-control" type="text"/>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+									<div class="form-group">
+										<label class="control-label col-xs-4">上牌日期</label>
+										<div class="col-xs-8">
+											<div class="input-group date date-picker">
+												<input id="licenseDate" name="licenseDate" data-fieldName="LICENSE_DATE"
+													class="form-control" type="text" disabled="disabled"/> 
+												<span class="input-group-btn">
+													<button class="btn default date-set" type="button"
+													 disabled="disabled">
+														<i class="fa fa-calendar"></i>
+													</button>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">上次维修日期</label>
+										<div class="col-xs-6">
+											<div class="input-group">
+											    <input id="lastMaintainDate" name="lastMaintainDate" 
+											    class="form-control " type="text" data-fieldName="LAST_MAINTAIN_DATE" 
+											    readonly="readonly"/>
+												<span class="input-group-btn">
+													<button class="btn default btn-sm" type="button" data-url="repair/order/repair/repairHistory.html"
+														data-toggle="modal" data-width="modal-lg"
+														disabled="disabled"> <i class="fa icon-search"></i>
+													</button>
+											   	</span>
+										   </div>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">累计换表里程</label>
+										<div class="col-xs-6">
+											<input id="totalChangeMileage" name="totalChangeMileage" 
+											data-fieldName="TOTAL_CHANGE_MILEAGE" readonly="readonly"
+												class="form-control" type="text"/>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+									<div class="form-group">
+										<label class="control-label col-xs-4">推荐人</label>
+										<div class="col-xs-8">
+											<div class="input-group">
+											    <input id="reCommendEmp" name="reCommendEmp" class="form-control " 
+											    data-fieldName="RECOMMEND_EMP_NAME" type="text" 
+											    readonly="readonly"/>
+												<span class="input-group-btn">
+													<button class="btn default btn-sm" type="button" data-url="repair/order/repair/searchAbout/searchReference.html"
+														data-toggle="modal" data-width="modal-lg"
+														disabled="disabled"> <i class="fa icon-search"></i>
+													</button>
+											   	</span>
+										   </div>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">推荐单位</label>
+										<div class="col-xs-6">
+											<div class="input-group">
+											    <input id="reCommendCustomer" name="reCommendCustomer" 
+											    class="form-control " data-fieldName="RECOMMEND_CUSTOMER_NAME" type="text" 
+											    readonly="readonly"/>
+												<span class="input-group-btn">
+													<button class="btn default btn-sm" type="button" data-url="repair/order/repair/searchAbout/searchOwner.html"
+														data-toggle="modal" data-width="modal-lg"
+														id="reCommendCustomerBtn" disabled="disabled"> <i class="fa icon-search"></i>
+													</button>
+											   	</span>
+										   </div>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">不回访原因</label>
+										<div class="col-xs-6">
+											<input id="noTraceReason" name="noTraceReason" 
+											class="form-control" data-fieldName="NO_TRACE_REASON" type="text"
+											readonly="readonly"/>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+									<div class="form-group">
+										<label class="control-label col-xs-4">送修人电话</label>
+										<div class="col-xs-8">
+											<input id="delivererPhone" name="delivererPhone" 
+											data-fieldName="DELIVERER_PHONE" readonly="readonly"
+												class="form-control" type="text"/>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">会员卡到期日</label>
+										<div class="col-xs-6">
+											<div class="input-group date date-picker">
+												<input id="memOfMaturity" name="memOfMaturity" data-fieldName="CARD_END_DATE"
+													class="form-control" type="text" readonly="readonly"/> 
+												<span class="input-group-btn">
+													<button class="btn default date-set" type="button"
+													id="memOfMaturityBtn" disabled="disabled">
+														<i class="fa fa-calendar"></i>
+													</button>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">故障发生日</label>
+										<div class="col-xs-6">
+											<div class="input-group date date-picker">
+												<input id="troubleOccurDate" name="troubleOccurDate" data-fieldName="TROUBLE_OCCUR_DATE"
+													class="form-control" type="text" readonly="readonly"/> 
+												<span class="input-group-btn">
+													<button class="btn default date-set" type="button"
+													id="troubleOccurDateBtn" disabled="disabled">
+														<i class="fa fa-calendar"></i>
+													</button>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
+									<div class="form-group">
+										<label class="control-label col-xs-2">备注</label>
+										<div class="col-xs-10">
+											<input id="remark" name="remark" class="form-control" 
+											data-fieldName="REMARK" type="text"
+											readonly="readonly"/>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">备注1</label>
+										<div class="col-xs-6">
+											<input id="remark1" name="remark1" class="form-control" 
+											data-fieldName="REMARK1" type="text"
+											readonly="readonly"/>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 车主车辆信息底部按钮 -->
+							<div class="row">
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<div class="query-btn">
+										<a data-url="repair/order/repair/repairAdviseTab/repairAdvice.html" 
+										data-toggle="modal" data-width="modal-lg" class="btn blue"
+										id="adviceBtn" disabled="disabled"> 建议</a> 
+										<a data-url="repair/order/repair/repairAdviseTab/repairAdviceImport.html" 
+										data-toggle="modal" data-width="modal-lg" class="btn blue"
+										id="adviceImportBtn" disabled="disabled"> 导入</a> 
+										<a href="javascript:;" data-url="repair/order/repair/monitorInfomation.html" 
+										data-toggle="modal" data-width="modal-lg" class="btn blue"
+										id="monitorBtn" disabled="disabled"> 监控</a>
+										<a href="javascript:;" class="btn blue"
+										id="useCardBtn" disabled="disabled"> 刷卡</a>
+										<a href="javascript:;" class="btn blue"
+										id="complainBtn" disabled="disabled"> 投诉</a>
+										<a href="javascript:;" class="btn blue" id="memberBtn"> 会员</a>
+										<a href="javascript:;" class="btn blue"
+										id="maitenanceGroupBtn" disabled="disabled"> 保养套餐</a>
+										<a href="javascript:;" data-url="repair/order/repair/discountMode.html?ran=" + Math.random()" 
+										data-toggle="modal" data-width="modal-sm" class="btn blue"
+										id="discountAuthorizeBtn" disabled="disabled"> 优惠折扣授权</a>
+										<a href="javascript:;" data-url="repair/order/repair/wechatBooking.html" 
+										data-toggle="modal" data-width="modal-lg" class="btn blue"
+										id="couponBtn" disabled="disabled"> 优惠券</a>
+										<a href="javascript:;" data-url="repair/order/repair/addAbout/clOpinion.html" 
+										data-toggle="modal" data-width="modal-sm" class="btn blue hidden"
+										id="clOpinion"> 处理意见</a>
+										<a href="javascript:;" data-url="repair/order/repair/searchAbout/searchPre3BaoWarm.html" 
+										data-toggle="modal" data-width="modal-sm" class="btn blue hidden"
+										id="pre3BaoWarm"> 预警信息</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- tab页 -->
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="row">
+								<div class="tabbable-custom ">
+									<ul class="nav nav-tabs" >
+									 	<li class="active">
+											<a href="#tab_Repair" data-toggle="tab">维修项目 </a>
+										</li>
+										 <li>
+											<a id="partTab" href="#tab_parts" data-toggle="tab">维修材料</a>
+										</li>
+										<li>
+											<a id="salesTab"  href="#tab_sales"  data-toggle="tab">销售材料</a>
+										</li>
+										<li>
+											<a id="accessoryTab" href="#tab_accessory" data-toggle="tab">附加项目 </a>
+										</li>
+									</ul>
+									<div class="tab-content">
+										<div class="tab-pane  fade in active" id="tab_Repair">
+										<fieldset id="fRepairTab" disabled="disabled">   
+											<div class="modal-body">
+												<div class="panel panel-default table-panel">
+													<div class="panel-body">
+														<table
+															class="table table-striped table-bordered table-hover table-responsive"
+															id="dms_table">
+														</table>
+														<div class="row">
+															<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+																<div class="form-group">
+																	<label class="control-label col-xs-4">折扣率</label>
+																	<div class="col-xs-8">
+																		<input id="rate" name="" data-fieldName="" value="1"
+																			class="form-control" type="text"/>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="modal-footer center-block">
+												<div class="row">
+													<a href="javascript:;" class="btn blue"> <i
+														class="fa fa-save"></i> 收费类别</a> 
+													<!-- <a href="javascript:;" class="btn blue"><i
+														class="fa fa-undo"></i> 整单派工</a>
+													<a href="javascript:;" class="btn blue"><i
+														class="fa fa-undo"></i> 派工</a>
+													<a href="javascript:;" class="btn blue"><i
+														class="fa fa-undo"></i> 打印派工</a> -->
+													<a href="javascript:;" data-url="repair/order/repair/repairOrderTab/chooseLabour.html" data-toggle="modal" data-width="modal-lg" class="btn blue"><i
+														class="fa fa-undo"></i> 新增</a>
+													<a href="javascript:;" class="btn blue"><i
+														class="fa fa-undo"></i> 删除</a>
+												</div>
+											</div>
+											 </fieldset> 
+										</div>
+										
+										<div class="tab-pane  fade in " id="tab_parts">
+											<div class="modal-body">
+												<div class="panel panel-default table-panel">
+													<div class="panel-body">
+														<table
+															class="table table-striped table-bordered table-hover table-responsive"
+															id="dms_part">
+														</table>
+														<div class="row">
+															<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+																<div class="form-group">
+																	<label class="control-label col-xs-4">折扣率</label>
+																	<div class="col-xs-8">
+																		<input id="rate" name="" data-fieldName="" value="1"
+																			class="form-control" type="text"/>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="modal-footer center-block">
+												<div class="row">
+													<a href="javascript:;" class="btn blue"> <i
+														class="fa fa-save"></i> 收费类别</a> 
+													<a data-url="repair/order/repair/repairOrderTab/addRoPart.html" 
+													data-toggle="modal" data-width="modal-lg" class="btn blue"><i
+														class="fa fa-undo"></i> 新增</a>
+													<a href="javascript:;" class="btn blue"><i
+														class="fa fa-undo"></i> 删除</a>
+												</div>
+											</div>
+										</div>
+										<div class="tab-pane  fade in " id="tab_sales">
+											<div class="modal-body">
+												<div class="panel panel-default table-panel">
+													<div class="panel-body">
+														<table class="table table-striped table-bordered table-hover table-responsive"
+															id="dms_sales">
+														</table>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="tab-pane  fade in " id="tab_accessory">
+											<div class="modal-body">
+												<div class="panel panel-default table-panel">
+													<div class="panel-body">
+														<table
+															class="table table-striped table-bordered table-hover table-responsive"
+															id="dms_subjoinItem">
+														</table>
+													</div>
+												</div>
+											</div>
+											<div class="modal-footer center-block">
+												<div class="row">
+													<a href="javascript:;" class="btn blue"> <i
+														class="fa fa-save"></i> 收费类别</a> 
+													<a data-url="repair/order/repair/repairOrderTab/addAccessoryItem.html" 
+													data-width="modal-sm" data-toggle="modal" class="btn blue"><i
+														class="fa fa-undo"></i> 新增</a>
+													<a href="javascript:;" class="btn blue"><i
+														class="fa fa-undo"></i> 删除</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<fieldset id="fEstimate" disabled="disabled">    
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="pannel-name">估价信息</div>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+									<div class="form-group">
+										<label class="control-label col-xs-4">工时费</label>
+										<div class="col-xs-8">
+											<input id="labourAmount" name="labourAmount" data-fieldName="LABOUR_PRICE" readonly="readonly"
+												class="form-control" type="text"/>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+									<div class="form-group">
+										<label class="control-label col-xs-4">维修材料费</label>
+										<div class="col-xs-8">
+											<input id="repairPartAmount" name="repairPartAmount" data-fieldName="REPAIR_PART_AMOUNT" readonly="readonly"
+												class="form-control" type="text"/>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+									<div class="form-group">
+										<label class="control-label col-xs-4">销售材料费</label>
+										<div class="col-xs-8">
+											<input id="salePartAmount" name="salePartAmount" data-fieldName="SALES_PART_AMOUNT" readonly="readonly"
+												class="form-control" type="text"/>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+									<div class="form-group">
+										<label class="control-label col-xs-4">附加项目费</label>
+										<div class="col-xs-8">
+											<input id="addItemAmount" name="addItemAmount" data-fieldName="ADD_ITEM_AMOUNT" readonly="readonly"
+												class="form-control" type="text"/>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+									<div class="form-group">
+										<label class="control-label col-xs-4">维修金额</label>
+										<div class="col-xs-8">
+											<div class="input-group">
+											    <input id="totalAmount" name="totalAmount" class="form-control " data-fieldName="REPAIR_AMOUNT" type="text" />
+												<span class="input-group-btn">
+													<button class="btn default btn-sm" type="button" data-url=""
+														data-toggle="modal" data-width="modal-lg"> <i class="fa icon-search"></i>
+													</button>
+											   	</span>
+										   </div>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+									<div class="form-group">
+										<label class="control-label col-xs-4">预估金额</label>
+										<div class="col-xs-8">
+											<input id="estimateAmount" name="estimateAmount" data-fieldName="ESTIMATE_AMOUNT" readonly="readonly"
+												class="form-control" type="text"/>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			</fieldset> 
+		</div>
+		<!-- 页面底部按钮 -->
+		<div class="modal-footer center-block">
+		
+			<div class="row">
+				<a id="create" class="btn blue"><i class="fa fa-save"></i>新建</a> 
+				<a id="modify" class="btn blue"
+				data-onclickEvent="true"><i class="fa fa-save"></i>编辑</a>
+				<a id="printOrder" disabled="disabled" class="btn blue" ><i class="fa fa-save"></i>打印工单</a>
+				<a data-callBack="true" 
+				data-model="repair" data-method="POST" data-url="/order/repair/btnSave" 
+				class="btn blue ajaxrest" data-validate="true" 
+				id="save" disabled="disabled" ><i class="fa fa-save"></i>保存</a>
+				<a class="btn blue"><i class="fa fa-undo"></i>取消</a>
+				<a id="cancel" class="btn blue"><i class="fa fa-save"></i>作废</a>
+			</div>
+		
+		</div>
+		<div class="row"> <!-- 相关隐藏域值 -->		
+		<input type="hidden" id="lastMaintenanceDate" name="lastMaintenanceDate"/>
+		<input type="hidden" id="lastRepairDate" name="lastRepairDate"/>
+		<input type="hidden" id="lastRepairMileage" name="lastRepairMileage"/>
+		<input type="hidden" id="lastMaintenanceMileage" name="lastMaintenanceMileage"/>
+		<input type="hidden" id="lastMaintainDate"/>
+		<input type="hidden" id="averageMileage" name="averageMileage"/><!-- 日平均行驶里程 -->
+		<input type="hidden" id="nextMaintainMileage"/><!-- 下次保养里程 -->
+		<input type="hidden" id="nextMaintainDate"/><!-- 下次保养日期 -->
+		<input type="hidden" id="isLoadVehicle" name="isLoadVehicle"/><!-- 当前的车辆是否是从车辆库中载入。 -->
+		<input type="hidden" id="salesDate" name="salesDate"/><!-- 查询车辆带过来的销售日期,用于计算预计下次保养日期 -->
+		<input type="hidden" id="remark2" name="remark2"/>
+		<input type="hidden" id="modelLabourCode" name="modelLabourCode"/><!-- 维修车型分组代码 -->
+		<input type="hidden" id="isNewVehicle" name="isNewVehicle"/><!-- 如果用户点击了VIN选择页面的新建按钮，那么isNewVehicle返回1:True,0:false-->
+		<input type="hidden" id="isLoadVehicle" name="isLoadVehicle"/><!-- 判断是否从车库得到的数据 -->
+		<input type="hidden" id="toTalChangeMileage" name="toTalChangeMileage"/>
+		<input type="hidden" id="cardTypeCode" name="cardTypeCode"/><!-- 会员卡类型 -->
+		<input type="hidden" id="productCode" name="productCode"/><!-- 产品代码 -->
+		<input type="hidden" id="isUpdateOwner" name="isUpdateOwner"/><!-- 是否更新车主信息 -->
+		<input type="hidden" id="isUpdateWarLevel" name="isUpdateWarLevel"/>
+		<input type="hidden" id="noWarning" name="noWarning"/>
+		<input type="hidden" id="noMileageWarning" name="noMileageWarning"/>
+		<input type="hidden" id="noChargePartitionWarning" name="noChargePartitionWarning"/>
+		<input type="hidden" id="repairDays" name="repairDays"/>
+		<input type="hidden" id="isWar" name="isWar"/>
+		<input type="hidden" id="3BaoFlag" name="3BaoFlag"/><!-- 3包授权判断 -->
+		<input type="hidden" id="checkFlag" name="checkFlag"/><!-- 3包授权判断 -->
+		<input type="hidden" id="warMileage" name="warMileage"/>
+		<input type="hidden" id="warMonth" name="warMonth"/>
+		<input type="hidden" id="warEndDate" name="warEndDate"/>
+		<input type="hidden" id="firstInDate" name="firstInDate"/>
+		<input type="hidden" id="otherRepairType" name="otherRepairType"/><!-- 其他维修类型 -->
+		<input type="hidden" id="traceTag" name="traceTag"/><!-- 跟踪状态 -->
+		<input type="hidden" id="isActivity" name="isActivity"/><!-- 是否参加活动 -->
+		<input type="hidden" id="labourPositionCode" name="labourPositionCode"/><!-- 工位代码 -->
+		<input type="hidden" id="customerDesc" name="customerDesc"/><!-- 顾客描述 -->
+		<input type="hidden" id="notIntegral" name="notIntegral"/><!-- 不参与积分 -->
+		<input type="hidden" id="isLargessMaintain" name="isLargessMaintain"/><!-- 是否赠送保养 -->
+		<input type="hidden" id="roTroubleDesc" name="roTroubleDesc"/><!-- 维修故障描述  从预约单-->
+		<input type="hidden" id="schemeStatus" name="schemeStatus" data-fieldName="SCHEME_STATUS"/><!-- 方案状态 -->
+		<input type="hidden" id="printRoTime" name="printRoTime" data-fieldName="PRINT_RO_TIME"/><!-- 工单打印时间 -->
+		<input type="hidden" id="occurInsuranceNo" name="occurInsuranceNo" data-fieldName="INSURANCE_NO"/><!-- 工单打印时间 -->
+		</div>
+	</form>
+</div>
+<script type="text/javascript"> 
+
+	 $(document).one("onload.dms",function(event,container){
+
+		 //工单界面根据tm_default_para参数表管控对应页面部件启用关闭
+		 
+		 //判断是否需要显示销售材料TAB页
+		 if(dmsCommon.getSystemParamInfo("1205","1205")=="12781001"){
+			 $("#salestab",container).removeClass("hidden");    
+		 }else if(dmsCommon.getSystemParamInfo("1205","1205")=="12781002"){
+			 $("#salestab",container).addClass("hidden");
+		 }
+		 
+		//判断是否启用会员按钮
+		 if(dmsCommon.getSystemParamInfo("1204","1204")=="12781001"){
+			 $("#memberBtn",container).removeClass("hidden");    
+		 }else if(dmsCommon.getSystemParamInfo("1204","1204")=="12781002"){
+			 $("#memberBtn",container).addClass("hidden");
+		 }
+		
+		//工单中的几个TAB页及其table的可以编辑状态,初始为不可编辑状态
+			     //维修材料 href="#tab_parts"
+				 $('#partTab').removeAttr("href");
+				 $('#partTab').bind('show.bs.tab', function(e) {			
+					  e.preventDefault();		 
+				 });
+				 
+				//销售材料 href="#tab_sales"
+				 $('#salesTab').removeAttr("href");
+				 $('#salesTab').bind('show.bs.tab', function(e) {			
+					  e.preventDefault();		 
+				 });
+				 
+				  //附加项目  href="#tab_accessory"
+				 $('#accessoryTab').removeAttr("href");
+				 $('#accessoryTab').bind('show.bs.tab', function(e) {			
+					  e.preventDefault();		 
+				 });
+
+		
+         //初始化保存按钮禁用，将其出发的url去除，但允许保存时还原data-url="/order/repair/btnSave" 
+		 $('#save').removeAttr("data-url");
+         
+         
+		//编辑按钮点击事件，控制工单界面各部件是否可编辑	
+	   $("a[data-onclickEvent='true']",container).on("dms.click",function(event,returnResult){
+		  if($(this).attr('id')=='modify'){
+			  //禁用编辑按钮
+			  $('#modify').attr("disabled","disabled");
+			  
+			  //根据条件判断是否可以启用保存按钮
+			// 22021001	2202	三包方案状态	待审核
+			// 22021002	2202	三包方案状态	方案调整
+			// 22021003	2202	三包方案状态	拒绝维修
+			// 22021004	2202	三包方案状态	审核通过
+			// 22021005	2202	三包方案状态	授权维修
+			// 22021006	2202	三包方案状态	未达预警
+			  var st=$("#schemeStatus").val();
+			  if(  isStringNull(st) || st=="22021005" || st=="22021006" || st=="22021002"){
+			  $('#save').removeAttr("disabled");
+			  $('#save').attr("data-url","/order/repair/btnSave");
+			  }
+			
+			 
+			  //根据参数表值判断是否可以点击自动计算下次预计保养日期按钮，是否可以修改下次保养里程，预计下次保养日期，1074
+			  if(dmsCommon.getSystemParamInfo("1074","1074")=="12781001"){
+				  $("#nextMaintainMileage").removeAttr("readonly");
+				  $("#nextMaintainDate").removeAttr("readonly");
+				  $("#nextMdateBtn").removeAttr("disabled");
+				  $("#calculate").removeAttr("disabled");	  
+			  }else if(dmsCommon.getSystemParamInfo("1074","1074")=="12781002"){
+				  $("#nextMaintainMileage").attr("readonly","readonly");
+				  $("#nextMaintainDate").attr("readonly","readonly");
+				  $("#nextMdateBtn").attr("disabled","disabled");
+				  $("#calculate").attr("disabled","disabled");
+			  }
+			  
+			//启用查询VIN按钮
+			  $("#qvinBtn").removeAttr("disabled");
+// 			  如果vin不为空，启用VIN预警信息按钮、服务活动、维修组合、
+// 			  维修历史、维修建议及导入、投诉、监控信息、保养套餐、保养活动
+			  if(isStringNull($("#vin").val())){
+				  $("#wvinBtn").attr("disabled","disabled");  //VIN预警信息按钮
+				  $("#reHistoryBtn").attr("disabled","disabled"); //维修历史
+				  $("#activeBtn").attr("disabled","disabled"); //服务活动
+				  $("#reGroupBtn").attr("disabled","disabled"); //维修组合
+				  $("#mtActiveBtn").attr("disabled","disabled"); //保养活动
+				  $("#monitorBtn").attr("disabled","disabled"); //监控信息
+				  $("#adviceBtn").attr("disabled","disabled");  //维修建议
+				  $("#adviceImportBtn").attr("disabled","disabled"); //建议导入
+				  $("#complainBtn").attr("disabled","disabled"); //投诉
+				  $("#maitenanceGroupBtn").attr("disabled","disabled"); //保养套餐
+			  }else{
+				  $("#wvinBtn").removeAttr("disabled");  //VIN预警信息按钮
+				  $("#reHistoryBtn").removeAttr("disabled"); //维修历史
+				  $("#activeBtn").removeAttr("disabled"); //服务活动
+				  $("#reGroupBtn").removeAttr("disabled"); //维修组合
+				  $("#mtActiveBtn").removeAttr("disabled"); //保养活动
+				  $("#monitorBtn").removeAttr("disabled"); //监控信息
+				  $("#adviceBtn").removeAttr("disabled");  //维修建议
+				  $("#adviceImportBtn").removeAttr("disabled"); //建议导入
+				  $("#complainBtn").removeAttr("disabled"); //投诉
+				  $("#maitenanceGroupBtn").removeAttr("disabled"); //保养套餐
+			  }
+			     
+			    //启用工单中的几个TAB页及其table的可以编辑状态
+			    //取消维修项目TAB的区域禁用
+			    $('#fRepairTab').removeAttr("disabled");
+			    //维修材料 href="#tab_parts"
+			    $('#partTab').unbind('show.bs.tab');
+				$('#partTab').attr("href","#tab_parts");				 
+				//销售材料 href="#tab_sales"
+				$('#salesTab').unbind('show.bs.tab');
+				$('#salesTab').attr("href","#tab_sales");			 
+				  //附加项目  href="#tab_accessory"
+				$('#accessoryTab').unbind('show.bs.tab');
+				$('#accessoryTab').attr("href","#tab_accessory");
+
+			  
+		
+		  }
+	   });
+		
+		
+// 		 $('#partTab').unbind('show.bs.tab');
+// 		 $('#partTab').attr("href","#tab_parts");
+// 				ifeditTab="yes";
+
+		
+		
+		
+		 $("#cancel",container).hide();
+// 		 $("#modify",container).hide();
+		//油位
+		$("#oilLevel").ionRangeSlider({values:["0","1/4","1/3","1/2","2/3","3/4","1"]});
+		
+		$("select[name='roType']",container).bindChange(function(){
+			dmsRepair.initRepairType($("select[name='roType']",container).val(),container);
+		});
+		
+		//弹出页面打开前执行函数
+		$("button[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+			var linse = dmsCommon.getSystemParamInfo("1181","1181");//前台开关查询
+			if(index=='12781001'){
+				if($("#inMileage",container).val() == null || $("#inMileage",container).val() == '' || $("#inMileage",container).val() == 0){
+					dmsCommon.tip({status:"warning",msg:"开工单前必须输入进厂行驶里程！"});
+					returnResult.status=false;
+				}
+			}
+			$(this).data("pageData",{VIN:$("#vin",container).val()});//传递3个值
+			$("#vin2",container).val($("#vin",container).val());
+			$("#bookingOrderNo2",container).val($("#bookingOrderNo",container).val());
+			returnResult.status = true;
+		});
+// 		$('a[data-beforeRequest="true"]',container).on('beforeRequest.dms',function(event,returnResult){
+// 			alert(3);
+// 			$(this).data("pageData",{VIN:$("#vin",container).val()});//传递3个值
+// 			$("#vin2",container).val($("#vin",container).val());
+// 			$("#bookingOrderNo2",container).val($("#bookingOrderNo",container).val());
+// 			alert($("#vin",container).val());
+// 			returnResult.status = true;
+// 		});
+		
+		$("select[id='model']",container).on('change',function(){
+			var code = $(this).val();
+			dmsRepair.findModelByModelLabourCode(code,container);
+		});
+		
+		var index = dmsCommon.getSystemParamInfo("1270","1270");//前台开关查询
+		var index2 = dmsCommon.getSystemParamInfo("9008","9008");//前台开关查询
+		if(index=='12781002'){//part_no不能重复
+			if(index2=='12781002'){
+				a();
+			}//不等于G9999999
+		}else{
+			b();
+		}
+		
+		$("#rate,#license",container).bindEnterEvent(function(obj){
+			var $id = obj.attr('id');
+			if($id=='license'){
+				dmsRepair.licenseKeyUp(obj,container);
+			}
+		});
+		
+		$("a[data-callBack='true']", container).on("callBack.dms",function(event, response) {
+			$("#modify",container).show();
+		});
+		
+		new Datatable().initPagination({
+			src : "dms_sales",
+			container:container,
+			url : dmsCommon.getDmsPath()["repair"] + "/basedata/queryByLinsence/queryRoLabourByRoNO/"+nullToZero($("#roNo").val()),
+			sortName : "ITEM_ID", 
+			sortOrder : "asc",
+			autoHeight:false,
+			columns : [
+                	   {field : "MANAGE_SORT_CODE",inputHiddenFormat : {},title : "收费类别"},
+                	   {field : "CHARGE_PARTITION_CODE",inputHiddenFormat : {},title : "收费区分"},
+                       {field : "STORAGE_CODE",inputHiddenFormat : {},title : "仓库代码"},
+                       {field : "STORAGE_POSITION_CODE",inputHiddenFormat : {},title : "库位代码"},
+                       {field : "PART_NO",inputHiddenFormat : {},title : "配件代码"}, 
+			           {field : "PART_NAME",inputHiddenFormat : {},title : "配件名称"},
+			           {field : "UNIT_CODE",inputHiddenFormat : {},title : "计量单位"},
+			           {field : "PART_QUANTITY",inputHiddenFormat : {},title : "配件销售数量",numberFormat : {decimal : 2}}, 			           
+			           {field : "PART_SALES_PRICE",inputHiddenFormat : {},title : "配件销售单价",numberFormat : {decimal : 2}},   
+			           {field : "PART_SALES_AMOUNT",inputHiddenFormat : {},title : "配件销售金额",numberFormat : {decimal : 2}},
+			           {field : "DISCOUNT_AMOUNT",title:"优惠金额",inputField:""},
+			           {field : "DISCOUNT",inputHiddenFormat : {},title : "折扣率",numberFormat : {decimal : 2}},   
+			           {field : "RECEIVE_AMOUNT",inputHiddenFormat : {},title : "实收金额",numberFormat : {decimal : 2}},
+                       {field : "IS_FINISHED",title : "是否入账",codeFormat:{type:"dict",codeType:"1278"}}
+			         ]
+		});
+		
+		new Datatable().initLocale({
+			src : "dms_subjoinItem",
+			container:container,
+			rowID : "ITEM_ID",
+			columns : [ 
+				  {field : "",title : "操作",operateFormat : [
+				        {type:"edit",url:"repair/order/repair/repairOrderTab/editAccessoryItem.html",
+				         title:"修改",openWidth:"modal-sm",doubleClick:true,
+				         onBeforeEvent:function(value, row, index,obje){  //用于新增前台记录后，再点编辑，将该行值传给编辑页面通过使用{[]}实现
+			               		row['ADD_ITEM_CODE']=$("input[id^='ADD_ITEM_CODE']",$(obje).closest("tr")).val();
+			               		row['ADD_ITEM_NAME']=$("input[id^='ADD_ITEM_NAME']",$(obje).closest("tr")).val();
+			               		$(obje).data("pageData",row);}
+			               		},
+				    	{type : "localDel",title:"删除"}  
+				    	
+		            ]}, 
+				{field : "MANAGE_SORT_NAME",title : "<span style='color: blue;'>收费类别</span>",
+					inputSelectFormat : { url: "", model : "", 
+						labelValue : "ADD_ITEM_CODE", lableDesc : "ADD_ITEM_NAME", 
+						attr : "data-existsdefault='false'" }
+				},
+				{field : "CHARGE_PARTITION_CODE",title : "<span style='color: blue;'>收费区分</span>",
+					inputSelectFormat : { url: "/accessoryItem/AccessoryItem/cplist", model : "repair", 
+						labelValue : "CHARGE_PARTITION_CODE", lableDesc : "CHARGE_PARTITION_NAME", 
+						attr : "data-existsdefault='false'" }},
+				{field : "ADD_ITEM_CODE",inputHiddenFormat : {},title : "附加项目代码"},
+				{field : "ADD_ITEM_NAME",inputHiddenFormat : {},title : "附加项目名称"}, 
+				{field : "ADD_ITEM_PRICE",inputHiddenFormat : {},title : "附加项目费"}, 
+				{field : "DISCOUNT_AMOUNT",inputHiddenFormat : {},title : "优惠金额",numberFormat:{decimal : 2}}, 
+				{field : "DISCOUNT",inputTextFormat : {},title : "<span style='color: blue;'>折扣率</span>"}, 
+				{field : "ADD_ITEM_AMOUNT",inputHiddenFormat : {},title : "实收金额",numberFormat:{decimal : 2}}, 
+				{field : "REMARK",inputTextFormat : {},title : "<span style='color: blue;'>备注</span>"}, 
+				{field : "ACTIVITY_CODE",inputHiddenFormat : {},title : "活动编号"}, 
+			]
+		});
+		
+		new Datatable().initPagination({
+			src : "dms_part",
+//	   		    url : dmsCommon.getDmsPath()["repair"] + "/basedata/freeSettlement/queryRoRepairPartByRoNO/"+nullToZero($("#roNo").val()),
+   			rowID : "PART_NO",
+   			sortName : "PART_NO",
+   			sortOrder : "asc",
+   			uniqueDataName:"PART_NO,STORAGE_CODE",
+   			autoHeight:false,
+   			undefinedText : "",
+   			clickToSelect: false,
+   			columns : [     
+   				{checkbox : true,sortable : false},
+   				{field : "",title : "操作",operateFormat : 
+   				    [
+   					{type:"edit",url:"repair/order/repair/repairOrderTab/editRoPart.html",
+   					openWidth:"modal-lg",doubleClick:true,isShow:function(value, row, index){
+               	   if(row.STORAGE_TYPE=='70041003'){
+              		     return true;
+              	       }else{return true;}
+               	   },onBeforeEvent:function(value, row, index,obje){  //用于新增前台记录后，再点编辑，将该行值传给编辑页面通过使用{[]}实现
+               		row['CHARGE_PARTITION_CODE']=$("select[id^='CHARGE_PARTITION_CODE']",$(obje).closest("tr")).val();
+               		row['LABOUR_CODE']=$("select[id^='LABOUR_CODE']",$(obje).closest("tr")).val();
+               		row['IS_MAIN_PART']=$("select[id^='IS_MAIN_PART']",$(obje).closest("tr")).val();							
+               		row['PART_NAME']=$("input[id^='PART_NAME']",$(obje).closest("tr")).val();
+               		
+               	    $(obje).data("pageData",row);
+					 }
+                   }
+                   ]
+   				},
+   	            {field : "CARD_CODE",title : "会员卡编号",inputHiddenFormat:{}},
+   	        	{field : "IS_FINISHED",title : "是否入账",inputHiddenFormat:{}},
+   	         	{field : "MANAGE_SORT_CODE",title : "<span style='color: blue;'>收费类别</span>",inputTextFormat:{}},
+   	            {field : "CHARGE_PARTITION_CODE",title : "<span style='color: blue;'>收费区分</span>", 
+   					inputSelectFormat : { url: "/accessoryItem/AccessoryItem/cplist", model : "repair", 
+   					labelValue : "CHARGE_PARTITION_CODE", lableDesc : "CHARGE_PARTITION_NAME", 
+   					attr : "data-existsdefault='false'" }
+   					},
+   	         	{field : "PART_NO",title : "配件代码",inputHiddenFormat:{}},
+   	         	{field : "PART_NAME",title : "<span style='color: blue;'>配件名称</span>",inputTextFormat:{}},
+   	            {field : "PRICE_TYPE",title : "价格类型",codeFormat : {type : "dict",codeType : "1236" }
+	   	         	},
+   	         	{field : "PART_SALES_PRICE",title : "配件销售单价",inputHiddenFormat:{}},
+   	         	{field : "LABOUR_CODE",title : "<span style='color: blue;'>维修项目名称</span>",inputTextFormat:{}},
+   	         	{field : "PART_SALES_AMOUNT",title : "配件销售金额",inputHiddenFormat:{}},
+   	         	{field : "RECEIVE_AMOUNT",title : "实收金额",inputHiddenFormat:{}},
+   	         	{field : "IS_MAIN_PART",title : "<span style='color: blue;'>主要配件</span>",
+   	         	inputSelectFormat : {type : "dict",codeType : "1278" }
+   	         	},
+   	         	{field : "PART_QUANTITY",title : "配件数量",inputHiddenFormat:{}},
+   	         	{field : "UNIT_CODE",title : "计量单位",inputHiddenFormat:{}},
+   	         	{field : "DISCOUNT_AMOUNT",title : "优惠金额",inputHiddenFormat:{}},
+   	         	{field : "DISCOUNT",title : "<span style='color: blue;'>折扣率</span>",inputTextFormat:{}},
+   	         	{field : "STORAGE_CODE",title : "仓库代码",inputHiddenFormat:{}},
+   	         	{field : "IS_DISCOUNT",title : "不可打折",inputHiddenFormat:{}},
+   	         	{field : "STORAGE_POSITION_CODE",title : "库位代码",inputHiddenFormat:{}},
+   	         	{field : "NEEDLESS_REPAIR",title : "<span style='color: blue;'>是否不修</span>",inputTextFormat:{}},
+   	         	{field : "REASON",title : "<span style='color: blue;'>不修原因</span>",inputTextFormat:{}},
+   	         	{field : "PRE_CHECK",title : "<span style='color: blue;'>是否预拣</span>",inputTextFormat:{}},	
+   	         	{field : "INTER_RETURN",title : "<span style='color: blue;'>是否内返</span>",inputTextFormat:{}},	
+   	         	{field : "BATCH_NO",title : "流水号",inputHiddenFormat:{}},
+   	        	{field : "PRINT_BATCH_NO",title : "预拣单打印流水号",inputHiddenFormat:{}},
+   	        	{field : "ACTIVITY_CODE",title : "活动编号",inputHiddenFormat:{}},
+   	        	{field : "MODEL_LABOUR_CODE",title : "项目车型组",inputHiddenFormat:{}},
+   	        	{field : "PACKAGE_CODE",title : "组合代码",inputHiddenFormat:{}},
+   	        	{field : "POS_NAME",title : "故障部位",inputHiddenFormat:{}},
+   	        	{field : "PART_INFIX",title : "配件中缀",inputHiddenFormat:{}},
+   	        	{field : "WAR_LEVEL",title : "预警等级",inputHiddenFormat:{}},
+   	         	{field : "PART_CATEGORY",title : "<span style='color: blue;'>配件类别</span>",inputTextFormat:{}},
+   	        	{field : "MAINTAIN_PACKAGE_CODE",title : "保养套餐代码",inputHiddenFormat:{}}
+   			]
+		});
+		 
+		 $("button[data-onclickEvent='true']",container).on("dms.click",function(event){
+			 dmsRepair.nextMaintain(container);
+		 });
+		 
+	}); 
+	 
+	
+	//不能重复
+		var a = function(){
+			new Datatable().initPagination({
+				src : "dms_table",
+	   		    url : dmsCommon.getDmsPath()["repair"] + "/basedata/freeSettlement/queryRoLabourByRoNO/"+nullToZero($("#roNo").val()),
+	   			rowID : "LABOUR_CODE",
+	   			sortName : "LABOUR_CODE",
+	   			sortOrder : "asc",
+	   			autoHeight:false,
+	   			clickToSelect: false,
+	   			undefinedText : "",
+	   			uniqueDataName:"LABOUR_CODE",
+	   			columns : [     
+	   				{checkbox : true,sortable : false},
+	   	            {field : "CARD_CODE",title : "会员卡编号",inputHiddenFormat:{}},
+	   	         	{field : "MANAGE_SORT_CODE",title : "<span style='color: blue;'>收费类别</span>",inputTextFormat:{}},
+	   	         	{field : "CHARGE_PARTITION_CODE",title : "<span style='color: blue;'>收费区分</span>",inputTextFormat:{}},
+	   	         	{field : "TROUBLE_CAUSE",title : "<span style='color: blue;'>故障原因</span>",inputTextFormat:{}},
+	   	         	{field : "REPAIR_TYPE_CODE",title : "<span style='color: blue;'>维修类型</span>",inputTextFormat:{}},
+	   	         	{field : "LABOUR_CODE",title : "项目代码",inputHiddenFormat:{}},
+	   	         	{field : "LOCAL_LABOUR_CODE",title : "行管代码",inputHiddenFormat:{}},
+	   	         	{field : "LABOUR_NAME",title : "<span style='color: blue;'>项目名称</span>",inputTextFormat:{}},
+	   	         	{field : "LABOUR_AMOUNT",title : "<span style='color: blue;'>工时费</span>",inputTextFormat:{}},
+	   	         	{field : "ASSIGN_LABOUR_HOUR",title : "<span style='color: blue;'>派工工时</span>",inputTextFormat:{}},
+	   	         	{field : "STD_LABOUR_HOUR",title : "标准工时",inputHiddenFormat:{}},
+	   	         	{field : "CLAIM_LABOUR",title : "<span style='color: blue;'>索赔工时</span>",inputTextFormat:{}},	
+	   	         	{field : "DISCOUNT_AMOUNT",title : "优惠金额",inputHiddenFormat:{}},
+	   	        	{field : "DISCOUNT",title : "<span style='color: blue;'>折扣率</span>",inputTextFormat:{}},
+	   	        	{field : "RECEIVE_AMOUNT",title : "实收金额",inputHiddenFormat:{}},
+	   	        	{field : "LABOUR_PRICE",title : "<span style='color: blue;'>工时单价</span>",inputTextFormat:{}},
+	   	        	{field : "WORKER_TYPE_CODE",title : "<span style='color: blue;'>工种</span>",inputTextFormat:{}},
+	   	        	{field : "TECHNICIAN",title : "责任技师",inputHiddenFormat:{}},
+	   	        	{field : "ASSIGN_TAG",title : "派工标志",inputHiddenFormat:{}},
+	   	        	{field : "CONSIGN_EXTERIOR",title : "<span style='color: blue;'>是否委外</span>",inputTextFormat:{}},
+	   	        	{field : "NEEDLESS_REPAIR",title : "<span style='color: blue;'>是否不修</span>",inputTextFormat:{}},
+	   	        	{field : "REASON",title : "<span style='color: blue;'>不修原因</span>",inputTextFormat:{}},
+	   	        	{field : "PRE_CHECK",title : "<span style='color: blue;'>是否预检</span>",inputTextFormat:{}},
+	   	        	{field : "INTER_RETURN",title : "<span style='color: blue;'>是否内返</span>",inputTextFormat:{}},
+	   	        	{field : "ACTIVITY_CODE",title : "活动编号",inputHiddenFormat:{}},
+	   	        	{field : "TROUBLE_DESC",title : "<span style='color: blue;'>检查结果</span>",inputTextFormat:{}},
+	   	        	{field : "REMARK",title : "<span style='color: blue;'>备注</span>",inputTextFormat:{}},
+	   	        	{field : "PACKAGE_CODE",title : "组合代码",inputHiddenFormat:{}},
+	   	        	{field : "MODEL_LABOUR_CODE",title : "项目车型组",inputHiddenFormat:{}},
+	   	        	{field : "SPRAY_AREA",title : "钣喷面积",inputHiddenFormat:{}},
+	   	        	{field : "POS_NAME",title : "故障部位",inputHiddenFormat:{}},
+	   	        	{field : "APP_NAME",title : "故障",inputHiddenFormat:{}},
+	   	        	{field : "MAINTAIN_PACKAGE_CODE",title : "保养套餐代码",inputHiddenFormat:{}}
+	   			]
+			});
+		}
+		
+	
+	
+		//可以重复
+		var b = function(){
+			new Datatable().initPagination({
+				src : "dms_table",
+	   		    url : dmsCommon.getDmsPath()["repair"] + "/basedata/freeSettlement/queryRoLabourByRoNO/"+nullToZero($("#roNo").val()),
+	   			rowID : "LABOUR_CODE",
+	   			sortName : "LABOUR_CODE",
+	   			sortOrder : "asc",
+	   			autoHeight:false,
+	   			undefinedText : "",
+	   			clickToSelect: false,
+	   			columns : [     
+	   				{checkbox : true,sortable : false},
+	   	            {field : "CARD_CODE",title : "会员卡编号",inputHiddenFormat:{}},
+	   	         	{field : "MANAGE_SORT_CODE",title : "<span style='color: blue;'>收费类别</span>",inputTextFormat:{}},
+	   	         	{field : "CHARGE_PARTITION_CODE",title : "<span style='color: blue;'>收费区分</span>",inputTextFormat:{}},
+	   	         	{field : "TROUBLE_CAUSE",title : "<span style='color: blue;'>故障原因</span>",inputTextFormat:{}},
+	   	         	{field : "REPAIR_TYPE_CODE",title : "<span style='color: blue;'>维修类型</span>",inputTextFormat:{}},
+	   	         	{field : "LABOUR_CODE",title : "项目代码",inputHiddenFormat:{}},
+	   	         	{field : "LOCAL_LABOUR_CODE",title : "行管代码",inputHiddenFormat:{}},
+	   	         	{field : "LABOUR_NAME",title : "<span style='color: blue;'>项目名称</span>",inputTextFormat:{}},
+	   	         	{field : "LABOUR_AMOUNT",title : "<span style='color: blue;'>工时费</span>",inputTextFormat:{}},
+	   	         	{field : "ASSIGN_LABOUR_HOUR",title : "<span style='color: blue;'>派工工时</span>",inputTextFormat:{}},
+	   	         	{field : "STD_LABOUR_HOUR",title : "标准工时",inputHiddenFormat:{}},
+	   	         	{field : "CLAIM_LABOUR",title : "<span style='color: blue;'>索赔工时</span>",inputTextFormat:{}},	
+	   	         	{field : "DISCOUNT_AMOUNT",title : "优惠金额",inputHiddenFormat:{}},
+	   	        	{field : "DISCOUNT",title : "<span style='color: blue;'>折扣率</span>",inputTextFormat:{}},
+	   	        	{field : "RECEIVE_AMOUNT",title : "实收金额",inputHiddenFormat:{}},
+	   	        	{field : "LABOUR_PRICE",title : "<span style='color: blue;'>工时单价</span>",inputTextFormat:{}},
+	   	        	{field : "WORKER_TYPE_CODE",title : "<span style='color: blue;'>工种</span>",inputTextFormat:{}},
+	   	        	{field : "TECHNICIAN",title : "责任技师",inputHiddenFormat:{}},
+	   	        	{field : "ASSIGN_TAG",title : "派工标志",inputHiddenFormat:{}},
+	   	        	{field : "CONSIGN_EXTERIOR",title : "<span style='color: blue;'>是否委外</span>",inputTextFormat:{}},
+	   	        	{field : "NEEDLESS_REPAIR",title : "<span style='color: blue;'>是否不修</span>",inputTextFormat:{}},
+	   	        	{field : "REASON",title : "<span style='color: blue;'>不修原因</span>",inputTextFormat:{}},
+	   	        	{field : "PRE_CHECK",title : "<span style='color: blue;'>是否预检</span>",inputTextFormat:{}},
+	   	        	{field : "INTER_RETURN",title : "<span style='color: blue;'>是否内返</span>",inputTextFormat:{}},
+	   	        	{field : "ACTIVITY_CODE",title : "活动编号",inputHiddenFormat:{}},
+	   	        	{field : "TROUBLE_DESC",title : "<span style='color: blue;'>检查结果</span>",inputTextFormat:{}},
+	   	        	{field : "REMARK",title : "<span style='color: blue;'>备注</span>",inputTextFormat:{}},
+	   	        	{field : "PACKAGE_CODE",title : "组合代码",inputHiddenFormat:{}},
+	   	        	{field : "MODEL_LABOUR_CODE",title : "项目车型组",inputHiddenFormat:{}},
+	   	        	{field : "SPRAY_AREA",title : "钣喷面积",inputHiddenFormat:{}},
+	   	        	{field : "POS_NAME",title : "故障部位",inputHiddenFormat:{}},
+	   	        	{field : "APP_NAME",title : "故障",inputHiddenFormat:{}},
+	   	        	{field : "MAINTAIN_PACKAGE_CODE",title : "保养套餐代码",inputHiddenFormat:{}}
+	   			]
+			});
+		}
+		
+		var nullToZero = function(flag){
+			return flag==null||flag==""?0:flag;
+		}
+</script>

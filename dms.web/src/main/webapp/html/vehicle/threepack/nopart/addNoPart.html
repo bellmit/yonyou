@@ -1,0 +1,100 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">非监控特殊配件新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="modal-body">
+					<div class="row">
+				<div class="col-xs-12 col-sm-6  ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件类别</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control required" id="partType"
+									name="partType" data-fieldName="PART_TYPE">
+							</div>
+						</div>
+					</div>
+					
+				
+					<div class="col-xs-12 col-sm-6  "
+						data-tableSelect="true">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件代码</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input id="partCode" readonly name="partCode"
+										class="form-control required" type="text" data-fieldName="PART_CODE" />
+									<span class="input-group-btn">
+										<button class="btn default btn-sm" type="button"
+											data-url="vehicle/threepack/relation/searchAllRelation.html"
+											data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+							<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件名称</label>
+								<div class="col-xs-8">
+									<select class="bs-select form-control required"   data-existsDefault="false"
+										id="partName"  parent="partCode" data-url="/relation/partName/{[partCode]}" data-model="vehicle" 
+										name="partName" data-lableDesc="PART_NAME" data-labelValue="PART_NAME" >
+										</select>
+								</div>
+							</div>
+						</div>
+			
+			
+					<div class="col-xs-12 col-sm-6  ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">备注</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="remark"
+									name="remark" data-fieldName="REMARK">
+							</div>
+						</div>
+					</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/nopart/add" data-model="vehicle" data-method="POST"
+				data-callBack="true" class="btn blue" data-toggle="confirmation">
+				<i class="fa fa-save"></i>保存
+			</a> <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				//新增页面的回调函数
+				$("a[data-callBack='true']", container).on(
+						"callBack.dms",
+						function(event, response) {
+							//关闭窗口
+							$("a[data-dismiss='modal']", container).click();
+							//刷新表格
+							$("#dms_table", getElementContext()).dmsTable()
+									.refreshTableWithForm();
+						});
+			});
+</script>

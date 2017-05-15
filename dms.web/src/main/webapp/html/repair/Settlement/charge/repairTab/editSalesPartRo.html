@@ -1,0 +1,42 @@
+<div class="dms-edit ajaxrest" 
+	data-model="manage">
+	<!-- BEGIN FORM-->
+	<form class="form-horizontal">		
+		<div class="panel panel-default table-panel">
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="bSPDtoList">
+					</table>
+				</div>
+		</div>
+</form>
+</div>
+
+<script type="text/javascript">
+
+	$(document).one("onload.dms",function(event,container){
+	 	new Datatable().initLocale({
+	 		src : "bSPDtoList",
+	 		container:container,
+	 		rowID:"BALANCE_SALES_PART_ID",
+	 		url : dmsCommon.getDmsPath()["repair"] + "/balance/balanceAccounts/balanceSalesPart/{[BALANCE_ID]}",
+	 		sortName : "BALANCE_SALES_PART_ID", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+	 		sortOrder : "asc",
+	 		columns : [
+	                    {field : "STORAGE_NAME",inputField:"STORAGE_NAME",title : "仓库名称"},
+	                    {field : "PART_NO",inputField:"PART_NO",title : "配件代码"}, 
+	 		           {field : "PART_NAME",inputField:"PART_NAME",inputHiddenFormat : {},title : "配件名称"},
+	 		           {field : "PART_QUANTITY",inputField:"PART_QUANTITY",inputHiddenFormat : {},title : "配件数量",numberFormat : {decimal : 2}}, 			           
+	 		           {field : "PART_SALES_PRICE",inputField:"PART_SALES_PRICE",inputHiddenFormat : {},title : "销售单价",numberFormat : {decimal : 2}},   
+	 		           {field : "PART_SALES_AMOUNT",inputField:"PART_SALES_AMOUNT",inputHiddenFormat : {},title : "销售金额",numberFormat : {decimal : 2}},
+	 		           {field : "DISCOUNT",inputField:"DISCOUNT",title : "折扣率"},  
+	 		           {field : "DIS_COUNT_AMOUNT",inputField:"discountAmount",inputHiddenFormat : {},title : "折扣金额",numberFormat : {decimal : 2,autoValueFormat:{autoValue:"#partSalesAmount*(1-#discount)"}}}, //,
+	 		           {field : "disAmountShow",inputField:"salesAmount",inputHiddenFormat : {},title : "应收金额",numberFormat : {decimal : 2,autoValueFormat:{autoValue:"#partSalesAmount*#discount"}}},
+	 		         ]
+	 	});
+	});
+
+
+</script>
+

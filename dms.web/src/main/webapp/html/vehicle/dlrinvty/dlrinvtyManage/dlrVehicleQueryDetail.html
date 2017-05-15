@@ -1,0 +1,134 @@
+<div class="dms-edit ajaxrest" data-url="/dlrVehicleQuery/dealer/detail/{[VEHICLE_ID]}" data-pageInitCallBack="true"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">车辆综合明细</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel-heading">
+			<div class="pannel-name" >车辆属性</div>
+			</div>
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">VIN号:</label>
+								<div class="col-xs-8">
+									<input id="vehicle_id" name="vehicle_id" type="hidden" data-fieldName="VEHICLE_ID">
+									<span class="form-show " data-fieldName="VIN"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">发动机号:</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="ENGINE_NO"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">备注:</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="REMARK"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">所属品牌:</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="BRAND_NAME"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">所属车系:</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="SERIES_NAME"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">所属车型:</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="MODEL_NAME"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">颜色:</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="COLOR_NAME"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">内饰:</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="TRIM_NAME"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name" >车辆变更日志</div>
+			</div>
+			<div class="panel-body">
+				<table class="form-group  table table-striped table-bordered table-hover table-responsive"
+					id="dms_table"></table>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			 <a data-goback="page"  href="vehicle/dlrinvty/dlrinvtyManage/dlrVehicleQueryInit.html"
+			  class="btn blue ajaxify"><i class="fa fa-reply"></i>返回
+			</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+	new Datatable().initPagination({
+		src : "dms_table",
+		container : container,
+		 url : dmsCommon.getDmsPath()["vehicle"]
+				+ "/dlrVehicleQuery/vehicleVinDetailQuery/{[vehicle_id]}",  
+		rowID : "oemvehicle",
+		isQueryFirst : true,
+		pageSize : 5,
+		isQueryFirst:false,
+		columns : [
+		  {
+			field : "CHANGE_CODE",
+			title : "车辆变更类型",
+			codeFormat : {
+				type : "oemDict",
+				codeType : "2021"
+			}
+		}, {
+			field : "CHANGE_DATE",
+			title : "变更时间"
+		}, {
+			field : "CHANGE_DESC",
+			title : "变更描述"
+		}, {
+			field : "DEALER_NAME",
+			title : "对应经销商"
+		}]
+
+	});
+	
+})
+</script>

@@ -1,0 +1,90 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">竣工日期</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" data-defaultCurrMonth="true">
+									<input type="text" class="form-control" readonly
+										name="complete_startdate"> <span
+										class="input-group-addon">至</span> <input type="text"
+										class="form-control" readonly name="complete_enddate">
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">收费区分</label>
+								<div class="col-xs-8 ">
+									<select id="chargePartitionCode" name="chargePartitionCode"
+										class="bs-select form-control" data-dictCode="1214">
+									</select>
+								</div>
+							</div>
+						</div>
+					<!--/span-->
+				   <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">统计方式</label>
+							<div class="col-xs-8">
+								<select id="statistical_mode" name="statistical_mode"
+									class="bs-select form-control" data-dictCode="1041" data-value="10411001">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+
+
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn btn-sm blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn btn-sm blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">技师工时统计</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dms_table",
+		rowID:"EMPLOYEE_NAME",
+		container:container,
+	    url : dmsCommon.getDmsPath()["report"] + "/repair/labourAmount",
+		sortName : "ORG_SHORT_NAME", 
+		sortOrder : "desc",
+		columns : [ 
+		            {field : "ORG_SHORT_NAME",title : "部门/班组/工位"},
+		            {field : "EMPLOYEE_NAME",title : "技师"},
+		            {field : "ASSIGN_LABOUR_HOUR",title : "派工工时"},
+		            {field : "LABOUR_AMOUNT",title : "应收工时费"},
+		            {field : "AFTER_DISCOUNT_AMOUNT",title : "实收工时费"},
+		            {field : "STD_LABOUR_HOUR",title : "工时标准"}
+		         ]
+	});
+});		
+</script>

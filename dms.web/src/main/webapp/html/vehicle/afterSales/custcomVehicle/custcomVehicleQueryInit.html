@@ -1,0 +1,91 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">客户名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control"  id="ctmName" name="ctmName" />
+							</div>
+						</div>
+					</div>
+			
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">客户类型</label>
+							<div class="col-xs-8">
+								<select id="ctmType" name="ctmType" class="bs-select form-control"  data-type="oemDict"  data-dictCode="2029" >
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+					<div class="form-group">
+						<label class="control-label col-xs-4 col-sm-2">创建时间</label>
+						<div class="col-xs-8 col-sm-10">
+							 <div class="input-group input-daterange" data-opens="right">
+	                             <input type="text" class="form-control" readonly  name="salesDateStart">
+	                             <span class="input-group-addon">至</span>
+	                             <input type="text" class="form-control" readonly  name="salesDateEnd">
+	                             <span class="input-group-btn">
+                                    <button class="btn default input-clear" type="button">
+                                       <i class="fa fa-close"></i>
+                                   </button>
+                                 </span> 
+	                        </div>
+						</div>
+					</div>
+				</div>
+					
+					</div>
+							<div class="row ">
+								<div class="col-xs-12 ">
+									<div class="query-btn">
+										<a href="javascript:;" class="btn blue"> <i
+											class="fa fa-search"></i> 查询
+										</a> <a href="javascript:;" class="btn blue"><i
+											class="fa fa-undo"></i> 重置</a>
+									</div>
+								</div>
+							</div>
+						</div>
+				</div>
+			</form>
+						<div class="panel panel-default table-panel">
+								<div class="panel-heading">
+									<div class="pannel-name" >客户车辆资料查询</div>
+						
+							</div>
+							<div class="panel-body">
+								<table class="table table-striped table-bordered table-hover table-responsive"
+									id="dms_table"></table>
+							</div>
+						</div>
+					</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+			new Datatable().initPagination({
+				src : "dms_table",
+				container:container,
+				url : dmsCommon.getDmsPath()["vehicle"] + "/custcomVehicleZiLiao/custcomVehicleZiLiaoSearch",
+				rowID : "CTM_ID",
+				sortName : "CTM_ID",
+				sortOrder : "asc",
+		
+			columns : [ 
+			   	    {field : "CTM_ID",title : "操作",operateFormat : [
+                    {type:"detail",url:"vehicle/afterSales/custcomVehicle/custcomVehicleDetailQuery.html",openWidth:"modal-md",doubleClick:true},
+			
+			   	    ]
+			   	  },             
+			{field : "VIN",title : "VIN"}, 
+			{field : "CTM_NAME",title : "客户名称"},
+			{field : "CTM_TYPE",title : "客户类型", codeFormat : {type:"oemDict",codeType:"2029"}},
+			{field : "SALES_DATE",title : "客户创建时间",dateFormat : {format:"YYYY-MM-DD"}}
+	        ]
+                });
+                      });
+</script>

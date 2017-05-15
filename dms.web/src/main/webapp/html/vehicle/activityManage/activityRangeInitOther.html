@@ -1,0 +1,155 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="modal-header">
+				<div class="modal-title">其他项目活动维护</div>
+				<div class="modal-close">
+					<a data-dismiss="modal" class="btn btn-lg">
+					<i class="fa fa-remove"></i></a>
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="row ">	
+
+
+				
+										
+						<div class="col-xs-12 col-sm-6 col-md-6 ">
+							<div class="form-group">
+								<!-- <label class="control-label col-xs-4">活动系统编号：</label> -->
+								<div class="col-xs-8">
+									<!-- <input id="activityCode" name="activityCode" data-fieldName="ACTIVITY_CODE"  class="form-control required systemCode" maxlength="30" type="text" /> -->
+									<input id="activityId2" name="activityId2"   class="form-control required "  type="hidden" />
+									<input id="groupIds" name="groupIds"   class="form-control required "  type="hidden" />
+								</div>
+							</div>
+						</div>
+						
+						
+						
+					
+					</div>
+					
+				<div class="row ">				
+					<!-- <div class="col-xs-12 ">
+ 						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div> 
+					</div> -->
+				</div>
+				
+			<div class="row ">	
+				<div class="panel panel-default table-panel">
+					<div class="panel-heading">
+						<div class="pannel-name"> 信息列表</div>
+							<div class="pannel-button">
+								<div class="btn-group btn-group-sm">
+									<a id="other" href="javascript:;" class="btn btn-outline" data-url="/activityMaintain/editRange/otherSave" data-model="vehicle" data-method="PUT"
+										data-toggle="confirmation" data-callBack="true" data-beforeRequest="true"> <i
+										class="fa fa-print" ></i>确定
+									</a>
+								</div>
+						 </div>
+					</div>
+					<div class="panel-body">
+						<table class="table table-striped table-bordered table-hover table-responsive"
+							id="otherTable"></table>
+						</div>
+					</div>				
+			</div>				
+				
+			</div>
+		</div>
+	
+		<div class="modal-footer center-block">
+			<a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	
+
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		var activityId = $("#activityId",getElementContext()).val();
+		$("#activityId2",container).val(activityId); 
+		//alert(activityId);
+		
+		new Datatable().initPagination({
+			src : "otherTable",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/activityMaintain/editRange/otherQuery",
+			rowID : "OTHER_FEE_ID",
+			sortName : "",
+			sortOrder : "",
+			//isQueryFirst:false,
+			autoHeight:false,
+			columns : [ 
+						{checkbox:true,sortable : false}, 		
+						{field : "OTHER_FEE_CODE",title : "项目代码"}, 
+						{field : "OTHER_FEE_NAME",title : "项目名称"},
+						{field : "AMOUNT",inputField:"amount",title : "活动金额维护",inputNumberFormat : {defaultValue:0 }}
+
+
+			], 
+			onLoadSuccess : function() {
+				$("#otherTable",container).dmsTable().bootstrapTable('resetView');
+			}
+
+		});
+		
+		
+		//绑定查询按钮回调
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+ 		//	console.log("into callBack");
+		});
+		
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#otherTableList",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+		
+		//批量删除的前执行函数
+		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			var selectRow = $("#otherTable",container).dmsTable().getSelections();
+			debugger;
+			if(!selectRow){
+				dmsCommon.tip({status:"warning",msg:"请选择活动项目"});//总共的状态类型：info、success、error、warning
+				returnResult.status = false;
+				return ;
+			}
+			if(selectRow.length > 0){
+				var groupIds = "";
+				
+				for(var i = 0 ;i<selectRow.length;i++){
+					//alert($("#amount"+i+"").val())
+					
+					if(groupIds=="" ){ //第一次循环为空值
+						groupIds = selectRow[i]["OTHER_FEE_ID"];
+						groupIds = groupIds+"#"+selectRow[i]["OTHER_FEE_CODE"];
+						groupIds = groupIds+"#"+selectRow[i]["OTHER_FEE_NAME"];
+						groupIds = groupIds+"#"+$("#amount"+i+"").val();
+					}else{
+						groupIds = groupIds+","+selectRow[i]["OTHER_FEE_ID"];
+						groupIds = groupIds+"#"+selectRow[i]["OTHER_FEE_CODE"];
+						groupIds = groupIds+"#"+selectRow[i]["OTHER_FEE_NAME"];
+						groupIds = groupIds+"#"+$("#amount"+i+"").val();
+					}
+					
+				}
+				$("#groupIds",getElementContext()).setDmsValue(groupIds);
+				
+			}
+			returnResult.status = true;
+		});
+		
+	});
+</script>

@@ -1,0 +1,130 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+			<div class="modal-title">保养套餐明细</div>
+
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">保养套餐代码</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="" name=""
+									value="{[PACKAGE_CODE]}"> 
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">保养套餐总价</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="amount" name=""
+									> 
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">保养套餐类型</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="type" name=""
+									data-fieldName=""> 
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+
+			<!--套餐维修项目  -->
+			<div class="panel panel-default panel-primary table-panel">
+				<div class="mpanel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="labour_table"></table>
+				</div>
+			</div>
+
+			<!--套餐配件  -->
+			<div class="panel panel-default panel-primary table-panel">
+				<div class="mpanel-body">
+
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="part_table"></table>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="modal-footer center-block">
+
+					<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+				</div>
+			</div>
+		</div>
+
+	</form>
+
+	<script type="text/javascript">
+		$(document).one("onload.dms", function(event, container) {
+            
+			var amount=$("input[id^='PACKAGE_PRICE']",$("tr.selected",$("#maintenance_package",getElementContext())) ).val()
+			var type=$("input[id^='IS_WX_MAINTAINPACKAGE']",$("tr.selected",$("#maintenance_package",getElementContext())) ).val()
+				$("#amount").val(amount);
+			if(type=="12781001"){
+				$("#type").val("配件套餐");
+			}else if(type=="12781002"){
+				$("#type").val("正常套餐");
+			}
+			   		
+			new Datatable().initPagination({
+				src : "labour_table",
+				container : container,
+				url : dmsCommon.getDmsPath()["repair"] 
+			    + "/maintenancePackage/MaintenancePackage/labourDetail/{[PACKAGE_CODE]}",
+				rowID : "",
+				sortName : "LABOUR_CODE",
+				sortOrder : "asc",
+				undefinedText : "",
+				autoHeight : false,
+				columns : [ {field : "LABOUR_CODE",title : "维修项目代码"},
+					{field : "LABOUR_NAME",title : "维修项目名称"},
+					{field : "STD_LABOUR_HOUR",title : "标准工时"},
+					{field : "LABOUR_PRICE",title : "工时单价"},
+					{field : "LABOUR_AMOUNT",title : "工时费"}
+				]
+			});
+
+			new Datatable().initPagination({
+				src : "part_table",
+				container : container,
+				url : dmsCommon.getDmsPath()["repair"] 
+			    + "/maintenancePackage/MaintenancePackage/partDetail/{[PACKAGE_CODE]}",
+				rowID : "",
+				sortName : "PART_NO",
+				sortOrder : "asc",
+				undefinedText : "",
+				autoHeight : false,
+				columns : [ {field : "STORAGE_CODE",title : "仓库代码"},
+					{field : "PART_NO",title : "配件代码"},
+					{field : "PART_NAME",title : "配件名称"},
+					{field : "PART_QUANTITY",title : "配件数量"},
+					{field : "LABOUR_CODE",title : "维修项目代码"},
+					{field : "PART_SALES_PRICE",title : "配件单价"},
+					{field : "PART_SALES_AMOUNT",title : "配件金额"}
+				]
+			});
+
+		});
+	</script>

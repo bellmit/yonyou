@@ -1,0 +1,191 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">车辆产品查询</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="row" style="height: 40px;">
+				<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4" class="pp">品牌名称</label>
+						<div class="col-xs-8">
+							<select id="brand_code" class="bs-select form-control"
+								name="brandCode" data-url="/basedata/brandsdict2"
+								data-model="manage" data-labelValue="BRAND_CODE"
+								data-lableDesc="BRAND_NAME">
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">车系名称</label>
+						<div class="col-xs-8">
+							<select id="series_code" parent="brand_code"
+								class="bs-select form-control" name="seriesCode"
+								data-url="/basedata/brandsdict/{[brand_code]}/seriessdict"
+								data-model="manage" data-labelValue="SERIES_CODE"
+								data-lableDesc="SERIES_NAME">
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">车型</label>
+						<div class="col-xs-8">
+							<select id="model_code" parent="series_code"
+								class="bs-select form-control" name="modelCode"
+								data-url="/basedata/brandsdict/{[brand_code]}/seriessdict/{[series_code]}/modelsdict"
+								data-model="manage" data-labelValue="MODEL_CODE"
+								data-lableDesc="MODEL_NAME" data-alwaysRefresh="true">
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">配置</label>
+						<div class="col-xs-8">
+							<select id="config_code" parent="model_code" class="bs-select form-control"
+								name="config_code"
+								data-url="/basedata/brandsdict/{[brand_code]}/seriessdict/{[series_code]}/modelsdict/{[model_code]}/packagesdict"
+								data-model="manage" data-labelValue="CONFIG_CODE"
+								data-lableDesc="CONFIG_NAME">
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row" style="height: 40px;">
+				<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4 ">CATCODE</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" id="product_code"
+								name="productCode">
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-3 col-lg-7">
+					<div class="form-group">
+						<label class="control-label col-xs-4  col-md-3">车厂指导价</label>
+						<div class="col-xs-8 col-md-2">
+							<input type="text" class="form-control"
+								name="min">
+						</div>
+						<label class="control-label col-xs-1  col-md-1" style="text-align:center">到</label>
+						<div class="col-xs-8 col-md-2">
+							<input type="text" class="form-control"
+								name="max">
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12  col-md-2">
+					<div class="query-btn">
+						<a href="javascript:;" class="btn blue" style="position: relative; top: -10px;"> <i
+							class="fa fa-search"></i> 查询
+						</a>
+					</div>
+				</div>
+			</div>
+			<div >
+				<!-- <div id="vehicleTree" class="col-xs-8 col-md-4"></div>
+				<input type="hidden" name="code" id="code">  -->
+				<div>
+					<table class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_table">
+					</table>
+				</div> 					
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a  class="btn blue" data-onclickEvent="true"><i class="fa fa-save"></i>确定</a> <a
+				data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+
+	$(document).one("onload.dms",function(event,container){
+		var wsAppType=$("#wsAppType",getParentModal(container)).val();
+		//树节点选择
+/* 		$('#vehicleTree',container).on('changed.jstree', function (e, data) {
+			var node = data.changed.selected;
+			if(node!=""){
+				$("#code",container).val(node);
+				$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+			} 
+		}); */
+		
+		new Datatable().initPagination({
+			src : "dms_table",
+			url : dmsCommon.getDmsPath()["customer"] + "/BigCustomer/manage/product/"+wsAppType+"/search",
+			rowID : "PRODUCT_CODE",
+			autoHight : false,
+			sortName : "PRODUCT_CODE", 
+			sortOrder : "asc",
+			undefinedText : "",
+			checkboxHeader:true, //全选框
+			columns : [ 
+				{radio:true,sortable : false},
+				{field : "PRODUCT_CODE",title : "产品代码"}, 
+				{field : "PRODUCT_NAME",title : "产品名称"},
+				{field : "CONFIG_NAME",title : "车辆配置"},
+				{field : "CONFIG_CODE",visible : false},
+				{field : "COLOR_CODE",visible : false},
+				{field : "COLOR_NAME",title : "车辆颜色"},
+				{field : "DIRECTIVE_PRICE",title : "经销商销售价",numberFormat : {decimal:2}}, 
+				{field : "OEM_DIRECTIVE_PRICE",title : "车厂指导价",numberFormat : {decimal:2}}, 
+				{field : "WHOLESALE_DIRECTIVE_PRICE",title : "批售指导价",numberFormat : {decimal:2}},
+				{field : "PRODUCT_STATUS",title : "产品状态",codeFormat : {type:"dict",codeType:"1308"}}, 
+				{field : "OEM_TAG",title : "OEM标志",codeFormat : {type:"dict",codeType:"1278"}},
+				{field : "REMARK",title : "备注"}
+			]
+			
+		});
+		
+		/* loadTree("vehicleTree",container); */
+		
+		//$('a[class="btn blue"]',container).on('dms.click',function(event,response){
+		//	$('#vehicleTree').data('jstree', false).empty();
+		//	loadTree("vehicleTree",container);
+		//})
+		
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event,response){
+			var selectRow = $("#dms_table",container).dmsTable().getSelections();
+			var k = selectRow[0];
+			
+			$("#invent",getParentModal(container)).dmsTable().appendRow(k);
+	
+		//	$("#productCode",getElementContext()).val(k.PRODUCT_CODE);
+		//	$("#productCode",getParentModal(container)).val(k.PRODUCT_CODE);
+		//	$("#productName",getParentModal(container)).val(k.PRODUCT_NAME);
+		//	$("#brandName",getParentModal(container)).val(k.BRAND_NAME);
+		//	$("#seriesName",getParentModal(container)).val(k.SERIES_NAME);
+		//	$("#modelName",getParentModal(container)).val(k.MODEL_NAME);
+		//	$("#colorCode",getParentModal(container)).selectpicker('val',k.COLOR_CODE);
+			$("a[data-dismiss='modal']",container).click();
+		});
+	});
+	
+	//加载树
+/* 	var loadTree = function(treeName,location){
+		var url = "/stockManage/safeguard/findAllTree";
+		//加载树形结构
+		$('#'+treeName,location).initTree({
+			url:dmsCommon.getDmsPath()["vehicle"] + url,
+			dataFunc:$('.form-horizontal').serialize(),
+			loadedFunc: function(e,data){
+				 var inst = data.instance;  
+				 var obj = inst.get_node(e.target.firstChild.firstChild.lastChild);
+				 inst.select_node(obj);  
+			}
+		});
+	} */
+</script>

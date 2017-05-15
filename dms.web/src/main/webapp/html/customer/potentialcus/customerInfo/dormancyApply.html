@@ -1,0 +1,208 @@
+<div class="dms-edit ajaxrest" data-url="/customerManage/potentialcus/xiumsq/1" data-model="customer" data-pageInitCallBack="true">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">休眠申请原因</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="modal-body">
+					<div class="row">
+
+						<!--/span-->
+
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label col-md-4">休眠类型</label>
+								<div class="col-md-8">
+									<select id="sleepType" name="sleepType"
+										data-fieldName="SLEEP_TYPE" class="form-control"
+										data-dictCode="8001" data-value="">
+									</select>
+								</div>
+							</div>
+						</div>
+					
+						<!--/span-->
+						
+					 	<div class="col-md-6" hidden="hidden">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">意向车系</label>
+								<div class="col-xs-8 col-md-9" >
+									<select id="intentSeries" class="form-control required"
+										name="intentSeries" data-url="/basedata/selectSeries"
+										data-model="manage" data-labelValue="SERIES_CODE"
+										data-lableDesc="SERIES_NAME">
+									</select>
+								</div>
+							</div>
+						</div> 
+						<div class="col-md-6" id="div1">
+							<div class="form-group">
+								<label class="control-label col-md-4">竞品</label>
+								<div class="col-md-8">
+						          <select id="sleepSeries"
+										        class="form-control" parent="intentSeries" name="sleepSeries"
+											     data-url="/customerManage/potentialcus/{[intentSeries]}/sleepSeries"
+										         data-model="customer" data-labelValue="SLEEP_SERIES_CODE"
+										         data-lableDesc="SLEEP_SERIES_NAME">
+
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+							<div class="col-md-6" id="div2">
+							<div class="form-group">
+								<label class="control-label col-md-4">竞品</label>
+								<div class="col-md-8">
+						          <select id="sleepSeries1"
+										        class="form-control"  name="sleepSeries1"
+											     data-url="/customerManage/potentialcus/whatever/sleepSeries"
+										         data-model="customer" data-labelValue="SLEEP_SERIES_CODE"
+										         data-lableDesc="SLEEP_SERIES_NAME" >
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-md-12">
+										<div class="form-group">
+											<label class="control-label col-md-2"><span style="color:Red">*</span>放弃理由</label>
+											<div class="col-md-10">
+									            <select id="keepApplyReasion"
+										           class="bs-select form-control" name="keepApplyReasion"
+										           data-fieldName="KEEP_APPLY_REASION"
+										            data-dictCode="1615"
+										            multiple data-live-search="true" >
+									            </select>
+								              </div>
+										
+										</div>
+									</div>
+			<!-- 			<div class="col-md-12">
+							<div class="form-group">
+								<label class="control-label col-md-2">放弃理由</label>
+								<div class="col-md-10">
+									<select id="keepApplyReasion" name="keepApplyReasion"
+										data-fieldName="KEEP_APPLY_REASION"
+										class="form-control required" data-dictCode="1615"
+										data-value="">
+									</select>
+								</div>
+							</div>
+						</div> -->
+						<!--/span-->
+						<div class="col-md-12">
+							<div class="form-group" >
+								<label class="control-label col-md-2 ">备注</label>
+								<div class="col-md-10">
+									 <textarea id="keepApplyRemark" name="keepApplyRemark"
+										class="form-control"
+										maxlength="120" rows="2" cols=""></textarea>  
+										<!-- <input id="rowindex" name="rowindex" class="form-control"  type="text" value="{[INTENT_BRAND1]}"/>  -->
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group" hidden="hidden">
+								<label class="control-label col-md-2">隐藏</label>
+								<div class="col-md-10">
+									<input name="applyList" id="applyList"
+										data-fieldName="APPLY_LIST" class="form-control" type="text"
+										max="120" />
+								</div>
+							</div>
+						</div>
+					
+						<div class="col-md-12">
+							<div class="form-group" hidden="hidden">
+								<label class="control-label col-md-2">隐藏</label>
+								<div class="col-md-10">
+									<input name="applyintent" id="applyintent"
+										data-fieldName="APPLY_INTENT" class="form-control" type="text"
+										max="120" />
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/customerManage/potentialcus/apply/applyList"
+				data-model="customer" data-method="PUT" data-callBack="true"
+				class="btn blue" data-toggle="confirmation" data-beforeRequest="true"> <i
+				class="fa fa-save"></i>保存
+			</a> <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one("onload.dms",function(event,container){
+	
+		//弹出页面打开前执行函数
+	 	 var str='';
+		 var strr='';
+		var selectRow = $("#cusList",getElementContext()).dmsTable().getSelections();
+		   	$(selectRow).each(function(index){
+			  
+			   str+=selectRow[index].CUSTOMER_NO+',';
+			   strr+=selectRow[index].INTENT_LEVEL+',';
+	  		});
+		    
+	  		/* var selectIds = $("#cusList",getElementContext()).dmsTable().getSelectionIds(); */
+	  		
+	  		
+	  		// $("#intentBrand",container).setDmsValue(selectRow[0].INTENT_BRAND);
+		   	
+			$("#sleepType",container).bindChange(function(obj){
+				var sleepType=$("#sleepType",container).val();
+				if(sleepType!=null&&sleepType!=""&&sleepType!=undefined&&sleepType==80011001){
+					$("#sleepSeries",container).removeAttr("disabled");
+					$("#sleepSeries",container).addClass("required");
+					$("#sleepSeries").val("");
+					
+				}else{
+					$("#sleepSeries",container).attr("disabled","disabled");
+					$("#sleepSeries").val("");
+					$("#sleepSeries",container).removeClass("required");
+				
+					
+				}
+			});
+			$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+				var keepApplyReasion=$("#keepApplyReasion",container).val();
+				if(keepApplyReasion==null||keepApplyReasion==""||keepApplyReasion==undefined||keepApplyReasion==0){
+					dmsCommon.tip({status:"warning",msg:"放弃理由不能为空，请重新填写!"});
+					returnResult.status =false;
+					return ;
+				}
+				returnResult.status = true;
+			});
+			 $("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){
+				 if(selectRow[0].INTENT_BRAND==null||selectRow[0].INTENT_BRAND==undefined){
+					 $("#div1",container).attr("hidden","hidden");
+				 }else{
+					 $("#div2",container).attr("hidden","hidden");
+				 }
+				 $("#intentSeries",container).setDmsValue(selectRow[0].INTENT_SERIES);
+				 $("#applyList").val(str);
+				 $("#applyintent").val(strr);
+			 });
+		//新增页面的回调函数
+ 		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#cusList",getElementContext()).dmsTable().refreshTableWithForm();
+		}); 
+	});
+</script>
+

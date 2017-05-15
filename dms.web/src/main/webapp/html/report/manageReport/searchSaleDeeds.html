@@ -1,0 +1,258 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">年月</label>
+							<div class="col-xs-8">
+								<div class="input-group date month-picker"
+									data-defaultToday="true">
+									<input id="yearMonth" name="yearMonth" readonly
+										class="form-control" type="text" value="" /> <span
+										class="input-group-btn">
+										<button class="btn default date-set" type="button">
+											<i class="fa fa-calendar"></i>
+										</button>
+
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				<!--/span-->
+			     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">销售顾问</label>
+						<div class="col-xs-8">
+							 <select id="soldBy" name="soldBy"
+									class="bs-select form-control"
+									data-url="/basedata/employees/-1/salesConsultant"
+									data-model="manage" data-labelValue="USER_ID" data-value=""
+									data-lableDesc="USER_NAME" >
+							</select>
+							<!-- //{[userInfo.userId]} -->
+						</div>
+					</div>
+				</div>
+				
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车型</label>
+							<div class="col-xs-8">
+								<select id="model"
+									class="bs-select form-control" data-ajaxSync="true"
+									name="modelCode" id="modelCode"
+									data-url="/basedata/selectModel"
+									data-model="manage" data-labelValue="MODEL_CODE"
+									data-lableDesc="MODEL_NAME" data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 "></label>
+							<div class="col-xs-8">
+								<input type="hidden" class="form-control" id="userId" name="userId">
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">销售业绩一览</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+						<a href="javascript:;" data-url="/sales/performance/excel" data-model="report" data-method="downLoad" data-toggle="confirmation"
+								class="btn btn-outline "  data-validateMethod="" data-onclickEvent="true"  data-callBack="true" ><i class="fa fa-download"></i>导出</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+	
+ 	<div class="panel panel-default table-panel">
+		<div class="panel-heading" >
+			<div class="pannel-name">销售业绩一览</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+						<!-- <a href="javascript:;" data-url="/sales/performance/series/excel" data-model="report" data-method="downLoad" 
+								class="btn btn-outline "  data-validateMethod="" id="series" ><i class="fa fa-download"></i>导出</a> -->
+								<a href="javascript:;"  data-info="saveBeforeUrl"  data-url="/sales/performance/series/excel" data-model="report"  data-method="downLoad"  data-toggle="confirmation"
+				 			 class="btn btn-outline " id="series"><i class="fa fa-download"></i> 导出</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table2"></table>
+				<div class="col-xs-12 ">
+				<div class="form-group">
+					<label class="control-label col-xs-6"> 注留档率 = 当月建档数/当月展厅流量数 &nbsp;&nbsp;&nbsp;&nbsp;成交率 = 当月成交数/当月建档数</label>
+					
+					<label class="control-label col-xs-3"> 转介绍占比 = 当月转介绍数/当月建档数 </label>
+					<label class="control-label col-xs-12">试乘试驾率 = 当月试驾数/当月建档数  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 试驾数：只取客户第一次的试乘试驾数</label>
+				   <label class="control-label col-xs-12">邀回率 = 当月成功邀回数/当月建档数  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;成功邀回数：只取销售顾问第一次成功邀约数</label>
+				</div>
+	</div>
+		</div>
+		
+	</div> 
+	
+	
+</div>
+<script type="text/javascript">
+
+   $(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["report"] + "/sales/performance",
+			rowID : "REPAIR_TYPE_ID",
+			sortName : "", //默认按工种代码升序排列
+			sortOrder : "asc",
+			autoHeight : false,
+			
+			undefinedText : "",
+			tablHeader:      [
+			                    { title: "", valign:"middle",align:"center"},
+			                    { title: "", valign:"middle",align:"center"},
+			                    { title: "个人月销量", valign:"middle",align:"center", colspan: 3,  rowspan: 1},
+			                    { title: "精品装潢",valign:"middle", align:"center",   colspan: 3,  rowspan: 1},
+			                    { title: "", valign:"middle",align:"center"},
+			                    { title: "保险", valign:"middle",align:"center"},
+			                    { title: "金融", valign:"middle",align:"center"},
+			                    { title: "二手车置换",align:"center"},
+			                    { title: "累计潜在客户",align:"center",colspan: 5,  rowspan: 1},
+			                    { title: "展厅KPI(本月新增)",align:"center",colspan: 5,  rowspan: 1},
+			                    { title: "展厅效率",align:"center",colspan: 5,  rowspan: 1},
+			                    { title: "", valign:"middle",align:"center"},
+			                    { title: "", valign:"middle",align:"center"},
+			                    { title: "", valign:"middle",align:"center"}
+			                ],
+			               
+			                columns:[
+			                             { field: 'SOLD_BY',title: '销售顾问',inputHiddenFormat : {hiddenField:"USER_ID"}},
+			                             { field: 'GOAL_SALES',title: '目标'},
+			                             { field: 'REAL_SALES', title: '实际'},
+			                             { field: 'RATE_SALES',  title: '完成率',numberFormat : {decimal:4,numberType:"percent"}},
+			                             { field: 'JINGPIN_COUNT', title: '台次'},
+			                             { field: 'JINGPIN_AMOUNT', title: '金额',numberFormat : {decimal:2}},
+			                             { field: 'JINGPIN_COST', title: '成本',numberFormat : {decimal:2}},
+			                             { field: 'SALES_AMOUNT', title: '销售额',numberFormat : {decimal:2}},
+			                             { field: 'INSURANCE', title: '台次'},
+			                             { field: 'FINANCE', title: '台次'},
+			                             { field: 'OLD_CAR', title: '台次'},
+			                             { field: 'H_CUSTOMER', title: 'H'},
+			                             { field: 'A_CUSTOMER', title: 'A'},
+			                             { field: 'B_CUSTOMER', title: 'B'},
+			                             { field: 'C_CUSTOMER', title: 'C'},
+			                             { field: 'N_CUSTOMER', title: 'N'},
+			                             { field: 'CREATE5', title: '留档数'},
+			                             { field: 'TEST', title: '试乘试驾数'},
+			                             { field: 'BACK', title: '多次进店邀回数'},
+			                             { field: 'DEAL', title: '成交数'},
+			                             { field: 'TRANS', title: '转介绍数'},
+			                             { field: 'CREATE_RATE', title: '留档率',numberFormat : {decimal:4,numberType:"percent"}},
+			                             { field: 'TEST_RATE', title: '试乘试驾率',numberFormat : {decimal:4,numberType:"percent"}},
+			                             { field: 'BACK_RATE', title: '多次进店邀回率',numberFormat : {decimal:4,numberType:"percent"}},
+			                             { field: 'DEAL_RATE', title: '成交率',numberFormat : {decimal:4,numberType:"percent"}},
+			                             { field: 'TRANS_RATE', title: '转介绍占比',numberFormat : {decimal:4,numberType:"percent"}},
+			                             { field: 'DCC_CUSTOMER', title: '本月休眠客户数'},
+			                             
+			                             { field: 'COMPLAIN_COUNT', title: '客诉数'},
+			                             {radio:true}
+			                             
+			                             
+			                     ],
+			         			//当出现选择操作的按钮时，响应事件
+			         			onCheck:function(row){
+			         				
+			         				$("#userId").setDmsValue(row.USER_ID);
+			         			}
+			
+		}); 
+		var yearMonth=$("#yearMonth").val();
+		new Datatable().initPagination({
+			src : "dms_table2",
+			container:container,
+			url : dmsCommon.getDmsPath()["report"] + "/sales/performance/{[USER_ID]}/item/"+yearMonth+"/dict",
+			rowID : "REPAIR_TYPE_ID",
+			sortName : "", //默认按工种代码升序排列
+			sortOrder : "asc",
+			autoHeight:false,
+			undefinedText : "",
+			parentTable:"dms_table",
+			tablHeader:      [
+			                    { title: "", valign:"middle",align:"center"},
+			                    { title: "", valign:"middle",align:"center"},
+			                    { title: "月销售量", valign:"middle",align:"center"},
+			                    { title: "精品装潢",valign:"middle", align:"center",   colspan: 3,  rowspan: 1},
+			                    { title: "保险", valign:"middle",align:"center"},
+			                    { title: "金融", valign:"middle",align:"center"},
+			                    { title: "二手车置换",align:"center"},
+			                    { title: "累计潜在客户",align:"center",colspan: 5,  rowspan: 1},
+			                    { title: "展厅KPI(本月新增)",align:"center",colspan: 5,  rowspan: 1},
+			                    { title: "展厅效率",align:"center",colspan: 5,  rowspan: 1},
+			                ],
+			                columns:[
+                                       { field: 'SERIES_NAME',title: '车系'},
+                                       { field: 'REAL_SALES',title: '实际'},
+                                       { field: 'JINGPIN_COUNT', title: '台次'},
+                                       { field: 'JINGPIN_AMOUNT', title: '金额',numberFormat : {decimal:2}},
+                                       { field: 'JINGPIN_COST', title: '成本',numberFormat : {decimal:2}},
+                                       { field: 'INSURANCE', title: '台次'},
+                                       { field: 'FINANCE', title: '台次'},
+                                       { field: 'OLD_CAR', title: '台次'},
+                                       { field: 'H_CUSTOMER', title: 'H'},
+                                       { field: 'A_CUSTOMER', title: 'A'},
+                                       { field: 'B_CUSTOMER', title: 'B'},
+                                       { field: 'C_CUSTOMER', title: 'C'},
+                                       { field: 'N_CUSTOMER', title: 'N'},
+                                       { field: 'CREATE5', title: '留档数'},
+                                       { field: 'TEST', title: '试乘试驾数'},
+                                       { field: 'BACK', title: '多次进店邀回数'},
+                                       { field: 'DEAL', title: '成交数'},
+                                       { field: 'TRANS', title: '转介绍数'},
+                                       { field: 'CREATE_RATE', title: '留档率',numberFormat : {decimal:4,numberType:"percent"}},
+			                           { field: 'TEST_RATE', title: '试乘试驾率',numberFormat : {decimal:4,numberType:"percent"}},
+                                       { field: 'BACK_RATE', title: '多次进店邀回率',numberFormat : {decimal:4,numberType:"percent"}},
+                                       { field: 'DEAL_RATE', title: '成交率',numberFormat : {decimal:4,numberType:"percent"}},
+                                       { field: 'TRANS_RATE', title: '转介绍占比',numberFormat : {decimal:4,numberType:"percent"}}
+			                     ]
+		});
+		//新增页面的回调函数
+		/* $("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			//关闭窗口
+			//alert(11111);
+			//$("#series",container).click();
+			$("a[id='series']",container).click();
+			//刷新表格
+		}); */
+		
+    });
+</script>

@@ -1,0 +1,126 @@
+<div class="dms-edit ajaxrest" data-url="/vehicleInvoiceDateManage/getVehicleInvoiceDate/{[REPORT_ID]}" data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">车辆信息</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+				
+		  			<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">VIN:</label>
+							<div class="col-xs-8"> 
+							<span class="form-show"  data-fieldName="VIN" ></span>
+						</div>
+					</div>
+					</div>
+								<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">品牌:</label>
+							<div class="col-xs-8"> 
+							<span class="form-show"  data-fieldName="BRAND_CODE" ></span>
+						</div>
+					</div>
+					</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">车系:</label>
+							<div class="col-xs-8"> 
+							<span class="form-show"  data-fieldName="SERIES_NAME" ></span>
+						</div>
+					</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">车型:</label>
+							<div class="col-xs-8"> 
+							<span class="form-show"  data-fieldName="MODEL_NAME" ></span>
+						</div>
+					</div>
+					</div>
+					
+				<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">颜色:</label>
+							<div class="col-xs-8"> 
+							<span class="form-show"  data-fieldName="COLOR_NAME" ></span>
+						</div>
+					</div>
+					</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">内饰:</label>
+							<div class="col-xs-8"> 
+							<span class="form-show"  data-fieldName="TRIM_NAME" ></span>
+						</div>
+					</div>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-header">
+		<div class="modal-title">开票日期修改</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+				
+		         <div class="col-xs-12 col-sm-6  col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">开票日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date  date-picker">
+										<input id="invoiceDate" name="invoiceDate" 
+											class="form-control" type="text" value=""  data-fieldName="INVOICE_DATE" />
+											 <span  class="input-group-btn">
+											<button class="btn default date-set" type="button" >
+												<i class="fa fa-calendar"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/vehicleInvoiceDateManage/edit/{[REPORT_ID]}" data-model="vehicle"
+				data-method="PUT" data-callBack='true'
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>修改</a> <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function
+
+    (event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable
+
+    ().refreshTableWithForm();
+		});
+	})
+</script>

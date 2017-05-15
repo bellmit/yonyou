@@ -1,0 +1,61 @@
+<div class="dms-search" >
+	<form class="form-horizontal">
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">建议维修项目</div>
+			<div class="pannel-button">
+			<div class="btn-group btn-group-sm">
+			<a class="btn btn-outline"
+					data-url="repair/precontract/precontractArrange/selectLabour.html"
+					data-toggle="modal" data-width="modal-lg" ><i
+					class="fa fa-plus-square"></i> 新增</a>
+			</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="tab_repairpart"></table>
+		</div>
+		</div>
+				
+</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "tab_repairpart",
+		url : dmsCommon.getDmsPath()["repair"] + "/precontract/chooseVin/selectEmployee", 
+		rowID : "EMPLOYEE_NO",
+		sortName : "EMPLOYEE_NO", //默认按工种代码升序排列
+		sortOrder : "asc",
+		autoHeight : false,
+		undefinedText : "",
+		columns : [ 
+			
+			{field : "LABOUR_CODE",title : "维修项目代码"}, 
+			{field : "LABOUR_NAME",title : "<span style='color: blue;'>维修项目名称</span>",inputTextFormat : {}},
+		    {field : "STD_LABOUR_HOUR"",<span style='color: blue;'>标准工时</span>",inputTextFormat : {}},
+			{field : "LABOUR_PRICE""<span style='color: blue;'>工时单价</span>",inputTextFormat : {}},
+			{field : "LABOUR_AMOUNT",title : "工时费"}, 
+			{field : "REASON",title : "<span style='color: blue;'>原因</span>",inputCheckBoxFormat : {type:"dict",codeType:"1251"}}, 
+			{field : "SUGGEST_DATE",title : "建议日期",dateFormat : {format:"YYYY-MM-DD"}},
+			{field : "remark",title : "<span style='color: blue;'>备注</span>",minWidth : 60,inputTextFormat : {validate:{validateAttr:'maxlength="400"'}}},
+		]
+	}); 
+	
+	/* //事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		var selectRow = $("#dms_tableEmp",container).dmsTable().getSelections();
+			
+		if(selectRow){
+				$("#empName",getElementContext()).setDmsValue(selectRow[0]["EMPLOYEE_NAME"]);	
+				$("a[data-dismiss='modal']", container).click();
+		}else{
+			dmsCommon.tip({status:"warning",msg:"请选择一条推荐人记录！"});//总共的状态类型：info、success、error、warning
+			return false;
+		}
+		
+	});  */
+}); 	
+</script>

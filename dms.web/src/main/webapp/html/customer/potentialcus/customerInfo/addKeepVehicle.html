@@ -1,0 +1,591 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">保有车辆新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body" data-parentTable ="partInfoTable">
+			<div class="panel panel-default">
+                <div class="panel-heading">
+								<div class="pannel-name">车辆基本信息</div>
+								<div class="pannel-tools">
+									<a href="javascript:;" class="expand"> <i
+										class="fa fa-chevron-down"></i></a>
+								</div>
+			    </div>
+				<div class="panel-body" >
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-md-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4 "><span style="color:Red">*</span>品牌名称</label>
+								<div class="col-xs-8 " >
+									<select id="brandName" class="bs-select form-control required"
+										name="BRAND_NAME" data-url="/basedata/brandsSr"
+										data-model="manage" data-labelValue="BRAND_CODE"
+										data-lableDesc="BRAND_NAME">
+
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-md-3" hidden="hidden">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">意向品牌</label>
+								<div class="col-xs-8 col-md-9" >
+								<input id="brand" name="BRAND" class="form-control"  type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 "><span style="color:Red">*</span>车系名称</label>
+								<div class="col-xs-8  ">
+									<select id="seriesName" parent="brandName"
+										class="bs-select form-control required" name="SERIES_NAME"
+											data-url="/basedata/brandsdictS/{[brandName]}/seriessdictS"
+										data-model="manage" data-labelValue="SERIES_CODE"
+										data-lableDesc="SERIES_NAME" data-lableDesc="BRAND_NAME">
+
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 "><span style="color:Red">*</span>车型名称</label>
+								<div class="col-xs-8 ">
+									<select id="modelName" parent="seriesName"
+										class="bs-select form-control required" name="MODEL_NAME"
+										data-url="/basedata/brandsdictS/{[brandName]}/seriessdictS/{[seriesName]}/modelsdictS"
+										data-model="manage" data-labelValue="MODEL_CODE"
+										data-lableDesc="MODEL_NAME" >
+
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+				
+							<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4 "><span style="color:Red">*</span>首次上牌日期</label>
+											<div class="col-xs-8 ">
+												<div class="input-group date date-picker" data-orientation="top right">
+													<input id="PURCHASE_DATE" name="PURCHASE_DATE" readonly
+														class="form-control required" type="text" value="" /> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+													</span>
+
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 "><span style="color:Red">*</span>是否评估</label>
+											<div class="col-xs-8 ">
+												<select id="isAssessed" name="IS_ASSESSED" 
+													class="bs-select form-control required" data-dictCode="1278" ></select>
+													
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+											<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">评估金额</label>
+											<div class="col-xs-8 ">
+												<input id="assessedPrice" name="ASSESSED_PRICE" disabled
+													class="form-control number" type="text" max="99999999"/>
+											</div>
+										</div>
+									</div>
+									
+									<!--/span-->
+											<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">颜色</label>
+								<div class="col-xs-8 ">
+								<input id="COLOR_NAME" name="COLOR_NAME"
+													class="form-control " type="text" />
+									<!-- <select id="colorName" class="bs-select  form-control" name="COLOR_NAME"
+										data-url="/basedata/colors/colorinfo/dicts" data-model="repair" 
+										data-labelValue="COLOR_CODE" data-lableDesc="COLOR_NAME">
+									</select> -->
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+											<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 "><span style="color:Red">*</span>车牌号</label>
+											<div class="col-xs-8 ">
+												<input id="license" name="LICENSE"
+													class="form-control required" type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									
+									    <div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">出厂日期</label>
+											<div class="col-xs-8 ">
+												<div class="input-group date date-picker" data-orientation="top right">
+													<input id="PRODUCTION_DATE" name="PRODUCTION_DATE" readonly
+														class="form-control" type="text" value="" /> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+													</span>
+
+												</div>
+											</div>
+										</div>
+									</div>
+										<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">发动机号</label>
+								<div class="col-xs-8  ">
+									<input id="engineNum" name="ENGINE_NUM" class="form-control"   type="text" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 "><span style="color:Red">*</span>VIN</label>
+											<div class="col-xs-8 ">
+												<input id="vin" name="VIN"
+													class="form-control  required" type="text" maxlength="17" onkeyup="this.value=this.value.toUpperCase()"/>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">燃料种类</label>
+											<div class="col-xs-8 ">
+											<input id="FUEL_TYPE" name="FUEL_TYPE"
+													class="form-control " type="text" />
+											
+													
+											</div>
+										</div>
+									</div>
+									
+											<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 "><span style="color:Red">*</span>里程数</label>
+											<div class="col-xs-8 ">
+												<input id="mileage" name="MILEAGE"
+													class="form-control required number" type="text" />
+											</div>
+										</div>
+									</div>
+								<!--/span-->
+											<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">排挡形式</label>
+											<div class="col-xs-8 ">
+											<input id="GEAR_FORM" name="GEAR_FORM"
+													class="form-control " type="text" />
+											
+													
+											</div>
+										</div>
+									</div>
+						<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">车辆数量</label>
+											<div class="col-xs-8 ">
+												<input id="VEHICLE_COUNT" name="VEHICLE_COUNT"
+													class="form-control number" type="text" />
+											</div>
+										</div>
+									</div>
+					
+							<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">车辆配置</label>
+												<div class="col-xs-8 ">
+									            <select id="vehicleAllocation"
+										           class="bs-select form-control" name="VEHICLE_ALLOCATION"
+										            data-dictCode="1051"
+										            multiple data-live-search="true"  data-existsDefault = "false">
+									            </select>
+								              </div>
+										</div>
+									</div>
+									<!--/span-->
+						<!--/span-->
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2 col-md-1 ">备注</label>
+								<div class="col-xs-8 col-sm-10 col-md-11">
+									<textarea id="remark" name="REMARK"
+									   class="form-control" maxlength="120"
+										rows="2" cols=""></textarea>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default">
+                <div class="panel-heading">
+								<div class="pannel-name">车辆状态及手续信息</div>
+								<div class="pannel-tools">
+									<a href="javascript:;" class="expand"> <i
+										class="fa fa-chevron-down"></i></a>
+								</div>
+			    </div>
+				<div class="panel-body" data-parentTable ="partInfoTable">
+					<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">使用性质</label>
+											<div class="col-xs-8 ">
+												<select id="useType" name="USE_TYPE"  
+													class="bs-select form-control" data-dictCode="1052" ></select>
+													
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+											<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">交强险信息</label>
+											<div class="col-xs-8 ">
+												<select id="trafficInsureInfo" name="TRAFFIC_INSURE_INFO"  
+													class="bs-select form-control" data-dictCode="1055" ></select>
+													
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+											<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">行驶证</label>
+											<div class="col-xs-8 ">
+												<select id="drivingLicense" name="DRIVING_LICENSE"  
+													class="bs-select form-control" data-dictCode="1055" ></select>
+													
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+											<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">商业险</label>
+											<div class="col-xs-8 ">
+												<select id="businessInsureInfo" name="BUSINESS_INSURE_INFO"  
+													class="bs-select form-control" data-dictCode="1055" ></select>
+													
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+											<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">登记证书</label>
+											<div class="col-xs-8 ">
+												<select id="registry" name="REGISTRY"  
+													class="bs-select form-control" data-dictCode="1055" ></select>
+													
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+											<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">来历凭证</label>
+											<div class="col-xs-8 ">
+												<select id="originCertificate" name="ORIGIN_CERTIFICATE"  
+													class="bs-select form-control" data-dictCode="1055" ></select>
+													
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+											<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">购置税凭证</label>
+											<div class="col-xs-8 ">
+												<select id="purchaseTax" name="PURCHASE_TAX"  
+													class="bs-select form-control" data-dictCode="1055" ></select>
+													
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+											<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">车船使用税</label>
+											<div class="col-xs-8 ">
+												<select id="vehicleAndVesselTax" name="VEHICLE_AND_VESSEL_TAX"  
+													class="bs-select form-control" data-dictCode="1055" ></select>
+													
+											</div>
+										</div>
+									</div>
+								
+			
+		
+						<!--/span-->
+			                   <div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">年检有效期</label>
+											<div class="col-xs-8 ">
+												<div class="input-group date date-picker" data-orientation="top right">
+													<input id="ANNUAL_INSPECTION_DATE" name="ANNUAL_INSPECTION_DATE" readonly
+														class="form-control" type="text" value="" /> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+													</span>
+
+												</div>
+											</div>
+										</div>
+									</div>
+						<!--/span-->
+							<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">强制报废期</label>
+											<div class="col-xs-8 ">
+												<div class="input-group date date-picker" data-orientation="top right">
+													<input id="SCRAP_DATE" name="SCRAP_DATE" readonly
+														class="form-control" type="text" value="" /> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+													</span>
+
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+							<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">交强有效期</label>
+											<div class="col-xs-8 ">
+												<div class="input-group date date-picker" data-orientation="top right">
+													<input id="TRAFFIC_INSURE_DATA" name="TRAFFIC_INSURE_DATA" readonly
+														class="form-control" type="text" value="" /> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+													</span>
+
+												</div>
+											</div>
+										</div>
+									</div>
+
+						<!--/span-->
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2 col-md-1 ">说明</label>
+								<div class="col-xs-8 col-sm-10 col-md-11">
+									<textarea id="PROCEDURE_SPECIAL_EXPLAIN" name="PROCEDURE_SPECIAL_EXPLAIN"
+									   class="form-control" maxlength="120"
+										rows="2" cols=""></textarea>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+
+					</div>
+				</div>
+			</div>
+			
+			<div class="panel panel-default">
+                <div class="panel-heading">
+								<div class="pannel-name">附属物品</div>
+								<div class="pannel-tools">
+									<a href="javascript:;" class="expand"> <i
+										class="fa fa-chevron-down"></i></a>
+								</div>
+			    </div>
+				<div class="panel-body" data-parentTable ="partInfoTable">
+					<div class="row">
+						
+					
+						<div class="col-xs-12 ">
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-1">
+								<div class="form-group">
+									<label class="control-label col-xs-12">检查报告1</label>
+
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-8">
+								<div class="form-group">
+
+									<div class="col-xs-12">
+										<input id="FILE_MESSAGE_A" name="FILE_MESSAGE_A"
+											class="form-control" type="text" disabled />
+
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-3">
+								<div class="form-group">
+
+									<div class="col-xs-12">
+										<a class="btn blue"
+											data-url="customer/customerApply/scan.html"
+											data-toggle="modal" data-width="modal-lg" id="allLoanRate">
+											点击扫描检查报告1 </a>
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 ">
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-1">
+								<div class="form-group">
+									<label class="control-label col-xs-12">检查报告2</label>
+
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-8">
+								<div class="form-group">
+
+									<div class="col-xs-12">
+										<input id="FILE_MESSAGE_C" name="FILE_MESSAGE_C"
+											class="form-control" type="text" disabled />
+
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-3">
+								<div class="form-group">
+
+									<div class="col-xs-12">
+										<a class="btn blue"
+											data-url="customer/customerApply/scan.html"
+											data-toggle="modal" data-width="modal-lg" id="allLoanRate">
+											点击扫描检查报告2 </a>
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 ">
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-1">
+								<div class="form-group">
+									<label class="control-label col-xs-12">旧车行驶证</label>
+
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-8">
+								<div class="form-group">
+
+									<div class="col-xs-12">
+										<input id="FILE_MESSAGE_B" name="FILE_MESSAGE_B"
+											class="form-control" type="text" disabled />
+
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-3">
+								<div class="form-group">
+
+									<div class="col-xs-12">
+										<a class="btn blue"
+											data-url="customer/customerApply/scan.html"
+											data-toggle="modal" data-width="modal-lg" id="allLoanRate">
+											点击扫描旧车行驶证 </a>
+
+									</div>
+								</div>
+							</div>
+
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue"  data-validate="true" data-onclickEvent="true" data-beforeRequest="true" data-toggle="confirmation"><i
+				class="fa fa-save"></i>确定</a> <a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	$("#isAssessed",container).bindChange(function(obj){
+ 		var isAssessed=$("#isAssessed",container).val();
+		if(isAssessed=="12781001"){
+			$("#assessedPrice",container).removeAttr("disabled");
+			$("#assessedPrice",container).addClass("required");
+			$("#assessedPrice").val("");
+		}else{
+			$("#assessedPrice",container).attr("disabled","disabled");
+			$("#assessedPrice",container).removeClass("required");
+			$("#assessedPrice").val("");	
+
+		}
+	});
+	
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+	
+		
+		var formJson = $("div[data-parentTable='partInfoTable']",container).serializeFormJson();
+		$("#keepCarList",getElementContext()).dmsTable().appendRow(formJson);
+		$("a[data-dismiss='modal']",container).click();
+		 $("#keepCarList",getElementContext()).find("input[name='brandName']").parent().hide();
+	    $("#keepCarList", getElementContext()).find("input[name='seriesName']").parent().hide();
+	    $("#keepCarList", getElementContext()).find("input[name='modelName']").parent().hide();
+	    $("#keepCarList", getElementContext()).find("input[name='vehicleAllocation']").parent().hide();
+		returnResult.status = true;
+	});
+	//事件点击
+ 	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+ 		var brandName=$("#brandName").find("option:selected").text();
+		$("#brand",container).setDmsValue(brandName);
+
+	}); 
+
+});	
+</script>

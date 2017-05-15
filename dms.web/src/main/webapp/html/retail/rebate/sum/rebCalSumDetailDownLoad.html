@@ -1,0 +1,77 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+	
+		<div class="panel panel-default hidden">
+			<div class="panel-body">
+				<div class="row" >
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+				         <div class="form-group">
+					          <input id="logId" name="logIdName" 
+									type="hidden"  data-fieldName="LOG_ID" />
+							  <input id="dealerCodeId" name="dealerCodeName" 
+									type="hidden"  data-fieldName="DEALER_CODE" />
+				         </div>
+				     </div>
+				</div>
+			</div>
+		</div>
+	
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >返利核算汇总明细</div>
+				<div class="pannel-button">
+					<div class="btn-group btn-group-sm">
+							<a href="javascript:;"  data-url="/rebateSum/export/downDetailFile"
+							 data-model="retail" data-method="downLoad"  
+							 class="btn btn-outline" data-toggle="confirmation" >
+							<i class="fa fa-download"></i>明细下载</a>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<table class="table table-striped table-bordered table-hover table-responsive"
+					id="reb_cal_sum_detail_table"></table>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a data-goback="page"  href="retail/rebate/sum/searchRebateSum.html"
+				class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>
+		</div>
+	
+	</form>
+</div>
+<script type="text/javascript">
+   $(document).one("onload.dms",function(event,container){
+	   
+	   $("#logId",getElementContext()).setDmsValue({[LOG_ID]});
+	   $("#dealerCodeId",getElementContext()).setDmsValue({[DEALER_CODE]});
+	   
+	   new Datatable().initPagination({
+			src : "reb_cal_sum_detail_table",
+			container:container,
+			url :dmsCommon.getDmsPath()["retail"] + "/rebateSum/getDownDetail/{[LOG_ID]}/{[DEALER_CODE]}",
+			rowID : "REBATE_ID",
+			sortName : "CREATE_DATE", 
+			sortOrder : "asc",   		
+			columns:[
+                      {field:"BUSINESS_POLICY_NAME",title:"商务政策"},
+						{field:"APPLICABLE_TIME",title:"适用时段"},
+						{field:"RELEASE_DATE",title:"发布日期"},
+						{field:"START_MONTH",title:"起始月"},
+                      {field:"END_MONTH",title:"结束月"},
+                      {field:"DEALER_CODE",title:"经销商代码"},
+						{field:"DEALER_NAME",title:"经销商名称"},
+						{field:"VIN",title:"VIN"},						
+						{field:"MODEL_NAME",title:"车型"},
+						{field:"COUNT",title:"Count"},
+						{field:"NOMAL_BONUS",title:"常规奖金"},
+						{field:"SPECIAL_BONUS",title:"特批奖金"},	
+						{field:"BACK_BONUSES_EST",title:"追溯奖金（估算）"},
+						{field:"BACK_BONUSES_DOWN",title:"追溯奖金（下发）"},
+						{field:"NEW_INCENTIVES",title:"新经销商返利"}
+					  ]			
+		});	 	
+	});
+
+	
+</script>

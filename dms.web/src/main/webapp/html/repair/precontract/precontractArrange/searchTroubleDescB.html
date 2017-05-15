@@ -1,0 +1,58 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			
+		</div>
+	
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+				<div class="pannel-name" >检查结果</div>
+				<div class="pannel-button">
+				</div>
+			</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+		<div class="modal-footer center-block">
+					 <a class="btn blue" data-onclickEvent="true"><i class="fa fa-save hidden"></i>确定</a> 
+					<a data-dismiss="modal" class="btn blue">
+					<i class="fa fa-undo"></i>取消
+				</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+ 	new Datatable().initPagination({
+		src:"dms_table",
+		container:container,
+	    url : dmsCommon.getDmsPath()["repair"] + "/basedata/troubleDesc",
+	    rowID:"TROUBLE_CODE",
+	    sortName:"TROUBLE_DESC",
+	    sortOrder:"asc",
+	    autoHeight : false,
+		columns : [ 
+			  {radio : true,sortable : false	},
+			  {field:"TROUBLE_GROUP",title:"故障类别"},
+		      {field:"TROUBLE_CODE",title:"故障代码"},
+		      {field:"TROUBLE_DESC",title:"检查结果"},
+		      {field:"TROUBLE_SPELL",title:"故障拼音"},
+		      ],
+	});
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		var selectRow = $("#dms_table",container).dmsTable().getSelections();
+		if(selectRow){
+				$("#troubleDescB",getElementContext()).setDmsValue(selectRow[0]["TROUBLE_DESC"]);	
+				$("a[data-dismiss='modal']", container).click();
+		}else{
+			dmsCommon.tip({status:"warning",msg:"请选择一条检查结果记录！"});//总共的状态类型：info、success、error、warning
+			return false;
+		}
+		
+	}); 
+});
+</script>

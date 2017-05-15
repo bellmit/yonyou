@@ -1,0 +1,162 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">意向新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+
+				<div class="panel-body" data-parentTable ="partInfoTable">
+					<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4"><span style="color:red;">*</span>品牌</label>
+							<div class="col-xs-8">
+								<select id="intentBrand" class="bs-select form-control required" data-fieldName="INTENT_BRAND"
+									name="INTENT_BRAND" data-url="/basedata/brandsdict"
+									data-model="manage" data-labelValue="BRAND_CODE"
+									data-lableDesc="BRAND_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4"><span style="color:red;">*</span>车系</label>
+							<div class="col-xs-8">
+								<select id="intentSeries" parent="intentBrand"
+									class="bs-select form-control required" name="INTENT_SERIES" data-fieldName="INTENT_SERIES"
+									data-url="/basedata/brandsdictC/{[intentBrand]}/seriessdictC"
+									data-model="manage" data-labelValue="SERIES_CODE"
+									data-lableDesc="SERIES_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4"><span style="color:red;">*</span>意向车型</label>
+							<div class="col-xs-8">
+								<select id="intentModel" parent="intentSeries"
+									class="bs-select form-control required" name="INTENT_MODEL" data-fieldName="INTENT_MODEL"
+									data-url="/basedata/brandsdictC/{[intentBrand]}/seriessdictC/{[intentSeries]}/modelsdictC"
+									data-model="manage" data-labelValue="MODEL_CODE"
+									data-lableDesc="MODEL_NAME" data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:red;">*</span>意向配置</label>
+								<div class="col-xs-8">
+									<select id="intentConfig" parent="intentModel" data-fieldName="INTENT_CONFIG"
+										class="bs-select form-control required" name="INTENT_CONFIG"
+										data-url="/basedata/brandsdictC/{[intentBrand]}/seriessdictC/{[intentSeries]}/modelsdictC/{[intentModel]}/packagesdictC"
+										data-model="manage" data-labelValue="CONFIG_CODE"
+										data-lableDesc="CONFIG_NAME">
+
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">颜色</label>
+								<div class="col-xs-8">
+									<select id="intentColor" class="bs-select form-control" name="INTENT_COLOR" data-fieldName="INTENT_COLOR"
+										data-url="/basedata/colors/colorinfo/dicts" data-model="repair"
+										data-labelValue="COLOR_CODE" data-lableDesc="COLOR_NAME" data-alwaysRefresh="true">
+									</select>
+								</div>
+							</div>
+						</div>						
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">初次报价</label>
+								<div class="col-xs-8 ">
+									<input id="quotedAmount" name="QUOTED_AMOUNT" data-fieldName="QUOTED_PRICE" class="form-control money"  maxDigit="30" type="text" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"></label>
+								<div class="col-xs-8 ">
+									<input type="checkbox"  name="IS_MAIN_SERIES" id="isMainSeries" data-fieldName="IS_MAIN_SERIES" data-dictCode="1057" data-dictLabel="是否主要车系"  />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"></label>
+								<div class="col-xs-8 ">
+									<input type="checkbox" name="IS_MAIN_MODEL" id="isMainModel" data-fieldName="IS_MAIN_MODEL" data-dictCode="1057" data-dictLabel="是否主要车型" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-onclickEvent="true" data-validate="true" ><i
+				class="fa fa-save"></i>确定</a> <a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		var formJson = $("div[data-parentTable='partInfoTable']",container).serializeFormJson();
+		console.log(formJson);
+		var a = formJson.IS_MAIN_MODEL;
+		var b = formJson.IS_MAIN_SERIES;
+		if(a=='10571001'){
+			formJson.IS_MAIN_MODEL = '12781001';
+		}else{
+			formJson.IS_MAIN_MODEL = '12781002';
+		}
+		if(b=='10571001'){
+			formJson.IS_MAIN_SERIES = '12781001';
+		}else{
+			formJson.IS_MAIN_SERIES = '12781002';
+		}
+
+		
+		$("#intentList",getElementContext()).dmsTable().appendRow(formJson);
+		$("a[data-dismiss='modal']",container).click();
+	});
+	
+	/* $("#intentModel",container).bindChange(function(){
+		if($("#intentModel").val() == null){
+			$("#isMainModel").hide();
+			$("#quotedAmount").hide();
+			
+		}
+		
+	
+	});  */
+	
+	/* $("#intentModel",container).bindChange(function(obj){
+
+		$("#isMainModel",container).attr("disabled",false);
+		alert($("#intentModel",container).val());
+	
+	}); */  
+	
+});	
+</script>

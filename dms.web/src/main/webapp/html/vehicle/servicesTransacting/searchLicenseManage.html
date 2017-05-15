@@ -1,0 +1,66 @@
+<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<a class="btn btn-outline" href="javascript:;"
+					data-onclickEvent="true" > <i class="fa fa-plus-square"></i> 新增
+			</a>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="licenseManage">
+			</table>
+		</div>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+	new Datatable().initPagination({
+		src : "licenseManage",
+		container:container,
+		rowID:"ITEM_ID",
+		parentTable:"vehicleList",
+		url : dmsCommon.getDmsPath()["vehicle"] + "/ordermanage/servicesTransacting/{[VIN]}/license",
+		sortName : "LICENSE_DATE", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+		sortOrder : "asc",
+		pageSize:5,
+		columns : [
+				{title : "操作",operateFormat : [ {type : "localDel",onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){
+					if(row.ITEM_ID != null){
+						dmsCommon.tip({status:"warning",msg:"当前数据不可删除"});//总共的状态类型：info、success、error、warning
+						returnResult.status = false;
+        	        }
+				}}]}, 
+			    {field : "LICENSE",inputField:"license", title : "车牌号",inputNumberFormat : {decimal : 2,validate:{validateClass:"license",validateAttr:'maxDigit="8"'}}}, 
+	            {field : "LICENSE_DATE",inputField:"licenseDate", title : "上牌日期",inputDateFormat : {}},
+	            {field : "ACTUAL_EXPENDING",inputField:"actualExpending4", title : "实际费用",inputNumberFormat : {decimal : 2,validate:{validateClass:"digits",validateAttr:'maxDigit="8"'}}},	
+	            {field : "COMPLETED_BY",inputField:"completedBy4", title : "专员",inputSelectFormat : {url:"/basedata/employees/-1/salesConsultant",model:"manage",labelValue:"USER_ID",lableDesc:"USER_NAME"}},
+	            {field : "COMPLETED_DATE",inputField:"completedDate4", title : "完工日期",inputDateFormat : {}},
+	            {field : "RECORDER",inputField:"recorder4", title : "登记人",inputSelectFormat : {url:"/basedata/employees/-1/salesConsultant",model:"manage",defaultValue:"{[userInfo.userId]}",validate:{validateClass:"required"},labelValue:"USER_ID",lableDesc:"USER_NAME"}},
+	            //{field : "RECORD_DATE",inputField:"recordDate4", title : "登记日期"},
+	            {field : "REMARK",inputField:"remark4", title : "备注",inputTextFormat : {}},
+	            {field : "ITEM_ID",inputField:"itemId", title : "",inputTextFormat : {validate:{validateClass:"hidden"}}}
+		       ]
+	});
+	
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		var vin = $("#VIN").val();
+		if(vin==""){
+			dmsCommon.tip({status:"warning",msg:"请单击选择父表格数据"});//总共的状态类型：info、success、error、warning
+			returnResult.status = false;
+		}else{
+			$("#licenseManage",container).dmsTable().appendBlankRow();
+			returnResult.status = true;
+		}
+	});
+	
+	/* $("a[id='licenseManage']",getElementContext()).on("dms.click",function(event){
+		$("#licenseManage",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["vehicle"] + "/ordermanage/servicesTransacting/"+$("#VIN").val()+"/license");
+	}); 
+	$("a[id='OrderService']",getElementContext()).click();
+	$("#VIN").bindChange(function(obj){
+	    $("#licenseManage",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["vehicle"] + "/ordermanage/servicesTransacting/"+$("#VIN").val()+"/license");
+	}); */
+	
+});	
+</script>

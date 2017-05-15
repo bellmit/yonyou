@@ -1,0 +1,328 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">入库类型</label>
+								<div class="col-xs-8">
+									<select id="entryType" name="inType" class="bs-select form-control required"
+										data-dictCode="1317" data-value="13171001">
+									</select>
+								</div>
+							</div>
+						</div>
+					<!--/span-->
+						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+					 
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">开单日期</label>
+							<div class="col-xs-8 col-sm-10">
+								 <div class="input-group input-daterange" data-maxDays = "30" >
+		                             <input type="text" class="form-control" readonly  name="begin" id="shippingDateFrom">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="end" id="shippingDateTo"> 
+		                             <span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                 </span>
+	                                 </div>
+		                        </div>
+							</div>						
+					</div>				
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">入库单号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="seNO" name="seNO">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">VIN</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="vin" name="vin">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">供应单位代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="vin" name="vin">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">供应单位名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="vin" name="vin">
+							</div>
+						</div>
+					</div>				
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否全部入账</label>
+							<div class="col-xs-8">
+								<select id="isOnjob" name="finished"
+										class="bs-select form-control"  data-dictCode="1278"
+										data-value="12781001" data-fieldName="is_onjob">
+									</select>
+							</div>
+						</div>
+					</div>
+					
+					
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" id="doSearch"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >入库单选择</div>	
+			</div>
+				
+			<div class="panel-body">
+			    <table class="table table-striped table-bordered table-hover table-responsive"
+				id="stockInNolist"></table>
+		  </div>		
+		</div>
+				<div class="panel panel-default">
+					<div class="panel-body" data-parentTable="stockInNolist" style="display: none;">
+						<input type="hidden" id="sNo" name="sNo" data-fieldName="SE_NO"/>
+					</div>
+				</div>				
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >车辆明细</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							
+							 <a href="vehicle/basedata/stockIn/addStockIn.html" data-beforeShowEvent='true' class="btn btn-outline ajaxify" > <i
+								class="fa fa-plus-square"></i>经销商自购
+							</a> 
+							<a href="vehicle/basedata/stockIn/addStockInNew.html" class="btn btn-outline ajaxify" > <i
+								class="fa fa-plus-square"></i>新车采购入库,受托交车入库,销售退回入库
+							</a> 
+							<a data-url="vehicle/basedata/stockIn/VehicleInspectionAll.html" data-beforeShowEvent="true"
+						      class="btn btn-outline" data-toggle="modal" data-width="modal-sm">
+						     <i class="fa fa-plus-square"></i> 批量验收
+					        </a>
+							<!-- <a href="vehicle/basedata/stockIn/stockOutPDI.html" class="btn btn-outline ajaxify" > <i
+								class="fa fa-plus-square"></i>PDI检查
+							</a> -->
+							
+							<a data-url="/vehicleStock/stockIn/inbounds" data-beforeRequest="true"  data-method="PUT" data-model="vehicle" data-toggle="confirmation" data-callBack="true" class="btn btn-outline">
+							<i class="fa fa-plus-square"></i>
+								入库
+						    </a>
+							<a href="javascript:;" class="btn btn-outline" > <i
+								class="fa fa-print"></i>打印
+							</a>
+
+							<a href="javascript:;" data-url="/vehicleStock/stockIn/export/excel" data-model="vehicle" data-method="downLoad" data-toggle="confirmation"
+								class="btn btn-outline " ><i class="fa fa-upload"></i>Excel导出</a>
+							<a href="javascript:;"  data-model="vehicle" data-method="downLoad" data-toggle="confirmation"
+								class="btn btn-outline " ><i class="fa fa-upload"></i>Excel导入</a>
+							<a href="javascript:;"  data-model="vehicle" data-method="downLoad" data-toggle="confirmation"
+								class="btn btn-outline " ><i class="fa fa-upload"></i>保存</a>
+						
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="stockInlist"></table>
+		</div>
+		
+		
+	</div>
+	</form>
+	
+</div>
+<script type="text/javascript">
+	
+    $(document).one("onload.dms",function(event,container){
+    	
+    	new Datatable().initPagination({
+			src : "stockInlist",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/vehicleStock/stockIn/showList",
+			rowID : "VIN",
+			selectItemName:"VIN",
+			autoHeight:false,
+			//detailView : true, //当需要显示明细时，打开此开关，否则不需要写
+			//sortName : "ENTRY_ID", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+			//sortOrder : "",
+			columns : [ 
+			           {field : "SE_NO",title : "操作",inputField:"userId",inputHiddenFormat : {}, operateFormat : [
+                       {type:"edit",url:"vehicle/basedata/stockIn/editStockIn.html",openType:"jump" ,title:"修改",isShow:function(value, row, index){
+                    	   if(row.INSPECTION_RESULT=='13351001'||row.INSPECTION_RESULT==''){
+                    		   return true;
+                    	   }else{
+                    		   return false;
+                    	   } 
+                       }},
+                       {type:"edit",url:"vehicle/basedata/stockIn/VehicleInspection.html",openType:"jump",title:"验收",operateIcon:'<i class="fa fa-check-square-o"></i>',isShow:function(value, row, index){
+                    	   if(row.INSPECTION_RESULT=='13351001'||row.INSPECTION_RESULT==''){
+                    		   return true;
+                    	   }else{
+                    		   return false;
+                    	   } 
+                       }}
+                          
+                   ]
+                }, 
+                
+			    {field : "IS_FINISHED",title : "是否入账",codeFormat : {type:"dict",codeType:"1278"}},
+			    {field : "IS_UPLOAD",title : "是否上报",codeFormat : {type:"dict",codeType:"1278"}},
+				{field : "INSPECTION_RESULT",title : "验收结果",codeFormat : {type:"dict",codeType:"1335"}},
+				{field : "VIN",title : "VIN"},
+				{field : "PRODUCT_CODE",title : "产品代码"},
+				{field : "STORAGE_CODE",title : "仓库代码"},
+				{field : "STORAGE_POSITION_CODE",title : "库位代码"},
+				{field : "ENGINE_NO",title : "发动机号"},
+				{field : "KEY_NUMBER",title : "钥匙编号"},
+				{field : "PO_NO",title : "采购订单编号"},
+				{field : "PURCHASE_PRICE",title : "采购价格"},
+				{field : "VS_PURCHASE_DATE",title : "采购日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+				{field : "ADDITIONAL_COST",title : "附加成本"},
+				{field : "DELIVERYMAN_NAME",title : "送车人姓名"},
+				{field : "DELIVERYMAN_PHONE",title : "送车人电话"},
+				{field : "SHIPPER_NAME",title : "承运商名称"},
+				{field : "SHIPPER_LICENSE",title : "承运商车牌号"},
+				{field : "SHIPPING_ADDRESS",title : "收货地址"},
+				{field : "SHIPPING_ORDER_NO",title : "发货单号"},
+				{field : "VENDOR_CODE",title : "供应单位代码"},
+				{field : "VENDOR_NAME",title : "供应单位名称"},
+				{field : "INSPECTOR",title : "验收人员"},
+				{field : "MAR_STATUS",title : "质损状态",codeFormat : {type:"dict",codeType:"1306"}},
+				{field : "CONSIGNER_CODE",title : "委托单位代码"},
+				{field : "CONSIGNER_NAME",title : "委托单位名称"},
+				{field : "CERTIFICATE_NUMBER",title : "合格证号"},
+				{field : "HAS_CERTIFICATE",title : "是否有合格证",codeFormat : {type:"dict",codeType:"1278"}},
+				{field : "MANUFACTURE_DATE",title : "生产日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+				{field : "SHIPPING_DATE",title : "发车日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+				{field : "FACTORY_DATE",title : "出厂日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+				{field : "INSPECTION_DATE",title : "验收日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+				{field : "SUBMIT_TIME",title : "上报日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+				{field : "ARRIVING_DATE",title : "预计送到日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+				{field : "FINISHED_DATE",title : "入账日期",visible : false},
+				{field : "SE_NO",title : "入库单编号",visible : false},
+				{field : "OEM_TAG",title : "OEM标志",codeFormat : {type:"dict",codeType:"1278"}},
+				{field : "ARRIVED_DATE",title : "实际送到日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+				{field : "REMARK",title : "备注"},
+				{field : "PRODUCTING_AREA",title : "产地"},
+				{field : "EXHAUST_QUANTITY",title : "排气量"},
+				{field : "VSN",title : "VSN"},
+				{field : "DISCHARGE_STANDARD",title : "排放标准"},
+				{field : "YEAR_MODEL",title : "年款"}
+			]
+		});
+    	new Datatable().initPagination({
+    		src : "stockInNolist",
+    		container:container,
+    		    url : dmsCommon.getDmsPath()["vehicle"] + "/vehicleStock/stockIn",
+    			rowID : "SE_NO",
+    			sortName : "SE_NO",
+    			sortOrder : "asc",
+    			autoHeight:false,
+    			columns : [     
+    	            {field : "SE_NO",title : "入库单编号"},
+    	            {field : "STOCK_IN_TYPE",title : "入库业务类型",codeFormat : {type:"dict",codeType:"1317"}},
+                    {field : "SHEET_CREATE_DATE",title : "开单日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+    	            {field : "SHEET_CREATED_BY",title : "开单人"},
+    	            {field : "IS_ALL_FINISHED",title : "是否全部入账",codeFormat : {type:"dict",codeType:"1278"}},
+                    {field : "REMARK",title : "备注"}
+                   
+    			]
+
+    		});
+    	
+    	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+    		
+    		var selectIds = $("#stockInlist",getElementContext()).dmsTable().getSelectionIds();
+    		var selectRow = $("#stockInlist",container).dmsTable().getSelections();
+    		if(!selectIds){
+    			dmsCommon.tip({status:"warning",msg:"请选择数据"});
+    			returnResult.status = false;
+    			return ;
+    		}else{  
+   			 for(var i=0;i<selectRow.length;i++){  				
+ 				var row=selectRow[i];
+ 				if(row.IS_ENTRY=='否'){
+ 					returnResult.status = true;
+          	    }else{
+	             		dmsCommon.tip({status:"warning",msg:"存在入库车辆，不能进行入库操作"});
+	          			returnResult.status = false;
+	          			return;
+          	    } 
+ 				//验收结果为‘验收已通过’的车辆，才能进行车辆入库。如果勾选了验收未通过的车辆，进行入库，系统需给与相应提示。
+ 				if(row.INSPECTION_RESULT=='验收成功'){
+ 					returnResult.status = true;
+          	    }else{
+	             		dmsCommon.tip({status:"warning",msg:"存在验收未通过的车辆，不能进行入库操作"});
+	          			returnResult.status = false;
+	          			return;
+          	    } 
+ 				if(row.STORAGE_NAME==null){
+ 					dmsCommon.tip({status:"warning",msg:"未选仓库的车辆，不能进行入库操作"});
+          			returnResult.status = false;
+          			return;
+          	    }
+ 			 } 
+
+ 		}
+    	});
+    	//弹出页面打开前执行函数
+    	$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+    		//alert($('input[name="sNo"]').val());
+    		//var map={
+    		//			SE_NO : $('input[name="sNo"]').val()
+	        //        };
+    		//$("div[data-tableSelect='true']",getElementContext()).initHtmlContent(map,false);
+    		
+    		
+    		if($('#sNo',container).val()==null||$('#sNo',container).val()==""){
+    			dmsCommon.tip({status:"warning",msg:"请双击选择入库单"});
+    			returnResult.status = false;
+    			return ;
+    		}
+    		
+    		$(this).data("pageData",{SE_NO:$('input[name="sNo"]').val()});
+    		console.log($(this).data("pageData"));
+
+    		returnResult.status = true;
+    	});
+    	
+    	$('#doSearch').on('click',function(obj){
+    		//$('input[name="sNo"]').val('');
+    		//alert($('input[name="sNo"]').val());
+    	});
+    	
+    	$("input[name='sNo']",container).bindChange(function(obj){
+    		$("#stockInlist",getElementContext()).dmsTable().refreshTableWithForm();
+    	});
+    	
+    	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+    		//刷新表格
+    		$("#stockInlist",getElementContext()).dmsTable().refreshTableWithForm();
+    	});
+    });
+
+</script>

@@ -1,0 +1,92 @@
+<div class="dms-edit">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">全部复制</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+			<!-- modal-close end -->
+		</div>
+		<!-- modal-head end -->
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">原车型组</label>
+								<div class="col-xs-8">
+									<select id="srcModeLabourCode" name="srcModeLabourCode" class="bs-select form-control required"
+										data-model="repair" 
+										data-url="/basedata/modelgroups/getMaintainModel/dicts" 
+										data-labelValue="MODEL_LABOUR_CODE" 
+										data-lableDesc="MODEL_LABOUR_NAME" >
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">复制到车型组</label>
+								<div class="col-xs-8">
+									<select id="destModelLabourCode" name="destModelLabourCode" class="bs-select form-control required"
+										data-model="repair" 
+										data-url="/basedata/modelgroups/getMaintainModel/dicts" 
+										data-labelValue="MODEL_LABOUR_CODE" 
+										data-lableDesc="MODEL_LABOUR_NAME" >
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-12 col-md-12 text-center">
+							提醒:点击[确定后],车型组[***]中相同项目代码的维修项目将被覆盖,请谨慎操作</div>
+					</div>
+					<!-- row end -->
+				</div>
+				<!-- panel-body end -->
+			</div>
+			<!-- panel-default end -->
+		</div>
+		<!-- modal-body end -->
+		<div class="modal-footer center-block">
+			<a id="determineButton" name="determineButton" data-url="/basedata/repairProManager/totalCopy" data-model="repair" data-method="PUT"
+				data-callBack="true" class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>确定</a> <a
+				data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+		<!-- modal-footer end -->
+	</form>
+</div>
+<!-- dms-edit end -->
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+// 	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+// 		var selectIds = $("#modeGroupList",getElementContext()).dmsTable().getSelectionIds();
+// 		$("#modelGroupIds",container).val(selectIds);
+// 		returnResult.status = true; 
+// 	});
+	
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("a[data-dismiss='modal']",container).click();
+		$("#repairProMng",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+	$("select[name='destModelLabourCode']",container).bindChange(function(obj){
+		var srcModeLabourCode = $("#srcModeLabourCode",container).val();
+		var destModelLabourCode = $("#destModelLabourCode",container).val();
+		if(srcModeLabourCode == destModelLabourCode){
+			dmsCommon.tip({status:"warning",msg:"相同车型组不能复制"});
+			$("#determineButton",container).attr("disabled",true);
+			return ;
+		}else{
+			$("#determineButton",container).removeAttr("disabled");
+		}
+	});
+	
+});
+</script>

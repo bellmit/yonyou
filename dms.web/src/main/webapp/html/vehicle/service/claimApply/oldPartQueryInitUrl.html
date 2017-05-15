@@ -1,0 +1,134 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">索赔单号：</label>
+								<div class="col-xs-8">
+									<input type="text" class="bs-select form-control"  id="claimNo" name="claimNo" />
+								</div>
+							</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">零件代码：</label>
+								<div class="col-xs-8">
+									<input type="text" class="bs-select form-control"  id="partCode" name="partCode" />
+								</div>
+							</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">索赔类型：</label>
+							<div class="col-xs-8">
+								<select id="claimType"
+									class="bs-select form-control" name="claimType"
+									data-url="/OldPartQuery/ClaimType"
+									data-model="vehicle" data-labelValue="CLAIM_TYPE_CODE"
+									data-lableDesc="CLAIM_TYPE">
+								</select>
+							</div>
+						</div>
+					</div>
+					</div>
+					<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">申请日期：</label>
+								<div class="input-group input-daterange" data-opens="right">
+		                             <input type="text" class="form-control" readonly  name="claimStartDate">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="claimEndDate">
+		                             <span class="input-group-btn">
+	                                    <button class="btn default input-clear" type="button">
+	                                       <i class="fa fa-close"></i>
+	                                   </button>
+	                                </span> 
+		                        </div>
+							</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">VIN：</label>
+								<div class="col-xs-8">
+									<input type="text" class="bs-select form-control"  id="VIN" name="VIN" />
+								</div>
+							</div>
+					</div>
+					</div>
+					<div class="row ">
+						<div class="col-xs-12 ">
+							<div class="query-btn">
+								<a href="javascript:;" class="btn blue"> <i
+									class="fa fa-search"></i> 查询
+								</a> 
+								<a href="javascript:;" class="btn blue"><i
+									class="fa fa-undo"></i> 重置
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >信息列表</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a href="javascript:;" data-url="/OldPartQuery/Download" data-model="vehicle" data-method="downLoad" data-toggle="confirmation"
+								class="btn btn-outline " ><i class="fa fa-download"></i>下载</a>
+								
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="orderList"></table>
+		</div>
+	</div>
+</div>		
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "orderList",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/OldPartQuery/Query",
+		rowID : "",
+		sortName : "CLAIM_ID", 
+		sortOrder : "desc",
+		columns : [ 
+			{
+				field : "GROUP_ID",
+				title : "操作",
+				operateFormat : [ {
+					type : "edit",
+					url : "vehicle/afterSales/warranty/mvsFamilyMaintainUpdate.html",
+					openWidth : "modal-lg",
+					doubleClick : true
+			       }]
+			},
+            {field : "PART_CODE",title : "零件代码"},
+		    {field : "PART_NAME",title : "零件名称"},
+		    {field : "CLAIM_NO",title : "索赔单号"},
+		    {field : "CLAIM_TYPE",title : "索赔类型"},
+		    {field : "RO_NO",title : "工单号"},
+		    {field : "VIN",title : "VIN"},
+		    {field : "MAKE_DATE",title : "申请日期"},
+		],
+		onLoadSuccess : function() {
+			$("#orderList",container).dmsTable().bootstrapTable('resetView');
+		}
+	});
+	      	
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+//			console.log("into callBack");
+	
+	});
+	
+});
+	
+</script>	

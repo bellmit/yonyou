@@ -1,0 +1,60 @@
+<div class="dms-edit ajaxrest" data-model="part">
+<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">退料</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default table-panel">
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="salesPartItemDtos">
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/stockmanage/salesparts/{[SALES_PART_ID]}/salesreturnsub" data-model="part"
+				data-method="POST" data-callBack="true"
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>确定</a> 
+			<a data-dismiss="modal" class="btn blue"> <i
+				class="fa fa-undo"></i>取消
+				</a>
+		</div>
+</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	 new Datatable().initPagination({
+			src : "salesPartItemDtos",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/stockmanage/salesparts/{[SALES_PART_ID]}/salesreturn",
+			autoHeight:false,
+			columns : [ 
+			            {field : "PART_NO",inputField:"partNo",title : "配件代码",inputHiddenFormat : {}},
+			            {field : "PART_NAME",inputField:"partName",title : "配件名称",inputHiddenFormat : {}},
+			            {field : "STORAGE_CODE",inputField:"storageCode",title : "仓库代码",inputHiddenFormat : {}},
+			            {field : "STORAGE_POSITION_CODE",inputField:"storagePositionCode",title : "库位",inputHiddenFormat : {}},
+			            {field : "OUT_QUANTITY",title : "出库数量",NumberFormat : {decimal : 2}},
+			            {field : "MAY_QUANTITY",inputField:"returnQuantity",inputHiddenFormat : {},title : "可退货数量",NumberFormat : {decimal : 2}},
+			            {field : "NOW_QUANTITY",inputField:"partQuantity",title : "本次退货数量",inputNumberFormat : {decimal : 4,validate:{validateClass:"required decimal",validateAttr:'maxPrecision="4" maxDigit="6"'}}},
+			            {field : "COST_PRICE",inputField:"partCostPrice",title : "成本单价",NumberFormat : {decimal : 2},inputHiddenFormat : {}},
+			            {field : "PART_SALES_PRICE",inputField:"partSalesPrice",title : "销售单价",NumberFormat : {decimal : 2},inputHiddenFormat : {}},
+			            {field : "PART_SALES_AMOUNT",inputField:"partSalesAmount",title : "销售金额",NumberFormat : {decimal : 2},inputHiddenFormat : {}},
+			            {field : "DISCOUNT",inputField:"discount",title : "折扣率",NumberFormat : {decimal : 2},inputHiddenFormat : {}},
+			            {field : "SALES_AMOUNT",inputField:"salesAmount",title : "折扣金额",NumberFormat : {decimal : 2},inputHiddenFormat : {}}
+			         ]
+		});
+	 	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+	 		//关闭窗口
+	 		$("a[data-dismiss='modal']",container).click();
+	 		//刷新表格
+	 		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	 	});
+	});
+</script>

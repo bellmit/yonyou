@@ -1,0 +1,138 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">附加项目选择</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+
+				<div class="panel-body">
+					<div class="row">
+					
+	 		<div class="col-xs-12">
+				<div class="form-group">
+								<label class="control-label col-xs-4">附件项目名称</label>
+								<div class="col-xs-6">
+										<select class="bs-select form-control required"
+											data-url="/accessoryItem/AccessoryItem/ailist"
+											data-model="repair" 
+											data-labelValue="ADD_ITEM_CODE"  
+											data-lableDesc="ADD_ITEM_NAME" 											
+											id="addItemName">
+										</select>
+								</div>
+							</div>
+			</div>
+			
+			<div class="col-xs-12">
+				<div class="form-group">
+					<label class="control-label col-xs-4">附件项目代码</label>
+						<div class="col-xs-6">
+						    <input  class=" form-control " readonly="readonly"
+						    type="text" id="addItemCode" />				
+						</div>
+				</div>
+			</div>
+			
+			<div class="col-xs-12">
+				<div class="form-group">
+					<label class="control-label col-xs-4">附件项目费</label>
+						<div class="col-xs-6">
+						    <input  class=" form-control  decimal"
+						     type="text" id="addItemPrice" />				
+						</div>
+				</div>
+			</div>
+			
+			<div class="col-xs-12">
+				<div class="form-group">
+					<label class="control-label col-xs-4">收费区分代码</label>
+						<div class="col-xs-6">
+									<select class="bs-select form-control"
+											data-url="/accessoryItem/AccessoryItem/cplist"
+											data-model="repair" data-labelValue="CHARGE_PARTITION_CODE"  
+											data-lableDesc="COMBINE_NAME" id="chargePartitionCode">
+									</select>
+									
+						</div>
+				</div>
+			</div>
+			
+			<div class="col-xs-12">
+				<div class="form-group">
+					<label class="control-label col-xs-4">备注</label>
+						<div class="col-xs-6">
+						    <input id="customer_type_name" name="customer_type_name" 
+						    class=" form-control "  maxlength="60" 
+						    data-fieldName="customer_type_name" type="text" />				
+						</div>
+				</div>
+			</div>
+			
+			
+		
+					</div>
+				</div>
+		</div>		
+</div>
+		<div class="modal-footer center-block">
+			<a data-beforeRequest="true" 
+			class="btn blue"  data-toggle="confirmation"><i class="fa fa-save"></i>确认</a>
+			 <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+	//附件项目名称值变动事件
+	$("#addItemName",container).bindChange(function(obj){
+		
+		
+		$("#addItemCode",container).val($("#addItemName",container).val());
+		
+		if(dmsDict.getSelectedOptionData($("#addItemName",container)).IS_DOWN==12781001){
+			
+			$("#addItemCode",container).val(dmsDict.getSelectedOptionData($("#addItemName",container)).ADD_ITEM_CODE);
+			$("#addItemPrice",container).setElementReadOnly();
+			$("#addItemPrice",container).val(dmsDict.getSelectedOptionData($("#addItemName",container)).ADD_ITEM_PRICE);
+			
+		}else{
+			$("#addItemPrice",container).val(null);
+			$("#addItemPrice",container).removeElementReadOnly();
+		}
+	
+	})
+		
+		//新增页面回调函数
+		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			var newrow={};
+			
+			newrow['ADD_ITEM_CODE']=$("#addItemName option:selected",container).val();
+			newrow['ADD_ITEM_NAME']=$("#addItemName option:selected",container).text();
+			newrow['ADD_ITEM_PRICE']=$("#addItemPrice",container).val();
+			//如果收费区分没有选择，需要将“请选择”去掉，实际应该是null值
+			if($("#chargePartitionCode option:selected",container).val()==""){
+				$("#chargePartitionCode option:selected",container).val(null);
+				$("#chargePartitionCode option:selected",container).text(null);
+			newrow['CHARGE_PARTITION_CODE']=$("#chargePartitionCode option:selected",container).val();
+			}else{
+				newrow['CHARGE_PARTITION_CODE']=$("#chargePartitionCode option:selected",container).val();
+			}
+			newrow['REMARK']=$("#REMARK",container).val();
+			
+			
+			$("#dms_subjoinItem",getElementContext()).dmsTable().appendRow(newrow,true);
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+// 			//刷新表格
+// 			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	
+});
+</script>

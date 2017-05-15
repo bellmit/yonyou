@@ -1,0 +1,487 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row" data-seldate="true">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">移库单号</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+									<input type="hidden" name="vins" id="vins"/>
+									<input type="hidden" name="sv" id="sv"/>
+									<input type="hidden" name="storage" id="storage"/>
+									<input type="hidden" name="position" id="position"/>
+										<input id="stNo" readonly="readonly" name="stNo" class="form-control"
+											data-fieldName="ST_NO" type="text" /> <span
+											class="input-group-btn">
+											<button class="btn default btn-sm" type="button" id="no"
+												data-url="vehicle/basedata/transferRepository/searchTransferCode.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-sitemap"></i>
+											</button>
+											<button class="btn default input-clear" id="clear"
+												type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">开单日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker">
+										<input id="sheetCreateDate" name="sheetCreateDate" readonly
+											data-fieldName="SHEET_CREATE_DATE" class="form-control"
+											type="text" /> <span class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+											<button class="btn default date-reset" type="button">
+												<i class="fa fa-times"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">开单人员</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="sheetCreatedBy"
+										readonly data-fieldName="SHEET_CREATED_BY"
+										name="sheetCreatedBy" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">车辆移库单明细</div>
+					<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a id="add"
+								data-url="vehicle/basedata/transferRepository/searchVehicle.html"
+								class="btn btn-outline" data-toggle="modal" data-onclickEvent2="true"
+								data-width="modal-lg"> <i class="fa fa-plus-square"></i> 新增
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_show"></table>
+				</div>
+			</div>
+		
+			
+			<div class="panel panel-default" style="position: relative; top: 5px;">
+				<div class="panel-heading">
+					<div class="pannel-name">移库操作</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i
+							class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span
+									style="color: red; position: relative; top: 2px;">*&nbsp;</span>移入仓库</label>
+								<div class="col-xs-8">
+									<select id="inStorage" class="bs-select form-control required"
+										name="inStorage"
+										data-url="/stockManage/safeguard/findStorage/{[dealer_code]}"
+										data-model="vehicle" data-labelValue="STORAGE_CODE"
+										data-lableDesc="STORAGE_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">移入库位</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" name="inPosition" id="inPosition">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">提车人</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" name="takeCarMan">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span
+									style="color: red; position: relative; top: 2px;">*&nbsp;</span>经办人</label>
+								<div class="col-xs-8">
+									<select id="transactor" name="transactor"
+										class="bs-select form-control required"
+										data-url="/basedata/employees/-1/salesConsultant"
+										data-model="manage" data-labelValue="USER_ID" data-value="{[userInfo.userId]}"
+										data-lableDesc="USER_NAME" >
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<div class="form-group">
+								<label class="control-label col-xs-1 col-sm-1 col-md-1 col-lg-1">备注</label>
+								<div class="col-xs-11 col-md-11 col-lg-11">
+									<input id="remark" type="text" class="form-control"
+										name="remark" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a  data-errorCallBack="true" id="create"
+				class="btn blue" ><i class="fa fa-plus-square"></i>新建</a>
+			<a  id="save" data-model="vehicle" data-method="POST" data-beforeRequest="true"
+				class="btn blue ajaxrest"  data-validate="true" data-onclickEvent="true" data-callBack="true" 
+				><i class="fa fa-save"></i>保存</a>
+ 			<a  id="cancle" data-model="vehicle" data-method="DELETE" data-callBack="true"
+				class="btn blue"><i class="fa fa-minus-square"></i>作废</a>
+			<a  id="move" data-model="vehicle" data-method="PUT" data-callBack="true"
+				class="btn blue"><i class="fa fa-check-square-o"></i>移库</a>
+			<a id="print" data-url="vehicle/basedata/transferRepository/PrintForm.html"
+				class="btn blue" data-toggle="modal" 
+				data-width="modal-lg"> <i class="fa fa-print"></i> 打印
+			</a>
+			<a  id="exit" class="btn blue" ><i class="fa fa-print"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				$("#sheetCreateDate", container).setElementReadOnly();
+				
+				$("#add",container).setElementReadOnly();
+				$("#del",container).setElementReadOnly();
+				$("#save",container).attr('disabled','disabled');
+				$("#cancle",container).attr('disabled','disabled');
+				$("#print",container).attr('disabled','disabled');
+				$("#move",container).attr('disabled','disabled');
+				
+				$("#clear", container).click(function(){
+					 dmsCommon.refreshPageByUrl("vehicle/basedata/transferRepository/searchTransfer.html",container);
+				});
+				
+				$("#exit", container).click(function(){
+					 dmsCommon.refreshPageByUrl("vehicle/basedata/transferRepository/searchTransfer.html",container);
+				});
+
+				$("input[name='stNo']", container).bindChange(
+						function(obj) {
+							if($("input[name='stNo']").val()!=null&&$("input[name='stNo']").val()!=''){
+								$("#dms_show",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["vehicle"]
+								+ "/transferRepository/findAllListDetails/stNo:"+$("input[name='stNo']").val());
+								$("#dms_show", getElementContext()).dmsTable()
+									.refreshTableWithForm();
+								$("#create",container).attr('disabled','disabled');
+								$("#add",container).removeElementReadOnly();
+								$("#no",container).attr('disabled','disabled');
+								$("#cancle",container).removeAttr('disabled');
+								$("#move",container).removeAttr('disabled');
+							}
+						});
+				
+				new Datatable().initLocale({
+					src : "dms_show",
+					container:container,
+					url : dmsCommon.getDmsPath()["vehicle"]
+					+ "/transferRepository/findAllListDetails/stNo:",
+					autoHeight : false,
+					isQueryFirst : false,
+					checkboxHeader : true, //全选框
+					columns : [ {
+						checkbox : true,
+						sortable : false
+					},{title : "操作",operateFormat : [ 
+					            {type : "localDel",onBeforeEvent:function(value, row, index){
+					            	$("#sv",container).val($("#sv",container).val()+";"+row.VIN+";");
+					            },onAfterEvent:function(value, row, index){
+					            	$("#save",container).removeAttr('disabled');
+					            }}]}, 
+					            {
+									field : "IS_FINISHED",
+									title : "是否入账",
+									codeFormat : {
+										type : "dict",
+										codeType : "1278"
+									}
+								}, {
+									field : "VIN",
+									title : "VIN"
+								}, {
+									field : "OUT_STORAGE",
+									title : "移出仓库"
+								}, {
+									field : "IN_STORAGE",
+									title : "移入仓库"
+								}, {
+									field : "IN_POSITION",
+									title : "移入库位"
+								}, {
+									field : "BRAND_NAME",
+									title : "品牌"
+								}, {
+									field : "SERIES_NAME",
+									title : "车系"
+								}, {
+									field : "MODEL_NAME",
+									title : "车型"
+								}, {
+									field : "CONFIG_NAME",
+									title : "配置"
+								}, {
+									field : "COLOR_NAME",
+									title : "颜色"
+								}, {
+									field : "ADDITIONAL_COST",
+									title : "附加成本",numberFormat : {decimal:2}
+								}, {
+									field : "STOCK_STATUS",
+									title : "库存状态",
+									codeFormat : {
+										type : "dict",
+										codeType : "1304"
+									}
+								}, {
+									field : "MAR_STATUS",
+									title : "质损状态",
+									codeFormat : {
+										type : "dict",
+										codeType : "1306"
+									}
+								}, {
+									field : "TRANSFER_DATE",
+									title : "移库日期",
+									dateFormat : {
+										format : "YYYY-MM-DD"
+									}
+								}, {
+									field : "REMARK",
+									title : "备注"
+								}, {
+									field : "TRANSACTOR",
+									title : "经办人"
+								}, {
+									field : "TAKE_CAR_MAN",
+									title : "提车人"
+								}
+					         ],
+					    onLoadSuccess : function(row){
+					    	$("#storage",container).val(row[0].IN_STORAGE);
+					    	$("#position",container).val(row[0].IN_POSITION);
+					    	var flag = true;
+					    	$.each(row,function(idx, obj){
+					    		if(obj.IS_FINISHED==12781002){
+					    			flag = false;
+					    		}
+					    	});
+					    	if(flag){
+					    		$("#print",container).removeAttr('disabled');
+					    	}
+					    }
+				});
+				
+				//保存按钮
+				$('a[data-beforeRequest="true"]',container).on('beforeRequest.dms',function(event,returnResult){
+					if($(this).attr("id")=='save'){
+						var row = $("#dms_show",container).dmsTable().getSelections();
+						var vins = '';
+						if(row!=null){
+							$(row).each(function(m){
+								vins += row[m].VIN+";";
+							});
+							
+							$("#vins",container).val(vins);
+							
+							
+							$(this).attr('disabled','disabled');
+							//判断 作废  移库
+							var thisRow = $("#dms_show",getElementContext()).dmsTable().getSelections();
+							var flag = true;
+							var qw = true;
+							if(thisRow!=null){
+								$(thisRow).each(function(e){
+									if(thisRow[e].IS_FINISHED!='12781001'){
+										flag = false;
+									}
+									if(thisRow[e].OUT_STORAGE==$("#inStorage",container).val()){
+										qw = false;//新移入仓库不能是移出的仓库
+									}
+								});
+							}
+							if(!flag){
+								$("#cancle",container).removeAttr('disabled');
+								$("#move",container).removeAttr('disabled');
+							}
+							
+							if($("#stNo",container).val()==""||$("#stNo",container).val()==null){
+								//新增
+								$(this).attr("data-method","POST");
+								$(this).attr("data-url","/transferRepository/addDetails");
+							}else{
+								//修改
+								$(this).attr("data-method","PUT");
+								$(this).attr("data-url","/transferRepository/editDetails");
+							}
+							
+							if(!qw){
+								dmsCommon.tip({status:"warning",msg:"新移入仓库不能是移出的仓库！"});
+								returnResult.status = false; //定义返回值
+							}else{
+								returnResult.status = true; //定义返回值
+							}
+						}else{
+							dmsCommon.tip({status:"warning",msg:"请选择需要移库的列！"});
+							returnResult.status = false; //定义返回值
+						}
+					}else if($(this).attr("id")=='cancle'){
+						if($(this).attr('disabled')!='disabled'){
+							var row = $("#dms_show",container).dmsTable().getSelections();
+							var vins = '';
+							$(row).each(function(m){
+								vins += row[m].VIN+";";
+							});
+							
+							$("#vins",container).val(vins);
+							dmsCommon.ajaxRestRequest({
+								url : dmsCommon.getDmsPath()["vehicle"] + "/transferRepository/deleteDetails",
+								type : 'DELETE',
+								sucessCallBack : function(data) {
+									dmsCommon.tip({status:"success",msg:"作废成功！"});
+									$("#dms_show",container).dmsTable().refreshTableWithForm();
+								}
+							});
+							returnResult.status = true; //定义返回值
+						}
+					}
+					
+				});
+				
+				//保存的回调函数
+				$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+					$("input[name='stNo']").val(response.NO);
+					$("#save",container).attr('disabled','disabled');
+					$("#dms_show",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["vehicle"]
+						+ "/transferRepository/findAllListDetails/stNo:"+response.NO);
+					$("#dms_show", getElementContext()).dmsTable()
+						.refreshTableWithForm();
+				});
+				
+				//新建按钮
+				$("#create",container).click(function(){
+					$("#add",container).removeElementReadOnly();
+					$("#no",container).attr('disabled','disabled');
+					$(this).attr('disabled','disabled');
+					$("#sheetCreatedBy",container).val("{[userInfo.userName]}");
+					$("#sheetCreateDate",container).val(new Date().Format("yyyy-MM-dd"));
+				});
+				
+				//作废按钮
+				$('#cancle',container).click(function(){
+					if($(this).attr('disabled')!='disabled'){
+						var row = $("#dms_show",container).dmsTable().getSelections();
+						var vins = '';
+						$(row).each(function(m){
+							vins += row[m].VIN+";";
+						});
+						
+						$("#vins",container).val(vins);
+						dmsCommon.ajaxRestRequest({
+							url : dmsCommon.getDmsPath()["vehicle"] + "/transferRepository/deleteDetails",
+							type : 'DELETE',
+							sucessCallBack : function(data) {
+								dmsCommon.tip({status:"success",msg:"作废成功！"});
+								dmsCommon.refreshPageByUrl("vehicle/basedata/transferRepository/searchTransfer.html",container);
+							}
+						});
+					}
+				});
+				
+				//移库按钮
+				$('#move',container).click(function(){
+					var row = $("#dms_show",container).dmsTable().getSelections();
+					if(row!=null){
+						var flag = true;
+						var vins = '';
+						if($(this).attr('disabled')!='disabled'){
+							if(row!=null){
+								$(row).each(function(e){
+									if(row[e].IS_FINISHED!='12781001'){
+										flag = false;
+										vins += row[e].VIN+"!";
+									}
+								});
+							}
+							
+							$("#vins",container).val(vins);
+							
+							var ids = "vins="+vins+",inPosition="+$("#position").val()+",inStorage="+$("#storage").val()+",stNo="+$("#stNo").val();
+							
+							dmsCommon.ajaxRestRequest({
+								url : dmsCommon.getDmsPath()["vehicle"] + "/transferRepository/moveTransfer/"+ids,
+								type : 'PUT',
+								sucessCallBack : function(data) {
+									$("#add",container).setElementReadOnly();
+									$("#del",container).setElementReadOnly();
+									$("#no",container).attr('disabled','disabled');
+									$("#create",container).attr('disabled','disabled');
+									$("#save",container).attr('disabled','disabled');
+									$("#cancle",container).attr('disabled','disabled');
+									$("#move",container).attr('disabled','disabled');
+									$("#print",container).removeAttr('disabled');
+									
+									dmsCommon.tip({status:"success",msg:"移库成功！"});
+	
+									$("#dms_show",container).dmsTable().refreshTableWithForm();
+								}
+							});
+						}
+					}else{
+						dmsCommon.tip({status:"warning",msg:"请选择列！"});
+						return;
+					}
+				});
+			});
+	
+	Date.prototype.Format = function (fmt) { //author: wx
+	    var o = {
+	        "M+": this.getMonth() + 1, //月份 
+	        "d+": this.getDate(), //日 
+	        "h+": this.getHours(), //小时 
+	        "m+": this.getMinutes(), //分 
+	        "s+": this.getSeconds(), //秒 
+	        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+	        "S": this.getMilliseconds() //毫秒 
+	    };
+	    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+	    for (var k in o)
+	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+	    return fmt;
+	}
+	
+</script>

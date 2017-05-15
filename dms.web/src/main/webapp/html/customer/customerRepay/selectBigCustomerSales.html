@@ -1,0 +1,275 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">销售单查询</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+				<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">客户编号</label>
+								<div class="col-xs-8">
+									<input id="customerNo" name="customerNo" data-fieldName="CUSTOMER_NO" class="form-control"
+										type="text" maxlength="120" />
+								</div>
+							</div>
+						</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">客户名称</label>
+								<div class="col-xs-8">
+									<input id="customerName" name="customerName" data-fieldName="CUSTOMER_NAME" class="form-control"
+										type="text" maxlength="120" />
+								</div>
+							</div>
+						</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销售单号</label>
+								<div class="col-xs-8">
+									<input id="soNo" name="soNo" data-fieldName="SO_NO" class="form-control"
+										type="text" maxlength="120" />
+								</div>
+							</div>
+						</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系电话</label>
+								<div class="col-xs-8">
+									<input id="contactorPhone" name="contactorPhone" data-fieldName="CONTACTOR_PHONE" class="form-control"
+										type="text" maxlength="120" />
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系手机</label>
+								<div class="col-xs-8">
+									<input id="contactorMobile" name="contactorMobile" data-fieldName="CONTACTOR_MOBILE" class="form-control"
+										type="text" maxlength="120" />
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">公司名称</label>
+								<div class="col-xs-8">
+									<input id="company" name="company" data-fieldName="COMPANY" class="form-control"
+										type="text" maxlength="120" />
+								</div>
+							</div>
+						</div>
+				
+									
+									
+									
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_table11"></table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+	<!-- 	<a  data-errorCallBack="true" data-info="saveBefore"  data-callBack="true"   class="btn blue ajaxrest hidden" data-toggle="confirmation" data-model="customer" data-method="GET" ><i class="fa fa-save"></i> 确认
+			</a>
+			<a  data-info="saveBeforeUrl" data-saveBeforeEvent="true" data-onclickEvent="true" class="btn blue " ><i
+				class="fa fa-save"></i>确定</a> <a data-dismiss="modal" id="cancel"  class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a> -->
+			<a class="btn blue"  data-validate="true" data-onclickEvent="true" disabled id="okBtn"><i class="fa fa-save" ></i>确定</a>
+			<a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		var firstSubmitTime=$("#firstSubmitTime",getParentModal(container)).val();
+		var companyName=$("#companyName",getParentModal(container)).val();
+		var wsAppType=$("#wsAppType",getParentModal(container)).val(); 
+		var equalSo=false;
+		
+		 $("#company").val(companyName);
+		/* /BigCustomer/repay/"+firstSubmitTime+"/sales */
+		new Datatable().initPagination({
+			src : "dms_table11",
+			container:container,
+			url : dmsCommon.getDmsPath()["customer"] + "/BigCustomer/repay/"+wsAppType+"/and/"+firstSubmitTime+"/sales",
+			rowID : "SO_NO",
+			sortName : "SO_NO",
+			sortOrder : "asc",
+			autoHeight:false,
+			undefinedText : "",
+			columns : [ 
+				 				
+			 {field : "SO_NO",title : "销售单号"},
+			 {field : "BRAND_NAME",title : "品牌"},
+			 {field : "SERIES_NAME",title : "车系"},
+			 {field : "MODEL_NAME",title : "车型"},
+	         {field : "CONFIG_NAME",title : "配置"}, 
+			 {field : "BRAND_CODE",title : "品牌",visible:false},
+			 {field : "SERIES_CODE",title : "车系",visible:false},
+             {field : "COMPANY_NAME",title : "公司名称",visible:false},
+             {field : "MODEL_CODE",title : "车型",visible:false},
+             {field : "CONFIG_CODE",title : "配置",visible:false}, 
+             {field : "VIN",title : "VIN"},
+             {field : "VEHICLE_PRICE",title : "车辆价格"}, 
+			 {field : "FILE_INVOICE_ID",title : "发票附件ID"},
+			 {field : "FILE_INVOICE_URL",title : "发票URL"},
+			 {field : "FILE_CARD_ID",title : "行驶证附件ID"},
+             {field : "FILE_CARD_URL",title : "行驶证附件URL"},
+             {field : "FILE_SFZ_ID",title : "客户身份证附件ID"}, 
+             {field : "FILE_SFZ_URL",title : "客户身份证附件URL"},
+             {field : "FILE_SB_ID",title : "社保缴纳凭证附件1ID"},     
+			 {field : "FILE_SB_URL",title : "社保缴纳凭证附件1URL"},
+			 {field : "FILE_G_ID",title : "员工在职证明ID"},
+			 {field : "FILE_G_URL",title : "员工在职证明URL"},
+             {field : "FILE_H_ID",title : "公务员专用销售合同1ID"},
+             {field : "FILE_H_URL",title : "公务员专用销售合同1URL"}, 
+             {field : "FILE_I_ID",title : "公务员工作证附件ID"},
+             {field : "FILE_I_URL",title : "公务员工作证附件URL"},  
+             {field : "FILE_SB1_ID",title : "社保缴纳凭证附件2ID"},     
+			 {field : "FILE_SB1_URL",title : "社保缴纳凭证附件2URL"},
+             {field : "FILE_H2_ID",title : "公务员专用销售合同2ID"},
+             {field : "FILE_H2_URL",title : "公务员专用销售合同2URL"}, 
+             {field : "FILE_H3_ID",title : "公务员专用销售合同3ID"},
+             {field : "FILE_H3_URL",title : "公务员专用销售合同3URL"}, 
+             {field : "FILE_H4_ID",title : "公务员专用销售合同4ID"},
+             {field : "FILE_H4_URL",title : "公务员专用销售合同4URL"}, 
+             {field : "INVOICE_DATE",title : "开票日期",dateFormat : {format:"YYYY-MM-DD"}}, 
+             {radio:true,sortable : false},   
+    			], onClickRow(rowData, element){
+				if(rowData.COMPANY_NAME==null||rowData.COMPANY_NAME==''||rowData==undefined){
+					 dmsCommon.tip({status:"warning",msg:"请大客户经理维护该大客户的公司名称!"});
+					 $("#okBtn",container).attr("disabled","disabled");
+				}else{
+					if(rowData.COMPANY_NAME!=companyName){
+						dmsCommon.tip({status:"warning",msg:"订单中潜客的公司名称必须和报备单中的公司名称一致"});//总共的状态类型：info、success、error、warning
+						$("#okBtn",container).attr("disabled","disabled");
+					}else{
+						var rownu = $("#invent1",getElementContext()).dmsTable().getRowDataByIndex();
+						$(rownu).each(function(index){
+							    if(rownu[index].SO_NO==rowData.SO_NO){
+							    	equalSo=true;
+							    }
+					  		});
+						if(equalSo){
+							dmsCommon.tip({status:"warning",msg:"已存在相同销售单号，不能重复添加"});//总共的状态类型：info、success、error、warning
+							$("#okBtn",container).attr("disabled","disabled");
+						}else{
+							 if((new Date().getTime()-rowData.INVOICE_DATE)/(1000*60*60*24)>90){
+								 dmsCommon.tip({status:"warning",msg:"该车辆发票开票日期已超过三个月，请在申请简述框中说明申请理由!"});
+								 $("#okBtn",container).attr("disabled","disabled");
+							 }else{
+								 $("#okBtn",container).removeAttr("disabled");
+							 }
+							
+						}
+							
+					}
+				}
+				
+				
+
+			} 
+		});
+/* 		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			var row = $("#dms_table11",container).dmsTable().getFirstSelection();
+
+            if(row["COMPANY_NAME"]!=companyName){
+                	dmsCommon.tip({status:"warning",msg:"订单中潜客的公司名称必须和报备单中的公司名称一致"});//总共的状态类型：info、success、error、warning
+                	returnResult.status =false;
+    				return ;
+				}else{
+					if((new Date().getTime()-row["INVOICE_DATE"])/(1000*60*60*24)>30){
+						dmsCommon.tip({status:"success",msg:"该车辆发票开票日期已超过三个月，请在申请简述框中说明申请理由!"});
+						returnResult.status =false;
+						return ;
+					}
+				} 
+
+			returnResult.status = true;
+		});  */
+		//事件点击
+/* 		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			$("a[data-info='saveBefore']",container).addClass("hidden");
+			$("a[data-info='saveBeforeUrl']",container).click();
+			$("a[data-info='saveBefore']",container).removeClass("hidden");
+			$("a[data-info='saveBeforeUrl']",container).addClass("hidden");
+			var row = $("#dms_table",container).dmsTable().getFirstSelection();
+			var confirmPostBO=$("a[id='cancel']",container);
+		if	(companyName!=''){
+			if(row["COMPANY_NAME"]==''){
+				dmsCommon.tip({status:"warning",msg:"请大客户经理维护该大客户的公司名称"});//总共的状态类型：info、success、error、warning
+				return false;
+			}
+			debugger
+			if(wsAppType=="15971001"){
+				if(row["COMPANY_NAME"]!=companyName){	
+						
+					confirmPostBO.confirm("已存在同一政策类别、同一公司的报备单，您确定继续保存?",function(confirmObj){
+					//	$(confirmObj).click();
+					if((new Date().getTime()-row["INVOICE_DATE"])/(1000*60*60*24)>90){
+						dmsCommon.tip({status:"success",msg:"该车辆发票开票日期已超过三个月，请在申请简述框中说明申请理由!"});
+					}             
+					
+						$("#invent",getParentModal(container)).dmsTable().appendRow(row);
+						$("a[data-dismiss='modal']",container).click();
+						},function(confirmObj){
+							
+						}
+					);
+				}else{
+					if((new Date().getTime()-row["INVOICE_DATE"])/(1000*60*60*24)>90){
+						dmsCommon.tip({status:"success",msg:"该车辆发票开票日期已超过三个月，请在申请简述框中说明申请理由!"});
+					}             
+					
+						$("#invent",getParentModal(container)).dmsTable().appendRow(row);
+						$("a[data-dismiss='modal']",container).click();
+				}
+				
+			}
+			if(wsAppType=="15971003"){
+                if(row["COMPANY_NAME"]!=companyName){
+                	dmsCommon.tip({status:"warning",msg:"订单中潜客的公司名称必须和报备单中的公司名称一致"});//总共的状态类型：info、success、error、warning
+    				return false;
+				}else{
+					if((new Date().getTime()-row["INVOICE_DATE"])/(1000*60*60*24)>30){
+						dmsCommon.tip({status:"success",msg:"该车辆发票开票日期已超过三个月，请在申请简述框中说明申请理由!"});
+					}
+					$("#invent",getParentModal(container)).dmsTable().appendRow(row);
+					$("a[data-dismiss='modal']",container).click();
+				}
+				
+			}
+		}
+	
+	       
+
+		}); */
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event,container){
+			var selectRow = $("#dms_table11",container).dmsTable().getFirstSelection();
+			var rowTR = $("#invent1",container).dmsTable().appendRow(selectRow);
+			dmsRetail.saleDatabindChange(getElementContext());
+			$("#okBtn",container).attr("disabled","disabled");
+		});  
+	});
+</script>  

@@ -1,0 +1,131 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">工单号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="roNo" name="roNo">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车主名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="ownerName" name="ownerName">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车牌号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="license" name="license">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">VIN号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="vin" name="vin">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">领料状态</label>
+							<div class="col-xs-8">
+								<select id="orderStatus" name="orderStatus" class="bs-select form-control" data-dictCode="1303" data-value="13031001" >
+							    </select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">开单日期</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" data-maxDays = "30" data-defaultDays="7">
+		                             <input type="text" class="form-control" readonly  name="orderDateFrom">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="orderDateTo"> 
+		                        </div>
+							</div>
+						</div>
+					</div>
+					
+					
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a>
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a> 
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">维修领料信息</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["repair"] + "/order/repair",
+		rowID : "RO_ID",
+		sortName : "RO_NO",
+		sortOrder : "asc",
+		columns : [
+				{field : "RO_ID",title : "操作",operateFormat : [
+				       {type : "edit",url : "repair/order/orderout/editOrder.html",openType:"jump",doubleClick : true,
+				    	   isShow:function(value, row, index){
+							   if(row.RO_STATUS=="12151004"){
+								   return false;
+	                    	   }else if(row.RO_STATUS=="12151005"){
+	                    		   return false;
+	                    	   }else{
+	                    		   return true;
+	                    	   }      
+						   }},
+					   {type:"detail",url:"repair/order/orderout/editOrder.html",openType:"jump"},
+					   {type:"edit",url:"repair/order/orderout/returnRoPart.html",openWidth:"modal-lg",title:"退料",operateIcon:'<i class="fa fa-reply glyphicon-lg"></i>',
+					       isShow:function(value, row, index){
+							   if(row.ORDER_STATUS!="13031002"){
+								   return false;
+	                    	   }else{
+	                    		   return true;
+	                    	   }      
+						   }},
+                       {type:"edit",url:"repair/order/orderout/printOrder.html",openType:"jump",openWidth:"modal-lg",title:"打印",operateIcon:'<i class="fa fa-print glyphicon-lg"></i>'}
+				]},
+				{field : "RO_NO",title : "工单号"},
+				{field : "OWNER_NAME",title : "车主名称"},
+				{field : "LICENSE",title : "车牌号"},
+				{field : "VIN",title : "VIN号"},
+				{field : "RO_CREATE_DATE",title : "开单日期",dateFormat : {}},
+				{field : "ORDER_STATUS",title : "领料状态",codeFormat : {type:"dict",codeType:"1303"}}
+				]
+
+	});
+	
+});
+</script>

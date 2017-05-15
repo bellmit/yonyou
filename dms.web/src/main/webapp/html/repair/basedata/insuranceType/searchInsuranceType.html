@@ -1,0 +1,97 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" style="position: relative; top: 11px;">
+						<div class="form-group">
+							<label class="control-label col-xs-4">险种代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="insuranceTypeCode"
+									name="insuranceTypeCode">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" style="position: relative; top: 11px;">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否交强险</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" name="isComInsurance" id="isComInsurance"
+									data-dictCode="1278" >
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" style="position: relative; top: 11px;">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否启用</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" name="insuranceTypeStatus" id="insuranceTypeStatus"
+									data-dictCode="1278">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" style="position: relative; top: 11px;">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否OEM</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" name="oemTag" id="oemTag"
+									data-dictCode="1278">
+								</select>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				<div class="row ">
+				<div class="col-xs-12 ">
+					<div class="query-btn">
+						<a href="javascript:;" class="btn blue"> <i
+							class="fa fa-search"></i> 查询
+						</a> <a href="javascript:;" class="btn blue"><i
+							class="fa fa-undo"></i> 重置</a>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">险种定义</div>
+			
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	   new Datatable().initPagination({
+			src : "dms_table",
+			url :dmsCommon.getDmsPath()["repair"] + "/basedata/insuranceType",
+			rowID : "INSURANCE_TYPE_CODE",
+			sortName : "INSURANCE_TYPE_CODE", 
+			sortOrder : "asc",
+			autoHeight : false,
+			undefinedText : "",
+			columns:[
+			        
+						{field:"INSURANCE_TYPE_CODE",title:"保险代码"}, 
+						{field:"INSURANCE_TYPE_NAME",title:"保险名称"},
+						{field:"IS_COM_INSURANCE",title:"是否交强险",codeFormat : {type:"dict",codeType:"1278"}},
+						{field:"INSURANCE_TYPE_STATUS",title:"是否启用",codeFormat : {type:"dict",codeType:"1278"}},
+					    {field:"OEM_TAG",title:"是否OEM",codeFormat : {type:"dict",codeType:"1278"}}
+			    	  ]
+
+		});
+
+    });
+
+</script>

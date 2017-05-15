@@ -1,0 +1,144 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="pannel-name">三包缺料配件查询</div>
+			<div class="panel-body">
+				<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-4 "
+						data-tableSelect="true">
+						<div class="form-group">
+							<label class="control-label col-xs-4">经销商代码</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input id="dealerCode" readonly name="dealerCode"
+										class="form-control" type="text" data-fieldName="DEALER_CODE" />
+									<span class="input-group-btn">
+										<button class="btn default btn-sm" type="button"
+											data-url="manage/basedata/dealers/searchAfterDealers.html"
+											data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="lackMateCode"
+								class="form-control"	name="lackMateCode">
+
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">VIN</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" class="form-control" id="vin" name="vin">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row ">
+			<div class="col-xs-12 col-sm-8  ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">开单日期</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" 
+									data-opens="right">
+									<input type="text" class="form-control" readonly
+										name="startdate"> <span class="input-group-addon">-</span>
+									<input type="text" class="form-control" readonly name="enddate">
+									<span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+	<div class="panel-heading">
+			<div class="pannel-name">三包缺料配件信息</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+					 <a href="javascript:;" data-url="/lack/export/excel"
+								data-model="vehicle" data-method="downLoad"
+								data-toggle="confirmation" ><i
+								class="fa fa-download"></i>下载</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+
+
+
+
+<script type="text/javascript">
+	$(document).one("onload.dms", function(event, container) {
+		new Datatable().initPagination({
+			src : "dms_table",
+			container : container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/lack",
+			rowID : "LACK_ID",
+			sortName : "LACK_ID",
+			sortOrder : "asc",
+			columns : [
+
+			{
+				field : "DEALER_CODE",
+				title : "经销商代码"
+			}, {
+				field : "DEALER_SHORTNAME",
+				title : "经销商名称"
+			}, {
+				field : "REPAIR_WORK_NO",
+				title : "维修工单号"
+			}, {
+				field : "VIN",
+				title : "VIN"
+			}, {
+				field : "START_ORDER_DATE",
+				title : "开单日期"
+			}, {
+				field : "LACK_MATE_CODE",
+				title : "缺料配件代码"
+			}, {
+				field : "LACK_MATE_NAME",
+				title : "缺料配件名称"
+			}, {
+				field : "LACK_MATE_AMOUNT",
+				title : "缺料数量"
+			}]
+
+		});
+	});
+</script>

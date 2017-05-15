@@ -1,0 +1,266 @@
+<div class="dms-edit ajaxrest" data-url="/dealerCheckMaintain/dealer/detail/{[VEHICLE_ID]}"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">车辆验收</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel-heading">
+				<div class="pannel-name" >入库车辆信息信息</div>
+			</div>
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">VIN:</label>
+								<div class="col-xs-8">
+									<input class="form-show " type = "hidden" readonly id="vin" name="vin" data-fieldName="VIN"></input>
+									<span class="form-show" id="vin" data-fieldName="VIN"> </span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">发车日期:</label>
+								<div class="col-xs-8">
+									<input class="form-show " type = "hidden" readonly id="actualDate" name="actualDate" data-fieldName="ACTUAL_DATE"></input>
+									<span class="form-show" id="actualDate" data-fieldName="ACTUAL_DATE"> </span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">发动机号:</label>
+								<div class="col-xs-8">
+									<input class="form-show "  type="hidden" readonly id="engineNo" name="engineNo" data-fieldName="ENGINE_NO"></input>
+									<span class="form-show" id="engineNo" data-fieldName="ENGINE_NO"> </span>
+								</div>
+							</div>
+						</div>
+						<div class="hidden">
+							<input class="form-show "  type="hidden" readonly id="vehicleId" name="vehicleId" data-fieldName="VEHICLE_ID"></input> <!-- 车辆ID -->
+							<input type="hidden" id="damageDatas" name="damageDatas" />
+							<input type="hidden" id="damageFlag" name="damageFlag" />
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌:</label>
+								<div class="col-xs-8">
+									<input class="form-show " type="hidden" readonly id="brandName" name="brandName" data-fieldName="BRAND_NAME"></input>
+									<span class="form-show" id="brandName" data-fieldName="BRAND_NAME"> </span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系:</label>
+								<div class="col-xs-8">
+									<input class="form-show " type="hidden" readonly id="seriesName" name="seriesName"data-fieldName="SERIES_NAME"></input>
+									<span class="form-show" id="seriesName" data-fieldName="SERIES_NAME"> </span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">CPOS:</label>
+								<div class="col-xs-8">
+									<input class="form-show " type="hidden" readonly id="modelCode" name="modelCode"data-fieldName="MODEL_CODE"></input>
+									<span class="form-show" id="modelCode" data-fieldName="MODEL_CODE"> </span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车款:</label>
+								<div class="col-xs-8">
+									<input class="form-show " type="hidden" readonly id="groupName" name="groupName"data-fieldName="GROUP_NAME"></input>
+									<span class="form-show" id="groupName" data-fieldName="GROUP_NAME"> </span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">年款:</label>
+								<div class="col-xs-8">
+									<input class="form-show " type="hidden" readonly id="modelYear" name="modelYear"data-fieldName="MODEL_YEAR"></input>
+									<span class="form-show" id="modelYear" data-fieldName="MODEL_YEAR"> </span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">颜色:</label>
+								<div class="col-xs-8">
+									<input class="form-show " type="hidden" readonly id="colorName" name="colorName"data-fieldName="COLOR_NAME"></input>
+									<span class="form-show" id="colorName" data-fieldName="COLOR_NAME"> </span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">内饰:</label>
+								<div class="col-xs-8">
+									<input class="form-show " type="hidden" readonly id="trimName" name="trimName"data-fieldName="TRIM_NAME"></input>
+									<span class="form-show" id="trimName" data-fieldName="TRIM_NAME"> </span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">实际到车日期:</label>
+								<div class="col-xs-8">
+									<div class="input-group date  date-picker">
+										<input id="arriveDate" name="arriveDate" 
+											class="form-control required" type="text"   data-fieldName="ARRIVE_DATE" />
+											 <span  class="input-group-btn">
+											<button class="btn default date-set" type="button" >
+												<i class="fa fa-calendar"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">实际到车时间:</label>
+								<div class="col-xs-8">
+									<select id="arriveTime"
+										class="bs-select form-control" name="arriveTime"
+										data-url="/dealerCheckMaintain/hour"
+										data-model="vehicle" data-labelValue="HOUR_LIST"
+										data-lableDesc="HOUR_LIST">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">验收人:</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control required" id="inspectionPerson" name="inspectionPerson" data-fieldName="INSPECTION_PERSON">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">备注:</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control " id="remark" name="remark" data-fieldName="REMARK">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="tabbable-custom ">
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="#tab_complaintDetail"
+					data-toggle="tab">入库车辆损坏信息</a></li>
+			</ul>
+			<div class="tab-content">
+				<div class="tab-pane fade in active" id="tab_complaintDetail">
+					<div class="panel panel-default table-panel">
+						<div class="panel-heading">
+							<div class="pannel-name"></div>
+							<div class="pannel-button">
+								<div class="btn-group btn-group-sm">
+									<a class="btn btn-outline" href="javascript:;"
+										data-onclickEvent="true"> <i class="fa fa-plus-square"></i>添加
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="panel-body">
+							<table class="table table-striped table-bordered table-hover table-responsive" 
+							id="complaintDetai">
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/dealerCheckMaintain/dealer/detail/acceptance" data-model="vehicle"
+			data-method="PUT" data-callBack="true"  data-beforeRequest="true" class="btn blue"
+			data-toggle="confirmation"><i class="fa fa-save"></i>验收</a>
+			 <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>返回</a>
+		</div>	
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		$("#complaintDetai",getElementContext()).dmsTable().appendBlankRow();
+		 var tab=$("#complaintDetai tbody");
+		 var rows=$("tr",tab).length;
+		 if(rows){
+			 $("tr:eq("+(rows-1)+") td:eq(2) input[id^=dealDate]",tab).parents("div").attr("data-date-start-date","+0d");
+		 }
+	}); 
+	
+	//请求出发前事件
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){ 
+		//var selectRow = $("#complaintDetai",container).dmsTable().getSelections();// 获取选中表格数据
+// 		var tab=$("#complaintDetai tbody");//预约项目
+// 		var rows=$("tr",tab).length;
+		var selectRows = $("#complaintDetai",container).bootstrapTable('getData');
+		if (selectRows.length==0) {
+			$("#damageFlag",container).setDmsValue("0"); // 若为空则车辆未质损
+			returnResult.status = true;
+		} else {
+			$("#damageFlag",container).setDmsValue("1");
+			var damageDatas = "";
+			for(var i=0;i<selectRows.length;i++){
+				var damagePart = $("#damagePart"+i,container).val();
+				var damageDesc = $("#damageDesc"+i,container).val();
+				if(damageDatas==""){
+					damageDatas = damagePart+"/"+damageDesc;
+				}else{
+					damageDatas = damagePart+"/"+damageDesc+","+damageDatas;
+				}
+			}
+			$("#damageDatas",container).setDmsValue(damageDatas);
+			returnResult.status = true; 
+		}
+	});
+	
+	//初始化损坏信息表格
+	new Datatable().initLocale({
+		src : "complaintDetai",
+		container:container,
+//			url : dmsCommon.getDmsPath()["vehicle"] + "/materialGroupMaintain",
+//			rowID : "GROUP_ID",
+		sortName : "",
+		sortOrder : "asc",
+		columns : [ 
+		     {field : "POSE_ID",title : "操作",operateFormat : [ {type : "localDel",onBeforeEvent:function(value, rows, index){
+		    	 		 
+	             }
+		         } ]}, 
+	            {field:"DAMAGE_PART",title:"损坏部位",inputField:"damagePart",
+		        	 inputTextFormat :{validate:{validateClass:"required",validateAttr:'maxlength="30"'}}},
+	            {field:"DAMAGE_DESC",title:"损坏描述",inputField:"damageDesc",
+		        	 inputTextFormat :{validate:{validateClass:"required",validateAttr:'maxlength="30"'}}}
+	         ]
+
+	});
+	
+})
+</script>

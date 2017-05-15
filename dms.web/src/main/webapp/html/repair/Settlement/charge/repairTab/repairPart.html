@@ -1,0 +1,95 @@
+<div class="dms-edit ajaxrest" 
+	data-model="manage">
+	<!-- BEGIN FORM-->
+	<form class="form-horizontal">
+		<div class="panel-body">
+			<div class="panel panel-default table-panel">
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="bLDtoList">
+					</table>
+					<input type="hidden" id="afterDiscountAmountLabour" name="afterDiscountAmountLabour" value="0">
+					<input type="hidden" id="zkAmountLabour" name="zkAmountLabour" value="0">
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		var roId=$("#roId",getElementContext()).val();
+		var discountModeCode=$("#discountModeCode",getElementContext()).val();
+		//计算合计金额
+		var calcTotalAmount = function(){ 
+			var tab=$("#bLDtoList tbody");
+			var rows=$("tr",tab).length;
+			var zkAmount=0;
+			var afterDiscountAmount=0;
+			for(var i=0;i<rows;i++){
+				var labourAmount = $("tr:eq("+i+") td:eq(7) input[id^=labourAmount]",tab).val();
+				var zkAmountZ = $("tr:eq("+i+") td:eq(9) input[id^=zkAmountZ]",tab).val();
+				var afterDiscountAmountZ = $("tr:eq("+i+") td:eq(10) input[id^=afterDiscountAmount]",tab).val(); 
+				if(zkAmountZ==""){
+					zkAmountZ=parseFloat(0);
+				}
+				if(afterDiscountAmountZ==""){
+					afterDiscountAmountZ=parseFloat(0);
+				}
+				if(labourAmount==""||labourAmount==0){
+					labourAmount=parseFloat(0);
+					zkAmountZ=parseFloat(0);
+					afterDiscountAmountZ=parseFloat(0);
+				}
+				zkAmount=parseFloat(zkAmount)+parseFloat(zkAmountZ);
+				afterDiscountAmount=parseFloat(afterDiscountAmount)+parseFloat(afterDiscountAmountZ);
+			}
+			$("#zkAmountLabour",container).setDmsValue(zkAmount);
+			$("#afterDiscountAmountLabour",container).setDmsValue(afterDiscountAmount);
+			var map={zkAmountLabour:zkAmount,afterDiscountAmountLabour:afterDiscountAmount};
+			$("div[data-countAmount='true']",getElementContext()).initHtmlContent(map,false);
+		}
+		new Datatable().initLocale({
+			src : "bLDtoList",
+			container:container,
+			rowID:"RO_LABOUR_ID",
+			sortName : "RO_LABOUR_ID", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+			sortOrder : "asc",
+			columns : [ {field : "CHARGE_PARTITION_NAME",inputField:"chargePartitionCode",inputHiddenFormat : {},title : "收费区分"}, 
+			            {field : "REPAIR_TYPE_NAME",title : "维修分类"}, 
+			            {field : "LABOUR_CODE",inputField:"labourCode",inputHiddenFormat : {},title : "项目代码"}, 
+			            {field : "LABOUR_NAME",inputField:"labourName",inputHiddenFormat : {},title : "项目名称"}, 
+			            {field : "STD_LABOUR_HOUR",inputField:"assignLabourHour",inputHiddenFormat : {},title : "标准工时"}, 
+			            {field : "LABOUR_PRICE",inputField:"labourPrice",inputHiddenFormat : {},title : "工时单价"}, 
+			            {field : "LABOUR_AMOUNT",inputField:"labourAmount",inputHiddenFormat : {},title : "工时费"}, 
+			            {field : "DISCOUNT",inputField:"discount",title : "折扣率", inputNumberFormat : {decimal : 2,validate:{validateClass:"decimal",validateAttr:'maxPrecision="2"'}}}, 
+			            {field : "DIS_LABOUR_AMOUNT",title : "折扣金额",inputField:"zkAmountZ",inputHiddenFormat : {},numberFormat:{decimal:1,autoValueFormat:{autoValue:"(1-#discount)*#labourAmount"}}},
+			            {field : "AFTER_DISCOUNT_AMOUNT",inputField:"afterDiscountAmount",inputHiddenFormat : {},title : "应收金额",numberFormat:{decimal:1,autoValueFormat:{autoValue:"#discount*#labourAmount",afterEvent:calcTotalAmount}}}
+			         ],
+			         onLoadSuccess : function() {
+			        	 dmsCommon.ajaxRestRequest({
+			 				url : dmsCommon.getDmsPath()["repair"] + "/basedata/discountmodes/minDiscountMode/dict",
+			 				type : 'GET',
+			 				sucessCallBack : function(data) {
+			 					var labourNum = $("#bLDtoList",getElementContext()).dmsTable().getTableRows();
+			 					for(var i=0;i<labourNum;i++){
+			 						$("#bLDtoList tbody tr:eq("+i+") td:eq(8) input[id^=discount]",container).attr("min",parseFloat(data.LABOUR_AMOUNT_DISCOUNT).toFixed(2));
+			 					}
+			 				}
+			 			});
+				     		var balanceId=$("#balanceId",getElementContext()).val();
+				        	 	if(balanceId!=""){
+				        	 		$("#bLDtoList",container).setContainerReadOnly();
+				      		   }
+							}
+		});
+		if(roId!=""){
+			$("#bLDtoList",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["repair"] + "/balance/balanceAccounts/queryRoLabour/"+roId);
+			calcTotalAmount();
+			$("#oldRoId",getElementContext()).setDmsValue(roId);
+		};
+
+	});
+
+</script>

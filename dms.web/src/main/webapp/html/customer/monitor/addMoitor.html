@@ -1,0 +1,280 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">监控车主车辆编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="tabbable-retail ">
+				<div class="tab-content">
+					<div class="tab-pane fade in active" id="tab_basreceive">
+						<div class="panel-body" data-tableRetailSelect="true">
+							<div class="row">
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6">
+									<div class="form-group">
+										<label class="control-label col-xs-3">车牌号</label>
+										<div class="col-xs-9">
+											<input type="text" class="form-control" id="license" name="license" data-fieldName="LICENSE">
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6">
+									<div class="form-group">
+										<label class="control-label col-xs-3">车主编号</label>
+ 										<div class="col-xs-9">
+											<div class="input-group">
+												<input id="ownerNo" name="ownerNo" data-fieldName="OWNER_NO" readonly="readonly" class="form-control" type="text" />
+												<span class="input-group-btn">
+													<button class="btn default btn-sm" type="button"
+														data-url="customer/monitor/searchVehicleOwner.html"
+														data-toggle="modal" data-width="modal-lg">
+														<i class="fa fa-sitemap"></i>
+													</button>
+													<button class="btn default input-clear" type="button">
+														<i class="fa fa-close"></i>
+													</button>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6">
+									<div class="form-group">
+										<label class="control-label col-xs-3">发动机号</label>
+										<div class="col-xs-9">
+											<input type="text" class="form-control" id="engineNo" name="engineNo" data-fieldName="ENGINE_NO">
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6">
+									<div class="form-group">
+										<label class="control-label col-xs-3">车主</label>
+										<div class="col-xs-9">
+											<input type="text" class="form-control" id="ownerName" name="ownerName" data-fieldName="OWNER_NAME">
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6">
+									<div class="form-group">
+										<label class="control-label col-xs-3">VIN</label>
+										<div class="col-xs-9">
+											<input type="text" class="form-control" id="vin" name="vin" data-fieldName="VIN">
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6">
+									<div class="form-group">
+										<label class="control-label col-xs-3">后6位VIN</label>
+										<div class="col-xs-9">
+											<div class="input-group">
+												<input type="text" class="form-control digits" data-fieldName="VIN_BEGIN_RANGE" id="vinBeginRange" name="vinBeginRange" /> 
+												<span class="input-group-addon">至</span> 
+												<input type="text" class="form-control digits" data-fieldName="VIN_END_RANGE" id="vinEndRange" name="vinEndRange" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6">
+									<div class="form-group">
+										<label class="control-label col-xs-3">销售日期</label>
+										<div class="col-xs-9">
+											<div class="input-group date date-picker">
+												<input type="text" class="form-control" data-fieldName="SALES_DATE_BEGIN" name="salesDateBegin" id="salesDateBegin" value="" />
+												<span class="input-group-addon">至</span>
+												<span class="input-group-btn">
+													<button class="btn default input-clear" type="button">
+														<i class="fa fa-close"></i>
+													</button>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6">
+									<div class="form-group">
+										<label class="control-label col-xs-3"></label>
+										<div class="col-xs-9">
+											<div class="input-group date date-picker">
+												<input type="text" class="form-control" data-fieldName="SALES_DATE_END" name="saledDateEnd" id="saledDateEnd" value="">
+												<span class="input-group-btn">
+													<button class="btn default input-clear" type="button">
+														<i class="fa fa-close"></i>
+													</button>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6">
+									<div class="form-group">
+										<label class="control-label col-xs-3">建档日期</label>
+										<div class="col-xs-9">
+											<div class="input-group input-daterange" data-defaultDays="1">
+												<input type="text" class="form-control" readonly name="foundDate" id="foundDate" data-fieldName="FOUND_DATE">
+												<span class="input-group-btn">
+													<button class="btn default input-clear" type="button">
+														<i class="fa fa-close"></i>
+													</button>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6">
+									<div class="form-group">
+										<label class="control-label col-xs-3">消费额区间</label>
+										<div class="col-xs-9">
+											<div class="input-group">
+												<input type="text" class="form-control double" data-fieldName="OWNER_CONSUME_AMOUNT_MIN" id="ownerConsumeAmountMin" name="ownerConsumeAmountMin" value="0.00" /> 
+												<span class="input-group-addon">至</span>
+												<input type="text" class="form-control double" data-fieldName="OWNER_CONSUME_AMOUNT_MAX" id="ownerConsumeAmountMax" name="ownerConsumeAmountMax" value="0.00" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- /span -->
+								<div class="col-xs-12 col-sm-6">
+									<div class="form-group">
+										<label class="control-label col-xs-3">预约提醒</label>
+										<div class="col-xs-9">
+											<select id="bookingTag" class="bs-select form-control" data-fiedName="BOOKING_TAG" name="bookingTag" data-dictCode="1278"></select>
+										</div>
+									</div>
+								</div>
+								<!-- /span -->
+								<!--/span-->
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6">
+									<div class="form-group">
+										<label class="control-label col-xs-3">接待提醒</label>
+										<div class="col-xs-9">
+											<select id="repairOrderTag" class="bs-select form-control" name="repairOrderTag" data-dictCode="1278" data-fiedName="REPAIR_ORDER_TAG"></select>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6">
+									<div class="form-group">
+										<label class="control-label col-xs-3">结算提醒</label>
+										<div class="col-xs-9">
+											<select id="balanceTag" class="bs-select form-control" name="balanceTag" data-dictCode="1278" data-fieldName="BALANCE_TAG"></select>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label class="control-label col-sm-2">提示信息</label>
+										<div class="col-xs-10">
+											<input type="text" class="form-control required" id="message" name="message" data-fieldName="MESSAGE">
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6">
+									<div class="form-group">
+										<label class="control-label col-xs-3">有效期从</label>
+										<div class="col-xs-9">
+											<div class="input-group date date-picker">
+												<input type="text" class="form-control required" data-fieldName="BEGIN_DATE" name="beginDate" id="beginDate" value="" />
+												<span class="input-group-addon">至</span>
+												<span class="input-group-btn">
+													<button class="btn default input-clear" type="button">
+														<i class="fa fa-close"></i>
+													</button>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6">
+									<div class="form-group">
+										<label class="control-label col-xs-3"></label>
+										<div class="col-xs-9">
+											<div class="input-group date date-picker">
+												<input type="text" class="form-control required" data-fieldName="END_DATE" name="endDate" id="endDate" value="" />
+												<span class="input-group-btn">
+													<button class="btn default input-clear" type="button">
+														<i class="fa fa-close"></i>
+													</button>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="dms_monitor">
+				</table>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/customer/monitor/addMoitor" data-model="customer" data-method="POST" data-callBack="true" class="btn blue" data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> 
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+			<a id="dms_monitorlist" data-onclickEvent="true" data-callBack="true" class="btn blue" ><i class="fa fa-search"></i>历史信息</a> 
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+	$("#dms_monitor",container).hide();
+		new Datatable().initPagination({
+			src : "dms_monitor",
+			container:container,
+			rowID:"LICENSE",
+			undefinedText : "",
+			pageSize:5,
+			autoHeight:false,
+			columns : [ 
+				{field : "REPAIR_ORDER_TAG",title : "接待提醒",codeFormat : {type : "dict",codeType : "1278"}},
+				{field : "BALANCE_TAG",title : "结算提醒",codeFormat : {type : "dict",codeType : "1278"}},
+				{field : "BOOKING_TAG",title : "预约提醒",codeFormat : {type : "dict",codeType : "1278"}},
+				{field : "LICENSE",title : "车牌号"},
+				{field : "VIN",title : "VIN"},
+				{field : "ENGINE_NO",title : "发动机号"},
+				{field : "OWNER_NO",title : "车主编号"},
+				{field : "OWNER_NAME",title : "车主"},
+				{field : "MESSAGE",title : "提示信息"},
+				{field : "BEGIN_DATE",title : "开始日期",dateFormat : {format : "YYYY-MM-DD"}},
+				{field : "END_DATE",title : "结束日期",dateFormat : {format : "YYYY-MM-DD HH:mm:ss"}},
+				{field : "OPERATOR",title : "操作员"},
+				{field : "FOUND_DATE",title : "建档日期",dateFormat : {format : "YYYY-MM-DD HH:mm:ss"}},
+	         ],
+		});
+		
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			$("#dms_monitor",container).show();
+			dmsCommon.ajaxRestRequest({
+				url:dmsCommon.getDmsPath()["customer"] +"/customer/monitor/historyMonitor",
+				type:"GET",
+				sucessCallBack : function(data) {
+					
+				}
+			});
+		});
+});
+</script>

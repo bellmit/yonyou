@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/jee
+        http://www.springframework.org/schema/jee/spring-jee.xsd">
+
+	<!-- f4 schedule singleton task lock implement begin -->
+	<beans profile="source">
+		<bean id="schQuartzJobFactory" class="com.yonyou.f4.schedule.task.SchQuartzJobFactory"></bean>
+		
+		<bean id="scheduleService" class="com.yonyou.f4.schedule.impl.ScheduleServiceImpl"
+			init-method="init" destroy-method="destory">
+	<!-- 		<property name="redisFactory" ref="jedisFactory" /> -->
+		</bean>
+	</beans>
+	
+	<!-- f4 schedule singleton task lock implement end -->
+	<beans profile="source,test">
+	
+		<bean id="schConstant" class="com.yonyou.f4.schedule.SchConstant">
+			<property name="serverName" value="${f4.server.name}" />
+			<property name="multiTenant" value="${f4.multi.tenant}" />
+			<property name="runMode" value="${f4.run.mode}" />
+			<property name="webappId" value="${f4.webapp.id}" />
+			<property name="webappFilePath" value="${f4.webapp.file.path}" />
+			<property name="taskWrapper" value="${f4.schedule.task.wrapper}" />
+			<property name="schBalancerCollectorId" value="${f4.sch.balancer.collector.id}" />
+			<property name="isLoggingMisfire" value="false" />
+			<property name="nodeTaskMaxDuration" value="60" />
+			<property name="txnTimeout" value="300" />
+			<property name="errorStackLen" value="3500" />
+			<property name="maxThreads" value="10" />
+			<property name="qtzAgentTaskInterval" value="10" />
+			<property name="healthCheckTaskInterval" value="10" />
+		</bean>
+		<!-- REDIS related begin -->
+		<bean id="jedisFactory"
+			class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+			<property name="usePool" value="true" />
+			<property name="hostName" value="10.180.4.113" />
+			<property name="port" value="6379" />
+		</bean>
+		<!-- REDIS related end -->
+		<bean id="balancer" class="com.yonyou.f4.common.balancer.impl.BalancerImpl"
+			init-method="init" destroy-method="destroy">
+			<property name="heartbeat" value="30" />
+			<property name="collectors">
+				<set>
+					<bean id="tenant" class="com.yonyou.f4.common.balancer.impl.TenantCollector">
+						<property name="tenantService" ref="TenantService" />
+					</bean>
+					<!-- <bean id="schCollector" class="com.yonyou.f4.schedule.node.SchBalancerCollector"> 
+						</bean> -->
+				</set>
+			</property>
+		</bean>
+	</beans>
+</beans>

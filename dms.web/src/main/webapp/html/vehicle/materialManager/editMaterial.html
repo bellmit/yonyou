@@ -1,0 +1,130 @@
+<div class="dms-edit ajaxrest" data-url="/materialMaintain/{[MATERIAL_ID]}"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">物料信息编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6  " data-tableSelect="true">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车款代码</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+									<input id="flag" name="flag" type="hidden" value="1"/>
+									<input id="groupId" name="groupId" type="hidden"
+										data-fieldName="group_id" />
+									<input id="materialName" name=materialName type="hidden"
+										data-fieldName="material_name" />
+									<input id="materialCode" readonly
+										name="materialCode" class="form-control required" type="text"
+										data-fieldName="group_code" /> <span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="vehicle/materialManager/searchSuperMaterial.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">颜色代码</label>
+								<div class="col-xs-8">
+									<input id="colorCode" name="colorCode" data-fieldName="color_code" class="form-control required systemCode" maxlength="10" type="text" />
+								</div>
+							</div>
+						</div>
+		
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">颜色名称</label>
+								<div class="col-xs-8">
+										<input id="colorName" name="colorName" data-fieldName="color_name" class="form-control required"  maxlength="30" type="text"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">内饰代码</label>
+								<div class="col-xs-8">
+									<input id="trimCode" name="trimCode" data-fieldName="trim_code" class="form-control required systemCode" maxlength="10" type="text" />
+								</div>
+							</div>
+						</div>
+		
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">内饰名称</label>
+								<div class="col-xs-8">
+										<input id="trimName" name="trimName" data-fieldName="trim_name" class="form-control required"  maxlength="30" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">物料状态</label>
+								<div class="col-xs-8">
+									<select id="status" name="status" data-fieldName="status" class="bs-select form-control required" data-type="oemDict" data-dictCode="1001" data-value="10011001" data-existsDefault="false"  >
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否销售</label>
+								<div class="col-xs-8">
+									<select id="isSales" name="isSales" data-fieldName="is_sales" class="bs-select form-control required" data-type="oemDict" data-dictCode="1004" data-value="10041001" data-existsDefault="false"  >
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否电商</label>
+								<div class="col-xs-8">
+									<select id="isEc" name="isEc" data-fieldName="is_ec" class="bs-select form-control required" data-type="oemDict" data-dictCode="1004" data-value="10041001"  data-existsDefault="false" >
+									</select>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/materialMaintain/{[MATERIAL_ID]}" data-model="vehicle"
+				data-method="PUT" data-callBack='true'
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>保存</a> <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+		
+	})
+</script>

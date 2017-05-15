@@ -1,0 +1,479 @@
+<div class="dms-edit ajaxrest"
+	data-url="/basedata/vsstock/{[VS_STOCK_ID]}" data-model="vehicle"
+	data-pageInitCallBack="true">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">库存信息编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">车辆基本信息</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i
+							class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌</label>
+								<div class="col-xs-8">
+									<input class="form-control" type="text"
+										data-fieldName="BRAND_NAME" disabled />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系</label>
+								<div class="col-xs-8">
+									<input class="form-control" type="text"
+										data-fieldName="SERIES_NAME" disabled />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车型</label>
+								<div class="col-xs-8">
+									<input class="form-control" type="text"
+										data-fieldName="MODEL_NAME" disabled />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配置</label>
+								<div class="col-xs-8">
+									<input class="form-control" type="text"
+										data-fieldName="CONFIG_NAME" disabled />
+								</div>
+							</div>
+						</div>
+
+
+
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">产品代码</label>
+								<div class="col-xs-8">
+									<input class="form-control" type="text"
+										data-fieldName="PRODUCT_CODE" disabled />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">产品名称</label>
+								<div class="col-xs-8">
+									<input class="form-control" type="text"
+										data-fieldName="PRODUCT_NAME" disabled />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">VIN</label>
+								<div class="col-xs-8">
+									<input id="vin" name="vin" class="form-control" type="text"
+										data-fieldName="VIN" disabled />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">颜色</label>
+								<div class="col-xs-8">
+									<input class="form-control" type="text"
+										data-fieldName="COLOR_NAME" disabled />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">产地</label>
+								<div class="col-xs-8">
+									<input class="form-control" type="text"
+										data-fieldName="PRODUCTING_AREA" disabled />
+								</div>
+							</div>
+						</div>
+						<!--  -->
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">钥匙号</label>
+								<div class="col-xs-8">
+									<input id="keyNumber" name="keyNumber" class="form-control"
+										type="text" data-fieldName="KEY_NO" maxlength="20" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">合格证号</label>
+								<div class="col-xs-8">
+									<input id="certificateNumber" name="certificateNumber"
+										class="form-control" type="text"
+										data-fieldName="CERTIFICATE_NUMBER" maxlength="30" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">发动机号</label>
+								<div class="col-xs-8">
+									<input id="productCode" name="engineNO" class="form-control"
+										type="text" data-fieldName="ENGINE_NO" maxlength="20" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">排放标准</label>
+								<div class="col-xs-8">
+									<input class="form-control" type="text"
+										data-fieldName="DISCHARGE_STANDARD" disabled />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">排气量</label>
+								<div class="col-xs-8">
+									<input class="form-control" type="text"
+										data-fieldName="EXHAUST_QUANTITY" disabled />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否直销</label>
+								<div class="col-xs-8">
+									<input class="form-control" type="text"
+										data-fieldName="IS_DIRECT" disabled />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否OEM</label>
+								<div class="col-xs-8">
+									<input class="form-control" type="text"
+										data-fieldName="OEM_TAG" disabled />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">生产日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker">
+										<input readonly class="form-control" type="text"
+											data-fieldName="MANUFACTURE_DATE" /> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button" disabled>
+												<i class="fa fa-calendar"></i>
+											</button>
+
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">出厂日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker">
+										<input readonly class="form-control" type="text"
+											data-fieldName="FACTORY_DATE" /> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button" disabled>
+												<i class="fa fa-calendar"></i>
+											</button>
+
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-1">备注</label>
+								<div class="col-xs-11">
+									<input id="remark" name="remark" class="form-control"
+										type="text" data-fieldName="REMARK" maxlength="500" />
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">车辆库存信息</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i
+							class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">仓库</label>
+								<div class="col-xs-8">
+									<input class="form-control" type="text"
+										data-fieldName="STORAGE_CODE" disabled />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">库存状态</label>
+								<div class="col-xs-8">
+									<input class="form-control" type="text"
+										data-fieldName="OWN_STOCK_STATUS" disabled />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配车状态</label>
+								<div class="col-xs-8">
+									<input class="form-control" type="text"
+										data-fieldName="DISPATCHED_STATUS" disabled />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否锁定</label>
+								<div class="col-xs-8">
+						
+									<input id="isLock" name="isLock" type="radio" data-fieldName="IS_LOCK"
+										data-dictCode="1004"  />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">质损状态</label>
+								<div class="col-xs-8">
+									<input id="trafficMarStatus" name="trafficMarStatus"
+										type="radio" data-dictCode="1040"
+										data-fieldName="TRAFFIC_MAR_STATUS" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">试乘试驾车</label>
+								<div class="col-xs-8">
+							     	
+									<input id="isTestDrive" name="isTestDrive" type="radio"
+										data-dictCode="1004" data-fieldName="IS_TEST_DRIVE" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车位</label>
+								<div class="col-xs-8">
+									<input class="form-control" type="text"
+										data-fieldName="STORAGE_POSITION_CODE" disabled />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">入库类型</label>
+								<div class="col-xs-8">
+									<input class="form-control" type="text"
+										data-fieldName="ENTRY_TYPE" disabled />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">首次入库日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker">
+										<input readonly class="form-control" type="text"
+											data-fieldName="FIRST_STOCK_IN_DATE" /> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button" disabled>
+												<i class="fa fa-calendar"></i>
+											</button>
+
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">入库日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker">
+										<input readonly class="form-control" type="text"
+											data-fieldName="FIRST_STOCK_IN_DATE" /> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button" disabled>
+												<i class="fa fa-calendar"></i>
+											</button>
+
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">出库类型</label>
+								<div class="col-xs-8">
+									<input class="form-control" type="text"
+										data-fieldName="DELIVERY_TYPE" disabled />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">出库日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker">
+										<input readonly class="form-control" type="text"
+											data-fieldName="LATEST_STOCK_OUT_DATE" /> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button" disabled>
+												<i class="fa fa-calendar"></i>
+											</button>
+
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
+
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">车辆价格信息</div>
+
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i
+							class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+
+
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">采购日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker">
+										<input readonly class="form-control" type="text"
+											data-fieldName="" /> <span class="input-group-btn">
+											<button class="btn default date-set" type="button" disabled>
+												<i class="fa fa-calendar"></i>
+											</button>
+
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">采购价格</label>
+								<div class="col-xs-8">
+									<input class="form-control" type="text"
+										data-fieldName="PURCHASE_PRICE" disabled />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车厂指导价</label>
+								<div class="col-xs-8">
+									<input class="form-control" type="text"
+										data-fieldName="OEM_DIRECTIVE_PRICE" disabled />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销售指导价</label>
+								<div class="col-xs-8">
+									<input class="form-control" type="text"
+										data-fieldName="DIRECTIVE_PRICE" disabled />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">批售指导价</label>
+								<div class="col-xs-8">
+									<input class="form-control" type="text"
+										data-fieldName="WHOLESALE_DIRECTIVE_PRICE" disabled />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<a data-url="/basedata/vsstock/{[VS_STOCK_ID]}" data-model="vehicle"
+					data-method="PUT" data-callBack="true" class="btn blue"
+					data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> <a
+					data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+			</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+
+$(document).one("onload.dms",function(event,container){
+	//?????对于‘质损状态’是‘质损’的，可以修改为‘正常’，但‘正常’的不可修改为质损
+	$("[name='trafficMarStatus']",container).bindChange(function(obj){
+			var trafficMarStatus = $(obj).val();
+			
+	});
+	
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#pdiList",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	//对于‘质损状态’是‘质损’的，可以修改为‘正常’，但‘正常’的不可修改为质损
+	$("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){
+		$("input[type='radio'][name='trafficMarStatus'][value='10401002']",container).attr("disabled", true);
+		
+    	
+	});
+}); 
+</script>

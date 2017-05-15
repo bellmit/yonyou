@@ -1,0 +1,387 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<div class="col-xs-4">
+								<select id="tag" name="tag" data-value="15880001"
+									class="bs-select form-control" data-dictCode="1588" data-existsDefault="false" 
+									data-excludeItems="15880002,15880003,15880004,15880005,15880006,15880007,15880008,15880009,15880010,15880011,15880013,15880014,15880015,15880016,15880018,15880019,15880020,15880021,15880022">
+								</select>
+							</div>
+							<div class="col-xs-8">
+								 <div class="input-group input-daterange" data-defaultDays="30">
+		                             <input type="text" class="form-control" readonly  name="beginDate">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="endDate"> 
+		                        </div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">客户代码</label>
+								<div class="col-xs-3">
+									<input id="customerCode" name="customerCode"
+											class="form-control " type="text" />
+								</div>
+								<div class="col-xs-5">
+									<div class="input-group" data-seledate='true'>
+										<input name="customerName" id="customerName" disabled="disabled"
+											class="form-control " type="text" />	
+										<div class="input-group-btn">
+											<button class="btn default btn-sm" type="button" data-Width="modal-lg" data-url="part/basedata/accountPayableManage/searchCustomers.html"
+												data-toggle="modal" >
+												<i class="fa fa-search" />
+											</button>
+										</div>
+									</div>
+								</div>	
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否付讫</label>
+							<div class="col-xs-8 ">
+								<select id="isPayoff" name="isPayoff" data-ajaxSync="true" class="bs-select form-control" data-dictCode="1278"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">付讫凭证</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="credence" 
+									name="credence">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">注册码</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="orderRegeditNo" 
+									name="orderRegeditNo">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">账款到款日期</label>
+							<div class="col-xs-8">
+								 <div class="input-group input-daterange">
+		                             <input type="text" class="form-control" readonly  name="arriveBeginDate">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="arriveEndDate">
+		                        </div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row ">
+						<div class="col-xs-12 ">
+							<div class="query-btn">
+								<a href="javascript:;" class="btn blue"> <i
+									class="fa fa-search"></i> 查询
+								</a> <a href="javascript:;" class="btn blue"><i
+									class="fa fa-undo"></i> 重置</a>
+							</div>
+						</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-button">
+					<div class="btn-group btn-group-sm">
+						<a class="btn btn-outline fa fa-save ajaxrest" 
+							data-url="/basedata/accountPayableManage/update" data-model="part"
+							data-method="PUT" >保存</a> 
+						<a class="btn btn-outline fa fa-plus-square" id="pay" data-onclickEvent="true"
+							data-url="part/basedata/accountPayableManage/payableManage.html" data-toggle="modal"
+							data-width="modal-sm">付讫</a>
+						<a class="btn btn-outline fa fa-plus-square"
+							data-onclickEvent="true" id="payback" >取消付讫</a> 
+						<a data-url="/basedata/accountPayableManage/export" data-model="part"
+							data-method="downLoad" data-toggle="confirmation"
+							class="btn btn-outline "><i class="fa fa-download"/>EXCEL</a>	
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-body" id="a">
+				<table class="table table-striped table-bordered table-hover table-responsive"
+					id="dmstable"></table>
+			</div>
+			<div class="panel-body" id="b">
+				<table class="table table-striped table-bordered table-hover table-responsive"
+					id="tables"></table>
+			</div>
+			<div class="panel-body" id="c">
+				<table class="table table-striped table-bordered table-hover table-responsive"
+					id="stables"></table>
+			</div>
+		</div>
+		<div class="panel-body">
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">已付讫金额合计</label>
+						<div class="col-xs-8 ">
+							<input type="text" class="form-control" id="count" value="0"
+									name="count">
+						</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">未付讫金额合计</label>
+					<div class="col-xs-8 ">
+							<input type="text" class="form-control" id="counts" value="0"
+									name="counts">
+					</div>
+				</div>
+			</div>
+			<input type="hidden" id="ww" name="ww"/>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		$("#a",container).show();//显示
+		$("#b",container).hide();//隐藏
+		$("#c",container).hide();
+		new Datatable().initPagination({
+			src : "dmstable",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/basedata/accountPayableManage/query",
+			rowID : "ITEM_ID",
+			sortName : "", 
+			sortOrder : "asc",
+			autoHeight : false,
+			selectItemName:"itemids",
+			isFormParam:true,
+			undefinedText : "",
+			isQueryFirst : false,
+			onClickRow : function(rows,$this){
+			},
+			columns : [ 
+				{radio:true,sortable : false},
+				{title : "操作",operateFormat : [
+                    {type:"detail",url:"part/basedata/accountPayableManage/deielAccountPayableManage.html",openWidth:"modal-lg",doubleClick:true}
+                	]
+             	},
+			    {field : "STOCK_IN_NO",title : "入库单号",inputHiddenFormat:{}}, 
+				{field : "FINISHED_DATE",title : "完成/入帐日期",inputHiddenFormat:{}},
+				{field : "CUSTOMER_CODE",title : "客户代码",inputHiddenFormat:{}},
+				{field : "CUSTOMER_NAME",title : "客户名称",inputHiddenFormat:{}}, 
+				{field : "ITEM_COUNT",title : "项目数",inputHiddenFormat:{}},
+				{field : "TOTAL_AMOUNT",title : "总金额",inputHiddenFormat:{}}, 
+				{field : "IS_PAYOFF",title : "是否付讫",codeFormat:{type : "dict",codeType : "1278"}},
+				{field : "CREDENCE",title : "付款凭证",inputHiddenFormat:{}},
+				{field : "ORDER_REGEDIT_NO",title : "注册号码",inputHiddenFormat:{}}, 
+				{field : "ARRIVE_DATE",title : "帐款到期日期",inputHiddenFormat:{},dateFormat : {format:"YYYY-MM-DD"}},
+				{field : "PAY_OFF_DATE",title : "付讫日期",inputHiddenFormat:{},dateFormat : {format:"YYYY-MM-DD"}},
+				{field : "PAY_OFF_TAX",title : "付讫税率",inputHiddenFormat:{}},
+				{field : "PAY_OFF_MAN",title : "付讫对象",inputHiddenFormat:{}},
+				{field : "RECEIVE_REMARK",title : "付款备注",inputHiddenFormat:{}}
+			],onLoadSuccess:function(row){
+				var s = "";
+				var selectRow = $("#dmstable",container).dmsTable().getRowDataByIndex()
+				$.each(selectRow,function(index,row){
+					s+=row.TOTAL_AMOUNT
+				});
+				$("#counts",container).val(s)
+				$("#excel").attr("data-url","")
+			}
+		});
+		new Datatable().initPagination({
+			src : "tables",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/basedata/accountPayableManage/query",
+			rowID : "ITEM_ID",
+			sortName : "", 
+			sortOrder : "asc",
+			autoHeight : false,
+			isFormParam:true,
+			selectItemName:"itemid",
+			undefinedText : "",
+			isQueryFirst : false,
+			onClickRow : function(rows,$this){
+			},
+			columns : [ 
+				{radio:true,sortable : false},
+				{title : "操作",operateFormat : [
+                    {type:"detail",url:"part/basedata/accountPayableManage/deielAccountPayableManage.html",openWidth:"modal-lg",doubleClick:true}
+                	]
+             	},
+			    {field : "STOCK_IN_NO",title : "入库单号",inputHiddenFormat:{}}, 
+				{field : "FINISHED_DATE",title : "完成/入帐日期",inputHiddenFormat:{}},
+				{field : "CUSTOMER_CODE",title : "客户代码",inputHiddenFormat:{}},
+				{field : "CUSTOMER_NAME",title : "客户名称",inputHiddenFormat:{}}, 
+				{field : "ITEM_COUNT",title : "项目数",inputHiddenFormat:{}},
+				{field : "TOTAL_AMOUNT",title : "总金额",inputHiddenFormat:{}}, 
+				{field : "IS_PAYOFF",title : "是否付讫",inputSelectFormat : {type : "dict",codeType : "1278"}},
+				{field : "CREDENCE",title : "付款凭证",inputHiddenFormat:{}},
+				{field : "ORDER_REGEDIT_NO",title : "注册号码",inputHiddenFormat:{}}, 
+				{field : "ARRIVE_DATE",title : "帐款到期日期",inputHiddenFormat:{},dateFormat : {format:"YYYY-MM-DD"}},
+				{field : "PAY_OFF_DATE",title : "付讫日期",inputHiddenFormat:{},dateFormat : {format:"YYYY-MM-DD"}},
+				{field : "PAY_OFF_TAX",title : "付讫税率",inputHiddenFormat:{}},
+				{field : "PAY_OFF_MAN",title : "付讫对象",inputHiddenFormat:{}},
+				{field : "RECEIVE_REMARK",title : "付款备注",inputHiddenFormat:{}}
+			],onLoadSuccess:function(row){
+				var s = "";
+				var selectRow = $("#tables",container).dmsTable().getRowDataByIndex()
+				$.each(selectRow,function(index,row){
+					s+=row.TOTAL_AMOUNT
+				});
+				$("#counts",container).val(s)
+			}
+		});
+		new Datatable().initPagination({
+			src : "stables",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/basedata/accountPayableManage/query",
+			rowID : "ITEM_ID",
+			sortName : "", 
+			sortOrder : "asc",
+			autoHeight : false,
+			selectItemName:"itemid",
+			isFormParam:true,
+			undefinedText : "",
+			isQueryFirst : false,
+			onClickRow : function(rows,$this){
+			},
+			columns : [ 
+				{radio:true,sortable : false},
+				{title : "操作",operateFormat : [
+                    {type:"detail",url:"part/basedata/accountPayableManage/deielAccountPayableManage.html",openWidth:"modal-lg",doubleClick:true}
+                	]
+             	},
+			    {field : "STOCK_IN_NO",title : "入库单号",inputHiddenFormat:{}}, 
+				{field : "FINISHED_DATE",title : "完成/入帐日期",inputHiddenFormat:{}},
+				{field : "CUSTOMER_CODE",title : "客户代码",inputHiddenFormat:{}},
+				{field : "CUSTOMER_NAME",title : "客户名称",inputHiddenFormat:{}}, 
+				{field : "ITEM_COUNT",title : "项目数",inputHiddenFormat:{}},
+				{field : "TOTAL_AMOUNT",title : "出库金额",inputHiddenFormat:{}}, 
+				{field : "IS_PAYOFF",title : "是否付讫",inputSelectFormat : {type : "dict",codeType : "1278"}},
+				{field : "CREDENCE",title : "付款凭证",inputHiddenFormat:{}},
+				{field : "ORDER_REGEDIT_NO",title : "注册号码",inputHiddenFormat:{}}, 
+				{field : "ARRIVE_DATE",title : "帐款到期日期",inputHiddenFormat:{},dateFormat : {format:"YYYY-MM-DD"}},
+				{field : "PAY_OFF_DATE",title : "付讫日期",inputHiddenFormat:{},dateFormat : {format:"YYYY-MM-DD"}},
+				{field : "PAY_OFF_TAX",title : "付讫税率",inputHiddenFormat:{}},
+				{field : "PAY_OFF_MAN",title : "付讫对象",inputHiddenFormat:{}},
+				{field : "RECEIVE_REMARK",title : "付款备注",inputHiddenFormat:{}}
+			],onLoadSuccess:function(row){
+				var s = "";
+				var selectRow = $("#stables",container).dmsTable().getRowDataByIndex()
+				$.each(selectRow,function(index,row){
+					s+=row.TOTAL_AMOUNT
+				});
+				$("#counts",container).val(s)
+			}
+		});
+		
+		
+		$("#tag",container).on('change',function(){
+			var flag = $(this).val();
+			var s = 0;
+			var b = 0;
+			if(flag=='15880001'){//采购入库
+				$("#a",container).show();//显示
+				$("#b",container).hide();//隐藏
+				$("#c",container).hide();
+				var selectRow = $("#dmstable",container).dmsTable().getRowDataByIndex()
+				$.each(selectRow,function(index,row){
+					s += row.TOTAL_AMOUNT
+				});
+				if(selectRow[0].is_payoff==12781001){
+					$.each(selectRow,function(index,row){
+						b += row.TOTAL_AMOUNT
+					});
+				}
+				$("#counts",container).val(s)
+				$("#count",container).val(b)
+			}else if(flag=='15880012'){//调拨入库
+				$("#b",container).show();//显示
+				$("#a",container).hide();//隐藏
+				$("#c",container).hide();
+				var selectRow = $("#tables",container).dmsTable().getRowDataByIndex()
+				$.each(selectRow,function(index,row){
+					s+=row.TOTAL_AMOUNT
+				});
+				if(selectRow.is_payoff==12781001){
+					$.each(selectRow,function(index,row){
+						b += row.TOTAL_AMOUNT
+					});
+				}
+				$("#counts",container).val(s)
+				$("#count",container).val(b)
+			}else if(flag=='15880017'){//调拨出库
+				$("#c",container).show();//显示
+				$("#a",container).hide();//隐藏
+				$("#b",container).hide();
+				var selectRow = $("#stables",container).dmsTable().getRowDataByIndex()
+				$.each(selectRow,function(index,row){
+					s+=row.TOTAL_AMOUNT
+				});
+				if(selectRow[0].is_payoff==12781001){
+					$.each(selectRow,function(index,row){
+						b += row.TOTAL_AMOUNT
+					});
+				}
+				$("#counts",container).val(s)
+				$("#count",container).val(b)
+			}
+		});
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			if($(this).attr('id')=='payback'){
+				var flag = $("#tag",container).val();
+				if(flag=='15880001'){//采购入库
+					$("#dmstable",container).dmsTable().updateRowByIndex(0,{
+						"IS_PAYOFF":12781002
+					});
+					var selectRow = $("#dmstable",container).dmsTable().getRowDataByIndex()
+					$("#counts",container).val($("#counts",container).val()+selectRow[0].TOTAL_AMOUNT)
+					$("#count",container).val($("#count",container).val()-selectRow[0].TOTAL_AMOUNT)
+				}else if(flag=='15880012'){//调拨入库
+					$("#tables",container).dmsTable().updateRowByIndex(0,{
+						"IS_PAYOFF":12781002
+					});
+					var selectRow = $("#tables",container).dmsTable().getRowDataByIndex()
+					$("#counts",container).val($("#counts",container).val()+selectRow[0].TOTAL_AMOUNT)
+					$("#count",container).val($("#count",container).val()-selectRow[0].TOTAL_AMOUNT)
+				}else if(flag=='15880017'){//调拨出库
+					$("#stables",container).dmsTable().updateRowByIndex(0,{
+						"IS_PAYOFF":12781002
+					});
+					var selectRow = $("#stables",container).dmsTable().getRowDataByIndex()
+					$("#counts",container).val($("#counts",container).val()+selectRow[0].TOTAL_AMOUNT)
+					$("#count",container).val($("#count",container).val()-selectRow[0].TOTAL_AMOUNT)
+				}
+			}
+		});
+		$("#ww",container).bindChange(function(obj){
+			if($("#ww",container).val()==2){
+				var flag = $("#tag",container).val();
+				if(flag=='15880001'){//采购入库
+					var selectRow = $("#dmstable",container).dmsTable().getRowDataByIndex()
+					$("#counts",container).val($("#counts",container).val()-selectRow[0].TOTAL_AMOUNT)
+					$("#count",container).val($("#count",container).val()+selectRow[0].TOTAL_AMOUNT)
+				}else if(flag=='15880012'){//调拨入库
+					var selectRow = $("#tables",container).dmsTable().getRowDataByIndex()
+					$("#counts",container).val($("#counts",container).val()-selectRow[0].TOTAL_AMOUNT)
+					$("#count",container).val($("#count",container).val()+selectRow[0].TOTAL_AMOUNT)
+				}else if(flag=='15880017'){//调拨出库
+					var selectRow = $("#stables",container).dmsTable().getRowDataByIndex()
+					$("#counts",container).val($("#counts",container).val()-selectRow[0].TOTAL_AMOUNT)
+					$("#count",container).val($("#count",container).val()+selectRow[0].TOTAL_AMOUNT)
+				}
+			}
+		});
+	});
+	
+</script>

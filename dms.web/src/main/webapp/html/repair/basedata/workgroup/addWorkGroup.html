@@ -1,0 +1,81 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">班组信息新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">班组代码</label>
+								<div class="col-xs-8">
+									<input id="workgroupCode" name="workgroupCode"
+										class="form-control required systemCode" maxlength="4" type="text" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">班组名称</label>
+								<div class="col-xs-8">
+									<input id="workgroupName" name="workgroupName" type="text"
+										class="form-control required" maxlength="60"/>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 ">
+							<div class="form-group">
+							<label class="control-label col-xs-4">部门</label>
+							<div class="col-xs-8">
+								<select id="orgCode" class="bs-select form-control"
+									name="orgCode" data-url="/basedata/orgs/getOrgsAll"
+									data-model="manage" data-labelValue="ORG_CODE"
+									data-lableDesc="ORG_NAME">
+								</select>
+							</div>
+						</div>
+						</div>
+						<div class="col-xs-12 ">
+							<div class="form-group">
+						<label class="control-label col-xs-4">工种类型</label>
+						<div class="col-xs-8 ">
+							<select id="workerType" name="workerType" class="bs-select form-control" data-dictCode="1200">
+							</select>
+						</div>
+						</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+				<a data-url="/basedata/workgroups" data-model="repair"
+					data-method="POST" data-callBack="true"
+					class="btn blue" data-toggle="confirmation"><i
+					class="fa fa-save"></i>保存
+				</a>
+				<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消
+				</a>
+			</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	});
+</script>

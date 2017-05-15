@@ -1,0 +1,217 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">车辆品牌</label>
+							<div class="col-xs-8">
+								<select id="brand" class="bs-select form-control"
+									name="brandCode" data-url="/basedata/brandsdict"
+									data-model="manage" data-labelValue="BRAND_CODE"
+									data-lableDesc="BRAND_NAME">
+
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车辆车系</label>
+							<div class="col-xs-8">
+								<select id="series" 
+									class="bs-select form-control" name="seriesCode"
+									data-url="/basedata/selectSeries"
+									data-model="manage" data-labelValue="SERIES_CODE"
+									data-lableDesc="SERIES_NAME">
+
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车辆车型</label>
+							<div class="col-xs-8">
+								<select id="model" 
+									class="bs-select form-control" name="modelCode"
+									data-url="/basedata/selectModel"
+									data-model="manage" data-labelValue="MODEL_CODE"
+									data-lableDesc="MODEL_NAME">
+
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">车辆颜色</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" id="colors" 
+									data-fieldName="COLOR" name="color" data-ajaxSync = "true"
+									data-url="/basedata/colors/colorinfo/dicts" data-model="repair"
+									data-labelValue="COLOR_CODE" data-lableDesc="COLOR_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+				
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">VIN</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="vin" name="vin">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车辆配置</label>
+							<div class="col-xs-8">
+								<select id="confi"  class="bs-select form-control"
+									name="configCode"
+									data-url="/basedata/selectConfig"
+									data-model="manage" data-labelValue="CONFIG_CODE"
+									data-lableDesc="CONFIG_NAME">
+
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group form-group-xs m-b-xs">
+							<label class="control-label col-xs-4">销售顾问</label>
+							<div class="col-xs-8">
+								<select id="soldBy" name="soldBy" class="bs-select form-control"
+									data-url="/basedata/employees/isEmployee/salesConsultant"
+									data-model="manage" data-labelValue="USER_ID"
+									data-ajaxSync="true" data-value=""
+									data-lableDesc="USER_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+						<div class="form-group" data-tableSelect="true">
+							<label class="control-label col-xs-4">订单编号</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="soNo" name="soNo">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+
+
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-sm-3">开票日期</label>
+							<div class="col-xs-8">
+								<div class="input-group input-daterange" data-defaultCurrMonth="true">
+									<input type="text" class="form-control" readonly
+										name="orderDateFrom" id="orderDateFrom"> <span
+										class="input-group-addon">至</span> <input type="text"
+										class="form-control" readonly name="orderDateTo"
+										id="orderDateTo"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">销售毛利统计</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">		
+					<a href="javascript:;" data-url="/financeCount/salesMargin/export/excel" data-model="report" data-method="downLoad" data-toggle="confirmation"
+						class="btn btn-outline " ><i class="fa fa-download"></i>导出</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="saleMarList"></table>
+		</div>
+	</div>
+
+
+
+
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms", function(event, container) {
+	new Datatable().initPagination({
+		src : "saleMarList",
+		container:container,
+		url : dmsCommon.getDmsPath()["report"] + "/financeCount/salesMargin",
+		rowID : "CUSTOMER_NO",
+		selectItemName:"balanceId", 
+		autoHeight : false,
+		undefinedText : "",
+		columns : [  
+		    {field : "PRODUCT_CODE",title : "物料代码"},
+			{field : "BRAND_NAME",title : "品牌"},
+			{field : "SERIES_NAME",title : "车系"},
+			{field : "MODEL_NAME",title : "车型"},
+			{field : "CONFIG_NAME",title : "配置"},
+            {field : "COLOR_NAME",title : "颜色"},
+			{field : "VIN",title : "VIN"},
+			{field : "PURCHASE_PRICE",title : "采购价格",numberFormat : {decimal:2}}, 
+			{field : "VEHCILE_REFERRENCE_PRICE",title : "参考成本",numberFormat : {decimal:2}},
+			{field : "VEHICLE_PRICE",title : "销售价格",numberFormat : {decimal:2}},
+			{field : "VEHICLE_SALES_PROFIT",title : "车辆销售利润",numberFormat : {decimal:2}},
+			{field : "PART_COST_AMOUNT",title : "装潢成本",numberFormat : {decimal:2}},
+			{field : "UPHOLSTER_SUM",title : "装潢总价",numberFormat : {decimal:2}},
+			{field : "PART_SALES_PROFIT",title : "装潢利润",numberFormat : {decimal:2}},
+			{field : "GARNITURE_COST_AMOUNT",title : "精品总成本",numberFormat : {decimal:2}},
+			{field : "GARNITURE_FREE_COST_AMOUNT",title : "精品赠送成本",numberFormat : {decimal:2}},
+			{field : "GARNITURE_SALES_COSE_AMOUNT",title : "精品销售成本",numberFormat : {decimal:2}},
+			{field : "GARNITURE_SUM",title : "精品总价",numberFormat : {decimal:2}},
+			{field : "GARNITURE_SALES_PROFIT",title : "增值代办业务收入",numberFormat : {decimal:2}},
+			{field : "RECEIVEABLE_AMOUNT",title : "精品利润",numberFormat : {decimal:2}},
+			{field : "ORDER_SALES_COST_AMOUNT",title : "成本总额",numberFormat : {decimal:2}},
+			{field : "ORDER_SALES_SUM",title : "销售总额",numberFormat : {decimal:2}},
+			{field : "ORDER_DERATED_SUM",title : "减免总额",numberFormat : {decimal:2}},
+			{field : "ORDER_SALES_PROFIT",title : "利润总额",numberFormat : {decimal:2}},
+			{field : "SO_NO",title : "销售单据编号"},
+			{field : "USER_NAME",title : "销售顾问"},
+			{field : "ORDER_SALES_DATE",title : "开票日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}}
+		],
+		onLoadSuccess : function() {
+			var rownu = $("#saleMarList",container).dmsTable().getTableRows();
+			if(rownu<=0){
+				$("a[data-method='downLoad']",container).attr("disabled","true");
+			}else{
+				$("a[data-method='downLoad']",container).removeAttr("disabled");
+			}
+		}
+	});
+});	
+</script>

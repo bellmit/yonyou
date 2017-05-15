@@ -1,0 +1,197 @@
+<div class="dms-edit ajaxrest" data-url="/wxMaintain/getMaintain/{[PACKAGE_ID]}"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">复制保养套餐</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">		
+				<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-8 ">被复制保养套餐代码:</label>
+							<div class="col-xs-4">
+									<span class="form-show"  id="Code"  data-fieldName="PACKAGE_CODE" ></span>
+							</div>
+						</div>
+					</div>
+						<div class="col-xs-12 col-sm-6  col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-8 ">被复制保养套餐名称:</label>
+							<div class="col-xs-4">	
+									<span class="form-show"  id="name"  data-fieldName="PACKAGE_NAME" ></span>
+							</div>
+						</div>
+					</div>
+					   <div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">保养套餐代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control required"  id="packageCode" name="packageCode"  />
+									<input type="hidden" class="form-control"  id="groupIds" name="groupIds" />
+								<input type="hidden" class="form-control"  id="groupIds2" name="groupIds2" />
+							</div>
+						</div>
+					</div>
+					
+			
+				<div class="col-xs-12 col-sm-6  col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">保养套餐名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control required"  id="packageName" name="packageName"  />
+							</div>
+						</div>
+					</div>
+					
+							
+				
+					
+
+					
+		
+			<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">年款</label>
+								<div class="col-xs-8">
+									<select id="modelYear"
+										class="bs-select form-control  required" name="modelYear"
+										data-url="/wxMaintain/nianKuan"
+										data-model="vehicle" data-labelValue=MODEL_YEAR
+										data-lableDesc="MODEL_YEAR"  data-fieldName="MODEL_YEAR">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系</label>
+								<div class="col-xs-8">
+									<select id="seriesCode" parent="modelYear"
+										class="bs-select form-control required" name="seriesCode"
+										data-url="/wxMaintain/chexi/{[modelYear]}"
+										data-model="vehicle" data-labelValue="SERIES_CODE"
+										data-lableDesc="SERIES_NAME"   data-fieldName="SERIES_CODE">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">发动机排量</label>
+								<div class="col-xs-8">
+									<select id="engineDesc" parent="seriesCode"
+										class="bs-select form-control required" name="engineDesc"
+										data-url="/wxMaintain/paiLiang/{[modelYear]}/{[seriesCode]}"
+										data-model="vehicle" data-labelValue="WX_ENGINE"
+										data-lableDesc="WX_ENGINE"  data-fieldName="ENGINE_DESC">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+				
+				<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">套餐类型</label>
+							<div class="col-xs-8">
+								<select id="pType" name="pType" class="bs-select form-control required"   data-type="oemDict"  data-dictCode="9011"  data-fieldName="P_TYPE">
+								</select>
+							</div>
+						</div>
+					</div>	
+				
+				
+				
+				<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">保养套餐总价</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control  required"  id="totalAmount" name="totalAmount"  data-fieldName="TOTAL_AMOUNT"/>
+							</div>
+						</div>
+					</div>
+				
+
+	
+									<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">燃油类型</label>
+							<div class="col-xs-8">
+								<select id="oileType" name="oileType" class="bs-select form-control required"  data-type="oemDict"  data-dictCode="5055"  data-fieldName="OILE_TYPE">
+								</select>
+							</div>
+						</div>
+					</div>
+		
+				 <div class="col-xs-8">
+					<div class="form-group">
+						<label class="control-label col-xs-4 col-sm-2">有效日期</label>
+						<div class="col-xs-8 col-sm-10">
+							 <div class="input-group input-daterange " data-opens="left">
+	                             <input type="text" class="form-control  required" readonly id="maintainStartdate" name="maintainStartdate" data-fieldName="MAINTAIN_STARTDATE">
+	                             <span class="input-group-addon">至</span>
+	                             <input type="text" class="form-control required" readonly  id="maintainEnddate"  name="maintainEnddate"  data-fieldName="MAINTAIN_ENDDATE">
+	                             <span class="input-group-btn">
+                                    <button class="btn default input-clear" type="button">
+                                       <i class="fa fa-close"></i>
+                                   </button>
+                                 </span> 
+	                        </div>
+						</div>
+					</div>
+				</div> 
+								
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">保养里程数</label>
+							<div class="col-xs-2">
+								<input type="text" class="bs-select form-control required"  id="maintainStartmileage" name="maintainStartmileage"  data-fieldName="MAINTAIN_STARTMILEAGE"/>
+								
+							</div>
+							<div class="col-xs-1">
+								
+								<a>-</a>
+							</div>
+							<div class="col-xs-2">
+								<input type="text" class="bs-select form-control  required"  id="maintainStartmileage" name="maintainStartmileage"  data-fieldName="MAINTAIN_STARTMILEAGE"/>
+								
+							</div>
+							<span>公里</span>
+						</div>
+					</div>
+				
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/wxMaintain/fuZhi/{[PACKAGE_ID]}" data-model="vehicle"
+				data-method="POST" data-callBack='true'
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>复制</a> <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("a.clear").click();
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	
+	});
+</script>

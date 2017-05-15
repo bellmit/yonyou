@@ -1,0 +1,181 @@
+<div class="dms-edit ajaxrest"
+	data-url="/stockManage/safeguard/findByVin/{[vin]}" data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">配置信息编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">原配置信息</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">产品代码</label>
+								<div class="col-xs-8">
+									<input type="hidden" data-fieldName="product_code" name="oldProductCode">
+									<input type="text" class="form-control" data-fieldName="product_code" disabled>
+									<input type="hidden"  data-fieldName="vin" name='vin'  />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">产品名称</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" data-fieldName="product_name" disabled>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" data-fieldName="brand_name" disabled>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系</label>
+								<div class="col-xs-8">
+									<input id="seriesCode" type="text" class="form-control"
+										data-fieldName="series_name" disabled />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车型</label>
+								<div class="col-xs-8">
+									<input id="modelCode" type="text"
+										class="form-control" data-fieldName="model_name"
+										 disabled/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">颜色</label>
+								<div class="col-xs-8">
+								<input type="hidden" data-fieldName="color_code" name="oldColorCode"/>
+									<input type="text"
+										class="form-control" data-fieldName="color_name"
+										 disabled/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">新配置信息</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">产品代码</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+									    <input id="productCode" readonly name="productCode"class="form-control " type="text" />
+									    <input id="productCode"  name="productCode"class="form-control" type="hidden" />
+										<span class="input-group-btn">
+											<button class="btn default btn-sm" type="button" data-url="vehicle/safeguard/searchProduct.html"
+												data-toggle="modal" data-width="modal-lg"> <i class="fa fa-sitemap"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+                                            	<i class="fa fa-close"></i>
+                                    		</button>
+									   	</span>
+								   </div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">产品名称</label>
+								<div class="col-xs-8">
+									<input type="text" name="productName" id="productName" class="form-control" disabled>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌</label>
+								<div class="col-xs-8">
+									<input type="text" name="brandName" id="brandName" class="form-control" disabled>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系</label>
+								<div class="col-xs-8">
+									<input id="seriesName"
+										name="seriesName" type="text" class="form-control" disabled />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车型</label>
+								<div class="col-xs-8">
+									<input id="modelName" name="modelName" type="text"
+										class="form-control" disabled/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">颜色</label>
+								<div class="col-xs-8">
+									<select id="colorCode" class="bs-select form-control"
+										name="colorCode" data-url="/stockManage/safeguard/findColor"
+										data-model="vehicle" data-labelValue="COLOR_CODE"
+										data-lableDesc="COLOR_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/stockManage/safeguard/editConfig/{vin}" data-model="vehicle"
+				data-method="PUT" data-callBack="true" class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> <a
+				data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("a[data-dismiss='modal']",container).click();
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+});
+</script>

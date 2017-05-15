@@ -1,0 +1,217 @@
+<div class ="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="PART_NO"
+									name="PART_NO">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="PART_NAME"
+									name="PART_NAME">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件车型组</label>
+							<div class="col-xs-8">
+								<div class="input-group" data-seledate='true'>
+									<input id="partModelGroupCodeSet" name="partModelGroupCodeSet"
+										data-fieldName="PART_MODEL_GROUP_CODE" readonly="readonly"
+										class="form-control " type="text" />
+									<div class="input-group-btn">
+										<button class="btn default btn-sm" type="button"
+											data-url="part/basedata/partinfo/partModelGroup.html"
+											data-toggle="modal" data-info="license">
+											<i class="fa fa-search" />
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 ">
+						<div class="form-group form-group-xs m-b-xs">
+							<label class="control-label col-xs-4 ">现ABCD属性</label>
+							<div class="col-xs-8">
+								<select id="ABC_TYPE" name="ABC_TYPE"
+									class="bs-select form-control" 
+									data-dictCode="1391" data-excludeItems="13911025">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">销售额</label>
+							<div class="form-group col-xs-8">
+								<input type="text" class="col-xs-5" id="SALE_BEGIN"
+									name="SALE_BEGIN"> <span
+									class="form-group-addon col-xs-1"><b>-</b></span> 
+								<input type="text"
+									class="col-xs-5" id="SALE_END" name="SALE_END">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">单价</label>
+							<div class="form-group col-xs-8">
+								<input type="text" class="col-xs-5" id="PRICE_BEGIN"
+									name="PRICE_BEGIN"> <span
+									class="form-group-addon col-xs-1"><b>-</b></span> <input type="text"
+									class="col-xs-5" id="PRICE_END" name="PRICE_END">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">数量</label>
+							<div class="form-group col-xs-8">
+								<input type="text" class="col-xs-5" id="AMOUNT_BEGIN"
+									name="AMOUNT_BEGIN"> <span
+									class="form-group-addon col-xs-1"><b>-</b></span> <input type="text"
+									class="col-xs-5" id="AMOUNT_END" name="AMOUNT_END">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 ">
+						<div class="form-group form-group-xs m-b-xs">
+							<label class="control-label col-xs-4 ">最近几个月</label>
+							<div class="col-xs-8">
+								<select id="LAST_MONTH" name="LAST_MONTH" 
+									class="bs-select form-control"  data-existsDefault="false"
+									data-dictCode="9009" data-value="90091003" fieldName="LAST_MONTH">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">A贡献率</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="PROPERTY_A_RATE" value="60%"
+									name="PROPERTY_A_RATE">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">B贡献率</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="PROPERTY_B_RATE" value="20%"
+									name="PROPERTY_B_RATE">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">C贡献率</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="PROPERTY_C_RATE" value="15%"
+									name="PROPERTY_C_RATE">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">D贡献率</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="PROPERTY_D_RATE" value="5%"
+									name="PROPERTY_D_RATE">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i>查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i>重置</a>
+						</div>
+					</div>
+				</div>
+			</div></form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name" >按金额分析</div>
+			<div class="pannel-button">
+					<div class="btn-group btn-group-sm">
+						<a class="btn btn-outline" data-url="part/basedata/partABCD/editPartABCDAll.html"
+							data-toggle="modal" data-width="modal-sm"> <i class="fa fa-plus-square"></i> 批量修改</a> 
+						<a data-url="/basedata/partABCD/export/import" data-model="part" data-method="downLoad" data-toggle="confirmation"
+							class="btn btn-outline " ><i class="fa fa-download"/>导出</a>
+					</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/basedata/partABCD",
+			rowID : "PART_NO",
+			sortOrder : "asc",
+			autoHeight: false,
+			undefinedText : "",
+			columns : [ 
+			    {field : "PART_NO",title : "操作",operateFormat : [ {type : "edit",url : "part/basedata/partABCD/editPartABCD.html",openWidth:"modal-lg"} ]},
+				{field : "ABC_TYPE",title : "现ABCD属性"},
+				{field : "CALC_ABC_TYPE",title : "ABCD属性"},
+				{field : "PART_NO",title : "配件代码"},
+				{field : "PART_NAME",title : "配件名称"},
+				{field : "SALES_PRICE",title : "销售单价",numberFormat : {decimal:2}},
+				{field : "PART_OUT_COUNT",title : "销售数量",numberFormat : {decimal:2}},
+				{field : "PART_OUT_AMOUNT",title : "销售金额",numberFormat : {decimal:2}},
+				{field : "ADD_PART_AMOUNT",title : "累计金额",numberFormat : {decimal:2}},
+				{field : "ADD_PART_AMOUNT_RATE",title : "累计金额比率"},
+				{field : "COST_PRICE",title : "成本单价",numberFormat : {decimal:2}},
+				{field : "PART_MODEL_GROUP_CODE_SET",title : "配件车型组"},
+				{field : "UNIT_CODE",title : "单位"}
+			]
+		});
+		$("#PROPERTY_A_RATE",container).focus(function(){
+			$("#PROPERTY_A_RATE",container).val("60");
+		});
+		$("#PROPERTY_A_RATE",container).blur(function(){
+			$("#PROPERTY_A_RATE",container).val($("#PROPERTY_A_RATE",container).val()+"%");
+		});
+		$("#PROPERTY_B_RATE",container).focus(function(){
+			$("#PROPERTY_B_RATE",container).val("20");
+		});
+		$("#PROPERTY_B_RATE",container).blur(function(){
+			$("#PROPERTY_B_RATE",container).val($("#PROPERTY_B_RATE",container).val()+"%");
+		});
+		$("#PROPERTY_C_RATE",container).focus(function(){
+			$("#PROPERTY_C_RATE",container).val("15");
+		});
+		$("#PROPERTY_C_RATE",container).blur(function(){
+			$("#PROPERTY_C_RATE",container).val($("#PROPERTY_C_RATE",container).val()+"%");
+		});
+		$("#PROPERTY_D_RATE",container).focus(function(){
+			$("#PROPERTY_D_RATE",container).val("5");
+		});
+		$("#PROPERTY_D_RATE",container).blur(function(){
+			$("#PROPERTY_D_RATE",container).val($("#PROPERTY_D_RATE",container).val()+"%");
+		});
+		
+	});
+</script>       

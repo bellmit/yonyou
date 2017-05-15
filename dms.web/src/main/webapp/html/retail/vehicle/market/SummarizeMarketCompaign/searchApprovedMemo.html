@@ -1,0 +1,47 @@
+<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">审核记录</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+				
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="campaign_approvedmome">
+			</table>
+		</div>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	//审核记录
+	new Datatable().initPagination({
+		src : "campaign_approvedmome",
+		container:container,
+		rowID:"CAMPAIGN_CODE",
+		url : dmsCommon.getDmsPath()["retail"] + "/markting/marktingPlan/{[CAMPAIGN_CODE]}/campaignApprovedMome",
+		sortName : "CAMPAIGN_CODE", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+		sortOrder : "asc",
+		pageSize:5,
+		autoHeight:false,
+		//parentTable:"campaign_plan",
+		columns : [
+		           {field : "CAMPAIGN_CODE",title : "市场活动编号"},
+		           {field : "AUDITING_ORG",title : "审批部门"},
+		           {field : "AUDITING_NAME",title : "审批人姓名"},
+		           {field : "AUDITING_STATUS",title : "审批状态"},
+		           {field : "AUDITING_TIME",title : "审批时间",dateFormat : {format : "YYYY-MM-DD HH:MM:SS"}},
+		           {field : "AUDITING_REMARK",title : "审批意见"}
+		         ]
+	});
+	$("a[id='campaign_approvedmome']",getElementContext()).on("dms.click",function(event){
+		$("#campaign_approvedmome",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["retail"] + "/markting/marktingPlan/"+$("#CAMPAIGN_CODE").val()+"/campaignApprovedMome");
+	 });
+	 $("a[id='CampaignGoal']",getElementContext()).click();
+		$("#CAMPAIGN_CODE").bindChange(function(obj){
+	    $("#campaign_approvedmome",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["retail"] + "/markting/marktingPlan/"+$("#CAMPAIGN_CODE").val()+"/campaignApprovedMome");
+	});
+});	
+</script>

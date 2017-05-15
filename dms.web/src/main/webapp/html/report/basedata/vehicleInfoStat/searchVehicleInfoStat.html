@@ -1,0 +1,107 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					
+							<div class="form-group">
+								<label class="control-label col-xs-4">年月</label>
+								<div class="col-xs-8">
+									<div class="input-group date month-picker" data-defaultToday = "true" data-date-end-date="+0d" data-orientation="top left">
+										<input id="START_DATE" name="START_DATE" readonly
+											class="form-control" type="text" value="" />
+										 <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					
+					
+				</div>
+				
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">车辆经销存分析</div>
+			<div class="pannel-button">
+				
+				<div class="btn-group btn-group-sm">
+					
+					<a data-url="/vehicleInfoStat/rateSearch/export/excel"
+						data-model="report" data-method="downLoad"
+						data-toggle="confirmation" class="btn btn-sm btn-outline "><i
+						class="fa fa-download"></i>导出 </a>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+		
+		<form class="form-horizontal">
+			<div class="panel-body">	
+				<div>
+					<div class="form-group" style="color:red">
+							&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注：库存深度(月) = 当前/上月销售
+					</div>
+				</div>
+			</div>
+		</form>	
+		
+	</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	   new Datatable().initPagination({
+			src : "dms_table",
+			url :dmsCommon.getDmsPath()["report"] + "/vehicleInfoStat/rateSearch",
+			rowID : "DEALER_CODE",
+			sortName : "DEALER_CODE", 
+			sortOrder : "asc",
+			autoHeight : false,
+			undefinedText : "",
+			/* mergeTotal:{
+				megerCellNumber:4,
+				megerCellName:"合计"
+			}, */
+			columns:[
+						{field:"BRAND_NAME",title:"品牌"},
+						{field:"SERIES_NAME",title:"车系"},
+						{field:"MODEL_NAME",title:"车型"},
+						{field:"NOW_AMOUNT",title:"当前库存"},
+						{field:"SALES_AMOUNT",title:"本月累计销售"},
+						{field:"LAST_MONTH_SALES",title:"上月销售"},
+						{field:"ROAD",title:"在途"},
+						{field:"CUSTOMER_H",title:"潜客积累H"},
+						{field:"CUSTOMER_A",title:"潜客积累A"},
+						{field:"CUSTOMER_B",title:"潜客积累B"},
+						{field:"STORE_RATE",title:"库存深度(月)"}
+						
+			    	  ]
+				});
+	   });
+</script>

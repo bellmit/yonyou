@@ -1,0 +1,250 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">					
+					<!--/span-->
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">销售顾问</label>
+							<div class="col-xs-8">
+								<select id="soldBy" name="soldBy" 
+									class="bs-select form-control" 
+									data-url="/basedata/employees/-1/salesConsultant"
+									data-model="manage" data-labelValue="USER_ID"
+									data-lableDesc="USER_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+				
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">VIN</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="vin" name="vin">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">联系电话</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control number" id="linkPhone"
+									name="linkPhone">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-3">
+						<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2">计划日</label>
+								<div class="col-xs-8 col-sm-10">
+									<div class="input-group input-daterange" data-defaultDays="7">
+										<input type="text" class="form-control" readonly 
+											name="deStartDate" id="deStartDate"> <span
+											class="input-group-addon">至</span> <input type="text"
+											class="form-control" readonly name="deEndDate"
+											id="deEndDate"> <span class="input-group-btn">
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+								
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否已执行</label>
+								<div class="col-xs-8">
+									<select id="executeStatus" name="executeStatus"
+										class="bs-select form-control" data-dictCode="1278"
+										 data-fieldName="EXECUTE_STATUS" data-value="12781002">
+									</select>
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">联系手机</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control number" id="linkMobile"
+									name="linkMobile">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">客户名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="customerName"
+									name="customerName">
+							</div>
+						</div>
+					</div>
+					
+					<!--/span-->
+
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">保有客户关怀列表</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+					<a class="btn btn-outline"
+						data-url="customer/retainCustomer/retainCusTrack/addRetainCusTrack.html"
+						data-toggle="modal" data-width="modal-lg"> <i
+						class="fa fa-plus-square"></i> 新增
+					</a>
+					<a class="btn btn-outline"
+						data-url="customer/retainCustomer/retainCusTrack/selectCampain.html"
+						data-toggle="modal" data-width="modal-lg"> <i
+						class="fa fa-plus-square"></i> 市场活动
+					</a>
+					 <a class="btn btn-outline"
+						data-url="customer/retainCustomer/retainCusTrack/searchSoldBy.html"
+						data-toggle="modal" data-width="modal-sm"
+						data-beforeShowEvent="true"> <i class="fa fa-edit "></i> 延迟再分配
+					</a> <a href=""
+						class="btn  btn-outline btn-circle btn-sm dropdown-toggle" id="dropdown_menucoler"
+						data-toggle="dropdown" data-hover="dropdown"
+						data-close-others="true"> 颜色说明 <span class="fa fa-angle-down">
+					</span>
+					</a>
+                    <a data-url="/customerManage/retainCusTracking/export/excel" data-model="customer" data-method="downLoad" data-toggle="confirmation" 
+							class="btn btn-outline"
+							><i class="fa fa-download" ></i>导出 </a> 
+					<ul class="dropdown-menu pull-right">
+						<li><a href="javascript:;"> <span
+								class="label label-sm label-black label-warning"> 黄色：计划日期等于当前日期</span>
+
+						</a></li>
+						<li><a href="javascript:;"> <span
+								class="label label-sm label-black label-danger"> 红色：没有关怀结果且计划日期小于当前日期</span>
+						</a></li>
+						 <li><a href="javascript:;"> <span
+								class="label label-sm label-black label-success"> 浅绿色：计划日期大于当前日期</span>
+
+						</a></li>
+					</ul>
+
+				</div>
+			</div>
+			<div class="dropdown"></div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table">
+
+			</table>
+
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		    url : dmsCommon.getDmsPath()["customer"] + "/customerManage/retainCusTracking",
+			rowID : "ITEM_ID",
+			sortName : "ITEM_ID",
+			sortOrder : "asc",
+			undefinedText : "",
+			autoHeight : false,
+			columns : [ 
+                {checkbox:true,sortable : false},
+			    {field : "ITEM_ID",title : "操作",operateFormat : [
+                       {type:"edit",url:"customer/retainCustomer/retainCusTrack/editRetainCusTrack.html",openWidth:"modal-lg"},
+                       {type:"detail",url:"customer/retainCustomer/retainCusMaintain/editOwnerRecord.html",openWidth:"modal-lg",title:"查看保有客户",operateIcon:'<i class="fa fa-lg fa-user-plus"></i>'},
+                      /*  {type:"del",url:"/customerManage/retainCusTracking/{[ITEM_ID]}",model:"customer",callBack:function(response){
+                    	   $("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+                       },isShow:function(value, row, index){
+                    	   var crResult=row.CR_RESULT;
+                    	   var createType=row.CREATE_TYPE;
+                    	   if(crResult==''||crResult==0||createType=='13291002'){
+                    	   	   return true;
+                    	   }else{
+                    	   	   return false;
+                    	   }
+                       }}, */
+                       {type:"detail",url:"customer/retainCustomer/retainCusTrack/selectTreatHistory.html",openWidth:"modal-lg",titile:"关怀历史"}
+                   ]
+                },  
+                
+                {field : "VIN",title : "VIN"},
+	            {field : "CUSTOMER_NAME",title : "客户名称"},
+	            {field : "CUSTOMER_NO",title : "保客编号",visible:false},
+	            {field : "OWNER_NO",title : "车主",visible:false},
+	            {field : "CR_LINKER",title : "联系人"},
+	            {field : "LINK_PHONE",title : "联系电话"},
+	            {field : "LINK_MOBILE",title : "联系手机"},
+	            {field : "ADDRESS",title : "地址"},
+	            {field : "SCHEDULE_DATE",title : "计划日期",dateFormat : {format:"YYYY-MM-DD"}},
+	            {field : "ACTION_DATE",title : "执行日期",dateFormat : {format:"YYYY-MM-DD"}},
+	            {field : "CR_NAME",title : "关怀名称"},
+	            {field : "CR_TYPE",title : "关怀方式", codeFormat : {type:"dict",codeType:"1326"}},
+	            {field : "CR_RESULT",title : "关怀结果", codeFormat : {type:"dict",codeType:"1327"}},
+	            {field : "CR_SCENE",title : "回访经过"},
+	            {field : "SOLD_BY",title : "销售顾问",inputSelectFormat : {url:"/basedata/employees/-1/salesConsultant",model:"manage",labelValue:"USER_ID",lableDesc:"USER_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"}},
+	            {field : "CR_CONTEXT",title : "关怀内容"},
+	            {field : "CREATE_TYPE",title : "隐藏",visible:false}
+			],
+			onLoadSuccess : function() {
+				var rownu = $("#dms_table",container).dmsTable().getTableRows();
+				$("tbody>tr",container).each(function(indexTr,trItem){
+					var row = $("#dms_table",container).dmsTable().getRowDataByIndex(indexTr);
+					if(row!=undefined&&row!=null&&indexTr<rownu){
+						if(row["CR_RESULT"]==''&&(formatDate(row["SCHEDULE_DATE"])<formatDate(new Date(),"YYYY-MM-DD"))){
+							$("tr[data-index='"+indexTr+"']",container).attr("class","danger");
+						}
+						else if((formatDate(row["SCHEDULE_DATE"])==formatDate(new Date(),"YYYY-MM-DD"))){
+							$("tr[data-index='"+indexTr+"']",container).attr("class","warning");
+						}
+						else if((formatDate(row["SCHEDULE_DATE"])>formatDate(new Date(),"YYYY-MM-DD"))){
+							$("tr[data-index='"+indexTr+"']",container).attr("class","success");
+						}
+					}
+
+				});
+			} 
+		});
+	
+	//弹出页面打开前执行函数
+	$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+		var selectRow = $("#dms_table",container).dmsTable().getSelections();
+		if(!selectRow){
+			dmsCommon.tip({status:"warning",msg:"请单击选择表格数据"});
+			returnResult.status = false;
+			return ;
+		}
+		returnResult.status = true;
+	});
+	$(function(){
+		 $("#dropdown_menucoler").on("mouseenter mouseleave", function () {
+			 $(this).dropdown('toggle');
+		 });
+	});
+
+});	
+</script>

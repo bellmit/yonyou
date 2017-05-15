@@ -1,0 +1,117 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">审批记录</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default table-panel"  id="mainCustomer">
+				<div class="panel-heading">
+					<div class="pannel-name">信息</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="auditDetailList">
+					</table>
+				</div>
+			</div>
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+					<label class="control-label col-xs-1">意见批注</label>
+					<div class="col-xs-12 ">
+										<div class="form-group">
+										
+											<div class="col-xs-12">
+										<textarea id="auditingPostil" name="auditingPostil"
+									   class="form-control" maxlength="120" readonly
+										rows="2" cols=""></textarea>
+											</div>
+										</div>
+					</div>
+					<label class="control-label col-xs-1">处理意见</label>
+					 <div class="col-xs-12 "  id="treatmentAdviceID">
+										<div class="form-group" >
+										
+											<div class="col-xs-12">
+										<textarea id="treatmentAdvice" name="treatmentAdvice"
+									   class="form-control" maxlength="120" readonly
+										rows="2" cols=""></textarea>
+											</div>
+										</div>
+					</div>
+									<!--/span-->
+							   
+							        <div class="col-xs-12" hidden="hidden">
+							        <div class="form-group" >
+							        <label class="control-label col-xs-4">隐藏</label>
+									<div class="col-xs-8">
+									<input  name="isAccountList" id="isAccountList" 
+									class="form-control" type="text"/>
+									</div>
+								     </div>
+							      </div>
+							<div class="col-md-12" hidden="hidden">
+							<div class="form-group" >
+								<label class="control-label col-md-2">隐藏</label>
+								<div class="col-md-10">
+									<input name="auditByList" id="auditByList"
+									 class="form-control" type="text"
+										max="120" />
+								</div>
+							</div>
+						</div>
+					
+					</div>
+				</div>
+			</div>
+		
+		</div>
+		<div class="modal-footer center-block">
+		 <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one("onload.dms",function(event,container){
+		//弹出页面打开前执行函数
+		    var soNo = "{[SO_NO]}";
+			new Datatable().initPagination({
+				src : "auditDetailList",
+				container:container,
+				url : dmsCommon.getDmsPath()["retail"] + "/ordermanage/manageVerify/search/auditDetail/"+soNo,
+				sortName : "CREATED_AT", 
+				sortOrder : "asc",
+				isQueryFirst:true,
+				autoHeight:false,
+				columns : [ 
+							{field : "SO_NO",title : "订单编号"},
+							{field : "SUBMIT_NAME",title : "提交审核人"},
+							{field : "COMMIT_TIME",title : "提交时间",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+							{field : "AUDITING_DATE",title : "审核日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+							{field : "AUDITING_RESULT",title : "审核结果",codeFormat : {type:"dict",codeType:"1315"}},
+							{field : "USER_NAME",title : "审核人"},
+							{field : "AUDITED_BY_IDENTITY",title : "审核类型",codeFormat : {type:"dict",codeType:"1340"}},
+							{field : "AUDITING_POSTIL",title : "意见批注",visible:false},
+							{field : "TREATMENT_ADVICE",title : "处理意见",visible:false}
+				         ], onClickRow(rowData, element){
+					$("#auditingPostil").val(rowData.AUDITING_POSTIL);
+					$("#treatmentAdvice").val(rowData.TREATMENT_ADVICE);
+				}
+			});
+		//新增页面的回调函数
+ 		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+ 			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		}); 
+	});
+</script>

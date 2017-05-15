@@ -1,0 +1,238 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+				
+				
+				<div class="col-xs-12 col-sm-6 col-md-4 ">
+					<div class="form-group">
+						<label class="control-label col-xs-4">销售顾问</label>
+						<div class="col-xs-8">
+							 <select id="soldBy" name="soldBy"  
+									class="bs-select form-control"
+									data-url="/basedata/employees/55604000/qrySalesConsultant" 
+									data-model="manage" data-labelValue="USER_ID"  
+									data-lableDesc="USER_NAME" >
+								</select>
+						</div>
+					</div>
+				</div>
+				
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">年月</label>
+								<div class="col-xs-8">
+									<div class="input-group date month-picker" data-defaultToday = "true">
+										<input id="yearMonth" name="yearMonth" readonly
+											class="form-control" type="text" value="" />
+										 <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+				
+				
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn btn-sm blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn btn-sm blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name"></div>
+				<div class="pannel-button">
+				
+		   </div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table1"></table>
+		</div>
+	</div>
+	
+	
+		<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name"></div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table2"></table>
+		</div>
+	</div>
+	
+		<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name"></div>
+				<div class="btn-group btn-group-sm">
+					    <a data-url="/report/OutBoundReport/excel"
+						data-model="report" data-method="downLoad"
+						data-toggle="confirmation" class="btn btn-outline "><i class="fa fa-download"></i>导出
+					</a> 
+				</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table3"></table>
+		</div>
+	</div>
+
+				<div class="col-xs-12 ">
+					<div class="form-group">
+						<label class="control-label col-xs-12">
+						注：(1) 核实失败的，销售顾问应在核实反馈一周内进行二次补录，过期进行补录将不记入绩效考核
+						</label>
+						<label class="control-label col-xs-12">
+						(2) 当月交车的客户，在次月13号之后绑定微信将不被纳入销售顾问当月的微信绑定考核
+						</label>
+						<label class="control-label col-xs-12">
+						(3) 逾期补录的会被标为粉红色
+						</label>						
+					</div>
+				</div>
+	
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+ 	new Datatable().initPagination({
+		src : "dms_table1",
+		rowID:"DEALER_CODE",
+		container:container,
+		url : dmsCommon.getDmsPath()["report"] + "/report/OutBoundReport/queryEntityNum",
+		sortName : "DEALER_CODE", 
+		sortOrder : "asc",
+		isQueryFirst:false,
+		selectItemName:"DEALER_CODE",
+		autoHeight:false,
+		undefinedText : "",
+		columns : [ 
+		          
+		            {field : "DEALER_SHORTNAME",title : "经销商"},
+		            {field : "E_CONFIRM_NUM",title : "本月DMS新交车数(条)"},
+		            {field : "E_SUCCESS_NUM",title : "400核实通过(条)"},
+		            {field : "E_FAIL_NUM",title : "核实未通过(条)"},
+		            {field : "E_PASS_RATE",title : "本月核实通过率(%)"},
+		            {field : "E_PAMS",title : "本月绩效是否达标(KPI>=90%)",codeFormat : {type:"dict",codeType:"1278"}},
+		            {field : "E_SIX_MONTH_FAIL_NUM",title : "最近六个月未达标次数"},
+		            {field : "E_NEED_SECOND_UOLOAD",title : "需二次补录信息条数"},
+		            {field : "E_OVER_TIME",title : "已过期数"},
+		            {field : "E_WX_BINDING_NUM",title : "本月微信绑定数"},
+		            {field : "E_BINDING_RATE",title : "本月微信绑定率(%)"},
+		            {field : "E_IS_PASS",title : "本月微信绑定考核是否达标(绑定率>=50%)",codeFormat : {type:"dict",codeType:"1278"}},
+		            {field : "REPORT_DATE",title : "报告时间"}
+	                
+		         ]
+	});
+ 	new Datatable().initPagination({
+		src : "dms_table2",
+		rowID:"EMPLOYEE_NAME",
+		container:container,
+		url : dmsCommon.getDmsPath()["report"] + "/report/OutBoundReport",
+		sortName : "EMPLOYEE_NAME", 
+		sortOrder : "asc",
+		isQueryFirst:false,
+		selectItemName:"EMPLOYEE_NAME",
+		autoHeight:false,
+		undefinedText : "",
+		columns : [ 
+		        
+		            {field : "EMPLOYEE_NAME",title : "销售顾问"},
+		            {field : "SOLD_BY",title : "销售顾问",visible:false},
+		            {field : "CONFIRM_NUM",title : "本月DMS新交车数(条)"},
+		            {field : "SUCCESS_NUM",title : "400核实通过(条)"},
+		            {field : "FAIL_NUM",title : "核实未通过(条)"},
+		            {field : "PASS_RATE",title : "本月核实通过率(%)"},
+		            {field : "PAMS",title : "本月绩效是否达标(KPI>=90%)",codeFormat : {type:"dict",codeType:"1278"}},
+		            {field : "SIX_MONTH_FAIL_NUM",title : "最近六个月未达标次数"},
+		            {field : "NEED_SECOND_UOLOAD",title : "需二次补录信息条数"},
+		            {field : "OVER_TIME",title : "已过期数"},
+		            {field : "WX_BINDING_NUM",title : "本月微信绑定数"},
+		            {field : "BINDING_RATE",title : "本月微信绑定率"},
+		            {field : "IS_PASS",title : "本月微信绑定考核是否达标(绑定率>=50%)",codeFormat : {type:"dict",codeType:"1278"}},
+		            {field : "MOBILE",title : "联系方式"}
+	               
+		         ], onClickRow(rowData, element){
+			 $("#dms_table3",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["report"] + "/report/OutBoundReport/queryOutBundDetail/"+rowData.SOLD_BY+"");
+	
+			}
+	});
+ 	new Datatable().initPagination({
+		src : "dms_table3",
+		rowID:"VIN",
+		container:container,
+		//url : dmsCommon.getDmsPath()["report"] + "/report/OutBoundReport/queryOutBundDetail",
+		sortName : "VIN", 
+		sortOrder : "asc",
+		isQueryFirst:false,
+		selectItemName:"VIN",
+		autoHeight:false,
+		undefinedText : "",
+		columns : [
+						{field : "VIN",title : "二次补录",
+			            operateFormat : [
+			                {type:"edit",url:"report/saleReport/outBoundReport/warrantyRegist.html",doubleClick:true,openWidth:"modal-lg",isShow:function(value, row, index){
+			             	   if(row.IS_SECOND_TIME=='12781002' && row.OB_IS_SUCCESS=='70031002' ){
+			             		   return true;
+			             	   }else{
+			             		   return true;
+			             	   }
+			                }}
+			            ]
+			         }, 
+		            {field : "VIN",title : "VIN"},
+		            {field : "MODEL_NAME",title : "车型"},
+		            {field : "COLOR_NAME",title : "颜色"},
+		            {field : "CUSTOMER_NAME",title : "客户姓名"},
+		            {field : "CONTACTOR_MOBILE",title : "手机号码"},
+		            {field : "CONFIRMED_DATE",title : "交车时间",dateFormat : {format:"YYYY-MM-DD HH:mm"}},
+		            {field : "IS_BINDING",title : "是否微信绑定",codeFormat : {type:"dict",codeType:"1278"}},
+		            {field : "BINDING_DATE",title : "微信绑定日期",dateFormat : {format:"YYYY-MM-DD HH:mm"}},
+		            {field : "IS_SECOND_TIME",title : "是否二次提交",codeFormat : {type:"dict",codeType:"1278"}},
+		            {field : "OB_IS_SUCCESS",title : "核实结果",codeFormat : {type:"dict",codeType:"7003"}},
+		            {field : "REASONS",title : "失败原因",codeFormat : {type:"dict",codeType:"7002"}},
+		            {field : "IS_UPDATE",title : "信息是否更新",codeFormat : {type:"dict",codeType:"1278"}},
+		            {field : "OUTBOUND_UPLOAD_TIME",title : "提交时间",dateFormat : {format:"YYYY-MM-DD HH:mm"}},
+		            {field : "IS_OVERTIME",title : "是否逾期",codeFormat : {type:"dict",codeType:"1278"}},
+		            {field : "OUTBOUND_RETURN_TIME",title : "核实反馈日期",dateFormat : {format:"YYYY-MM-DD HH:mm"}},
+		            {field : "EMPLOYEE_NAME",title : "销售顾问"},
+		            {field : "REMAIN_TIME",title : "剩余补录时间"}
+		            
+	              
+		         ],
+					onLoadSuccess : function() {
+						var rownu = $("#dms_table3",container).dmsTable().getTableRows();
+						$("tbody>tr",container).each(function(indexTr,trItem){
+							var row = $("#dms_table3",container).dmsTable().getRowDataByIndex(indexTr);
+							if(row!=undefined&&row!=null&&indexTr<rownu){
+								if(row["IS_OVERTIME"]==12781001){
+									$("table[id='dms_table3'] tr[data-index='"+indexTr+"']",container).attr("class","danger");
+								}
+							}
+
+						});
+					} 
+	});
+ 	
+});		
+</script>

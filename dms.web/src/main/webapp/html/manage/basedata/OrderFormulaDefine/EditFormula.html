@@ -1,0 +1,91 @@
+<div class="dms-edit ajaxrest" data-url="/formulaDefine/findById/{[ITEM_ID]}" data-model="manage">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">订货公式编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">公式名称</label>
+								<div class="col-xs-8">
+									<input id="orderPlanFormulasName" name="orderPlanFormulasName" class="form-control required" type="text" data-fieldName="ORDER_PLAN_FORMULAS_NAME"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">公式</label>
+								<div class="col-xs-8">
+									<input id="formulasCode" name="formulasCode" class="form-control required" type="text" data-fieldName="FORMULAS_CODE"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否可用</label>
+								<div class="col-xs-8">
+									<select id="isAvailable" name="isAvailable" data-existsDefault="false" 
+										class="bs-select form-control" data-dictCode="1278" data-fieldName="IS_AVAILABLE">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经验值</label>
+								<div class="col-xs-8">
+									<input id="exp" name="exp" class="form-control required" type="text" data-fieldName="EXP"/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/formulaDefine/{[ITEM_ID]}" data-model="manage"
+				data-method="PUT" data-callBack="true" data-beforeRequest="true" 
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>保存</a> <a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	//保存前事件
+	$('a[data-beforeRequest="true"]',container).on('beforeRequest.dms',function(event,returnResult){
+		var str = $("#formulasCode",container).val();   
+		//先校验是否满足计算公式,再验证是否只包含一个除号
+		var reg = /^(([AKSDLE][\+\-\*\/])*(([AKSDLE][\+\-\*\/])|([\(]([AKSDLE][\+\-\*\/])*[AKSDLE][\)][\+\-\*\/]))*([AKSDLE]|[\(]([AKSDLE][\+\-\*\/])*[AKSDLE][\)]))$/;//校验带括号加减乘除的表达式
+		if(!reg.test(str)){//验证不通过
+			dmsCommon.tip({status:"warning",msg:"请输入正确的公式！"});
+			returnResult.status = false;
+		}else{//公式验证通过
+			//验证是否只包含一个除号
+			var arr = str.split('/');//以除号作为分隔符拆分表达式,判断是否只有一个除号
+			if(arr.length>2){//表示最少含有2个除号
+				dmsCommon.tip({status:"warning",msg:"只支持一个除号,请先转为一个后再进行输入！"});
+				returnResult.status = false;
+			}else{
+				returnResult.status = true;
+			}
+		}
+	});
+
+	//保存回调
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("a[data-dismiss='modal']",container).click();
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+});
+</script>

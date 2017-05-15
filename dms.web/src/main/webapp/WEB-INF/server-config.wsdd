@@ -1,0 +1,860 @@
+<deployment xmlns="http://xml.apache.org/axis/wsdd/"
+	xmlns:java="http://xml.apache.org/axis/wsdd/providers/java" xmlns:ns1="http://xml.apache.org/axis/wsdd/">
+	<globalConfiguration>
+		<parameter name="sendMultiRefs" value="true" />
+		<parameter name="disablePrettyXML" value="true" />
+		<parameter name="adminPassword" value="admin" />
+		<parameter name="attachments.Directory"
+			value="D:\JMC_EAI_LOCAL_FINAL_YEJUN\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\com.infoservice.eai.webpages\WEB-INF\attachments" />
+		<parameter name="dotNetSoapEncFix" value="true" />
+		<parameter name="enableNamespacePrefixOptimization" value="false" />
+		<parameter name="sendXMLDeclaration" value="true" />
+		<parameter name="sendXsiTypes" value="true" />
+		<parameter name="attachments.implementation"
+			value="org.apache.axis.attachments.AttachmentsImpl" />
+
+
+		<requestFlow>
+
+			<handler type="java:org.apache.axis.handlers.JWSHandler">
+				<parameter name="scope" value="session" />
+			</handler>
+
+			<handler type="java:org.apache.axis.handlers.JWSHandler">
+				<parameter name="scope" value="request" />
+				<parameter name="extension" value=".jwr" />
+			</handler>
+
+		</requestFlow>
+
+	</globalConfiguration>
+	<handler name="LocalResponder"
+		type="java:org.apache.axis.transport.local.LocalResponder" />
+	<handler name="URLMapper" type="java:org.apache.axis.handlers.http.URLMapper" />
+	<handler name="Authenticate"
+		type="java:org.apache.axis.handlers.SimpleAuthenticationHandler" />
+
+
+	<!-- Services from lmsService WSDL service -->
+
+	<!-- K4 SAP-DCS -->
+	<service name="K4SapToDmsSOAP" provider="java:RPC" style="wrapped"
+		use="literal">
+		<parameter name="wsdlTargetNamespace" value="http://www.example.org/K4SapToDms/" />
+		<parameter name="wsdlServiceElement" value="K4SapToDms" />
+		<parameter name="schemaUnqualified" value="http://www.example.org/K4SapToDms/" />
+		<parameter name="wsdlServicePort" value="K4SapToDmsSOAP" />
+		<parameter name="className"
+			value="com.infoeai.eai.wsServer.k4SapToDms.K4SapToDmsSOAPSkeleton" />
+		<parameter name="wsdlPortType" value="K4SapToDms" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="allowedMethods" value="*" />
+
+	</service>
+	<service name="lmsServiceSOAP" provider="java:RPC" style="wrapped"
+		use="literal">
+		<parameter name="wsdlTargetNamespace" value="http://www.example.org/lmsService/" />
+		<parameter name="wsdlServiceElement" value="lmsService" />
+		<parameter name="schemaUnqualified" value="http://www.example.org/lmsService/" />
+		<parameter name="wsdlServicePort" value="lmsServiceSOAP" />
+		<parameter name="className"
+			value="com.infoeai.eai.wsServer.SI12.LmsServiceSOAPSkeleton" />
+		<parameter name="wsdlPortType" value="lmsService" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="allowedMethods" value="*" />
+
+		<typeMapping xmlns:ns="http://www.example.org/lmsService/"
+			qname="ns:infoPO" type="java:com.infoeai.eai.wsServer.SI12.InfoPO"
+			serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+			deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+			encodingStyle="" />
+		<typeMapping xmlns:ns="http://www.example.org/lmsService/"
+			qname="ns:createInfoPO" type="java:com.infoeai.eai.wsServer.SI12.CreateInfoPO"
+			serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+			deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+			encodingStyle="" />
+	</service>
+
+
+	<!-- Services from service4wx WSDL service -->
+
+	<service name="service4wxSOAP" provider="java:RPC" style="wrapped"
+		use="literal">
+		<parameter name="wsdlTargetNamespace" value="http://www.example.org/service4wx/" />
+		<parameter name="wsdlServiceElement" value="service4wx" />
+		<parameter name="schemaUnqualified" value="http://www.example.org/service4wx/" />
+		<parameter name="wsdlServicePort" value="service4wxSOAP" />
+		<parameter name="className"
+			value="com.infoeai.eai.wsServer.wx.service4wx.Service4WxSOAPSkeleton" />
+		<parameter name="wsdlPortType" value="service4wx" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="allowedMethods" value="*" />
+
+		<typeMapping xmlns:ns="http://www.example.org/service4wx/"
+			qname="ns:customerBindingFeedbackPO"
+			type="java:com.infoeai.eai.wsServer.wx.service4wx.CustomerBindingFeedbackPO"
+			serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+			deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+			encodingStyle="" />
+		<typeMapping xmlns:ns="http://www.example.org/service4wx/"
+			qname="ns:customerFeedbackPO"
+			type="java:com.infoeai.eai.wsServer.wx.service4wx.CustomerFeedbackPO"
+			serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+			deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+			encodingStyle="" />
+	</service>
+
+	<!-- Services from cancelOrderService WSDL service -->
+	<!-- add by luoyg -->
+	<service name="cancelOrderServiceSOAP" provider="java:RPC"
+		style="wrapped" use="literal">
+		<parameter name="wsdlTargetNamespace" value="http://www.example.org/cancelOrderService/" />
+		<parameter name="wsdlServiceElement" value="cancelOrderService" />
+		<parameter name="schemaUnqualified" value="http://www.example.org/cancelOrderService/" />
+		<parameter name="wsdlServicePort" value="cancelOrderServiceSOAP" />
+		<parameter name="className"
+			value="com.infoeai.eai.wsServer.cancelOrder.CancelOrderServiceSOAPSkeleton" />
+		<parameter name="wsdlPortType" value="cancelOrderService" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="allowedMethods" value="*" />
+
+	</service>
+	<!-- Services from cancelOrderService WSDL service -->
+	<!-- add by luoyg -->
+<!-- 	<service name="padLoggerServerSOAP" provider="java:RPC" style="wrapped" -->
+<!-- 		use="literal"> -->
+<!-- 		<parameter name="wsdlTargetNamespace" value="http://www.example.org/padLoggerServer/" /> -->
+<!-- 		<parameter name="wsdlServiceElement" value="cancelOrderService" /> -->
+<!-- 		<parameter name="schemaUnqualified" value="http://www.example.org/padLoggerServer/" /> -->
+<!-- 		<parameter name="wsdlServicePort" value="padLoggerServerSOAP" /> -->
+<!-- 		<parameter name="className" -->
+<!-- 			value="com.ipad.eai.wsServer.userLogger.PadLoggerServerSOAPSkeleton" /> -->
+<!-- 		<parameter name="wsdlPortType" value="padLoggerServer" /> -->
+<!-- 		<parameter name="typeMappingVersion" value="1.2" /> -->
+<!-- 		<parameter name="allowedMethods" value="*" /> -->
+
+<!-- 	</service> -->
+
+	<!-- pre_activity_warningSOAP add by dengweili 20141104 -->
+<!-- 	<service name="pre_activity_warningSOAP" provider="java:RPC" -->
+<!-- 		style="wrapped" use="literal"> -->
+<!-- 		<parameter name="wsdlTargetNamespace" -->
+<!-- 			value="http://dcs.chrysler.com.cn/pre_activity_warning/" /> -->
+<!-- 		<parameter name="wsdlServiceElement" value="pre_activity_warning" /> -->
+<!-- 		<parameter name="schemaUnqualified" -->
+<!-- 			value="http://dcs.chrysler.com.cn/pre_activity_warning/" /> -->
+<!-- 		<parameter name="wsdlServicePort" value="pre_activity_warningSOAP" /> -->
+<!-- 		<parameter name="className" -->
+<!-- 			value="com.infoeai.eai.wsServer.preActivity.Pre_activity_warningSOAPSkeleton" /> -->
+<!-- 		<parameter name="wsdlPortType" value="pre_activity_warning" /> -->
+<!-- 		<parameter name="typeMappingVersion" value="1.2" /> -->
+<!-- 		<parameter name="allowedMethods" value="*" /> -->
+
+<!-- 	</service> -->
+
+	
+		<!-- Services from pre_threepack_warning WSDL service add by dengweili20141106 -->
+<!--   <service name="pre_threepack_warningSOAP" provider="java:RPC" -->
+<!-- 	style="wrapped" use="literal"> -->
+<!-- 	<parameter name="wsdlTargetNamespace" -->
+<!-- 		value="http://dcs.chrysler.com.cn/pre_threepack_warning/" /> -->
+<!-- 	<parameter name="wsdlServiceElement" value="pre_threepack_warning" /> -->
+<!-- 	<parameter name="schemaUnqualified" -->
+<!-- 		value="http://dcs.chrysler.com.cn/pre_threepack_warning/" /> -->
+<!-- 	<parameter name="wsdlServicePort" value="pre_threepack_warningSOAP" /> -->
+<!-- 	<parameter name="className" -->
+<!-- 		value="com.infoeai.eai.wsServer.preThreePack.Pre_threepack_warningSOAPSkeleton" /> -->
+<!-- 	<parameter name="wsdlPortType" value="pre_threepack_warning" /> -->
+<!-- 	<parameter name="typeMappingVersion" value="1.2" /> -->
+<!-- 	<parameter name="allowedMethods" value="*" /> -->
+<!-- 	<typeMapping xmlns:ns="http://dcs.chrysler.com.cn/pre_threepack_warning/" -->
+<!-- 		qname="ns:warnItem" type="java:com.infoeai.eai.wsServer.preThreePack.WarnItem" -->
+<!-- 		serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" -->
+<!-- 		deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" -->
+<!-- 		encodingStyle="" /> -->
+<!-- </service> -->
+	
+	<!-- Services from SAPEAIService WSDL service -->
+	<service name="SapDcsServiceSOAP" provider="java:RPC" style="wrapped"
+		use="literal">
+		<parameter name="wsdlTargetNamespace" value="http://dcs.chrysler.com.cn/SapDcsService/" />
+		<parameter name="wsdlServiceElement" value="SapDcsService" />
+		<parameter name="schemaUnqualified" value="http://dcs.chrysler.com.cn/SapDcsService/" />
+		<parameter name="wsdlServicePort" value="SapDcsServiceSOAP" />
+		<parameter name="className"
+			value="com.infoeai.eai.wsServer.SapDcsService.SapDcsServiceSOAPSkeleton" />
+		<parameter name="wsdlPortType" value="SapDcsService" />
+		<parameter name="typeMappingVersion" value="1.2" />
+
+		<parameter name="allowedMethods" value="*" />
+
+
+		<typeMapping xmlns:ns="http://dcs.chrysler.com.cn/SapDcsService/"
+			qname="ns:sapOutboundVO" type="java:com.infoeai.eai.wsServer.SapDcsService.SapOutboundVO"
+			serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+			deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+			encodingStyle="" />
+	</service>
+
+	<!-- wjs 2015-03-13 更新微信预约状态 ws server-->
+<!-- 	<service name="MicroMsgBookingFeedbackImpl" provider="java:RPC" -->
+<!-- 		style="wrapped" use="literal"> -->
+<!-- 		<parameter name="wsdlTargetNamespace" -->
+<!-- 			value="http://microMsgBook.wsServer.eai.infoeai.com" /> -->
+<!-- 		<parameter name="wsdlServiceElement" value="MicroMsgBookingFeedbackImplService" /> -->
+<!-- 		<parameter name="schemaQualified" -->
+<!-- 			value="http://microMsgBook.wsServer.eai.infoeai.com,http://wx.po.eai.infoeai.com" /> -->
+<!-- 		<parameter name="wsdlServicePort" value="MicroMsgBookingFeedbackImpl" /> -->
+<!-- 		<parameter name="className" -->
+<!-- 			value="com.infoeai.eai.wsServer.microMsgBook.MicroMsgBookingFeedbackImpl" /> -->
+<!-- 		<parameter name="wsdlPortType" value="MicroMsgBookingFeedbackImpl" /> -->
+<!-- 		<parameter name="typeMappingVersion" value="1.2" /> -->
+<!-- 		<operation xmlns:operNS="http://microMsgBook.wsServer.eai.infoeai.com" -->
+<!-- 			xmlns:retNS="http://microMsgBook.wsServer.eai.infoeai.com" -->
+<!-- 			xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="mmBookingFeedback" -->
+<!-- 			qname="operNS:mmBookingFeedback" returnQName="retNS:mmBookingFeedbackReturn" -->
+<!-- 			returnType="rtns:int" soapAction=""> -->
+<!-- 			<parameter xmlns:pns="http://microMsgBook.wsServer.eai.infoeai.com" -->
+<!-- 				xmlns:tns="http://wx.po.eai.infoeai.com" qname="pns:msf" -->
+<!-- 				type="tns:MmStatusFeedbackPO" /> -->
+<!-- 		</operation> -->
+<!-- 		<parameter name="allowedMethods" value="mmBookingFeedback" /> -->
+
+<!-- 		<typeMapping xmlns:ns="http://wx.po.eai.infoeai.com" -->
+<!-- 			qname="ns:MmStatusFeedbackPO" type="java:com.infoeai.eai.po.wx.MmStatusFeedbackPO" -->
+<!-- 			serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" -->
+<!-- 			deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" -->
+<!-- 			encodingStyle="" /> -->
+<!-- 	</service> -->
+
+    <!-- Services from WxModifyTelephoneSOAPService WSDL service -->
+  	<!--2015-10-21  wjs WSDL 修改手机号接口表 -->
+<!--    <service name="WxModifyTelephoneSOAP" provider="java:RPC" style="wrapped" use="literal"> -->
+<!--      <parameter name="wsdlTargetNamespace" value="http://microMsg.wsServer.eai.infoeai.com"/> -->
+<!--      <parameter name="wsdlServiceElement" value="WxModifyTelephoneSOAPService"/> -->
+<!--      <parameter name="schemaQualified" value="http://microMsg.wsServer.eai.infoeai.com"/> -->
+<!--      <parameter name="wsdlServicePort" value="WxModifyTelephoneSOAP"/> -->
+<!--      <parameter name="className" value="com.infoeai.eai.wsServer.microMsg.WxModifyTelephoneSOAP"/> -->
+<!--      <parameter name="wsdlPortType" value="WxModifyTelephoneSOAP"/> -->
+<!--      <parameter name="typeMappingVersion" value="1.2"/> -->
+<!--      <operation xmlns:operNS="http://microMsg.wsServer.eai.infoeai.com" xmlns:retNS="http://microMsg.wsServer.eai.infoeai.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="modifyTelephone" qname="operNS:modifyTelephone" returnQName="retNS:modifyTelephoneReturn" returnType="rtns:string" soapAction=""> -->
+<!--        <parameter xmlns:pns="http://microMsg.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:name" type="tns:string"/> -->
+<!--        <parameter xmlns:pns="http://microMsg.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:VIN" type="tns:string"/> -->
+<!--        <parameter xmlns:pns="http://microMsg.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:dealerCode" type="tns:string"/> -->
+<!--        <parameter xmlns:pns="http://microMsg.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:telephone" type="tns:string"/> -->
+<!--        <parameter xmlns:pns="http://microMsg.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:preTelephone" type="tns:string"/> -->
+<!--        <parameter xmlns:pns="http://microMsg.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:dmsOwnerId" type="tns:string"/> -->
+<!--        <parameter xmlns:pns="http://microMsg.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:updateDate" type="tns:dateTime"/> -->
+<!--      </operation> -->
+<!--      <parameter name="allowedMethods" value="modifyTelephone"/> -->
+<!--  </service> -->
+  
+	<!-- wjs 2015-04-07 微信预约确认时间接口 Services from  MicroMsgBookingConfirmImplService WSDL service -->
+
+<!-- 	<service name="MicroMsgBookingConfirmImpl" provider="java:RPC" -->
+<!-- 		style="wrapped" use="literal"> -->
+<!-- 		<parameter name="wsdlTargetNamespace" -->
+<!-- 			value="http://microMsgBook.wsServer.eai.infoeai.com" /> -->
+<!-- 		<parameter name="wsdlServiceElement" value="MicroMsgBookingConfirmImplService" /> -->
+<!-- 		<parameter name="schemaQualified" -->
+<!-- 			value="http://microMsgBook.wsServer.eai.infoeai.com" /> -->
+<!-- 		<parameter name="wsdlServicePort" value="MicroMsgBookingConfirmImpl" /> -->
+<!-- 		<parameter name="className" -->
+<!-- 			value="com.infoeai.eai.wsServer.microMsgBook.MicroMsgBookingConfirmImpl" /> -->
+<!-- 		<parameter name="wsdlPortType" value="MicroMsgBookingConfirmImpl" /> -->
+<!-- 		<parameter name="typeMappingVersion" value="1.2" /> -->
+<!-- 		<operation xmlns:operNS="http://microMsgBook.wsServer.eai.infoeai.com" -->
+<!-- 			xmlns:retNS="http://microMsgBook.wsServer.eai.infoeai.com" -->
+<!-- 			xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="reserveConfirm" -->
+<!-- 			qname="operNS:reserveConfirm" returnQName="retNS:reserveConfirmReturn" -->
+<!-- 			returnType="rtns:int" soapAction=""> -->
+<!-- 			<parameter xmlns:pns="http://microMsgBook.wsServer.eai.infoeai.com" -->
+<!-- 				xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:orderNO" -->
+<!-- 				type="tns:string" /> -->
+<!-- 			<parameter xmlns:pns="http://microMsgBook.wsServer.eai.infoeai.com" -->
+<!-- 				xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:confirmDate" -->
+<!-- 				type="tns:string" /> -->
+<!-- 		</operation> -->
+<!-- 		<parameter name="allowedMethods" value="reserveConfirm" /> -->
+
+<!-- 	</service> -->
+	
+ <!-- wjs 2015-10-27 微信解绑接口 Services from WxUnbindTelephoneSOAPService WSDL service -->
+
+<!-- <service name="WxUnbindTelephoneSOAP" provider="java:RPC" style="wrapped" use="literal"> -->
+<!--      <parameter name="wsdlTargetNamespace" value="http://microMsg.wsServer.eai.infoeai.com"/> -->
+<!--      <parameter name="wsdlServiceElement" value="WxUnbindTelephoneSOAPService"/> -->
+<!--      <parameter name="schemaQualified" value="http://microMsg.wsServer.eai.infoeai.com"/> -->
+<!--      <parameter name="wsdlServicePort" value="WxUnbindTelephoneSOAP"/> -->
+<!--      <parameter name="className" value="com.infoeai.eai.wsServer.microMsg.WxUnbindTelephoneSOAP"/> -->
+<!--      <parameter name="wsdlPortType" value="WxUnbindTelephoneSOAP"/> -->
+<!--      <parameter name="typeMappingVersion" value="1.2"/> -->
+<!--      <operation xmlns:operNS="http://microMsg.wsServer.eai.infoeai.com" xmlns:retNS="http://microMsg.wsServer.eai.infoeai.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="unbindTelephone" qname="operNS:unbindTelephone" returnQName="retNS:unbindTelephoneReturn" returnType="rtns:string" soapAction=""> -->
+<!--        <parameter xmlns:pns="http://microMsg.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:vin" type="tns:string"/> -->
+<!--        <parameter xmlns:pns="http://microMsg.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:dmsOwnerId" type="tns:string"/> -->
+<!--        <parameter xmlns:pns="http://microMsg.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:dealerCode" type="tns:string"/> -->
+<!--        <parameter xmlns:pns="http://microMsg.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:status" type="tns:int"/> -->
+<!--        <parameter xmlns:pns="http://microMsg.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:unbindDate" type="tns:dateTime"/> -->
+<!--      </operation> -->
+<!--      <parameter name="allowedMethods" value="unbindTelephone"/> -->
+
+<!--  </service> -->
+  
+  <!--2015-10-27 wjs 车主信息回传接口 Services from WxRebackOwnerInfoSOAPService WSDL service -->
+
+<!--   <service name="WxRebackOwnerInfoSOAP" provider="java:RPC" style="wrapped" use="literal"> -->
+<!--      <parameter name="wsdlTargetNamespace" value="http://microMsg.wsServer.eai.infoeai.com"/> -->
+<!--      <parameter name="wsdlServiceElement" value="WxRebackOwnerInfoSOAPService"/> -->
+<!--      <parameter name="schemaQualified" value="http://microMsg.wsServer.eai.infoeai.com"/> -->
+<!--      <parameter name="wsdlServicePort" value="WxRebackOwnerInfoSOAP"/> -->
+<!--      <parameter name="className" value="com.infoeai.eai.wsServer.microMsg.WxRebackOwnerInfoSOAP"/> -->
+<!--      <parameter name="wsdlPortType" value="WxRebackOwnerInfoSOAP"/> -->
+<!--      <parameter name="typeMappingVersion" value="1.2"/> -->
+<!--      <operation xmlns:operNS="http://microMsg.wsServer.eai.infoeai.com" xmlns:retNS="http://microMsg.wsServer.eai.infoeai.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="rebackOwnerInfo" qname="operNS:rebackOwnerInfo" returnQName="retNS:rebackOwnerInfoReturn" returnType="rtns:string" soapAction=""> -->
+<!--        <parameter xmlns:pns="http://microMsg.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:vin" type="tns:string"/> -->
+<!--        <parameter xmlns:pns="http://microMsg.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:dmsOwnerId" type="tns:string"/> -->
+<!--        <parameter xmlns:pns="http://microMsg.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:dealerCode" type="tns:string"/> -->
+<!--        <parameter xmlns:pns="http://microMsg.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:status" type="tns:int"/> -->
+<!--        <parameter xmlns:pns="http://microMsg.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:bindDate" type="tns:dateTime"/> -->
+<!--        <parameter xmlns:pns="http://microMsg.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:telephone" type="tns:string"/> -->
+<!--      </operation> -->
+<!--      <parameter name="allowedMethods" value="rebackOwnerInfo"/> -->
+
+<!--  </service> -->
+  
+
+	<!--   技術支持tm_dealer接口 by huyu 2015-3-13 -->
+	<service name="dealerSOAP" provider="java:RPC" style="wrapped"
+		use="literal">
+		<parameter name="wsdlTargetNamespace" value="http://wsServer.eai.infoeai.com/tsdealer/" />
+		<parameter name="wsdlServiceElement" value="tsdealer" />
+		<parameter name="schemaUnqualified" value="http://wsServer.eai.infoeai.com/tsdealer/" />
+		<parameter name="wsdlServicePort" value="dealerSOAP" />
+		<parameter name="className"
+			value="com.infoeai.eai.wsServer.tsdealer.DealerSOAPSkeleton" />
+		<parameter name="wsdlPortType" value="tsdealer" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="allowedMethods" value="*" />
+
+		<typeMapping xmlns:ns="http://wsServer.eai.infoeai.com/tsdealer/"
+			qname="ns:tsDealerVO" type="java:com.infoeai.eai.wsServer.tsdealer.TsDealerVO"
+			serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+			deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+			encodingStyle="" />
+	</service>
+
+	<!--   技术支持 tm_activity 接口  by huyu 2015-3-13-->
+<!-- 	<service name="activitySOAP" provider="java:RPC" style="wrapped" -->
+<!-- 		use="literal"> -->
+<!-- 		<parameter name="wsdlTargetNamespace" value="http://wsServer.eai.infoeai.com/activity/" /> -->
+<!-- 		<parameter name="wsdlServiceElement" value="activity" /> -->
+<!-- 		<parameter name="schemaUnqualified" value="http://wsServer.eai.infoeai.com/activity/" /> -->
+<!-- 		<parameter name="wsdlServicePort" value="activitySOAP" /> -->
+<!-- 		<parameter name="className" -->
+<!-- 			value="com.infoeai.eai.wsServer.activity.ActivitySOAPSkeleton" /> -->
+<!-- 		<parameter name="wsdlPortType" value="activity" /> -->
+<!-- 		<parameter name="typeMappingVersion" value="1.2" /> -->
+<!-- 		<parameter name="allowedMethods" value="*" /> -->
+
+<!-- 		<typeMapping xmlns:ns="http://wsServer.eai.infoeai.com/activity/" -->
+<!-- 			qname="ns:tsActivedVO" type="java:com.infoeai.eai.wsServer.activity.TsActivedVO" -->
+<!-- 			serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" -->
+<!-- 			deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" -->
+<!-- 			encodingStyle="" /> -->
+<!-- 	</service> -->
+
+	<!--   技术支持tm_part接口  by huyu 2015-3-13-->
+<!-- 	<service name="partSOAP" provider="java:RPC" style="wrapped" -->
+<!-- 		use="literal"> -->
+<!-- 		<parameter name="wsdlTargetNamespace" value="http://wsServer.eai.infoeai.com/tspart/" /> -->
+<!-- 		<parameter name="wsdlServiceElement" value="tspart" /> -->
+<!-- 		<parameter name="schemaUnqualified" value="http://wsServer.eai.infoeai.com/tspart/" /> -->
+<!-- 		<parameter name="wsdlServicePort" value="partSOAP" /> -->
+<!-- 		<parameter name="className" -->
+<!-- 			value="com.infoeai.eai.wsServer.tspart.PartSOAPSkeleton" /> -->
+<!-- 		<parameter name="wsdlPortType" value="tspart" /> -->
+<!-- 		<parameter name="typeMappingVersion" value="1.2" /> -->
+<!-- 		<parameter name="allowedMethods" value="*" /> -->
+
+<!-- 		<typeMapping xmlns:ns="http://wsServer.eai.infoeai.com/tspart/" -->
+<!-- 			qname="ns:tsPartVO" type="java:com.infoeai.eai.wsServer.tspart.TsPartVO" -->
+<!-- 			serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" -->
+<!-- 			deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" -->
+<!-- 			encodingStyle="" /> -->
+<!-- 	</service> -->
+
+	<!--    技术支持 tm_labour 接口 by huyu 2015-3-13 -->
+<!-- 	<service name="labourSOAP" provider="java:RPC" style="wrapped" -->
+<!-- 		use="literal"> -->
+<!-- 		<parameter name="wsdlTargetNamespace" value="http://wsServer.eai.infoeai.com/labour/" /> -->
+<!-- 		<parameter name="wsdlServiceElement" value="labour" /> -->
+<!-- 		<parameter name="schemaUnqualified" value="http://wsServer.eai.infoeai.com/labour/" /> -->
+<!-- 		<parameter name="wsdlServicePort" value="labourSOAP" /> -->
+<!-- 		<parameter name="className" -->
+<!-- 			value="com.infoeai.eai.wsServer.labour.LabourSOAPSkeleton" /> -->
+<!-- 		<parameter name="wsdlPortType" value="labour" /> -->
+<!-- 		<parameter name="typeMappingVersion" value="1.2" /> -->
+<!-- 		<parameter name="allowedMethods" value="*" /> -->
+
+<!-- 		<typeMapping xmlns:ns="http://wsServer.eai.infoeai.com/labour/" -->
+<!-- 			qname="ns:tsLabourVO" type="java:com.infoeai.eai.wsServer.labour.TsLabourVO" -->
+<!-- 			serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" -->
+<!-- 			deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" -->
+<!-- 			encodingStyle="" /> -->
+<!-- 	</service> -->
+
+	<service name="materialSOAP" provider="java:RPC" style="wrapped"
+		use="literal">
+		<parameter name="wsdlTargetNamespace" value="http://wsServer.eai.infoeai.com/material/" />
+		<parameter name="wsdlServiceElement" value="material" />
+		<parameter name="schemaUnqualified" value="http://wsServer.eai.infoeai.com/material/" />
+		<parameter name="wsdlServicePort" value="materialSOAP" />
+		<parameter name="className"
+			value="com.infoeai.eai.wsServer.material.MaterialSOAPSkeleton" />
+		<parameter name="wsdlPortType" value="material" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="allowedMethods" value="*" />
+
+		<typeMapping xmlns:ns="http://wsServer.eai.infoeai.com/material/"
+			qname="ns:tsMaterialVO" type="java:com.infoeai.eai.wsServer.material.TsMaterialVO"
+			serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+			deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+			encodingStyle="" />
+	</service>
+
+	<service name="vehicleSOAP" provider="java:RPC" style="wrapped"
+		use="literal">
+		<parameter name="wsdlTargetNamespace" value="http://wsServer.eai.infoeai.com/vehicle/" />
+		<parameter name="wsdlServiceElement" value="vehicle" />
+		<parameter name="schemaUnqualified" value="http://wsServer.eai.infoeai.com/vehicle/" />
+		<parameter name="wsdlServicePort" value="vehicleSOAP" />
+		<parameter name="className"
+			value="com.infoeai.eai.wsServer.vehicle.VehicleSOAPSkeleton" />
+		<parameter name="wsdlPortType" value="vehicle" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="allowedMethods" value="*" />
+
+		<typeMapping xmlns:ns="http://wsServer.eai.infoeai.com/vehicle/"
+			qname="ns:tsVehicleVO" type="java:com.infoeai.eai.wsServer.vehicle.TsVehicleVO"
+			serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+			deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+			encodingStyle="" />
+	</service>
+
+
+	<!--RepairInfo    add by liming -->
+<!-- 	  <service name="repairSOAP" provider="java:RPC" style="wrapped" use="literal"> -->
+<!--       <parameter name="wsdlTargetNamespace" value="http://wsServer.eai.infoeai.com/tsrepair/"/> -->
+<!--       <parameter name="wsdlServiceElement" value="repairSOAPService"/> -->
+<!--       <parameter name="schemaQualified" value="http://wsServer.eai.infoeai.com/tsrepair/"/> -->
+<!--       <parameter name="wsdlServicePort" value="repairSOAP"/> -->
+<!--       <parameter name="className" value="com.infoeai.eai.wsServer.tsrepair.repairSOAP"/> -->
+<!--       <parameter name="wsdlPortType" value="repairSOAP"/> -->
+<!--       <parameter name="typeMappingVersion" value="1.2"/> -->
+<!--       <operation xmlns:operNS="http://wsServer.eai.infoeai.com/tsrepair/" xmlns:retNS="http://wsServer.eai.infoeai.com/tsrepair/" xmlns:rtns="http://wsServer.eai.infoeai.com/tsrepair/" name="repairInfo" qname="operNS:repairInfo" returnQName="retNS:repairInfoReturn" returnType="rtns:TswrrepairVO" soapAction=""> -->
+<!--          <parameter xmlns:pns="http://tsrepair.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:startDate" type="tns:dateTime"/> -->
+<!--       </operation> -->
+<!--       <parameter name="allowedMethods" value="repairInfo"/> -->
+
+<!--       <arrayMapping xmlns:ns="http://wsServer.eai.infoeai.com/tsrepair/" xmlns:cmp-ns="http://wsServer.eai.infoeai.com/tsrepair/" qname="ns:ArrayOfTswrrepairPartVO" type="java:com.infoeai.eai.wsServer.tsrepair.TswrrepairPartVO[]" innerType="cmp-ns:TswrrepairPartVO" encodingStyle=""/> -->
+<!--       <typeMapping xmlns:ns="http://wsServer.eai.infoeai.com/tsrepair/" qname="ns:TswrrepairItemVO" type="java:com.infoeai.eai.wsServer.tsrepair.TswrrepairItemVO" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/> -->
+<!--       <typeMapping xmlns:ns="http://wsServer.eai.infoeai.com/tsrepair/" qname="ns:TswrrepairVO" type="java:com.infoeai.eai.wsServer.tsrepair.TswrrepairVO" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/> -->
+<!--       <arrayMapping xmlns:ns="http://wsServer.eai.infoeai.com/tsrepair/" xmlns:cmp-ns="http://wsServer.eai.infoeai.com/tsrepair/" qname="ns:ArrayOfTswrrepairItemVO" type="java:com.infoeai.eai.wsServer.tsrepair.TswrrepairItemVO[]" innerType="cmp-ns:TswrrepairItemVO" encodingStyle=""/> -->
+<!--       <typeMapping xmlns:ns="http://wsServer.eai.infoeai.com/tsrepair/" qname="ns:TswrrepairOtheritemVO" type="java:com.infoeai.eai.wsServer.tsrepair.TswrrepairOtheritemVO" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/> -->
+<!--       <typeMapping xmlns:ns="http://wsServer.eai.infoeai.com/tsrepair/" qname="ns:TswrrepairPartVO" type="java:com.infoeai.eai.wsServer.tsrepair.TswrrepairPartVO" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/> -->
+<!--       <arrayMapping xmlns:ns="http://wsServer.eai.infoeai.com/tsrepair/" xmlns:cmp-ns="http://wsServer.eai.infoeai.com/tsrepair/" qname="ns:ArrayOfTswrrepairOtheritemVO" type="java:com.infoeai.eai.wsServer.tsrepair.TswrrepairOtheritemVO[]" innerType="cmp-ns:TswrrepairOtheritemVO" encodingStyle=""/> -->
+<!--   </service> -->
+  
+
+  <!-- wjs (DMSS)回运件_(DCS)质量报告单数据接收 -->
+<!--   <service name="RecargoSOAP" provider="java:RPC" style="wrapped" use="literal"> -->
+<!--       <parameter name="wsdlTargetNamespace" value="http://recargo.wsServer.eai.infoeai.com"/> -->
+<!--       <parameter name="wsdlServiceElement" value="RecargoSOAPService"/> -->
+<!--       <parameter name="schemaQualified" value="http://recargo.wsServer.eai.infoeai.com"/> -->
+<!--       <parameter name="wsdlServicePort" value="RecargoSOAP"/> -->
+<!--       <parameter name="className" value="com.infoeai.eai.wsServer.recargo.RecargoSOAP"/> -->
+<!--       <parameter name="wsdlPortType" value="RecargoSOAP"/> -->
+<!--       <parameter name="typeMappingVersion" value="1.2"/> -->
+<!--       <operation xmlns:operNS="http://recargo.wsServer.eai.infoeai.com" xmlns:retNS="http://recargo.wsServer.eai.infoeai.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="recargoInfo" qname="operNS:recargoInfo" returnQName="retNS:recargoInfoReturn" returnType="rtns:int" soapAction=""> -->
+<!--         <parameter xmlns:pns="http://recargo.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:support_no" type="tns:string"/> -->
+<!--         <parameter xmlns:pns="http://recargo.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:dealer_code" type="tns:string"/> -->
+<!--         <parameter xmlns:pns="http://recargo.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:repair_no" type="tns:string"/> -->
+<!--         <parameter xmlns:pns="http://recargo.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:is_return" type="tns:string"/> -->
+<!--       </operation> -->
+<!--       <parameter name="allowedMethods" value="recargoInfo"/> -->
+
+<!--   </service> -->
+
+
+  <!-- SDS WEBServices add liming 20151207 -->
+<!--    <service name="WaybillSOAP" provider="java:RPC" style="wrapped" use="literal"> -->
+<!--       <parameter name="wsdlTargetNamespace" value="http://Waybill.wsServer.eai.infoeai.com"/> -->
+<!--       <parameter name="wsdlServiceElement" value="WaybillSOAPService"/> -->
+<!--       <parameter name="schemaQualified" value="http://Waybill.wsServer.eai.infoeai.com"/> -->
+<!--       <parameter name="wsdlServicePort" value="WaybillSOAP"/> -->
+<!--       <parameter name="className" value="com.infoeai.eai.wsServer.Waybill.WaybillSOAP"/> -->
+<!--       <parameter name="wsdlPortType" value="WaybillSOAP"/> -->
+<!--       <parameter name="typeMappingVersion" value="1.2"/> -->
+<!--       <operation xmlns:operNS="http://Waybill.wsServer.eai.infoeai.com" xmlns:retNS="http://Waybill.wsServer.eai.infoeai.com" xmlns:rtns="http://Waybill.wsServer.eai.infoeai.com" name="waybillInfo" qname="operNS:waybillInfo" returnQName="retNS:waybillInfoReturn" returnType="rtns:WaybillVO" soapAction=""> -->
+<!--         <parameter xmlns:pns="http://Waybill.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:date" type="tns:string"/> -->
+<!--       </operation> -->
+<!--       <parameter name="allowedMethods" value="waybillInfo"/> -->
+
+<!--       <typeMapping xmlns:ns="http://Waybill.wsServer.eai.infoeai.com" qname="ns:WaybillVO" type="java:com.infoeai.eai.wsServer.Waybill.WaybillVO" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/> -->
+<!--   </service> -->
+  
+<!--   <service name="PrckCarSOAP" provider="java:RPC" style="wrapped" use="literal"> -->
+<!--       <parameter name="wsdlTargetNamespace" value="http://PrckCar.wsServer.eai.infoeai.com"/> -->
+<!--       <parameter name="wsdlServiceElement" value="PrckCarSOAPService"/> -->
+<!--       <parameter name="schemaQualified" value="http://PrckCar.wsServer.eai.infoeai.com"/> -->
+<!--       <parameter name="wsdlServicePort" value="PrckCarSOAP"/> -->
+<!--       <parameter name="className" value="com.infoeai.eai.wsServer.PrckCar.PrckCarSOAP"/> -->
+<!--       <parameter name="wsdlPortType" value="PrckCarSOAP"/> -->
+<!--       <parameter name="typeMappingVersion" value="1.2"/> -->
+<!--       <operation xmlns:operNS="http://PrckCar.wsServer.eai.infoeai.com" xmlns:retNS="http://PrckCar.wsServer.eai.infoeai.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="prckcarInfo" qname="operNS:prckcarInfo" returnQName="retNS:prckcarInfoReturn" returnType="rtns:string" soapAction=""> -->
+<!--         <parameter xmlns:pns="http://PrckCar.wsServer.eai.infoeai.com" xmlns:tns="http://PrckCar.wsServer.eai.infoeai.com" qname="pns:sdsData" type="tns:PrckCarVO"/> -->
+<!--       </operation> -->
+<!--       <parameter name="allowedMethods" value="prckcarInfo"/> -->
+
+<!--       <typeMapping xmlns:ns="http://PrckCar.wsServer.eai.infoeai.com" qname="ns:PrckCarVO" type="java:com.infoeai.eai.wsServer.PrckCar.PrckCarVO" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/> -->
+<!--   </service> -->
+<!--   <service name="ActualSalesSOAP" provider="java:RPC" style="wrapped" use="literal"> -->
+<!--       <parameter name="wsdlTargetNamespace" value="http://ActualSales.wsServer.eai.infoeai.com"/> -->
+<!--       <parameter name="wsdlServiceElement" value="ActualSalesSOAPService"/> -->
+<!--       <parameter name="schemaQualified" value="http://ActualSales.wsServer.eai.infoeai.com,http://vo.cgcsl.dms.infoservice.com"/> -->
+<!--       <parameter name="wsdlServicePort" value="ActualSalesSOAP"/> -->
+<!--       <parameter name="className" value="com.infoeai.eai.wsServer.ActualSales.ActualSalesSOAP"/> -->
+<!--       <parameter name="wsdlPortType" value="ActualSalesSOAP"/> -->
+<!--       <parameter name="typeMappingVersion" value="1.2"/> -->
+<!--       <operation xmlns:operNS="http://ActualSales.wsServer.eai.infoeai.com" xmlns:retNS="http://ActualSales.wsServer.eai.infoeai.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="actualsalesInfo" qname="operNS:actualsalesInfo" returnQName="retNS:actualsalesInfoReturn" returnType="rtns:string" soapAction=""> -->
+<!--         <parameter xmlns:pns="http://ActualSales.wsServer.eai.infoeai.com" xmlns:tns="http://ActualSales.wsServer.eai.infoeai.com" qname="pns:sdsData" type="tns:ActualSalesVO"/> -->
+<!--       </operation> -->
+<!--       <parameter name="allowedMethods" value="actualsalesInfo"/> -->
+
+<!--       <typeMapping xmlns:ns="http://vo.cgcsl.dms.infoservice.com" qname="ns:BaseVO" type="java:com.infoservice.dms.cgcsl.vo.BaseVO" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/> -->
+<!--       <typeMapping xmlns:ns="http://ActualSales.wsServer.eai.infoeai.com" qname="ns:ActualSalesVO" type="java:com.infoeai.eai.wsServer.ActualSales.ActualSalesVO" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/> -->
+<!--   </service> -->
+<!--     <service name="K4SapreturntoDcs" provider="java:RPC" style="wrapped" use="literal"> -->
+<!--       <parameter name="wsdlTargetNamespace" value="http://sapreturn.wsServer.eai.infoeai.com"/> -->
+<!--       <parameter name="wsdlServiceElement" value="K4SapreturntoDcsService"/> -->
+<!--       <parameter name="schemaQualified" value="http://sapreturn.wsServer.eai.infoeai.com"/> -->
+<!--       <parameter name="wsdlServicePort" value="K4SapreturntoDcs"/> -->
+<!--       <parameter name="className" value="com.infoeai.eai.wsServer.sapreturn.K4SapreturntoDcs"/> -->
+<!--       <parameter name="wsdlPortType" value="K4SapreturntoDcs"/> -->
+<!--       <parameter name="typeMappingVersion" value="1.2"/> -->
+<!--       <operation xmlns:operNS="http://sapreturn.wsServer.eai.infoeai.com" name="k4SapreToDcs" qname="operNS:k4SapreToDcs" soapAction=""> -->
+<!--         <parameter xmlns:pns="http://sapreturn.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:Data" type="tns:string"/> -->
+<!--       </operation> -->
+<!--       <parameter name="allowedMethods" value="k4SapreToDcs"/> -->
+
+<!--   </service> -->
+  
+  <!-- Services from SalesOrderDcsToLmsService WSDL service by wangJian start -->
+
+    <service name="SalesOrderDcsToLms" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://lms.bsuv.wsServer.eai.infoeai.com"/>
+      <parameter name="wsdlServiceElement" value="SalesOrderDcsToLmsService"/>
+      <parameter name="schemaQualified" value="http://lms.bsuv.wsServer.eai.infoeai.com,http://vo.cgcsl.dms.infoservice.com"/>
+      <parameter name="wsdlServicePort" value="SalesOrderDcsToLms"/>
+      <parameter name="className" value="com.infoeai.eai.wsServer.bsuv.lms.SalesOrderDcsToLms"/>
+      <parameter name="wsdlPortType" value="SalesOrderDcsToLms"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://lms.bsuv.wsServer.eai.infoeai.com" xmlns:retNS="http://lms.bsuv.wsServer.eai.infoeai.com" xmlns:rtns="http://vo.cgcsl.dms.infoservice.com" name="reSaleOrderInfo" qname="operNS:reSaleOrderInfo" returnQName="retNS:reSaleOrderInfoReturn" returnType="rtns:ResaleOrderDcsToLmsVO" soapAction="">
+        <parameter xmlns:pns="http://lms.bsuv.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:FROM" type="tns:string"/>
+        <parameter xmlns:pns="http://lms.bsuv.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:TO" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://lms.bsuv.wsServer.eai.infoeai.com" xmlns:retNS="http://lms.bsuv.wsServer.eai.infoeai.com" xmlns:rtns="http://vo.cgcsl.dms.infoservice.com" name="orderPeiCheSuccessState" qname="operNS:orderPeiCheSuccessState" returnQName="retNS:orderPeiCheSuccessStateReturn" returnType="rtns:CloseOutOrderDcsToLmsVO" soapAction="">
+        <parameter xmlns:pns="http://lms.bsuv.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:FROM" type="tns:string"/>
+        <parameter xmlns:pns="http://lms.bsuv.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:TO" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://lms.bsuv.wsServer.eai.infoeai.com" xmlns:retNS="http://lms.bsuv.wsServer.eai.infoeai.com" xmlns:rtns="http://vo.cgcsl.dms.infoservice.com" name="orderDepartChuKuState" qname="operNS:orderDepartChuKuState" returnQName="retNS:orderDepartChuKuStateReturn" returnType="rtns:CloseOutOrderDcsToLmsVO" soapAction="">
+        <parameter xmlns:pns="http://lms.bsuv.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:FROM" type="tns:string"/>
+        <parameter xmlns:pns="http://lms.bsuv.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:TO" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://lms.bsuv.wsServer.eai.infoeai.com" xmlns:retNS="http://lms.bsuv.wsServer.eai.infoeai.com" xmlns:rtns="http://vo.cgcsl.dms.infoservice.com" name="orderCheckRuKuState" qname="operNS:orderCheckRuKuState" returnQName="retNS:orderCheckRuKuStateReturn" returnType="rtns:CloseOutOrderDcsToLmsVO" soapAction="">
+        <parameter xmlns:pns="http://lms.bsuv.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:FROM" type="tns:string"/>
+        <parameter xmlns:pns="http://lms.bsuv.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:TO" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://lms.bsuv.wsServer.eai.infoeai.com" xmlns:retNS="http://lms.bsuv.wsServer.eai.infoeai.com" xmlns:rtns="http://vo.cgcsl.dms.infoservice.com" name="orderSalesInfo" qname="operNS:orderSalesInfo" returnQName="retNS:orderSalesInfoReturn" returnType="rtns:ResaleOrderDcsToLmsVO" soapAction="">
+        <parameter xmlns:pns="http://lms.bsuv.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:FROM" type="tns:string"/>
+        <parameter xmlns:pns="http://lms.bsuv.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:TO" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://lms.bsuv.wsServer.eai.infoeai.com" xmlns:retNS="http://lms.bsuv.wsServer.eai.infoeai.com" xmlns:rtns="http://vo.cgcsl.dms.infoservice.com" name="dealerSure" qname="operNS:dealerSure" returnQName="retNS:dealerSureReturn" returnType="rtns:CloseOutOrderDcsToLmsVO" soapAction="">
+        <parameter xmlns:pns="http://lms.bsuv.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:FROM" type="tns:string"/>
+        <parameter xmlns:pns="http://lms.bsuv.wsServer.eai.infoeai.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:TO" type="tns:string"/>
+      </operation>
+      <parameter name="allowedMethods" value="orderDepartChuKuState orderPeiCheSuccessState orderCheckRuKuState reSaleOrderInfo dealerSure orderSalesInfo"/>
+
+      <typeMapping xmlns:ns="http://vo.cgcsl.dms.infoservice.com" qname="ns:CloseOutOrderDcsToLmsVO" type="java:com.infoeai.eai.wsServer.bsuv.lms.CloseOutOrderDcsToLmsVO" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://vo.cgcsl.dms.infoservice.com" qname="ns:ResaleOrderDcsToLmsVO" type="java:com.infoeai.eai.wsServer.bsuv.lms.ResaleOrderDcsToLmsVO" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+  <!-- end -->
+  
+  <!-- BSUV电商基础数据接口   xiawei start -->
+  <service name="BasicManagerServiceSOAP" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://www.example.org/BasicManagerService/"/>
+      <parameter name="wsdlServiceElement" value="BasicManagerService"/>
+      <parameter name="schemaUnqualified" value="http://www.example.org/BasicManagerService/"/>
+      <parameter name="wsdlServicePort" value="BasicManagerServiceSOAP"/>
+      <parameter name="className" value="com.infoeai.eai.wsServer.bsuv.lms.basicManagerService.BasicManagerServiceSOAPSkeleton"/>
+      <parameter name="wsdlPortType" value="BasicManagerService"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <parameter name="allowedMethods" value="*"/>
+
+      <typeMapping
+        xmlns:ns="http://www.example.org/BasicManagerService/"
+        qname="ns:MaterialVO"
+        type="java:com.infoeai.eai.wsServer.bsuv.lms.basicManagerService.MaterialVO"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://www.example.org/BasicManagerService/"
+        qname="ns:DealerVo"
+        type="java:com.infoeai.eai.wsServer.bsuv.lms.basicManagerService.DealerVo"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+  <!-- end -->
+  
+  <!--  线索校验结果反馈接口   编号   DCS_LMS_007  电商客户跟进信息推送接口     编号  DCS_LMS_008  -->
+ <service name="BSUVDcsToLmsSOAP" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://www.example.org"/>
+      <parameter name="wsdlServiceElement" value="BSUVDcsToLmsSOAPService"/>
+      <parameter name="schemaUnqualified" value="http://www.example.org"/>
+      <parameter name="wsdlServicePort" value="BSUVDcsToLmsSOAP"/>
+      <parameter name="className" value="com.infoeai.eai.wsServer.bsuv.lms.BSUVDcsToLmsSOAPSoapBindingSkeleton"/>
+      <parameter name="wsdlPortType" value="BSUVDcsToLmsSOAP"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <parameter name="allowedMethods" value="*"/>
+
+      <typeMapping
+        xmlns:ns="http://www.example.org"
+        qname="ns:ecCheckFeedBackVO"
+        type="java:com.infoeai.eai.wsServer.bsuv.lms.EcCheckFeedBackVO"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://www.example.org"
+        qname="ns:trailCustVO"
+        type="java:com.infoeai.eai.wsServer.bsuv.lms.TrailCustVO"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+  
+   <!-- Services from PartOrders WSDL service add by weixia 2016-08-29 start-->
+
+<!--   <service name="PartOrdersSOAP" provider="java:RPC" style="wrapped" use="literal"> -->
+<!--       <parameter name="wsdlTargetNamespace" value="http://www.example.org/PartOrders/"/> -->
+<!--       <parameter name="wsdlServiceElement" value="PartOrders"/> -->
+<!--       <parameter name="schemaUnqualified" value="http://www.example.org/PartOrders/"/> -->
+<!--       <parameter name="wsdlServicePort" value="PartOrdersSOAP"/> -->
+<!--       <parameter name="className" value="com.infoeai.eai.wsServer.PartOrders.PartOrdersSOAPSkeleton"/> -->
+<!--       <parameter name="wsdlPortType" value="PartOrders"/> -->
+<!--       <parameter name="typeMappingVersion" value="1.2"/> -->
+<!--       <parameter name="allowedMethods" value="*"/> -->
+
+<!--       <typeMapping -->
+<!--         xmlns:ns="http://www.example.org/PartOrders/" -->
+<!--         qname="ns:LogisticsVO" -->
+<!--         type="java:com.infoeai.eai.wsServer.PartOrders.LogisticsVO" -->
+<!--         serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" -->
+<!--         deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" -->
+<!--         encodingStyle="" -->
+<!--       /> -->
+<!--       <typeMapping -->
+<!--         xmlns:ns="http://www.example.org/PartOrders/" -->
+<!--         qname="ns:PartVO" -->
+<!--         type="java:com.infoeai.eai.wsServer.PartOrders.PartVO" -->
+<!--         serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" -->
+<!--         deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" -->
+<!--         encodingStyle="" -->
+<!--       /> -->
+<!--       <typeMapping -->
+<!--         xmlns:ns="http://www.example.org/PartOrders/" -->
+<!--         qname="ns:WarehousVO" -->
+<!--         type="java:com.infoeai.eai.wsServer.PartOrders.WarehousVO" -->
+<!--         serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" -->
+<!--         deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" -->
+<!--         encodingStyle="" -->
+<!--       /> -->
+<!--       <typeMapping -->
+<!--         xmlns:ns="http://www.example.org/PartOrders/" -->
+<!--         qname="ns:PartOrderVO" -->
+<!--         type="java:com.infoeai.eai.wsServer.PartOrders.PartOrderVO" -->
+<!--         serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" -->
+<!--         deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" -->
+<!--         encodingStyle="" -->
+<!--       /> -->
+<!--       <typeMapping -->
+<!--         xmlns:ns="http://www.example.org/PartOrders/" -->
+<!--         qname="ns:PartList" -->
+<!--         type="java:com.infoeai.eai.wsServer.PartOrders.PartList" -->
+<!--         serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" -->
+<!--         deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" -->
+<!--         encodingStyle="" -->
+<!--       /> -->
+<!--   </service> -->
+  <!-- Services from PartOrders WSDL service add by weixia 2016-08-29 end-->
+  
+  <!-- DMSS配件货运单接口-->
+<!--   <service name="PartDeliverSOAP" provider="java:RPC" style="wrapped" use="literal"> -->
+<!--       <parameter name="wsdlTargetNamespace" value="http://wsServer.eai.infoeai.com/PartDeliver/"/> -->
+<!--       <parameter name="wsdlServiceElement" value="PartDeliver"/> -->
+<!--       <parameter name="schemaUnqualified" value="http://wsServer.eai.infoeai.com/PartDeliver/"/> -->
+<!--       <parameter name="wsdlServicePort" value="PartDeliverSOAP"/> -->
+<!--       <parameter name="className" value="com.infoeai.eai.wsServer.PartDeliver.PartDeliverSOAPSkeleton"/> -->
+<!--       <parameter name="wsdlPortType" value="PartDeliver"/> -->
+<!--       <parameter name="typeMappingVersion" value="1.2"/> -->
+<!--       <parameter name="allowedMethods" value="*"/> -->
+
+<!--       <typeMapping -->
+<!--         xmlns:ns="http://wsServer.eai.infoeai.com/PartDeliver/" -->
+<!--         qname="ns:tsPartDeliverDetailVO" -->
+<!--         type="java:com.infoeai.eai.wsServer.PartDeliver.TsPartDeliverDetailVO" -->
+<!--         serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" -->
+<!--         deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" -->
+<!--         encodingStyle="" -->
+<!--       /> -->
+<!--       <typeMapping -->
+<!--         xmlns:ns="http://wsServer.eai.infoeai.com/PartDeliver/" -->
+<!--         qname="ns:tsPartDeliverVO" -->
+<!--         type="java:com.infoeai.eai.wsServer.PartDeliver.TsPartDeliverVO" -->
+<!--         serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" -->
+<!--         deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" -->
+<!--         encodingStyle="" -->
+<!--       /> -->
+<!--       <arrayMapping -->
+<!--         xmlns:ns="http://wsServer.eai.infoeai.com/PartDeliver/" -->
+<!--         qname="ns:ArrayOfTsPartDeliverDetailVO" -->
+<!--         type="java:com.infoeai.eai.wsServer.PartDeliver.TsPartDeliverDetailVO[]" -->
+<!--         innerType="cmp-ns:tsPartDeliverDetailVO" xmlns:cmp-ns="http://wsServer.eai.infoeai.com/PartDeliver/" -->
+<!--         encodingStyle="" -->
+<!--       /> -->
+<!--   </service> -->
+  
+  <!-- DMSS配件订单接口-->
+<!--   <service name="PartOrderSAPSOAP" provider="java:RPC" style="wrapped" use="literal"> -->
+<!--       <parameter name="wsdlTargetNamespace" value="http://wsServer.eai.infoeai.com/PartOrderSAP/"/> -->
+<!--       <parameter name="wsdlServiceElement" value="PartOrderSAP"/> -->
+<!--       <parameter name="schemaUnqualified" value="http://wsServer.eai.infoeai.com/PartOrderSAP/"/> -->
+<!--       <parameter name="wsdlServicePort" value="PartOrderSAPSOAP"/> -->
+<!--       <parameter name="className" value="com.infoeai.eai.wsServer.PartOrderSAP.PartOrderSAPSOAPSkeleton"/> -->
+<!--       <parameter name="wsdlPortType" value="PartOrderSAP"/> -->
+<!--       <parameter name="typeMappingVersion" value="1.2"/> -->
+<!--       <parameter name="allowedMethods" value="*"/> -->
+
+<!--       <typeMapping -->
+<!--         xmlns:ns="http://wsServer.eai.infoeai.com/PartOrderSAP/" -->
+<!--         qname="ns:tsPartOrderSAPDetailVO" -->
+<!--         type="java:com.infoeai.eai.wsServer.PartOrderSAP.TsPartOrderSAPDetailVO" -->
+<!--         serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" -->
+<!--         deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" -->
+<!--         encodingStyle="" -->
+<!--       /> -->
+<!--       <typeMapping -->
+<!--         xmlns:ns="http://wsServer.eai.infoeai.com/PartOrderSAP/" -->
+<!--         qname="ns:tsPartOrderSAPVO" -->
+<!--         type="java:com.infoeai.eai.wsServer.PartOrderSAP.TsPartOrderSAPVO" -->
+<!--         serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" -->
+<!--         deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" -->
+<!--         encodingStyle="" -->
+<!--       /> -->
+<!--       <arrayMapping -->
+<!--         xmlns:ns="http://wsServer.eai.infoeai.com/PartOrderSAP/" -->
+<!--         qname="ns:ArrayOfTsPartOrderSAPDetailVO" -->
+<!--         type="java:com.infoeai.eai.wsServer.PartOrderSAP.TsPartOrderSAPDetailVO[]" -->
+<!--         innerType="cmp-ns:tsPartOrderSAPDetailVO" xmlns:cmp-ns="http://wsServer.eai.infoeai.com/PartOrderSAP/" -->
+<!--         encodingStyle="" -->
+<!--       /> -->
+<!--   </service> -->
+  
+  <!-- Services from DccmAppService WSDL service -->
+
+  <service name="DccmAppServiceSOAP" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://www.example.org/DccmAppService/"/>
+      <parameter name="wsdlServiceElement" value="DccmAppService"/>
+      <parameter name="schemaUnqualified" value="http://www.example.org/DccmAppService/"/>
+      <parameter name="wsdlServicePort" value="DccmAppServiceSOAP"/>
+      <parameter name="className" value="com.infoeai.eai.wsServer.DccmAppService.DccmAppServiceSOAPSkeleton"/>
+      <parameter name="wsdlPortType" value="DccmAppService"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <parameter name="allowedMethods" value="*"/>
+
+      <typeMapping
+        xmlns:ns="http://www.example.org/DccmAppService/"
+        qname="ns:PotentialCustomerVo"
+        type="java:com.infoeai.eai.wsServer.DccmAppService.PotentialCustomerVo"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://www.example.org/DccmAppService/"
+        qname="ns:CustomerReceptionVo"
+        type="java:com.infoeai.eai.wsServer.DccmAppService.CustomerReceptionVo"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://www.example.org/DccmAppService/"
+        qname="ns:CustomerStatusVo"
+        type="java:com.infoeai.eai.wsServer.DccmAppService.CustomerStatusVo"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://www.example.org/DccmAppService/"
+        qname="ns:SalesConsultantVo"
+        type="java:com.infoeai.eai.wsServer.DccmAppService.SalesConsultantVo"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+  
+      
+	<transport name="http">
+		<requestFlow>
+			<handler type="URLMapper" />
+			<handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler" />
+		</requestFlow>
+		<parameter name="qs:list"
+			value="org.apache.axis.transport.http.QSListHandler" />
+		<parameter name="qs:wsdl"
+			value="org.apache.axis.transport.http.QSWSDLHandler" />
+		<parameter name="qs.list"
+			value="org.apache.axis.transport.http.QSListHandler" />
+		<parameter name="qs.method"
+			value="org.apache.axis.transport.http.QSMethodHandler" />
+		<parameter name="qs:method"
+			value="org.apache.axis.transport.http.QSMethodHandler" />
+		<parameter name="qs.wsdl"
+			value="org.apache.axis.transport.http.QSWSDLHandler" />
+	</transport>
+	<transport name="local">
+		<responseFlow>
+			<handler type="LocalResponder" />
+		</responseFlow>
+	</transport>
+
+	<webServices>
+		<protocols>
+			<add name="HttpSoap" />
+			<add name="HttpPost" />
+			<add name="HttpGet" />
+			<add name="Documentation" />
+		</protocols>
+	</webServices>
+
+
+</deployment>

@@ -1,0 +1,187 @@
+<div class ="dms-search ajaxrest" >
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">								
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">订单编号</label>
+							<div class="col-xs-8">
+								<input id="soNo" name="soNo" class="form-control" type="text"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">客户名称</label>
+							<div class="col-xs-8">
+								<input id="customerName" name="customerName" class="form-control" type="text"/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">VIN</label>
+							<div class="col-xs-8">
+								<input id="vin" name="vin" class="form-control" type="text"/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">合约编号</label>
+							<div class="col-xs-8">
+								<input id="contractNo" name="contractNo" class="form-control" type="text"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-8">
+								<input id="businessType" name="businessType" class="form-control hidden" type="text" value="13001005"/>
+							</div>			
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i class="fa fa-search"></i>查询 </a>
+							 <a href="javascript:;" class="btn blue"><i class="fa fa-undo"></i>重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name" >销售退回信息</div>
+			<div class="pannel-button">
+					<div class="btn-group btn-group-sm">
+						<a  href="retail/ordermanage/sellback/addSellBack.html"
+						class="btn btn-outline ajaxify"><i class="fa fa-plus-square"></i> 新增</a>
+						<a class="btn btn-outline" data-url="" id="redistribution4" data-model="retail" id="redistribution4" 
+					 data-method="DELETE" data-toggle="confirmation"  data-width="modal-lg"  data-beforeRequest='true'> <i class="fa fa-minus-square"></i> 作废
+					</a>
+					</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+
+				
+				dmsCommon.ajaxRestRequest({
+					url : dmsCommon.getDmsPath()["retail"] + "/ordermanage/salesOrders/menuAction",
+					type : 'GET',
+					sucessCallBack : function(data) {
+						if(data.length==0){
+							
+							$("#redistribution4",container).addClass("hidden");
+								  //document.getElementById("redistribution4").style.display = "inline";
+							
+						}
+					}
+				});
+				
+		 
+	 
+		
+		new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["retail"] + "/ordermanage/salesOrders/sellBack/qurySaleBackOrder",
+			rowID : "SO_NO",
+			sortName : "SO_NO",
+			sortOrder : "desc",
+			autoHeight:false,
+			undefinedText : "",
+			columns : [ 
+			    {field : "SO_NO",title : "操作",operateFormat : [
+                       {type:"edit",url:"retail/ordermanage/sellback/editSellBack.html",openType:"jump",doubleClick:true,title:"修改",isShow:function(value, row, index){
+						   if(row.SO_STATUS!="13011035"){
+							   return true;
+                    	   }else{
+                    		   return false;
+                    	   }      
+					   }},
+
+                       {type:"detail",url:"retail/ordermanage/sellback/editSellBack.html",title:"退回单详细",openType:"jump"},
+
+                      // {type:"detail",url:"retail/ordermanage/sellback/editSellBack.html",title:"客户详细",openType:"jump"},
+
+					   {type:"detail",url:"customer/potentialcus/potentialCusFollow/editCusInfo.html",openWidth:"modal-lg",title:"客户详情",operateIcon:'<i class="fa fa-lg fa-user-plus"></i>'},
+
+                       {type:"detail",url:"retail/ordermanage/sellback/auditLoggingSalesBack.html",title:"审核记录"},
+                   //    {type:"detail",url:"retail/ordermanage/sellback/detailSellBack.html",openType:"jump"},
+                       /* {type:"del",url:"/ordermanage/salesOrders/{[SO_NO]}/cancel",model:"retail",openWidth:"modal-lg",title:"作废",isShow:function(value, row, index){
+						   if(row.SO_STATUS=="13011010"){
+									   return true;
+		                    	   }else{
+		                    		   return false;
+		                    	   }      
+							   },callBack:function(response){
+		                    	   $("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		                       }} */
+                   ]
+                },
+                {field:"SO_NO",title:"订单编号"},
+            	{field:"SO_STATUS",title:"订单状态",codeFormat : {type:"dict",codeType:"1301"}},
+    //        	{field:"IS_SPEEDINESS",title:"是否快速订单",codeFormat : {type:"dict",codeType:"1278"}},            	
+                {field:"CUSTOMER_NO",title:"客户编号"},
+                {field:"CUSTOMER_NAME",title:"客户名称"},  		
+    			{field:"VIN",title:"VIN"},
+    		 	{field:"BRAND_NAME",title:"品牌"},
+    			{field:"SERIES_NAME",title:"车系"},
+    			{field:"MODEL_NAME",title:"车型"}, 
+    			//{field:"BRAND_CODE",title:"品牌",inputSelectFormat : {url:"/basedata/brandsdict",model:"manage",labelValue:"BRAND_CODE",lableDesc:"BRAND_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"}},
+    			//{field:"SERIES_CODE",title:"车系", inputSelectFormat : {url:"/basedata/selectSeries",model:"manage",labelValue:"SERIES_CODE",lableDesc:"SERIES_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"}},
+    			//{field:"MODEL_CODE",title:"车型", inputSelectFormat : {url:"/basedata/intentionModel",model:"manage",labelValue:"MODEL_CODE",lableDesc:"MODEL_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"}},
+    			{field:"CONFIG_NAME",title:"配置"},
+    			{field:"COlOR_NAME",title:"颜色", inputSelectFormat : {url:"/basedata/colors/colorInfo/dicts",model:"repair",labelValue:"COLOR_CODE",lableDesc:"COLOR_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"}},
+    			{field:"CONTRACT_NO",title:"合约编号"},
+    			{field:"CONTRACT_DATE",title:"签约日期", dateFormat : {format:"YYYY-MM-DD"}},
+    			{field:"USER_NAME",title:"销售顾问"},
+    			{field:"LOCK_NAME",title:"锁定人"},
+    			{field:"DELIVERING_DATE",title:"预交车时间", dateFormat : {format:"YYYY-MM-DD"}},
+    			{radio:true,sortable : false}
+    			],
+				onCheck:function(row){
+					 var id='';
+					 var selectRow = $("#dms_table",getElementContext()).dmsTable().getSelections();
+				   	  $(selectRow).each(function(index){
+					   id=selectRow[index].SO_STATUS;
+				 	  });
+				   
+				   	 if(id == '13011010') {
+				   		$("#redistribution4",container).removeAttr("disabled");
+				   	 }else {
+				   		$("#redistribution4",container).attr("disabled","true");
+				   	 }
+				
+				}
+		});
+		$("a[data-beforeRequest='true']",container).on('beforeRequest.dms',function(event,returnResult){
+			var selectRow = $("#dms_table",container).dmsTable().getSelections();
+			if(!selectRow){
+				dmsCommon.tip({status:"warning",msg:"请选择表格数据"});
+				returnResult.status = false;
+				return ;
+		   }
+		   if(event.target.id=='redistribution4'){ 
+			 var id='';
+			 var selectRow = $("#dms_table",container).dmsTable().getSelections();
+			 id=selectRow[0].SO_NO;
+			 $("#redistribution4",container).attr("data-url","/ordermanage/salesOrders/"+id+"/cancel");
+			 dmsCommon.refreshPageByUrl("retail/ordermanage/sellback/searchSellBack.html",container);
+		   }
+		   returnResult.status = true;
+	});
+		
+	});
+</script>       

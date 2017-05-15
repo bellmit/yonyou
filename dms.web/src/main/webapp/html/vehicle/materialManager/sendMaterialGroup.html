@@ -1,0 +1,167 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">物料组信息下发</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">通告经销商选择</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<input type="hidden" id="dealerIds" name="dealerIds">
+					<input type="hidden" id="bussIds" name="bussIds">
+					<div class="row">						
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-3">全部经销商：</label>
+								<div class="col-xs-6" >
+									<div class="radio-list">
+										<label class="radio-inline col-xs-2 "><input type="radio" name="isAllDealer" class="dealerShow" id="allDealer"
+											  data-isinit="true" value="0"><span>是</span>
+										</label>
+										<label class="radio-inline col-xs-2 "><input type="radio" name="isAllDealer" class="dealerShow" checked 
+											  data-isinit="true" value="1"><span>否</span>
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>															
+					</div>	
+					<div class="panel-heading">
+						<div class="pannel-button">
+							<div class="btn-group btn-group-sm">
+								<a class="btn btn-outline" data-url="vehicle/materialManager/addMaterialGroup.html" data-width="modal-lg"
+									data-toggle="modal"> <i class="fa fa-plus-square"></i> 删除
+								</a>
+								<a class="btn btn-outline" data-url="vehicle/materialManager/searchDealers.html" data-width="modal-lg"
+									data-toggle="modal" id="btnAddDealer"> <i class="fa fa-plus-square"></i> 添加经销商
+								</a>  
+							</div>
+						</div>
+					</div>
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dealerList">
+					</table>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">业务范围</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<table class="table table-striped table-bordered table-hover table-responsive"
+						id="tableList"></table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/materialMaintain/sendMaterialGroup" data-model="vehicle" data-method="POST"
+				data-callBack="true" class="btn blue" data-beforeRequest="true"
+				data-toggle="confirmation"> <i class="fa fa-save"></i>下发
+			</a> <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one("onload.dms",function(event,container){
+		
+		//经销商列表
+		new Datatable().initLocale({
+			src : "dealerList",
+			container:container,
+			autoHeight:false,
+			columns : [ {title : "操作",operateFormat : [ 
+			            {type : "localDel"}]},
+			            {checkbox:true,sortable : false},
+			            /* {field : "DEALER_ID",inputField:"dealerId",title : "ID",inputTextFormat : {validate:{validateAttr:' disabled'}}}, */
+			            {field : "DEALER_CODE",inputField:"dealerCode",title : "经销商代码"},
+	   		            {field : "DEALER_SHORTNAME",inputField:"dealerShortName",title : "经销商简称"},
+	   		         	{field : "ORG_NAME",inputField:"orgName",title : "经销商区域"}
+			          ]
+		});
+		
+		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			var dealerId = "";
+			var rownum = $("#dealerList",container).dmsTable().getTableRows();
+			if(rownum > 0){				
+				var rows = $("#dealerList",getElementContext()).dmsTable().getRowDataByIndex();
+				for(var i = 0 ; i < rows.length; i++){
+					dealerId += rows[i].DEALER_CODE + ",";
+				}
+				dealerId = dealerId.substring(0,dealerId.length-1);
+			}else{
+				var flag = $("#allDealer").is(':checked')
+				if(!flag){					
+					dmsCommon.tip({status:"warning",msg:"请选择经销商!"});
+					returnResult.status = false;
+					return;
+				}
+			}
+			
+			var selectRow = $("#tableList",container).dmsTable().getSelections();
+			var buss = "";
+			if(selectRow != null && selectRow.length > 0){
+				for(var i = 0 ; i < selectRow.length; i++){
+					buss += selectRow[i].GROUPID + ",";
+				}
+				buss = buss.substring(0,buss.length-1);
+			}else{
+				dmsCommon.tip({status:"warning",msg:"请选择业务范围!"});
+				returnResult.status = false;
+				return;
+			}
+			$("#dealerIds",container).val(dealerId);
+			$("#bussIds",container).val(buss);
+			returnResult.status = true;
+		});
+		
+		//业务范围列表 
+		new Datatable().initLocale({
+			src : "tableList",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/materialMaintain/findDealerBuss",
+			rowID : "GROUPID",
+			sortName : "GROUPID",
+			sortOrder : "asc",
+			autoHeight:false,
+			columns : [ 
+				{checkbox:true,sortable : false},
+			    {field : "BNAME",title : "品牌"}, 
+				{field : "SNAME",title : "车系"}, 
+				{field : "GTYPE",title : "业务类型" ,codeFormat : {type:"dict",codeType:"9008"}}
+			]
+
+		});
+		
+		$(".dealerShow",container).bind("change",function(){
+			if($(this).val() == 0){
+				$("#btnAddDealer",container).css("display","none");
+			}else{
+				$("#btnAddDealer",container).css("display","block");
+			}
+		});
+		
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	});
+</script>

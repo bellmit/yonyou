@@ -1,0 +1,67 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+			<div class="modal-title">新增计量单位</div>
+		</div>
+		<div class="modal-body">
+    		<div class="panel panel-default">
+				<div class="panel-body">
+		            <div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">计量单位代码</label>
+						<div class="col-xs-8">
+							<input id="storage_code" name="unitCode" maxlength="4" 
+							class="form-control required systemCode" type="text" />
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">计量单位名称</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control required"
+							 maxlength="8" id="unitName" name="unitName" >
+					    </div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">是否OEM</label>
+						<div class="col-xs-8">
+							<select  id="oem_tag" name="oemTag"  class="bs-select form-control" 
+							data-existsDefault="false" data-dictCode="1278" data-value="12781002" >
+							</select>
+						</div>
+					</div>
+				</div>
+			
+			</div>
+		</div>
+		</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/basedata/unit" data-model="part" data-method="POST" data-callBack="true"  class="btn blue" data-toggle="confirmation" ><i
+				class="fa fa-save" data-onclickEvent="true"></i>保存</a>
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+ $(document).one("onload.dms",function(event,container){
+		
+	//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_unit",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	});
+</script>

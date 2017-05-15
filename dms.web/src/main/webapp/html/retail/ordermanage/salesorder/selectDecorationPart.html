@@ -1,0 +1,113 @@
+<div class="dms-search">
+<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">装潢材料选择</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">仓库</label>
+								<div class="col-xs-8">
+								<select id="storage_code" name="storage_code"
+									class="bs-select form-control"
+									data-url="/basedata/store/accessories/Warehouses" data-model="manage"
+									data-labelValue="STORAGE_CODE" data-lableDesc="STORAGE_NAME"></select>
+							</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件代码</label>
+								<div class="col-xs-8">
+									<input class="form-control" id="part_code"
+										name="part_code" type="text">
+									
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件名称</label>
+								<div class="col-xs-8">
+									<input class="form-control" id="part_name"
+										name="part_name" type="text">
+								</div>
+							</div>
+						</div>
+						
+					</div>
+					<div class="row ">
+						<div class="col-xs-12 ">
+							<div class="query-btn">
+								<a href="javascript:;" class="btn blue"> <i
+									class="fa fa-search"></i>查询
+								</a> 
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+			<div class="pannel-name" >装潢材料</div>
+		</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="customerList">
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-onclickEvent="true" data-beforeShowEvent="true"><i class="fa fa-save"></i>确定</a>
+			<a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消</a>
+		</div>
+</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+	 	new Datatable().initPagination({
+			src : "customerList",
+			rowID:"PART_STOCK_ID",
+			container:container,
+		 	url : dmsCommon.getDmsPath()["part"] + "/partStocks", 
+			sortName : "PART_STOCK_ID", 
+			sortOrder : "asc",
+			autoHeight:false,
+			isQueryFirst:false,
+			pageSize:5,
+			columns : [ 
+			            {radio:true},
+			            {field : "PART_CODE",title : "配件代码"},
+			            {field : "PART_NAME",title : "配件名称"},
+			            {field : "STORAGE_NAME",title : "仓库名称"},
+			            {field : "STORAGE_POSITION_CODE",title : "库位"},
+			            {field : "STOCK_QUANTITY",inputField : "stockQuantity",title : "账面库存",numberFormat : {}},
+			            {field : "LOCKED_QUANTITY",inputField : "lockedQuantity",title : "锁定数量",numberFormat : {}},
+			            {field : "USABLE_QUANTITY",inputField : "usableQuantity",title : "可用库存",numberFormat:{}},
+			            {field : "SALES_PRICE",title : "销售单价",numberFormat : {}},
+			            {field : "COST_PRICE",title : "成本单价",numberFormat : {}}
+			         ]
+		});
+	 	
+	 	
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event,container){
+			var repairPro = $("#customerList",container).dmsTable().getFirstSelection();
+			var discount = 1;
+			repairPro.DISCOUNT =discount.toFixed(2);
+			var rowTR = $("#soDecrodatePartList",getElementContext()).dmsTable().appendRow(repairPro);
+			dmsRetail.saleDatabindChange(getElementContext());
+		});
+	});
+
+</script>

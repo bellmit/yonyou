@@ -1,0 +1,175 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">经销商代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="dealerCode" name="dealerCode">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">经销商简称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="dealerShortname" name="dealerShortname">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">经销商状态</label>
+							<div class="col-xs-8">
+								<select id="status" name="status" class="bs-select form-control" data-dictCode="1001" data-type="oemDict" >
+								</select>
+							</div>
+						</div>
+					</div>
+					
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 "> 
+							<div class="form-group">
+								<label class="control-label col-xs-4">所属区域（小区）</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+									<input id="orgName" readonly
+										name="orgName" class="form-control" type="text"/> 
+									<input id="orgId" readonly
+										name="orgId" class="form-control" type="hidden"/>
+										<span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="manage/distributorManage/searchsmallOrgAll.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+											
+							</div>
+						</div> 
+					
+					
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">经销商类型</label>
+							<div class="col-xs-8">
+								<select id="type" name="type" class="bs-select form-control" data-type="oemDict"  data-dictCode="1077" data-value="" >
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3  " data-tableSelect="true">
+						<div class="form-group"> 
+								<label class="control-label col-xs-4">经销商公司</label> 
+ 								<div class="col-xs-8">
+									<div class="input-group">
+									<input type="hidden" name="companyId" id="companyId" data-fieldName="COMPANY_ID">
+									<!-- <input id="dealerName" readonly
+										name="dealerName" class="form-control" type="text"
+										data-fieldName="dealer_code" /> --> 
+									<input id="companyShortName" readonly
+										name="companyShortName" class="form-control" type="text"
+										data-fieldName="COMPANY_SHORTNAME" />
+										<span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="manage/basedata/organization/searchCompany.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+					</div>	
+					
+					
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">省份</label>
+								<div class="col-xs-8">
+									<select  class="bs-select form-control " id="provinceId" name="provinceId" data-type="oemRegion" data-fieldName="province" ></select>
+								</div>
+							</div>
+						</div>
+				
+		
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否官网</label>
+							<div class="col-xs-8">
+								<select id="isEc" name="isEc" class="bs-select form-control" data-type="oemDict" data-dictCode="1004"  >
+								</select>
+							</div>
+						</div>
+					</div>
+						
+							
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dealerList"></table>
+		</div>
+	</div>
+	
+</div>
+<script type="text/javascript">
+ $(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dealerList",
+		container:container,
+		url : dmsCommon.getDmsPath()["manage"] + "/queryDealers/dlrQueryDealerInfo",
+		rowID : "DEALER_CODE",
+		sortName : "DEALER_CODE",
+		sortOrder : "asc",
+		columns : [ 
+		    //{checkbox:true,sortable : false}, 
+		    {field :"DEALER_ID",title : "操作",operateFormat : [
+                {type:"detail",url:"manage/distributorManage/dealerDetailedInformationView.html",openType:"jump",doubleClick:false}
+                ]
+		    },
+		    {field : "DEALER_CODE",title : "经销商代码"},
+		    {field : "DEALER_SHORTNAME",title : "经销商简称"},
+		    {field : "DEALER_TYPE",title : "经销商类型" ,codeFormat : {type:"oemDict",codeType:"1077"}},
+		    {field : "BIG_ORG_NAME",title : "所属区域(大区)"},
+		    {field : "ORG_NAME",title : "所属区域(小区)"},
+		    {field : "COMPANY_SHORTNAME",title : "经销商公司"},
+		    {field : "IS_EC",title : "是否官网" , codeFormat : {type:"oemDict",codeType:"1004"}},
+		    {field : "STATUS",title : "状态" , codeFormat : {type:"oemDict",codeType:"1001"}}
+		]
+		
+	});
+	
+});
+    
+</script>

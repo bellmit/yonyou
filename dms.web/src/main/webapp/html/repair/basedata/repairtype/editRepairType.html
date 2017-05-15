@@ -1,0 +1,62 @@
+<div class="dms-edit ajaxrest" data-url="/basedata/repairtypes/{[REPAIR_TYPE_CODE]}" data-model="repair" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">工时单价修改</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">维修类型代码</label>
+							<div class="col-xs-8">
+								<input style="display:none" type="text"  name="repairTypeCode" class="form-control"  data-fieldName="repair_type_code">
+								<input id="repairTypeCode" disabled="disabled" class="form-control" type="text" data-fieldName="repair_type_code"/>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">工时单价</label>
+							<div class="col-xs-8">
+								<select id="labourprice" class="bs-select form-control"
+										name="labourprice" data-url="/basedata/repairtypes/labourprice/item"
+										data-model="repair" data-labelValue="LABOUR_PRICE"
+										data-fieldName="LABOUR_PRICE" data-lableDesc="LABOUR_PRICE"
+										data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div>
+
+			
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<a data-url="/basedata/repairtypes/savelabourprice" data-model="repair" data-method="PUT" data-callBack="true"  class="btn blue"  data-toggle="confirmation"><i class="fa fa-save"></i>保存</a>
+				<a data-dismiss="modal" class="btn blue" ><i
+				class="fa fa-undo"></i>取消</a>
+			</div>
+		</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	//新增页面回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+}); 
+</script>

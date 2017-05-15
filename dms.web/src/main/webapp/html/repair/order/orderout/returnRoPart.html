@@ -1,0 +1,66 @@
+<div class="dms-edit ajaxrest" data-model="part">
+<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">退料</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default table-panel">
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="roPartDtos">
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/order/repair/{[RO_ID]}/orderreturnsub" data-model="repair"
+				data-method="POST" data-callBack="true"
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>确定</a> 
+			<a data-dismiss="modal" class="btn blue"> <i
+				class="fa fa-undo"></i>取消
+				</a>
+		</div>
+</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	 new Datatable().initPagination({
+			src : "roPartDtos",
+			container:container,
+			url : dmsCommon.getDmsPath()["repair"] + "/order/repair/{[RO_ID]}/orderreturn",
+			autoHeight:false,
+			columns : [ 
+			            {field : "PART_NO",inputField:"partNo",title : "配件代码",inputHiddenFormat : {}},
+			            {field : "PART_NAME",inputField:"partName",title : "配件名称",inputHiddenFormat : {}},
+			            {field : "ACTIVITY_CODE",inputField:"activityCode",title : "活动编号",inputHiddenFormat : {}},
+			            {field : "STORAGE_CODE",inputField:"storageCode",title : "仓库代码",inputHiddenFormat : {}},
+			            {field : "STORAGE_POSITION_CODE",inputField:"storagePositionCode",title : "库位",inputHiddenFormat : {}},
+			            {field : "OUT_QUANTITY",title : "出库数量",NumberFormat : {decimal : 2}},
+			            {field : "MAY_QUANTITY",inputField:"returnQuantity",inputHiddenFormat : {},title : "可退货数量",NumberFormat : {decimal : 2}},
+			            {field : "NOW_QUANTITY",inputField:"partQuantity",title : "本次退货数量",inputNumberFormat : {decimal : 4,validate:{validateClass:"required decimal",validateAttr:'maxPrecision="4" maxDigit="6"'}}},
+			            {field : "",inputField:"",inputHiddenFormat : {},title : "项目代码"},   
+				        {field : "",inputField:"",inputHiddenFormat : {},title : "项目名称"},
+				        {field : "chargepartitionCode",inputField:"chargePartitionCode",inputHiddenFormat : {},title : "收费区分",codeFormat : {type:"dict",codeType:"1214"}}, //,
+				        {field : "PART_SALES_PRICE",inputField:"partSalesPrice",title : "单价",NumberFormat : {decimal : 2},inputHiddenFormat : {}},
+			            {field : "PART_SALES_AMOUNT",inputField:"partSalesAmount",title : "金额",NumberFormat : {decimal : 2},inputHiddenFormat : {}},
+			            {field : "DISCOUNT",inputField:"discount",title : "折扣率",NumberFormat : {decimal : 2},inputHiddenFormat : {}},
+			            {field : "AFTER_DISCOUNT_AMOUNT",inputField:"afterDiscountAmount",title : "折后金额",NumberFormat : {decimal : 2},inputHiddenFormat : {}},
+			            {field : "PART_COST_PRICE",inputField:"partCostPrice",title : "成本单价",NumberFormat : {decimal : 2},inputHiddenFormat : {}},			            
+			            {field : "PART_COST_AMOUNT",inputField:"partCostAmount",inputHiddenFormat : {},title : "成本金额"},
+			            {field : "EMPLOYEE_NAME",inputField:"receiver",inputHiddenFormat : {},title : "领料人"}			            
+			         ]
+		});
+	 	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+	 		//关闭窗口
+	 		$("a[data-dismiss='modal']",container).click();
+	 		//刷新表格
+	 		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	 	});
+	});
+</script>

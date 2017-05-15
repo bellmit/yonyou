@@ -1,0 +1,68 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">部门选择</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div id="departTree" ></div>
+				<input type="hidden" name="orgCode" id="orgCode">
+				<input type="hidden" name="orgName" id="orgName"> 
+				<input type="hidden" name="organizationId" id="organizationId"> 						
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a  class="btn blue" data-onclickEvent="true"> <i class="fa fa-save"></i>确定</a>
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+
+$(document).one("onload.dms",function(event,container){
+	//树初始化
+	$('#departTree',container).jstree({ 'core' : {
+		'data' : {
+		'url':dmsCommon.getDmsFuncIdUrl(dmsCommon.getDmsPath()["manage"] + "/basedata/orgs/getIsValid/Orgs"),
+		'data':function(node){
+			return{'id':node.id}
+		}}},
+		"plugins" : ["changed"]
+	});	
+	
+	//树节点选择
+	$('#departTree',container).on('changed.jstree', function (e, data) {
+		var orgCode = data.changed.selected; 
+		if(orgCode!=""){
+			dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["manage"] + "/basedata/orgs/"+orgCode,
+				type : 'GET',
+				sucessCallBack : function(data) {
+					if(data){
+						$("#orgCode",container).val(data.ORG_CODE);
+						$("#orgName",container).val(data.ORG_NAME);	
+						$("#organizationId",container).val(data.ORGDEPT_ID);		
+					}
+				}
+			});
+		} 
+	});
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event,response){
+		$("#orgCode",getParentModal(container)).val($("#orgCode",container).val());
+		$("#orgName",getParentModal(container)).val($("#orgName",container).val());
+		$("#organizationId",getParentModal(container)).val($("#organizationId",container).val());
+		
+		$("#orgCode",getElementContext()).val($("#orgCode",container).val());
+		$("#orgName",getElementContext()).val($("#orgName",container).val());
+		$("#organizationId",getElementContext()).val($("#organizationId",container).val());
+	
+		$("a[data-dismiss='modal']",container).click();
+	});
+	
+});
+</script>

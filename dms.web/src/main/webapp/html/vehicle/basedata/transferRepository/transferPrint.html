@@ -1,0 +1,60 @@
+<link rel="stylesheet" type="text/css" href="../assets/layouts/layout/css/PrintArea.css">
+<div class="dms-edit PrintArea ajaxrest" data-url="" data-model="">
+	<div class="panel panel-default panel-print">
+		<div class="panel-body">
+			<div class="print-title">
+				<div class="row h1Title">
+					<div class="col-xs-12">
+						<label>{[userInfo.dealerName]}</label>
+					</div>
+				</div>	
+				<div class="row h2Title">
+					<div class="col-xs-12">
+						<label>车辆移位</label>
+					</div>
+				</div>
+				<div class="row print-gap"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="print-without">
+	<a id="print" class="btn blue printfy"><i class="fa fa-print"></i>打印</a>
+	<a data-goback="page" href="vehicle/basedata/transferLocation/transferLocation.html" class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>
+</div>
+<script type="text/javascript">
+	$(function(){
+		dmsCommon.ajaxRestRequest({
+			url : dmsCommon.getDmsPath()["vehicle"] + "/transferRepository/findAllPrintLocation",
+			type : 'GET',
+			sucessCallBack : function(data) {
+				console.log(JSON.stringify(data));
+				var item = data;
+				var s = '';
+				console.log(JSON.stringify(item));
+				$.each(data,function(index,row){
+					s += '<table border=1 style="border-collapse:collapse;" width=80% align=center> 	<tr> 		<th width=12%>产品名称</th> 		<td colspan="5">'+row.PRODUCT_NAME+'</td> 	</tr> 	<tr> 		<th width=12%>VIN</th> 		<td>'+row.VIN+'</td> 		<th width=12%>车型</th> 		<td width=23%>'+row.MODEL_NAME+'</td> 		<th width=12%>颜色</th> 		<td>'+row.COLOR_NAME+'</td> 	</tr> 	<tr> 		<th width=12%>移出库位</th> 		<td>'+row.OLD_STORAGE_POSITION_CODE+'</td> 		<th width=12%>移入库位</th> 		<td width=23%>'+row.STORAGE_POSITION_CODE+'</td> 		<th width=12%>移入时间</th> 		<td>'+msToDay(row.UPDATED_AT)+'</td> 	</tr> 	<tr> 		<th width=12%>采购单价</th> 		<td>'+row.PURCHASE_PRICE.formatMoney()+'</td> 		<th width=12%>质损状态</th> 		<td colspan="3">'+row.MAR_STATUS+'</td> 	</tr> </table><br>';
+				});
+				$(".print-title").append(s);
+				$(".print-title").append('<div class="row print-singleRow"> 						<div class="col-xs-12"> 							<div class="col-xs-3"> 								<label class="text-left">库管签字:</label> 							</div> 							<div class="col-xs-3"> 								<label class="text-left">经理签字:</label> 							</div> 							<div class="col-xs-3"> 								<label class="text-left">财务经理签字:</label> 							</div> 						</div> 					</div>');
+			}
+		});
+	});
+	
+	var msToDay = function(time){
+		var date = new Date(time);
+		return date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate()+" ";
+	}
+	
+	Number.prototype.formatMoney = function (places, symbol, thousand, decimal) {
+        places = !isNaN(places = Math.abs(places)) ? places : 2;
+        symbol = symbol !== undefined ? symbol : "";
+        thousand = thousand || ",";
+        decimal = decimal || ".";
+        var number = this,
+            negative = number < 0 ? "-" : "",
+            i = parseInt(number = Math.abs(+number || 0).toFixed(places), 10) + "",
+            j = (j = i.length) > 3 ? j % 3 : 0;
+        return symbol + negative + (j ? i.substr(0, j) + thousand : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousand) + (places ? decimal + Math.abs(number - i).toFixed(places).slice(2) : "");
+    };
+</script>

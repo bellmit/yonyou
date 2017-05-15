@@ -1,0 +1,92 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">故障描述新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+					
+					<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">故障代码</label>
+						<div class="col-xs-8">
+							<input id="troubleCode" name="troubleCode" maxlength="4" class="form-control required systemCode" type="text" />
+						</div>
+					</div>
+				</div>
+				
+					<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">检查结果</label>
+						<div class="col-xs-8">
+							<input id="troubleDesc" name="troubleDesc" maxlength="30" class="form-control required" type="text" />
+						</div>
+					</div>
+				</div>
+				
+                  <div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">故障拼音</label>
+						<div class="col-xs-8">
+							<input id="troubleSpell" name="troubleSpell" maxlength="10" class="form-control required" type="text" />
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">故障分类</label>
+						<div class="col-xs-8">
+							<input id="troubleGroup" name="troubleGroup" maxlength="30" type="text" class="form-control required">
+					    </div>
+					</div>
+				</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a data-url="/basedata/troubleDesc" data-model="repair"
+				data-method="POST" data-callBack="true" class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> <a
+				data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				//新增页面回调函数
+				$("a[data-callBack='true']", container).on(
+						"callBack.dms",
+						function(event, response) {
+							//关闭窗口
+							$("a[data-dismiss='modal']", container).click();
+							//刷新表格
+							$("#dms_table", getElementContext()).dmsTable()
+									.refreshTableWithForm();
+						});
+				//给故障描述增加失去焦点事件
+				$('input[id=troubleDesc]',  container).on('blur',function(){
+					  var val = this.value;
+					  dmsCommon.ajaxRestRequest({
+						  url:dmsCommon.getDmsPath()['repair']+"/basedata/troubleDesc/getChToEn/"+val,
+						  type: "GET",
+						  sucessCallBack : function(modelData) {
+								if(modelData.length==1){
+									var dataMap=modelData[0];
+									$("#troubleSpell", container).val(dataMap.englishStr);
+								}
+						}
+					  });
+	 	         });
+			});
+</script>

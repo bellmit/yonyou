@@ -1,0 +1,307 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+		
+			<div class="panel-body">
+				<div class="row ">
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-6">品牌</label>
+							<div class="col-xs-6">
+								<select id="brandId" class="bs-select form-control"
+									name="brandName" data-url="/basedata/material/brand/90081001"
+									data-model="manage" data-labelValue="BRAND_ID"
+									data-lableDesc="BRAND_NAME">
+								</select>
+
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-6">车系</label>
+							<div class="col-xs-6">
+								<select id="seriesId" parent="brandId"
+									class="bs-select form-control" name="seriesName"
+									data-url="/basedata/material/series/90081001/{[brandId]}"
+									data-model="manage" data-labelValue="SERIES_ID"
+									data-lableDesc="SERIES_NAME">
+								</select>
+
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-6">车款</label>
+							<div class="col-xs-6">
+								<select id="groupId" parent="seriesId"
+									class="bs-select form-control" name="groupName"
+									data-url="/basedata/material/group/90081001/{[seriesId]}"
+									data-model="manage" data-labelValue="GROUP_ID"
+									data-lableDesc="GROUP_NAME">
+								</select>
+
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-6">年款</label>
+							<div class="col-xs-6">
+								<select id="modelId" parent="groupId"
+									class="bs-select form-control" name="modelYear"
+									data-url="/basedata/material/modelYear/90081001/{[groupId]}"
+									data-model="manage" data-labelValue="MODEL_YEAR"
+									data-lableDesc="MODEL_YEAR">
+								</select>
+
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-6">颜色</label>
+							<div class="col-xs-6">
+								<select id="colorId" parent="modelId"
+									class="bs-select form-control" name="colorName"
+									data-url="/basedata/material/color/90081001/{[groupId]}/{[modelId]}"
+									data-model="manage" data-labelValue="COLOR_CODE"
+									data-lableDesc="COLOR_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-6">内饰</label>
+							<div class="col-xs-6">
+								<select id="trimId" parent="colorId"
+									class="bs-select form-control" name="trimName"
+									data-url="/basedata/material/trim/90081001/{[groupId]}/{[modelId]}/{[colorId]}"
+									data-model="manage" data-labelValue="TRIM_CODE"
+									data-lableDesc="TRIM_NAME">
+								</select>
+
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"
+						data-tableSelect="true">
+						<div class="form-group">
+							<label class="control-label col-xs-6">经销商代码</label>
+							<div class="col-xs-6">
+								<div class="input-group">
+									<input id="dealerCode" readonly name="dealerCode"
+										class="form-control" type="text" data-fieldName="dealer_code" />
+									<span class="input-group-btn">
+										<button class="btn default btn-sm" type="button"
+											data-url="manage/basedata/dealers/searchDealers.html"
+											data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-6">车辆节点</label>
+							<div class="col-xs-6">
+								<select id="lifcycle" name="lifcycle"
+									class="bs-select form-control" data-type="oemDict"
+									data-dictCode="7001" data-value=""></select>
+
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-6 ">内部结算成功日期</label>
+							<div class="col-xs-6 ">
+								<div class="input-group input-daterange"
+									data-opens="right">
+									<input type="text" class="form-control" readonly
+										name="zinvDate1"> <span class="input-group-addon">至</span>
+									<input type="text" class="form-control" readonly
+										name="zinvDate2"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-6 ">工厂入库日期</label>
+							<div class="col-xs-6">
+								<div class="input-group input-daterange"
+									data-opens="right">
+									<input type="text" class="form-control" readonly
+										name="startZvgrDate1"> <span class="input-group-addon">至</span>
+									<input type="text" class="form-control" readonly
+										name="startZvgrDate2"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-6">VIN</label>
+							<div class="col-xs-6">
+							 <textarea class="form-control" rows="3" id="vin" name="vin"></textarea> 
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true">
+								<i class="fa fa-search"></i> 查询
+							</a> <a class="btn blue"><i class="fa fa-undo"></i>重置 </a> 
+
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default table-panel">
+					<div class="panel-heading">
+						<div class="pannel-name">详细车籍查询</div>
+						<a
+								href="javascript:;" class="btn"
+								data-url="/k4InventoryManage/downloadInfo" data-model="vehicle"
+								data-method="downLoad" data-toggle="confirmation"><i
+								class="fa fa-download"></i> 下载 </a>
+					</div>
+					<div class="panel-body">
+						<table
+							class="form-group  table table-striped table-bordered table-hover table-responsive"
+							id="dms_table"></table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+
+</div>
+<script type="text/javascript">
+	//查询
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				new Datatable().initPagination({
+					src : "dms_table",
+					container : container,
+					url : dmsCommon.getDmsPath()["vehicle"]
+							+ "/k4InventoryManage/vehicleDetailQuery",
+					rowID : "",
+					pageSize : 5,
+					isQueryFirst:false,
+					columns : [
+					{
+						field : "VEHICLE_ID",
+						
+						title : "操作",
+						operateFormat : [
+					
+						       {type:"detail",url:"vehicle/oeminvty/k4InventoryManage/vehicleInfoDetailQuery.html",openWidth : "modal-lg"}//打开方式默认弹出:open          
+						 ]
+					},
+					{
+						field : "DEALER_CODE",
+						title : "经销商代码"
+						
+					}, {
+						field : "DEALER_SHORTNAME",
+						title : "经销商名称"
+					}, {
+						field : "BRAND_NAME",
+						title : "品牌"
+					}, {
+						field : "SERIES_NAME",
+						title : "车系"
+					}, {
+						field : "MODEL_CODE",
+						title : "CPOS"
+					}, {
+						field : "MODEL_YEAR",
+						title : "年款"
+					}, {
+						field : "GROUP_NAME",
+						title : "车款"
+					}, {
+						field : "COLOR_NAME",
+						title : "颜色"
+					}, {
+						field : "TRIM_NAME",
+						title : "内饰"
+					}, {
+						field : "VIN",
+						title : "VIN"
+					}, {
+						field : "RETAIL_PRICE",
+						title : "车辆价格"
+					}, {
+						field : "NODE_STATUS",
+						title : "车辆节点",
+						codeFormat : {
+							type : "oemDict",
+							codeType : "7001"
+						}
+					}, {
+						field : "ENGINE_NO",
+						title : "发动机号"
+					}, {
+						field : "''",
+						title : "钥匙号"
+					}, {
+						field : "ZVGR_DATE",
+						title : "入工厂仓库日期"
+					}, {
+						field : "ZINV_DATE",
+						title : "内部结算完成日期"
+					}, {
+						field : "OFFLINE_DATE",
+						title : "下线日期"
+					}, {
+						field : "PREDICT_STORAGE_DATE",
+						title : "预计入库日期"
+					} ]
+
+				});
+				//事件点击
+				$("a[data-onclickEvent='true']", container).on("dms.click",
+						function(event) {
+							//debugger
+							/* var selectRow = $("#dms_table", container)
+									.dmsTable().getFirstSelection();
+
+							$("div[data-tableSelect='true']",
+									getElementContext()).initHtmlContent(
+									selectRow);
+							//关闭窗口
+							$("a[data-dismiss='modal']", container).click(); */
+						});
+
+			});
+</script>

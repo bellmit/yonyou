@@ -1,0 +1,81 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		
+	</form>
+	<div class="panel panel-default table-panel">
+			
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dealerList"></table>
+		</div>
+	</div>
+	
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dealerList",
+		container:container,
+		url : dmsCommon.getDmsPath()["manage"] + "/queryDealers/dlrDealerInfo",
+		rowID : "DEALER_ID",
+		sortName : "DEALER_ID",
+		sortOrder : "asc",
+		columns : [ 
+		    {field : "DEALER_ID",title : "操作",operateFormat : [
+              {type:"edit",url:"manage/distributorManage/dealerInfo1.html",title:"明细",openType:"jump",doubleClick:false,
+            	  isShow:function(value, row, index){
+            		
+            		  if(row.DEALER_AUDIT_STATUS=="40561001" || row.DEALER_AUDIT_STATUS=="40561003" || row.DEALER_AUDIT_STATUS=="40561004"){
+            			  return true;
+            		  }else{
+            			  return false;
+            		  }
+           	  		}
+             	 },
+             	 {type:"detail",url:"manage/distributorManage/dealerInfo2.html",title:"查看",openType:"jump",doubleClick:false,
+             	  isShow:function(value, row, index){
+             		
+             		  if(row.DEALER_AUDIT_STATUS=="40561002"){
+             			  return true;
+             		  }else{
+             			  return false;
+             		  }
+            	  		}
+              	 }
+              ]},
+		    {field : "DEALER_CODE",title : "经销商代码"},
+		    {field : "DEALER_SHORTNAME",title : "经销商简称"},
+		    {field : "DEALER_TYPE",title : "经销商类型",codeFormat : {type:"oemDict",codeType:"1077"}},
+		    {field : "ORG_NAME",title : "所属区域"},
+		    {field : "COMPANY_SHORTNAME",title : "经销商公司"},
+		    {field : "IS_EC",title : "是否官网",codeFormat : {type:"oemDict",codeType:"1004"} },
+		    {field : "DEALER_STATUS",title : "经销商上报状态",codeFormat : {type:"oemDict",codeType:"4055"}},
+		    {field : "DEALER_AUDIT_STATUS",title : "经销商审核状态",codeFormat : {type:"oemDict",codeType:"4056"}}
+			
+		], 
+		onLoadSuccess : function() {
+			$("#dealerList",container).dmsTable().bootstrapTable('resetView');
+		}
+	});
+	//console.log("1111");
+	
+	
+	//绑定查询按钮回调
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		//	console.log("into callBack");
+	});
+	
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//刷新表格
+		$("#DEALER_CODE",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+	
+
+	
+	
+	
+});
+    
+</script>

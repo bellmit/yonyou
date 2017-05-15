@@ -1,0 +1,247 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">姓名3</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="name" name="name">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">用户名</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="userName" name="userName">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">出生日期</label>
+							<div class="col-xs-8 col-sm-10">
+								 <div class="input-group input-daterange">
+		                             <input type="text" class="form-control" readonly  name="birdthFrom">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="birdthTo"> 
+		                        </div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">年龄范围</label>
+							<div class="col-xs-8">
+								 <div class="input-group">
+		                             <input type="text" class="form-control" name="ageFrom">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" name="ageTo"> 
+		                        </div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">性别</label>
+							<div class="col-xs-8">
+								<select id="sex" name="sex" class="bs-select form-control" data-dictCode="1002" data-value="10021001" >
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">薪水范围</label>
+							<div class="col-xs-8">
+								 <div class="input-group">
+		                             <input type="text" class="form-control" name="salaryFrom">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" name="salaryTo"> 
+		                        </div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">多选下拉框</label>
+								<div class="col-xs-8">
+									<select id="seriesMemual"
+										class="bs-select form-control" name="seriesMemual"
+										data-url="/basedata/positions/duty/dicts"
+										data-model="manage" data-labelValue="POSITION_CODE"
+										data-lableDesc="POSITION_NAME" data-ajaxSync = "true" data-existsDefault = "true" >
+									</select>
+									
+								</div>
+							</div>
+						</div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >用户信息列表</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="userList"></table>
+		</div>
+	</div>
+	
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >地址信息列表</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a href="javascript:;" class="btn btn-outline" id="refreshTableId"> <i class="fa fa-plus-square"></i> 动态刷新表格
+							</a> 
+							<a class="btn btn-outline" data-url="demo/addUser.html" data-width="modal-lg" data-beforeShowEvent='true'
+								data-toggle="modal"> <i class="fa fa-plus-square" ></i> 新增
+							</a> 
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="addressList"></table>
+		</div>
+	</div>
+	
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >地址信息列表</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a href="javascript:;" class="btn btn-outline" id="refreshTableId"> <i class="fa fa-plus-square"></i> 动态刷新表格
+							</a> 
+							<a class="btn btn-outline" data-url="demo/addUser.html" data-width="modal-lg" data-beforeShowEvent='true'
+								data-toggle="modal"> <i class="fa fa-plus-square" ></i> 新增
+							</a> 
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="addressList2"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		
+		new Datatable().initPagination({
+			src : "userList",
+			container:container,
+			url : dmsCommon.getDmsPath()["demo"] + "/demoUsers",
+			rowID : "USER_ID",
+			sortName : "USER_NAME", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+			sortOrder : "asc",
+			pageSize:5,
+			autoHeight:false,
+			columns : [ 
+			    {field : "USER_ID",title : "操作",operateFormat : [
+                       {type:"edit",url:"demo/editUser.html",openWidth:"modal-lg"}, //默认不支持双击操作
+                       {type:"event",onclick:function(value, row, index){
+                    	   $("#addressList",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["demo"] + "/demoUsers/"+value+"/addressPage");
+                       },operateIcon:'<i class="glyphicon glyphicon-lg glyphicon-remove"></i>',title:"选择地址"},//打开方式默认弹出:open
+                       {type:"del",url:"/demoUsers/{[USER_ID]}",model:"demo",callBack:function(response){
+                    	   $("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+                       }},{type:"selectRow"}
+                   ]
+                },  
+			    {field : "USER_NAME",title : "用户名2",sortable : false},
+				{field : "NAME",title : "姓名"}, 
+				{field : "AGE",title : "年龄",visible : true,numberFormat : {}},
+				{field : "BIRTHDAY",title : "出生日期",dateFormat : {}}, 
+				{field : "SALARY",title : "薪水",numberFormat : {decimal:2}}, 
+				{field : "ENTRY_TIME",title : "工作开始时间",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}}, 
+				{field : "SEX",title : "性别",codeFormat : {type:"dict",codeType:"1006"}} 
+			]
+		});
+		
+		//地址列表
+		new Datatable().initPagination({
+			src : "addressList",
+			container:container,
+			rowID:"ADDRESS_ID",
+			url : dmsCommon.getDmsPath()["demo"] + "/demoUsers/{[USER_ID]}/addressPage",
+			sortName : "ADDRESS_ID", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+			sortOrder : "asc",
+			pageSize:5,
+			autoHeight:false,
+			parentTable:"userList",
+			columns : [ {field : "ADDRESS_ID",title : "操作",operateFormat : [ {type : "localDel"} ]}, 
+			            {field : "PROVINCE",inputField:"province", title : "checkBox",inputCheckBoxFormat : {type : "dict",codeType : "1001"}},
+			            {field : "COUNTRY",inputField:"country",title : "Radio",inputRadioFormat : {type : "dict",codeType : "1001"}},
+			            {field : "ADDRESS",inputField:"address",title : "地址",inputTextFormat : {}},
+			            {field : "STATUS",inputField:"status",title : "Select",inputSelectFormat : {type : "dict",codeType : "1006"}},
+			            {field : "MILLS",inputField:"mills",title : "数字",inputNumberFormat : {decimal : 2}},
+			            {field : "ADDRESS_DATE",inputField:"addressDate",title : "日期",inputDateFormat : {}} 
+			         ]
+		});
+		
+		//地址列表
+		new Datatable().initPagination({
+			src : "addressList2",
+			container:container,
+			rowID:"ADDRESS_ID",
+			url : dmsCommon.getDmsPath()["demo"] + "/demoUsers/{[USER_ID]}/addressPage",
+			sortName : "ADDRESS_ID", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+			sortOrder : "asc",
+			pageSize:5,
+			autoHeight:false,
+			parentTable:"userList",
+			columns : [ {field : "ADDRESS_ID",title : "操作",operateFormat : [ {type : "localDel"} ]}, 
+			            {field : "PROVINCE",inputField:"province", title : "checkBox",inputCheckBoxFormat : {type : "dict",codeType : "1001"}},
+			            {field : "COUNTRY",inputField:"country",title : "Radio",inputRadioFormat : {type : "dict",codeType : "1001"}},
+			            {field : "ADDRESS",inputField:"address",title : "地址",inputTextFormat : {}},
+			            {field : "STATUS",inputField:"status",title : "Select",inputSelectFormat : {type : "dict",codeType : "1006"}},
+			            {field : "MILLS",inputField:"mills",title : "数字",inputNumberFormat : {decimal : 2}},
+			            {field : "ADDRESS_DATE",inputField:"addressDate",title : "日期",inputDateFormat : {}} 
+			         ]
+		});
+		
+		
+		//触发点击事件
+		$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+			var parentTableRow = $("#addressList",getElementContext()).dmsTable().getParentTabelRow();
+			if(parentTableRow==undefined){
+				dmsCommon.tip({status:"warning",msg:"请双击选择父表格数据"});//总共的状态类型：info、success、error、warning
+				returnResult.status = false;
+				return;
+			}
+			//设置页面初始化值
+			$(this).data("pageData",parentTableRow);
+
+			returnResult.status = true;
+		});
+		
+		//绑定刷新表格操作
+		$("#refreshTableId",container).on('click',function(){
+			$("#addressList",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["demo"] + "/demoUsers/204/addressPage");
+        });
+		
+	});
+	
+</script>

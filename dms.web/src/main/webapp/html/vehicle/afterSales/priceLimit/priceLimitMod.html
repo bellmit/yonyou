@@ -1,0 +1,138 @@
+<div class="dms-edit ajaxrest" data-url="/priceLimiteManage/getTmLimiteById/{[LIMITED_ID]}" data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">修改车系限价管理信息</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+					<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">现价名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control required" id="limitedName" name="limitedName"  data-fieldName="LIMITED_NAME"/>
+							</div>
+						</div>
+					</div>
+	
+						<div class="col-xs-12 col-sm-6 " data-tableSelect="true">
+						<div class="form-group">
+								<label class="control-label col-xs-4">现价经销商代码</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+									<input id="dealerName" readonly name="dealerName" class="form-control" type="hidden"/>
+									<input id="dealerId" readonly name="dealerId" class="form-control" type="hidden"/> 
+									<input id="dealerCode" readonly name="dealerCode" class="form-control" type="text" data-fieldName="DEALER_CODE"/>
+										<span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="manage/basedata/bulletin/searchDealersQuery.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+					</div>
+					
+					
+				<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">浮动比例-50%~100%</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control  required" id="limitedRange" name="limitedRange"  data-fieldName="LIMITED_RANGE"/>
+							</div>
+						</div>
+					</div>
+
+							 <div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌</label>
+								<div class="col-xs-8">
+									<select id="brand"
+										class="bs-select form-control  required"  name="brand"
+										data-url="/priceLimiteManage/GetAllBrandCode"
+										data-model="vehicle" data-labelValue="GROUP_NAME"
+										data-lableDesc="GROUP_NAME" multiple data-live-search="true" data-size="6" data-existsDefault = "false"   data-fieldName="BRAND">
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						
+						<!--	data-url="/priceLimiteManage/GetAllCheXing2/{[brand]}"  -->
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系</label>
+								<div class="col-xs-8">
+									<select id="seriesCode"  parent="brand"
+										class="bs-select form-control " name="seriesCode"
+										data-url="/priceLimiteManage/GetAllCheXing/{[brand]}"
+										data-model="vehicle" data-labelValue="GROUP_NAME"
+										data-lableDesc="GROUP_NAME" multiple data-live-search="true" data-size="6" data-existsDefault = "false"   data-fieldName="SERIES">	 
+									</select>
+									<textarea id="code" name="code"  cols="30" rows="3" maxlength="600" class="form-control "   data-fieldName="SERIES"  readonly="readonly"></textarea>
+								
+									
+								</div>
+							</div>
+						</div>
+				<div class="col-xs-12 col-sm-6  ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">维修类型</label>
+							<div class="col-xs-8">
+								<select id="repairType" name="repairType" class="bs-select form-control  required"  data-type="oemDict" data-dictCode="4100"  multiple data-live-search="true" data-size="6"  data-existsDefault="false" data-fieldName="REPAIR_TYPE">
+								</select>
+								
+							</div>
+						</div>
+					</div>
+	
+		      <div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">备注</label>
+							<div class="col-xs-8">
+					
+					<textarea id="comment" name="comment"  cols="30" rows="3" maxlength="600" class="form-control "   data-fieldName="COMMENT"></textarea>
+							</div>
+						</div>
+					</div>
+				
+				
+				
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/priceLimiteManage/edit/{[LIMITED_ID]}" data-model="vehicle"
+				data-method="PUT" data-callBack='true'
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>修改</a> <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	})
+</script>
+

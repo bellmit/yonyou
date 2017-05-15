@@ -1,0 +1,148 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+						
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">时间区间</label>
+							<div class="col-xs-8 col-sm-8">
+								 <div class="input-group input-daterange" data-maxDays = "30" data-opens="right">
+		                             <input type="text" class="form-control" readonly  name="beginDate">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="endDate">
+		                             <span class="input-group-btn">
+                                         <button class="btn default input-clear" type="button">
+                                            <i class="fa fa-close"></i>
+                                        </button>
+                                      </span> 
+		                        </div>
+							</div>
+						</div>
+					</div>
+				     <div class="col-xs-12 col-sm-6 col-md-4" 
+									data-tableSelect="true">
+									<div class="form-group">
+										<label class="control-label col-xs-6 ">经销商代码</label>
+										<div class="col-xs-6">
+											<div class="input-group">
+												<input id="dealerId" readonly name="dealerId" 
+													class="form-control" type="hidden" data-fieldName="dealer_Id" />
+												<input id="dealerCode" readonly name="dealerCode"
+													class="form-control" type="text" data-fieldName="dealer_code" />
+												<span class="input-group-btn">
+													<button class="btn default btn-sm" type="button"
+														data-url="manage/basedata/dealers/searchDealers.html"
+														data-toggle="modal" data-width="modal-lg">
+														<i class="fa fa-list-alt"></i>
+													</button>
+													<button class="btn default input-clear" type="button">
+														<i class="fa fa-close"></i>
+													</button>
+												</span>
+											</div>
+										</div>
+									</div>
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">返利发放类型</label>
+							<div class="col-xs-6">
+								<select id="rebateTypeCode" name="rebateTypeCode"
+								data-url="/k4AccountManage/rebateTypeCode"
+										data-model="repair" data-labelValue="REBATE_TYPE_CODE"
+										data-lableDesc="REBATE_TYPE_DESC"
+									class="bs-select form-control"
+									data-value=""></select>
+
+							</div>
+						</div>
+					</div>
+				
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true">
+								<i class="fa fa-search"></i> 查询
+							</a> 
+								<a class="btn blue" ><i class="fa fa-undo"></i>重置 </a>
+							
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default table-panel">
+					<div class="panel-heading">
+						<div class="pannel-name">返利发放查询</div>
+						<a href="javascript:;" class="btn"
+								data-url="/k4AccountManage/rebateIssueDownLoad" data-model="repair"
+								data-method="downLoad" data-toggle="confirmation"><i
+								class="fa fa-download"></i> 下载 </a>
+					</div>
+					<div class="panel-body">
+						<table
+							class="form-group  table table-striped table-bordered table-hover table-responsive"
+							id="dms_table"></table>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+	</form>
+
+
+</div>
+<script type="text/javascript">
+	//查询
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				new Datatable().initPagination({
+					src : "dms_table",
+					container : container,
+					url : dmsCommon.getDmsPath()["repair"]
+							+ "/k4AccountManage/rebateIssueQuery",
+					pageSize : 5,
+					isQueryFirst:false,
+					columns : [
+					
+					{
+						field : "DEALER_CODE",
+						title : "经销商代码"
+						
+					}, {
+						field : "DEALER_SHORTNAME",
+						title : "经销商名称"
+					}, {
+						field : "REBATE_TYPE_DESC",
+						title : "返利类型"
+					}, {
+						field : "OPERA_DATE",
+						title : "返利发放日期"
+					}, {
+						field : "AMOUNT",
+						title : "返利金额"
+					}, {
+						field : "REBATE_MARK",
+						title : "返利说明"
+					}
+					]
+
+				});
+// 				//事件点击
+// 				$("a[data-onclickEvent='true']", container).on("dms.click",
+// 						function(event) {
+// 							//debugger
+// 							/* var selectRow = $("#dms_table", container)
+// 									.dmsTable().getFirstSelection();
+
+// 							$("div[data-tableSelect='true']",
+// 									getElementContext()).initHtmlContent(
+// 									selectRow);
+// 							//关闭窗口
+// 							$("a[data-dismiss='modal']", container).click(); */
+// 						});
+
+			});
+</script>

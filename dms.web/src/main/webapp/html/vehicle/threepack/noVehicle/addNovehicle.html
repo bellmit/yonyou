@@ -1,0 +1,119 @@
+<div class="dms-add" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">非三包车辆信息新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6  col-md-4"
+						data-tableSelect="true">
+						<div class="form-group">
+							<label class="control-label col-xs-4">VIN</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input id="vin" readonly name="vin"
+										class="form-control" type="text" data-fieldName="VIN" />
+									<span class="input-group-btn">
+										<button class="btn default btn-sm" type="button"
+											data-url="vehicle/threepack/noVehicle/searchAllVIN.html"
+											data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车牌号</label>
+								<div class="col-xs-8">
+										<input class="bs-select form-control" readonly id="licenseNo" name="licenseNo"  >
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车主姓名</label>
+								<div class="col-xs-8"> 
+								<input class="bs-select form-control"  id="ctmName" readonly name="ctmName"  >
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">电话</label>
+								<div class="col-xs-8">
+										<input class="bs-select form-control" readonly id="mainPhone" name="mainPhone"  >
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车型</label>
+								<div class="col-xs-8">
+											<input class="bs-select form-control" readonly  id="modelName" name="modelName"  >
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">购车日期</label>
+								<div class="col-xs-8 date">
+								<input class="bs-select form-control" readonly  id="purchaseDate" name="purchaseDate"  >
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">备注</label>
+									<div class="col-xs-8">
+											<textarea id="remark" name="remark" cols="62" rows="3" maxlength="600" 
+						 data-fieldName="REMARK"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/noVehicle/add" data-model="vehicle" data-method="POST"
+				data-callBack="true" class="btn blue" data-toggle="confirmation">
+				<i class="fa fa-save"></i>保存
+			</a> <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				//新增页面的回调函数
+				$("a[data-callBack='true']", container).on(
+						"callBack.dms",
+						function(event, response) {
+							//关闭窗口
+							$("a[data-dismiss='modal']", container).click();
+							//刷新表格
+							$("#dms_table", getElementContext()).dmsTable()
+									.refreshTableWithForm();
+						});
+			});
+</script>

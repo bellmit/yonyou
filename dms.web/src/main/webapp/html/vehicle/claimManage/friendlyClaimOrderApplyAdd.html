@@ -1,0 +1,433 @@
+<div class="dms-edit ajaxrest">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">索赔单申请</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel-heading">
+			<div class="pannel-name" >基本信息</div>
+			</div>
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+						
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">索赔单号</label>
+								<div class="col-xs-8">
+									<input id="claimNo" name="claimNo" data-fieldName="CLAIM_NO" readonly class="form-control required systemCode"  type="text" />								
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商代码</label>
+								<div class="col-xs-8">
+									<input id="dealerCode" name="dealerCode" data-fieldName="DEALER_CODE" readonly class="form-control required systemCode"  type="text" />								
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商名称</label>
+								<div class="col-xs-8">
+									<input id="dealerName" name="dealerName" data-fieldName="DEALER_NAME" readonly class="form-control required systemCode"  type="text" />								
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">维修工单号</label>
+								<div class="col-xs-8">
+									<input id="repairNo" name="repairNo" data-fieldName="REPAIR_NO" readonly class="form-control required systemCode"  type="text" />								
+								</div>
+							</div>
+						</div>
+						
+						
+						<div class="col-xs-8 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-3">工单时间</label>
+								<div class="col-xs-8 col-sm-9">
+								 <div class="input-group " data-opens="right">
+	                            	 <input type="text" class="form-control required" readonly id="roStratDate"  name="roStratDate">
+	                             	<span class="input-group-addon">至</span>
+	                            	 <input type="text" class="form-control required" readonly  id="roEndDate" name="roEndDate">                      	
+	                       	 	</div>
+							</div>
+						</div>
+					</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">预授权单号</label>
+								<div class="col-xs-8">
+									<input id="FOREAPPROVAL_NO" name="FOREAPPROVAL_NO" data-fieldName="FOREAPPROVAL_NO"  class="form-control  systemCode"  type="text" />								
+								</div>
+							</div>
+						</div>
+						
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">进厂里程</label>
+								<div class="col-xs-8">
+									<input id="MILLEAGE" name="MILLEAGE" data-fieldName="MILLEAGE" readonly class="form-control required systemCode"  type="text" />								
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">购车日期</label>
+								<div class="col-xs-8">
+									<input id="PURCHASE_DATE" name="PURCHASE_DATE" data-fieldName="PURCHASE_DATE" readonly class="form-control  systemCode"  type="text" />								
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">服务顾问</label>
+								<div class="col-xs-8">
+									<input id="SERVE_ADVISOR" name="SERVE_ADVISOR" data-fieldName="SERVE_ADVISOR"  class="form-control required systemCode"  type="text" />								
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">VIN</label>
+								<div class="col-xs-8">
+									<input id="VIN" name="VIN" data-fieldName="VIN"  class="form-control required systemCode"  type="text" />								
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车牌号</label>
+								<div class="col-xs-8">
+									<input id="PLATE_NO" name="PLATE_NO" data-fieldName="PLATE_NO" class="form-control  systemCode"  type="text" />								
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">发动机号</label>
+								<div class="col-xs-8">
+									<input id="ENGINE_NO" name="ENGINE_NO" data-fieldName="ENGINE_NO"  class="form-control  systemCode"  type="text" />								
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌</label>
+								<div class="col-xs-8">
+									<input id="BRAND" name="BRAND" data-fieldName="BRAND" readonly class="form-control required systemCode"  type="text" />								
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系</label>
+								<div class="col-xs-8">
+									<input id="SERIES" name="SERIES" data-fieldName="SERIES" readonly class="form-control required systemCode"  type="text" />								
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车型</label>
+								<div class="col-xs-8">
+									<input id="MODEL" name="MODEL" data-fieldName="MODEL" readonly class="form-control required systemCode"  type="text" />								
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">索赔类型</label>
+								<div class="col-xs-8">
+									<input id="CLAIM_TYPE" name="CLAIM_TYPE" data-fieldName="CLAIM_TYPE" readonly class="form-control required systemCode"  type="text" />								
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">延续</label>
+								<div class="col-xs-8">
+									<input id="CLAIM_CONTINUE_FLAG" name="CLAIM_CONTINUE_FLAG" data-fieldName="CLAIM_CONTINUE_FLAG" readonly class="form-control required systemCode"  type="text" />								
+								</div>
+							</div>
+						</div>
+						
+						
+				
+							
+					
+								
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="modal-body">
+		<div class="panel-heading">
+			<div class="pannel-name" >维修方案</div>
+			</div>
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2">客户抱怨：</label>
+								<div class="col-xs-10">
+									<input id="customer_complain" name="customer_complain"   class="form-control  systemCode"  type="text" />
+									
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2">检测维修步骤：</label>
+								<div class="col-xs-10">
+									<input id="check_repair_procedures" name="check_repair_procedures"   class="form-control  systemCode"  type="text" />
+									
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2">处理方案：</label>
+								<div class="col-xs-10">
+									<input id="deal_scheme" name="deal_scheme"   class="form-control  systemCode"  type="text" />
+									
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2">申请理由：</label>
+								<div class="col-xs-10">
+								<input id="apply_reasons" name="apply_reasons"   class="form-control  systemCode"  type="text" />
+									
+								</div>
+							</div>
+						</div>							
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+	<div class="modal-body">
+		<div class="panel-heading">
+		</div>
+		<div class="panel panel-default">
+			
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name" >索赔情形</div>
+					<div class="pannel-button">
+						<div class="btn-group btn-group-sm">			
+						</div>
+					</div>
+				</div>
+			 	<div class="panel-body">
+					<table class="table table-striped table-bordered table-hover table-responsive"
+						id="claimCaseTable"></table>
+				</div> 
+			</div>
+																											
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name" >索赔配件</div>
+					<div class="pannel-button">
+						<div class="btn-group btn-group-sm">			
+						</div>
+					</div>
+				</div>
+			 	<div class="panel-body">
+					<table class="table table-striped table-bordered table-hover table-responsive"
+						id="claimPartsTable"></table>
+				</div> 
+			</div>
+			
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name" >索赔维修项目 </div>
+					<div class="pannel-button">
+						<div class="btn-group btn-group-sm">			
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<table class="table table-striped table-bordered table-hover table-responsive"
+						id="claimLabourTable"></table>
+				</div>
+			</div>
+		
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name" >特殊服务</div>
+				
+				</div>
+		 		<div class="panel-body">
+					<table class="table table-striped table-bordered table-hover table-responsive"
+						id="claimOtherTable"></table>
+				</div> 
+			</div>		
+			
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name" >添加附件</div>
+				
+				</div>
+		 		<div class="panel-body">
+					<table class="table table-striped table-bordered table-hover table-responsive"
+						id="auditHistoryTab"></table>
+				</div> 
+			</div>	
+																													
+				
+			</div>
+		</div>		
+		
+		
+		
+		
+	</form>
+</div>
+
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+
+	//索赔情形
+	new Datatable().initPagination({
+		src : "claimCaseTable",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "",
+		rowID : "",	
+		sortName : "", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+		sortOrder : "",
+		//isQueryFirst:false,
+		autoHeight:false,
+		columns : [     
+	    	{field : "CASE_CODE",title : "情形"},
+	    	{field : "TECHPERSON",title : "技术人员"},
+	    	{field : "FAULT_CAUSE",title : "故障说明"},	
+	    	{field : "APPLY_REMARK",title : "申请备注"}
+		],
+		onLoadSuccess : function() {
+			$("#claimCaseTable",container).dmsTable().bootstrapTable('resetView');
+		}
+	});
+
+	//配件
+	new Datatable().initPagination({
+		src : "claimPartsTable",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "",
+		rowID : "",	
+		sortName : "", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+		sortOrder : "",
+		//isQueryFirst:false,
+		autoHeight:false,
+		columns : [     
+	    	{field : "IS_MAIN",title : "情形"},
+	    	{field : "IS_MAIN",title : "主标示"},
+	    	{field : "PART_CODE",title : "配件代码"},
+	    	{field : "PART_NAME",title : "配件名称"},	
+	   	 	{field : "PRICE",title : "单价(元)"},	
+	   	 	{field : "QUANTITY",title : "数量"},	
+	    	{field : "AMOUNT",title : "金额（元）"},
+	    	{field : "ACTIVITY_CODE",title : "活动编号"}
+		],
+		onLoadSuccess : function() {
+			$("#claimPartsTable",container).dmsTable().bootstrapTable('resetView');
+		}
+	});
+	//工时
+	new Datatable().initPagination({
+		src : "claimLabourTable",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "",
+		rowID : "",
+		sortName : "", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+		sortOrder : "",
+		//isQueryFirst:false,
+		autoHeight:false,
+		columns : [     
+	    	{field : "IS_MAIN",title : "情形"},
+	    	{field : "LABOUR_CODE",title : "工时代码"},
+	    	{field : "LABOUR_NAME",title : "工时名称"},
+	    	{field : "LABOUR_NUM",title : "工时单价"},
+	    	{field : "PRICE",title : "工时数量"},
+	    	{field : "FEE",title : "工时金额"},
+	    	{field : "FEE",title : "故障代码"},
+	    	{field : "FEE",title : "活动编号"}
+		],
+		onLoadSuccess : function() {
+			$("#claimLabourTable",container).dmsTable().bootstrapTable('resetView');
+		}
+	});
+
+
+	//其他项目
+	new Datatable().initPagination({
+		src : "claimOtherTable",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "",
+		rowID : "",
+		sortName : "", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+		sortOrder : "",
+		autoHeight:false,
+			columns : [ 
+				   {field : "OTHER_FEE_CODE",title : "情形"},
+		           {field : "OTHER_FEE_CODE",title : "项目代码"},
+				   {field : "OTHER_FEE_NAME",title : "项目名称"},
+				   {field : "LOP",title : "LOP"},
+				   {field : "LOP",title : "单据编号"},
+				   {field : "LOP",title : "金额"},
+				   {field : "LOP",title : "活动编号"},
+				   {field : "REMARK",title : "备注"}	
+		],
+		onLoadSuccess : function() {
+			$("#claimOtherTable",container).dmsTable().bootstrapTable('resetView');
+		}
+	});
+
+	
+	
+
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+});
+</script>

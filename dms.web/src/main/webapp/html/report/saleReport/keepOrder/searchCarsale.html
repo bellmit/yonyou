@@ -1,0 +1,111 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+				
+					<!--span-->
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+<!-- 							<label class="control-label col-xs-4 col-sm-2"></label> -->
+							<div class="col-xs-3 ">
+								<select id="dateType" name="dateType" data-existsDefault="false" class="bs-select form-control">
+								</select>
+							</div>
+							<div class="col-xs-9">
+								<div class="input-group input-daterange"  data-defaultCurrMonth="true">
+		                             <input type="text" class="form-control" readonly  name="roCreate_startdate">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="roCreate_enddate"> 
+		                        </div>
+							</div>
+						</div>
+					</div>
+					<!-- span -->
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">服务顾问</label>
+							<div class="col-xs-8">
+								<select id="consultant" name="consultant"
+									data-fieldName="DCRC_ADVISOR" class="bs-select form-control"
+									data-url="/basedata/employees/queryServiceAss/dicts"
+									data-model="manage" data-labelValue="employee_no"
+									data-lableDesc="employee_name">
+								</select>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn btn-sm blue"> <i
+								class="fa fa-search"></i> 查询
+							</a>
+							<a href="javascript:;" class="btn btn-sm blue"><i
+								class="fa fa-undo"></i> 重置</a> 
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">进厂车辆月报信息</div>
+					<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+					 <a data-url="/repair/enterFactory/export" data-model="report"
+						data-method="downLoad" data-toggle="confirmation"
+						 
+						class="btn btn-outline "><i class="fa fa-download"
+						></i>导出</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	var selectData = new Array();
+	selectData.push({id:"repair",name:"开单日期"});
+	selectData.push({id:"charge",name:"结算日期"});
+	dmsDict.refreshSelectByData($( "#dateType" ,container),selectData,"id","name");
+	 var columns_=[];	 
+	 columns_.push({field : "RO_CREATE_DATE",title : "开单日期"});
+	 columns_.push( {field : "CARS_NUM",title : "进场辆次"});
+	 columns_.push( {field : "CAR_NUM",title : "进场台次"});
+	 dmsCommon.ajaxRestRequest({
+		url : dmsCommon.getDmsPath()["report"] + "/repair/quryRepairType",
+		type : 'GET',
+		sucessCallBack : function(data) {
+			$.each(data,function(n,value) {
+				columns_.push( {field : ''+value.REPAIR_TYPE_CODE+'',title : ''+value.REPAIR_TYPE_NAME+''});
+			 }); 
+		
+			new Datatable().initPagination({
+				src : "dms_table",
+				rowID:"RO_ID",
+				container:container,
+				//url : dmsCommon.getDmsPath()["report"] + "/repair/enterFactory",
+				sortName : "RO_CREATE_DATE", 
+				sortOrder : "asc",
+				autoHeight:false,
+				isQueryFirst:false,
+				columns : columns_
+			});
+			// console.log(JSON.stringify(columns_));
+		}
+	});
+	
+
+});
+</script>

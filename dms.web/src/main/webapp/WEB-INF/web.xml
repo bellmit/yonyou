@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+
+	<!-- <listener>
+		<listener-class>org.javalite.instrumentation.ActiveJdbcInstrumentationListener</listener-class>
+	</listener> -->
+<!-- 	<listener> -->
+<!-- 		<listener-class>com.yonyou.f4.mvc.listener.ContextListener</listener-class> -->
+<!-- 	</listener> -->
+<!-- 	<listener> -->
+<!-- 		<listener-class>com.yonyou.f4.mvc.listener.RequestListener</listener-class> -->
+<!-- 	</listener> -->
+<!-- 	<listener> -->
+<!-- 		<listener-class>com.yonyou.f4.mvc.listener.SessionListener</listener-class> -->
+<!-- 	</listener> -->
+	
+	<context-param>
+		<param-name>spring.profiles.active</param-name>
+		<param-value>source</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+
+	<!-- amp监控   -->
+	<listener>
+		<listener-class>net.bull.javamelody.SessionListener</listener-class>
+	</listener>
+	
+	<filter>
+		<filter-name>apm</filter-name>
+		<filter-class>net.bull.javamelody.MonitoringFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>apm</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- 编码过滤器 -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<async-supported>true</async-supported>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- wsdl begin add by dengweili 20130520 -->
+    <servlet>
+    	<display-name>
+    	Apache-Axis Servlet</display-name>
+    	<servlet-name>AxisServlet</servlet-name>
+    	<servlet-class>
+    	org.apache.axis.transport.http.AxisServlet</servlet-class>
+    </servlet>
+    <servlet>
+    	<display-name>
+    	Axis Admin Servlet</display-name>
+    	<servlet-name>AdminServlet</servlet-name>
+    	<servlet-class>
+    	org.apache.axis.transport.http.AdminServlet</servlet-class>
+    	<load-on-startup>100</load-on-startup>
+    </servlet>    
+	<!-- wsdl end add by dengweili 20130520 -->
+	  
+<!-- 	<servlet-mapping>     -->
+<!-- 	<servlet-name>BarcodeServlet</servlet-name>     -->
+<!-- 	<url-pattern>/barcode</url-pattern>     -->
+<!-- 	</servlet-mapping> -->
+	 <!-- wsdl begin add by dengweili 20130520 -->
+	<servlet-mapping>
+		<servlet-name>AxisServlet</servlet-name>
+		<url-pattern>/servlet/AxisServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AxisServlet</servlet-name>
+		<url-pattern>*.jws</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AxisServlet</servlet-name>
+		<url-pattern>/services/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AdminServlet</servlet-name>
+		<url-pattern>/servlet/AdminServlet</url-pattern>
+	</servlet-mapping>
+	<!-- wsdl end add by dengweili 20130520 -->
+	<servlet-mapping>
+		<servlet-name>HttpServletReceive</servlet-name>
+		<url-pattern>/gacfca/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+    	<servlet-name>HttpServletReceive</servlet-name>
+    	<servlet-class>com.infoeai.eai.common.HttpServletReceive</servlet-class>
+    </servlet>
+	
+	
+	<servlet>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:applicationContext.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<url-pattern>/demo/rest/*</url-pattern>
+		<url-pattern>/web/rest/*</url-pattern>
+		<url-pattern>/manage/rest/*</url-pattern>
+		<url-pattern>/gacfca/rest/*</url-pattern>
+		<url-pattern>/customer/rest/*</url-pattern>
+		<url-pattern>/part/rest/*</url-pattern>
+		<url-pattern>/repair/rest/*</url-pattern>
+		<url-pattern>/report/rest/*</url-pattern>
+		<url-pattern>/retail/rest/*</url-pattern>
+		<url-pattern>/vehicle/rest/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- 定义首页 -->
+	<welcome-file-list>
+		<welcome-file>/html/index.html</welcome-file>
+	</welcome-file-list>
+
+</web-app>

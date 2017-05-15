@@ -1,0 +1,139 @@
+<div class="dms-search">
+<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">品牌车系车型选择</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">品牌</label>
+							<div class="col-xs-8">
+								<select id="brandCode" class="bs-select form-control" name="brandCode"
+									data-url="/basedata/brandsdict" data-model="manage"
+									data-labelValue="BRAND_ID" data-lableDesc="BRAND_NAME"
+									data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车系</label>
+							<div class="col-xs-8">
+								<select id="seriesId" parent="brandCode"
+									class="bs-select form-control" name="seriesId"
+									data-url="/basedata/brandsdict/{[brand]}/seriessdict"
+									data-model="manage" data-labelValue="SERIES_ID"
+									data-lableDesc="SERIES_NAME" data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车型</label>
+							<div class="col-xs-8">
+								<select id="modelId" parent="seriesId"
+									class="bs-select form-control" name="modelId"
+									data-url="/basedata/brandsdict/{[brand]}/seriessdict/{[series]}/modelsdict"
+									data-model="manage" data-labelValue="MODEL_ID"
+									data-lableDesc="MODEL_NAME" data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配置</label>
+							<div class="col-xs-8">
+								<select id="configCode" parent="modelId" class="bs-select form-control"
+									name="configCode"
+									data-url="/basedata/brandsdict/{[brand]}/seriessdict/{[series]}/modelsdict/{[model]}/packagesdict"
+									data-model="manage" data-labelValue="PACKAGE_ID"
+									data-lableDesc="CONFIG_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					</div>
+					<div class="row ">
+						<div class="col-xs-12 ">
+							<div class="query-btn">
+								<a href="javascript:;" class="btn blue"> <i
+									class="fa fa-search"></i>查询
+								</a> 
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="brandList">
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-onclickEvent="true"><i class="fa fa-save"></i>确定</a>
+			<a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消</a>
+		</div>
+</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+	 	new Datatable().initPagination({
+			src : "brandList",
+			rowID:"PRODUCT_ID",
+			container:container,
+		 	url : dmsCommon.getDmsPath()["vehicle"] + "/basedata/vehicleMasterDatas", 
+			sortName : "PRODUCT_ID", 
+			sortOrder : "asc",
+			autoHeight:false,
+			columns : [ 
+			            {radio:true},
+			            {field : "BRAND_NAME",title : "品牌",inputHiddenFormat : {hiddenField:"BRAND_ID"}},
+			            {field : "SERIES_NAME",title : "车系",inputHiddenFormat : {hiddenField:"SERIES_ID"}},
+			            {field : "MODEL_NAME",title : "车型",inputHiddenFormat : {hiddenField:"MODEL_ID"}},
+			            {field : "CONFIG_NAME",title : "配置",inputHiddenFormat : {hiddenField:"CONFIG_ID"}},
+			            {field : "COLOR_NAME",title : "颜色",inputHiddenFormat : {hiddenField:"COLOR_ID"}},
+			            {field : "PRODUCT_CODE",title : "产品代码"},
+			            {field : "PRODUCT_NAME",title : "产品名称"}
+			         ]
+		});
+	 	
+	 	//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			
+			var selectRow = $("#brandList",container).dmsTable().getFirstSelection();
+			console.log(selectRow);
+			$("#productIdConfi",getElementContext()).setDmsValue(selectRow.PRODUCT_ID);
+			$("#productCodeConfi",getElementContext()).setDmsValue(selectRow.PRODUCT_CODE);
+			$("#productNameConfi",getElementContext()).setDmsValue(selectRow.PRODUCT_NAME);
+			$("#colorIdConfi",getElementContext()).setDmsValue(selectRow.COLOR_ID);
+			$("#colorNameConfi",getElementContext()).setDmsValue(selectRow.COLOR_NAME);
+			$("#brandNameConfi",getElementContext()).setDmsValue(selectRow.BRAND_NAME);
+			$("#seriesNameConfi",getElementContext()).setDmsValue(selectRow.SERIES_NAME);
+			$("#modelNameConfi",getElementContext()).setDmsValue(selectRow.MODEL_NAME);
+			$("#brandCodeConfi",getElementContext()).setDmsValue(selectRow.BRAND_ID);
+			$("#seriesCodeConfi",getElementContext()).setDmsValue(selectRow.SERIES_ID);
+			$("#modelCodeConfi",getElementContext()).setDmsValue(selectRow.MODEL_ID);
+			//关闭窗口
+			 $("a[data-dismiss='modal']",container).click();
+		});
+	});
+
+</script>

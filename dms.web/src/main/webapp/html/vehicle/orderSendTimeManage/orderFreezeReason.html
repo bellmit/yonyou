@@ -1,0 +1,89 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				 <div class="row ">
+            
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">截停原因代码</label>
+							<div class="col-xs-8">
+								<input id="freezeCode" name="freezeCode" data-fieldName="FREEZE_CODE"
+									class="bs-select form-control" type="text" />
+							</div>
+						</div>
+			</div>	
+								
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">截停原因</label>
+							<div class="col-xs-8">
+								<input id="freezeReason" name="freezeReason" data-fieldName="FREEZE_REASON"
+									class="bs-select form-control" type="text" />
+							</div>
+						</div>
+				</div>
+					
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">状态</label>
+							<div class="col-xs-8">
+								<select id="status" name="status" class="bs-select form-control"  data-type="oemDict"  data-dictCode="1001" >
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >订单截停原因维护</div>
+				      <div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" data-url="vehicle/orderSendTimeManage/addOrderFreezeReason.html" data-width="modal-lg"
+								data-toggle="modal"> <i class="fa fa-plus-square"></i> 新增
+							</a> 
+						</div>
+				    </div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/freezeQuery/freezeReasonSearch",
+		rowID : "FREEZEID",
+		sortName : "FREEZEID",
+		sortOrder : "ASC",
+		
+	columns : [ 
+	   	    {field : "FREEZEID",title : "操作",operateFormat : [
+	   	    {type:"edit",url:"vehicle/orderSendTimeManage/editOrderFreezeReason.html",openWidth:"modal-lg"},
+	   	    ]},             
+			{field : "FREEZECODE",title : "截停原因代码"}, 
+			{field : "FREEZEREASON",title : "截停原因"},
+			{field : "CREATEDATE",title : "创建日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+			{field : "UPDATEDATE",title : "修改日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+			{field : "STATUS",title : "状态", codeFormat : {type:"oemDict",codeType:"1001"}}
+        		]
+             });
+                      });
+</script>

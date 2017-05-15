@@ -1,0 +1,145 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row" data-seldate="true">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">归还单号</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="RETURN_NO"
+										readonly data-fieldName="RETURN_NO" name="RETURN_NO" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">借出单号</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input id="lendNo" readonly="readonly" name="lendNo" class="form-control"
+											data-fieldName="LEND_NO" type="text" /> <span
+											class="input-group-btn">
+											<button class="btn default btn-sm" type="button"
+												data-url="part/basedata/LendToReturn/secondPage.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-sitemap"></i>
+											</button>
+											<button class="btn default input-clear" id="clear"
+												type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">客户代码</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="cusNo"
+										readonly data-fieldName="CUSTOMER_CODE" name="cusNo" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">客户名称</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="cusName"
+										readonly data-fieldName="CUSTOMER_NAME" name="cusName" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">归还明细</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_show"></table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a  id="finish" data-model="part" data-method="POST" data-url="/basedata/return/returnList"
+				class="btn blue" data-onclickEvent='true'  data-toggle="confirmation" data-callBack="true">归还入账</a>
+			<a  id="exit" class="btn blue" >取消</a>
+			<a id="print" class="btn blue" data-toggle="modal" data-target="print"
+				data-url="vehicle/stockManage/stockIn/editStockInPrint.html" 
+				data-width="modal-lg">打印
+			</a> 
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event, container) {
+				new Datatable().initLocale({
+					src : "dms_show",
+					container:container,
+					url : dmsCommon.getDmsPath()["part"] + "/basedata/return/findAllDetails/forLocale/0",
+					autoHeight : false,
+					isQueryFirst : false,
+					checkboxHeader : true, //全选框
+					columns : [
+						{field : "STORAGE_NAME",title : "仓库",inputHiddenFormat : {hiddenField:"STORAGE_CODE"}}, 
+						{field : "STORAGE_POSITION_CODE",title : "库位",inputHiddenFormat : {}}, 
+						{field : "PART_NO",title : "配件代码",inputHiddenFormat : {}}, 
+						{field : "PART_NAME",title : "配件名称",inputHiddenFormat : {}}, 
+						{field : "UNIT_CODE",title : "计量单位",inputHiddenFormat : {}}, 
+						{field : "OUT_QUANTITY",title : "出库数量",numberFormat : {decimal:2},inputHiddenFormat : {}}, 
+						{field : "WRITE_OFF_QUANTITY",title : "核销数量",numberFormat : {decimal:2},inputHiddenFormat : {}}, 
+						{field : "NOTIN_QUANTITY",title : "未还数量",numberFormat : {decimal:2},inputHiddenFormat : {}}, 
+						{field : "RETURN_QUANTITY",title : "<span style='color: blue;'>归还数量</span>",inputTextFormat : {}}, 
+						{field : "COST_PRICE",title : "借出时成本单价",numberFormat : {decimal:2},inputHiddenFormat : {}}, 
+						{field : "OUT_PRICE",title : "借出单价",numberFormat : {decimal:2},inputHiddenFormat : {}}
+					]
+				});
+				
+				//借出单号值改变事件
+			 	$("#lendNo",container).bindChange(function(obj){
+					if($('#lendNo',container).val()!=null&&$('#lendNo',container).val()!=''){//从后台查询后刷新表格
+						$("#dms_show",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["part"] + "/basedata/return/findAllDetails/forLocale/"+$('#lendNo',container).val());
+						$("#dms_show", container).dmsTable().refreshTableWithForm();
+					}
+				}); 
+				
+				//成功回调方法
+			 	$("a[data-callBack='true']", container).on("callBack.dms",function(event, response) {
+			 		$("#dms_show",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["part"] + "/basedata/return/findAllDetails/forLocale/"+$('#lendNo',container).val());
+					$("#dms_show", container).dmsTable().refreshTableWithForm();
+					$("#RETURN_NO",contaienr).val(response);
+			 	});
+				
+			 	$("#exit,#clear", container).click(function(){
+			 		dmsCommon.ajaxRestRequest({
+						url:dmsCommon.getDmsPath()["part"] +"/basedata/return/updateUnLocker/"+$("#lendNo",container).val(),
+						type:"POST",
+						sucessCallBack : function(data) {
+							if(data==""){
+								dmsCommon.refreshPageByUrl("part/basedata/LendToReturn/mainPage.html",container);
+							}else{
+								dmsCommon.tip({status:"warning",msg:"此单号["+$("#lendNo",container).val()+"].解锁失败!"});
+							}
+						}
+					});
+				});
+				/*	$("#exit", container).click(function(){
+					 dmsCommon.refreshPageByUrl("",container);
+				});
+				
+				
+				
+				$('a[data-beforeRequest="true"]',container).on('beforeRequest.dms',function(event,returnResult){
+					$(this).attr("data-method","");
+					$(this).attr("data-url","");
+					returnResult.status = true; //定义返回值
+				});*/
+	});
+</script>

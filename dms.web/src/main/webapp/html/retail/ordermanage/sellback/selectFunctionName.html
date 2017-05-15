@@ -1,0 +1,86 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">审核人</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+			<div class="panel panel-default table-panel">
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_table"></table>
+				</div>
+			</div>
+		</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-onclickEvent="true" ><i
+				class="fa fa-save"></i>确定</a> <a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+	
+		new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["retail"] + "/ordermanage/salesOrders/function",
+			rowID : "USER_CODE",
+			sortName : "USER_CODE",
+			sortOrder : "asc",
+			autoHeight:false,
+		
+			columns : [      
+			{radio:true},
+            {field : "USER_CODE",title : "用户代码"}, 
+			{field : "EMPLOYEE_NAME",title : "审核人姓名"}, 
+			{field : "USER_NAME",title : "用户名称"}, 
+			{field : "FUNCTION_NAME",title : "权限"},
+			{field : "MENU_ID",title : "权限",visible:false},
+			{field : "USER_ID",title : "权限",visible:false},
+			
+    			]
+		});
+		
+		//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			var selectRow = $("#dms_table",container).dmsTable().getFirstSelection();
+		 var menuId = selectRow.MENU_ID;
+		 var userId = selectRow.USER_ID;
+			var soStatus=0;
+			var reAuditedBy=0;
+			var auditedBy=0;
+		 if (!isStringNull(userId)){
+				if (menuId=="70302000"){			
+					 soStatus="13011065";
+					 reAuditedBy=userId;
+				}else{
+					 soStatus="13011015";
+					 auditedBy=userId;
+				}
+			}
+		 selectRow['RE_AUDITED_BY']=reAuditedBy;
+		 selectRow['AUDITED_BY']=auditedBy;
+		 selectRow['MENU_ID']=selectRow.MENU_ID;
+		 selectRow['USER_ID']=selectRow.USER_ID;
+		 selectRow['SO_STATUS']=soStatus;
+		$("div[data-str='true']",getElementContext()).initHtmlContent(selectRow);		
+			//关闭窗口		
+			
+			$("a[data-dismiss='modal']",container).click();
+		
+			$("a[data-info='saveBeforeSub']",getElementContext()).click();
+		//	$("a[data-info='saveAfterUrl']",getElementContext()).attr("disabled","disabled");
+		});
+		
+	
+	});
+</script>  

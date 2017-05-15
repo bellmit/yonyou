@@ -1,0 +1,49 @@
+<div class="dms-edit ajaxrest" data-url="/partReport/insideConsumings/{[ITEM_ID]}" data-model="report">
+	<form class="form-horizontal">
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name">明细</div>
+			</div>
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="groupitemList"></table>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a
+				data-url="/partReport/insideConsumings/{[PART_INNER_ID]}/export/Items"
+				data-model="report" data-method="downLoad"
+				data-toggle="confirmation" class="btn blue "
+				data-isExcludeReadOnly="true"><i class="fa fa-download"></i>导出</a> <a
+				data-goback="page"
+				href="report/partReport/insideConsuming/searchInsideConsuming.html"
+				class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initLocale({
+			src : "groupitemList",
+			container:container,
+			rowID:"ITEM_ID",
+			url : dmsCommon.getDmsPath()["report"] + "/partReport/insideConsumings/{[PART_INNER_ID]}/Items",
+			sortName : "ITEM_ID", 
+			sortOrder : "asc",
+			pageSize:10,
+			autoHeight:false,
+			columns : [ 
+						{field : "RECEIPT_NO",title : "领用单号"},
+						{field : "EMPLOYEE_NAME",title : "领用人"},
+						{field : "STORAGE_NAME",title : "仓库"}, 
+						{field : "STORAGE_POSITION_CODE",title : "库位"},
+						{field : "PART_NO",title : "配件代码"},
+						{field : "PART_NAME",title : "配件名称"},
+						{field : "OUT_QUANTITY",title : "出库数量"},
+						{field : "COST_PRICE",title : "成本单价"},
+						{field : "COST_AMOUNT",title : "成本金额"}
+					]
+				});
+   			});
+</script>

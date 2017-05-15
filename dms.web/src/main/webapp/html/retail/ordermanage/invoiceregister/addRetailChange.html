@@ -1,0 +1,417 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">零售变更上报</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+				<div class="pannel-name">客户信息</div>
+					<div class="row" data-tableSelect="true" >
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:Red">*</span>VIN</label>
+								<div class="col-xs-8 ">
+								<div class="input-group">
+									<input type="text" class="form-control  required" id="vin"
+										readonly name="vin"
+										data-fieldName="VIN" /> <input type="hidden"
+										class="form-control" id="soNoId" name="soNoId"
+										data-fieldName="SO_NO_ID" /> <span
+										class="input-group-btn">
+										<button class="btn default btn-sm" type="button"
+											data-url="retail/ordermanage/invoiceregister/selectSalesOrderChange.html"
+											data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">订单编号</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" readonly id="soNo" name="soNo" data-fieldName="SO_NO">
+								</div>
+							</div>
+						</div>
+                       <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:Red">*</span>客户类型</label>
+								<div class="col-xs-8">
+									<select id="customerType" name="customerType"
+										class="bs-select form-control required" data-dictCode="1018" type="text" data-fieldName="CUSTOMER_TYPE">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:Red">*</span>客户性别</label>
+								<div class="col-xs-8">
+									<select id="gender" name="gender"
+										class="bs-select form-control required" data-dictCode="1006" type="text" data-fieldName="GENDER">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:Red">*</span>客户姓名</label>
+								<div class="col-xs-8">
+									<input id="customerName" name="customerName"
+										class="form-control required" maxlength="120" type="text" data-fieldName="CUSTOMER_NAME">
+								</div>
+							</div>
+						</div>
+							<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:Red">*</span>证件类型</label>
+								<div class="col-xs-8">
+									<select id="ctCode" name="ctCode"
+										class="bs-select form-control required" data-dictCode="1239" type="text" data-fieldName="CT_CODE">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:Red">*</span>联系手机</label>
+								<div class="col-xs-8">
+									<input id="contactorMobile" name="contactorMobile"
+										class="form-control required phone" maxlength="120" type="text" data-fieldName="CONTACTOR_MOBILE">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:Red">*</span>证件号码</label>
+								<div class="col-xs-8">
+									<input id="certificateNo" name="certificateNo"
+										class="form-control required" maxlength="120" type="text" data-fieldName="CERTIFICATE_NO">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">邮编</label>
+								<div class="col-xs-8">
+									<input id="zipCode" name="zipCode"
+										class="form-control zipCode" maxlength="120" type="text" data-fieldName="ZIP_CODE">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">地址</label>
+								<div class="col-xs-8">
+									<input id="address" name="address"
+										class="form-control" maxlength="120" type="text" data-fieldName="ADDRESS">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+				<div class="pannel-name">二手车车辆信息</div>
+					<div class="row" data-tableSelect="true" >		
+                       <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:Red">*</span>是否置换</label>
+								<div class="col-xs-8">
+									<select id="isPermuted" name="isPermuted"
+										class="bs-select form-control" data-dictCode="1278" type="text" data-fieldName="IS_PERMUTED">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:Red">*</span>二手车VIN号</label>
+								<div class="col-xs-8 ">
+								<div class="input-group" data-tableOldVINSelect="true">
+									<input type="text" class="form-control" id="permutedVin"
+										disabled="disabled" name="permutedVin"
+										data-fieldName="PERMUTED_VIN" /> 
+										<span
+										class="input-group-btn">
+										<button class="btn default btn-sm" type="button"
+											data-url="retail/ordermanage/invoiceregister/addUsedCar.html"
+											data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" data-tableOldVINSelect="true">
+								<label class="control-label col-xs-4">车牌号</label>
+								<div class="col-xs-8">
+									<input id="assessedLisence" name="assessedLisence" disabled="disabled" 
+										class="form-control" maxlength="120" type="text" data-fieldName="ASSESSED_LISENCE">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" data-tableOldVINSelect="true">
+								<label class="control-label col-xs-4">品牌</label>
+								<div class="col-xs-8">
+									<select id="oldBrandCode" name="oldBrandCode" disabled="disabled" data-url="/basedata/brandsSr" data-model="manage"
+									data-labelValue="BRAND_CODE" data-lableDesc="BRAND_NAME"
+										class="bs-select form-control" data-dictCode="1207" type="text" data-fieldName="OLD_BRAND_CODE">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" data-tableOldVINSelect="true">
+								<label class="control-label col-xs-4">车系</label>
+								<div class="col-xs-8">
+									<select id="oldSeriesCode" name="oldSeriesCode" disabled="disabled" data-url="/basedata/selectSeriesSr" data-model="manage"
+									data-labelValue="SERIES_CODE" data-lableDesc="SERIES_NAME"
+										class="bs-select form-control"  type="text" data-fieldName="OLD_SERIES_CODE">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" data-tableOldVINSelect="true">
+								<label class="control-label col-xs-4">车型</label>
+								<div class="col-xs-8">
+									<select id="oldModelCode" name="oldModelCode" disabled="disabled" data-url="/basedata/selectModelSr" data-model="manage"
+									data-labelValue="MODEL_CODE" data-lableDesc="MODEL_NAME"
+										class="bs-select form-control"  type="text" data-fieldName="OLD_MODEL_CODE">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" data-tableOldVINSelect="true">
+								<label class="control-label col-xs-4">评估金额</label>
+								<div class="col-xs-8">
+									<input id="assessedPrice" name="assessedPrice" disabled="disabled" 
+										class="form-control" maxlength="120" type="text" data-fieldName="ASSESSED_PRICE">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" data-tableOldVINSelect="true">
+								<label class="control-label col-xs-4"><span style="color:Red">*</span>收购金额</label>
+								<div class="col-xs-8">
+									<input id="oldCarPurchase" name="oldCarPurchase" disabled="disabled" 
+										class="form-control" maxlength="120" type="text" data-fieldName="OLD_CAR_PURCHASE">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" data-tableOldVINSelect="true">
+								<label class="control-label col-xs-4">二手车描述</label>
+								<div class="col-xs-8">
+									<input id="permutedDesc" name="permutedDesc"
+										class="form-control" maxlength="120" type="text" data-fieldName="PERMUTED_DESC">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" data-tableOldVINSelect="true">
+								<label class="control-label col-xs-4">收购协议ID</label>
+								<div class="col-xs-8">
+									<input id="fileOldA" name="fileOldA" disabled="disabled" 
+										class="form-control" maxlength="120" type="text" data-fieldName="FILE_OLD_A">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" data-tableOldVINSelect="true">
+								<label class="control-label col-xs-4">收购协议URL</label>
+								<div class="col-xs-8">
+									<input id="fileUrloldA" name="fileUrloldA" disabled="disabled" 
+										class="form-control" maxlength="120" type="text" data-fieldName="FILE_URLOLD_A">
+								</div>
+							</div>
+						</div>
+						<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 扫描</a>
+					</div>
+				</div>
+			<div class="panel-body">
+				<div class="pannel-name">开票信息</div>
+					<div class="row" data-tableSelect="true" >
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">费用类型</label>
+								<div class="col-xs-8">
+									<select id="invoiceChargeType" name="invoiceChargeType" 
+										class="bs-select form-control" data-dictCode="1318" disabled="disabled" data-fieldName="INVOICE_CHARGE_TYPE">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:Red">*</span>发票编号</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control required systemCode" data-autoUpper="false" maxlength="30" id="invoiceNo"
+										name="invoiceNo" data-fieldName="INVOICE_NO">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:Red">*</span>发票类型</label>
+								<div class="col-xs-8"> 
+								<select id="invoiceTypeCode" name="invoiceTypeCode" data-fieldName="INVOICE_TYPE_CODE"
+										class="bs-select form-control required" 
+										data-url="/basedata/employees/-1/salesInvoice" data-model="manage"
+									data-labelValue="INVOICE_TYPE_CODE" data-lableDesc="INVOICE_TYPE_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:Red">*</span>发票金额</label>
+								<div class="col-xs-8">
+									<input id="invoiceAmount" name="invoiceAmount" data-fieldName="INVOICE_AMOUNT"
+										class="form-control required number" maxlength="12" type="text" >
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:Red">*</span>开票客户</label>
+								<div class="col-xs-8">
+									<input id="invoiceCustomer" name="invoiceCustomer"
+										class="form-control required" maxlength="120" type="text" data-fieldName="INVOICE_CUSTOMER">
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:Red">*</span>开票日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker"
+										data-orientation="top right" data-defaulttoday="true">
+										<input id="invoiceDate" name="invoiceDate" disabled= "disabled" data-fieldName="INVOICE_DATE"
+											class="form-control" type="text" value="" /> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+											<button class="btn default date-reset" type="button">
+												<i class="fa fa-times"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:Red">*</span>经办人</label>
+								<div class="col-xs-8">
+								<select id="transactor" name="transactor" class="bs-select form-control required" maxlength="30"
+									data-url="/basedata/employees/-1/salesConsultant" data-model="manage" data-fieldName="TRANSACTOR"
+									data-labelValue="USER_ID" data-lableDesc="USER_NAME" data-value="{[userInfo.userId]}">
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:Red">*</span>开票人员</label>
+								<div class="col-xs-8">
+								<select id="invoiceWriter" name="invoiceWriter" class="bs-select form-control required" maxlength="30"
+									data-url="/basedata/employees/-1/salesConsultant" data-model="manage" data-fieldName="INVOICE_WRITER"
+									data-labelValue="USER_ID" data-lableDesc="USER_NAME" data-value="{[userInfo.userId]}">
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">备注</label>
+								<div class="col-xs-8">
+									<input id="remark" name="remark"
+										class="form-control" maxlength="120" type="text" data-fieldName="REMARK">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-8">
+									<input id="customerNo" name="customerNo"
+										class="form-control hidden" maxlength="120" type="text" data-fieldName="CUSTOMER_NO">
+								</div>
+							<div class="col-xs-8">
+									<input id="itemId" name="itemId"
+										class="form-control hidden" maxlength="120" type="text" data-fieldName="ITEM_ID">
+								</div>
+					</div>
+				</div>
+			</div>
+			<span style="color:Red">零售变更只允许上报一次</span>
+		</div>
+		
+		<div class="modal-footer">
+		
+			<a data-url="/ordermanage/invoiceregisters/setrefund" data-model="retail" data-method="PUT" data-callBack="true"  class="btn blue"  data-toggle="confirmation"><i class="fa fa-save"
+			
+			></i>上报</a>
+			<a data-dismiss="modal" class="btn blue" ><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+/**
+ * 新增页面的回调函数
+ */
+ $(document).one("onload.dms",function(event,container){
+	 
+	 $("#isPermuted",container).bindChange(function(obj){
+
+		 debugger
+			var isPermuted=$("#isPermuted",container).val();
+			if(isPermuted=="12781001"){
+				  $("#permutedVin",container).removeAttr("disabled");
+				  $("#permutedVin",container).addClass("required");
+				  $("#oldCarPurchase",container).removeAttr("disabled");
+				  $("#oldCarPurchase",container).addClass("required");
+			
+			 }else{
+				 $("#oldCarPurchase",container).attr("disabled","disabled");
+				 $("#oldCarPurchase",container).removeClass("required");
+				 $("#permutedVin",container).attr("disabled","disabled");
+				 $("#permutedVin",container).removeClass("required");
+				 $("#oldCarPurchase",container).val("");
+			 } 
+		});
+	//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	});
+</script>
+

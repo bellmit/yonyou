@@ -1,0 +1,91 @@
+<div class="dms-edit ajaxrest" data-url="/basedata/Dress/get/{[MAIN_GROUP_CODE]}" data-model="repair" data-method="GET">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+			<div class="modal-title">主分类信息</div>
+		</div>
+		<div class="modal-body">
+    		<div class="panel panel-default">
+				<div class="panel-body">
+		            <div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">主分类代码</label>
+						<div class="col-xs-8">
+							<input id="mainGroupCode" name="mainGroupCode" class="form-control required" maxlength="4" 
+							type="text" data-fieldName="MAIN_GROUP_CODE" disabled="disabled"/>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">主分类名称</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control required" maxlength="20" id="mainGroupName" 
+							name="mainGroupName"   data-fieldName="MAIN_GROUP_NAME"/>
+					    </div>
+					</div>
+				</div>
+				
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">是否下发</label>
+						<div class="col-xs-8">
+							<input type="checkbox"  id="downTag" name="downTag"  data-dictCode="1057"  
+							data-fieldName="DOWN_TAG" disabled="disabled">
+						</div>
+					</div>
+				</div>
+				
+				
+				
+			</div>
+		</div>
+	</div>
+</div>
+		<div class="modal-footer center-block">
+			<a data-url="/basedata/Dress/{[MAIN_GROUP_CODE]}" data-model="repair" data-method="PUT"
+				data-callBack="true" class="btn blue" data-onclickEvent="true"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> 
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	$("select[id='storage_type']",container).bindChange(function(obj){
+	 var selectValue=$("select[id='storage_type']",container).val();
+		if(selectValue !='70041003'){
+			$("input[id='storage_name']",container).attr("disabled","disabled");
+		}
+    });
+	
+// 	$("select[id^=is_negative]",container).bindChange(function(obj){
+// 		 var selectValue=$("select[id^=is_negative]",container).val();
+// 			if(selectValue =='10041001'){
+// 				$("select[id^=is_negative]",container).attr("disabled","true");
+// 			}else{
+// 				$("select[id^=is_negative]",container).removeAttr("disabled");
+// 			}
+// 	});
+	
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_dress1",getElementContext()).dmsTable().refreshTableWithForm();
+	
+		/* $("#dms_dress2",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["repair"] 
+ 		+ "/basedata/Dress/"+$("#mainGroupCode").val());//通过url刷新表格
+		$("#dms_dress2", getElementContext()).dmsTable().refreshTableWithForm();  */
+	});
+	
+	
+});
+</script>

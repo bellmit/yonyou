@@ -1,0 +1,213 @@
+<div class="dms-edit ajaxrest" data-url="/organization/dealerInfoMain/editDealerInfoInit/{[company_id]}" data-model="manage" data-beforeRequest="true" data-pageInitCallBack="true">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">公司信息编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>	
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<input type="hidden" name="companyId" data-fieldName="companyId" >
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">公司代码：</label>
+								<div class="col-xs-8" >
+									  <input class="form-control required dmsDisabled" type="text" id="dlrCode" name="dlrCode" data-fieldName="dlrCode" />
+								</div>
+							</div>
+						</div>	
+						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">公司名称：</label>
+								<div class="col-xs-8" >
+									  <input class="form-control required" type="text" id="dlrName" name="dlrName" data-fieldName="dlrName"/>									 
+								</div>
+							</div>
+						</div>	
+						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">公司简称：</label>
+								<div class="col-xs-8" >
+									  <input class="form-control required" type="text" id="dlrNameForShort" name="dlrNameForShort" data-fieldName="dlrNameForShort"/>									 
+								</div>
+							</div>
+						</div>		
+						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">英文名称：</label>
+								<div class="col-xs-8" >
+									  <input class="form-control required" type="text" id="companyEn" name="companyEn" data-fieldName="companyEn"/>									 
+								</div>
+							</div>
+						</div>	
+						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">公司类型：</label>
+								<div class="col-xs-8" >
+									  <input class="form-control" type="text" value="经销商公司" style="border-style:none"/>
+									  <input type="hidden" value="10531002" id="companyType" name="companyType" data-fieldName="companyType" />									 
+								</div>
+							</div>
+						</div>	
+						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">省份</label>
+								<div class="col-xs-8">
+									<select  class="bs-select form-control " id="province" name="province" data-type="oemRegion" data-fieldName="province" ></select>
+								</div>
+							</div>
+						</div>	
+						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">城市</label>
+								<div class="col-xs-8">
+									<select  class="bs-select form-control " parent="province" class="bs-select form-control" name="city" id = "city"  data-fieldName="city" ></select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系电话：</label>
+								<div class="col-xs-8" >
+									  <input class="form-control required" type="text" id="contTel" name="contTel" data-fieldName="contTel"/>									 
+								</div>
+							</div>
+						</div>	
+						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">邮编：</label>
+								<div class="col-xs-8" >
+									  <input class="form-control required" type="text" id="zipCode" name="zipCode" data-fieldName="zipCode"/>									 
+								</div>
+							</div>
+						</div>	
+						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">传真：</label>
+								<div class="col-xs-8" >
+									  <input class="form-control" type="text" id="fax" name="fax" data-fieldName="fax"/>									 
+								</div>
+							</div>
+						</div>	
+								
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2">详细地址：</label>
+								<div class="col-xs-10" >
+									  <input class="form-control" type="text" id="detailAddr" name="detailAddr" data-fieldName="detailAddr"/>									 
+								</div>
+							</div>
+						</div>		
+						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">状态：</label>
+								<div class="col-xs-8">
+									<select class="bs-select form-control required" id="status" name="status" data-fieldName="status" 
+										data-type="oemDict" data-dictCode="1001" data-existsDefault="false">
+									</select>
+								</div>
+							</div>
+						</div>	
+						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">CTCI经销商代码：</label>
+								<div class="col-xs-8" >
+									  <input class="form-control required" type="text" id="ctciCode" name="ctciCode" data-fieldName="ctciCode"/>									 
+								</div>
+							</div>
+						</div>	
+						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">SWT经销商代码：</label>
+								<div class="col-xs-8" >
+									  <input class="form-control required" type="text" id="swtCode" name="swtCode" data-fieldName="swtCode"/>									 
+								</div>
+							</div>
+						</div>	
+						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">E-Link经销商代码：</label>
+								<div class="col-xs-8" >
+									  <input class="form-control" type="text" id="elinkCode" name="elinkCode" data-fieldName="elinkCode"/>									 
+								</div>
+							</div>
+						</div>	
+						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-6">Dealer-Connect经销商代码：</label>
+								<div class="col-xs-6" >
+									  <input class="form-control" type="text" id="dcCode" name="dcCode" data-fieldName="dcCode"/>									 
+								</div>
+							</div>
+						</div>	
+						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">LMS经销商代码：</label>
+								<div class="col-xs-8" >
+									  <input class="form-control" type="text" id="lmsCode" name="lmsCode" data-fieldName="lmsCode"/>									 
+								</div>
+							</div>
+						</div>	
+						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">JEC经销商代码：</label>
+								<div class="col-xs-8" >
+									  <input class="form-control" type="text" id="jecCode" name="jecCode" data-fieldName="jecCode"/>									 
+								</div>
+							</div>
+						</div>	
+						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">FCA经销商代码：</label>
+								<div class="col-xs-8" >
+									  <input class="form-control" type="text" id="fcaCode" name="fcaCode" data-fieldName="fcaCode"/>									 
+								</div>
+							</div>
+						</div>	
+						
+										
+					</div>					
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+
+		<a data-url="/organization/dealerInfoMain/editDealerInfo" data-model="manage" data-method="PUT" data-callBack='true'
+			class="btn blue" data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> 			
+		<a  data-dismiss='modal'
+				class="btn blue "><i class="fa fa-reply"></i>返回</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("a[data-dismiss='modal']").click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+});
+
+</script>

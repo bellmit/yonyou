@@ -1,0 +1,2477 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">工单号</label>
+							<div class="col-xs-8">
+								<div class="input-group" data-tableSelect='true'>
+									<input type="text" class="form-control" id="roNo" readonly
+										name="roNo" data-info="roNo" data-fieldName="RO_NO" /> <span
+										class="input-group-btn">
+										<button class="btn default btn-sm" type="button"
+											data-url="repair/FeesSettlement/workOrder.html"
+											data-toggle="modal" data-info="repairOrder"
+											data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车牌号</label>
+							<div class="col-xs-8" data-tableSelect='true'>
+								<input type="text" class="form-control" readonly
+									data-fieldName="LICENSE" id="license" name="license">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">工单备注</label>
+							<div class="col-xs-8" data-tableSelect='true'>
+								<input type="text" class="form-control" id="remark" readonly
+									data-fieldName="REMARK" name="remark">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">结算单号</label>
+							<div class="col-xs-8" data-tableSelect='true'>
+								<input type="text" class="form-control" id="balance_no" readonly
+									data-fieldName="BALANCE_NO" name="balance_no">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件销售单号</label>
+							<div class="col-xs-8">
+								<div class="input-group" data-tableSelect2='true'>
+									<input type="text" class="form-control" id="salesPartNo"
+										readonly name="salesPartNo" data-info="salesPartNo"
+										data-fieldName="SALES_PART_NO" /> <span
+										class="input-group-btn">
+										<button class="btn default btn-sm" type="button"
+											data-url="repair/FeesSettlement/partSaleOrder.html"
+											data-toggle="modal" data-info="repairOrder"
+											data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">索赔单号</label>
+							<div class="col-xs-8" data-tableSelect='true'>
+								<input type="text" class="form-control" readonly
+									data-fieldName="GCS_SYS_REPAIR_NO" id="gcsSysRepairNo"
+									name="gcsSysRepairNo">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">会员卡编号</label>
+							<div class="col-xs-8" data-tableSelect='true'>
+								<input type="text" class="form-control" id="cardCode" readonly
+									data-fieldName="CARD_CODE" name="cardCode">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">故障描述</label>
+							<div class="col-xs-8" data-tableSelect='true'>
+								<input type="text" class="form-control" id="roTroubleDesc"
+									readonly data-fieldName="RO_TROUBLE_DESC" name="roTroubleDesc">
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--/span-->
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">备注</label>
+							<div class="col-xs-8" data-tableSelect='true'>
+								<input type="text" class="form-control" data-fieldName="REMARK"
+									id="remark" name="remark">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">备注1</label>
+							<div class="col-xs-8" data-tableSelect='true'>
+								<input type="text" class="form-control" readonly
+									data-fieldName="REMARK1" id="remark" name="remark">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- begin -->
+		<!-- begin9 -->
+		<div class="col-lg-12 tabbable-custom ">
+			<div class="col-lg-9 tabbable-custom ">
+				<div class="col-lg-12 tabbable-custom ">
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#tab_workOrder" data-toggle="tab"
+							id="workOrder">工单</a></li>
+						<li><a href="#tab_partSaleOrder" data-toggle="tab"
+							id="partSaleOrder">配件销售单</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane  fade in active" id="tab_workOrder">
+							<div class="modal-body">
+								<div class="panel panel-default" data-tableSelect="true">
+									<div class="panel-body">
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+											<div class="form-group">
+												<label class="control-label col-xs-4 ">车主</label>
+												<div class="col-xs-8">
+													<div class="input-group">
+														<input type="text" class="form-control" readonly
+															data-fieldName="OWNER_NAME" id="owner" name="owner">
+														<span class="input-group-btn"></span>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" hidden>
+											<div class="form-group">
+												<label class="control-label col-xs-4 ">车主代码</label>
+												<div class="col-xs-8">
+													<div class="input-group">
+														<input type="text" class="form-control" readonly
+															data-fieldName="OWNER_NO" id="ownerNo" name="ownerNo">
+														<span class="input-group-btn"></span>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" hidden>
+											<div class="form-group">
+												<label class="control-label col-xs-4 ">保修公司代码</label>
+												<div class="col-xs-8">
+													<div class="input-group">
+														<input type="text" class="form-control" readonly
+															data-fieldName="INSURATION_CODE" id="insurationCode"
+															name="insurationCode"> <span
+															class="input-group-btn"></span>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" hidden>
+											<div class="form-group">
+												<label class="control-label col-xs-4 ">理赔单号</label>
+												<div class="col-xs-8">
+													<div class="input-group">
+														<input type="text" class="form-control" readonly
+															data-fieldName="INSURATION_NO" id="insurationNo"
+															name="insurationNo"> <span
+															class="input-group-btn"></span>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+											<div class="form-group">
+												<label class="control-label col-xs-4">送修人</label>
+												<div class="col-xs-8">
+													<input type="text" class="form-control" readonly
+														data-fieldName="SERVICE_ADVISOR" id="sendPeople"
+														name="sendPeople">
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+											<div class="form-group">
+												<label class="control-label col-xs-4">客户经理</label>
+												<div class="col-xs-8">
+													<select class="bs-select form-control" disabled
+														data-fieldName="SERVICE_ADVISOR" id="customerManager"
+														name="customerManager">
+													</select>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-xs-12 col-sm-6 col-md-3 ">
+											<div class="form-group">
+												<label class="control-label col-xs-4">开单日期</label>
+												<div class="col-xs-8">
+													<div class="input-group date date-picker">
+														<input id="roCreateDate" name="roCreateDate" readonly
+															data-fieldName="RO_CREATE_DATE" class="form-control"
+															type="text" /> <span class="input-group-btn">
+															<button class="btn default date-set" type="button">
+																<i class="fa fa-calendar"></i>
+															</button>
+														</span>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+											<div class="form-group">
+												<label class="control-label col-xs-4">维修类型</label>
+												<div class="col-xs-8">
+													<select id="repairTypeCode" name="repairTypeCode"
+														data-url="/basedata/repairtypes/getRepairTypes/item"
+														data-model="manage" data-labelValue="REPAIR_TYPE_CODE"
+														disabled data-lableDesc="REPAIR_TYPE_NAME"
+														class="bs-select form-control"
+														data-fieldName="repair_type_code">
+													</select>
+												</div>
+											</div>
+										</div>
+
+										<!--/span-->
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+											<div class="form-group">
+												<label class="control-label col-xs-4">品牌</label>
+												<div class="col-xs-8">
+													<select class="bs-select form-control"
+														data-url="/basedata/brandsdict"
+														data-labelValue="BRAND_CODE" disabled
+														data-lableDesc="BRAND_NAME" data-model="manage"
+														data-fieldName="BRAND" id="brand" name="brand">
+													</select>
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+											<div class="form-group">
+												<label class="control-label col-xs-4">车系</label>
+												<div class="col-xs-8">
+													<select class="bs-select form-control"
+														data-fieldName="SERIES" data-url="/basedata/selectSeries"
+														disabled data-model="manage" data-labelValue="SERIES_CODE"
+														data-lableDesc="SERIES_NAME" id="series" name="series">
+													</select>
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+											<div class="form-group">
+												<label class="control-label col-xs-4">车型</label>
+												<div class="col-xs-8">
+													<select class="form-control" data-fieldName="MODEL"
+														data-url="/basedata/selectModel" disabled
+														data-model="manage" data-labelValue="MODEL_CODE"
+														data-lableDesc="MODEL_NAME" id="model" name="model">
+													</select>
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+											<div class="form-group">
+												<label class="control-label col-xs-4">行驶里程</label>
+												<div class="col-xs-8">
+													<input type="text" class="form-control" readonly
+														data-fieldName="IN_MILEAGE" id="milsage" name="milsage">
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+											<div class="form-group">
+												<label class="control-label col-xs-4">VIN</label>
+												<div class="col-xs-8">
+													<input type="text" class="form-control vin" readonly
+														data-fieldName="VIN" id="vin" name="vin">
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+											<div class="form-group">
+												<label class="control-label col-xs-4">VIP编号</label>
+												<div class="col-xs-8">
+													<input type="text" class="form-control" readonly
+														data-fieldName="VIP_NO" id="vipNo" name="vipNo">
+												</div>
+											</div>
+										</div>
+
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+											<div class="form-group">
+												<label class="control-label col-xs-4">tablode</label>
+												<div class="col-xs-8">
+													<input type="text" class="form-control" value=0
+														id="tablode" name="tablode">
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="tab-pane  fade in " id="tab_partSaleOrder">
+							<div class="modal-body">
+								<div class="panel panel-default" data-tableSelect2="true">
+									<div class="panel-body">
+
+
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+											<div class="form-group">
+												<label class="control-label col-xs-4 ">客户代码</label>
+												<div class="col-xs-8">
+													<input type="text" class="form-control" id="customerCode"
+														data-fieldName="CUSTOMER_CODE" name="customerCode"
+														readonly>
+												</div>
+											</div>
+										</div>
+
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+											<div class="form-group">
+												<label class="control-label col-xs-4">客户名称</label>
+												<div class="col-xs-8">
+													<input type="text" class="form-control" id="customerName"
+														readonly data-fieldName="CUSTOMER_NAME"
+														name="customerName">
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+											<div class="form-group">
+												<label class="control-label col-xs-4">VIN</label>
+												<div class="col-xs-8">
+													<input type="text" class="form-control" id="vin1" readonly
+														data-fieldName="VIN" name="vin1">
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12 tabbable-custom ">
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#tab_repairProject"
+							data-toggle="tab" id="repairProject">维修项目</a></li>
+						<li><a href="#tab_repairMaterials" data-toggle="tab"
+							id="repairMaterials">维修材料</a></li>
+						<li><a href="#tab_saleMatrial" data-toggle="tab"
+							id="saleMatrial">销售材料</a></li>
+						<li><a href="#tab_additionItem" data-toggle="tab"
+							id="additionItem">附加项目</a></li>
+							
+						<li><a href="#tab_hidden1" data-toggle="tab"
+							id="additionItem">维修项目对象</a></li>
+						<li><a href="#tab_hidden2" data-toggle="tab"
+							id="additionItem">维修材料对象</a></li>
+						<li><a href="#tab_hidden4" data-toggle="tab"
+							id="additionItem">附加项目对象</a></li>				
+							
+						<li><a href="#tab_hidden5" data-toggle="tab"
+							id="additionItem">其他成本</a></li>		
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane  fade in active" id="tab_repairProject">
+							<div class="panel panel-default">
+								<div class="panel-heading">									
+									<div class="pannel-button">
+										<div class="btn-group btn-group-sm">
+											<a class="btn btn-outline" id="But1"
+												data-url="repair\FeesSettlement\addPayObject.html"
+												id="TraceTaskHistory" data-toggle="modal" data-width="modal-lg"
+												data-beforeShowEvent="true"> <i class="fa fa-plus-square"></i>
+												收费对象
+											</a>
+										</div>
+									</div>						
+								</div>
+							
+								<div class="panel-body">
+									<div class="panel panel-default table-panel">
+										<table
+											class="table table-striped table-bordered table-hover table-responsive"
+											id="bLDtoList">
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="tab-pane  fade in " id="tab_repairMaterials">
+							<div class="panel panel-default">
+								<div class="panel-heading">									
+									<div class="pannel-button">
+										<div class="btn-group btn-group-sm">
+											<a class="btn btn-outline" id="But2"
+												data-url="repair\FeesSettlement\addPayObject2.html"
+												id="TraceTaskHistory" data-toggle="modal" data-width="modal-lg"
+												data-beforeShowEvent="true"> <i class="fa fa-plus-square"></i>
+												收费对象
+											</a>
+										</div>
+									</div>						
+								</div>
+								<div class="panel-body">
+									<div class="panel panel-default table-panel">
+										<table
+											class="table table-striped table-bordered table-hover table-responsive"
+											id="bRPDtoList">
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="tab-pane  fade in " id="tab_saleMatrial">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<div class="panel panel-default table-panel">
+										<table
+											class="table table-striped table-bordered table-hover table-responsive"
+											id="bSPDtoList">
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="tab-pane  fade in " id="tab_additionItem">
+							<div class="panel panel-default">
+								<div class="panel-heading">									
+									<div class="pannel-button">
+										<div class="btn-group btn-group-sm">
+											<a class="btn btn-outline" id="But4"
+												data-url="repair\FeesSettlement\addPayObject4.html"
+												id="TraceTaskHistory" data-toggle="modal" data-width="modal-lg"
+												data-beforeShowEvent="true"> <i class="fa fa-plus-square"></i>
+												收费对象
+											</a>
+										</div>
+									</div>						
+								</div>
+							
+								<div class="panel-body">
+									<div class="panel panel-default table-panel">
+										<table
+											class="table table-striped table-bordered table-hover table-responsive"
+											id="bAIDtoList">
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="tab-pane  fade in " id="tab_hidden1">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<div class="panel panel-default table-panel">
+										<table
+											class="table table-striped table-bordered table-hover table-responsive"
+											id="hiddenList1">
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="tab-pane  fade in " id="tab_hidden2">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<div class="panel panel-default table-panel">
+										<table
+											class="table table-striped table-bordered table-hover table-responsive"
+											id="hiddenList2">
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="tab-pane  fade in " id="tab_hidden3">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<div class="panel panel-default table-panel">
+										<table
+											class="table table-striped table-bordered table-hover table-responsive"
+											id="hiddenList3">
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="tab-pane  fade in " id="tab_hidden4">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<div class="panel panel-default table-panel">
+										<table
+											class="table table-striped table-bordered table-hover table-responsive"
+											id="hiddenList4">
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="tab-pane  fade in " id="tab_hidden5">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<div class="panel panel-default table-panel">
+										<table
+											class="table table-striped table-bordered table-hover table-responsive"
+											id="hiddenList5">
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+
+
+					</div>
+				</div>
+				<div class="col-lg-12 tabbable-custom">
+					<ul class="nav nav-tabs">
+						<li><a href="#tab_receivable" data-toggle="tab"
+							id="receivable">应收</a></li>
+
+						<li><a href="#tab_received" data-toggle="tab" 
+							id="received">实收</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane  fade in active" id="tab_receivable">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<div class="panel panel-default table-panel">
+										<table
+											class="table table-striped table-bordered table-hover table-responsive"
+											id=receivableList>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="tab-pane  fade in " id="tab_received">
+							<div class="panel panel-default">
+								<div class="panel-heading">									
+									<div class="pannel-button">
+										<div class="btn-group btn-group-sm">
+											<a class="btn btn-outline" id="But6"
+												data-url="repair\FeesSettlement\PayObject.html"
+												data-toggle="modal" data-width="modal-lg"
+												data-beforeShowEvent="true"> <i class="fa fa-plus-square"></i>
+												整单拆分
+											</a>
+										</div>
+									</div>						
+								</div>
+							
+								<div class="panel-body">
+									<div class="panel panel-default table-panel">
+										<table
+											class="table table-striped table-bordered table-hover table-responsive"
+											id="receivedList">
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!-- end9 -->
+
+
+			<!-- begin3 -->
+			<div class="col-lg-3 tabbable-custom ">
+				<div class="panel panel-default">
+					<div class="panel-body" data-tableSelect="true">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">账户ID</label>
+								<div class="col-xs-8">
+									<select class="bs-select form-control col-xs-8"
+										id="workOrderNumber" name="workOrderNumber">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">使用金额</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input type="text" class="form-control" id="workOrderNumber"
+											name="workOrderNumber">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 0 -->
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12">
+								<div class="form-group">
+									<label class="control-label col-xs-4 ">会员级别</label>
+									<div class="col-xs-8">
+										<select class="bs_select form-control" id="workOrderNumber"
+											name="workOrderNumber">
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12  ">
+								<div class="form-group">
+									<label class="control-label col-xs-4 ">优惠模式</label>
+									<div class="col-xs-8">
+										<select class="bs-select form-control"
+											data-url="/basedata/discountmodes/queryDiscountMode"
+											data-model="repair" data-labelValue="DISCOUNT_MODE_CODE"
+											data-lableDesc="DISCOUNT_MODE_NAME" id="discountModeCode">
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 1 -->
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="row ">
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12">
+								<div class="form-group">
+									<label class="control-label col-xs-4 ">合约编号</label>
+									<div class="col-xs-8">
+										<div class="input-group">
+											<input type="text" class="form-control" id="workOrderNumber"
+												name="workOrderNumber">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12  ">
+								<div class="form-group">
+									<label class="control-label col-xs-4 ">合同证书</label>
+									<div class="col-xs-8">
+										<div class="input-group">
+											<input type="text" class="form-control" id="workOrderNumber"
+												name="workOrderNumber">
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12  ">
+								<div class="form-group">
+									<label class="control-label col-xs-4 ">发票编号</label>
+									<div class="col-xs-8">
+										<div class="input-group">
+											<input type="text" class="form-control" id="workOrderNumber"
+												name="workOrderNumber">
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12  ">
+								<div class="form-group">
+									<label class="control-label col-xs-4 ">发票类型</label>
+									<div class="col-xs-8">
+										<select class="bs_select form-control" id="workOrderNumber"
+											name="workOrderNumber">
+										</select>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12  ">
+								<div class="form-group">
+									<label class="control-label col-xs-4 ">付款方式</label>
+									<div class="col-xs-8">
+										<select class="ba-select form-control" id="workOrderNumber"
+											name="workOrderNumber">
+										</select>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12  ">
+								<div class="form-group">
+									<label class="control-label col-xs-4 ">保险公司</label>
+									<div class="col-xs-8">
+										<select class="bs-select form-control" id="workOrderNumber"
+											name="workOrderNumber">
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">理赔单号</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input type="text" class="form-control" id="workOrderNumber"
+											name="workOrderNumber">
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">出险付款方式</label>
+								<div class="col-xs-8">
+									<select class="ba-select form-control" id="workOrderNumber"
+										name="workOrderNumber">
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否欠款选中</label> <select
+									class="bs-select form-control col-xs-8" id="isCheck"
+									name="isCheck" data-dictCode="1278">
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 2 -->
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="row ">
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12">
+								<div class="form-group">
+									<label class="control-label col-xs-4 ">总金额</label>
+									<div class="col-xs-8">
+										<div class="input-group">
+											<input type="text" class="form-control" id="allAmount" readonly
+												name="allAmount">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12  ">
+								<div class="form-group">
+									<label class="control-label col-xs-4 ">积分金额</label>
+									<div class="col-xs-8">
+										<div class="input-group">
+											<input type="text" class="form-control" id="CreditMoney" readonly
+												name="CreditMoney">
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-7  ">
+								<div class="form-group">
+									<label class="control-label col-xs-5 ">消费积分</label>
+									<div class="col-xs-7">
+										<div class="input-group">
+											<input type="text" class="form-control" id="workOrderNumber" readonly
+												name="workOrderNumber">
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-5  ">
+								<div class="form-group">
+									<label class="control-label col-xs-4 ">兑换</label>
+									<div class="col-xs-8">
+										<div class="input-group">
+											<input type="text" class="form-control" id="workOrderNumber" readonly
+												name="workOrderNumber"> <span
+												class="input-group-addon">元</span>
+										</div>
+
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-6  ">
+								<div class="form-group">
+									<label class="control-label col-xs-4 ">税率</label>
+									<div class="col-xs-8">
+										<div class="input-group">
+											<input type="text" class="form-control" id="tax" readonly
+												name="tax">
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-6  ">
+								<div class="form-group">
+									<label class="control-label col-xs-4 ">税额</label>
+									<div class="col-xs-8">
+										<div class="input-group">
+											<input type="text" class="form-control" id="taxAmount" readonly
+												name="taxAmount">
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12  ">
+								<div class="form-group">
+									<label class="control-label col-xs-4 ">不含税金额</label>
+									<div class="col-xs-8">
+										<div class="input-group">
+											<input type="text" class="form-control" id="netAmount" readonly
+												name="netAmount">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12  ">
+								<div class="form-group">
+									<label class="control-label col-xs-4 ">收款金额</label>
+									<div class="col-xs-8">
+										<div class="input-group">
+											<input type="text" class="form-control" id="calcReceiveAmount" readonly
+												name="calcReceiveAmount">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12  ">
+								<div class="form-group">
+									<label class="control-label col-xs-4 ">去零金额</label>
+									<div class="col-xs-8">
+										<div class="input-group">
+											<input type="text" class="form-control" id="subObbAmount" readonly
+												name="subObbAmount">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12  ">
+								<div class="form-group">
+									<label class="control-label col-xs-4 ">抵扣金额</label>
+									<div class="col-xs-8">
+										<div class="input-group">
+											<input type="text" class="form-control" id="giftAmount" readonly
+												name="giftAmount">
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end3 -->
+		<!-- end -->
+		<div class="modal-footer center-block">
+			<!-- <a class="btn blue"><i class="fa fa-undo"></i>去零</a> -->
+			<a class="btn blue" id="OtherCost" data-url="repair\FeesSettlement\otherCost.html"
+				 data-toggle="modal" data-width="modal-md" > 
+				 <i class="fa fa-plus-square"></i> 其他成本
+			 </a>
+
+			<a data-url="/basedata/freeSettlement" data-model="repair" data-method="POST"
+				data-callBack="true" class="btn blue"
+				data-toggle="confirmation"> <i class="fa fa-save"></i>结算
+			</a> 
+			
+			 <a
+				class="btn blue"><i class="fa fa-undo"></i>预打印</a> <a
+				class="btn blue"><i class="fa fa-undo"></i>打印</a> <a
+				class="btn blue"><i class="fa fa-undo"></i>收款</a> <a
+				data-url="/basedata/appendProject/{[ADD_ITEM_CODE]}"
+				data-model="repair" data-method="PUT" data-callBack='true'
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>保存</a> 
+					<a class="btn blue" data-onclickEvent="true"  id = "cancel"><i
+							class="fa fa-undo"></i>取消</a>
+		</div>
+
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event, container) {		
+	var tablode = "";
+	var maxQl = dmsCommon.getSystemParamInfo("1029","1029");
+	new Datatable().initLocale({
+		src : "bLDtoList",
+		container:container,
+		rowID:"CARD_CODE",
+		sortName : "CARD_CODE", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+		sortOrder : "asc",
+		height : 250,
+		columns : [ 
+					{field : "CARD_CODE",title : "会员卡编号"},
+					{field : "MANAGE_SORT_CODE",title : "收费类别"},
+		            {field : "CHARGE_PARTITION_CODE",inputField:"chargePartitionCode",inputHiddenFormat : {},title : "收费区分"}, 
+		            {field : "STD_LABOUR_HOUR",title : "维修类型"}, 
+		            {field : "TROUBLE_DESC",title : "故障原因"},
+		            {field : "LABOUR_CODE",inputField:"labourCode",inputHiddenFormat : {},title : "项目代码",
+						inputHiddenFormat:{hiddenFieldName:"ITEM_ID,TROUBLE_CAUSE,LOCAL_LABOUR_CODE,LOCAL_LABOUR_NAME,WORKER_TYPE_CODE,INTER_RETURN,PRE_CHECK,CONSIGN_EXTERIOR,REPAIR_TYPE_CODE,CARD_ID",
+						hiddenField:"ITEM_ID,TROUBLE_CAUSE,LOCAL_LABOUR_CODE,LOCAL_LABOUR_NAME,WORKER_TYPE_CODE,INTER_RETURN,PRE_CHECK,CONSIGN_EXTERIOR,REPAIR_TYPE_CODE,CARD_ID"}}, 
+		            {field : "LABOUR_NAME",inputField:"labourName",inputHiddenFormat : {},title : "项目名称"}, 
+		            {field : "LABOUR_AMOUNT",inputField:"labourAmount",inputHiddenFormat : {},title : "工时费"}, 
+		            {field : "TECHNICIAN",title:"责任技师"},
+		            {field : "DISCOUNT",inputField:"discount",title : "折扣率", inputNumberFormat : {decimal : 4,validate:{validateClass:"decimal",validateAttr:'maxPrecision="4"'}}}, 
+		            {field : "DIS_LABOUR_AMOUNT",title : "折扣金额",inputField:"zkAmountZ",inputHiddenFormat : {},numberFormat:{decimal:1,autoValueFormat:{autoValue:"(1-#discount)*#labourAmount"}}},
+		            {field : "CALC_REAL_RECEIVE_AMOUNT",title : "实收金额",inputField:"crrAmount",inputHiddenFormat : {},numberFormat:{decimal:2,autoValueFormat:{autoValue:"#labourAmount-#zkAmountZ"}}},
+		            {field : "STD_LABOUR_HOUR",title : "标准工时"},
+		            {field : "ASSIGN_LABOUR_HOUR",title : "派工工时"},
+		            {field : "LABOUR_PRICE",title : "工时单价"},
+		            {field : "ACTIVITY_CODE",title : "活动编号"},
+		            {field : "TROUBLE_DESC",title : "检查结果"},
+		            {field : "PACKAGE_CODE",title : "组合代码"},
+		            {field : "MODEL_LABOUR_CODE",title : "项目车型组"},
+		            {field : "REMARK",title : "备注"},
+		            {field : "MAINTAIN_PACKAGE_CODE",title : "保养套餐代码"},
+		            {radio:true}
+		         ],
+		         onLoadSuccess : function() {
+		        	 
+		        	 tablode = 1;
+						$("#tablode",container).setDmsValue(tablode);
+		        	 $("input[id^='discount']",$("#bLDtoList",container)).bindChange(function(obj) {
+		    			 fun();
+		    		 });
+		        	 
+		        	 $("input[id^='discount']",container).attr("max",1);
+		        	 $("input[id^='discount']",container).attr("min",0);
+		         }
+	});
+	
+	new Datatable().initLocale({
+		src : "bRPDtoList",
+		container:container,
+		rowID:"CARD_CODE",
+		sortName : "CARD_CODE", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+		sortOrder : "asc",
+		height : 250,
+		columns : [ {field : "CARD_CODE",title : "会员卡编号"},
+		            {field : "MANAGE_SORT_CODE",title :"收费类别"},
+		            {field : "CHARGE_PARTITION_CODE",inputField:"chargePartitionCode",inputHiddenFormat : {},title : "收费区分"}, 
+		            {field : "PART_NAME",inputField:"partName",inputHiddenFormat : {},title : "配件名称"},
+		            {field : "PART_SALES_PRICE",title : "配件销售单价",inputField:"partSalesPrice"},
+		            {field : "PART_QUANTITY",inputField:"partQuantity",inputHiddenFormat : {},title : "配件数量"}, 
+		            {field : "PART_SALES_AMOUNT",title : "配件销售金额",inputField:"partSalesAmount",inputHiddenFormat : {},numberFormat:{decimal:2,autoValueFormat:{autoValue:"#partSalesPrice*#partQuantity"}}},
+		            {field : "DISCOUNT",inputField:"discount",title : "折扣率",inputNumberFormat : {decimal : 2,validate:{validateClass:"decimal",validateAttr:'maxPrecision="2"'}}},	            
+		            {field : "CALC_DISCOUNT_AMOUNT",inputField:"zkAmountZ",title : "优惠金额",inputHiddenFormat : {},numberFormat:{decimal:2,autoValueFormat:{autoValue:"(1-#discount)*#partSalesAmount"}}},
+		            {field : "CALC_REAL_RECEIVE_AMOUNT",inputField:"crrAmount",title : "实收金额",inputHiddenFormat : {},numberFormat:{decimal:2,autoValueFormat:{autoValue:"#partSalesAmount-#zkAmountZ"}}},		            
+		            {field : "STORAGE_CODE",title : "仓库代码"},
+		            {field : "UNIT_CODE",title : "计量单位"},		            
+		            {field : "PART_NO",inputField:"partNo",inputHiddenFormat : {},title : "配件代码",
+						inputHiddenFormat:{hiddenFieldName:"ITEM_ID,STORAGE_POSITION_CODE,IS_MAIN_PART,PRICE_TYPE,OEM_LIMIT_PRICE,PART_COST_PRICE,PART_COST_AMOUNT,SENDER,RECEIVER,SEND_TIME,BATCH_NO,PRE_CHECK,INTER_RETURN,REPAIR_TYPE_CODE,CARD_ID",
+						hiddenField:"ITEM_ID,STORAGE_POSITION_CODE,IS_MAIN_PART,PRICE_TYPE,OEM_LIMIT_PRICE,PART_COST_PRICE,PART_COST_AMOUNT,SENDER,RECEIVER,SEND_TIME,BATCH_NO,PRE_CHECK,INTER_RETURN,REPAIR_TYPE_CODE,CARD_ID"}},
+		            {field : "CONSIGN_EXTERIOR",title : "是否委外"},
+		            {field : "ACTIVITY_CODE",title : "活动编号"},
+		            {field : "LABOUR_CODE",title : "维修项目代码"},
+		            {field : "MODEL_LABOUR_CODE",title : "项目车型组"},
+		            {field : "PACKAGE_CODE",title : "组合代码"},
+		            {field : "IS_DISCOUNT",title : "不可打折"},
+		            {field : "PART_CATEGORY",title : "配件类别"},
+		            {field : "MAINTAIN_PACKAGE_CODE",title : "保养套餐代码"},
+		            {radio:true}
+		         ],
+		         onLoadSuccess : function() {
+		        	 
+		        	 tablode = 2;
+						$("#tablode",container).setDmsValue(tablode);
+		        		 var partSalesPrice =  '';
+			        	var partQuantity =  '';
+			        	var partSalesAmount = '';
+			         	var discount = "";
+			        	var zkAmountZ = ""; 
+			        			        	
+			        	var partDate =  $("#bRPDtoList",container).dmsTable().getRowDataByIndex();
+			        	$.each(partDate,function(index,obj){
+			        		partSalesPrice = partDate[index].PART_SALES_PRICE;
+			        		partQuantity = partDate[index].PART_QUANTITY;
+			        		discount = partDate[index].DISCOUNT;   
+			        		partSalesAmount = parseFloat(partSalesPrice)*parseFloat(partQuantity);
+			        		zkAmountZ = (1-parseFloat(discount))*parseFloat(partSalesAmount);
+
+			        	 	//alert(partSalesPrice+","+partQuantity+","+partSalesAmount);
+			        	 	$("#bRPDtoList",container).dmsTable().updateRowByIndex(index,{
+			        	 		"PART_SALES_AMOUNT":partSalesAmount,
+			        	 		"CALC_DISCOUNT_AMOUNT":zkAmountZ,
+			        	 		"CALC_REAL_RECEIVE_AMOUNT":partSalesAmount- zkAmountZ
+			        	 	});	
+			        	 });
+			        	
+			        	
+			        	$("input[id^='discount']",$("#bRPDtoList",container)).bindChange(function(obj) {
+			    			 fun();
+			    		 });
+		         }
+	});
+	
+	new Datatable().initLocale({
+		src : "bSPDtoList",
+		container:container,
+		rowID:"STORAGE_CODE",
+		sortName : "STORAGE_CODE", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+		sortOrder : "asc",
+		height : 250,
+		columns : [
+		           {field : "STORAGE_CODE",title : "仓库代码"},
+                   {field : "STORAGE_NAME",inputField:"STORAGE_NAME",title : "仓库名称"},
+                   {field : "PART_NO",inputField:"PART_NO",title : "配件代码"}, 
+		           {field : "PART_NAME",inputField:"PART_NAME",inputHiddenFormat : {},title : "配件名称"},
+		           {field : "PART_QUANTITY",inputField:"partQuantity",inputHiddenFormat : {},title : "配件销售数量",numberFormat : {decimal : 2}}, 			           
+		           {field : "UNIT_CODE",title : "计量单位"},
+		           {field : "PART_SALES_PRICE",inputField:"partSalesPrice",inputHiddenFormat : {},title : "配件销售单价",numberFormat : {decimal : 2}},   		         
+		           {field : "PART_SALES_AMOUNT",title : "配件销售金额",inputField:"partSalesAmount",inputHiddenFormat : {},numberFormat:{decimal:2,autoValueFormat:{autoValue:"#partSalesPrice*#partQuantity"}}},
+		           {field : "CALC_DISCOUNT_AMOUNT",inputField:"zkAmountZ",title : "优惠金额",inputHiddenFormat : {},numberFormat:{decimal:2,autoValueFormat:{autoValue:"(1-#discount)*#partSalesAmount"}}},
+		           {field : "DISCOUNT",inputField:"discount",title : "折扣率",inputNumberFormat : {decimal : 2,validate:{validateClass:"decimal",validateAttr:'maxPrecision="2"'}}},
+		           {field : "CALC_REAL_RECEIVE_AMOUNT",inputField:"crrAmount",inputHiddenFormat : {},title : "实收金额",numberFormat : {decimal : 2}},
+		           {field : "IS_DISCOUNT",title : "不可打折"},
+		           {radio:true}
+		         ],
+		         onLoadSuccess : function() {
+		        	 tablode = 3;
+					$("#tablode",container).setDmsValue(tablode);
+					
+					$("input[id^='discount']",$("#bSPDtoList",container)).bindChange(function(obj) {
+		    			 fun();
+		    		 });
+					
+		         }
+	});
+	
+	new Datatable().initLocale({
+		src : "bAIDtoList",
+		container:container,
+		rowID:"MANAGE_SORT_CODE",
+		sortName : "MANAGE_SORT_CODE",
+		sortOrder : "asc",
+		height : 250,
+		columns : [    
+		               {field : "MANAGE_SORT_CODE",title : "收费类别"},
+		               {field : "CHARGE_PARTITION_CODE",inputField:"chargePartitionCode",inputHiddenFormat : {},title : "收费区分"},
+			           {field : "ADD_ITEM_CODE",inputField:"addItemCode",inputHiddenFormat : {},title : "附加项目代码",
+							inputHiddenFormat:{hiddenFieldName:"ITEM_ID",
+							hiddenField:"ITEM_ID"}},
+			           {field : "ADD_ITEM_NAME",inputField:"addItemName",inputHiddenFormat : {},title : "附加项目名称"}, 
+			           {field : "ADD_ITEM_AMOUNT",inputField:"addItemAmount",inputHiddenFormat : {},title : "附加项目费"},
+			           {field : "CALC_DISCOUNT_AMOUNT",inputField:"zkAmountZ",inputHiddenFormat : {},title : "折让金额",inputHiddenFormat : {},numberFormat:{decimal:2,autoValueFormat:{autoValue:"(1-#discount)*#addItemAmount"}}}, 
+			           {field : "DISCOUNT",inputField:"discount",inputHiddenFormat : {},title : "折扣率",inputNumberFormat : {decimal : 2,validate:{validateClass:"decimal",validateAttr:'maxPrecision="2"'}}},  			           
+			           {field : "CALC_REAL_RECEIVE_AMOUNT",inputField:"crrAmount",inputHiddenFormat : {},title : "实收金额",inputHiddenFormat : {},numberFormat:{decimal:2,autoValueFormat:{autoValue:"#addItemAmount-#zkAmountZ"}}}, 
+			           {field : "REMARK",title : "备注"},
+			           {field : "ACTIVITY_CODE",title : "活动编码"}, 
+			           {radio:true}
+			           ],
+				         onLoadSuccess : function() {
+				        	 tablode = 4;
+							$("#tablode",container).setDmsValue(tablode);	
+							
+							var addItemAmount = '';
+							var discount = '';
+							var zkAmountZ = '';
+							var crrAmount = '';
+							var addData =  $("#bAIDtoList",container).dmsTable().getRowDataByIndex();
+				        	$.each(addData,function(index,obj){
+				        		addItemAmount = addData[index].ADD_ITEM_AMOUNT;
+				        		discount = addData[index].DISCOUNT;
+  		
+				        		zkAmountZ = (1-parseFloat(discount))*parseFloat(addItemAmount);
+				        		crrAmount = parseFloat(addItemAmount)-parseFloat(zkAmountZ);			        		
+				        			
+				        		$("#bAIDtoList",container).dmsTable().updateRowByIndex(index,{
+				        			"CALC_DISCOUNT_AMOUNT":zkAmountZ,
+				        			"CALC_REAL_RECEIVE_AMOUNT":crrAmount
+				        		});
+				        	});
+							
+				        	$("input[id^='discount']",$("#bAIDtoList",container)).bindChange(function(obj) {
+				    			 fun();
+				    		 });
+							
+				         }
+	});
+	
+	new Datatable().initLocale({
+		src : "receivableList",
+		container:container,
+		rowID:"RO_ADD_ITEM_ID",
+		sortName : "RO_ADD_ITEM_ID",
+		sortOrder : "asc",
+		height : 160,
+		columns : [    
+			 			{field : "PAYMENT_OBJECT_CODE",inputHiddenFormat : {},title : "收费对象代码"},
+		               {field : "PAYMENT_OBJECT_NAME",inputField:"paymentObjectName",inputHiddenFormat : {},title : "收费对象名称"},
+			           {field : "RECEIVEABLE_LABOUR_FEE",inputField:"receiveableLabourFee",inputHiddenFormat : {},title : "应收工时费"},
+			           {field : "RECEIVEABLE_REPAIR_PART_FEE",inputField:"receiveableRepairPartFee",inputHiddenFormat : {},title : "应收维修材料费"}, 
+			           {field : "RECEIVEABLE_SALES_PART_FEE",inputField:"receiveableSalesPartFee",inputHiddenFormat : {},title : "应收销售材料费"},
+			           {field : "RECEIVEABLE_ADD_ITEM_FEE",inputField:"receiveableAddItemFee",inputHiddenFormat : {},title : "应收附加项目费"}, 
+			           {field : "RECEIVEABLE_OVER_ITEM_FEE",inputField:"receiveableOverItemFee",inputHiddenFormat : {},title : "应收辅料管理费"},  			           
+			           {field : "CALC_RECEIVEABLE_TOTAL_AMOUNT",inputField:"calcReceiveableTotalAmount",inputHiddenFormat : {},title : "应收总金额"}			           
+			       ]
+	});	
+	//#receiveableLabourFee+#receiveableRepairPartFee+#receiveableSalesPartFee+#receiveableAddItemFee+#receiveableOverItemFee
+	new Datatable().initLocale({
+		src : "receivedList",
+		container:container,
+		rowID:"RO_ADD_ITEM_ID",
+		sortName : "RO_ADD_ITEM_ID",
+		sortOrder : "asc",
+		height : 120,
+		columns : [    
+					  
+		               {field : "PAYMENT_OBJECT_CODE",inputField:"paymentObjectCode",inputHiddenFormat : {},title : "收费对象代码"},
+		               {field : "PAYMENT_OBJECT_NAME",inputField:"paymentObjectName",inputHiddenFormat : {},title : "收费对象名称"},
+			           {field : "REAL_LABOUR_FEE",inputField:"realLabourFee",inputHiddenFormat : {},title : "实收工时费"},
+			           {field : "REAL_REPAIR_PART_FEE",inputField:"realRepairPartFee",inputHiddenFormat : {},title : "实收维修材料费"}, 
+			           {field : "REAL_SALES_PART_FEE",inputField:"realSalesPartFee",inputHiddenFormat : {},title : "实收销售材料费"},
+			           {field : "REAL_ADD_ITEM_FEE",inputField:"realAddItemFee",inputHiddenFormat : {},title : "实收附加项目费"}, 
+			           {field : "REAL_OVER_ITEM_FEE",inputField:"realOverItemFee",inputHiddenFormat : {},title : "实收辅料管理费"},  
+			           {field : "CALC_SUM_AMOUNT",inputField:"calcSumAmount",inputHiddenFormat : {},title : "汇总金额"},
+			           {field : "CALC_REAL_TOTAL_AMOUNT",inputField:"calcRealTotalAmount",inputHiddenFormat : {},title : "实收总金额"}, 
+			           {field : "CALC_TAX_AMOUNT",inputField:"calcTaxAmount",inputHiddenFormat : {},title : "税额"},
+			           {field : "CALC_NET_AMOUNT",inputField:"calcNetAmount",inputHiddenFormat : {},title : "不含税金额"},
+			           {field : "CARDS_AMOUNT",inputField:"cardsAmount",inputHiddenFormat : {},title : "积分金额"},
+			           {field : "GIFT_AMOUNT",inputField:"giftAmount",inputHiddenFormat : {},title : "抵扣金额"},				           
+			           {field : "SUB_OBB_AMOUNT",inputField:"subObbAmount",title : "去零金额", inputNumberFormat : {decimal : 2,validate:{validateClass:"money",validateAttr:'max="30"'}}},				          
+			           {field : "CALC_RECEIVABLE_AMOUNT",inputField:"calcReceivableAmount",inputHiddenFormat : {},title : "应收账款",numberFormat :
+						{decimal : 2,autoValueFormat:{autoValue:"#calcRealTotalAmount-#subObbAmount-#cardsAmount-#giftAmount"}}},		 
+					   {field : "RECEIVED_AMOUNT",inputField:"receivedAmount",inputHiddenFormat : {},title : "已收账款"},
+			           {field : "NOT_RECEIVED_AMOUNT",inputField:"notReceivedAmount",inputHiddenFormat : {},title : "未收账款"},
+			           {field : "PAY_OFF",inputHiddenFormat : {},title : "是否结清",codeFormat : {type:"dict",codeType:"1278"}},
+			           {field : "INVOICE_TAG",inputHiddenFormat : {},title : "已开票",codeFormat : {type:"dict",codeType:"1278"}},
+			           {radio:true}
+			           ],
+				         onLoadSuccess : function() {
+
+				         }
+	});
+	
+	new Datatable().initLocale({
+		src : "hiddenList1",
+		container:container,
+		rowID:"PAYMENT_OBJECT_CODE",
+		sortName : "PAYMENT_OBJECT_CODE",
+		sortOrder : "asc",
+		autoHeight : false,
+		columns : [    
+			{field : "LABOUR_CODE",inputHiddenFormat : {},title : "项目代码"},		  
+           {field : "PAYMENT_OBJECT_CODE",inputHiddenFormat : {},title : "收费对象代码"},
+           {field : "PAYMENT_OBJECT_NAME",inputHiddenFormat : {},title : "收费对象名称"},
+           {field : "LABOUR_AMOUNT",inputHiddenFormat : {},inputField:"labourAmount",title : "应收金额"},
+           {field : "DISCOUNT",inputHiddenFormat : {},title : "折扣率"},
+         
+           ],
+         onLoadSuccess : function() {
+         }
+	});
+	
+	new Datatable().initLocale({
+		src : "hiddenList2",
+		container:container,
+		rowID:"PAYMENT_OBJECT_CODE",
+		sortName : "PAYMENT_OBJECT_CODE",
+		sortOrder : "asc",
+		autoHeight : false,
+		columns : [    
+			{field : "PART_NAME",inputHiddenFormat : {},title : "配件名称"},	
+           {field : "PAYMENT_OBJECT_CODE",inputHiddenFormat : {},title : "收费对象代码"},
+           {field : "PAYMENT_OBJECT_NAME",inputHiddenFormat : {},title : "收费对象名称"},
+           {field : "LABOUR_AMOUNT",inputHiddenFormat : {},inputField:"labourAmount",title : "应收金额"},
+           {field : "DISCOUNT",inputHiddenFormat : {},title : "折扣率"},
+         
+           ],
+         onLoadSuccess : function() {
+         }
+	});
+	
+	new Datatable().initLocale({
+		src : "hiddenList4",
+		container:container,
+		rowID:"PAYMENT_OBJECT_CODE",
+		sortName : "PAYMENT_OBJECT_CODE",
+		sortOrder : "asc",
+		autoHeight : false,
+		columns : [    
+			{field : "ADD_ITEM_CODE",inputField:"addItemCode",inputHiddenFormat : {},title : "附加项目代码"},
+           {field : "PAYMENT_OBJECT_CODE",inputHiddenFormat : {},title : "收费对象代码"},
+           {field : "PAYMENT_OBJECT_NAME",inputHiddenFormat : {},title : "收费对象名称"},
+           {field : "LABOUR_AMOUNT",inputHiddenFormat : {},inputField:"labourAmount",title : "应收金额"},
+           {field : "DISCOUNT",inputHiddenFormat : {},title : "折扣率"},
+          
+           ],
+         onLoadSuccess : function() {
+         }
+	});
+	
+	new Datatable().initLocale({
+		src : "hiddenList5",
+		container : container,
+		rowID : "OTHER_COST_CODE",
+		sortName : "OTHER_COST_CODE", //默认按主键升序排列
+		sortOrder : "asc",
+		autoHeight:false,
+		columns : [
+			{field : "OTHER_COST_CODE",title : "其他成本代码"},
+			{field : "OTHER_COST_NAME",title : "其他成本名称"},						
+			{field : "OTHER_COST_AMOUNT",title : "其他成本金额"}
+		]
+	})
+	
+	
+	
+	$("input[name='roNo']", container).bindChange(function(obj) {
+		if ($("input[name='roNo']").val() != null&& $("input[name='roNo']").val() != '') {
+			$("#bLDtoList",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["repair"]
+				+ "/basedata/freeSettlement/queryRoLabourByRoNO/"+ $("input[name='roNo']").val());
+			
+			$("#bRPDtoList",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["repair"]
+				+ "/basedata/freeSettlement/queryRoRepairPartByRoNO/"+ $("input[name='roNo']").val());
+			
+			$("#bAIDtoList",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["repair"]
+				+ "/basedata/freeSettlement/queryRoAddItemByRoNO/"+ $("input[name='roNo']").val());	
+			
+		}
+	});
+	
+	$("input[name='salesPartNo']", container).bindChange(function(obj) {
+		if ($("input[name='salesPartNo']").val() != null&& $("input[name='salesPartNo']").val() != '') {
+			$("#bSPDtoList",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["repair"]
+			+ "/basedata/freeSettlement/querySalesPartList/"+ $("input[name='salesPartNo']").val());
+		}
+		
+	});
+	
+	var sPayObjectName = "";
+	var sPayObjectCode = "";
+	//默认车主编号-主机厂
+	var sPayObjectCodeOEM = "";
+	var sPayObjectNameOEM = "";
+	//默认车主编号-经销商
+	var sPayObjectCodeDLR = "";
+	var sPayObjectNameDLR = "";
+	
+	var roNo = "";
+	var salesPartNo = "";
+	var balanceModeCode = ""; //结算模式代码	
+	var invoiceTypeCode = ""; //发票类型代码
+	var payTypeCode = "";     //付款方式代码
+	var tax = "";			  //税率	
+	var insurationCode = "";  //保修公司代码
+	var insurationNo = "";    //理赔单号   
+	var remark = "";
+	var remark1 = "";
+	
+	//应收,实收字段定义
+	
+	//维修项目
+	var wx_paymentObjectCode = "";
+	var wx_paymentObjectName = "";
+	var wx_linkRecordId = "";     //序号
+	var wx_receiveableAmount = "";//应收金额
+	var wx_discount = "";         //折扣率 
+	var wx_realReceiveAmount = "";//实收金额
+	
+	//维修材料
+	var wxc_paymentObjectCode = "";
+	var wxc_paymentObjectName = "";
+	var wxc_linkRecordId = "";     //序号
+	var wxc_receiveableAmount = "";//应收金额
+	var wxc_discount = "";         //折扣率 
+	var wxc_realReceiveAmount = "";//实收金额
+	
+	//销售材料
+	var xs_paymentObjectCode = "";
+	var xs_paymentObjectName = "";
+	var xs_linkRecordId = "";     //序号
+	var xs_receiveableAmount = "";//应收金额
+	var xs_discount = "";         //折扣率 
+	var xs_realReceiveAmount = "";//实收金额
+	
+	//附加项目
+	var fj_paymentObjectCode = "";
+	var fj_paymentObjectName = "";
+	var fj_linkRecordId = "";     //序号
+	var fj_receiveableAmount = "";//应收金额
+	var fj_discount = "";         //折扣率 
+	var fj_realReceiveAmount = "";//实收金额
+	
+	
+	 $("input[id='tablode']", container).bindChange(function(obj) {	
+		
+		 fun();			
+	}); 
+	 
+	 //$("#allAmount",container).setDmsValue(CALC_REAL_TOTAL_AMOUNT);
+	 
+	 $("#discountModeCode", container).bindChange(function(obj) {	
+		var labourAmountDiscount = dmsDict.getSelectedOptionData($("#discountModeCode",container)).LABOUR_AMOUNT_DISCOUNT;
+		//alert(labourAmountDiscount);
+		$("input[id^='discount']",$("#bLDtoList tbody",container)).setDmsValue(labourAmountDiscount);
+
+	 });
+
+	 var fun = function (){
+
+			console.log("================表格加载完成==============");
+			
+			//var row = $("#bLDtoList",container).dmsTable().getRowDataByIndex();
+			//console.log(JSON.stringify(row));
+			//带过来的车主
+			sPayObjectName = $("#owner",container).val();
+			sPayObjectCode = $("#ownerNo",container).val();
+			//默认车主编号-主机厂
+			sPayObjectCodeOEM = "999999999999";
+			sPayObjectNameOEM = "OEM(主机厂)";
+			//默认车主编号-经销商
+			sPayObjectCodeDLR = "888888888888";
+			sPayObjectNameDLR = "4S站";
+			
+			if(sPayObjectCode == ""){
+				sPayObjectCode = $("#customerCode",container).val();
+				sPayObjectName = $("#customerName",container).val();
+			}
+			
+			roNo = $("#roNo",container).val();
+			salesPartNo = $("#salesPartNo",container).val();
+			balanceModeCode = dmsCommon.getSystemParamInfo("1055","1055");
+			invoiceTypeCode = dmsCommon.getSystemParamInfo("1030","1030");
+			payTypeCode = dmsCommon.getSystemParamInfo("1031","1031");
+			tax = dmsCommon.getSystemParamInfo("1003","1003");
+			insurationCode = $("#insurationCode",container).val();
+			insurationNo = $("#insurationNo",container).val();
+			remark = $("#remark",container).val();
+			remark1 = $("#remark1",container).val();
+			
+			var row  = $("#bLDtoList",container).dmsTable().getRowDataByIndex();//维修项目
+			var row2 = $("#bRPDtoList",container).dmsTable().getRowDataByIndex();//维修材料
+			var row3 = $("#bSPDtoList",container).dmsTable().getRowDataByIndex();//销售材料
+			var row4 = $("#bAIDtoList",container).dmsTable().getRowDataByIndex();//附加项目
+			//debugger
+			
+			
+			var graphs=[];
+			var labourArray = [];
+			var repairArray = [];
+			var saleArray = [];
+			var addItemArray = [];
+			$.each(row,function(index,obj){
+				var jsonG={};
+				var LabourPayObjects = {};
+				
+				if(obj.CHARGE_PARTITION_CODE == "S"){
+					wx_paymentObjectCode = sPayObjectCodeOEM;
+					wx_paymentObjectName = sPayObjectNameOEM;
+				}else if(obj.CHARGE_PARTITION_CODE != ""){
+					wx_paymentObjectCode = sPayObjectCodeDLR;
+					wx_paymentObjectName = sPayObjectNameDLR;
+				}else{
+					wx_paymentObjectCode = sPayObjectCode;
+					wx_paymentObjectName = sPayObjectName;
+				}
+				
+				wx_linkRecordId = index;
+				wx_receiveableAmount = $("input[id^='labourAmount']",$("tr[data-index='"+index+"']")).val();	
+				wx_discount = $("input[id^='discount']",$("tr[data-index='"+index+"']")).val();				
+				wx_realReceiveAmount = $("input[id^='crrAmount']",$("tr[data-index='"+index+"']")).val();
+				
+				if(labourArray.length == 0){
+					LabourPayObjects['paymentObjectCode'] = wx_paymentObjectCode;
+					LabourPayObjects['paymentObjectName'] = wx_paymentObjectName;
+					//tab1
+					LabourPayObjects['receiveableAmount1'] = wx_receiveableAmount;
+					LabourPayObjects['realReceiveAmount1'] = wx_realReceiveAmount;
+					//tab2
+					LabourPayObjects['receiveableAmount2'] = wxc_receiveableAmount;
+					LabourPayObjects['realReceiveAmount2'] = wxc_realReceiveAmount;
+					//tab3
+					LabourPayObjects['receiveableAmount3'] = xs_receiveableAmount;
+					LabourPayObjects['realReceiveAmount3'] = xs_realReceiveAmount;
+					//tab4
+					LabourPayObjects['receiveableAmount4'] = fj_receiveableAmount;
+					LabourPayObjects['realReceiveAmount4'] = fj_realReceiveAmount;
+					
+					//总
+					LabourPayObjects['receiveableAmount'] = parseFloat(wx_receiveableAmount)+
+						parseFloat(wxc_receiveableAmount)+parseFloat(xs_receiveableAmount)+parseFloat(fj_receiveableAmount);
+					LabourPayObjects['realReceiveAmount'] = parseFloat(wx_realReceiveAmount)+
+					parseFloat(wxc_realReceiveAmount)+parseFloat(xs_realReceiveAmount)+parseFloat(fj_realReceiveAmount);
+					
+					LabourPayObjects['discount'] = wx_discount;
+					labourArray.push(LabourPayObjects);
+				}else{
+					$.each(labourArray, function (n, value) {
+						if(wx_paymentObjectCode == value['paymentObjectCode']){
+							value['receiveableAmount1'] = parseFloat(value['receiveableAmount1']) + parseFloat(wx_receiveableAmount);
+							value['realReceiveAmount1'] = parseFloat(value['realReceiveAmount1']) + parseFloat(wx_realReceiveAmount);
+						}else {
+							LabourPayObjects['paymentObjectCode'] = wx_paymentObjectCode;
+							LabourPayObjects['paymentObjectName'] = wx_paymentObjectName;
+							//tab1
+							LabourPayObjects['receiveableAmount1'] = wx_receiveableAmount;
+							LabourPayObjects['realReceiveAmount1'] = wx_realReceiveAmount;
+							//tab2
+							LabourPayObjects['receiveableAmount2'] = wxc_receiveableAmount;
+							LabourPayObjects['realReceiveAmount2'] = wxc_realReceiveAmount;
+							//tab3
+							LabourPayObjects['receiveableAmount3'] = xs_receiveableAmount;
+							LabourPayObjects['realReceiveAmount3'] = xs_realReceiveAmount;
+							//tab4
+							LabourPayObjects['receiveableAmount4'] = fj_receiveableAmount;
+							LabourPayObjects['realReceiveAmount4'] = fj_realReceiveAmount;
+							
+							//总
+							LabourPayObjects['receiveableAmount'] = parseFloat(wx_receiveableAmount)+
+								parseFloat(wxc_receiveableAmount)+parseFloat(xs_receiveableAmount)+parseFloat(fj_receiveableAmount);
+							LabourPayObjects['realReceiveAmount'] = parseFloat(wx_realReceiveAmount)+
+							parseFloat(wxc_realReceiveAmount)+parseFloat(xs_realReceiveAmount)+parseFloat(fj_realReceiveAmount);
+							
+							LabourPayObjects['discount'] = wx_discount;
+							labourArray.push(LabourPayObjects);
+						}
+					});
+				}
+
+				if(graphs.length == 0){
+					jsonG['paymentObjectCode'] = wx_paymentObjectCode;
+					jsonG['paymentObjectName'] = wx_paymentObjectName;
+
+					//tab1
+					jsonG['receiveableAmount1'] = wx_receiveableAmount;
+					jsonG['realReceiveAmount1'] = wx_realReceiveAmount;
+					//tab2
+					jsonG['receiveableAmount2'] = wxc_receiveableAmount;
+					jsonG['realReceiveAmount2'] = wxc_realReceiveAmount;
+					//tab3
+					jsonG['receiveableAmount3'] = xs_receiveableAmount;
+					jsonG['realReceiveAmount3'] = xs_realReceiveAmount;
+					//tab4
+					jsonG['receiveableAmount4'] = fj_receiveableAmount;
+					jsonG['realReceiveAmount4'] = fj_realReceiveAmount;
+					
+					//总
+					jsonG['receiveableAmount'] = parseFloat(wx_receiveableAmount)+
+						parseFloat(wxc_receiveableAmount)+parseFloat(xs_receiveableAmount)+parseFloat(fj_receiveableAmount);
+					jsonG['realReceiveAmount'] = parseFloat(wx_realReceiveAmount)+
+					parseFloat(wxc_realReceiveAmount)+parseFloat(xs_realReceiveAmount)+parseFloat(fj_realReceiveAmount);
+					
+					
+					jsonG['discount'] = wx_discount;
+					graphs.push(jsonG);
+				}else{
+					$.each(graphs, function (n, value) {
+						if(wx_paymentObjectCode == value['paymentObjectCode']){
+							value['receiveableAmount1'] = parseFloat(value['receiveableAmount1']) + parseFloat(wx_receiveableAmount);
+							value['realReceiveAmount1'] = parseFloat(value['realReceiveAmount1']) + parseFloat(wx_realReceiveAmount);
+						}else {
+							jsonG['paymentObjectCode'] = wx_paymentObjectCode;
+							jsonG['paymentObjectName'] = wx_paymentObjectName;
+
+							//tab1
+							jsonG['receiveableAmount1'] = wx_receiveableAmount;
+							jsonG['realReceiveAmount1'] = wx_realReceiveAmount;
+							//tab2
+							jsonG['receiveableAmount2'] = wxc_receiveableAmount;
+							jsonG['realReceiveAmount2'] = wxc_realReceiveAmount;
+							//tab3
+							jsonG['receiveableAmount3'] = xs_receiveableAmount;
+							jsonG['realReceiveAmount3'] = xs_realReceiveAmount;
+							//tab4
+							jsonG['receiveableAmount4'] = fj_receiveableAmount;
+							jsonG['realReceiveAmount4'] = fj_realReceiveAmount;
+							
+							//总
+							jsonG['receiveableAmount'] = parseFloat(wx_receiveableAmount)+
+								parseFloat(wxc_receiveableAmount)+parseFloat(xs_receiveableAmount)+parseFloat(fj_receiveableAmount);
+							jsonG['realReceiveAmount'] = parseFloat(wx_realReceiveAmount)+
+							parseFloat(wxc_realReceiveAmount)+parseFloat(xs_realReceiveAmount)+parseFloat(fj_realReceiveAmount);
+							
+							
+							jsonG['discount'] = wx_discount;
+							graphs.push(jsonG);
+						}
+					});
+				}
+				//alert("折扣率   "+discount);					
+			});
+			
+			
+			
+		 	$.each(row2,function(index,obj){
+				
+				var jsonG={};
+				var RepairPartPayObjects = {};
+				if(obj.CHARGE_PARTITION_CODE == "S"){
+					wxc_paymentObjectCode = sPayObjectCodeOEM;
+					wxc_paymentObjectName = sPayObjectNameOEM;
+				}else if(obj.CHARGE_PARTITION_CODE != ""){
+					wxc_paymentObjectCode = sPayObjectCodeDLR;
+					wxc_paymentObjectName = sPayObjectNameDLR;
+				}else{
+					wxc_paymentObjectCode = sPayObjectCode;
+					wxc_paymentObjectName = sPayObjectName;
+				}
+				
+				wxc_linkRecordId = index;
+				wxc_receiveableAmount = row2[index].PART_SALES_AMOUNT;
+				wxc_discount =  row2[index].DISCOUNT;
+				wxc_realReceiveAmount = row2[index].CALC_REAL_RECEIVE_AMOUNT;
+				
+				if(repairArray.length == 0){
+					RepairPartPayObjects['paymentObjectCode'] = wxc_paymentObjectCode;
+
+					//tab1
+					RepairPartPayObjects['receiveableAmount1'] = wx_receiveableAmount;
+					RepairPartPayObjects['realReceiveAmount1'] = wx_realReceiveAmount;
+					//tab2
+					RepairPartPayObjects['receiveableAmount2'] = wxc_receiveableAmount;
+					RepairPartPayObjects['realReceiveAmount2'] = wxc_realReceiveAmount;
+					//tab3
+					RepairPartPayObjects['receiveableAmount3'] = xs_receiveableAmount;
+					RepairPartPayObjects['realReceiveAmount3'] = xs_realReceiveAmount;
+					//tab4
+					RepairPartPayObjects['receiveableAmount4'] = fj_receiveableAmount;
+					RepairPartPayObjects['realReceiveAmount4'] = fj_realReceiveAmount;
+					
+					//总
+					RepairPartPayObjects['receiveableAmount'] = parseFloat(wx_receiveableAmount)+
+						parseFloat(wxc_receiveableAmount)+parseFloat(xs_receiveableAmount)+parseFloat(fj_receiveableAmount);
+					RepairPartPayObjects['realReceiveAmount'] = parseFloat(wx_realReceiveAmount)+
+						parseFloat(wxc_realReceiveAmount)+parseFloat(xs_realReceiveAmount)+parseFloat(fj_realReceiveAmount);
+					
+					repairArray.push(RepairPartPayObjects);
+				}else{
+					$.each(repairArray, function (n, value) {
+						if(wxc_paymentObjectCode == value['paymentObjectCode']){
+							value['receiveableAmount2'] = parseFloat(value['receiveableAmount2']) + parseFloat(wxc_receiveableAmount);
+							value['realReceiveAmount2'] = parseFloat(value['realReceiveAmount2']) + parseFloat(wxc_realReceiveAmount);
+						}else {
+							RepairPartPayObjects['paymentObjectCode'] = wxc_paymentObjectCode;
+
+							//tab1
+							RepairPartPayObjects['receiveableAmount1'] = wx_receiveableAmount;
+							RepairPartPayObjects['realReceiveAmount1'] = wx_realReceiveAmount;
+							//tab2
+							RepairPartPayObjects['receiveableAmount2'] = wxc_receiveableAmount;
+							RepairPartPayObjects['realReceiveAmount2'] = wxc_realReceiveAmount;
+							//tab3
+							RepairPartPayObjects['receiveableAmount3'] = xs_receiveableAmount;
+							RepairPartPayObjects['realReceiveAmount3'] = xs_realReceiveAmount;
+							//tab4
+							RepairPartPayObjects['receiveableAmount4'] = fj_receiveableAmount;
+							RepairPartPayObjects['realReceiveAmount4'] = fj_realReceiveAmount;
+							
+							//总
+							RepairPartPayObjects['receiveableAmount'] = parseFloat(wx_receiveableAmount)+
+								parseFloat(wxc_receiveableAmount)+parseFloat(xs_receiveableAmount)+parseFloat(fj_receiveableAmount);
+							RepairPartPayObjects['realReceiveAmount'] = parseFloat(wx_realReceiveAmount)+
+								parseFloat(wxc_realReceiveAmount)+parseFloat(xs_realReceiveAmount)+parseFloat(fj_realReceiveAmount);
+
+							repairArray.push(RepairPartPayObjects);
+						}
+					});
+				}
+				
+				
+				console.log("111111"+repairArray);
+
+				if(graphs.length == 0){
+					
+					jsonG['paymentObjectCode'] = wxc_paymentObjectCode;
+					jsonG['paymentObjectName'] = wxc_paymentObjectName;
+					
+					//tab1
+					jsonG['receiveableAmount1'] = wx_receiveableAmount;
+					jsonG['realReceiveAmount1'] = wx_realReceiveAmount;
+					//tab2
+					jsonG['receiveableAmount2'] = wxc_receiveableAmount;
+					jsonG['realReceiveAmount2'] = wxc_realReceiveAmount;
+					//tab3
+					jsonG['receiveableAmount3'] = xs_receiveableAmount;
+					jsonG['realReceiveAmount3'] = xs_realReceiveAmount;
+					//tab4
+					jsonG['receiveableAmount4'] = fj_receiveableAmount;
+					jsonG['realReceiveAmount4'] = fj_realReceiveAmount;
+					
+					//总
+					jsonG['receiveableAmount'] = parseFloat(wx_receiveableAmount)+
+						parseFloat(wxc_receiveableAmount)+parseFloat(xs_receiveableAmount)+parseFloat(fj_receiveableAmount);
+					jsonG['realReceiveAmount'] = parseFloat(wx_realReceiveAmount)+
+						parseFloat(wxc_realReceiveAmount)+parseFloat(xs_realReceiveAmount)+parseFloat(fj_realReceiveAmount);
+
+					jsonG['discount'] = wxc_discount;
+					graphs.push(jsonG);
+				}else {						
+					$.each(graphs, function (n, value) {
+						if(wxc_paymentObjectCode == value['paymentObjectCode']){
+							value['receiveableAmount2'] = parseFloat(value['receiveableAmount2']) + parseFloat(wxc_receiveableAmount);
+							value['realReceiveAmount2'] = parseFloat(value['realReceiveAmount2']) + parseFloat(wxc_realReceiveAmount);
+						}else {
+							jsonG['paymentObjectCode'] = wxc_paymentObjectCode;
+							jsonG['paymentObjectName'] = wxc_paymentObjectName;
+							//tab1
+							jsonG['receiveableAmount1'] = wx_receiveableAmount;
+							jsonG['realReceiveAmount1'] = wx_realReceiveAmount;
+							//tab2
+							jsonG['receiveableAmount2'] = wxc_receiveableAmount;
+							jsonG['realReceiveAmount2'] = wxc_realReceiveAmount;
+							//tab3
+							jsonG['receiveableAmount3'] = xs_receiveableAmount;
+							jsonG['realReceiveAmount3'] = xs_realReceiveAmount;
+							//tab4
+							jsonG['receiveableAmount4'] = fj_receiveableAmount;
+							jsonG['realReceiveAmount4'] = fj_realReceiveAmount;
+							//总
+							jsonG['receiveableAmount'] = parseFloat(wx_receiveableAmount)+
+								parseFloat(wxc_receiveableAmount)+parseFloat(xs_receiveableAmount)+parseFloat(fj_receiveableAmount);
+							jsonG['realReceiveAmount'] = parseFloat(wx_realReceiveAmount)+
+								parseFloat(wxc_realReceiveAmount)+parseFloat(xs_realReceiveAmount)+parseFloat(fj_realReceiveAmount);
+							jsonG['discount'] = wxc_discount;
+							graphs.push(jsonG);
+						}
+					});
+				}
+				console.log("222222222"+graphs);
+				
+			}); 
+		 	
+		 	
+		 	
+			
+
+		 	
+		 	$.each(row3,function(index,obj){
+				var jsonG={};
+				var SalePartPayObjects = {};
+				if(obj.CHARGE_PARTITION_CODE == "S"){
+					xs_paymentObjectCode = sPayObjectCodeOEM;
+					xs_paymentObjectName = sPayObjectNameOEM;
+				}else if(obj.CHARGE_PARTITION_CODE != ""){
+					xs_paymentObjectCode = sPayObjectCodeDLR;
+					xs_paymentObjectName = sPayObjectNameDLR;
+				}else{
+					xs_paymentObjectCode = sPayObjectCode;
+					xs_paymentObjectName = sPayObjectName;
+				}
+				
+				xs_linkRecordId = index;				
+		
+				xs_receiveableAmount = row3[index].PART_SALES_AMOUNT;
+				xs_discount =  row3[index].DISCOUNT;
+				xs_realReceiveAmount = row3[index].CALC_REAL_RECEIVE_AMOUNT;
+				
+			
+				if(saleArray.length == 0){
+					SalePartPayObjects['paymentObjectCode'] = xs_paymentObjectCode;
+					SalePartPayObjects['paymentObjectName'] = xs_paymentObjectName;
+					
+					//tab1
+					SalePartPayObjects['receiveableAmount1'] = wx_receiveableAmount;
+					SalePartPayObjects['realReceiveAmount1'] = wx_realReceiveAmount;
+					//tab2
+					SalePartPayObjects['receiveableAmount2'] = wxc_receiveableAmount;
+					SalePartPayObjects['realReceiveAmount2'] = wxc_realReceiveAmount;
+					//tab3
+					SalePartPayObjects['receiveableAmount3'] = xs_receiveableAmount;
+					SalePartPayObjects['realReceiveAmount3'] = xs_realReceiveAmount;
+					//tab4
+					SalePartPayObjects['receiveableAmount4'] = fj_receiveableAmount;
+					SalePartPayObjects['realReceiveAmount4'] = fj_realReceiveAmount;
+					//总
+					SalePartPayObjects['receiveableAmount'] = parseFloat(wx_receiveableAmount)+
+						parseFloat(wxc_receiveableAmount)+parseFloat(xs_receiveableAmount)+parseFloat(fj_receiveableAmount);
+					SalePartPayObjects['realReceiveAmount'] = parseFloat(wx_realReceiveAmount)+
+						parseFloat(wxc_realReceiveAmount)+parseFloat(xs_realReceiveAmount)+parseFloat(fj_realReceiveAmount);
+					
+					SalePartPayObjects['discount'] = xs_discount;
+					saleArray.push(SalePartPayObjects);
+				}else {						
+					$.each(saleArray, function (n, value) {
+						if(xs_paymentObjectCode == value['paymentObjectCode']){
+							value['receiveableAmount3'] = parseFloat(value['receiveableAmount3']) + parseFloat(xs_receiveableAmount);
+							value['realReceiveAmount3'] = parseFloat(value['realReceiveAmount3']) + parseFloat(xs_realReceiveAmount);
+						}else {
+							SalePartPayObjects['paymentObjectCode'] = xs_paymentObjectCode;
+							SalePartPayObjects['paymentObjectName'] = xs_paymentObjectName;
+							
+							//tab1
+							SalePartPayObjects['receiveableAmount1'] = wx_receiveableAmount;
+							SalePartPayObjects['realReceiveAmount1'] = wx_realReceiveAmount;
+							//tab2
+							SalePartPayObjects['receiveableAmount2'] = wxc_receiveableAmount;
+							SalePartPayObjects['realReceiveAmount2'] = wxc_realReceiveAmount;
+							//tab3
+							SalePartPayObjects['receiveableAmount3'] = xs_receiveableAmount;
+							SalePartPayObjects['realReceiveAmount3'] = xs_realReceiveAmount;
+							//tab4
+							SalePartPayObjects['receiveableAmount4'] = fj_receiveableAmount;
+							SalePartPayObjects['realReceiveAmount4'] = fj_realReceiveAmount;
+							//总
+							SalePartPayObjects['receiveableAmount'] = parseFloat(wx_receiveableAmount)+
+								parseFloat(wxc_receiveableAmount)+parseFloat(xs_receiveableAmount)+parseFloat(fj_receiveableAmount);
+							SalePartPayObjects['realReceiveAmount'] = parseFloat(wx_realReceiveAmount)+
+								parseFloat(wxc_realReceiveAmount)+parseFloat(xs_realReceiveAmount)+parseFloat(fj_realReceiveAmount);
+							
+							SalePartPayObjects['discount'] = xs_discount;
+							saleArray.push(SalePartPayObjects);
+						}
+					});
+				}
+				
+				if(graphs.length == 0){
+					jsonG['paymentObjectCode'] = xs_paymentObjectCode;
+					jsonG['paymentObjectName'] = xs_paymentObjectName;
+					
+					//tab1
+					jsonG['receiveableAmount1'] = wx_receiveableAmount;
+					jsonG['realReceiveAmount1'] = wx_realReceiveAmount;
+					//tab2
+					jsonG['receiveableAmount2'] = wxc_receiveableAmount;
+					jsonG['realReceiveAmount2'] = wxc_realReceiveAmount;
+					//tab3
+					jsonG['receiveableAmount3'] = xs_receiveableAmount;
+					jsonG['realReceiveAmount3'] = xs_realReceiveAmount;
+					//tab4
+					jsonG['receiveableAmount4'] = fj_receiveableAmount;
+					jsonG['realReceiveAmount4'] = fj_realReceiveAmount;
+					//总
+					jsonG['receiveableAmount'] = parseFloat(wx_receiveableAmount)+
+						parseFloat(wxc_receiveableAmount)+parseFloat(xs_receiveableAmount)+parseFloat(fj_receiveableAmount);
+					jsonG['realReceiveAmount'] = parseFloat(wx_realReceiveAmount)+
+						parseFloat(wxc_realReceiveAmount)+parseFloat(xs_realReceiveAmount)+parseFloat(fj_realReceiveAmount);
+					
+					jsonG['discount'] = xs_discount;
+					graphs.push(jsonG);
+				}else{						
+					$.each(graphs, function (n, value) {
+						 if(xs_paymentObjectCode == value['paymentObjectCode']){
+							 value['receiveableAmount3'] = parseFloat(value['receiveableAmount3']) + parseFloat(xs_receiveableAmount);
+							 value['realReceiveAmount3'] = parseFloat(value['realReceiveAmount3']) + parseFloat(xs_realReceiveAmount);
+						}else {
+							jsonG['paymentObjectCode'] = xs_paymentObjectCode;
+							jsonG['paymentObjectName'] = xs_paymentObjectName;
+							
+							//tab1
+							jsonG['receiveableAmount1'] = wx_receiveableAmount;
+							jsonG['realReceiveAmount1'] = wx_realReceiveAmount;
+							//tab2
+							jsonG['receiveableAmount2'] = wxc_receiveableAmount;
+							jsonG['realReceiveAmount2'] = wxc_realReceiveAmount;
+							//tab3
+							jsonG['receiveableAmount3'] = xs_receiveableAmount;
+							jsonG['realReceiveAmount3'] = xs_realReceiveAmount;
+							//tab4
+							jsonG['receiveableAmount4'] = fj_receiveableAmount;
+							jsonG['realReceiveAmount4'] = fj_realReceiveAmount;
+							//总
+							jsonG['receiveableAmount'] = parseFloat(wx_receiveableAmount)+
+								parseFloat(wxc_receiveableAmount)+parseFloat(xs_receiveableAmount)+parseFloat(fj_receiveableAmount);
+							jsonG['realReceiveAmount'] = parseFloat(wx_realReceiveAmount)+
+								parseFloat(wxc_realReceiveAmount)+parseFloat(xs_realReceiveAmount)+parseFloat(fj_realReceiveAmount);
+							
+							jsonG['discount'] = xs_discount;
+							graphs.push(jsonG);
+						}
+					});
+				}
+
+				
+			});
+			
+			$.each(row4,function(index,obj){
+				debugger;
+				var jsonG={};
+				var AddItemPayObjects = {};
+				if(obj.CHARGE_PARTITION_CODE == "S"){
+					fj_paymentObjectCode = sPayObjectCodeOEM;
+					fj_paymentObjectName = sPayObjectNameOEM;
+				}else if(obj.CHARGE_PARTITION_CODE != ""){
+					fj_paymentObjectCode = sPayObjectCodeDLR;
+					fj_paymentObjectName = sPayObjectNameDLR;
+				}else{
+					fj_paymentObjectCode = sPayObjectCode;
+					fj_paymentObjectName = sPayObjectName;
+				}
+				
+				fj_linkRecordId = index;
+				fj_receiveableAmount = row4[index].ADD_ITEM_AMOUNT;
+				fj_discount =  row4[index].DISCOUNT;				
+				
+				fj_realReceiveAmount = parseFloat(fj_receiveableAmount)*parseFloat(fj_discount);
+				//fj_realReceiveAmount = row4[index].CALC_REAL_RECEIVE_AMOUNT;
+						
+				if(addItemArray.length == 0){
+					AddItemPayObjects['paymentObjectCode'] = fj_paymentObjectCode;
+					AddItemPayObjects['paymentObjectName'] = fj_paymentObjectName;
+					
+					//tab1
+					AddItemPayObjects['receiveableAmount1'] = wx_receiveableAmount;
+					AddItemPayObjects['realReceiveAmount1'] = wx_realReceiveAmount;
+					//tab2
+					AddItemPayObjects['receiveableAmount2'] = wxc_receiveableAmount;
+					AddItemPayObjects['realReceiveAmount2'] = wxc_realReceiveAmount;
+					//tab3
+					AddItemPayObjects['receiveableAmount3'] = xs_receiveableAmount;
+					AddItemPayObjects['realReceiveAmount3'] = xs_realReceiveAmount;
+					//tab4
+					AddItemPayObjects['receiveableAmount4'] = fj_receiveableAmount;
+					AddItemPayObjects['realReceiveAmount4'] = fj_realReceiveAmount;
+					//总
+					AddItemPayObjects['receiveableAmount'] = parseFloat(wx_receiveableAmount)+
+						parseFloat(wxc_receiveableAmount)+parseFloat(xs_receiveableAmount)+parseFloat(fj_receiveableAmount);
+					AddItemPayObjects['realReceiveAmount'] = parseFloat(wx_realReceiveAmount)+
+						parseFloat(wxc_realReceiveAmount)+parseFloat(xs_realReceiveAmount)+parseFloat(fj_realReceiveAmount);
+					
+					AddItemPayObjects['discount'] = fj_discount;
+					addItemArray.push(AddItemPayObjects);
+				}else{						
+					$.each(addItemArray, function (n, value) {
+						 if(fj_paymentObjectCode == value['paymentObjectCode']){
+							value['receiveableAmount4'] = parseFloat(value['receiveableAmount4']) + parseFloat(fj_receiveableAmount);
+							value['realReceiveAmount4'] = parseFloat(value['realReceiveAmount4']) + parseFloat(fj_realReceiveAmount);
+						}else {
+							AddItemPayObjects['paymentObjectCode'] = fj_paymentObjectCode;
+							AddItemPayObjects['paymentObjectName'] = fj_paymentObjectName;
+							
+							//tab1
+							AddItemPayObjects['receiveableAmount1'] = wx_receiveableAmount;
+							AddItemPayObjects['realReceiveAmount1'] = wx_realReceiveAmount;
+							//tab2
+							AddItemPayObjects['receiveableAmount2'] = wxc_receiveableAmount;
+							AddItemPayObjects['realReceiveAmount2'] = wxc_realReceiveAmount;
+							//tab3
+							AddItemPayObjects['receiveableAmount3'] = xs_receiveableAmount;
+							AddItemPayObjects['realReceiveAmount3'] = xs_realReceiveAmount;
+							//tab4
+							AddItemPayObjects['receiveableAmount4'] = fj_receiveableAmount;
+							AddItemPayObjects['realReceiveAmount4'] = fj_realReceiveAmount;
+							//总
+							AddItemPayObjects['receiveableAmount'] = parseFloat(wx_receiveableAmount)+
+								parseFloat(wxc_receiveableAmount)+parseFloat(xs_receiveableAmount)+parseFloat(fj_receiveableAmount);
+							AddItemPayObjects['realReceiveAmount'] = parseFloat(wx_realReceiveAmount)+
+								parseFloat(wxc_realReceiveAmount)+parseFloat(xs_realReceiveAmount)+parseFloat(fj_realReceiveAmount);
+							
+							AddItemPayObjects['discount'] = fj_discount;
+							addItemArray.push(AddItemPayObjects);
+						}
+					});
+				}
+				
+				if(graphs.length == 0){
+					jsonG['paymentObjectCode'] = fj_paymentObjectCode;
+					jsonG['paymentObjectName'] = fj_paymentObjectName;
+					
+					//tab1
+					jsonG['receiveableAmount1'] = wx_receiveableAmount;
+					jsonG['realReceiveAmount1'] = wx_realReceiveAmount;
+					//tab2
+					jsonG['receiveableAmount2'] = wxc_receiveableAmount;
+					jsonG['realReceiveAmount2'] = wxc_realReceiveAmount;
+					//tab3
+					jsonG['receiveableAmount3'] = xs_receiveableAmount;
+					jsonG['realReceiveAmount3'] = xs_realReceiveAmount;
+					//tab4
+					jsonG['receiveableAmount4'] = fj_receiveableAmount;
+					jsonG['realReceiveAmount4'] = fj_realReceiveAmount;
+					//总
+					jsonG['receiveableAmount'] = parseFloat(wx_receiveableAmount)+
+						parseFloat(wxc_receiveableAmount)+parseFloat(xs_receiveableAmount)+parseFloat(fj_receiveableAmount);
+					jsonG['realReceiveAmount'] = parseFloat(wx_realReceiveAmount)+
+						parseFloat(wxc_realReceiveAmount)+parseFloat(xs_realReceiveAmount)+parseFloat(fj_realReceiveAmount);
+					
+					jsonG['discount'] = fj_discount;
+					graphs.push(jsonG);
+				}else{						
+					$.each(graphs, function (n, value) {
+						 if(fj_paymentObjectCode == value['paymentObjectCode']){
+							value['receiveableAmount4'] = parseFloat(value['receiveableAmount4']) + parseFloat(fj_receiveableAmount);
+							value['realReceiveAmount4'] = parseFloat(value['realReceiveAmount4']) + parseFloat(fj_realReceiveAmount);
+						}else {
+							jsonG['paymentObjectCode'] = fj_paymentObjectCode;
+							jsonG['paymentObjectName'] = fj_paymentObjectName;
+							
+							//tab1
+							jsonG['receiveableAmount1'] = wx_receiveableAmount;
+							jsonG['realReceiveAmount1'] = wx_realReceiveAmount;
+							//tab2
+							jsonG['receiveableAmount2'] = wxc_receiveableAmount;
+							jsonG['realReceiveAmount2'] = wxc_realReceiveAmount;
+							//tab3
+							jsonG['receiveableAmount3'] = xs_receiveableAmount;
+							jsonG['realReceiveAmount3'] = xs_realReceiveAmount;
+							//tab4
+							jsonG['receiveableAmount4'] = fj_receiveableAmount;
+							jsonG['realReceiveAmount4'] = fj_realReceiveAmount;
+							//总
+							jsonG['receiveableAmount'] = parseFloat(wx_receiveableAmount)+
+								parseFloat(wxc_receiveableAmount)+parseFloat(xs_receiveableAmount)+parseFloat(fj_receiveableAmount);
+							jsonG['realReceiveAmount'] = parseFloat(wx_realReceiveAmount)+
+								parseFloat(wxc_realReceiveAmount)+parseFloat(xs_realReceiveAmount)+parseFloat(fj_realReceiveAmount);
+
+							jsonG['discount'] = fj_discount;
+							graphs.push(jsonG);
+						}
+					});
+				}
+			});	 	
+			//生成收费对象列表			
+			if(graphs.length > 0 ){
+				
+				
+				for(var i = 0; i<graphs.length; i++){
+					console.log(graphs[i]['paymentObjectCode']);
+					var PAYMENT_OBJECT_CODE = graphs[i]['paymentObjectCode']; //收费对象代码
+					var PAYMENT_OBJECT_NAME = graphs[i]['paymentObjectName']; //收费对象名称
+					var RO_NO = $("#roNo",container).val();                   //工单号
+					var SALES_PART_NO = $("#salesPartNo",container).val();    //配件销售单号
+					var LICENSE = $("#license",container).val();              //车牌号
+					var VIN = "";
+					if(RO_NO != ""){
+						VIN = $("#vin",container).val();
+					}else if(SALES_PART_NO != ""){
+						VIN = $("#vin1",container).val();
+					}
+					var OWNER_NO = $("#ownerNo",container).val();              //车主编号
+					var OWNER_NAME = $("#owner",container).val(); 			   //车主名称
+					var SERVICE_ADVISOR = $("#sendPeople",container).val();    //送修人
+					var TAX = tax;                                             //税率
+					
+					//工时
+					var RECEIVEABLE_LABOUR_FEE = 0;       //应收工时费
+					var REAL_LABOUR_FEE = 0;              //实收工时费
+					
+					if(labourArray.length>0){
+						$.each(labourArray, function (n, value) {
+							if(PAYMENT_OBJECT_CODE == value['paymentObjectCode']){
+								//alert(1+" "+value['realReceiveAmount']);
+								RECEIVEABLE_LABOUR_FEE = value['receiveableAmount1'];
+								DISCOUNT = value['discount'];
+								REAL_LABOUR_FEE = value['realReceiveAmount1'];
+							}
+						});
+					}
+					
+					//维修材料
+					var RECEIVEABLE_REPAIR_PART_FEE = 0;       //应收维修材料费
+					var REAL_REPAIR_PART_FEE = 0;              //实收维修材料费
+					if(repairArray.length>0){
+						$.each(repairArray, function (n, value) {
+							if(PAYMENT_OBJECT_CODE == value['paymentObjectCode']){
+								RECEIVEABLE_REPAIR_PART_FEE = value['receiveableAmount2'];
+								REAL_REPAIR_PART_FEE = value['realReceiveAmount2'];
+							}
+						});
+					}
+					
+					//销售材料
+				 	var RECEIVEABLE_SALES_PART_FEE = 0;       //应收销售材料费
+					var REAL_SALES_PART_FEE = 0;              //实收销售材料费
+					if(saleArray.length>0){
+						$.each(saleArray, function (n, value) {
+							if(PAYMENT_OBJECT_CODE == value['paymentObjectCode']){
+								RECEIVEABLE_SALES_PART_FEE = value['receiveableAmount3'];
+								REAL_SALES_PART_FEE = value['realReceiveAmount3'];
+							}
+						});
+					}
+					
+					//附加项目
+					
+					var RECEIVEABLE_ADD_ITEM_FEE = 0;       //应收附加项目费
+					var REAL_ADD_ITEM_FEE = 0;              //实收附加项目费
+					if(addItemArray.length>0){
+						$.each(addItemArray, function (n, value) {
+							if(PAYMENT_OBJECT_CODE == value['paymentObjectCode']){
+								RECEIVEABLE_ADD_ITEM_FEE = value['receiveableAmount4'];
+								REAL_ADD_ITEM_FEE = value['realReceiveAmount4'];
+							}
+						});
+					} 
+					
+					var CALC_RECEIVEABLE_TOTAL_AMOUNT = parseFloat(RECEIVEABLE_LABOUR_FEE)+
+							parseFloat(RECEIVEABLE_REPAIR_PART_FEE)+
+							parseFloat(RECEIVEABLE_SALES_PART_FEE)+	
+							parseFloat(RECEIVEABLE_ADD_ITEM_FEE);	
+				    var row5 = $("#receivableList",container).dmsTable().getRowDataByIndex();
+					var receivableListArray = [];
+					$.each(row5,function(index,obj){
+						var receJson = {};
+						var reCode = obj.PAYMENT_OBJECT_CODE;
+						receJson['PAYMENT_OBJECT_CODE'] = reCode;
+						receivableListArray.push(receJson);											
+					});  
+					debugger;
+					  if(receivableListArray.length==0){
+						$("#receivableList", getElementContext()).dmsTable().appendRow(
+								{"PAYMENT_OBJECT_CODE":PAYMENT_OBJECT_CODE,
+								 "PAYMENT_OBJECT_NAME":PAYMENT_OBJECT_NAME,
+								 "RECEIVEABLE_LABOUR_FEE":RECEIVEABLE_LABOUR_FEE,
+								 "RECEIVEABLE_REPAIR_PART_FEE":RECEIVEABLE_REPAIR_PART_FEE,
+								 "RECEIVEABLE_SALES_PART_FEE":RECEIVEABLE_SALES_PART_FEE,
+								 "RECEIVEABLE_ADD_ITEM_FEE":RECEIVEABLE_ADD_ITEM_FEE,
+								 "CALC_RECEIVEABLE_TOTAL_AMOUNT":CALC_RECEIVEABLE_TOTAL_AMOUNT
+								});
+					}else{
+						$.each(row5,function(index,obj){
+							if(obj.PAYMENT_OBJECT_CODE==PAYMENT_OBJECT_CODE){
+							/* 	$("#receivableList",container).dmsTable().deleteRowByIndex(index);
+								$("#receivableList", getElementContext()).dmsTable().appendRow( */
+										$("#receivableList",getElementContext()).dmsTable().updateRowByIndex(index,		
+										{"PAYMENT_OBJECT_CODE":PAYMENT_OBJECT_CODE,
+										 "PAYMENT_OBJECT_NAME":PAYMENT_OBJECT_NAME,
+										 "RECEIVEABLE_LABOUR_FEE":RECEIVEABLE_LABOUR_FEE,
+										 "RECEIVEABLE_REPAIR_PART_FEE":RECEIVEABLE_REPAIR_PART_FEE,
+										 "RECEIVEABLE_SALES_PART_FEE":RECEIVEABLE_SALES_PART_FEE,
+										 "RECEIVEABLE_ADD_ITEM_FEE":RECEIVEABLE_ADD_ITEM_FEE,
+										 "CALC_RECEIVEABLE_TOTAL_AMOUNT":CALC_RECEIVEABLE_TOTAL_AMOUNT
+										});
+							}else{
+								$("#receivableList", getElementContext()).dmsTable().appendRow(
+										{"PAYMENT_OBJECT_CODE":PAYMENT_OBJECT_CODE,
+										 "PAYMENT_OBJECT_NAME":PAYMENT_OBJECT_NAME,
+										 "RECEIVEABLE_LABOUR_FEE":RECEIVEABLE_LABOUR_FEE,
+										 "RECEIVEABLE_REPAIR_PART_FEE":RECEIVEABLE_REPAIR_PART_FEE,
+										 "RECEIVEABLE_SALES_PART_FEE":RECEIVEABLE_SALES_PART_FEE,
+										 "RECEIVEABLE_ADD_ITEM_FEE":RECEIVEABLE_ADD_ITEM_FEE,
+										 "CALC_RECEIVEABLE_TOTAL_AMOUNT":CALC_RECEIVEABLE_TOTAL_AMOUNT
+										});
+							}
+							
+						});
+					}  
+
+					//alert(REAL_LABOUR_FEE);
+					var CALC_REAL_TOTAL_AMOUNT = parseFloat(REAL_LABOUR_FEE)+
+						parseFloat(REAL_REPAIR_PART_FEE)+
+						parseFloat(REAL_SALES_PART_FEE)+	
+						parseFloat(REAL_ADD_ITEM_FEE);
+					var CALC_SUM_AMOUNT = CALC_REAL_TOTAL_AMOUNT;
+					
+					CALC_REAL_TOTAL_AMOUNT = dmsHomePageReport.setRound(CALC_REAL_TOTAL_AMOUNT);
+					
+					var CALC_TAX_AMOUNT = (parseFloat(CALC_REAL_TOTAL_AMOUNT) - (parseFloat(CALC_REAL_TOTAL_AMOUNT)/(
+							1+parseFloat(TAX))).toFixed(2)).toFixed(2);
+					//alert(CALC_TAX_AMOUNT);  //税额
+					var CALC_NET_AMOUNT = (parseFloat(CALC_REAL_TOTAL_AMOUNT)/(1+parseFloat(TAX))).toFixed(2);  //不含税金额
+					var CARDS_AMOUNT = $("#CreditMoney",container).val();//积分金额
+					if(isStringNull(CARDS_AMOUNT)){
+						CARDS_AMOUNT=0.00;
+					}
+					var GIFT_AMOUNT = 0.0;//抵扣金额
+					var SUB_OBB_AMOUNT = 0.00;//去零金额
+					//应收账款
+					var CALC_RECEIVABLE_AMOUNT = parseFloat(CALC_REAL_TOTAL_AMOUNT)-parseFloat(CARDS_AMOUNT)-parseFloat(GIFT_AMOUNT)-parseFloat(SUB_OBB_AMOUNT);
+											
+					var row6 = $("#receivedList",container).dmsTable().getRowDataByIndex();//实收
+					var receivedArray = [];
+					$.each(row6,function(index,obj){
+						var recJson = {};
+						var code = obj.PAYMENT_OBJECT_CODE;
+						recJson['PAYMENT_OBJECT_CODE'] = code;
+						receivedArray.push(recJson);											
+					});
+					console.log(receivedArray.length);
+					
+					if(receivedArray.length==0){
+						$("#receivedList", getElementContext()).dmsTable().appendRow(
+								{"PAYMENT_OBJECT_CODE":PAYMENT_OBJECT_CODE,
+								 "PAYMENT_OBJECT_NAME":PAYMENT_OBJECT_NAME,
+								 "REAL_LABOUR_FEE":REAL_LABOUR_FEE,
+								 "REAL_REPAIR_PART_FEE":REAL_REPAIR_PART_FEE,
+								 "REAL_SALES_PART_FEE":REAL_SALES_PART_FEE,
+								 "REAL_ADD_ITEM_FEE":REAL_ADD_ITEM_FEE,
+								 "CALC_SUM_AMOUNT":CALC_SUM_AMOUNT,
+								 "CALC_REAL_TOTAL_AMOUNT":CALC_REAL_TOTAL_AMOUNT,
+								 "CALC_TAX_AMOUNT":CALC_TAX_AMOUNT,
+								 "CALC_NET_AMOUNT":CALC_NET_AMOUNT,
+								 "CALC_RECEIVABLE_AMOUNT":CALC_RECEIVABLE_AMOUNT,
+								 "CARDS_AMOUNT":CARDS_AMOUNT,
+								 "GIFT_AMOUNT":GIFT_AMOUNT,
+								 "SUB_OBB_AMOUNT":SUB_OBB_AMOUNT,
+								 "PAY_OFF":12781002,
+								 "INVOICE_TAG":12781002
+								});
+					}else{
+						$.each(row6,function(index,obj){
+							if(obj.PAYMENT_OBJECT_CODE==PAYMENT_OBJECT_CODE){
+							/* 	$("#receivedList",container).dmsTable().deleteRowByIndex(index);
+								$("#receivedList", getElementContext()).dmsTable().appendRow( */
+									$("#receivedList",getElementContext()).dmsTable().updateRowByIndex(index,	
+										{"PAYMENT_OBJECT_CODE":PAYMENT_OBJECT_CODE,
+										 "PAYMENT_OBJECT_NAME":PAYMENT_OBJECT_NAME,
+										 "REAL_LABOUR_FEE":REAL_LABOUR_FEE,
+										 "REAL_REPAIR_PART_FEE":REAL_REPAIR_PART_FEE,
+										 "REAL_SALES_PART_FEE":REAL_SALES_PART_FEE,
+										 "REAL_ADD_ITEM_FEE":REAL_ADD_ITEM_FEE,
+										 "CALC_SUM_AMOUNT":CALC_SUM_AMOUNT,
+										 "CALC_REAL_TOTAL_AMOUNT":CALC_REAL_TOTAL_AMOUNT,
+										 "CALC_TAX_AMOUNT":CALC_TAX_AMOUNT,
+										 "CALC_NET_AMOUNT":CALC_NET_AMOUNT,
+										 "CALC_RECEIVABLE_AMOUNT":CALC_RECEIVABLE_AMOUNT,
+										 "CARDS_AMOUNT":CARDS_AMOUNT,
+										 "GIFT_AMOUNT":GIFT_AMOUNT,
+										 "SUB_OBB_AMOUNT":SUB_OBB_AMOUNT,
+										 "PAY_OFF":12781002,
+										 "INVOICE_TAG":12781002
+										});
+							}else{
+								$("#receivedList", getElementContext()).dmsTable().appendRow(
+										{"PAYMENT_OBJECT_CODE":PAYMENT_OBJECT_CODE,
+										 "PAYMENT_OBJECT_NAME":PAYMENT_OBJECT_NAME,
+										 "REAL_LABOUR_FEE":REAL_LABOUR_FEE,
+										 "REAL_REPAIR_PART_FEE":REAL_REPAIR_PART_FEE,
+										 "REAL_SALES_PART_FEE":REAL_SALES_PART_FEE,
+										 "REAL_ADD_ITEM_FEE":REAL_ADD_ITEM_FEE,
+										 "CALC_SUM_AMOUNT":CALC_SUM_AMOUNT,
+										 "CALC_REAL_TOTAL_AMOUNT":CALC_REAL_TOTAL_AMOUNT,
+										 "CALC_TAX_AMOUNT":CALC_TAX_AMOUNT,
+										 "CALC_NET_AMOUNT":CALC_NET_AMOUNT,
+										 "CALC_RECEIVABLE_AMOUNT":CALC_RECEIVABLE_AMOUNT,
+										 "CARDS_AMOUNT":CARDS_AMOUNT,
+										 "GIFT_AMOUNT":GIFT_AMOUNT,
+										 "SUB_OBB_AMOUNT":SUB_OBB_AMOUNT,
+										 "PAY_OFF":12781002,
+										 "INVOICE_TAG":12781002
+										});
+							}
+							
+						});
+					}
+					 $("input[name^='subObbAmount']",container).attr("max",maxQl);
+					 
+					 $("#allAmount",container).setDmsValue(CALC_REAL_TOTAL_AMOUNT);
+					 $("#tax",container).setDmsValue(TAX);
+					 $("#taxAmount",container).setDmsValue(CALC_TAX_AMOUNT);
+					 $("#netAmount",container).setDmsValue(CALC_NET_AMOUNT);
+					 $("#calcReceiveAmount",container).setDmsValue(CALC_RECEIVABLE_AMOUNT);
+					 $("#subObbAmount",container).setDmsValue(SUB_OBB_AMOUNT);
+					 $("#giftAmount",container).setDmsValue(GIFT_AMOUNT);
+					 
+				}
+			}else{
+				var PAYMENT_OBJECT_CODE = $("#ownerNo",container).val();  //收费对象代码
+				var PAYMENT_OBJECT_NAME = $("#owner",container).val();    //收费对象名称
+				var RO_NO = $("#roNo",container).val();                   //工单号
+				var SALES_PART_NO = $("#salesPartNo",container).val();    //配件销售单号
+				var LICENSE = $("#license",container).val();              //车牌号
+				var VIN = $("#vin",container).val();
+				var OWNER_NO = $("#ownerNo",container).val();              //车主编号
+				var OWNER_NAME = $("#owner",container).val(); 			   //车主名称
+				var SERVICE_ADVISOR = $("#sendPeople",container).val();    //送修人
+				var TAX = tax;                                             //税率
+				
+				//工时
+				var RECEIVEABLE_LABOUR_FEE = 0;       //应收工时费
+				var REAL_LABOUR_FEE = 0;              //实收工时费
+				if(labourArray.length>0){
+					$.each(labourArray, function (n, value) {
+						if(PAYMENT_OBJECT_CODE == value['paymentObjectCode']){
+							RECEIVEABLE_LABOUR_FEE = value['receiveableAmount1'];
+							REAL_LABOUR_FEE = value['realReceiveAmount1'];
+						}
+					});
+				}
+				
+				//维修材料
+				var RECEIVEABLE_REPAIR_PART_FEE = 0;       //应收维修材料费
+				var REAL_REPAIR_PART_FEE = 0;              //实收维修材料费
+				if(repairArray.length>0){
+					$.each(repairArray, function (n, value) {
+						if(PAYMENT_OBJECT_CODE == value['paymentObjectCode']){
+							RECEIVEABLE_REPAIR_PART_FEE = value['receiveableAmount2'];
+							REAL_REPAIR_PART_FEE = value['realReceiveAmount2'];
+						}
+					});
+				}
+				
+				//销售材料
+				var RECEIVEABLE_SALES_PART_FEE = 0;       //应收销售材料费
+				var REAL_SALES_PART_FEE = 0;              //实收销售材料费
+				if(saleArray.length>0){
+					$.each(saleArray, function (n, value) {
+						if(PAYMENT_OBJECT_CODE == value['paymentObjectCode']){
+							RECEIVEABLE_SALES_PART_FEE = value['receiveableAmount3'];
+							REAL_SALES_PART_FEE = value['realReceiveAmount3'];
+						}
+					});
+				}
+				
+				//附加项目
+				var RECEIVEABLE_ADD_ITEM_FEE = 0;       //应收附加项目费
+				var REAL_ADD_ITEM_FEE = 0;              //实收附加项目费
+				if(addItemArray.length>0){
+					$.each(addItemArray, function (n, value) {
+						if(PAYMENT_OBJECT_CODE == value['paymentObjectCode']){
+							RECEIVEABLE_ADD_ITEM_FEE = value['receiveableAmount4'];
+							REAL_ADD_ITEM_FEE = value['realReceiveAmount4'];
+						}
+					});
+				}
+				
+				var CALC_RECEIVEABLE_TOTAL_AMOUNT = parseFloat(RECEIVEABLE_LABOUR_FEE)+
+				parseFloat(RECEIVEABLE_REPAIR_PART_FEE)+
+				parseFloat(RECEIVEABLE_SALES_PART_FEE)+	
+				parseFloat(RECEIVEABLE_ADD_ITEM_FEE);	
+	    var row5 = $("#receivableList",container).dmsTable().getRowDataByIndex();
+		var receivableListArray = [];
+		$.each(row5,function(index,obj){
+			var receJson = {};
+			var reCode = obj.PAYMENT_OBJECT_CODE;
+			receJson['PAYMENT_OBJECT_CODE'] = reCode;
+			receivableListArray.push(receJson);											
+		});  
+		
+		  if(receivableListArray.length==0){
+			$("#receivableList", getElementContext()).dmsTable().appendRow(
+					{"PAYMENT_OBJECT_CODE":PAYMENT_OBJECT_CODE,
+					 "PAYMENT_OBJECT_NAME":PAYMENT_OBJECT_NAME,
+					 "RECEIVEABLE_LABOUR_FEE":RECEIVEABLE_LABOUR_FEE,
+					 "RECEIVEABLE_REPAIR_PART_FEE":RECEIVEABLE_REPAIR_PART_FEE,
+					 "RECEIVEABLE_SALES_PART_FEE":RECEIVEABLE_SALES_PART_FEE,
+					 "RECEIVEABLE_ADD_ITEM_FEE":RECEIVEABLE_ADD_ITEM_FEE,
+					 "CALC_RECEIVEABLE_TOTAL_AMOUNT":CALC_RECEIVEABLE_TOTAL_AMOUNT
+					});
+		}else{
+			$.each(row5,function(index,obj){
+				if(obj.PAYMENT_OBJECT_CODE==PAYMENT_OBJECT_CODE){
+					/* $("#receivableList",container).dmsTable().deleteRowByIndex(index);
+					$("#receivableList", getElementContext()).dmsTable().appendRow( */
+					$("#receivableList",getElementContext()).dmsTable().updateRowByIndex(index,			
+							{"PAYMENT_OBJECT_CODE":PAYMENT_OBJECT_CODE,
+							 "PAYMENT_OBJECT_NAME":PAYMENT_OBJECT_NAME,
+							 "RECEIVEABLE_LABOUR_FEE":RECEIVEABLE_LABOUR_FEE,
+							 "RECEIVEABLE_REPAIR_PART_FEE":RECEIVEABLE_REPAIR_PART_FEE,
+							 "RECEIVEABLE_SALES_PART_FEE":RECEIVEABLE_SALES_PART_FEE,
+							 "RECEIVEABLE_ADD_ITEM_FEE":RECEIVEABLE_ADD_ITEM_FEE,
+							 "CALC_RECEIVEABLE_TOTAL_AMOUNT":CALC_RECEIVEABLE_TOTAL_AMOUNT
+							});
+				}else{
+					$("#receivableList", getElementContext()).dmsTable().appendRow(
+							{"PAYMENT_OBJECT_CODE":PAYMENT_OBJECT_CODE,
+							 "PAYMENT_OBJECT_NAME":PAYMENT_OBJECT_NAME,
+							 "RECEIVEABLE_LABOUR_FEE":RECEIVEABLE_LABOUR_FEE,
+							 "RECEIVEABLE_REPAIR_PART_FEE":RECEIVEABLE_REPAIR_PART_FEE,
+							 "RECEIVEABLE_SALES_PART_FEE":RECEIVEABLE_SALES_PART_FEE,
+							 "RECEIVEABLE_ADD_ITEM_FEE":RECEIVEABLE_ADD_ITEM_FEE,
+							 "CALC_RECEIVEABLE_TOTAL_AMOUNT":CALC_RECEIVEABLE_TOTAL_AMOUNT
+							});
+				}
+				
+			});
+		}  
+
+		//alert(REAL_LABOUR_FEE);
+		var CALC_REAL_TOTAL_AMOUNT = parseFloat(REAL_LABOUR_FEE)+
+			parseFloat(REAL_REPAIR_PART_FEE)+
+			parseFloat(REAL_SALES_PART_FEE)+	
+			parseFloat(REAL_ADD_ITEM_FEE);
+		var CALC_SUM_AMOUNT = CALC_REAL_TOTAL_AMOUNT;
+		
+		CALC_REAL_TOTAL_AMOUNT = dmsHomePageReport.setRound(CALC_REAL_TOTAL_AMOUNT);
+		
+		var CALC_TAX_AMOUNT = (parseFloat(CALC_REAL_TOTAL_AMOUNT) - (parseFloat(CALC_REAL_TOTAL_AMOUNT)/(
+				1+parseFloat(TAX))).toFixed(2)).toFixed(2);
+		//alert(CALC_TAX_AMOUNT);  //税额
+		var CALC_NET_AMOUNT = (parseFloat(CALC_REAL_TOTAL_AMOUNT)/(1+parseFloat(TAX))).toFixed(2);  //不含税金额
+		var CARDS_AMOUNT = $("#CreditMoney",container).val();//积分金额
+		if(isStringNull(CARDS_AMOUNT)){
+			CARDS_AMOUNT=0.00;
+		}
+		var GIFT_AMOUNT = 0.0;//抵扣金额
+		var SUB_OBB_AMOUNT = 0.00;//去零金额
+		//应收账款
+		var CALC_RECEIVABLE_AMOUNT = parseFloat(CALC_REAL_TOTAL_AMOUNT)-parseFloat(CARDS_AMOUNT)-parseFloat(GIFT_AMOUNT)-parseFloat(SUB_OBB_AMOUNT);
+								
+		var row6 = $("#receivedList",container).dmsTable().getRowDataByIndex();//实收
+		var receivedArray = [];
+		$.each(row6,function(index,obj){
+			var recJson = {};
+			var code = obj.PAYMENT_OBJECT_CODE;
+			recJson['PAYMENT_OBJECT_CODE'] = code;
+			receivedArray.push(recJson);											
+		});
+		console.log(receivedArray.length);
+		
+		if(receivedArray.length==0){
+			$("#receivedList", getElementContext()).dmsTable().appendRow(
+					{"PAYMENT_OBJECT_CODE":PAYMENT_OBJECT_CODE,
+					 "PAYMENT_OBJECT_NAME":PAYMENT_OBJECT_NAME,
+					 "REAL_LABOUR_FEE":REAL_LABOUR_FEE,
+					 "REAL_REPAIR_PART_FEE":REAL_REPAIR_PART_FEE,
+					 "REAL_SALES_PART_FEE":REAL_SALES_PART_FEE,
+					 "REAL_ADD_ITEM_FEE":REAL_ADD_ITEM_FEE,
+					 "CALC_SUM_AMOUNT":CALC_SUM_AMOUNT,
+					 "CALC_REAL_TOTAL_AMOUNT":CALC_REAL_TOTAL_AMOUNT,
+					 "CALC_TAX_AMOUNT":CALC_TAX_AMOUNT,
+					 "CALC_NET_AMOUNT":CALC_NET_AMOUNT,
+					 "CALC_RECEIVABLE_AMOUNT":CALC_RECEIVABLE_AMOUNT,
+					 "CARDS_AMOUNT":CARDS_AMOUNT,
+					 "GIFT_AMOUNT":GIFT_AMOUNT,
+					 "SUB_OBB_AMOUNT":SUB_OBB_AMOUNT,
+					 "PAY_OFF":12781002,
+					 "INVOICE_TAG":12781002
+					});
+		}else{
+			$.each(row6,function(index,obj){
+				if(obj.PAYMENT_OBJECT_CODE==PAYMENT_OBJECT_CODE){
+					/* $("#receivedList",container).dmsTable().deleteRowByIndex(index);
+					$("#receivedList", getElementContext()).dmsTable().appendRow( */
+					$("#receivedList",getElementContext()).dmsTable().updateRowByIndex(index,				
+							{"PAYMENT_OBJECT_CODE":PAYMENT_OBJECT_CODE,
+							 "PAYMENT_OBJECT_NAME":PAYMENT_OBJECT_NAME,
+							 "REAL_LABOUR_FEE":REAL_LABOUR_FEE,
+							 "REAL_REPAIR_PART_FEE":REAL_REPAIR_PART_FEE,
+							 "REAL_SALES_PART_FEE":REAL_SALES_PART_FEE,
+							 "REAL_ADD_ITEM_FEE":REAL_ADD_ITEM_FEE,
+							 "CALC_SUM_AMOUNT":CALC_SUM_AMOUNT,
+							 "CALC_REAL_TOTAL_AMOUNT":CALC_REAL_TOTAL_AMOUNT,
+							 "CALC_TAX_AMOUNT":CALC_TAX_AMOUNT,
+							 "CALC_NET_AMOUNT":CALC_NET_AMOUNT,
+							 "CALC_RECEIVABLE_AMOUNT":CALC_RECEIVABLE_AMOUNT,
+							 "CARDS_AMOUNT":CARDS_AMOUNT,
+							 "GIFT_AMOUNT":GIFT_AMOUNT,
+							 "SUB_OBB_AMOUNT":SUB_OBB_AMOUNT,
+							 "PAY_OFF":12781002,
+							 "INVOICE_TAG":12781002
+							});
+				}else{
+					$("#receivedList", getElementContext()).dmsTable().appendRow(
+							{"PAYMENT_OBJECT_CODE":PAYMENT_OBJECT_CODE,
+							 "PAYMENT_OBJECT_NAME":PAYMENT_OBJECT_NAME,
+							 "REAL_LABOUR_FEE":REAL_LABOUR_FEE,
+							 "REAL_REPAIR_PART_FEE":REAL_REPAIR_PART_FEE,
+							 "REAL_SALES_PART_FEE":REAL_SALES_PART_FEE,
+							 "REAL_ADD_ITEM_FEE":REAL_ADD_ITEM_FEE,
+							 "CALC_SUM_AMOUNT":CALC_SUM_AMOUNT,
+							 "CALC_REAL_TOTAL_AMOUNT":CALC_REAL_TOTAL_AMOUNT,
+							 "CALC_TAX_AMOUNT":CALC_TAX_AMOUNT,
+							 "CALC_NET_AMOUNT":CALC_NET_AMOUNT,
+							 "CALC_RECEIVABLE_AMOUNT":CALC_RECEIVABLE_AMOUNT,
+							 "CARDS_AMOUNT":CARDS_AMOUNT,
+							 "GIFT_AMOUNT":GIFT_AMOUNT,
+							 "SUB_OBB_AMOUNT":SUB_OBB_AMOUNT,
+							 "PAY_OFF":12781002,
+							 "INVOICE_TAG":12781002
+							});
+				}
+				
+			});
+		}
+		 $("input[name^='subObbAmount']",container).attr("max",maxQl);
+				
+			}
+
+		}
+	 
+	 $("a[data-beforeShowEvent='true']", container).on("beforeShow.dms",function(event, returnResult) {
+		debugger;
+		var but = $(this).attr("id");
+		var selectRow1 = $("#bLDtoList", container).dmsTable().getSelections();
+ 		var selectRow2 = $("#bRPDtoList",container).dmsTable().getSelections();
+		var selectRow4 = $("#bAIDtoList",container).dmsTable().getSelections(); 
+		var selectRow6 = $("#receivedList",container).dmsTable().getSelections();
+	
+		var falg = true;
+		if(but=="But1"){
+			if (!selectRow1) {
+				dmsCommon.tip({status : "warning",msg : "请选择表格数据"});
+				returnResult.status = false;
+				return;
+			}
+		}
+		if(but=="But2"){
+			if (!selectRow2) {
+				dmsCommon.tip({status : "warning",msg : "请选择表格数据"});
+				returnResult.status = false;
+				return;
+			}	
+		}
+		if(but=="But4"){
+			if (!selectRow4) {
+				dmsCommon.tip({status : "warning",msg : "请选择表格数据"});
+				returnResult.status = false;
+				return;
+			}	
+		}
+		
+		if(but=="But6"){
+			if (!selectRow6) {
+				dmsCommon.tip({status : "warning",msg : "请选择表格数据"});
+				returnResult.status = false;
+				return;
+			}	
+		}
+
+		if (!falg) {
+			returnResult.status = false;
+			return;
+		}
+		returnResult.status = true;
+	});
+	 
+	 $("a[data-onclickEvent='true']",container).on("dms.click",function(){
+			if($(this).attr('id')=='cancel'){
+				dmsCommon.refreshPageByUrl("repair/FeesSettlement/searchFreeSettlement.html",container);//刷新页面
+			}
+		});
+
+});
+</script>

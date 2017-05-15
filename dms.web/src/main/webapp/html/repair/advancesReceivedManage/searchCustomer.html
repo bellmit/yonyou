@@ -1,0 +1,344 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="modal-body">
+				<div class="row" data-seledate='true'>
+					<!--/span-->
+					<div class="col-xs-12">
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+									<div class="input-group">
+										<label class="control-label col-xs-4">收款单号</label>
+										<div class="col-xs-8">
+											<input type="text" class="form-control" id="preReceiveNo" disabled="disabled"
+												name="preReceiveNo" data-fieldName="PRE_RECEIVE_NO">
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-6 col-md-4">
+									<div class="form-group">
+										<label class="control-label col-xs-4">客户编号</label>
+										<div class="col-xs-8">
+											<div class="input-group">
+												<input id="customerCode"
+													name="customerCode"
+													data-fieldName="customerCode"
+													class="form-control required" type="text" />
+												<div class="input-group-btn">
+													<button class="btn default btn-sm" type="button"
+														data-url="repair/advancesReceivedManage/queryCustomers.html"
+														data-toggle="modal" data-width="modal-lg">
+														<i class="fa fa-search" />
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="query-btn">
+												<a href="javascript:;" class="btn blue"> <i
+													class="fa fa-search"></i> 收款及用款情况查询</a>
+										</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-xs-12">
+										<div class="form-group">
+											<label class="control-label col-xs-4">客户编号</label>
+											<div class="col-xs-8">
+												<div class="input-group">
+													<input id="customerCode"
+														name="customerCode"
+														data-fieldName="customerCode"
+														class="form-control required" type="text" />
+													<div class="input-group-btn">
+														<button class="btn default btn-sm" type="button"
+															data-url="repair/advancesReceivedManage/queryCustomers.html"
+															data-toggle="modal" data-width="modal-lg">
+															<i class="fa fa-search" />
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12">
+										<div class="form-group">
+											<label class="control-label col-xs-4">车牌号</label>
+											<div class="col-xs-8">
+												<div class="input-group">
+													<input id="license"
+														name="license"
+														data-fieldName=customerCode
+														class="form-control " type="text" />
+													<div class="input-group-btn">
+														<button class="btn default btn-sm" type="button"
+															data-url="repair/advancesReceivedManage/queryCustomers.html"
+															data-toggle="modal" data-width="modal-lg">
+															<i class="fa fa-search" />
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12">
+										<div class="form-group">
+											<label class="control-label col-xs-4">客户名称</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control" id="customerName" disabled="disabled"
+													name="customerName">
+											</div>
+										</div>
+									</div>
+
+									<div class="col-xs-12">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">收款类别</label>
+											<div class="col-xs-8">
+												<select class="bs_select form-control" id="receiveSort" disabled="disabled"
+													data-excludeItems="11121001,11121002,11121003,11121007,11121008,111210010"
+													name="receiveSort" data-fieldName="RECEIVE_SORT" data-dictCode="1112">
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">会员卡编号</label>
+											<div class="col-xs-8">
+												<select class="bs_select form-control" id="cardId" disabled="disabled"
+													name="cardId" data-fieldName="CARD_ID">
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">付款方式</label>
+											<div class="col-xs-8">
+												<select class="bs_select form-control" id="payTypeCode" disabled="disabled"
+													name="payTypeCode" data-fieldName="PAY_TYPE_CODE" data-dictCode="1208">
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12">
+										<div class="form-group">
+											<label class="control-label col-xs-4">收款金额</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control" id="receiveAmount" disabled="disabled"
+													name="receiveAmount" data-fieldName="RECEIVE_AMOUNT">
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">支票号码</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control" id="checkNo" disabled="disabled"
+													name="checkNo" data-fieldName="CHECK_NO">
+												</input>
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">发票类型</label>
+											<div class="col-xs-8">
+												<select class="bs_select form-control" id="invoiceTypeCode" disabled="disabled"
+													name="invoiceTypeCode" data-fieldName="INVOICE_TYPE_CODE" data-dictCode="1207">
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12">
+										<div class="form-group">
+											<label class="control-label col-xs-4">票据号码</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control" id="billNo" disabled="disabled"
+													name="billNo" data-fieldName="BILL_NO">
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12">
+										<div class="form-group">
+											<label class="control-label col-xs-4">经手人</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control" id="handler" disabled="disabled"
+													name="handler" data-fieldName="HANDLER">
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12">
+										<div class="form-group">
+											<label class="control-label col-xs-4">备注</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control" id="remark" disabled="disabled"
+													name="remark" data-fieldName="REMARK">
+											</div>
+										</div>
+									</div>
+									<div class="modal-footer center-block">
+										<div class="row">
+											<a class="btn blue ajaxrest" data-url="/basedata/advancesReceivedManage/save" 
+												data-method="PUT" data-model="repair" data-beforeRequest="true"
+												data-onclickEvent="true" data-callBack="true" disabled="disabled" id="save"><i
+												class="fa fa-save"></i>确定</a> 
+											<a data-onclickEvent="true" class="btn blue" id="back" disabled="disabled">
+												<i class="fa fa-undo"></i>取消</a>
+										</div>
+										<br/>
+										<div class="row">
+											<a class="btn blue" data-onclickEvent="true" data-width="modal-lg"
+												data-url="repair/advancesReceivedManage/printPage.html" disabled="disabled"
+												 id="prind" data-toggle="modal"><i
+												class="fa fa-download"></i>打印</a> 
+											<a class="btn blue" disabled="disabled">
+												<i class="fa fa-download"></i>可视卡打印</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default table-panel">
+						<div class="col-xs-9 ">
+							<div class="panel-heading">
+								<div class="pannel-name">预收款明细</div>
+							</div>
+							<div class="panel-body">
+									<table
+										class="table table-striped table-bordered table-hover table-responsive"
+										id="predictList">
+									</table>
+							</div>
+						</div>
+						<div class="col-xs-9 ">
+							<div class="panel-heading">
+								<div class="pannel-name">保险费明细</div>
+							</div>
+							<div class="panel-body">
+									<table
+										class="table table-striped table-bordered table-hover table-responsive"
+										id="datileList">
+									</table>
+							</div>
+						</div>
+						<div class="col-xs-9 ">
+							<div class="panel-heading">
+								<div class="pannel-name">车辆明细</div>
+							</div>
+							<div class="panel-body">
+									<table
+										class="table table-striped table-bordered table-hover table-responsive"
+										id="carList">
+									</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+</div>
+<script type="text/javascript">
+        $(document).one("onload.dms",function(event,container){
+        	new Datatable().initPagination({
+    			src : "predictList",
+    			container:container,
+    			url : dmsCommon.getDmsPath()["repair"] + "/basedata/advancesReceivedManage/queryCustomer",
+    			rowID : "",
+    			sortName : "", 
+    			sortOrder : "asc",
+    			autoHeight : false,
+    			isFormParam:true,
+    			undefinedText : "",
+    			isQueryFirst : false,
+    			columns : [ 
+    				{field : "PRE_RECEIVE_NO",title : "预留单号",inputHiddenFormat:{}}, 
+    				{field : "HANDLE_TIME",title : "发生时间",inputHiddenFormat:{},dateFormat : {format:"YYYY-MM-DD"}},
+    				{field : "HANDLER",title : "经手人",inputHiddenFormat:{}},
+    				{field : "RECEIVE_AMOUNT",title : "收款金额",inputHiddenFormat:{}}, 
+    				{field : "PAYOUT_AMOUNT",title : "本次支出",inputHiddenFormat:{}},
+    				{field : "AFTER_AMOUNT",title : "本次结余",inputHiddenFormat:{}}, 
+    				{field : "PAY_TYPE_CODE",title : "付款方式",inputHiddenFormat:{}},
+    				{field : "CHECK_NO",title : "支票号码",inputHiddenFormat:{}},
+    				{field : "BILL_NO",title : "票据号码",inputHiddenFormat:{}}, 
+    				{field : "INVOICE_TYPE_CODE",title : "发票类型",inputHiddenFormat:{}},
+    				{field : "REMARK",title : "备注",inputHiddenFormat:{}}
+    			]
+    		});
+    		new Datatable().initPagination({
+    			src : "datileList",
+    			container:container,
+    			url : dmsCommon.getDmsPath()["repair"] + "/basedata/advancesReceivedManage/queryByCustomer",
+    			rowID : "",
+    			sortName : "", 
+    			sortOrder : "asc",
+    			autoHeight : false,
+    			isFormParam:true,
+    			undefinedText : "",
+    			isQueryFirst : false,
+    			columns : [ 
+    			    {field : "RECEIVE_NO",title : "收款单号",inputHiddenFormat:{}}, 
+    				{field : "RECEIVE_DATE",title : "收款日期",inputHiddenFormat:{},dateFormat : {format:"YYYY-MM-DD"}},
+    				{field : "HANDLER",title : "经手人",inputHiddenFormat:{}},
+    				{field : "RECEIVE_AMOUNT",title : "收款金额",inputHiddenFormat:{}}, 
+    				{field : "PAY_TYPE_CODE",title : "付款方式",inputHiddenFormat:{}},
+    				{field : "CHECK_NO",title : "支票号码",inputHiddenFormat:{}}, 
+    				{field : "BILL_NO",title : "票据号码",inputHiddenFormat:{}},
+    				{field : "INVOICE_TYPE_CODE",title : "发票类型",inputHiddenFormat:{}},
+    				{field : "REMARK",title : "备注",inputHiddenFormat:{}}
+    			]
+    		});
+    		new Datatable().initPagination({
+    			src : "carList",
+    			container:container,
+    			url : dmsCommon.getDmsPath()["repair"] + "/basedata/advancesReceivedManage/queryByNoOrSpell",
+    			rowID : "",
+    			sortName : "", 
+    			sortOrder : "asc",
+    			autoHeight : false,
+    			isFormParam:true,
+    			undefinedText : "",
+    			isQueryFirst : false,
+    			columns : [ 
+    			    {field : "OWNER_NO",title : "车主编号",inputHiddenFormat:{}}, 
+    				{field : "LICENSE",title : "车牌号",inputHiddenFormat:{}},
+    				{field : "VIN",title : "VIN",inputHiddenFormat:{}},
+    				{field : "ENGINE_NO",title : "发动机",inputHiddenFormat:{}}, 
+    				{field : "BRAND",title : "品牌",inputHiddenFormat:{}},
+    				{field : "SERIES",title : "车系",inputHiddenFormat:{}}, 
+    				{field : "MODEL",title : "车型",inputHiddenFormat:{}},
+    				{field : "DELIVERER",title : "送修人",inputHiddenFormat:{}},
+    				{field : "DELIVERER_MOBILE",title : "送修人手机",inputHiddenFormat:{}}, 
+    				{field : "DELIVERER_PHONE",title : "送修人电话",inputHiddenFormat:{}}
+    			]
+    		});
+    		$("a[data-onclickEvent='true']",container).on("dms.click",function(obj){
+    			if($(this).attr('id')=='back'){
+    				dmsCommon.refreshPageByUrl("repair/advancesReceivedManage/searchCustomer.html",container); 
+    			}
+    		});
+    		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+    			$("#preReceiveNo",container).val(response);
+    			$("#prind",container).removeAttr("disabled");
+    		});
+    		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+    			if($("#receiveAmount").val()==''){
+    				dmsCommon.tip({status:"warning",msg:"请输收款金额！"});
+					return;
+    			}
+    			returnResult.status = true;
+    		});
+        });
+</script>

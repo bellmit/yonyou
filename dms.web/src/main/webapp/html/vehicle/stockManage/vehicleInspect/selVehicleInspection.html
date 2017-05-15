@@ -1,0 +1,73 @@
+<div class="dms-edit">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">批量验收</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12   ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">验收状态</label>
+								<div class="col-xs-8">
+								<select id="inspectStatus" name="inspectStatus" class="bs-select form-control required"
+										data-dictCode="1039" data-value="10391002">
+								</select>
+								<input type="hidden" id="veInspectIds" name="veInspectIds" value = "">
+							
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12   ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">验收人</label>
+								<div class="col-xs-8">
+									<select id="inspectPerson" name="inspectPerson"
+										class="bs-select form-control required"
+										data-url="/basedata/employees/employees/dict?ROLE=10061006"
+										data-model="manage" data-fieldName="EMPLOYEE_NO" data-value="{[userInfo.employeeNo]}"
+										data-labelValue="EMPLOYEE_NO" data-lableDesc="EMPLOYEE_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/stockManage/vehicleInspect/selInspctionS" data-beforeRequest="true"
+				data-model="vehicle" data-method="PUT" data-callBack="true"
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>保存</a> <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#veInspectList",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+		var selectIds = $("#veInspectList",getElementContext()).dmsTable().getSelectionIds();
+		$("#veInspectIds",container).val(selectIds);
+		returnResult.status = true;
+	});
+});	
+</script>

@@ -1,0 +1,51 @@
+<div class="dms-search">
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">
+				问卷
+			</div>
+
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="questionnairesList"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "questionnairesList",
+		container:container,
+		url : dmsCommon.getDmsPath()["customer"] + "/questionnaire/searchQuestionnaires", 
+		rowID : "QUESTIONNAIRE_CODE",
+		sortName : "QUESTIONNAIRE_CODE",
+		sortOrder : "asc",
+		autoHeight:false,
+		columns : [ 
+			{field : "QUESTIONNAIRE_CODE",title : "操作",operateFormat : [
+                {type:"detail",url:"customer/questionnaireGenerate/questionnaireDetail.html",openWidth:"modal-lg"},
+                {type:"edit",url:"customer/questionnaireGenerate/questionnaireEdit.html",openWidth:"modal-lg",callBack:"delPositionCallBack"
+             	   ,isShow:function(value, row, index){
+						   if(row.DOWN_TAG!="12781001"){
+							   return true;
+                 	   }else{
+                 		   return false;
+                 	   }      
+					   }
+                }
+            ]
+         }, 
+            {field : "QUESTIONNAIRE_CODE",title : "问卷编号"},
+            {field : "QUESTIONNAIRE_TYPE",title : "问卷类型",codeFormat : {type:"dict",codeType:"1131"}},
+            {field : "QUESTIONNAIRE_NAME",title : "问卷名称"},
+            {field : "ACTIVITY_CODE",title : "活动编号"},
+            {field : "IS_VALID",title : "启用",codeFormat : {type:"dict",codeType:"1278"}},
+            {field : "SERIES_NAME",title : "车系"},
+            {field : "DOWN_TAG",title:"OEM下发",codeFormat : {type:"dict",codeType:"1278"}},
+			{field : "IS_SERVICE_QUESTIONNAIRE",title : "是否售后问卷",codeFormat : {type:"dict",codeType:"1278"}},
+			{field : "IS_LOSS_VEHICLE_QUESTIONNAIRE",title : "是否客户流失回访",codeFormat : {type:"dict",codeType:"1278"}}
+			],
+		}); 
+	});
+</script>

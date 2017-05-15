@@ -1,0 +1,111 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">借出/归还单信息</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">借出归还单号</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" id="slNo"
+								name="slNo">
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
+					<div class="form-group">
+						<label class="control-label col-xs-3 col-sm-3 col-md-3 col-lg-3">开单日期</label>
+						<div class="col-xs-8 col-sm-10 col-md-9 col-lg-9">
+							<div class="input-group input-daterange" data-maxDays = "30" >
+	                             <input type="text" class="form-control" readonly  name="begin" id="shippingDateFrom">
+	                             <span class="input-group-addon">至</span>
+	                             <input type="text" class="form-control" readonly  name="end" id="shippingDateTo"> 
+	                             <span class="input-group-btn">
+                                         <button class="btn default input-clear" type="button">
+                                            <i class="fa fa-close"></i>
+                                        </button>
+                                 </span>
+                            </div>	
+                        </div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-5 col-md-5 col-lg-5">开单人</label>
+						<div class="col-xs-8 col-md-5 col-lg-5">
+							<select id="sheetCreatedBy" class="bs-select form-control" 
+								name="sheetCreatedBy" data-url="/transferRepository/findAllEmp" data-model="vehicle"
+								data-labelValue="EMPLOYEE_NAME" data-lableDesc="EMPLOYEE_NAME">
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row ">
+				<div class="col-xs-12 ">
+					<div class="query-btn">
+						<a href="javascript:;" class="btn blue"> <i
+							class="fa fa-search"></i> 查询
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-md-12 col-lg-12">
+					<div class="panel panel-default table-panel">
+						<div class="panel-heading">
+							<div class="pannel-name">借出归还信息</div>
+							<div class="pannel-button">
+								<a id="save" data-callBack="true" data-onclickEvent='true'
+										class="btn btn-outline">
+									<i class="fa fa-check-square-o"></i> 确定
+								</a> 
+							</div>
+						</div>
+						<div class="panel-body">
+							<table class="table table-striped table-bordered table-hover table-responsive"
+								id="dms_table"></table>
+						</div>
+					</div>
+				</div> 					
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	   new Datatable().initPagination({
+			src : "dms_table",
+			url : dmsCommon.getDmsPath()["vehicle"] + "/LendAndReturn/findAllList",
+			rowID : "SL_NO",
+			autoHeight : false,
+			sortName : "SL_NO", 
+			sortOrder : "asc",
+			checkboxHeader:true, //全选框
+			columns : [ 
+				{radio:true,sortable : false},
+				{field : "SL_NO",title : "移库单号"}, 
+				{field : "SHEET_CREATE_DATE",title : "开单日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+				{field : "SHEET_CREATED_BY",title : "开单人员"},
+				{field : "IS_ALL_FINISHED",title : "是否全部入账",codeFormat : {type : "dict",codeType : "1057"}},
+				{field : "IS_ALL_RETURNED",title : "是否全部归还",codeFormat : {type : "dict",codeType : "1057"}},
+				{field : "REMARK",title : "备注"}
+			]
+			
+		});
+	   
+	   $("a[data-onclickEvent='true']",container).on("dms.click",function(event,response){
+			var selectRow = $("#dms_table",getElementContext()).dmsTable().getFirstSelection();
+			$("div[data-seldate='true']",getElementContext()).initHtmlContent(selectRow);
+			$("#transactor",getElementContext()).selectpicker('val',selectRow.SHEET_CREATED_BY);
+			$("a[data-dismiss='modal']",container).click();
+		});
+	   
+	});
+</script>

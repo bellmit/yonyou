@@ -1,0 +1,204 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="modal-body">
+				<div class="row ">
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">订单编号</label>
+							<div class="col-xs-8">
+								<input id="orderNo" name="orderNo" class="form-control"
+									type="text" />
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">订单类型</label>
+							<div class="col-xs-8">
+								<select id="orderType" name="orderType"
+									data-fieldName="PART_ORDER_TYPE"
+									class="bs-select form-control " data-dictCode="1248"
+									data-excludeItems="12481001,12481002,12481012">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">订单状态</label>
+							<div class="col-xs-8">
+								<select id="orderStatus" name="orderStatus"
+									class="bs-select form-control " data-dictCode="1361"
+									data-excludeItems="13611003,13611011,13611012,13611013">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否MOP拆单</label>
+							<div class="col-xs-8">
+								<select id="isMopOrder" name="isMopOrder"
+									class="bs-select form-control " data-dictCode="1278">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">SAP订单号</label>
+							<div class="col-xs-8">
+								<input id="sapOrderNo" name="sapOrderNo" class="form-control"
+									type="text" />
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<div class="col-xs-4">
+								<input id="ischTims" name="ischTims" type="checkbox"
+									data-dictCode="1057" data-dictLabel="上报日期"
+									data-excludeItems="10131004" />
+							</div>
+							<div class="col-xs-8 ">
+								<div class="input-group input-daterange" data-maxDays="30"
+									data-opens="right">
+									<input type="text" class="form-control" readonly
+										name="beginTime"> <span class="input-group-addon">至</span>
+									<input type="text" class="form-control" readonly
+										name="endTime"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否有效</label>
+							<div class="col-xs-8">
+								<select id="isValid" name="isValid"
+									class="bs-select form-control " data-dictCode="1278" data-value="12781001">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">配件名称</label>
+							<div class="col-xs-8">
+								<input id="partNo" name="partNo" class="form-control"
+									type="text" />
+							</div>
+						</div>
+					</div>
+
+
+
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置 </a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-button">
+					<div class="btn-group btn-group-sm">
+					<a href="javascript:;" data-url="/partOrder/OrderPlanQuery/export/excel" data-model="part" data-method="downLoad" data-toggle="confirmation"
+                       class="btn btn-outline "><i class="fa fa-download"></i>导出</a>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="ptpartOrder">
+				</table>
+				<div class="col-xs-12 ">
+					<div class="form-group">
+						<label class="control-label">1）普通、紧急、火急、三包类订单会根据提报方式拆分成"菲跃零部件"订单和"常规零部件"订单后分别上报；</label>
+						<label class="control-label">2）订单中的"MOP配件"不上报，请查看【明细】后【导出】对应配件信息</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+ 	new Datatable().initPagination({
+		src : "ptpartOrder",
+		container:container,
+		url : dmsCommon.getDmsPath()["part"] + "/partOrder/OrderPlanQuery",
+		rowID : "ORDER_NO",
+		autoHeight:false,
+		columns : [
+		           {radio:true,sortable : false},
+		            {field : "ORDER_NO",inputField:"itemId",title : "操作",
+		            operateFormat : [
+		              {type:"detail",url:"part/partOrder/partOrderPlanSubmit/showDmsOrderDetail.html",openWidth:"modal-lg",onBeforeEvent:function(value, row, index,obj){
+                   	$(obj).data("pageData",row);
+			        }}]}, 
+                    {field : "OEM_TAG",title : "OEM标志",codeFormat : {type:"dict",codeType:"1278"}},
+		            {field : "ORDER_NO",title : "订单编号"},
+		            {field : "SAP_ORDER_NO",title : "SAP订单号"},
+		            {field : "VIN",title : "VIN"},
+		            {field : "SEND_SAP_DATE",title : "上报SAP时间",dateFormat : {format:"YYYY-MM-DD"}},
+		            {field : "PART_ORDER_TYPE",title : "订单类型",codeFormat : {type:"dict",codeType:"1248"}},
+		            {field : "TOTAL",title : "含税总金额"},
+		            {field : "GKFWB_DATE",title : "需求日期",dateFormat : {format:"YYYY-MM-DD"}},
+		            {field : "ORDER_DATE",title : "订货日期",dateFormat : {format:"YYYY-MM-DD"}},
+		            {field : "ORDER_STATUS",title : "订单上报状态",codeFormat : {type:"dict",codeType:"1361"}},
+		            {field : "IS_ACHIEVE",title : "是否完成",codeFormat : {type:"dict",codeType:"1278"}},
+		            {field : "IS_VALID",title : "是否有效",codeFormat : {type:"dict",codeType:"1278"}},
+		            {field : "REMARK",title : "备注"},
+		            {field : "IS_MOP_ORDER",title : "是否MOP拆单",codeFormat : {type:"dict",codeType:"1278"}}
+		         ]
+	});
+
+
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,value){
+		$("#ptpartOrder",container).dmsTable().refreshTableWithForm();
+	})
+	
+	$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+		var selectRow = $("#ptpartOrder",container).dmsTable().getSelections();
+		if(!selectRow){
+			dmsCommon.tip({status:"warning",msg:"请选择数据"});
+			returnResult.status = false;
+			return ;
+		}
+		var isbtnUpData={};
+		if(event.target.id=='isbtnUp'){
+			isbtnUpData['isbtnUp']='12781001'
+		}
+		var selectData = $.extend({}, selectRow[0],isbtnUpData);
+		console.log("---------"+JSON.stringify(selectRow));
+		//设置页面初始化值
+		$(this).data("pageData",selectData);
+
+		returnResult.status = true;
+	});
+
+});		
+</script>

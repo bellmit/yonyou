@@ -1,0 +1,190 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">活动执行总结编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="tabbable-retail ">
+				<div class="tab-content">
+					<div class="tab-pane fade in active" id="tab_basreceive">
+						<div class="panel-body" data-tableRetailSelect="true">
+							<div class="row">
+								<!-- /span -->
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label class="control-label col-xs-2">实际申请费用</label>
+										<div class="col-xs-10">
+										    <input type="hidden" name="campaignCode">
+											<input type="text" class="form-control number required" id="applyPrice" name="applyPrice" maxlength="9" data-fieldName="APPLY_PRICE">
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label class="control-label col-xs-4 col-sm-2">实际申请说明</label>
+										<div class="col-xs-8 col-sm-10">
+											<textarea id="applyMemo" name="applyMemo" data-fieldName="APPLY_MEMO"
+												class="form-control required" rows="2" cols=""></textarea>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label class="control-label col-xs-4 col-sm-2">实际达到其他效果</label>
+										<div class="col-xs-8 col-sm-10">
+											<textarea id="camEffect" name="camEffect" data-fieldName="CAM_EFFECT"
+												class="form-control" rows="2" cols=""></textarea>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label class="control-label col-xs-4 col-sm-2">竞争对手情况</label>
+										<div class="col-xs-8 col-sm-10">
+											<textarea id="camRival" name="camRival" data-fieldName="CAM_RIVAL"
+												class="form-control" rows="2" cols=""></textarea>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label class="control-label col-xs-4 col-sm-2">活动亮点及收获</label>
+										<div class="col-xs-8 col-sm-10">
+											<textarea id="camGain" name="camGain" data-fieldName="CAM_GAIN"
+												class="form-control" rows="2" cols=""></textarea>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label class="control-label col-xs-4 col-sm-2">活动不足及客户反馈</label>
+										<div class="col-xs-8 col-sm-10">
+											<textarea id="camLack" name="camLack" data-fieldName="CAM_LACK"
+												class="form-control" rows="2" cols=""></textarea>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-6 col-md-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">广告活动评级</label>
+										<div class="col-xs-6">
+											<select id="activeLevelCode" name="activeLevelCode" data-fieldName="ACTIVE_LEVEL_CODE"
+												class="bs-select form-control required" data-dictCode="1609">
+											</select>
+										</div>
+									</div>
+								</div>							
+								<div class="col-xs-12 col-sm-6 col-md-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">评级时间</label>
+										<div class="col-xs-6">
+											<div class="input-group input-daterange" data-defaultDays="7">
+												<input type="text" class="form-control" readonly
+													name="evaluateDate" id="evaluateDate" disabled="disabled" data-fieldName="EVALUATE_DATE"><span
+													class="input-group-btn">
+													<button class="btn default input-clear" type="button">
+														<i class="fa fa-close"></i>
+													</button>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-6 col-md-4">
+									<div class="form-group form-group-xs m-b-xs">
+										<label class="control-label col-xs-6">评级人</label>
+										<div class="col-xs-6">
+											<select id="evaluater" name="evaluater"
+												class="bs-select form-control"  disabled="disabled"
+												data-url="/basedata/employees/-1/salesConsultant"
+												data-model="manage" data-labelValue="USER_ID" data-value="{[userInfo.userId]}"
+												data-lableDesc="USER_NAME" >
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-6 col-md-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">批复费用</label>
+										<div class="col-xs-6">
+											<input type="text" class="form-control" id="oemConfirmPrice"
+												name="oemConfirmPrice"  disabled="disabled">
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-6 col-md-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">材料收到日期</label>
+										<div class="col-xs-6">
+											<div class="input-group input-daterange">
+												<input type="text" class="form-control" readonly
+													name="meterialReceiveDate" id="meterialReceiveDate"  disabled="disabled"><span
+													class="input-group-btn">
+													<button class="btn default input-clear" type="button">
+														<i class="fa fa-close"></i>
+													</button>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-6 col-md-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">当前审批状态</label>
+										<div class="col-xs-6">
+											<select id="curAuditingStatus" name="curAuditingStatus"
+												class="bs-select form-control" data-dictCode="1362" data-value="13621001" disabled="disabled">
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label class="control-label col-xs-4 col-sm-2 ">批复说明</label>
+										<div class="col-xs-8 col-sm-10">
+											<textarea id="oemConfireMemo" name="oemConfirmMemo" data-fieldName="OEM_CONFIRM_MEMO"
+												class="form-control" rows="2" cols=""  disabled="disabled"></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/markting/marktingPlan" data-model="retail"
+				data-method="POST" data-callBack="true" class="btn blue"
+				data-toggle="confirmation"> <i class="fa fa-save "></i>确定
+			</a> <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				//得到活动名称编号
+				$("input[name=campaignCode]",container).val($("#CAMPAIGN_CODE",getElementContext()).val());
+
+				//新增页面回调函数
+				$("a[data-callBack='true']", container).on(
+						"callBack.dms",
+						function(event, response) {
+							//关闭窗口
+							$("a[data-dismiss='modal']", container).click();
+							//刷新表格
+							$("#dms_table1", getElementContext()).dmsTable()
+									.refreshTableWithForm();
+						});
+			});
+</script>

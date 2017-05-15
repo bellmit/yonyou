@@ -1,0 +1,51 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+
+				<div class="panel panel-default table-panel">
+					<div class="panel-heading">
+						<div class="pannel-name">返利余额查询</div>
+					</div>
+					<div class="panel-body">
+						<table
+							class="form-group  table table-striped table-bordered table-hover table-responsive"
+							id="dms_table"></table>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+	</form>
+
+
+</div>
+<script type="text/javascript">
+	//返利余额查询
+	
+	
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initLocale({
+			src : "dms_table",
+			container:container,
+			
+			url : dmsCommon.getDmsPath()["repair"]
+			+ "/k4RebateManage/rebateBalanceDealerQuery",
+			 
+			columns : [ 
+			            {field : "CANUSE",title : "返利余额" },
+			            {field : "USED",title : "使用"},
+			            {field : "ACCOUNT",title : "可用金额"},
+			           
+			         ]
+		});
+});
+	
+	
+	
+	
+	
+	
+	
+</script>

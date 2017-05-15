@@ -1,0 +1,125 @@
+<div class="dms-add">
+
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-md-3"><span style="color:Red">*</span>服务项目代码</label>
+							<div class="col-xs-8 col-md-9">
+								<input id="serviceCode" name="service_code" class="form-control required systemCode"
+									type="text" data-fieldName="service_code" maxlength="10" minlength="10"
+ 								/>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-md-3"><span style="color:Red">*</span>服务项目名称</label>
+							<div class="col-xs-8 col-md-9">
+								<input id="service_name" name="service_name" class="form-control required"
+									type="text"  data-fieldName="service_name" maxlength="150"
+									 />
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group form-group-xs m-b-xs">
+							<label class="control-label col-xs-4 col-md-3"><span style="color:Red">*</span>服务类别</label>
+							<div class="col-xs-8 col-md-9">
+								<select class="bs-select form-control required" id="service_type"
+									name="service_type" data-dictCode="1402" data-excludeItems = "14020001,14020002,14020003,14020004">
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-md-3">销售指导价</label>
+							<div class="col-xs-8 col-md-9">
+								<input id="directive_price" name="directive_price" class="form-control  number"
+									type="text"  data-fieldName="directive_price" maxDigit="10" maxPrecision="2"
+									 />
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-md-3">成本单价</label>
+							<div class="col-xs-8 col-md-9">
+								<input id="cost_price" name="cost_price" class="form-control number"
+									type="text"  data-fieldName="cost_price" maxDigit="10" maxPrecision="2"
+									/>
+							</div>
+						</div>
+					</div>
+
+					<!-- <div class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2 col-md-1 ">备注</label>
+							<div class="col-xs-8 col-sm-10 col-md-11">
+								<textarea id="remark" name="remark" class="form-control"
+									rows="3" cols=""></textarea>
+							</div>
+						</div>
+					</div> -->
+					
+					
+					<div class="col-md-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2 col-md-1">备注</label>
+								<div class="col-xs-11 .col-md-10">
+								<textarea id="remark" name="remark" 
+										data-fieldName="remark" class="form-control"
+										maxlength="300" rows="2" cols=""></textarea>
+								</div>
+							</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<div class="form-actions">
+			<a data-url="/service/project/addService" data-model="retail"
+				data-method="POST" data-callBack="true"  class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a>
+				<!-- <a data-url="/service/project/addService" data-model="retail"
+				data-method="POST" data-callBack="true" class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> -->
+				 <a
+				data-dismiss="modal" data-goback="page"
+				href="retail/ordermanage/serviceproject/searchService.html"
+				class="btn blue ajaxify"> <i class="fa fa-reply"></i>返回
+			</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+
+
+	$(document).one("onload.dms",function(event, container) {
+		/* $("a[data-beforeRequest='true']",container).on('beforeRequest.dms',function(event,returnResult){
+			  var serviceCode = $("#serviceCode").val();
+			  var length = serviceCode.length;
+			  if(length != 10) {
+				  dmsCommon.tip({status:"warning",msg:"项目代码只能为10个字符！"});
+				     returnResult.status=false;
+				     return;
+			  } else{
+				  
+			  }
+		}); */
+		
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			$("a[data-goback='page']",container).click();
+		});		
+	});
+	
+	
+</script>

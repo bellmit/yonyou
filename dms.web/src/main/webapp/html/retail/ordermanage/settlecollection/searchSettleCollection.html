@@ -1,0 +1,1597 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="pannel-name">订单结算信息</div>
+			</div>
+			<div class="panel-body">
+				<div class="row ">
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+							<label class="control-label col-xs-4">业务类型</label>
+							<div class="col-xs-8">
+								<select id="businessType1" name="businessType1" class="bs-select form-control"
+									data-dictCode="1300" data-value="13001001">
+								</select>
+							</div>
+						</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">客户名称</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="customername1"
+									name="customerName1">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">订单编号</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="soNo1" name="soNo1"
+									>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4 col-sm-2">车牌号</label>
+							<div class="col-xs-8 col-sm-10">
+								<input type="text" class="form-control" id="license1" name="license1"
+									 data-fieldName="LICENSE">
+							</div>
+						</div>
+					</div>
+					
+				
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">VIN</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="vin1" name="vin1"
+									 data-fieldName="VIN">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">证件号码</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="certificateNo1" name="certificateNo1"
+									 >
+							</div>
+						</div>
+					</div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+							<label class="control-label col-xs-4">是否结清</label>
+							<div class="col-xs-8">
+										<select id="payOff1" name="payOff1" data-value="12781002" class="bs-select form-control"
+									data-dictCode="1278" >
+								</select>
+							</div>
+						</div>
+					</div>
+						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">开单日</label>
+							<div class="col-xs-8 col-sm-10">
+							<div class="input-group input-daterange">
+			         				<input type="text" class="form-control" readonly  name="sheetCreatedDateStart">
+			         				<span class="input-group-addon">至</span>
+			         				<input type="text" class="form-control" readonly  name="sheetCreatedDateEnd"> 
+			         				<span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                 </span>
+			    	 			</div>
+			    	 		</div>
+						</div>
+					</div>
+						<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+
+				</div>
+			</div>
+		</div>
+         <div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name">订单列表</div>
+				
+			</div>
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="dmssales_table"></table>
+			</div>
+		</div>
+		<div class="modal-body">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="pannel-name">客户信息</div>
+				
+			</div>
+			<div class="panel-body" >
+				<div class="row ">
+				
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+							<label class="control-label col-xs-4">客户类型</label>
+							<div class="col-xs-8">
+								<select id="customerType" name="customerType" class="bs-select form-control" disabled="disabled"
+									data-dictCode="1018"  data-fieldName="CUSTOMER_TYPE">
+								</select>
+							</div>
+						</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">客户名称</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="customerName" disabled="disabled"
+									name="customerName" data-fieldName="CUSTOMER_NAME" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+							<label class="control-label col-xs-4">性别</label>
+							<div class="col-xs-8">
+								<select id="gender" name="gender" class="bs-select form-control" disabled="disabled"
+									data-dictCode="1006" data-fieldName="GENDER">
+								</select>
+							</div>
+						</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">出生日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker"  data-orientation="top right">
+										<input id="birthday" name="birthday" disabled="disabled"
+											class="form-control" type="text" value="" /> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+											<button class="btn default date-reset" type="button">
+												<i class="fa fa-times"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+							<label class="control-label col-xs-4">证件类型</label>
+							<div class="col-xs-8">
+								<select id="ctCode" name="ctCode" class="bs-select form-control" disabled="disabled"
+									data-dictCode="1239" data-fieldName=“CT_CODE”>
+								</select>
+							</div>
+						</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">证件号码</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="certificateNo" disabled="disabled"
+									name="certificateNo"  data-fieldName="CERTIFICATE_NO" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">邮编</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="zipCode" disabled="disabled"
+									name="zipCode"  data-fieldName="ZIP_CODE" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">传真</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="fax" disabled="disabled"
+									name="fax"  data-fieldName="FAX" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">省份</label>
+									<div class="col-xs-8">
+										<select  class="bs-select form-control" id="province" name="province" data-type="region" data-fieldName="PROVINCE" disabled="disabled"></select>
+									</div>
+								</div>
+							</div>
+							<!-- span -->
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">城市</label>
+									<div class="col-xs-8">
+										<select  class="bs-select form-control" parent="province"  name="city" id = "city"  data-fieldName="CITY" disabled="disabled"></select>
+									</div>
+								</div>
+							</div>
+							<!-- span -->
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">区县</label>
+									<div class="col-xs-8">
+										<select  parent="city" id="district" class="bs-select form-control" name="district"  data-fieldName="DISTRICT" disabled="disabled"></select>
+									</div>
+								</div>
+							</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">地址</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="address" 
+									name="address" disabled="disabled"  data-fieldName="ADDRESS" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">联系电话</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="contactorPhone"
+									name="contactorPhone" disabled="disabled" data-fieldName="CONTACTOR_PHONE" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">联系手机</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="contactorMobile"
+									name="contactorMobile" disabled="disabled" data-fieldName="CONTACTOR_MOBILE" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+							<label class="control-label col-xs-4">联系方式</label>
+							<div class="col-xs-8">
+								<select id="bestContactType" name="bestContactType" class="bs-select form-control" disabled="disabled"
+									data-dictCode="1231" data-fieldName="BEST_CONTACT_TYPE">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">E-MAIL</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="eMail"
+									name="eMail" disabled="disabled" data-fieldName="E_MAIL" >
+							</div>
+						</div>
+					</div>
+					<!--/span-->          
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="pannel-name">订单结算</div>
+			</div>
+			<div class="panel-body" data-parentTable ="dms_table" >
+				<div class="row ">
+			
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">车辆价格</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control money" id="vehiclePrice"  readonly
+									name="vehiclePrice"  data-fieldName="VEHICLE_PRICE" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">精品金额</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="garnitureSum" readonly
+									name="garnitureSum"  data-fieldName="GARNITURE_SUM" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">装潢金额</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="upholsterSum"
+									name="upholsterSum" readonly data-fieldName="UPHOLSTER_SUM" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">牌照金额</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="plateSum"
+									name="plateSum" readonly data-fieldName="PLATE_SUM" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">代办应收</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control money" id="conReceivableSum"
+									name="conReceivableSum" readonly data-fieldName="CON_RECEIVABLE_SUM" >
+							</div>
+						</div>
+					</div>			
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">代办已收</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control money" id="conPayedAmount"
+									name="conPayedAmount" readonly data-fieldName="CON_PAYED_AMOUNT" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">代办欠款</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control money" id="calcConArrearageAmount"
+									name="calcConArrearageAmount" readonly data-fieldName="CALC_CON_ARREARAGE_AMOUNT" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">保险金额</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="insuranceSum"
+									name="insuranceSum" readonly data-fieldName="INSURANCE_SUM" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">赠送金额</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="presentSum"
+									name="presentSum" readonly data-fieldName="PRESENT_SUM" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">代办预收</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="consignedSum"
+									name="consignedSum" readonly data-fieldName="CONSIGNED_SUM" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">税费金额</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="taxSum"
+									name="taxSum" readonly data-fieldName="TAX_SUM" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">订单应收</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="orderReceivableSum"
+									name="orderReceivableSum" readonly data-fieldName="ORDER_RECEIVABLE_SUM" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" hidden="hidden">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">订单已收1</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control number" id="orderPayedAmount1" 
+									name="orderPayedAmount1"  data-fieldName="ORDER_PAYED_AMOUNT">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">订单已收</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control number" id="orderPayedAmount" readonly
+									name="orderPayedAmount"  data-fieldName="ORDER_PAYED_AMOUNT" data-autoValue="#orderPayedAmount1 + #userMoney">
+							</div>
+						</div>
+					</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" hidden="hidden">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">订单欠款1</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="calcOrderArrearageAmount1"
+									name="calcOrderArrearageAmount1" readonly data-fieldName="CALC_ORDER_ARREARAGE_AMOUNT" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">订单欠款</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="calcOrderArrearageAmount"
+									name="calcOrderArrearageAmount" readonly data-fieldName="CALC_ORDER_ARREARAGE_AMOUNT" data-autoValue="#calcOrderArrearageAmount1 - #userMoney">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">违约金</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="penaltyAmount"
+									name="penaltyAmount" readonly data-fieldName="PENALTY_AMOUNT" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">其他服务金额</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="otherServiceSum"
+									name="otherServiceSum" readonly data-fieldName="OTHER_SERVICE_SUM" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">订单减免</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="orderDeratedSum"
+									name="orderDeratedSum" readonly data-fieldName="ORDER_DERATED_SUM" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">信贷总额</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="loanSum"
+									name="loanSum" readonly data-fieldName="LOAN_SUM" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">订单总额</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="orderSum"
+									name="orderSum" readonly data-fieldName="ORDER_SUM" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" hidden="hidden">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">收款总额1</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="paySum1"
+									name="paySum1"  data-fieldName="PAY_SUM" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">收款总额</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="paySum"
+									name="paySum" readonly data-fieldName="PAY_SUM" data-autoValue="#paySum1 + #userMoney">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" hidden="hidden">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">欠款总额1</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="ArragementSum1" 
+									name="ArragementSum1"  data-fieldName="ARRAGEMENT_SUM" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">欠款总额</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="ArragementSum" 
+									name="ArragementSum" readonly data-fieldName="ARRAGEMENT_SUM" data-autoValue="#ArragementSum1 - #userMoney">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">抵扣金额</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="offsetAmount"
+									name="offsetAmount" readonly data-fieldName="OFFSET_AMOUNT" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">代办差额</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="commissionBalance"
+									name="commissionBalance" readonly data-fieldName="COMMISSION_BALANCE" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">发票金额</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="invoiceAmount"
+									name="invoiceAmount" readonly data-fieldName="INVOICE_AMOUNT" >
+							</div>
+						</div>
+					</div>
+					 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+							<label class="control-label col-xs-4">是否结清</label>
+							<div class="col-xs-8">
+									<select id="payOff" name="payOff" class="bs-select form-control" disabled="disabled"
+									data-dictCode="1278" data-fieldName="PAY_OFF">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+							<label class="control-label col-xs-4">已开票</label>
+							<div class="col-xs-8">
+						          <select id="invoiceTag" name="invoiceTag" class="bs-select form-control" disabled="disabled"
+									data-dictCode="1278" data-fieldName="INVOICE_TAG"></select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+							<label class="control-label col-xs-4">是否挂账结清</label>
+							<div class="col-xs-8">
+										 <select id="lossesPayOff" name="lossesPayOff" class="bs-select form-control" disabled="disabled"
+									data-dictCode="1278" data-fieldName="LOSSES_PAY_OFF"></select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">使用可用余额</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control number" id="userMoney"  disabled = "disabled" 
+									name="userMoney"  data-fieldName="USER_MONEY" >
+							</div>
+						</div>
+					</div>
+					<!--/span-->          
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name">收款记录</div>
+			</div>
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="dms_table"></table>
+			</div>
+		</div>
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="pannel-name">客户账户信息</div>
+			</div>
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">已收款金额</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="gatheredSum" name="gatheredSum"
+									readonly data-fieldName="GATHERED_SUM">
+							</div>
+						</div>
+					</div>
+	                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" hidden="hiddne">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">订单支出金额1</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="orderPayedSum1" name="orderPayedSum1"
+									 data-fieldName="ORDER_PAYED_SUM">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4">订单支出金额</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="orderPayedSum" name="orderPayedSum"
+									readonly data-fieldName="ORDER_PAYED_SUM" data-autoValue="#orderPayedSum1 + #userMoney">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group ">
+							<label class="control-label col-xs-4">代办支出金额</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="conPayedSum" name="conPayedSum"
+									readonly data-fieldName="CON_PAYED_SUM">
+							</div>
+						</div>
+					</div>
+
+				
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" hidden="hiddne">
+						<div class="form-group ">
+							<label class="control-label col-xs-4 ">账户可用余2</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control " id="calcUsableAmount2" name="calcUsableAmount2"
+									 data-fieldName="CALC_USABLE_AMOUNT">
+							</div>
+						</div>
+					</div>
+       	           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4 ">账户可用余额</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control " id="calcUsableAmount" name="calcUsableAmount"
+									 data-fieldName="CALC_USABLE_AMOUNT" data-autoValue="#calcUsableAmount2 - #userMoney">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+							<label class="control-label col-xs-4 ">未销账总金额</label>
+							<div class="col-xs-8">
+								<input id="unWriteoffSum" name="unWriteoffSum" class="form-control" type="text"
+									 readonly data-fieldName="UN_WRITEOFF_SUM">
+
+							</div>
+						</div>
+					</div>
+						<div class="col-xs-8">
+								<input id="OrderPayedUsed" name="OrderPayedUsed" class="form-control hidden" type="text"
+									  data-fieldName="OrderPayedUsed">
+							</div>
+							<div class="col-xs-8">
+								<input id="ConPayedUsed" name="ConPayedUsed" class="form-control hidden" type="text"
+									  data-fieldName="ConPayedUsed">
+							</div>
+								<div class="col-xs-8">
+								<input id="UsableAmount" name="UsableAmount" class="form-control hidden" type="text"
+									  data-fieldName="UsableAmount">
+							</div>
+								<div class="col-xs-8">
+								<input id="iflag" name="iflag" class="form-control hidden" type="text"
+									 data-fieldName="iflag">
+							</div>
+								<div class="col-xs-8">
+								<input id="fytprice" name="fytprice" class="form-control hidden" type="text"
+									  data-fieldName="fytprice">
+							</div>
+								<div class="col-xs-8">
+								<input id="fwyjprice" name="fwyjprice" class="form-control hidden" type="text"
+									  data-fieldName="fwyjprice">
+							</div>
+								<div class="col-xs-8">
+								<input id="isddys" name="isddys" class="form-control hidden" type="text"
+									  data-fieldName="isddys">
+							</div>
+								<div class="col-xs-8">
+								<input id="isdbys" name="isdbys" class="form-control hidden" type="text"
+									 data-fieldName="isdbys">
+							</div>
+								<div class="col-xs-8">
+								<input id="PayAmount" name="PayAmount" class="form-control hidden" type="text"
+									  data-fieldName="PayAmount">
+							</div>
+								<div class="col-xs-8">
+								<input id="receiveSum" name="receiveSum" class="form-control hidden" type="text"
+									  data-fieldName="receiveSum">
+							</div>
+								<div class="col-xs-8">
+								<input id="CONSum" name="CONSum" class="form-control hidden" type="text"
+									  data-fieldName="CONSum">
+							</div>
+								<div class="col-xs-8">
+								<input id="isBack" name="isBack" class="form-control hidden" type="text"
+									  data-fieldName="isBack">
+							</div>
+								<div class="col-xs-8">
+								<input id="soNo" name="soNo" class="form-control hidden" type="text"
+									  data-fieldName="SO_NO">
+							</div>
+								<div class="col-xs-8">
+								<input id="customerNo" name="customerNo" class="form-control hidden" type="text"
+									  data-fieldName="CUSTOMER_NO">
+							</div>
+							 <div class="col-xs-8">
+								<input id="conArrearageAmount" name="conArrearageAmount" class="form-control hidden" type="text"
+									  data-fieldName="CON_ARREARAGE_AMOUNT">
+							</div>
+								<div class="col-xs-8">
+								<input id="OrderArrearageAmount" name="OrderArrearageAmount" class="form-control hidden" type="text"
+									  data-fieldName="ORDER_ARREARAGE_AMOUNT">
+							</div> 
+								<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="col-xs-8">
+								<input id="receiveAmount" name="receiveAmount" class="form-control hidden" type="text"
+									  >
+							</div> 	
+						<!-- <div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">同步值</label>
+								<div class="col-xs-8">
+									<input id="syncValue" name="syncValue" type="text" class="form-control" value = ""
+									 data-autoSyncValue="#writeoffTag"/>
+								</div>
+							</div>
+						</div> -->
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+		<div class="form-actions">
+			<a class="btn blue" data-beforeShowEvent="true" id="settleCollection1" 
+				data-url="retail/ordermanage/settlecollection/editSettleCollection.html"
+				data-toggle="modal" data-width="modal-lg"  
+				data-validateUrl="retail/ordermanage/settlecollection/editSettleCollection.html" 
+				data-validateModel="retail"  data-validateMethod=""
+				> <i
+				class="fa fa-check-square-o"></i>收款
+			</a>
+			<a class="btn blue" data-beforeShowEvent="true" > <i
+				class="fa fa-check-square-o"></i>打印收款
+			</a>
+			<a class="btn blue" data-beforeShowEvent="true" id="settleCollection" 
+				data-url="retail/ordermanage/settlecollection/auditLoggingSales.html"
+				data-toggle="modal" data-width="modal-lg"> <i
+				class="fa fa-check-square-o"></i>审核记录
+			</a>
+			<!-- <a class="btn blue" data-beforeShowEvent="true" id="settleCollection" 
+				data-url="retail/ordermanage/salesorder/editSalesOrder.html"
+				data-toggle="modal" data-width="modal-lg"> <i
+				class="fa fa-check-square-o"></i>订单详细
+			</a>
+			<a class="btn blue" data-beforeShowEvent="true" id="settleCollection" 
+				data-url="customer/potentialcus/visitReception/editVisitRecord.html"
+				data-toggle="modal" data-width="modal-lg"> <i
+				class="fa fa-check-square-o"></i>客户详细
+			</a> -->
+			<a class="btn blue hidden" data-beforeShowEvent="true" id="settleCollection" 
+				data-url="retail/ordermanage/settlecollection/addSettleCollection.html"
+				data-toggle="modal" data-width="modal-lg"> <i
+				class="fa fa-check-square-o"></i>修改收款
+			</a>
+			 <a class="btn blue hidden" data-beforeShowEvent="true" id="ts"  data-url="" data-model="retail"
+				data-toggle="modal" data-width="modal-lg"> <i
+				class="fa fa-check-square-o"></i>保存
+			</a> 
+			<a data-info="saveBeforeUrl" data-url="/ordermanage/settleOrders/writeoffTag" data-model="retail"
+					data-method="PUT"   id="td"   data-callBack="true"
+					class="btn blue ajaxrest hidden" data-toggle="modal"><i
+					class="fa fa-save"></i>保存
+				</a>
+		<!-- 	<a class="btn blue" data-beforeShowEvent="true" id="settleCollection" 
+				data-toggle="modal" data-width="modal-lg"> <i
+				class="fa fa-check-square-o"></i>取消
+			</a> -->
+		</div>
+
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+	var  FAllReturnMoney;
+	var  FAlreadyReturnMoney;
+	var  FReturnOrderMoney;
+	var  FReturnConMoney;
+	var fORDER_RECEIVABLE_SUM;
+	var fORDER_PAYED_AMOUNT;
+    var fCON_PAYED_AMOUNT;
+    var fCON_RECEIVABLE_SUM;
+    var fCALC_CON_ARREARAGE_AMOUNT;
+    var fCALC_ORDER_ARREARAGE_AMOUNT;
+    var CALC_USABLE_AMOUNT;
+    var CALC_PAY_OFF;
+		new Datatable().initPagination({
+			container:container,
+			src : "dms_table",
+		//	url : dmsCommon.getDmsPath()["retail"] + "/ordermanage/settleOrders",
+			rowID : "SO_NO",
+			sortOrder : "desc",
+			sortName : "RECEIVE_NO",
+			pageSize:5,
+			autoHeight:false,
+			undefinedText : "",
+		//	parentChangeElement : "#soNoId",
+			columns : [ 
+				{field : "SO_NO",title : "操作",operateFormat : [
+					{type:"edit",url:"retail/ordermanage/settlecollection/modifySettleCollection.html",openWidth:"modal-lg",doubleClick:true,isShow:function(value, row, index){
+						   if(row.WRITEOFF_TAG!="10041001"){
+							   return true;
+						   }else{
+							   return false;
+						   }      
+					  	}}
+
+                     ]
+                  },
+			    {field : "SO_NO",title : "销售订单编号"}, 
+				{field : "RECEIVE_NO",title : "收款单号"},
+				{field : "RECEIVE_AMOUNT",title : "收款金额",numberFormat : {decimal:2}},
+				{field : "STORE_AMOUNT",title : "使用储值",numberFormat : {decimal:2}},
+				{field : "PAY_TYPE_NAME",title : "付款方式"},
+				{field : "GATHERING_TYPE",title : "收款类型",codeFormat : {type:"dict",codeType:"1425"}},
+				{field : "BILL_NO",title : "票据号码"},
+				{field : "WRITEOFF_TAG",title : "销账标志",codeFormat : {type:"dict",codeType:"1278"}},
+				{field : "WRITEOFF_DATE",title : "销账日期",dateFormat : {format:"YYYY-MM-DD"}},
+				{field : "USER_NAME",title : "销账人"},
+				{field : "RECEIVE_DATE",title : "收款日期",dateFormat : {format:"YYYY-MM-DD"}},
+				{field : "TRANSACTOR",title : "经办人"},
+				{field : "REMARK",title : "备注"},
+				{field : "THIS_USE_CREDIT",title : "使用积分"},
+				{field : "THIS_CREDIT_AMOUNT",title : "积分兑换金额"},
+				]
+		});
+		
+		new Datatable().initPagination({
+			container:container,
+			src : "dmssales_table",
+			url : dmsCommon.getDmsPath()["retail"] + "/ordermanage/settleOrders",
+			rowID : "SO_NO",
+			sortName : "SO_NO",
+			sortOrder : "desc",
+			pageSize:5,
+			autoHeight:false,
+			isQueryFirst:false,
+			undefinedText : "",
+			columns : [ 
+			    
+		/* 		{field : "SO_NO",title : "操作" ,operateFormat : [
+					 {type:"edit",url:"retail/ordermanage/settlecollection/editSettleCollection.html",openWidth:"modal-lg",isShow:function(value, row, index){
+						   if(row.WRITEOFF_TAG!="10041001"){
+							   return true;
+						   }else{
+							   return false;
+						   }      
+					  	}},                          
+                        {type:"edit",openWidth:"modal-lg",title:"打印",operateIcon:'<i class="fa fa-print"></i>'} 
+
+                     ] 
+                  }, */
+			    {field : "BUSINESS_TYPE",title : "业务类型",codeFormat : {type:"dict",codeType:"1300"}}, 
+				{field : "SO_NO",title : "销售订单编号"},
+				{field : "SO_STATUS",title : "单据状态",codeFormat : {type:"dict",codeType:"1301"}},
+				{field : "SHEET_CREATE_DATE",title : "开单日期",dateFormat : {format:"YYYY-MM-DD"}},
+				{field : "SOLD_NAME",title : "销售顾问"},
+				{field : "CUSTOMER_NO",title : "客户编号"},
+				{field : "CUSTOMER_NAME",title : "客户名称"},
+				{field : "VIN",title : "VIN"},
+				{field : "MODEL_NAME",title : "车型"},
+				{field : "CONFIG_NAME",title : "配置"},
+				{field : "COLOR_NAME",title : "颜色"},
+				{field : "ORDER_PAYED_AMOUNT",title : "订单已收",numberFormat : {decimal:2}}, 
+				{field : "ORDER_RECEIVABLE_SUM",title : "订单应收",numberFormat : {decimal:2}},
+				{field : "ORDER_DERATED_SUM",title : "订单减免",numberFormat : {decimal:2}},
+				{field : "ORDER_ARREARAGE_AMOUNT",title : "订单欠款",numberFormat : {decimal:2}},
+				{field : "CUSTOMER_TYPE",title : "客户类型",codeFormat : {type:"dict",codeType:"1018"}},
+				{field : "CONTACTOR_NAME",title : "联系人"},
+				{field : "MOBILE",title : "电话"},
+				{field : "CONTRACT_NO",title : "合约编号"},
+				{field : "CONTRACT_DATE",title : "签约日期",dateFormat : {format:"YYYY-MM-DD"}},
+				{field : "CT_CODE",title : "证件类型",codeFormat : {type:"dict",codeType:"1239"}},
+				{field : "EMPLOYEE_NAME",title : "证件号码"},
+				{field : "CONSIGNED_SUM",title : "代办预收",numberFormat : {decimal:2}},
+				{field : "CON_RECEIVABLE_SUM",title : "代办应收",numberFormat : {decimal:2}},
+				{field : "CON_ARREARAGE_AMOUNT",title : "代办欠款",numberFormat : {decimal:2}},
+				{field : "CON_PAYED_AMOUNT",title : "代办已收"},
+				{field : "DELIVERY_MODE",title : "交车方式",codeFormat : {type:"dict",codeType:"1302"} },
+				{field : "RE_AUDITED_NAME",title : "复审人员"},
+				{field : "OWNER_NO",title : "隐藏",visible:false},
+				{field : "LICENSE",title : "隐藏",visible:false},
+				{field : "GATHERED_SUM",title : "已收款金额",numberFormat : {decimal:2},visible:false},
+				{field : "ORDER_PAYED_SUM",title : "订单支出金额",numberFormat : {decimal:2},visible:false},
+				{field : "CON_PAYED_SUM",title : "代办支出金额",numberFormat : {decimal:2},visible:false},
+				{field : "CALC_USABLE_AMOUNT",title : "帐户可用余额",numberFormat : {decimal:2},visible:false},
+				{field : "UN_WRITEOFF_SUM",title : "未销帐总金额",numberFormat : {decimal:2},visible:false},
+				{radio:true}
+				],
+				//当出现选择操作的按钮时，响应事件
+				onCheck:function(row){
+					
+					var selectRow = $("#dmssales_table",container).dmsTable().getFirstSelection();
+					
+					var soNo=selectRow.SO_NO;
+					var wsNo=selectRow.OWNER_NO;
+					var cusNo=selectRow.CUSTOMER_NO;
+					 $("#dms_table",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["retail"] + "/ordermanage/settleOrders/"+soNo+"/sum");
+					 if (!isStringNull(selectRow.GATHERED_SUM)){
+							$("#gatheredSum",container).setDmsValue(selectRow.GATHERED_SUM);
+						}else{
+							$("#gatheredSum",container).setDmsValue(0);
+						}	
+						if (!isStringNull(selectRow.ORDER_PAYED_SUM)){
+							$("#orderPayedSum1",container).setDmsValue(selectRow.ORDER_PAYED_SUM);
+							$("#orderPayedSum",container).setDmsValue(selectRow.ORDER_PAYED_SUM);
+						}else{
+							$("#orderPayedSum1",container).setDmsValue(selectRow.ORDER_PAYED_SUM);
+							$("#orderPayedSum",container).setDmsValue(0);
+						}	
+						if (!isStringNull(selectRow.CON_PAYED_SUM)){
+							$("#conPayedSum",container).setDmsValue(selectRow.CON_PAYED_SUM);
+						}else{
+							$("#conPayedSum",container).setDmsValue(0);
+						}	
+						if (!isStringNull(selectRow.UN_WRITEOFF_SUM)){
+							$("#unWriteoffSum",container).setDmsValue(selectRow.UN_WRITEOFF_SUM);
+						}else{
+							$("#unWriteoffSum",container).setDmsValue(0);
+						}
+						
+						
+						if(!isStringNull(selectRow.CALC_USABLE_AMOUNT)){
+							
+							$("#calcUsableAmount",container).setDmsValue(selectRow.CALC_USABLE_AMOUNT);
+							$("#calcUsableAmount2",container).setDmsValue(selectRow.CALC_USABLE_AMOUNT);
+						}else{
+							$("#calcUsableAmount2",container).setDmsValue(0);
+							$("#calcUsableAmount",container).setDmsValue(0);
+						}
+						
+						//alert(selectRow.CALC_USABLE_AMOUNT);
+						
+						
+					 dmsCommon.ajaxRestRequest({
+							url : dmsCommon.getDmsPath()["retail"] + "/ordermanage/settleOrders/"+soNo+"/but/"+wsNo+"/sales/"+cusNo,
+							type : 'GET',
+							sucessCallBack : function(data) {
+								
+								$("#customerType",container).setDmsValue(data.CUSTOMER_TYPE);
+								$("input[data-fieldName='CUSTOMER_NAME']",container).setDmsValue(data.CUSTOMER_NAME);
+								$("#gender",container).setDmsValue(data.GENDER);
+								$("#ctCode",container).setDmsValue(data.CT_CODE);
+								$("input[data-fieldName='CERTIFICATE_NO']",container).setDmsValue(data.CERTIFICATE_NO);
+								$("#zipCode",container).setDmsValue(data.ZIP_CODE);
+								$("#fax",container).setDmsValue(data.FAX);
+								$("#province",container).setDmsValue(data.PROVINCE);
+								$("#city",container).setDmsValue(data.CITY);
+								$("#district",container).setDmsValue(data.DISTRICT);
+								$("#birthday",container).setDmsValue(data.FBIRTHDAY);
+								$("#address",container).setDmsValue(data.FADDRESS);
+								$("#contactorPhone",container).setDmsValue(data.CONTACTOR_PHONE);
+								$("#contactorMobile",container).setDmsValue(data.CONTACTOR_MOBILE);
+								$("#bestContactType",container).setDmsValue(data.BEST_CONTACT_TYPE);
+								$("#eMail",container).setDmsValue(data.E_MAIL);
+								 if (!isStringNull(data.VEHICLE_PRICE)){
+									$("#vehiclePrice",container).setDmsValue(data.VEHICLE_PRICE);	
+								}else{
+									$("#vehiclePrice",container).setDmsValue(0);
+								}
+								if (!isStringNull(data.GARNITURE_SUM)){
+									$("#garnitureSum",container).setDmsValue(data.GARNITURE_SUM);
+								}else{
+									$("#garnitureSum",container).setDmsValue(0);
+								}		
+								if (!isStringNull(data.UPHOLSTER_SUM)){
+									$("#upholsterSum",container).setDmsValue(data.UPHOLSTER_SUM);
+								}else{
+									$("#upholsterSum",container).setDmsValue(0);
+								}	
+								if (!isStringNull(data.PLATE_SUM)){
+									$("#plateSum",container).setDmsValue(data.PLATE_SUM);
+								}else{
+									$("#plateSum",container).setDmsValue(0);
+								}		
+								if (!isStringNull(data.CON_RECEIVABLE_SUM)){
+									$("#conReceivableSum",container).setDmsValue(data.CON_RECEIVABLE_SUM);
+								}else{
+									$("#conReceivableSum",container).setDmsValue(0);
+								}	
+								if (!isStringNull(data.CON_PAYED_AMOUNT)){
+									$("#conPayedAmount",container).setDmsValue(data.CON_PAYED_AMOUNT);
+								}else{
+									$("#conPayedAmount",container).setDmsValue(0);
+								}		
+								if (!isStringNull(data.INSURANCE_SUM)){
+									$("#insuranceSum",container).setDmsValue(data.INSURANCE_SUM);
+								}else{
+									$("#insuranceSum",container).setDmsValue(0);
+								}	
+								if (!isStringNull(data.PRESENT_SUM)){
+									$("#presentSum",container).setDmsValue(data.PRESENT_SUM);
+								}else{
+									$("#presentSum",container).setDmsValue(0);
+								}	
+								if (!isStringNull(data.CONSIGNED_SUM)){
+									$("#consignedSum",container).setDmsValue(data.CONSIGNED_SUM);
+								}else{
+									$("#consignedSum",container).setDmsValue(0);
+								}	
+								if (!isStringNull(data.TAX_SUM)){
+									$("#taxSum",container).setDmsValue(data.TAX_SUM);
+								}else{
+									$("#taxSum",container).setDmsValue(0);
+								}	
+								if (!isStringNull(data.ORDER_RECEIVABLE_SUM)){
+									$("#orderReceivableSum",container).setDmsValue(data.ORDER_RECEIVABLE_SUM);
+								}else{
+									$("#orderReceivableSum",container).setDmsValue(0);
+								}	
+								if (!isStringNull(data.ORDER_PAYED_AMOUNT)){
+									$("#orderPayedAmount",container).setDmsValue(data.ORDER_PAYED_AMOUNT);
+									$("#orderPayedAmount1",container).setDmsValue(data.ORDER_PAYED_AMOUNT);
+								}else{
+									$("#orderPayedAmount",container).setDmsValue(0);
+									$("#orderPayedAmount1",container).setDmsValue(data.ORDER_PAYED_AMOUNT);
+								}	
+								if (!isStringNull(data.PENALTY_AMOUNT)){
+									$("#penaltyAmount",container).setDmsValue(data.PENALTY_AMOUNT);
+								}else{
+									$("#penaltyAmount",container).setDmsValue(0);
+								}	
+								if (!isStringNull(data.OTHER_SERVICE_SUM)){
+									$("#otherServiceSum",container).setDmsValue(data.OTHER_SERVICE_SUM);
+								}else{
+									$("#otherServiceSum",container).setDmsValue(0);
+								}	
+								debugger
+								if (!isStringNull(data.ORDER_DERATED_SUM)){
+									$("#orderDeratedSum",container).setDmsValue(data.ORDER_DERATED_SUM);
+								}else{
+									$("#orderDeratedSum",container).setDmsValue(0);
+								}	
+								if (!isStringNull(data.LOAN_SUM)){
+									$("#loanSum",container).setDmsValue(data.LOAN_SUM);
+								}else{
+									$("#loanSum",container).setDmsValue(0);
+								}	
+								if (!isStringNull(data.ORDER_SUM)){
+									$("#orderSum",container).setDmsValue(data.ORDER_SUM);
+								}else{
+									$("#orderSum",container).setDmsValue(0);
+								}	
+								if (!isStringNull(data.OFFSET_AMOUNT)){
+									$("#offsetAmount",container).setDmsValue(data.OFFSET_AMOUNT);
+								}else{
+									$("#offsetAmount",container).setDmsValue(0);
+								}	
+								
+								if (!isStringNull(data.COMMISSION_BALANCE)){
+									$("#commissionBalance",container).setDmsValue(data.COMMISSION_BALANCE);
+								}else{
+									$("#commissionBalance",container).setDmsValue(0);
+								}	
+								if (!isStringNull(data.INVOICE_AMOUNT)){
+									$("#invoiceAmount",container).setDmsValue(data.INVOICE_AMOUNT);
+								}else{
+									$("#invoiceAmount",container).setDmsValue(0);
+								}	
+								
+								$("input[data-fieldName='PAY_OFF']",container).setDmsValue(data.PAY_OFF);
+								$("#invoiceTag",container).setDmsValue(data.INVOICE_TAG);
+								$("#lossesPayOff",container).setDmsValue(data.LOSSES_PAY_OFF);
+								$("#payOff",container).setDmsValue(data.PAY_OFF);
+								$("#userMoney",container).setDmsValue(0);
+								
+					
+								
+								
+								   FAllReturnMoney =0;
+								  FAlreadyReturnMoney =0;
+								  FReturnOrderMoney =0;
+								  FReturnConMoney =0;
+                                  if (data!=null){
+                                	
+									  FAllReturnMoney= parseFloat(data.CON_RECEIVABLE_SUM)  + parseFloat(data.ORDER_RECEIVABLE_SUM);
+								      FAlreadyReturnMoney = parseFloat(data.ORDER_PAYED_AMOUNT)+parseFloat(data.CON_PAYED_AMOUNT);
+									  FReturnOrderMoney = parseFloat(data.ORDER_PAYED_AMOUNT);
+									  FReturnConMoney = parseFloat(data.CON_PAYED_AMOUNT);    
+								  } 
+                                  
+								   fORDER_RECEIVABLE_SUM =  $("#orderReceivableSum",container).val();
+							      fORDER_PAYED_AMOUNT = $("#orderPayedAmount",container).val();
+							      fCON_PAYED_AMOUNT =$("#conPayedAmount",container).val();
+							      fCON_RECEIVABLE_SUM = $("#conReceivableSum",container).val();
+							      fCALC_CON_ARREARAGE_AMOUNT = fCON_RECEIVABLE_SUM-fCON_PAYED_AMOUNT;
+								  if (data.BUSINESS_TYPE==13001005){
+									  fCALC_ORDER_ARREARAGE_AMOUNT = fORDER_RECEIVABLE_SUM-fORDER_PAYED_AMOUNT;								  
+								  }else{
+									  fCALC_ORDER_ARREARAGE_AMOUNT = fORDER_RECEIVABLE_SUM-fORDER_PAYED_AMOUNT-$("#orderDeratedSum",container).val(); 
+								  }
+										$("#calcConArrearageAmount",container).setDmsValue(fCALC_CON_ARREARAGE_AMOUNT);
+							     		$("#calcOrderArrearageAmount",container).setDmsValue(fCALC_ORDER_ARREARAGE_AMOUNT);
+							     		$("#calcOrderArrearageAmount1",container).setDmsValue(fCALC_ORDER_ARREARAGE_AMOUNT);
+								  $("#paySum",container).setDmsValue(parseFloat(fCON_RECEIVABLE_SUM)+parseFloat(fORDER_PAYED_AMOUNT));
+								  $("#paySum1",container).setDmsValue(parseFloat(fCON_RECEIVABLE_SUM)+parseFloat(fORDER_PAYED_AMOUNT));
+									$("#ArragementSum",container).setDmsValue(parseFloat(fCALC_CON_ARREARAGE_AMOUNT)+parseFloat(fCALC_ORDER_ARREARAGE_AMOUNT));
+									$("#ArragementSum1",container).setDmsValue(parseFloat(fCALC_CON_ARREARAGE_AMOUNT)+parseFloat(fCALC_ORDER_ARREARAGE_AMOUNT));
+								  if ((-0.01 < parseFloat(fCALC_ORDER_ARREARAGE_AMOUNT))
+									    && (parseFloat(fCALC_ORDER_ARREARAGE_AMOUNT) < 0.01)
+									  && (-0.01 < parseFloat(fCALC_CON_ARREARAGE_AMOUNT))
+									    && (parseFloat(fCALC_CON_ARREARAGE_AMOUNT) < 0.01)) {
+									  CALC_PAY_OFF = 12781001;
+								  }else{
+									  CALC_PAY_OFF = 12781002;
+								  }
+									  
+									  
+									   
+							
+								  fORDER_PAYED_SUM= parseFloat(data.ORDER_PAYED_SUM);
+							      fCON_PAYED_SUM= parseFloat(data.CON_PAYED_SUM);
+							      CALC_USABLE_AMOUNT = parseFloat(data.GATHERED_SUM)-parseFloat(data.UN_WRITEOFF_SUM)-parseFloat(data.CON_PAYED_SUM)-parseFloat(data.ORDER_PAYED_SUM);
+							   //账户可用余额 = 已收款金额-未销账总金额-代办支出金额-订单支出金额
+								CALC_USABLE_AMOUNT=$("#calcUsableAmount",container).val();
+							    //alert(CALC_USABLE_AMOUNT);
+							      if (CALC_USABLE_AMOUNT== '' ){
+							    	//alert(1);
+							    	  $("#userMoney",container).setDmsValue(0.00);
+							    	  $("#userMoney",container).attr("disabled","disabled");
+							      } 
+							          else
+							      if ((parseFloat(fCALC_CON_ARREARAGE_AMOUNT) + parseFloat(fCALC_ORDER_ARREARAGE_AMOUNT) <= parseFloat(CALC_USABLE_AMOUNT))
+							        && (parseFloat(fCALC_CON_ARREARAGE_AMOUNT) + parseFloat(fCALC_ORDER_ARREARAGE_AMOUNT) >= 0)) {
+							      //(代办应收-代办已收)+(订单应收-订单已收-订单减免) <= 账户可用余额 &&  (代办应收-代办已收)+(订单应收-订单已收-订单减免) >=0 
+							    	   //alert(2);
+							    	 
+							    	  $("#userMoney",container).removeAttr("disabled","disabled"); 
+							    	  	  if (parseFloat(fCALC_CON_ARREARAGE_AMOUNT) + parseFloat(fCALC_ORDER_ARREARAGE_AMOUNT) == 0){
+							    	  	  $("#userMoney",container).setDmsValue(0.00);
+							    		  $("#userMoney",container).attr("disabled","disabled");
+							    	  }
+							      }  
+							       
+							      else
+							      if (parseFloat(fCALC_CON_ARREARAGE_AMOUNT) + parseFloat(fCALC_ORDER_ARREARAGE_AMOUNT) >= 0) {
+							    	  //alert(CALC_USABLE_AMOUNT);
+							    	  //alert(3);
+							    	  //alert(parseFloat(fCALC_CON_ARREARAGE_AMOUNT) + parseFloat(fCALC_ORDER_ARREARAGE_AMOUNT));
+							    	 
+							          $("#userMoney",container).removeAttr("disabled","disabled"); 
+							          if (parseFloat(CALC_USABLE_AMOUNT) == 0) {
+							        	  //alert(CALC_USABLE_AMOUNT);
+							        	  $("#userMoney",container).setDmsValue(0.00);
+								          $("#userMoney",container).attr("disabled","disabled");
+							          }
+							      }
+							      
+							      else
+							    	  {
+							    	  //alert(4);
+							    	  $("#userMoney",container).setDmsValue(0.00);
+							    	  $("#userMoney",container).attr("disabled","disabled");
+							    	  } 
+							    	  CALC_USABLE_AMOUNT =  $("#calcUsableAmount",container).val();
+							    	  
+							      //CALC_USABLE_AMOUNT = parseFloat(data.GATHERED_SUM)-parseFloat(data.UN_WRITEOFF_SUM)-parseFloat(data.CON_PAYED_SUM)-parseFloat(data.ORDER_PAYED_SUM);
+							     if(CALC_USABLE_AMOUNT> 0){
+							    	 //alert("账户可用余额: "+CALC_USABLE_AMOUNT);
+							    	 $("#userMoney",container).removeAttr("disabled","disabled"); 
+							     }
+	 
+							}
+					
+					 });
+				}
+		});
+		
+	
+		
+    	 
+	/*      $("#userMoney",container).bindChange(function(obj){
+	    	 var money =  $("#userMoney",container).val();
+	    	 var orderReceivableSum =  $("#orderReceivableSum",container).val();
+	    	 var orderSum =  $("#orderSum",container).val();
+	    	 var calcUsableAmount =  $("#calcUsableAmount",container).val();
+	    	 var orderPayedSum =  $("#orderPayedSum",container).val();
+	    	 var orderPayedAmount=	$("#orderPayedAmount",container).val();	
+	    	 if( money !== ''&&money!=null){
+	    		 
+	    		 $("#orderPayedAmount",container).setDmsValue(parseFloat(orderPayedAmount)+parseFloat(money));
+		    	 $("#paySum",container).setDmsValue(parseFloat(orderPayedAmount)+parseFloat(money));
+		    	 $("#calcOrderArrearageAmount",container).setDmsValue(parseFloat(orderReceivableSum)-parseFloat(money)-parseFloat(orderPayedAmount));
+		    	 $("#ArragementSum",container).setDmsValue(parseFloat(orderSum) - parseFloat(money)-parseFloat(orderPayedAmount));
+		    	
+		    	 $("#calcUsableAmount",container).setDmsValue(calcUsableAmount - money);
+	    		 if(orderPayedSum!=''&&orderPayedSum!=null){
+	    			 $("#orderPayedSum",container).setDmsValue(parseFloat(orderPayedSum)+parseFloat(money));
+	    		 }else{
+	    			 $("#orderPayedSum",container).setDmsValue(0+parseFloat(money));
+	    		 }	    	 	
+	    	 }else{		
+	    	
+	    		 if(orderPayedSum!=''&&orderPayedSum!=null){
+	    			 $("#orderPayedSum",container).setDmsValue(parseFloat(orderPayedSum)+0);
+	    		 }else{
+	    			 $("#orderPayedSum",container).setDmsValue(0);
+	    		 }
+	    		
+	    	 } 
+	    	// alert(money);
+	    	 
+	 	});  */
+	     
+	     $("#calcUsableAmount",container).bindChange(function(obj){
+	    	 
+	    	 if($("#calcUsableAmount",container).val()<0 ){
+	    		 //alert($("#calcUsableAmount",container).val());
+		    	  dmsCommon.tip({status:"warning",msg:"使用可用余额不能大于账户余额!"});  
+		    	  $("#userMoney",container).setDmsValue(0.00);
+		    		returnResult.status = false;
+					return
+	    	 }
+	     });
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			UpdateSalasOrderByCustomer(CALC_USABLE_AMOUNT,$("#receiveAmount",getElementContext()).val(),$("#conPayedSum",getElementContext()).val());
+		});
+		/*   	$("[name='writeoffTag']",container).bindChange(function(obj){
+		  		debugger
+		  		console.log("----------------------------------");
+		  		var writeoffTag=$("[name='writeoffTag']",container).val();
+		  		
+		  		 if (parseInt(writeoffTag)==12781001){
+		  		 dmsCommon.ajaxRestRequest({
+						url : dmsCommon.getDmsPath()["retail"] + "/ordermanage/settleOrders/writeoffTag",
+						type : 'PUT',
+						sucessCallBack : function(data) {
+						}
+					});
+		  		 }		 */
+		     /*  if (writeoffTag==12781001){
+		    	 returnResult.status = true;
+		    	 $("#ts",container).attr("data-url","/ordermanage/settleOrders/writeoffTag"); 
+		     }  
+		});*/
+	/*  	$("#conReceivableSum",container).bindChange(function(obj){
+			
+		});
+	    $("#orderPayedAmount",container).bindChange(function(obj){
+	    	$("#paySum",container).setDmsValue(parseFloat(data.CON_RECEIVABLE_SUM)+parseFloat(data.ORDER_PAYED_AMOUNT));
+		}); */
+	    /*	$("#calcOrderArrearageAmount",container).bindChange(function(obj){
+			
+		});
+		$("#calcConArrearageAmount",container).bindChange(function(obj){
+			$("#ArragementSum",container).setDmsValue(parseFloat(data.CALC_ORDER_ARREARAGE_AMOUNT)+parseFloat(data.CALC_CON_ARREARAGE_AMOUNT));
+		}); */
+/* 		$("#calcUsableAmount",container).bindChange(function(obj){
+			var	calcUsableAmount=$("#calcUsableAmount",container).val();
+			alert(calcUsableAmount);
+			$("#userMoney",container).attr("disabled","disabled");
+		}); */
+		
+		
+		
+	    
+		$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){	
+ 
+			fORDER_PAYED_AMOUNT = $("#orderPayedAmount",container).val();
+			var  OrderPayedUsed;
+			var ConPayedUsed;
+			var UsableAmount;
+			var  iflag;
+			var  fytprice;//应退金额
+			var  fwyjprice; //违约金
+			var  isddys;
+			var isdbys
+			//订单应收，代办应收 是否大于零
+			var  PayAmount ;
+			var  receiveSum ;
+			var  CONSum ;		
+			var  isBack;
+			var selectRow = $("#dmssales_table",container).dmsTable().getFirstSelection();
+			 var soNo = selectRow.SO_NO;
+			 var businessType = selectRow.BUSINESS_TYPE;
+			var orderDeratedSum=$("#orderDeratedSum",container).val();
+			if (id="settleCollection1"){
+				 dmsCommon.ajaxRestRequest({
+						url : dmsCommon.getDmsPath()["retail"] + "/ordermanage/settleOrders/"+soNo+"/return",
+						type : 'GET',
+						sucessCallBack : function(data) {
+							
+						}
+					});
+				  OrderPayedUsed = 0;
+				  ConPayedUsed = 0;	 				 
+				  UsableAmount = CALC_USABLE_AMOUNT;
+				  iflag =0;
+				  if  (businessType==13001005){
+					  iflag =2;
+				  if (parseFloat(fORDER_RECEIVABLE_SUM)==parseFloat(fORDER_PAYED_AMOUNT)){
+					  iflag =3;
+				   }
+				  }else{
+					  iflag =1;
+				  }
+				    fytprice =0;
+				    fwyjprice =0;
+				    isdbys =0;
+				    isddys = 0;
+				    if (parseFloat(fCON_RECEIVABLE_SUM)<0){
+				    	isdbys=parseFloat(fCON_RECEIVABLE_SUM);
+				    }
+				    if (parseFloat(fORDER_RECEIVABLE_SUM)<0){
+				    	isddys=parseFloat(fORDER_RECEIVABLE_SUM);
+				    }
+				    fytprice=parseFloat(isdbys)+parseFloat(isddys);
+				    
+				    PayAmount=parseFloat(fORDER_RECEIVABLE_SUM)+parseFloat(fCON_RECEIVABLE_SUM)-parseFloat(fORDER_PAYED_AMOUNT)-parseFloat(fCON_PAYED_AMOUNT);
+/* 			alert(fORDER_RECEIVABLE_SUM);
+			alert(fCON_RECEIVABLE_SUM);
+			alert(fORDER_PAYED_AMOUNT);
+			alert(fCON_PAYED_AMOUNT);
+				 alert(PayAmount); */
+				    if (businessType==13001005){
+				    	PayAmount = parseFloat(PayAmount) - parseFloat(orderDeratedSum);
+				    }
+				    receiveSum = parseFloat(fORDER_PAYED_AMOUNT) + parseFloat(fCON_PAYED_AMOUNT);
+				    debugger
+				    $("#OrderPayedUsed",container).setDmsValue(OrderPayedUsed);
+				    $("#ConPayedUsed",container).setDmsValue(ConPayedUsed);
+				    $("#UsableAmount",container).setDmsValue(UsableAmount);
+				    $("#iflag",container).setDmsValue(iflag);
+				    $("#fytprice",container).setDmsValue(fytprice);
+				    $("#fwyjprice",container).setDmsValue(fwyjprice);
+				    $("#isddys",container).setDmsValue(isddys);
+				    $("#isdbys",container).setDmsValue(isdbys);
+				    $("#PayAmount",container).setDmsValue(PayAmount);
+				    $("#receiveSum",container).setDmsValue(receiveSum);
+				    $("#payOff",container).setDmsValue(CALC_PAY_OFF);
+				    $("#ConArrearageAmount",container).setDmsValue(fCALC_CON_ARREARAGE_AMOUNT);
+				    $("#OrderArrearageAmount",container).setDmsValue(fCALC_ORDER_ARREARAGE_AMOUNT);
+				    
+				    
+				  //  alert($("#PayAmount",container).val());
+				    
+			//	    $("#calcConArrearageAmount",container).val;
+			//	    $("#CONSum",container).setDmsValue(CONSum);
+			//	    $("#isBack",container).setDmsValue(isBack);
+				 returnResult.status = true;
+			}
+			
+		 });
+		
+		var UpdateSalasOrderByCustomer=function(AUsableAmount,AReceiveAmount,ACONSum){
+		var	conReceivableSum=$("#conReceivableSum",container).val();
+		var	conPayedAmount=$("#conPayedAmount",container).val();
+		var	orderReceivableSum=$("#orderReceivableSum",container).val();	
+	    var orderPayedAmount=	$("#orderPayedAmount",container).val();	
+			var  CanAddAmount;
+			var  UsableAmount;
+			var  IsBack;
+			 CanAddAmount = 0;
+			var  AOrderPayedUsed = 0;
+			var  AConPayedUsed = 0;
+			  UsableAmount = AUsableAmount;
+           if (AReceiveAmount>0){
+			 if(dmsCommon.getSystemParamInfo("1238","1238")=12781001){
+				if(AReceiveAmount*orderReceivableSum<0){
+					IsBack=true;
+				}else{
+					IsBack=false;
+				}
+			}else{
+				IsBack=false;
+			}			 
+                if(IsBack=false){
+				CanAddAmount = orderReceivableSum-orderPayedAmount;
+				if (businessType!=13001005){
+					 CanAddAmount = CanAddAmount - orderDeratedSum;
+				}
+				
+			} else{
+				CanAddAmount = -orderPayedAmount;
+			}
+                if (CanAddAmount >= 0) {               
+                  CanAddAmount = Min(CanAddAmount,AReceiveAmount);
+                  //不能大于账户可用余额
+                  CanAddAmount = Min(CanAddAmount,UsableAmount);  
+                  orderPayedAmount = orderPayedAmount+CanAddAmount;
+                  AOrderPayedUsed = CanAddAmount;
+                  //为下面处理代办已收作准备,先把订单中用掉的减掉
+                  AReceiveAmount = AReceiveAmount -CanAddAmount;
+                  UsableAmount = UsableAmount -CanAddAmount;
+                }
+                else{
+                  //不能大于订单总支出
+                  CanAddAmount = - Min(Abs(CanAddAmount),AOrderPayedSum);             
+                  orderPayedAmount = orderPayedAmount+CanAddAmount;
+                  AOrderPayedUsed = CanAddAmount;
+                  //为下面处理代办已收作准备,先把订单中用掉的减掉
+                  AReceiveAmount = AReceiveAmount -CanAddAmount;
+                  AOrderPayedSum = AOrderPayedSum +CanAddAmount;
+                  UsableAmount = UsableAmount -CanAddAmount;
+                }
+           	 if(dmsCommon.getSystemParamInfo("1238","1238")=12781001){
+           		if(AReceiveAmount*conReceivableSum<0){
+					IsBack=true;
+				}else{
+					IsBack=false;
+				}
+           	 }
+                
+           	if(IsBack=false){
+           		CanAddAmount = conReceivableSum-conPayedAmount;
+           	}else{
+           		CanAddAmount =conPayedAmount;
+           	}
+           	
+           	if (CanAddAmount >= 0){
+           		CanAddAmount = Min(CanAddAmount,AReceiveAmount);
+            //不能大于账户可用余额 + 收款金额
+            CanAddAmount = Min(CanAddAmount, UsableAmount);
+         
+            conPayedAmount = conPayedAmount + CanAddAmount;
+            AConPayedUsed = CanAddAmount;
+            UsableAmount = UsableAmount -CanAddAmount;
+           	}else{
+           	 CanAddAmount = - Min(Abs(CanAddAmount),ACONSum);
+          
+           	conPayedAmount = conPayedAmount + CanAddAmount;
+            AConPayedUsed = CanAddAmount;
+            ACONSum = ACONSum + CanAddAmount;
+            UsableAmount = UsableAmount -CanAddAmount;
+           	}
+       	 if(dmsCommon.getSystemParamInfo("1238","1238")=12781001){
+        		if(AReceiveAmount*orderReceivableSum<0){
+					IsBack=true;
+				}else{
+					IsBack=false;
+				}
+        	 } 	
+         if(IsBack=false){
+				CanAddAmount = orderReceivableSum-orderPayedAmount;
+				if (businessType!=13001005){
+					 CanAddAmount = CanAddAmount - orderDeratedSum;
+				}
+				
+			} else{
+				CanAddAmount = -orderPayedAmount;
+			}
+     	if (CanAddAmount >= 0){
+     		 CanAddAmount = Min(CanAddAmount,AReceiveAmount);
+        //不能大于账户可用余额
+        CanAddAmount = Min(CanAddAmount,UsableAmount);
+     	orderPayedAmount= orderPayedAmount+CanAddAmount;
+     	 AOrderPayedUsed = AOrderPayedUsed + CanAddAmount;
+       	}else{
+       	 CanAddAmount = Min(Abs(CanAddAmount),AReceiveAmount);
+        //不能大于订单总支出
+        CanAddAmount = - Min(Abs(CanAddAmount),AOrderPayedSum);
+    	orderPayedAmount= orderPayedAmount+CanAddAmount;
+    	 AOrderPayedUsed = AOrderPayedUsed + CanAddAmount;
+       	}  	
+	} 
+		 
+           if (AReceiveAmount < 0){
+        	   if(dmsCommon.getSystemParamInfo("1238","1238")=12781001){
+   				if(AReceiveAmount*orderReceivableSum<0){
+   					IsBack=true;
+   				}else{
+   					IsBack=false;
+   				}
+   			}else{
+   				IsBack=false;
+   			}			 
+        	   if(IsBack=false){
+   				CanAddAmount = orderReceivableSum-orderPayedAmount;
+   				if (businessType!=13001005){
+   					 CanAddAmount = CanAddAmount - orderDeratedSum;
+   				}
+   				
+   			} else{
+   				CanAddAmount = -orderPayedAmount;
+   			}   
+        	   
+        	     if (CanAddAmount<=0){               
+                   CanAddAmount = -Min(CanAddAmount,AReceiveAmount);
+                   //不能大于账户可用余额
+                   CanAddAmount = -Min(CanAddAmount,AOrderPayedUsed);  
+                   orderPayedAmount = orderPayedAmount+CanAddAmount;
+                   AOrderPayedUsed = CanAddAmount;
+                   //为下面处理代办已收作准备,先把订单中用掉的减掉
+                   AReceiveAmount = AReceiveAmount - CanAddAmount;
+                   AOrderPayedSum = AOrderPayedSum + CanAddAmount;
+                   UsableAmount = UsableAmount - CanAddAmount;
+                 }else{
+                   //不能大于订单总支出
+                  CanAddAmount = Min(Abs(AReceiveAmount),Abs(UsableAmount));             
+                   orderPayedAmount = orderPayedAmount+CanAddAmount;
+                  
+                   AOrderPayedUsed = CanAddAmount;
+                   //为下面处理代办已收作准备,先把订单中用掉的减掉
+                   AReceiveAmount = AReceiveAmount - CanAddAmount;
+                   UsableAmount = UsableAmount - CanAddAmount;
+                 }  
+        	    if(dmsCommon.getSystemParamInfo("1238","1238")=12781001){
+              		if(AReceiveAmount*conReceivableSum<0){
+   					IsBack=true;
+   				}else{
+   					IsBack=false;
+   				}
+              	 }
+        	  	if(IsBack=false){
+               		CanAddAmount = conReceivableSum-conPayedAmount;
+               	}else{
+               		CanAddAmount =-conPayedAmount;
+               	}   
+        	  	   if (CanAddAmount <= 0) {               
+                     CanAddAmount = -Min(CanAddAmount,AReceiveAmount);
+                     //不能大于账户可用余额
+                     CanAddAmount = -Min(CanAddAmount,AOrderPayedUsed);  
+                     conPayedAmount = conPayedAmount + CanAddAmount;
+                   
+                     AConPayedUsed = CanAddAmount;
+                     ACONSum = ACONSum + CanAddAmount;
+                     UsableAmount = UsableAmount - CanAddAmount;
+                   }
+                    else{
+                     //不能大于订单总支出
+                    CanAddAmount = Min(Abs(AReceiveAmount),Abs(UsableAmount));                        
+                     conPayedAmount = conPayedAmount + CanAddAmount;
+                     AConPayedUsed = CanAddAmount;
+                     UsableAmount = UsableAmount - CanAddAmount;
+                   }     
+        	  	  
+        	  	 if(dmsCommon.getSystemParamInfo("1238","1238")=12781001){
+               		if(AReceiveAmount*orderReceivableSum<0){
+    					IsBack=true;
+    				}else{
+    					IsBack=false;
+    				}
+               	 }   
+        	  	  if(IsBack=false){
+         				CanAddAmount = orderReceivableSum-orderPayedAmount;
+         				if (businessType!=13001005){
+         					 CanAddAmount = CanAddAmount - orderDeratedSum;
+         				}
+         				
+         			} else{
+         				CanAddAmount = -orderPayedAmount;
+         			}    
+        	  	if (CanAddAmount <= 0) {               
+                    CanAddAmount = -Min(CanAddAmount,AReceiveAmount);
+                    //不能大于账户可用余额
+                    CanAddAmount = -Min(CanAddAmount,AOrderPayedSum);  
+                    orderPayedAmount = orderPayedAmount+CanAddAmount;                  
+                    AOrderPayedUsed = AOrderPayedUsed + CanAddAmount;
+                  }
+                   else{
+                    //不能大于订单总支出
+                   CanAddAmount = Min(Abs(AReceiveAmount),Abs(UsableAmount));                        
+                   orderPayedAmount = orderPayedAmount+CanAddAmount;         
+                   AOrderPayedUsed = AOrderPayedUsed + CanAddAmount;
+                  }     
+           }
+           
+		}
+    });
+</script>

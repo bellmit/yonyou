@@ -1,0 +1,57 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">信息列表 </div>
+			
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="partList"></table>
+		</div>
+	</div>
+	</form>
+</div>
+<script type="text/javascript">
+ $(document).one("onload.dms",function(event,container){
+	 new Datatable().initPagination({
+			src : "partList",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/partObsoleteMaterialDefine/queryPartObsoleteMaterialDefine",
+			rowID : "DEFINE_ID",
+			sortName : "DEFINE_ID",
+			sortOrder : "asc",
+			columns : [ 
+					{title :"DEFINE_ID",title : "操作",operateFormat : [
+					
+					                                                  {type:"edit",title:"修改",url:"part/basedata/partObsoleteMaterial/modifyPartObsoleteMaterialDefine.html",openType:"jump",doubleClick:false},
+														                {type:"del",title:"下发",url:"/partObsoleteMaterialDefine/isSend/{[DEFINE_ID]}",model:"part",method:"PUT",callBack:function(response){
+														                       $("#partList",getElementContext()).dmsTable().refreshTableWithForm();
+														                 },isShow:function(value, row, index){
+																				
+															  					if(row.IS_SEND=="未下发"){
+																  					return true;
+															  					}else{
+																  					return false;
+															  					}}
+														                }
+					                                                ]
+					},
+			        {title: "名称",field: 'OM_NAME',sortable :false,maxLengthFormat :{length:10}},	
+					{title: "积压期（月）",field: 'OVERSTOCK_MONTH'},				
+					{title: "发布有效期（月）",field: 'RELEASE_MONTH'},
+					{title: "下发状态",field: 'IS_SEND'},
+					{title: "下发时间",field: 'SEND_DATE'},
+					{title: "操作人",field: 'UPDATE_BY'},
+					{title: "创建时间",field: 'CREATE_DATE'},
+					{title: "更新时间",field: 'UPDATE_DATE'},
+					{title: "备注",field: 'REMARK',sortable :false,maxLengthFormat :{length:10}}
+			        
+			]
+			
+		});
+		
+});
+    
+</script>

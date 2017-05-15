@@ -1,0 +1,186 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="modal-title">旧件回运管理</div>
+			<div class="panel-body">
+				<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">承运商</label>
+								<div class="col-xs-8">
+									<input type="text"  
+										id="carriage" class="form-control" 
+										name="carriage" >
+								</div>
+							</div>
+						</div>
+					
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">回运单号</label>
+							<div class="col-xs-8">
+								<input type="text"  
+										id="returnBillNo" class="form-control" 
+										name="returnBillNo">
+							</div>
+						</div>
+					</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">回运单状态</label>
+							<div class="col-xs-8">
+								<select id="returnBillStatus" name="returnBillStatus" class="bs-select form-control"
+									 data-type="oemDict" data-dictCode="9116"  data-value="91161001">
+									</select>
+							</div>
+						</div>
+					</div>
+							</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">发运时间</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" data-maxDays="30"
+									data-opens="right">
+									<input type="text" class="form-control" readonly
+										name="despatchStartDate"> <span class="input-group-addon">-</span>
+									<input type="text" class="form-control" readonly
+										name="despatchEndDate"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">建单时间</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" data-maxDays="30"
+									data-opens="right">
+									<input type="text" class="form-control" readonly
+										name="billStartDate"> <span class="input-group-addon">-</span>
+									<input type="text" class="form-control" readonly
+										name="billEndDate"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>	
+			</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+		<div class="pannel-name">旧件回运管理</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+								 <a href="javascript:;" data-url="/returnManage/export/excel" data-model="vehicle" data-method="downLoad"
+								class="btn btn-outline ajaxrest" data-validate = "false"><i class="fa fa-download"></i>下载</a>
+								<a href="javascript:;" class="btn btn-outline"  data-toggle="confirmation"> <i
+								class="fa fa-print"></i>打印
+							</a>
+								<a id="testPass" data-url="/returnManage/queryPass" data-model="vehicle" data-method="GET"
+									class="btn btn-outline" data-toggle="confirmation" data-callBack="true" data-beforeRequest="true"><i class="fa fa-save"></i>发运</a> 
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+
+	$(document)
+			.one(
+					"onload.dms",
+					function(event, container) {
+						new Datatable()
+								.initPagination({
+									src : "dms_table",
+									container : container,
+									url : dmsCommon.getDmsPath()["vehicle"]
+											+ "/returnManage",
+									rowID : "OLDPART_ID",
+									sortName : "",
+									sortOrder : "",
+									columns : [
+									           {checkbox:true,sortable : false
+									       	}, {
+												field : "RETURN_BILL_NO",
+												title : "操作",
+												operateFormat : [ {
+													type : "detail",	
+													url : "vehicle/oldpart/returnManage/returnManageMX.html",
+													openType : "jump",
+													doubleClick : true
+												},	{type:"del",url:"/returnManage/delete/{[RETURN_BILL_NO]}",model:"vehicle",callBack:function(response){
+											   	    $("#dms_table",getElementContext()).dmsTable().refreshTableWithForm(); },isShow:function(value, row, index){
+							                    	   if(row.RETURN_BILL_STATUS=="91161001"){
+							                    		   return true;
+							                    	   }else{
+							                    		   return  false;
+							                    	   }                  	
+							                       }} ]
+											},{
+												field : "DEALER_CODE",
+												title : "经销商代码"
+											}, {
+												field : "DEALER_NAME",
+												title : "经销商名称"
+											}, {
+												field : "RETURN_BILL_NO",
+												title : "回运单号",
+											}, {
+												field : "BILL_DATE",
+												title : "建单日期"
+											}, {
+												field : "DESPATCH_DATE",
+												title : "发运日期"
+											}, {
+												field : "OLDPART_TOTAL",
+												title : "回运旧件数量"
+											}, {
+												field : "RECEPTION_TOTAL",
+												title : "接收数量"
+											}, {
+												field : "REPULSE_TOTAL",
+												title : "拒绝数量",
+											}, {
+												field : "CARRIAGE",
+												title : "承运商"
+											}, {
+												field : "FREIGHT_NO",
+												title : "货运单号"
+											}, {
+												field : "RETURNADDR_NAME",
+												title : "返还地"
+											}, {
+												field : "RETURN_BILL_STATUS",
+												title : "处理状态"
+													,codeFormat : {type:"oemDict",codeType:"9116"}
+											}]
+								});
+						
+					});
+</script>

@@ -1,0 +1,64 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">选择技师</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+		    <div class="row">
+				<div class="col-xs-12 col-sm-6">
+					<div class="form-group">
+						<label class="control-label col-xs-4">技师名称</label>
+						<div class="col-xs-8 ">
+							 <select id="technician" name="technician"
+									class="bs-select form-control"
+									data-url="/stockManage/UpholsterWorker/SearchTechnician/{[SO_NO]}"
+									data-model="vehicle" data-labelValue="EMPLOYEE_NO" 
+									data-lableDesc="TECHNICIAN" >
+							</select>
+						</div>
+					</div>
+			    </div>
+			</div>
+			
+	
+			
+		
+		&nbsp;
+	</div>
+	
+	<div class="modal-footer center-block">
+	    <!-- <a data-goback="page" href="vehicle/upholsterWorker/printUpholsterWorker.html" id="redistribution5" data-onclickEvent="true"
+						class="btn btn-outline ajaxify" data-beforeShowEvent="true"><i class="fa fa-plus-square" ></i> 打印
+					</a> -->
+		<a class="btn blue "   title="打印" data-tableflag="true" id="print"  data-onclickEvent2='true' ><i class="fa fa-print"> 打印</i></a>   
+		<a class="btn blue" data-onclickEvent="true"  href="vehicle/upholsterWorker/printUpholsterWorker.html" data-model="vehicle"  data-onclickEvent="true" data-beforeShowEvent="true"><i class="fa fa-save"></i>确定</a>
+		<a data-dismiss="modal" class="btn blue" > <i class="fa fa-undo"></i>取消</a>
+    </div>
+</form>
+</div>
+<script type="text/javascript">
+
+	$(document).one("onload.dms",function(event,container){
+		//绑定onchange 事件
+		$("a[data-onclickEvent2='true']",container).on("dms.click",function(obj){
+			var soNo = "{[SO_NO]}";
+			var customerNo=$("#technician",container).val();
+			alert(customerNo)
+			$(container).data("pageData",{EMPLOYEE_NO:customerNo,SO_NO:soNo});
+	        dmsCommon.refreshPageByUrl("vehicle/upholsterWorker/printUpholsterWorker.html",container);  
+		    changeFormal(obj); 
+		});
+		
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event,response){
+			var SO_NO = "{[SO_NO]}";
+			
+			$(container).data("pageData",{SO_NO:SO_NO});
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+		});
+	});
+</script>

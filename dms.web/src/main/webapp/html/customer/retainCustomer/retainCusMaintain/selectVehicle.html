@@ -1,0 +1,60 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+				
+				
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">车辆信息</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_table"></table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-onclickEvent="true"><i
+				class="fa fa-save"></i>确定</a> <a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initLocale({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["customer"] + "/OwnerManage/ownercus/vehicle",
+			rowID : "vin",
+			sortName : "vin",
+			sortOrder : "asc",
+			autoHeight:false,
+		
+			columns : [ 
+				{radio:true,sortable : false},      
+            {field : "VIN",title : "VIN"}, 
+			{field : "BRAND_CODE",title : "品牌"}, 
+			{field : "MODEL_CODE",title : "车型"}, 
+			{field : "SERIES_CODE",title : "车系"}, 
+			{field : "COLOR_CODE",title : "颜色"}, 
+			{field : "CONFIG_CODE",title : "配置"}
+    			]
+		});
+		
+		//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			var selectRow = $("#dms_table",container).dmsTable().getFirstSelection();
+			$("div[data-companySelect='true']",getElementContext()).initHtmlContent(selectRow);		
+			//关闭窗口		
+			
+			$("a[data-dismiss='modal']",container).click();
+		});
+	});
+</script>  

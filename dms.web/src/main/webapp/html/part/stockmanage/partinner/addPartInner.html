@@ -1,0 +1,152 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<!-- <div class="panel-heading">
+			 <div class="pannel-name">配件报损单</div> 
+				<div class="pannel-tools">
+					<a href="javascript:;" class="expand"> <i
+						class="fa fa-chevron-down"></i></a>
+				</div>
+			</div> -->
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">领用单号</label>
+							<div class="col-xs-8">
+								<input id="receiptNo" name="receiptNo" disabled class="form-control" type="text" />
+							</div>
+						</div>
+					</div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">领用人</label>
+							<div class="col-xs-8">
+								<select id="receiptor" name="receiptor" class="bs-select form-control required" data-url="/basedata/employees/employees/dict" data-model="manage" data-labelValue="EMPLOYEE_NO" data-lableDesc="EMPLOYEE_NAME"  >
+							    </select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">领用部门</label>
+							<div class="col-xs-8">
+								<input id="orgName" name="orgName" disabled class="form-control" type="text" />
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">领用日期</label>
+							<div class="col-xs-8">
+								<div class="input-group date date-picker" data-date-format="yyyy/mm/dd" data-defaultToday="true">
+									<input id="receiptDate" name="receiptDate" readonly class="form-control required" type="text" value="" />
+									<span class="input-group-btn">
+										<button class="btn default date-set" type="button">
+											<i class="fa fa-calendar"></i>
+										</button>
+										<button class="btn default date-reset" type="button">
+											<i class="fa fa-times"></i>
+										</button>
+									</span>
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-2">备注</label>
+							<div class="col-xs-10">
+								<input id="remark" name="remark" type="text" class="form-control" />
+							</div>
+						</div>
+					</div>
+					
+					
+						
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">内部领用明细</div>
+			<div class="pannel-button">
+					<div class="btn-group btn-group-sm">
+						<a class="btn btn-outline" data-url="part/stockmanage/partinner/partInfoList.html" data-toggle="modal" data-width="modal-lg">
+							<i class="fa fa-plus-square"></i>
+							添加
+						</a>
+						<div class="hidden">
+							<a href="part/stockmanage/partinner/editPartInner.html" class="btn btn-outline ajaxify" data-onclickEvent="true">
+								<i class="fa fa-plus-square"></i>
+								保存成功后
+							</a>
+						</div>
+					</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive" id="partInnerItemDtos">
+			</table>
+		</div>
+	</div>
+		<div class="modal-footer center-block">
+						<div class="col-xs-12 ">
+							<div class="query-btn">
+								<a data-url="/stockmanage/partinners" data-method="POST" data-model="part" data-toggle="confirmation" data-callBack="true" class="btn blue" >
+									<i class="fa fa-save"></i> 保存
+								</a> 
+								<a id="finish"  disabled="disabled" data-errorCallBack="true"  data-toggle="confirmation" data-callBack="true" class="btn blue" > <i
+									class="fa fa-save"></i>入账
+								</a> <a
+								data-goback="page" href="part/stockmanage/partinner/searchPartInner.html"
+								class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>
+							</div>
+						</div>
+				   </div>
+		<!-- <div class="form-actions">
+			<a data-goback="page" href="part/stockmanage/partinner/searchPartInner.html" class="btn blue ajaxify">
+			<i class="fa fa-reply"></i>返回</a>
+		</div>
+ -->	</form>
+</div>
+
+<script type="text/javascript">
+	
+	$(document).one("onload.dms",function(event,container){
+		 new Datatable().initLocale({
+			src : "partInnerItemDtos",
+			container:container,
+			columns : [
+                       {field : "",title : "操作",operateFormat : [ {type : "localDel"} ]},
+			           {field : "isFinishedShow",title : "是否入账",codeFormat:{type:"dict",codeType:"1004"}},
+			           {field : "partCodeShow",inputField:"partNo",inputHiddenFormat : {},title : "配件代码"}, 
+			           {field : "partNameShow",inputField:"partName",inputHiddenFormat : {},title : "配件名称"},
+			           {field : "storageCodeShow",inputField:"storageCode",inputHiddenFormat : {},title : "仓库名称",inputSelectFormat : {url:"/basedata/store/accessories/Warehouses",model:"part",labelValue:"STORAGE_CODE",lableDesc:"STORAGE_NAME"}}, 
+			           {field : "storagePositionCodeShow",inputField:"storagePositionCode",inputHiddenFormat : {},title : "库位"}, 
+			           {field : "unitShow",inputField:"unit",inputHiddenFormat : {},title : "计量单位"}, 
+			           {field : "outQuantityShow",inputField:"outQuantity",inputHiddenFormat : {},title : "出库数量",numberFormat : {decimal : 4}},
+			           {field : "outPriceShow",inputField:"outPrice",inputHiddenFormat : {},title : "出库单价"},   
+			           {field : "outAmountShow",inputField:"outAmount",inputHiddenFormat : {},title : "出库金额"}
+			          ]
+		});
+		 
+		 //绑定事件
+		 $("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			 	$("a[data-onclickEvent='true']",container).data("pageData",response);
+			    $("a[data-onclickEvent='true']",container).click();
+		 });
+		 
+		 
+	     //领用人下拉框选择事件
+	     $("select[name='receiptor']",container).bindChange(function(obj){
+	    	 var orgName=dmsDict.getSelectedOptionData($("#receiptor",container)).ORG_NAME;
+	    	 $("input[name='orgName']",container).val(orgName);
+		});
+		
+		
+	});
+</script>
+

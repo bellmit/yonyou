@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://boldseas.com/dmsjecservice" xmlns:soapenc12="http://www.w3.org/2003/05/soap-encoding" xmlns:tns="http://boldseas.com/dmsjecservice" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap11="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc11="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  <wsdl:types>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://boldseas.com/dmsjecservice">
+<xsd:element name="syncOwnerResult">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="in0" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="syncOwnerResultResponse">
+<xsd:complexType/>
+</xsd:element>
+<xsd:element name="syncNewVehicle">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="in0" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="syncNewVehicleResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="addNewVehicle">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="in0" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="addNewVehicleResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="updateOwnerVehicle">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="in0" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="updateOwnerVehicleResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="addOwnerVehicle">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="in0" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="addOwnerVehicleResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="syncOwnerVehicle">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="in0" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="syncOwnerVehicleResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="syncOwnerResultResponse">
+    <wsdl:part name="parameters" element="tns:syncOwnerResultResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addNewVehicleResponse">
+    <wsdl:part name="parameters" element="tns:addNewVehicleResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addOwnerVehicleRequest">
+    <wsdl:part name="parameters" element="tns:addOwnerVehicle">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="syncNewVehicleRequest">
+    <wsdl:part name="parameters" element="tns:syncNewVehicle">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="syncOwnerVehicleRequest">
+    <wsdl:part name="parameters" element="tns:syncOwnerVehicle">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateOwnerVehicleResponse">
+    <wsdl:part name="parameters" element="tns:updateOwnerVehicleResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addOwnerVehicleResponse">
+    <wsdl:part name="parameters" element="tns:addOwnerVehicleResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="syncOwnerResultRequest">
+    <wsdl:part name="parameters" element="tns:syncOwnerResult">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateOwnerVehicleRequest">
+    <wsdl:part name="parameters" element="tns:updateOwnerVehicle">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="syncOwnerVehicleResponse">
+    <wsdl:part name="parameters" element="tns:syncOwnerVehicleResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addNewVehicleRequest">
+    <wsdl:part name="parameters" element="tns:addNewVehicle">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="syncNewVehicleResponse">
+    <wsdl:part name="parameters" element="tns:syncNewVehicleResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="DmsJecServicePortType">
+    <wsdl:operation name="syncOwnerResult">
+      <wsdl:input name="syncOwnerResultRequest" message="tns:syncOwnerResultRequest">
+    </wsdl:input>
+      <wsdl:output name="syncOwnerResultResponse" message="tns:syncOwnerResultResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="syncNewVehicle">
+      <wsdl:input name="syncNewVehicleRequest" message="tns:syncNewVehicleRequest">
+    </wsdl:input>
+      <wsdl:output name="syncNewVehicleResponse" message="tns:syncNewVehicleResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addNewVehicle">
+      <wsdl:input name="addNewVehicleRequest" message="tns:addNewVehicleRequest">
+    </wsdl:input>
+      <wsdl:output name="addNewVehicleResponse" message="tns:addNewVehicleResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateOwnerVehicle">
+      <wsdl:input name="updateOwnerVehicleRequest" message="tns:updateOwnerVehicleRequest">
+    </wsdl:input>
+      <wsdl:output name="updateOwnerVehicleResponse" message="tns:updateOwnerVehicleResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addOwnerVehicle">
+      <wsdl:input name="addOwnerVehicleRequest" message="tns:addOwnerVehicleRequest">
+    </wsdl:input>
+      <wsdl:output name="addOwnerVehicleResponse" message="tns:addOwnerVehicleResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="syncOwnerVehicle">
+      <wsdl:input name="syncOwnerVehicleRequest" message="tns:syncOwnerVehicleRequest">
+    </wsdl:input>
+      <wsdl:output name="syncOwnerVehicleResponse" message="tns:syncOwnerVehicleResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DmsJecServiceHttpBinding" type="tns:DmsJecServicePortType">
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="syncOwnerResult">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="syncOwnerResultRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="syncOwnerResultResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="syncNewVehicle">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="syncNewVehicleRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="syncNewVehicleResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addNewVehicle">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="addNewVehicleRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="addNewVehicleResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateOwnerVehicle">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="updateOwnerVehicleRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="updateOwnerVehicleResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addOwnerVehicle">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="addOwnerVehicleRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="addOwnerVehicleResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="syncOwnerVehicle">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="syncOwnerVehicleRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="syncOwnerVehicleResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DmsJecService">
+    <wsdl:port name="DmsJecServiceHttpPort" binding="tns:DmsJecServiceHttpBinding">
+      <wsdlsoap:address location="http://223.4.9.70/bws/services/DmsJecService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,209 @@
+<div class="dms-edit ajaxrest" data-url="/stockmanage/purchaseOrders/{[PART_BUY_ID]}" data-model="part">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">入库单号</label>
+							<div class="col-xs-8">
+								<input id="stockInNo" name="stockInNo" class="form-control"
+									type="text" value="" data-fieldName="STOCK_IN_NO"
+									disabled="disabled" />
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group" data-tableSelect1="true">
+							<label class="control-label col-xs-4">发运单号</label>
+							<div class="col-xs-8 ">
+								<div class="input-group">
+									<input type="text" class="form-control" id="deliveryNo1" readonly
+										name="deliveryNo1" data-fieldName="DELIVERY_NO" /> <input
+										type="hidden" class="form-control" id="deliveryId"
+										name="deliveryId" data-fieldName="DELIVER_ID" /> <input
+										type="hidden" class="form-control" id="deliveryNo"
+										name="deliveryNo" data-fieldName="DELIVERY_NO" /> <span
+										class="input-group-btn">
+										<button class="btn default btn-sm" type="button"
+											data-url="part/stockmanage/partbuy/selectPartDeliver.html"
+											data-toggle="modal" data-width="modal-lg"  data-beforeShowEvent="true">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+	                                            			<i class="fa fa-close"></i>
+	                                    				</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group" data-tableSelect="true">
+							<label class="control-label col-xs-4">往来客户</label>
+							<div class="col-xs-8 ">
+								<div class="input-group">
+								<input type="hidden" class="form-control" id="customerCode" name="customerCode" data-fieldName="CUSTOMER_CODE" >
+									<input type="text" class="form-control required" id="customerName" name="customerName" data-fieldName="CUSTOMER_NAME" readonly>
+
+									<input type="hidden" class="form-control" id="customerId" name="customerId" data-fieldName="PART_CUSTOMER_ID">
+									<input type="hidden" class="form-control" id="priceRate" name="priceRate" data-fieldName="PRICE_RATE">
+									<span class="input-group-btn">
+
+										<button class="btn default btn-sm" type="button" data-alert="cusorown" data-beforeShowEvent="true" onclick="return false" data-url="part/stockmanage/partbuy/selectPartCustomer.html" data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">开单日期</label>
+							<div class="col-xs-8">
+								<div class="input-group date date-picker">
+									<input id="orderDate" name="orderDate" readonly
+										class="form-control required" type="text" data-fieldName="ORDER_DATE" />
+									<span class="input-group-btn">
+										<button class="btn default date-set" type="button">
+											<i class="fa fa-calendar"></i>
+										</button>
+                                        <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                        </button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-12 col-md-8">
+						<div class="form-group">
+							<label class="control-label col-xs-2">备注</label>
+							<div class="col-xs-10">
+								<input id="remark" name="remark" type="text" maxlength = "400"
+									class="form-control" data-fieldName="REMARK" />
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+			<div class="pannel-name">采购入库单明细</div>
+				<div class="pannel-button">
+					<div class="btn-group btn-group-sm">
+						<a class="btn btn-outline"  data-beforeShowEvent="true" 
+							data-url="part/stockmanage/partbuy/selectPart.html"
+							data-toggle="modal" data-width="modal-lg"><i
+							class="fa fa-plus-square"></i>添加 </a>
+						<a class="btn btn-outline"
+							data-url="part/stockmanage/partbuy/importPartBuy.html" data-beforeShowEvent="true"
+							data-toggle="modal" data-width="modal-lg"><i
+							class="fa fa-upload"></i>导入 </a>
+						<a data-url="/basedata/partinfos/download" data-model="part"
+							data-method="downLoad" data-toggle="confirmation"
+							class="btn btn-outline "><i class="fa fa-download"></i>
+							模板 </a> 
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="partBuyItemList">
+				</table>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<div class="col-xs-12 ">
+				<div class="query-btn">
+					<a data-url="/stockmanage/purchaseOrders/{[PART_BUY_ID]}"
+						data-model="part" data-method="PUT" class="btn blue"
+						data-toggle="confirmation" data-callBack="true"> <i
+						class="fa fa-save"></i>保存
+					</a> <a
+						data-url="/stockmanage/purchaseOrders/{[PART_BUY_ID]}/inWarehouse"
+						data-model="part" data-method="PUT" data-callBack="true"
+						class="btn blue" data-toggle="confirmation"><i
+						class="fa fa-plus-square"></i>入账</a> 
+						<a data-goback="page"
+						data-onclickEvent="true"
+						href="part/stockmanage/partbuy/searchPartBuy.html"
+						class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initLocale({
+		src : "partBuyItemList",
+		rowID:"ITEM_ID",
+		container:container,
+		url : dmsCommon.getDmsPath()["part"] + "/stockmanage/purchaseOrders/{[PART_BUY_ID]}/Items",
+		sortName : "ITEM_ID", 
+		sortOrder : "asc",
+		autoHeight:false,
+		columns : [ {field : "ITEM_ID",
+					title :"操作",operateFormat : [ {type : "localDel",onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){}} ]}, 
+		            {field : "IS_FINISHED",inputField:"isFinished",title : "是否入账",inputHiddenFormat : {},codeFormat : {type : "dict",codeType : "1004",defaultValue:"10041002"}},
+		            {field : "PART_CODE",inputField:"partNo",title : "配件代码",inputHiddenFormat : {validate:{validateClass:"required",validateAttr:'maxlength="30"'}}},
+		            {field : "PART_NAME",inputField:"partName",title : "配件名称",inputHiddenFormat : {validate:{validateClass:"required",validateAttr:'maxlength="120"'}}},
+		            {field : "STORAGE_CODE",inputField:"storageCode",title : "仓库名称",inputSelectFormat : {validate:{validateClass:"required dmsDisabled",validateAttr:'maxlength="30"'},url:"/basedata/store/accessories/Warehouses",model:"manage",labelValue:"STORAGE_CODE",lableDesc:"STORAGE_NAME"}},
+		            {field : "STORAGE_POSITION_CODE",inputField:"storagePositionCode",title : "库位",inputTextFormat : {validate:{validateAttr:'maxlength="30"'}}},
+		            {field : "UNIT",inputField:"unit",title : "计量单位",inputHiddenFormat : {}},
+		            {field : "INQUANTITY",inputField:"inQuantity",title : "入库数量",inputHiddenFormat : {validate:{validateClass:"required digits"}},NumberFormat : {}},
+		            {field : "PRICE",inputField:"inPrice",title : "不含税单价",inputHiddenFormat : {validate:{validateClass:"required",validateAttr:'maxDigit="8" maxPrecision="2"'}},NumberFormat : {decimal : 2}},
+		            {field : "AMOUNT",inputField:"inAmount",title : "不含税金额",inputHiddenFormat : {validate:{validateClass:"required",validateAttr:'maxDigit="8" maxPrecision="2"'}},NumberFormat : {decimal : 2}},
+		            {field : "PRICETAXED",inputField:"inPriceTaxed",title : "含税单价",inputHiddenFormat : {validate:{validateClass:"required",validateAttr:'maxDigit="8" maxPrecision="2"'}},NumberFormat : {decimal : 2}},
+		            {field : "TAXEDAMOUNT",inputField:"inAmountTaxed",title : "含税金额",inputHiddenFormat : {validate:{validateClass:"required",validateAttr:'maxDigit="8" maxPrecision="2"'}},NumberFormat : {decimal : 2}},
+		            {field : "COST_PRICE",inputField:"",title : "成本价",inputHiddenFormat : {validate:{validateClass:"required",validateAttr:'maxDigit="8" maxPrecision="2"'}},NumberFormat : {decimal : 2},isVisible:function(column){	
+						   //是否显示成本价
+				           if("{[userInfo.purchase.13131001]}"=="true"){
+				        	   return true;
+				           };
+				           return false;
+			        }},
+		            {field : "FROMTYPE",inputField:"fromType",title : "来源方式",inputHiddenFormat : {},codeFormat : {type : "dict",codeType : "1305"}}
+		         ]
+		});
+		//绑定事件
+		 $("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			    $("a[data-onclickEvent='true']",container).click();
+		 });
+		//触发点击事件
+			$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+				var row=$("#partBuyItemList",getElementContext()).dmsTable().getRowDataByIndex(0);
+				if(row){
+					if(row["FROMTYPE"]=="13051001"){
+						dmsCommon.tip({status:"warning",msg:"已选择发运单入库，不能手工添加配件"});
+						returnResult.status = false;
+						return;
+					}
+				}
+				returnResult.status = true;
+			});
+			//触发点击事件
+			$("button[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+				var row=$("#partBuyItemList",getElementContext()).dmsTable().getRowDataByIndex(0);
+				if(row){
+					if(row["FROMTYPE"]=="13051002"){
+						dmsCommon.tip({status:"warning",msg:"已手工添加配件，不能通过发运单添加配件"});
+						returnResult.status = false;
+						return;
+					}
+				}
+				returnResult.status = true;
+			});
+	});
+</script>

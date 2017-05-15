@@ -1,0 +1,174 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">销售单号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="salesPartNo"
+									name="salesPartNo">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group" data-tableSelect="true">
+							<label class="control-label col-xs-4">客户名称</label>
+							<div class="col-xs-8 ">
+								<div class="input-group">
+								<input type="text" class="form-control" id="customerName" name="customerName" data-fieldName="CUSTOMER_NAME" readonly>
+									<input type="hidden" class="form-control" id="customerCode"
+										name="customerCode" data-fieldName="CUSTOMER_CODE" readonly>
+									<input type="hidden" class="form-control" id="customerId"
+										name="customerId" data-fieldName="PART_CUSTOMER_ID">
+									<span class="input-group-btn">
+										<button class="btn default btn-sm" type="button" data-beforeShowEvent="true" onclick="return false"  data-url="part/stockmanage/partbuy/selectPartCustomer.html"
+											data-toggle="modal" data-width="modal-lg"> <i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+	                                            			<i class="fa fa-close"></i>
+	                                    				</button>
+									</span>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<div class="col-xs-8">
+								<input id="status" name="cusType" type="radio"
+										data-dictCode="1038" data-value="10381001"/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">单据状态</label>
+							<div class="col-xs-8">
+								<select id="orderStatus" name="orderStatus" class="bs-select form-control" data-dictCode="1303"  >
+							    </select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label  col-xs-4 col-sm-2">开单日期</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" data-maxDays = "30" data-defaultDays="7">
+		                             <input type="text" class="form-control" readonly  name="orderDateFrom">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="orderDateTo"> 
+		                        </div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a>
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a> 
+						</div>
+					</div>
+					<div class="hidden">
+							<a class="btn btn-outline" data-onclickEvent="true" data-url="part/stockmanage/partbuy/selectPartCustomer.html" data-toggle="modal" data-width="modal-lg" > 
+							<i class="fa fa-plus-square"></i> 往来客户</a>
+							<a class="btn btn-outline" data-onclickEvent1="true"   data-url="part/stockmanage/salespart/selectPartCarowner.html"
+											data-toggle="modal" data-width="modal-lg"> <i class="fa fa-list-alt">车主</i>
+						   </a>
+		            </div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">配件销售单</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+				           <a href="part/stockmanage/salespart/addSalesPart.html" class="btn btn-outline ajaxify" > <i
+								class="fa fa-plus-square"></i> 新增
+							</a>				
+				</div>
+				
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["part"] + "/stockmanage/salesparts",
+		rowID : "SALES_PART_ID",
+		sortName : "SALES_PART_NO",
+		sortOrder : "asc",
+		columns : [
+				{field : "SALES_PART_ID",title : "操作",operateFormat : [
+				       {type : "edit",url : "part/stockmanage/salespart/editSalesPart.html",openType:"jump",
+				        isShow:function(value, row, index){
+							   if(row.ORDER_STATUS!="13031002"){
+								   return true;
+	                    	   }else{
+	                    		   return false;
+	                    	   }      
+						   }},
+					   {type:"del",url:"/stockmanage/salesparts/{[SALES_PART_ID]}",model:"part",callBack:function(){					    	
+						   $("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+					    },isShow:function(value, row, index){
+						   if(row.ORDER_STATUS!="13031002"){
+							   return true;
+                    	   }else{
+                    		   return false;
+                    	   }      
+					   }},
+					   {type:"detail",url:"part/stockmanage/salespart/editSalesPart.html",openType:"jump"},
+					   {type:"edit",url:"part/stockmanage/salespart/returnSalesItem.html",openWidth:"modal-lg",title:"退料",operateIcon:'<i class="fa fa-reply glyphicon-lg"></i>',
+						   isShow:function(value, row, index){
+							   if(row.ORDER_STATUS!="13031001"){
+								   return true;
+	                    	   }else{
+	                    		   return false;
+	                    	   }      
+						   }   
+					   },
+                       {type:"edit",url:"part/stockmanage/salespart/printSalespart.html",openType:"jump",openWidth:"modal-lg",title:"打印",operateIcon:'<i class="fa fa-print glyphicon-lg"></i>'}
+				]},
+				{field : "SALES_PART_NO",title : "销售单号"},
+				{field : "ORDER_STATUS",title : "单据状态",codeFormat : {type:"dict",codeType:"1303"}},
+				{field : "ORDER_DATE",title : "开单日期",dateFormat : {}},
+				{field : "CUSTOMER_CODE",title : "客户代码"},
+				{field : "CUSTOMER_NAME",title : "客户名称"},
+				{field : "OUT_AMOUNT",title : "出库总金额",numberFormat : {decimal:2}}
+				]
+
+	});
+	$("button[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+	    var result2 = $("input[name='cusType']:checked").val();
+	    //往来客户
+	    if("10381001"==result2){
+	    	 $("a[data-onclickEvent='true']",container).click();
+	    }
+	    //车主
+	    if("10381002"==result2){
+	    	 $("a[data-onclickEvent1='true']",container).click();
+	    }
+	   
+	});
+});
+</script>

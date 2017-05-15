@@ -1,0 +1,361 @@
+<div class="dms-edit ajaxrest" data-url="/stockManage/UpholsterWorker/{[SO_NO]}" data-model="vehicle" data-pageInitCallBack="true">
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">装潢项目添加</div>
+			 <div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			  </div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">订单信息</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i
+							class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row" data-tableSelect="true">
+					    <!--    
+					    <div class="col-xs-12 col-sm-6 col-md-4" hidden="hidden">
+							<div class="form-group"> 
+								<label class="control-label col-xs-4">隐藏字段</label>
+								<div class="col-xs-8">
+									<input id="bzc" name="bzc" type="text" class="form-control" data-fieldName="BZC">
+								</div>
+							</div>
+						</div> 
+						-->
+					 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">订单编号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control"  data-fieldName="SO_NO" disabled="disabled">
+							</div>
+						</div>
+					</div>
+					
+					  	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">订单状态</label>
+							<div class="col-xs-8">
+								<select  data-fieldName="SO_STATUS" disabled="disabled" id = "aaa" name = "aaa"
+									class="bs-select form-control" data-dictCode="1301"></select>
+							</div>
+						</div>
+					</div>
+					
+				
+					
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">制单日期</label>
+						<div class="col-xs-8">
+							<div class="input-group date date-picker" data-date-format="YYYY-MM-DD" >
+								<input  data-fieldName="SHEET_CREATE_DATE" disabled="disabled" 
+									class="form-control"
+									type="text" value="" /> <span class="input-group-btn" >
+									<button class="btn default date-set" type="button" disabled="disabled" >
+										<i class="fa fa-calendar"></i>
+									</button>
+                                            <button class="btn default date-reset" type="button" disabled="disabled">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+								</span>
+							</div>
+						</div>
+					</div>
+				 </div>
+					
+				 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">制单人员</label>
+						<div class="col-xs-8">
+							 <select disabled="disabled" data-fieldName="SHEET_CREATED_BY"
+									class="bs-select form-control"
+									data-url="/basedata/employees/-1/salesConsultant"
+									data-model="manage" data-labelValue="USER_ID" 
+									data-lableDesc="USER_NAME" >
+							</select>
+						</div>
+					</div>
+				</div>
+					
+				 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">销售顾问</label>
+						<div class="col-xs-8">
+							 <select disabled="disabled" data-fieldName="SOLD_BY"
+									class="bs-select form-control"
+									data-url="/basedata/employees/-1/salesConsultant"
+									data-model="manage" data-labelValue="USER_ID" 
+									data-lableDesc="USER_NAME" >
+							</select>
+						</div>
+					</div>
+				</div>
+				
+				 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">客户编号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" disabled="disabled" data-fieldName="CUSTOMER_NO">
+							</div>
+						</div>
+				</div>
+				
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">客户名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" disabled="disabled" data-fieldName="CUSTOMER_NAME">
+							</div>
+						</div>
+				</div>
+				
+				 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">客户类型</label>
+							<div class="col-xs-8">
+								<select disabled="disabled" data-fieldName="CUSTOMER_TYPE"
+									class="bs-select form-control" data-dictCode="1018" ></select>
+							</div>
+						</div>
+				 </div>	
+				 
+				 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">联系人</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" disabled="disabled" data-fieldName="CONTACTOR_NAME">
+							</div>
+						</div>
+				</div>
+				
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">联系电话</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" disabled="disabled" data-fieldName="PHONE">
+							</div>
+						</div>
+				</div>
+				
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">客户地址</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" disabled="disabled" data-fieldName="ADDRESS">
+							</div>
+						</div>
+				</div>
+				
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">证件类型</label>
+							<div class="col-xs-8">
+								<select disabled="disabled" data-fieldName="CT_CODE"
+									class="bs-select form-control" data-dictCode="1239">
+								</select>
+							</div>
+						</div>
+				 </div>	
+				 
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">证件号码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" disabled="disabled" data-fieldName="CERTIFICATE_NO">
+							</div>
+						</div>
+				</div>
+				
+				<div class="col-xs-12 col-sm-12 col-md-8">
+					<div class="form-group">
+						<label class="control-label col-xs-4 col-sm-2 ">订单备注</label>
+						<div class="col-xs-8 col-sm-10">
+							<textarea disabled="disabled" data-fieldName="REMARK" data-fieldName="SCENE" class="form-control" rows="2" maxlength="120" cols=""></textarea>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+
+	<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">订单信息</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i
+							class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+				<div class="row" data-tableSelect="true">
+					<!--  -->   
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">产品代码</label>
+								     <div class="col-xs-8">
+										<input type="text" class="form-control" disabled="disabled" data-fieldName="PRODUCT_CODE">
+									</div>
+							    </div>
+						</div>
+				
+				 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			<div class="form-group">
+				<label class="control-label col-xs-4">产品名称</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control" disabled="disabled" data-fieldName="PRODUCT_NAME">
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			<div class="form-group">
+				<label class="control-label col-xs-4">车辆用途</label>
+				<div class="col-xs-8">
+					<select disabled="disabled" 
+						class="bs-select form-control" data-dictCode="1193" data-fieldName="VEHICLE_PURPOSE" ></select>
+				</div>
+			</div>
+		 </div>	
+		 
+		 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			<div class="form-group">
+				<label class="control-label col-xs-4">车辆VIN</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control" disabled="disabled" data-fieldName="VIN" >
+				</div>
+			</div>
+		</div>
+				
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			<div class="form-group">
+				<label class="control-label col-xs-4">车牌号</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control" disabled="disabled" data-fieldName="TH_REPORT_NO">
+				</div>
+		    </div>
+		</div>
+			
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			<div class="form-group">
+				<label class="control-label col-xs-4">车辆描述</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control" disabled="disabled" data-fieldName="LICENSE">
+				</div>
+		    </div>
+		</div>
+		 
+					
+			   </div>
+		</div>
+	</div>	
+
+  
+	    <div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">意向明细</div>
+					<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+								<div class="btn-group btn-group-sm">
+							     <a class="btn btn-outline"
+								  data-url="vehicle/upholsterWorker/addDecrodateProjectManageEx.html"
+								  data-toggle="modal" data-width="modal-lg"><i
+								  class="fa fa-plus-square"></i>添加 </a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="intentList">
+					</table>
+			</div>
+		</div>
+		
+		<div class="modal-footer center-block">
+			<a data-url="/stockManage/UpholsterWorker/add/{[SO_NO]}" data-model="vehicle" 
+				data-method="POST" data-callBack="true" class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> <a
+				data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>       
+
+		</div>
+	</form>
+</div>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+	
+	/* dmsCommon.ajaxRestRequest({
+		url : dmsCommon.getDmsPath()["customer"] + "/customerManage/visitingRecord/visitTime",
+		type : 'GET',
+		sucessCallBack : function(data) {
+			if(data.num == 1){
+				$("#visitTime",container).removeAttr("disabled","disabled");
+				$("#vt",container).removeAttr("disabled","disabled");
+			}
+		}					
+	}); */
+	
+	
+	new Datatable().initLocale({
+		src : "intentList",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/stockManage/UpholsterWorker/SearchWorker/{[SO_NO]}",
+		columns : [ 
+			//{radio:true,sortable : false},
+			{title : "操作",operateFormat : [ 
+                  {type : "localDel",onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){}}
+             ]},
+         	 
+         	 {field : "UPHOLSTER_CODE",/* inputField:"upholsterCode", */inputHiddenFormat : {hiddenField:"UPHOLSTER_CODE"},title : "装潢项目代码"},
+	         {field : "UPHOLSTER_NAME",/* inputField:"upholsterName" ,*/inputHiddenFormat : {hiddenField:"UPHOLSTER_NAME"},title : "装潢项目名称"},
+	         {field : "REMARK",title : "备注",inputField:"remark",inputHiddenFormat : {hiddenField:"REMARK"}},
+	         {field : "STD_LABOUR_HOUR" , inputField:"stdLabourHour",inputHiddenFormat : {hiddenField:"STD_LABOUR_HOUR"},title : "标准工时"},
+	         {field : "DISCOUNT",title : "折扣率",inputField:"discount",numberFormat : {decimal:2},inputHiddenFormat : {hiddenField:"DISCOUNT"}},
+	         {field : "DISCOUNT_AMOUNT",title : "优惠金额",inputField:"discountAmount",numberFormat : {decimal:2},inputHiddenFormat : {hiddenField:"DISCOUNT_AMOUNT"}},
+	         {field : "LABOUR_PRICE",title : "工时单价",inputField:"labourPrice",numberFormat : {decimal:2},inputHiddenFormat : {hiddenField:"LABOUR_PRICE"}},
+	         {field : "ASSIGN_LABOUR_HOUR",/* inputField:"assignLabourHour", */inputHiddenFormat : {hiddenField:"ASSIGN_LABOUR_HOUR"},title : "派工工时",numberFormat : {decimal:2}},
+	         {field : "TECHNICIAN",title : "技师",inputField:"technician",inputHiddenFormat : {hiddenField:"TECHNICIAN"}},
+	         {field : "RECEIVE_AMOUNT",title : "实收金额",numberFormat : {decimal : 2,autoValueFormat:{autoValue:"#stdLabourHour*#labourPrice"}},inputHiddenFormat : {hiddenField:"RECEIVE_AMOUNT"}},
+	         {field : "flag",title : "标志",inputHiddenFormat : {hiddenField:"flag"}},
+	         {field : "LOCAL_LABOUR_CODE",/* inputField:"upholsterCode", */inputHiddenFormat : {hiddenField:"LOCAL_LABOUR_CODE"},title : "行管项目代码"},
+	         {field : "LOCAL_LABOUR_NAME",/* inputField:"upholsterName" ,*/inputHiddenFormat : {hiddenField:"LOCAL_LABOUR_NAME"},title : "行管项目名称"}
+	          
+	          
+	       
+		     ] ,onLoadSuccess : function() {
+		    	 var table = $("#intentList",
+							getElementContext()).dmsTable()
+							.getRowDataByIndex();
+					for (var i = 0; i < table.length; i++) {
+						var receivable = table[i].STD_LABOUR_HOUR;
+						var consigned = table[i].LABOUR_PRICE;
+						var amount = receivable*consigned;
+						$("#intentList",container).dmsTable().updateRowByIndex(i,{RECEIVE_AMOUNT:amount});
+					}
+				 }
+	});
+	
+
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("a[data-goback='page']",container).click();
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+	/* 	//刷新表格
+		$("#veInspectList",getElementContext()).dmsTable().refreshTableWithForm(); */
+	});
+
+});		
+</script>

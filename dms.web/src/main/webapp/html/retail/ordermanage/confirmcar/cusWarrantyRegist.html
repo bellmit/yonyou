@@ -1,0 +1,326 @@
+<div  class="dms-edit ajaxrest"
+	data-url="/ordermanage/confirmcar/confirm/{[SO_NO]}"
+	data-model="retail" data-pageInitCallBack="true">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">客户保修登记卡</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:Red">*</span>客户名称</label>
+								<div class="col-xs-8">
+									<input id="customerName" name="customerName"
+										data-fieldName="CUSTOMER_NAME" class="form-control required"
+										maxlength="120" type="text" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:Red">*</span>客户类型</label>
+								<div class="col-xs-8">
+									<select id="customerType" name="customerType"
+										data-fieldName="CUSTOMER_TYPE" class="bs-select form-control required"
+										data-dictCode="1018" ></select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:Red">*</span>联系人名称</label>
+								<div class="col-xs-8">
+									<input id="linkedName" name="linkedName"
+										data-fieldName="LINKED_NAME"
+										class="form-control required" type="text" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:Red">*</span>联系手机</label>
+								<div class="col-xs-8">
+									<input id="contactorMobile" name="contactorMobile"
+										data-fieldName="LINKED_MOBILE"
+										class="form-control required phone" type="text" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:Red">*</span>性别</label>
+								<div class="col-xs-8">
+									<select id="gender" name="gender" data-fieldName="GENDER"
+										class="form-control required" data-dictCode="1006"
+										data-value="">
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">邮编</label>
+								<div class="col-xs-8 ">
+									<input id="zipCode" name="zipCode" class="form-control zipCode"
+										type="text" data-fieldName="ZIP_CODE"/>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:Red">*</span>证件类型</label>
+								<div class="col-xs-8">
+									<select id="ctCode" name="ctCode" data-fieldName="CT_CODE"
+										class="bs-select form-control required" data-dictCode="1239"
+										data-value="">
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4 "><span style="color:Red">*</span>证件号码</label>
+								<div class="col-xs-8 ">
+									<input id="certificateNo" name="certificateNo" data-fieldName="CERTIFICATE_NO"
+										class="form-control required" type="text" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2"><span style="color:Red">*</span>地址</label>
+								<div class="col-xs-8 col-sm-10">
+									<input id="address" name="address" class="form-control required"
+										maxlength="120" type="text" data-fieldName="ADDRESS"/>
+
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2">E_MAIL</label>
+								<div class="col-xs-8 col-sm-10">
+									<input id="eMail" name="eMail" class="form-control"
+										maxlength="120" type="text" data-fieldName="E_MAIL"/>
+
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">VIN</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="vin" name="vin" data-fieldName="VIN"
+										readonly disabled="disabled">
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌</label>
+								<div class="col-xs-8">
+									<select id="brand" class="bs-select form-control"
+										data-fieldName="BRAND" disabled="disabled" name="brand"
+										data-url="/basedata/brandsdict" data-model="manage"
+										data-labelValue="BRAND_CODE" data-lableDesc="BRAND_NAME">
+
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-md-12" hidden="hidden">
+							<div class="form-group">
+								<label class="control-label col-md-2">工单号</label>
+								<div class="col-md-10">
+									<input name="usoNo" id="usoNo"
+										class="form-control" type="text" max="120" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系</label>
+								<div class="col-xs-8 ">
+									<select id="series" parent="brand" data-fieldName="SERIES"
+										class="bs-select form-control" name="series"
+										disabled="disabled"
+										data-url="/basedata/brandsdictC/{[brand]}/seriessdictC"
+										data-model="manage" data-labelValue="SERIES_CODE"
+										data-lableDesc="SERIES_NAME">
+
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车型</label>
+								<div class="col-xs-8">
+									<select id="model" parent="series" data-fieldName="MODEL"
+										class="bs-select form-control" name="model"
+										disabled="disabled"
+										data-url="/basedata/brandsdictC/{[brand]}/seriessdictC/{[series]}/modelsdictC"
+										data-model="manage" data-labelValue="MODEL_CODE"
+										data-lableDesc="MODEL_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配置</label>
+								<div class="col-xs-8">
+									<select id="config" parent="model" data-fieldName="APACKAGE"
+										class="bs-select form-control " name="config"
+										disabled="disabled"
+										data-url="/basedata/brandsdictC/{[brand]}/seriessdictC/{[series]}/modelsdictC/{[model]}/packagesdictC"
+										data-model="manage" data-labelValue="CONFIG_CODE"
+										data-lableDesc="CONFIG_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:Red">*</span>颜色</label>
+								<div class="col-xs-8">
+									<select id="color" class="bs-select form-control  required" name="color"
+										data-fieldName="COLOR"
+										data-url="/basedata/colors/colorinfo/dicts"
+										data-model="repair" data-labelValue="COLOR_CODE"
+										data-lableDesc="COLOR_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:Red">*</span>专属客户经理</label>
+								<div class="col-xs-8">
+									<select id="zsManager" name="zsManager"
+										data-fieldName="ZS_MANAGER"
+										class="bs-select form-control required"
+										data-url="/basedata/employees/-1/salesConsultant"
+										data-model="manage" data-labelValue="USER_ID"
+										data-lableDesc="USER_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+
+
+						<!--/span-->
+						<div class="col-md-12" hidden="hidden">
+							<div class="form-group">
+								<label class="control-label col-md-2">工单号</label>
+								<div class="col-md-10">
+									<input name="usoNo" id="usoNo"
+										class="form-control" type="text" max="120" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-md-12"  hidden="hidden">
+							<div class="form-group">
+								<label class="control-label col-md-2">工单号</label>
+								<div class="col-md-10">
+									<input name="uVin" id="uVin"
+										class="form-control" type="text" max="120" />
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a 
+				data-url="/ordermanage/confirmcar/updatecustomerinfo/car"
+				data-model="retail" data-method="PUT" data-callBack="true"
+				class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> <a
+				data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+
+		</div>
+	</form>
+</div>
+ <script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	var flag = false;
+	var selectRow = $("#dms_table",getElementContext()).dmsTable().getSelections();
+		$("#usoNo").val(selectRow[0].SO_NO);
+		$("#uVin").val(selectRow[0].VIN);
+/* 		checkoutMobile(selectRow[0].SO_NO+","+selectRow[0].VIN);
+		
+	var checkoutMobile=function(str){
+		
+				
+		 }	 */ 
+	
+/* 	dmsCommon.ajaxRestRequest({
+		url : dmsCommon.getDmsPath()["retail"] + "/ordermanage/confirmcar/test/"+selectRow[0].SO_NO+","+selectRow[0].VIN,
+		type : 'GET',
+		sucessCallBack : function(data) {
+			alert(11111);
+			if(data.length>0){
+				alert(11112);
+				$("#ctCode").val(data[0].CT_CODE);
+				$("#certificateNo").val(data[0].CERTIFICATE_NO);
+				$("#gender").val(data[0].GENDER);
+				$("#customerType").val(data[0].CUSTOMER_TYPE);
+				$("#cusName").val(data[0].CUSTOMER_NAME);
+				$("#province").val(data[0].PROVINCE);
+				$("#bestContactType").val(data[0].BEST_CONTACT_TYPE);
+				$("#contactorMobile").val(data[0].CONTACTOR_MOBILE);
+				$("#address").val(data[0].ADDRESS);
+				$("#buyReason").val(data[0].BUY_REASON);
+				$("#buyPurpose").val(data[0].BUY_PURPOSE);
+				$("#cusSource").val(data[0].CUS_SOURCE);
+				$("#model").val(data[0].MODEL);
+				$("#apackage").val(data[0].APACKAGE);
+				$("#color").val(data[0].COLOR);
+				$("#cvin").val(data[0].VIN);
+				$("#license").val(data[0].LICENSE);
+				$("#licenseDate").val(data[0].LICENSE_DATE);
+				$("#salesDate").val(data[0].SALES_DATE);
+				$("#salesMileage").val(data[0].SALES_MILEAGE);
+				$("#birthday").val(data[0].BIRTHDAY1);
+				flag = true;//总共的状态类型：info、success、error、warning
+			}
+		}
+	}); */
+ 	
+	//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	}); 
+});		
+</script> 

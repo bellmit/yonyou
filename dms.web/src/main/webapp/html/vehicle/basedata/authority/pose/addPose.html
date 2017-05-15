@@ -1,0 +1,305 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">职位信息新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">职位类别</label>
+								<div class="col-xs-8">
+									<select id="poseType" name="poseType" class="bs-select form-control required" data-type="oemDict" data-dictCode="1002" data-value="10021001"  data-existsDefault="false">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">职位类型</label>
+								<div class="col-xs-8">
+									<select id="poseBusType" name="poseBusType" class="bs-select form-control required" data-type="oemDict" data-dictCode="1078" data-value="10781001"  data-existsDefault="false">
+									</select>
+								</div>
+							</div>
+						</div>	
+						<div class="col-xs-12 col-sm-6 col-md-4" id="dept">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">部门</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input type="hidden" class="form-control" id="orgId" name="orgId">	
+										<input type="text" class="form-control required" readonly id="orgName" name="orgName">
+										
+										<span class="input-group-btn">
+													<button class="btn default btn-sm" type="button" data-url="manage/basedata/employee/selectOemDept.html"
+														data-toggle="modal" data-width="modal-sm"> <i class="fa fa-sitemap"></i>
+													</button>
+													<button class="btn default input-clear" type="button">
+		                                            	<i class="fa fa-close"></i>
+		                                    		</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 hidden" data-tableSelect="true" id="dealer">
+						<div class="form-group">
+								<label class="control-label col-xs-4">经销商公司</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+									<input id="companyId" name="companyId" data-fieldName="company_id" type="hidden"/>
+									<input id="companyShortname" readonly name="companyShortname" class="form-control required" type="text"
+										data-fieldName="dealer_shortname" /> <span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="vehicle/basedata/authority/pose/searchDealersCompany.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>		
+						<div class="col-xs-12 col-sm-6 col-md-4  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">状态</label>
+								<div class="col-xs-8">
+									<input type="hidden" class="form-control" id="type" name="type">
+									<input type="hidden" class="form-control" id="addIds" name="addIds">
+									<input type="hidden" class="form-control" id="seriesIds" name="seriesIds">
+									<select id="poseStatus" name="poseStatus" data-fieldName="pose_status" class="bs-select form-control required" data-type="oemDict" data-dictCode="1001" data-value="10011001"  data-existsDefault="false"  >
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">职位代码</label>
+								<div class="col-xs-8">
+									<input id="poseCode" name="poseCode" class="form-control required systemCode" maxlength="15" type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">职位名称</label>
+								<div class="col-xs-8">
+										<input id="poseName" name="poseName" class="form-control required"  maxlength="30" type="text"/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel" id="paramsType">
+			<div class="panel-heading">
+					<div class="pannel-name" >业务范围</div>
+			</div>
+			<div class="panel-body">
+				<table class="table table-striped table-bordered table-hover table-responsive"
+					id="dms_table2"></table>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+					<div class="pannel-name" >角色列表</div>
+			</div>
+			<div class="panel-body">
+				<table class="table table-striped table-bordered table-hover table-responsive"
+					id="dms_table1"></table>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-url="vehicle/basedata/authority/pose/selectRole.html" data-width="modal-lg"
+				data-toggle="modal"><i class="fa fa-save"></i>新增角色</a> 
+			<a data-url="/pose" data-model="web" data-method="POST"
+				data-callBack="true" class="btn blue"
+				data-toggle="confirmation" data-beforeRequest="true"> <i class="fa fa-save"></i>保存
+			</a> <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+					<div class="pannel-name" >功能列表</div>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div id="departTree" ></div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one("onload.dms",function(event,container){
+		
+		$("#type",container).setDmsValue(10021001);
+		
+		dmsCommon.ajaxRestRequest({
+			url : dmsCommon.getDmsPath()["web"] + "/pose/saveRole/0",
+			type : 'GET',
+			sucessCallBack : function(data) {
+				$("#departTree",container).jstree(true).refresh();
+			}
+		});
+		//加载业务范围
+		new Datatable().initLocale({
+			src : "dms_table2",
+			container:container,
+			url : dmsCommon.getDmsPath()["web"] + "/pose/seriesList/0",
+			rowID : "GROUP_ID",
+			sortName : "t2.GROUP_NAME",
+			sortOrder : "asc",
+			columns : [ 
+					{checkbox:true,sortable : false},
+		            {field:"GROUP_ID",title:"品牌",visible :false},
+		            {field:"BRAND_NAME",title:"品牌"},
+		            {field:"SERIES_NAME",title:"车系"},
+		            {field:"GROUP_TYPE",title : "业务范围" ,codeFormat : {type:"oemDict",codeType:"9008"}}
+		         ]
+
+		});
+		
+		//初始化角色选择表格
+		new Datatable().initLocale({
+			src : "dms_table1",
+			container:container,
+// 			url : dmsCommon.getDmsPath()["vehicle"] + "/materialGroupMaintain",
+// 			rowID : "GROUP_ID",
+			sortName : "",
+			sortOrder : "asc",
+			columns : [ 
+			     {field : "ROLE_ID",title : "操作",operateFormat : [ {type : "localDel",onBeforeEvent:function(value, row, index){
+							var tab=$("#dms_table tbody");
+							var addIds = $("#addIds",container).val();
+							var ids = addIds.split(",");
+							var editIds ="";
+							for (var i = 0; i < ids.length; i++) {
+								
+								if(ids[i]!=value){
+									if(editIds==""){
+										editIds = ids[i];
+									}else{
+										editIds = editIds +","+ ids[i];
+									}
+								}
+							}
+							if(editIds==""){
+								editIds="0";
+							}
+							$("#addIds",container).setDmsValue(editIds);
+							// 进行ajax 请求
+							dmsCommon.ajaxRestRequest({
+								url : dmsCommon.getDmsPath()["web"] + "/pose/saveRole/"+editIds,
+								type : 'GET',
+								sucessCallBack : function(data) {
+									$("#departTree",container).jstree(true).refresh();
+								}
+							});
+		             }
+			         } ]}, 
+		            {field:"ROLE_NAME",title:"角色代码",inputField:"roleName",inputHiddenFormat : {}},
+		            {field:"ROLE_DESC",title:"角色名称",inputField:"roleDesc",inputHiddenFormat : {}}
+		         ]
+
+		});
+		
+		//树初始化
+		$('#departTree',container).jstree({ 'core' : {
+			'data' : {
+			'url':dmsCommon.getDmsFuncIdUrl(dmsCommon.getDmsPath()["web"] + "/pose/getFuncList"),
+			'data':function(node){
+				return{'id':node.id}
+			}}},
+			"plugins" : ["changed"]
+		});	
+		
+		//保存前处理校验用户是否存在
+		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			var addIds = $("#addIds",container).val();
+			if(addIds==""){
+				dmsCommon.tip({status:"warning",msg:"请选择用户角色！"});
+				returnResult.status = false;
+				return;
+			}else{
+				var poseType = $("#poseType",container).val();
+				if(poseType==10021001){
+					var selectRow = $("#dms_table2",container).dmsTable().getSelections();
+					var ids = "";
+					if(selectRow != null && selectRow.length>0){
+						for(var i=0;i<selectRow.length;i++){
+							if(ids==""){
+								ids = selectRow[i].GROUP_ID;
+							}else{
+								ids = selectRow[i].GROUP_ID+","+ids;
+							}
+						}
+						$("#seriesIds",container).setDmsValue(ids);
+					}else{
+						dmsCommon.tip({status:"warning",msg:"请选择职位业务范围！"});//总共的状态类型：info、success、error、warning
+						returnResult.status = false;
+						return;
+					}
+				}
+				
+				// 进行ajax 请求 校验重复
+				var flag = true;
+				dmsCommon.ajaxRestRequest({
+					url : dmsCommon.getDmsPath()["web"] + "/pose/checkPose",
+					type : 'GET',
+					data : {poseType : $("#poseType",container).val(),poseCode:$("#poseCode",container).val(),poseName:$("#poseName",container).val(),companyId:$("#companyId",container).val()},
+					async: false,
+					sucessCallBack : function(data) {
+						if(data == "poseCode_error"){
+							dmsCommon.tip({status:"warning",msg:"职位代码重复，请重新输入！"});
+							flag = false;
+						}else if(data == "poseName_error"){
+							dmsCommon.tip({status:"warning",msg:"职位名称重复，请重新输入！"});
+							flag = false;
+						}
+					}
+				});
+				returnResult.status = flag;
+				return;
+			}
+		});
+		
+		
+		//绑定onchange 事件
+		$("[name='poseType']",container).bindChange(function(obj){
+			if(obj.value==10021001){
+				$("#paramsType",container).removeClass("hidden");
+				$("#dept",container).removeClass("hidden");
+				$("#dealer",container).addClass("hidden");
+			}else{
+				$("#paramsType",container).addClass("hidden");
+				$("#dept",container).addClass("hidden");
+				$("#dealer",container).removeClass("hidden");
+			}			
+			$("#type",container).setDmsValue(obj.value);
+		});
+		
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+		
+	});
+</script>

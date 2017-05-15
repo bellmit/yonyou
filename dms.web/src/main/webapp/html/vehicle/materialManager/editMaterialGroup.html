@@ -1,0 +1,336 @@
+<div class="dms-edit ajaxrest" data-url="/materialGroupMaintain/{[GROUP_ID]}" data-pageInitCallBack="true"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">物料组信息编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">物料组代码</label>
+								<div class="col-xs-8">
+									<input id="groupCode" name="groupCode" data-fieldName="group_code" readonly="readonly" class="form-control required systemCode" maxlength="30" type="text" />
+								</div>
+							</div>
+						</div>
+		
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">物料组名称</label>
+								<div class="col-xs-8">
+										<input id="groupName" name="groupName" data-fieldName="group_name" class="form-control required"  maxlength="60" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6  " data-tableSelect="true">
+							<div class="form-group">
+								<label class="control-label col-xs-4">上级物料组代码</label>
+								<div class="col-xs-8">
+									<!-- <div class="input-group"> -->
+									<input id="parentGroupId" name="parentGroupId" type="hidden" readonly
+										data-fieldName="parent_group_id" />
+									<input id="groupLevel" name="groupLevel" type="hidden" readonly
+										data-fieldName="group_level" />
+									<input id="parentGroupCode" readonly
+										name="parentGroupCode" class="form-control" type="text"
+										data-fieldName="parent_group_code" /> <!-- <span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="vehicle/materialManager/selectSuperMaterialGroup.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span> -->
+									<!-- </div> -->
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">物料组状态</label>
+								<div class="col-xs-8">
+									<select id="status" name="status" data-fieldName="status" class="bs-select form-control required" data-type="oemDict" data-dictCode="1001" data-value="10011001" data-existsDefault="false"  >
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6   hidden" id="LV2">
+							<div class="form-group">
+								<label class="control-label col-xs-4">物料组类型</label>
+								<div class="col-xs-8">
+									<select id="groupType" name="groupType" data-fieldName="group_type" class="bs-select form-control required" data-type="oemDict" data-dictCode="9008" data-value="" data-existsDefault="false" >
+									</select>
+								</div>
+							</div>
+						</div>
+												
+						<div class="col-xs-12 col-sm-6   hidden" id="LV3_1">
+							<div class="form-group">
+								<label class="control-label col-xs-4">发动机排量</label>
+								<div class="col-xs-8">
+										<input id="wxEngine" name="wxEngine" data-fieldName="wx_engine" class="form-control"  maxlength="10" type="text"/>
+								</div>
+							</div>
+						</div>
+												
+						<div class="col-xs-12 col-sm-6   hidden" id="LV3_2">
+							<div class="form-group">
+								<label class="control-label col-xs-4">燃油类型</label>
+								<div class="col-xs-8">
+									<select id="oileType" name="oileType" data-fieldName="oile_type" class="bs-select form-control" data-type="oemDict" data-dictCode="5055" >
+									</select>
+								</div>
+							</div>
+						</div>
+												
+						<div class="col-xs-12 col-sm-6   hidden" id="LV3_3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否参加预测</label>
+								<div class="col-xs-8">
+									<select id="ifForec" name="ifForec" data-fieldName="if_forec" class="bs-select form-control" data-type="oemDict" data-dictCode="1004" data-value="10041001" data-existsDefault="false">
+									</select>
+								</div>
+							</div>
+						</div>
+												
+						<div class="col-xs-12 col-sm-6   hidden" id="LV3_4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否官网</label>
+								<div class="col-xs-8">
+									<select id="isEc" name="isEc" data-fieldName="is_ec"  class="bs-select form-control" data-type="oemDict" data-dictCode="1004" data-value="10041001" data-existsDefault="false">
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6   hidden" id="LV4_1">
+							<div class="form-group">
+								<label class="control-label col-xs-4">年款</label>
+								<div class="col-xs-8">
+										<input id="modelYear" name="modelYear" data-fieldName="model_year"  class="form-control required" maxlength="4" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6   hidden" id="LV4_2">
+							<div class="form-group">
+								<label class="control-label col-xs-4">标准配置</label>
+								<div class="col-xs-8">
+										<input id="standardOption" name="standardOption" data-fieldName="standard_option"  class="form-control "  maxlength="30" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6   hidden" id="LV4_3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">其他配置</label>
+								<div class="col-xs-8">
+										<input id="otherOption" name="otherOption" data-fieldName="other_option"  class="form-control "  maxlength="30" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6   hidden" id="LV4_4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">本地配置</label>
+								<div class="col-xs-8">
+										<input id="localOption" name="localOption" data-fieldName="local_option"  class="form-control "  maxlength="30" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6   hidden" id="LV4_5">
+							<div class="form-group">
+								<label class="control-label col-xs-4">PC车款代码</label>
+								<div class="col-xs-8">
+										<input id="pcModleCode" name="pcModleCode" data-fieldName="pc_modle_code"  class="form-control "  maxlength="15" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6   hidden" id="LV4_6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">SpecialSerieCode</label>
+								<div class="col-xs-8">
+										<input id="specialSerieCode" name="specialSerieCode" data-fieldName="special_serie_code"   class="form-control "  maxlength="3" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6   hidden" id="LV4_7">
+							<div class="form-group">
+								<label class="control-label col-xs-4">LowCposCode</label>
+								<div class="col-xs-8">
+										<input id="lowCposCode" name="lowCposCode" data-fieldName="low_cpos_code"  class="form-control "  maxlength="3" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6   hidden" id="LV4_8">
+							<div class="form-group">
+								<label class="control-label col-xs-4">CPOS描述</label>
+								<div class="col-xs-8">
+										<input id="modelName" name="modelName" data-fieldName="model_name"  class="form-control "  maxlength="30" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6   hidden" id="LV4_9">
+							<div class="form-group">
+								<label class="control-label col-xs-4">PC对应的车系</label>
+								<div class="col-xs-8">
+										<input id="pcModle" name="pcModle" data-fieldName="pc_modle"  class="form-control "  maxlength="6" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6   hidden" id="LV4_10">
+							<div class="form-group">
+								<label class="control-label col-xs-4">齿轮</label>
+								<div class="col-xs-8">
+										<input id="gear" name="gear" data-fieldName="gear"  class="form-control "  maxlength="30" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6   hidden" id="LV4_11">
+							<div class="form-group">
+								<label class="control-label col-xs-4">发动机</label>
+								<div class="col-xs-8">
+										<input id="engine" name="engine" data-fieldName="engine"  class="form-control "  maxlength="30" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6   hidden" id="LV4_12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">变速器</label>
+								<div class="col-xs-8">
+										<input id="transmission" name="transmission" data-fieldName="transmission"  class="form-control "  maxlength="30" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6   hidden" id="LV4_13">
+							<div class="form-group">
+								<label class="control-label col-xs-4">发动机描述</label>
+								<div class="col-xs-8">
+										<input id="engineDesc" name="engineDesc" data-fieldName="engine_desc"  class="form-control "  maxlength="50" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 hidden" id="LV4_14">
+							<div class="form-group">
+								<label class="control-label col-xs-4">变速器描述</label>
+								<div class="col-xs-8">
+										<input id="transmissionDesc" name="transmissionDesc" data-fieldName="transmission_desc"  class="form-control "  maxlength="50" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/materialGroupMaintain/{[GROUP_ID]}" data-model="vehicle"
+				data-method="PUT" data-callBack='true'
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>保存</a> <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+		
+		//当修改页面初始化完成后的回调函数
+		$("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){
+			var level = $("#groupLevel",container).val();
+			if(level==2){
+				$("#LV2",getElementContext()).removeClass("hidden");
+				$("#LV3_1",getElementContext()).addClass("hidden");$("#wxEngine",getElementContext()).setDmsValue("");
+				$("#LV3_2",getElementContext()).addClass("hidden");$("#oileType",getElementContext()).setDmsValue("");
+				$("#LV3_3",getElementContext()).addClass("hidden");$("#ifForec",getElementContext()).setDmsValue("");
+				$("#LV3_4",getElementContext()).addClass("hidden");$("#isEc",getElementContext()).setDmsValue("");
+				$("#LV4_1",getElementContext()).addClass("hidden");$("#modelYear",getElementContext()).setDmsValue("");
+				$("#LV4_2",getElementContext()).addClass("hidden");$("#standardOption",getElementContext()).setDmsValue("");
+				$("#LV4_3",getElementContext()).addClass("hidden");$("#factoryOptions",getElementContext()).setDmsValue("");
+				$("#LV4_4",getElementContext()).addClass("hidden");$("#localOption",getElementContext()).setDmsValue("");
+				$("#LV4_5",getElementContext()).addClass("hidden");$("#pcModleCode",getElementContext()).setDmsValue("");
+				$("#LV4_6",getElementContext()).addClass("hidden");$("#specialSerieCode",getElementContext()).setDmsValue("");
+				$("#LV4_7",getElementContext()).addClass("hidden");$("#lowCposCode",getElementContext()).setDmsValue("");
+				$("#LV4_8",getElementContext()).addClass("hidden");$("#modelName",getElementContext()).setDmsValue("");
+				$("#LV4_9",getElementContext()).addClass("hidden");$("#pcModle",getElementContext()).setDmsValue("");
+				$("#LV4_10",getElementContext()).addClass("hidden");$("#gear",getElementContext()).setDmsValue("");
+				$("#LV4_11",getElementContext()).addClass("hidden");$("#engine",getElementContext()).setDmsValue("");
+				$("#LV4_12",getElementContext()).addClass("hidden");$("#transmission",getElementContext()).setDmsValue("");
+				$("#LV4_13",getElementContext()).addClass("hidden");$("#engineDesc",getElementContext()).setDmsValue("");
+				$("#LV4_14",getElementContext()).addClass("hidden");$("#transmissionDesc",getElementContext()).setDmsValue("");
+			}else if(level==3){
+				$("#LV2",getElementContext()).addClass("hidden");$("#groupType",getElementContext()).setDmsValue("");
+				$("#LV3_1",getElementContext()).removeClass("hidden");
+				$("#LV3_2",getElementContext()).removeClass("hidden");
+				$("#LV3_3",getElementContext()).removeClass("hidden");
+				$("#LV3_4",getElementContext()).removeClass("hidden");
+				$("#LV4_1",getElementContext()).addClass("hidden");$("#modelYear",getElementContext()).setDmsValue("");
+				$("#LV4_2",getElementContext()).addClass("hidden");$("#standardOption",getElementContext()).setDmsValue("");
+				$("#LV4_3",getElementContext()).addClass("hidden");$("#factoryOptions",getElementContext()).setDmsValue("");
+				$("#LV4_4",getElementContext()).addClass("hidden");$("#localOption",getElementContext()).setDmsValue("");
+				$("#LV4_5",getElementContext()).addClass("hidden");$("#pcModleCode",getElementContext()).setDmsValue("");
+				$("#LV4_6",getElementContext()).addClass("hidden");$("#specialSerieCode",getElementContext()).setDmsValue("");
+				$("#LV4_7",getElementContext()).addClass("hidden");$("#lowCposCode",getElementContext()).setDmsValue("");
+				$("#LV4_8",getElementContext()).addClass("hidden");$("#modelName",getElementContext()).setDmsValue("");
+				$("#LV4_9",getElementContext()).addClass("hidden");$("#pcModle",getElementContext()).setDmsValue("");
+				$("#LV4_10",getElementContext()).addClass("hidden");$("#gear",getElementContext()).setDmsValue("");
+				$("#LV4_11",getElementContext()).addClass("hidden");$("#engine",getElementContext()).setDmsValue("");
+				$("#LV4_12",getElementContext()).addClass("hidden");$("#transmission",getElementContext()).setDmsValue("");
+				$("#LV4_13",getElementContext()).addClass("hidden");$("#engineDesc",getElementContext()).setDmsValue("");
+				$("#LV4_14",getElementContext()).addClass("hidden");$("#transmissionDesc",getElementContext()).setDmsValue("");
+			}else if(level==4){
+				$("#LV2",getElementContext()).addClass("hidden");$("#groupType",getElementContext()).setDmsValue("");
+				$("#LV3_1",getElementContext()).addClass("hidden");$("#wxEngine",getElementContext()).setDmsValue("");
+				$("#LV3_2",getElementContext()).addClass("hidden");$("#oileType",getElementContext()).setDmsValue("");
+				$("#LV3_3",getElementContext()).addClass("hidden");$("#ifForec",getElementContext()).setDmsValue("");
+				$("#LV3_4",getElementContext()).addClass("hidden");$("#isEc",getElementContext()).setDmsValue("");
+				$("#LV4_1",getElementContext()).removeClass("hidden");
+				$("#LV4_2",getElementContext()).removeClass("hidden");
+				$("#LV4_3",getElementContext()).removeClass("hidden");
+				$("#LV4_4",getElementContext()).removeClass("hidden");
+				$("#LV4_5",getElementContext()).removeClass("hidden");
+				$("#LV4_6",getElementContext()).removeClass("hidden");
+				$("#LV4_7",getElementContext()).removeClass("hidden");
+				$("#LV4_8",getElementContext()).removeClass("hidden");
+				$("#LV4_9",getElementContext()).removeClass("hidden");
+				$("#LV4_10",getElementContext()).removeClass("hidden");
+				$("#LV4_11",getElementContext()).removeClass("hidden");
+				$("#LV4_12",getElementContext()).removeClass("hidden");
+				$("#LV4_13",getElementContext()).removeClass("hidden");
+				$("#LV4_14",getElementContext()).removeClass("hidden");
+			}
+		});
+		
+	})
+</script>

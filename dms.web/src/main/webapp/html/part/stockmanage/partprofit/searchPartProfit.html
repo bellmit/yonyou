@@ -1,0 +1,98 @@
+<div class ="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">报溢单号</label>
+							<div class="col-xs-8">
+								<input type="hidden" value="{[userInfo.userId]}" id="userId"/>
+								<input id="profitNo" name="profitNo" class="form-control" type="text"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">开单日期</label>
+							<div class="col-xs-8">
+								 <div class="input-group input-daterange"  data-defaultDays="7">
+		                             <input type="text" class="form-control" readonly  name="orderDateFrom">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="orderDateTo"> 
+		                        </div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue">
+								<i class="fa fa-search"></i>查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i>重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name" >报溢单信息</div>
+			<div class="pannel-button">
+					<div class="btn-group btn-group-sm">
+						<a data-goback="page" href="part/stockmanage/partprofit/addPartProfit.html"
+						class="btn btn-outline ajaxify"><i class="fa fa-plus-square"></i> 新增</a>
+					</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_part_prifit"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_part_prifit",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/basedata/reportPayOff",
+			rowID : "PROFIT_NO",
+			sortName : "PROFIT_NO",
+			sortOrder : "asc",
+			autoHeight : false,
+			columns : [ 
+			    {title : "操作",operateFormat : [
+                       {type:"edit",url:"part/stockmanage/partprofit/updatePartProfit.html",openType:"jump",doubleClick:true,isShow:function(value, row, index){
+						   if(row.LOCK_USERU==""||row.LOCK_USERU==null||row.LOCK_USERU==$("#userId",container).val()){
+							   return true;
+                    	   }else{
+                    		   return false;
+                    	   }      
+					   }},
+					   //{type:"detail",url:"part/stockmanage/partprofit/editPartProfit.html",openType:"jump"},
+                   	   {type:"del",url:"/basedata/reportPayOff/{[PROFIT_NO]}",model:"part",callBack:function(response){
+                    	   $("#dms_part_prifit",getElementContext()).dmsTable().refreshTableWithForm();
+                       },isShow:function(value, row, index){
+                    	   if(row.LOCK_USERU==""||row.LOCK_USERU==null||row.LOCK_USERU==$("#userId",container).val()){
+							   return true;
+                    	   }else{
+                    		   return false;
+                    	   }       
+					   }},
+                       {type:"edit",openWidth:"modal-lg",title:"打印",operateIcon:'<i class="fa fa-print"></i>'}
+
+                   ]
+                },  
+                {field:"PROFIT_NO",title:"报溢单号"},
+    			{field:"PROFIT_DATE",title:"报溢日期",dateFormat : {format:"YYYY-MM-DD"}},
+    			{field:"HANDLER",title:"经手人"},
+    			{field:"LOCK_USERU",title:"锁定人1",visible:false},
+    			{field:"LOCK_USER",title:"锁定人"}
+			],
+		});
+	});
+</script>       

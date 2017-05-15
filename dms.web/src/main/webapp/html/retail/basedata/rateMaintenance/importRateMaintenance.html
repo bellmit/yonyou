@@ -1,0 +1,49 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="modal-header">
+					<div class="modal-title">导入</div>
+					<div class="modal-close">
+						<a data-dismiss="modal" class="btn btn-lg">
+						<i class="fa fa-remove"></i></a>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12">
+					<div class="form-group">
+						<label class="control-label col-xs-3">1.点"浏览"按钮,找到您所要上传文件</label>
+						<div class="col-xs-6">
+							<input type="file" class="importData" id="fileupload" name="file">
+						</div>
+					</div>
+					</div>
+				</div>
+				<div class="row ">
+					<label class="control-label col-xs-3">2.文件选择后,点"确定"按钮,完成上传操作</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="javascript:;" class="btn blue" data-url="/tateMain/import"
+						data-model="retail" data-callBack="true" 
+						data-toggle="confirmation" data-method="importData"> <i
+						class="fa fa-upload">确定</i>
+					</a> <a href="javascript:;" data-url="/tateMain/export/rateTemplate"
+						data-model="retail" data-method="downLoad"
+						class="btn blue ajaxrest" data-validate="false"> <i
+						class="fa fa-download"></i> 下载导入模版
+					</a>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one("onload.dms",function(event,container){
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	});
+</script>

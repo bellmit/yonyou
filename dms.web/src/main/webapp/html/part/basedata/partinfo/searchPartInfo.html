@@ -1,0 +1,245 @@
+<div class ="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-3">品牌</label>
+							<div class="col-xs-8">
+								<select id="brand" name="brand" data-ajaxSync="true" class="bs-select form-control"
+									data-url="/basedata/brandsdict" data-model="manage"
+									data-labelValue="BRAND_CODE" data-lableDesc="BRAND_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-3">配件类别</label>
+							<div class="col-xs-8">
+								<select id="partGroupCode" name="partGroupCode" data-ajaxSync="true" class="bs-select form-control"
+									data-dictCode="1136">
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-3 ">配件代码</label>
+							<div class="col-xs-8">
+								<input id="partNo" name="partNo" class="form-control" type="text"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-3">配件名称</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="partName" name="partName"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-3">中缀代码</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="partInfix" name="partInfix"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-3">中缀名称</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="partInfixName" name="partInfixName"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-3">是否M</label>
+							<div class="col-xs-8">
+								<select id="is_mop" name="is_mop" data-ajaxSync="true" class="bs-select form-control" data-dictCode="1278"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-3">是否S</label>
+							<div class="col-xs-8">
+								<select id="is_sjv" name="is_sjv" data-ajaxSync="true" class="bs-select form-control" data-dictCode="1278"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-3">OEM下发</label>
+							<div class="col-xs-8 col-md-8">
+								<select id="oem" name="oem" data-ajaxSync="true" class="bs-select form-control" data-dictCode="1278"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-4 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-3">配件车型组</label>
+							<div class="col-xs-8 col-md-8">
+								<select id="part_model_group_code_set" name="part_model_group_code_set" data-ajaxSync="true"
+									class="bs-select form-control" data-url="/basedata/partInfos/querypartGroupCodes"
+									data-model="part" data-labelValue="PART_MODEL_GROUP_CODE"
+									data-lableDesc="PART_MODEL_GROUP_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group" >
+							<label class="control-label col-xs-4 col-sm-3">建档日期</label>
+							<div class="col-xs-8">
+								<div class="input-group input-daterange" data-maxDays="30"
+									data-opens="right">
+									<input type="text" class="form-control" readonly name="begin">
+									<span class="input-group-addon">至</span> <input type="text"
+										class="form-control" readonly name="end"> <span
+										class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-3">是否用品</label>
+							<div class="col-xs-8 col-md-8">
+								<select id="is_acc" name="is_acc" data-ajaxSync="true" class="bs-select form-control" data-dictCode="1278"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue">
+								<i class="fa fa-search"></i>查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i>重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name" >配件基本信息列表</div>
+			<div class="pannel-button">
+					<div class="btn-group btn-group-sm">
+						<a class="btn btn-outline" data-url="part/basedata/partinfo/addPartInfo.html"
+						data-toggle="modal" data-width="modal-lg"> <i class="fa fa-plus-square"></i> 新增
+						</a> 
+						<a href="part/basedata/partinfo/importPartInfo.html" class="btn btn-outline ajaxify"> <i class="fa fa-upload"/>导入
+						</a>
+						<a data-url="/basedata/partInfos/export/items" data-model="part" data-method="downLoad" data-toggle="confirmation"
+								class="btn btn-outline " ><i class="fa fa-download"/>导出</a>
+						<a data-url="/basedata/partInfos/export/itemss" data-model="part" data-method="downLoad" data-toggle="confirmation"
+								class="btn btn-outline " ><i class="fa fa-download"/>模板下载</a>		
+					</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/basedata/partInfos",
+			rowID : "",
+			sortOrder : "asc",
+			autoHeight: false,
+			undefinedText : "",
+			columns : [ 
+			    {field : "",title : "操作",operateFormat : [
+                       {type:"edit",url:"part/basedata/partinfo/editPartInfo.html",openWidth:"modal-lg",doubleClick:true,isShow:function(value, row, index){
+						   if(row.OEM_TAG=="12781002"){
+											   return true;
+				                    	   }else{
+				                    		   return false;
+				                    	   }      
+									   }},
+                       {type:"detail",url:"part/basedata/partinfo/partInfoDetail.html",openWidth:"modal-lg"},
+                   ]
+                },  
+                {field:"BRAND",title:"品牌"},
+    			{field:"PART_NO",title:"配件代码"},
+    			{field:"PART_NAME",title:"配件名称"},
+    			{field:"REPORT_WAY",title:"提报方式"},
+    			{field:"PART_INFIX_NAME",title:"中缀名称"},
+    			{field:"PART_INFIX",title:"中缀代码"},
+    			{field:"SPELL_CODE",title:"拼音代码"},
+    			{field:"UNIT_CODE",title:"单位"},
+    			{field:"PART_GROUP_CODE",title:"配件类别",codeFormat : {type:"dict",codeType:"1300"}},
+    			{field:"IS_ACC",title:"是否用品",codeFormat : {type:"dict",codeType:"1278"}},
+    			{field:"OEM_TAG",title:"是否OEM",codeFormat : {type:"dict",codeType:"1278"}},
+    			{field:"GOODS_BRANDS",title:"用品品牌"},
+    			{field:"OEM_NO",title:"原厂编号"},
+    			{field:"BIG_CATEGORY_CODE",title:"用品大分类"},
+    			{field:"SUB_CATEGORY_CODE",title:"用品中分类"},
+    			{field:"THD_CATEGORY_CODE",title:"用品小分类"},
+    			{field:"ACC_MODE",title:"型号"},
+    			{field:"PART_MODEL_GROUP_CODE_SET",title:"配件车型组"},
+    			{field:"MIN_PACKAGE",title:"最小包装数"},
+    			{field:"LIMIT_NO",title:"限制编号"},
+    			{field:"LIMIT_PRICE",title:"销售限价",numberFormat : {decimal:2}},
+    			{field:"INSTRUCT_PRICE",title:"建议销售价",numberFormat : {decimal:2}},
+    			{field:"INSURANCE_PRICE",title:"保险价",numberFormat : {decimal:2}},
+    			{field:"ORI_PRO_CODE",title:"原产地代码"},
+    			{field:"PART_MAIN_TYPE",title:"九大类",codeFormat : {type:"dict",codeType:"1366"}},
+    			{field:"URGENT_PRICE",title:"急件价格",numberFormat : {decimal:2}},
+    			{field:"REGULAR_PRICE",title:"常规订单价格",numberFormat : {decimal:2}},
+    			{field:"MAIN_ORDER_TYPE",title:"订单分类"},
+    			{field:"MAX_STOCK",title:"最大库存"},
+    			{field:"SAFE_STOCK",title:"安全库存"},
+    			{field:"MIN_STOCK",title:"最小库存"},
+    			{field:"OPTION_NO",title:"替代配件"},
+    			{field:"OPTION_RELATION",title:"替代关系"},
+    			{field:"PART_STATUS",title:"是否停用",codeFormat : {type:"dict",codeType:"1278"}},
+    			{field:"IS_UNSAFE",title:"是否危险品",codeFormat : {type:"dict",codeType:"1278"}},
+    			{field:"LEAD_TIME",title:"订货周期"},
+    			{field:"PROVIDER_CODE",title:"供应商代码"},
+    			{field:"PROVIDER_NAME",title:"供应商名称"},
+    			{field:"PRODUCTING_AREA",title:"产地"},
+    			{field:"QUANTITY_PER_CAR",title:"单车用量"},
+    			{field:"REMARK",title:"备注"},
+    			{field:"CREATED_AT",title:"创建日期",dateFormat : {format:"YYYY-MM-DD"} },
+    			{field:"UPDATED_AT",title:"更新日期",dateFormat : {format:"YYYY-MM-DD"} },
+    			{field:"UNIT_NAME",title:"计量单位名称"},
+    			{field:"BO_FLAG",title:"是否欠货",codeFormat : {type:"dict",codeType:"1278"}},
+    			{field:"IS_STORAGE_SALE",title:"是否寄售",codeFormat : {type:"dict",codeType:"1278"}},
+    			{field:"PART_TYPE",title:"配件类型"},
+    			{field:"IS_MOP",title:"是否M",codeFormat : {type:"dict",codeType:"1278"}},
+    			{field:"IS_SJV",title:"是否S",codeFormat : {type:"dict",codeType:"1278"}},
+    			{field:"PART_VEHICLE_MODEL",title:"所属车型"},
+    			{field:"CLAIM_PRICE",title:"索赔价",numberFormat : {decimal:2},isVisible:function(column){	
+					   //是否显示成本价
+			           if("{[userInfo.purchase.13131002]}"=="true"){
+			        	   return true;
+			           };
+			           return false;
+		        }}
+			]
+		});
+	});
+</script>       

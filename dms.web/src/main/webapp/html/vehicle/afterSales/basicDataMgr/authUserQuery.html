@@ -1,0 +1,84 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+				
+				<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">授权顺序：</label>
+								<div class="col-xs-8">
+									<select id="level"
+										class="bs-select form-control" name="level"
+										data-url="/authUser/authUserLevel"
+										data-model="vehicle" data-labelValue="LEVEL_CODE"
+										data-lableDesc="LEVEL_NAME" data-live-search="fales" data-size="5" >
+									</select>
+								</div>
+							</div>
+						</div>
+					
+				<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">员工代码：</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control"  id="code" name="code" />
+							</div>
+						</div>
+					</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">员工姓名：</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control"  id="name" name="name" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >授权人员管理</div>
+	
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/authUser/authUserSearch",
+		rowID : "USER_ID",
+		sortName : "USER_ID",
+		sortOrder : "asc",
+		
+	columns : [ 
+	   	    {field : "USER_ID",title : "操作",operateFormat : [
+	   	    {type:"edit",url:"vehicle/afterSales/basicDataMgr/authUserModify.html",openWidth:"modal-md",doubleClick:true},
+	   	    ]
+	   	  },             
+	{field : "ACNT",title : "员工代码"}, 
+	{field : "NAME",title : "员工姓名"},
+	{field : "POSE_NAME",title : "职位"},
+	{field : "LEVEL_NAME",title : "授权顺序"}
+        ]
+             });
+                      });
+</script>

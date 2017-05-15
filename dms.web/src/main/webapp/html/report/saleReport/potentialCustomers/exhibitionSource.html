@@ -1,0 +1,122 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<!--/span-->
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">日期</label>
+						<div class="col-xs-8">
+							<div class="input-group date date-picker" data-defaultToday = "true"
+								data-date-end-date="+0d" data-orientation="top right">
+								<input id="startdate" name="startdate" class="form-control"
+									type="text" data-fieldName="VISIT_TIME" /> <span
+									class="input-group-btn">
+									<button class="btn default date-set" type="button">
+										<i class="fa fa-calendar"></i>
+									</button>
+									<button class="btn default date-reset" type="button">
+										<i class="fa fa-times"></i>
+									</button>							
+								</span>
+							</div>
+						</div>
+					</div>
+				</div> 
+				<!-- /span -->
+				<!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 hidden">
+					<div class="form-group">
+						<label class="control-label col-xs-4">日期</label>
+						<div class="col-xs-8">
+							<div class="input-group input-daterange">
+								<input type="text" class="form-control" readonly
+									name="startdate" id="startdate"/><span
+									class="input-group-btn">
+									<button class="btn default input-clear" type="button">
+										<i class="fa fa-close"></i>
+									</button>
+									<button class="btn default date-set" type="button">
+										<i class="fa fa-calendar"></i>
+									</button>
+									<button class="btn default date-reset" type="button">
+										<i class="fa fa-times"></i>
+									</button>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div> -->
+				<!-- /span -->
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn btn-sm blue"> <i
+								class="fa fa-search"></i> 查询
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">展厅来源分析表</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+					<a href="javascript:;"
+						data-url="/potentialCustomers/streamAnalysis/export"
+						data-model="report" data-method="downLoad"
+						data-toggle="confirmation" class="btn btn-outline "><i
+						class="fa fa-download"></i>导出</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table">
+			</table>
+		</div>
+	</div>
+
+</div>
+<script type="text/javascript">
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				new Datatable().initPagination({
+					src : "dms_table",
+					rowID : "ITEM_ID",
+					container : container,
+					url : dmsCommon.getDmsPath()["report"]
+							+ "/potentialCustomers/streamAnalysis",
+					sortName : "CUS_SOURCE",//按照哪个字段来排序，在工具类里面有写sort
+					sortOrder : "asc",//排序方式
+					autoHeight:false,//自动高度
+					isQueryFirst:false,
+					undefinedText : "",
+					mergeTotal:{
+						megerCellNumber:1,
+						megerCellName:"总计"
+					},
+					columns : [ {
+						field : "CUS_SOURCE",
+						title : "客户来源",
+						codeFormat : {
+							type : "dict",
+							codeType : "1311"
+						}
+					}, {
+						field : "COUNT_WEEK",
+						title : "本周小计"
+					}, {
+						field : "COUNT_MONTH",
+						title : "本月累计"
+					}, {
+						field : "COUNT_YEAR",
+						title : "年度累计"
+					} ]
+				});
+			});
+</script>

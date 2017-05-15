@@ -1,0 +1,101 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">战败车型新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">意向品牌名称</label>
+								<div class="col-xs-8">
+									<select class="bs-select form-control" id="intentBrand"
+										name="intentBrand" data-fieldName="BRAND_ID"
+										data-url="/basedata/brandsdict" data-model="manage"
+										data-labelValue="BRAND_CODE" data-lableDesc="BRAND_NAME">
+									</select>
+
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">意向车系名称</label>
+								<div class="col-xs-8">
+									<select id="intentSeries" name="intentSeries"
+										parent="intentBrand" class="bs-select form-control"
+										data-fieldName="SERIES_ID"
+										data-url="/basedata/brandsdictC/{[intentBrand]}/seriessdictC"
+										data-model="manage" data-labelValue="SERIES_CODE"
+										data-lableDesc="SERIES_NAME">
+
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">战败车型代码</label>
+								<div class="col-xs-8">
+									<input id="failModel" name="failModel" type="text"
+										class="form-control required systemCode" maxlength="8" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">战败车型描述</label>
+								<div class="col-xs-8">
+									<input id="failModelDesc" name="failModelDesc" type="text"
+										class="form-control required " maxlength="30" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否有效</label>
+								<div class="col-xs-8">
+									<select id="isValid" name="isValid"
+										class="bs-select form-control" data-dictCode="1004"
+										data-value="10041001" data-existsDefault="false">
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/basedata/failModels" data-model="retail"
+				data-method="POST" data-callBack="true" class="btn blue"
+				data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+			</a> <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+
+				$("a[data-callBack='true']", container).on(
+						"callBack.dms",
+						function(event, response) {
+							$("a[data-dismiss='modal']", container).click();
+							$("#dms_table", getElementContext()).dmsTable()
+									.refreshTableWithForm();
+						});
+			});
+</script>
+

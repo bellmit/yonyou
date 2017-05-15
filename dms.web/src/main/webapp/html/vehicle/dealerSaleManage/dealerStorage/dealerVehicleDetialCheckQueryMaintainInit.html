@@ -1,0 +1,173 @@
+<div class="dms-edit ajaxrest" data-url="/checkMaintain/dealer/detail/{[INSPECTION_ID]}"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">经销商车辆验收明细</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel-heading">
+			<div class="pannel-name" >入库车辆信息信息</div>
+			</div>
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">VIN</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="VIN"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">发车日期</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="ACTUAL_DATE"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">发动机号</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="ENGINE_NO"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌</label>
+								<div class="col-xs-8">
+										<span class="form-show " data-fieldName="BRAND_NAME"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="SERIES_NAME"></span>
+								</div>
+							</div>
+						</div>
+		
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">CPOS</label>
+								<div class="col-xs-8">
+										<span class="form-show " data-fieldName="MODEL_CODE"></span>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">年款</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="MODEL_YEAR"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车款</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="GROUP_NAME"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">颜色</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="COLOR_NAME"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">内饰</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="TRIM_NAME"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">实际到车日期</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="ARRIVE_DATE"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">实际到车时间</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="ARRIVE_TIME"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">验收人</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="INSPECTION_PERSON"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">备注说明</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="REMARK"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name" >质损信息</div>
+			</div>
+			<div class="panel-body">
+				<table class="form-group  table table-striped table-bordered table-hover table-responsive"
+					id="dms_table"></table>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			 <a data-goback="page"  href="vehicle/dealerSaleManage/dealerStorage/dealerVehicleCheckQueryMaintainInit.html"
+			  class="btn blue ajaxify"><i class="fa fa-reply"></i>返回
+			</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+	new Datatable().initPagination({
+		src : "dms_table",
+		container : container,
+		 url : dmsCommon.getDmsPath()["vehicle"]
+				+ "/checkMaintain/dealer/{[INSPECTION_ID]}",  
+		rowID : "oemvehicle",
+		isQueryFirst : true,
+		pageSize : 5,
+		isQueryFirst:false,
+		columns : [
+		  {
+			field : "DAMAGE_PART",
+			title : "损坏部位"
+		}, {
+			field : "DAMAGE_DESC",
+			title : "损坏描述"
+		}]
+
+	});
+	
+})
+</script>

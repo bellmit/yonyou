@@ -1,0 +1,78 @@
+<div class="dms-edit ajaxrest" data-url="/organization/dealerGroupMaintain/{[GROUP_ID]}" data-model="manage" data-beforeRequest="true" data-pageInitCallBack="true">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">集团信息新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<input type="hidden" name="groupId" data-fieldName="groupId" >				
+					<div class="row">
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">集团代码：</label>
+								<div class="col-xs-8" >
+									  <input class="form-control required" type="text" id="groupCode" name="groupCode" data-fieldName="groupCode"/>
+								</div>
+							</div>
+						</div>	
+						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">集团名称：</label>
+								<div class="col-xs-8" >
+									  <input class="form-control required" type="text" id="groupName" name="groupName" data-fieldName="groupName"/>									 
+								</div>
+							</div>
+						</div>	
+						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">集团简称：</label>
+								<div class="col-xs-8" >
+									  <input class="form-control required" type="text" id="groupShortName" name="groupShortName" data-fieldName="groupShortName"/>									 
+								</div>
+							</div>
+						</div>		
+						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">状态：</label>
+								<div class="col-xs-8">
+									<select class="bs-select form-control required" id="status" name="status" data-fieldName="status" data-existsDefault="false"
+										data-type="oemDict" data-dictCode="1001">
+									</select>
+								</div>
+							</div>
+						</div>							
+										
+					</div>					
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<div class="modal-footer center-block">
+				<a data-url="/organization/dealerGroupMaintain/editDealerGroup" data-model="manage" data-method="PUT"
+					data-callBack="true" class="btn blue"
+					data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+				</a> <a data-dismiss="modal" class="btn blue"><i
+					class="fa fa-undo"></i>取消</a>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("a[data-dismiss='modal']").click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+});
+
+</script>

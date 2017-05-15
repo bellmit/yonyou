@@ -1,0 +1,153 @@
+<div class="dms-edit ajaxrest" data-url="/stockmanage/allocateInOders/{[PART_ALLOCATE_IN_ID]}" data-model="part">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-md-3">调拨入库单号</label>
+							<div class="col-xs-8 col-md-9">
+								<input id="allocateInNo" name="allocateInNo" class="form-control"
+									type="text" value="" data-fieldName="ALLOCATE_IN_NO"
+									disabled="disabled" />
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group" data-tableSelect="true">
+							<label class="control-label col-xs-4 col-md-3">往来客户</label>
+							<div class="col-xs-8 col-md-9 ">
+								<div class="input-group">
+								<input type="text" class="form-control required" id="customerName" readonly
+										name="customerName" data-fieldName="CUSTOMER_NAME">
+									<input type="hidden" class="form-control required" id="customerCode"
+										name="customerCode" data-fieldName="CUSTOMER_CODE"> <input
+										type="hidden" class="form-control" id="customerId"
+										name="customerId" data-fieldName="PART_CUSTOMER_ID"> <span
+										class="input-group-btn">
+										<button class="btn default btn-sm" type="button"
+											data-url="part/stockmanage/partallocatein/alloctInCstSlct.html" 
+											data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+	                                            			<i class="fa fa-close"></i>
+	                                    				</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-md-3">开单日期</label>
+							<div class="col-xs-8 col-md-9">
+								<div class="input-group date date-picker">
+									<input id="orderDate" name="orderDate" readonly
+										class="form-control required" type="text" data-fieldName="ORDER_DATE" />
+									<span class="input-group-btn">
+										<button class="btn default date-set" type="button">
+											<i class="fa fa-calendar"></i>
+										</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2 col-md-1">备注</label>
+							<div class="col-xs-8 col-sm-10 col-md-11">
+								<input id="remark" name="remark" type="text" maxlength = "400"
+									class="form-control" data-fieldName="REMARK"/>
+							</div>
+						</div>
+					</div>
+					
+					
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+			<div class="pannel-name">调拨入库单明细</div>
+				<div class="pannel-button">
+					<div class="btn-group btn-group-sm">
+						<a class="btn btn-outline"
+							data-url="part/stockmanage/partallocatein/alloctInPartSlct.html"
+							data-toggle="modal" data-width="modal-lg"><i
+							class="fa fa-plus-square"></i>添加 </a>
+						<a class="btn btn-outline"
+							data-url="part/stockmanage/partallocatein/importPartAllocateIn.html" 
+							data-toggle="modal" data-width="modal-lg"><i
+							class="fa fa-upload"></i>导入 </a>
+						<a href="javascript:;"data-url="/basedata/download/template/partAllocateInTemplate"
+							data-model="web" data-method="downLoad" data-validate = "false" class="btn btn-outline ajaxrest">
+							<i class="fa fa-plus-square"></i>模板下载</a>
+						
+						
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<table class="table table-striped table-bordered table-hover table-responsive"
+					id="partAllocateInItemList">
+				</table>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<div class="col-xs-12 ">
+				
+				<div class="col-xs-12 ">
+					<div class="query-btn">
+						<a data-url="/stockmanage/allocateInOders/{[PART_ALLOCATE_IN_ID]}"
+							data-model="part" data-method="PUT" data-callBack="true"
+							class="btn blue" data-toggle="confirmation"><i
+							class="fa fa-save"></i>保存 </a>
+						<a
+							data-url="/stockmanage/allocateInOders/{[PART_ALLOCATE_IN_ID]}/allocateInWhse"
+							data-model="part" data-method="PUT" data-callBack="true"
+							class="btn blue" data-toggle="confirmation"><i
+							class="fa fa-plus-square"></i>入账</a> <a data-goback="page" data-onclickEvent='true'
+							href="part/stockmanage/partallocatein/searchPartAllocateIn.html"
+							class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>
+					</div>
+				</div>
+			</div>
+		</div></div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initLocale({
+		src : "partAllocateInItemList",
+		rowID:"ITEM_ID",
+		container:container,
+		url : dmsCommon.getDmsPath()["part"] + "/stockmanage/allocateInOders/{[PART_ALLOCATE_IN_ID]}/Items",
+		sortName : "ITEM_ID", 
+		sortOrder : "asc",
+		autoHeight:false,
+		columns : [ {field : "ITEM_ID",
+			title :"操作",operateFormat : [ {type : "localDel",onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){}} ]}, 
+            {field : "IS_FINISHED",inputField:"isFinished",title : "是否入账",inputHiddenFormat : {},codeFormat : {type : "dict",codeType : "1004",defaultValue:"10041002"}},
+            {field : "PART_CODE",inputField:"partNo",title : "配件代码",inputHiddenFormat : {validate:{validateClass:"required",validateAttr:'maxlength="30"'}}},
+            {field : "PART_NAME",inputField:"partName",title : "配件名称",inputHiddenFormat : {validate:{validateClass:"required",validateAttr:'maxlength="120"'}}},
+            {field : "STORAGE_CODE",inputField:"storageCode",title : "仓库名称",inputSelectFormat : {validate:{validateClass:"required dmsDisabled",validateAttr:'maxlength="30"'},url:"/basedata/store/accessories/Warehouses",model:"manage",labelValue:"STORAGE_CODE",lableDesc:"STORAGE_NAME"}},
+            {field : "STORAGE_POSITION_CODE",inputField:"storagePositionCode",title : "库位",inputTextFormat : {validate:{validateAttr:'maxlength="30"'}}},
+            {field : "UNIT",inputField:"unit",title : "计量单位",inputHiddenFormat : {}},
+            {field : "IN_QUANTITY",inputField:"inQuantity",title : "入库数量",inputHiddenFormat : {validate:{validateClass:"required digits"}},NumberFormat : {}},
+            {field : "IN_PRICE",inputField:"inPrice",title : "不含税单价",inputHiddenFormat : {validate:{validateClass:"required",validateAttr:'maxDigit="8" maxPrecision="2"'}},NumberFormat : {decimal : 2}},
+            {field : "IN_AMOUNT",inputField:"inAmount",title : "不含税金额",inputHiddenFormat : {validate:{validateClass:"required",validateAttr:'maxDigit="8" maxPrecision="2"'}},NumberFormat : {decimal : 2}}
+         ]
+		});
+		//绑定事件
+		 $("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			    $("a[data-onclickEvent='true']",container).click();
+		 });
+	});
+</script>

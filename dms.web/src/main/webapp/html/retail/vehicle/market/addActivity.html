@@ -1,0 +1,309 @@
+<div class="dms-add" >
+	<form class="form-horizontal" data-tableSelect="true">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4  col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">活动代码</label>
+							<div class="col-xs-8">
+								<input id="activityCode" name="activityCode" class="form-control required systemCode" maxlength="15" type="text"/>
+							</div>
+						</div>
+					</div>
+				
+				    <div class="col-xs-12 col-sm-6 col-md-4  col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">活动名称</label>
+							<div class="col-xs-8">
+								<input id="activityName" name="activityName" maxlength="120" class="form-control required" type="text"/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6  col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">开始日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker " data-orientation="top right">
+										<input id="beginDate" name="beginDate" readonly
+											class="form-control required" type="text" value="" /> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+
+									</div>
+								</div>
+							</div>
+					</div>
+						
+					<div class="col-xs-12 col-sm-6  col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">结束日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker" data-orientation="top right">
+										<input id="endDate" name="endDate" readonly
+											class="form-control required" type="text" value="" /> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+
+									</div>
+								</div>
+							</div>
+					</div>
+					<div class="col-xs-12 col-sm-6  col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销售日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker " data-orientation="top right">
+										<input id="beginDate" name="salesDateBegin" readonly
+											class="form-control" type="text" value="" /> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+
+									</div>
+								</div>
+							</div>
+					</div>
+						
+					<div class="col-xs-12 col-sm-6  col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">至</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker" data-orientation="top right">
+										<input id="endDate" name="salesDateEnd" readonly
+											class="form-control" type="text" value="" /> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+
+									</div>
+								</div>
+							</div>
+					</div>
+					<!-- <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label  col-xs-4 col-sm-2">销售日期</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange">
+		                             <input type="text" class="form-control" readonly  name="salesDateBegin">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="salesDateEnd">
+		                              <span class="input-group-btn">
+                                         <button class="btn default input-clear" type="button">
+                                            <i class="fa fa-close"></i>
+                                        </button>
+                                      </span>  
+		                        </div>
+							</div>
+						</div>
+					</div> -->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">行驶里程</label>
+							<div class="col-xs-8">
+								 <div class="input-group">
+		                             <input type="text" class="form-control decimal" maxDigit="8" maxPrecision="2" name="mileageBegin">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control decimal" maxDigit="8" maxPrecision="2" name="mileageEnd"> 
+		                        </div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4  col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">活动总金额</label>
+							<div class="col-xs-8">
+							    <input type="hidden" name="labourAmount" id="labourAmount" value="0">
+							    <input type="hidden" name="partAmount" id="partAmount" value="0">
+							    <input type="hidden" name="addItemAmount" id="addItemAmount" value="0">
+								<input id="activityAmount" disabled="disabled" name="activityAmount" data-autoValue="#labourAmount+#partAmount+#addItemAmount" data-autoValueDigits="2"  class="form-control money" type="text"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">活动类别</label>
+								<div class="col-xs-8">
+									<select id="activityKind" name="activityKind"
+										class="bs-select form-control" data-dictCode="2206"
+										data-value="" >
+									</select>
+								</div>
+							</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车辆用途</label>
+								<div class="col-xs-8">
+									<select id="vehiclePurpose" name="vehiclePurpose"
+										class="bs-select form-control" data-dictCode="2200"
+										data-value="" >
+									</select>
+								</div>
+							</div>
+					</div>
+					<!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 "></label>
+							<div class="col-xs-8">
+								<input id="activityFirst" name="activityFirst" type="checkbox" 
+									data-dictCode="1013" data-dictLabel="是否活动优先" />
+							</div>
+						</div>
+					</div> -->
+					<!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 "></label>
+							<div class="col-xs-8">
+								<input id="partsIsModify" name="partsIsModify" type="checkbox" 
+									data-dictCode="1013" data-dictLabel="配件是否可编辑" />
+							</div>
+						</div>
+					</div> -->
+					<!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">业务类型</label>
+								<div class="col-xs-8">
+									<select id="businessType" name="businessType"
+										class="bs-select form-control" data-dictCode="2203"
+										 >
+									</select>
+								</div>
+							</div>
+					</div> -->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">活动性质</label>
+								<div class="col-xs-8">
+									<select id="activityProperty" name="activityProperty"
+										class="bs-select form-control" data-dictCode="2207"
+										data-value="" >
+									</select>
+								</div>
+							</div>
+					</div>
+					<!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 "></label>
+							<div class="col-xs-8">
+								<input id="isPartActivity" name="isPartActivity" type="checkbox" 
+									data-dictCode="1013" data-dictLabel="是否配件活动" />
+							</div>
+						</div>
+					</div> -->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 "></label>
+							<div class="col-xs-8">
+								<input id="isRepeatAttend" name="isRepeatAttend" type="checkbox" 
+									data-dictCode="1531" data-dictLabel="是否多次参加活动" />
+							</div>
+						</div>
+					</div>
+					
+					<!-- <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label  col-xs-4 col-sm-2">保养日期</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" >
+		                             <input type="text" class="form-control" readonly  name="maintainBeginDate">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="maintainEndDate"> 
+		                        </div>
+							</div>
+						</div>
+					</div> -->
+					<!-- <div class="col-xs-12 col-sm-6 col-md-4  col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">年款</label>
+							<div class="col-xs-8">
+								<input id="" name="" class="form-control" type="text"/>
+							</div>
+						</div>
+					</div> -->
+					<div class="col-xs-12 col-sm-6 col-md-4  col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">活动编号</label>
+							<div class="col-xs-8">
+								<input id="globalActivityCode" name="globalActivityCode" maxlength="100" class="form-control systemCode" type="text"/>
+							</div>
+						</div>
+					</div>	
+					<!-- <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">主题</label>
+							<div class="col-xs-8 col-sm-10">
+								<input id="activityTitle" name="activityTitle" maxlength="300" class="form-control" type="text"/>
+							</div>
+						</div>
+					</div> -->	
+				</div>
+			</div>
+		</div>
+
+		<div class="panel panel-default table-panel">
+			<div class="panel-body">
+			<div class="tabbable-custom ">
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a href="#activity_content" data-toggle="tab" id="brandTab">活动内容</a>
+					</li>
+					<li >
+						<a href="#activity_scope" data-toggle="tab" id="seriesTab">活动范围</a>
+					</li>
+					
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane fade in active" id="activity_content" data-url="repair/activity/repairPart.html">
+					</div>
+					<div class="tab-pane  fade" id="activity_scope" data-url="repair/activity/repairMaterial.html">
+						
+					</div>
+					
+				</div>
+           </div>
+				
+			</div>
+		</div>
+		
+		<div class="form-actions">
+			<a data-url="/activity/serviceActivity" data-model="repair"
+				data-method="POST" data-callBack="true" class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存 </a>			
+			<a data-goback="page" href="retail/vehicle/market/searchActivity.html" class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("a[data-goback='page']",container).click();
+	});
+    $("#brandTab",container).on("dms.click",function(event){
+    	 $(this).tab('show');
+	})
+});
+</script>

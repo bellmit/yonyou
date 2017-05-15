@@ -1,0 +1,136 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					
+				     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 "
+									data-tableSelect="true">
+									<div class="form-group">
+										<label class="control-label col-xs-4 col-sm-2">经销商代码</label>
+										<div class="col-xs-4 ">
+											<div class="input-group">
+												<input id="dealerId" readonly name="dealerId" 
+													class="form-control" type="hidden" data-fieldName="dealer_Id" />
+												<input id="dealerCode" readonly name="dealerCode"
+													class="form-control" type="text" data-fieldName="dealer_code" />
+												<span class="input-group-btn">
+													<button class="btn default btn-sm" type="button"
+														data-url="manage/basedata/dealers/searchDealers.html"
+														data-toggle="modal" data-width="modal-lg">
+														<i class="fa fa-list-alt"></i>
+													</button>
+													<button class="btn default input-clear" type="button">
+														<i class="fa fa-close"></i>
+													</button>
+												</span>
+											</div>
+										</div>
+									</div>
+					
+					
+				</div>
+
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true">
+								<i class="fa fa-search"></i> 查询
+							</a> 
+								<a class="btn blue" ><i class="fa fa-undo"></i>重置 </a>
+						
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default table-panel">
+					<div class="panel-heading">
+						<div class="pannel-name">账户余额查询</div>
+							<a href="javascript:;" class="btn"
+								data-url="/k4AccountManage/download" data-model="repair"
+								data-method="downLoad" data-toggle="confirmation"><i
+								class="fa fa-download"></i> 下载 </a>
+						
+					</div>
+					<div class="panel-body">
+						<table
+							class="form-group  table table-striped table-bordered table-hover table-responsive"
+							id="dms_table"></table>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+	</form>
+
+
+</div>
+<script type="text/javascript">
+	//查询
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				new Datatable().initPagination({
+					src : "dms_table",
+					container : container,
+					url : dmsCommon.getDmsPath()["repair"]
+							+ "/k4AccountManage/accountBalanceQuery",
+					rowID : "",
+					detailView : true, //当需要显示明细时，打开此开关，否则不需要写
+					//sortName : "USER_NAME,AGE", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+					//sortOrder : "asc,desc",
+					isQueryFirst : true,
+					pageSize : 5,
+					isQueryFirst:false,
+					//当需要开启显示明细时才实现，否则不实现
+					/* detailFormatter : function(index, row, element) {
+						return row.NAME;
+					}, */
+					columns : [
+					
+					{
+						field : "DEALER_CODE",
+						title : "经销商代码"
+						
+					}, {
+						field : "DEALER_SHORTNAME",
+						title : "经销商名称"
+					}, {
+						field : "COUNT1",
+						title : "现金"
+					}, {
+						field : "COUNT2",
+						title : "广汽汇理"
+					}, {
+						field : "COUNT3",
+						title : "菲克金融"
+					}, {
+						field : "COUNT5",
+						title : "交通银行广州荔湾支行"
+					}, {
+						field : "COUNT6",
+						title : "中国银行上海静安支行"
+					}, {
+						field : "COUNT7",
+						title : "建设银行上海卢湾支行"
+					}, {
+						field : "AMOUNT",
+						title : "合计"
+					} ]
+
+				});
+				//事件点击
+				$("a[data-onclickEvent='true']", container).on("dms.click",
+						function(event) {
+							//debugger
+							/* var selectRow = $("#dms_table", container)
+									.dmsTable().getFirstSelection();
+
+							$("div[data-tableSelect='true']",
+									getElementContext()).initHtmlContent(
+									selectRow);
+							//关闭窗口
+							$("a[data-dismiss='modal']", container).click(); */
+						});
+
+			});
+</script>

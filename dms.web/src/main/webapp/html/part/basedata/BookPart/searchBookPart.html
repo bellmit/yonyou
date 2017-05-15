@@ -1,0 +1,303 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">预留单号</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input id="OBLIGATED_NO" name="obligatedNo" 
+										 class="form-control" type="text" />
+									<span class="input-group-btn">
+										<button class="btn default btn-sm" type="button"
+											button-info="OBLIGATED_NO"
+											data-url="part/basedata/BookPart/searchOblgNo.html" id="obl"
+											data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">工单号</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input id="RO_NO" name="roNo" class="form-control" type="text" />
+									<span class="input-group-btn">
+										<button class="btn default btn-sm" type="button"
+											disabled="disabled"
+											data-url="part/basedata/BookPart/searchRono.html" id="rono"
+											data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">预留人</label>
+							<div class="col-xs-8 ">
+								<select id="APPLICANT" name="applicant"
+									data-fieldName="ZS_MANAGER" readonly="readonly"
+									class="bs-select form-control "
+									data-url="/basedata/employees/-1/salesConsultant"
+									data-model="manage" data-labelValue="USER_ID"
+									data-lableDesc="USER_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车主</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="OWNER_NAME"
+									name="ownerName">
+								<input type="hidden" id="OWNER_NO" name="ownerNo"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车牌号</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="LICENSE" 
+									name="license">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">送修人</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="DELIVERER" 
+									disabled="disabled" name="deliverer">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">手机号</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="DELIVERER_MOBILE" 
+									disabled="disabled" name="delivererMobile">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">电话</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="DELIVERER_PHONE" 
+									disabled="disabled" name="delivererPhone">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">客户经理</label>
+							<div class="col-xs-8 ">
+								<input id="SERVICE_ADVISOR" name="serviceAdvisor"
+									readonly="readonly" data-fieldName="SERVICE_ADVISOR" 
+									type="text" class="bs-select form-control "> </input>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">截止日期</label>
+							<div class="col-xs-8">
+								<div class="input-group date date-picker"
+									data-date-end-date="+0d" data-orientation="top right">
+									<input id="OBLIGATED_CLOSE_DATE" name="obligatedCloseCate"
+										readonly class="form-control" type="text"  /> <span
+										class="input-group-btn">
+										<button class="btn default date-set" type="button">
+											<i class="fa fa-calendar"></i>
+										</button>
+										<button class="btn default date-reset" type="button">
+											<i class="fa fa-times"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6">
+						<div class="form-group">
+							<label class="control-label col-xs-2">备注</label>
+							<div class="col-xs-10 ">
+								<input type="text" class="form-control" id="REMARK" name="remark">
+							</div>
+						</div>
+					</div>
+					<div class="row hidden">
+				</div>
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-errorCallBack="true"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+						
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-button">
+					<div class="btn-group btn-group-sm">
+						<a class="btn btn-outline" disabled="disabled"
+							data-onclickEvent="true" id="new"
+							data-url="part/basedata/BookPart/addPartBook.html"
+							data-toggle="modal" data-width="modal-lg"> <i
+							class="fa fa-plus-square"></i> 新增</a>
+						<a class="btn btn-outline ajaxrest" data-callBack='true'
+							data-onclickEvent="true" id="del" disabled="disabled"
+							data-url="/basedata/BookPart/querys" data-method="GET" data-model="part"> <i
+							class="fa fa-plus-square"></i> 删除</a>
+						<a class="btn btn-outline" disabled="disabled"
+							data-onclickEvent="true" id="ro"
+							data-url="part/basedata/BookPart/partInfoDetial.html"
+							data-toggle="modal" data-width="modal-lg"> <i
+							class="fa fa-plus-square"></i> 工单清单</a>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="tables"></table>
+			</div>
+			<div class="modal-footer">
+						<a class="btn blue" data-onclickEvent="true" id="build" 
+							data-width="modal-lg"> <i class="fa fa-plus-square"></i> 新建</a>
+						<a id="lo"  data-onclickEvent="true"  data-callBack='true'
+							data-method="PUT" class="btn blue ajaxrest" data-url="/basedata/BookPart/hold"
+							data-validate="true" data-model="part" disabled="disabled"><i
+							class="fa fa-save"></i>预留</a> 
+						<a id="close" data-model="part" data-onclickEvent="true" disabled="disabled"
+							data-method="PUT" class="btn blue ajaxrest" data-url="/basedata/BookPart/close"
+							data-validate="true" ><i
+							class="fa fa-plus-square"></i>关单</a> 	
+						<a class="btn blue" data-onclickEvent="true" id="cal"
+							data-width="modal-lg"> <i class="fa fa-plus-square"></i> 取消
+						</a>
+			</div>
+		</div>
+		<input type="hidden" id="isObligated" name="isObligated">
+		<input type="hidden" id="biaoji" name="biaoji">
+		<input type="hidden" id="itemId" name="itemId">
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "tables",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/basedata/BookPart",
+			rowID : "ITEM_ID",
+			sortName : "PART_NO", 
+			sortOrder : "asc",
+			autoHeight : false,
+			isFormParam:true,
+			undefinedText : "",
+			isQueryFirst : false,
+   			uniqueDataName:"PART_NO",
+			columns : [ 
+				{radio:true,sortable : false},
+			    {field : "IS_OBLIGATED",title : "是否预留",inputSelectFormat : {type : "dict",codeType : "1278"}}, 
+				{field : "PART_NO",title : "配件代码",inputHiddenFormat:{}},
+				{field : "PART_NAME",title : "配件名称",inputTextFormat:{}},
+				{field : "STORAGE_CODE",title : "仓库代码",inputHiddenFormat:{}}, 
+				{field : "STORAGE_POSITION_CODE",title : "库位代码",inputHiddenFormat:{}},
+				{field : "USEABLE_STOCK",title : "可用库存",inputHiddenFormat:{}},
+				{field : "QUANTITY",title : "预留数量", inputNumberFormat : {validate:{validateClass:"required decimal",validateAttr:'maxDigit="10" maxPrecision="4"'}}}, 
+				{field : "COST_PRICE",title : "成本价",inputHiddenFormat:{}},
+				{field : "COST_AMOUNT",title : "成本金额",inputHiddenFormat:{}}, 
+				{field : "LIMIT_PRICE",title : "销售限价",formatter: function (value) {
+					return "<input type='hidden' id='biaoji' name='biaoji'/>" + value
+				}},
+				{field : "BOOKING_DATE",title : "预留日期",inputHiddenFormat:{},dateFormat : {format:"YYYY-MM-DD"}}
+			],
+			onClickRow : function(rows,$this){
+				var index = parseInt($this.find("td:eq(0)").html())-1;//下标
+				var item = rows;//json数据
+				$.cookie('partProfitForUpdate', JSON.stringify(item),{ path: '../searchBookPart.html'});
+				$.cookie('partProfitUpdateIndex', index,{ path: '../searchBookPart.html'});
+				$("input[id^='QUANTITY']",$("#tables tbody tr",container)).bindChange(function(obj){
+					$('#lo').removeAttr("disabled");
+				});
+				$("select[id^='IS_OBLIGATED']",$("#tables tbody tr",container)).bindChange(function(obj){
+					$('#lo').removeAttr("disabled");
+					if($("select[id^='IS_OBLIGATED']",container).val()==12781002){
+						$('#del').removeAttr("disabled");
+					}else{
+						$('#del').attr('disabled',"true");
+					}
+				}); 
+			}
+		});
+		$("#OBLIGATED_NO",container).bindChange(function(obj){
+			//刷新表格
+			$("#tables").dmsTable().refreshTableWithForm();
+			if(document.getElementById("tables").rows.length>0){
+				$('#edit').removeAttr("disabled");
+			}
+			var s=$.trim($("#OBLIGATED_NO",container).val());
+			if(s!=""&&s!=null){
+				$('#close').removeAttr("disabled");
+			}
+		});
+		
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(){
+			if($(this).attr('id')=='build'){
+				$('#new').removeAttr("disabled");// 移除disabled属性
+				$('#lo').removeAttr("disabled");
+				$('#rono').removeAttr("disabled");
+				$('#APPLICANT').removeAttr("disabled");
+				$('#build').attr('disabled',"true");//添加disabled属性
+				$('#obl').attr('disabled',"true");
+			}
+			if($(this).attr('id')=='cal'){
+				dmsCommon.refreshPageByUrl("part/basedata/BookPart/searchBookPart.html",container);//刷新页面
+			}
+			if($(this).attr('id')=='lo'){
+				$('#close').removeAttr("disabled");
+				$('#lo').attr('disabled',"true");
+			}
+		});
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			if($(this).attr('id')=='lo'){
+				$("#OBLIGATED_NO",container).val(response);
+			}
+			if($(this).attr('id')=='del'){
+				var selectRow=$("#tables",container).dmsTable().getSelections();
+				var ind=$("#tables",container).dmsTable().getSelections()[0].index;
+				$("#tables",container).dmsTable().updateRowByIndex(0,{LIMIT_PRICE:"D"});
+				$("#itemId").val(selectRow[0].ITEM_ID);
+				$('#lo').removeAttr("disabled");
+				$("#tables",container).dmsTable().deleteRowByIndex(ind);
+				$("#isObligated").val("12781002");
+				$("#biaoji").val("D");
+			}
+		});
+	});
+	
+</script>

@@ -1,0 +1,446 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row " data-tableSelect="true">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">工单号</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<div class="input-group">
+									<input type="text" class="form-control" id="roNo"
+										readonly name="roNo" data-info="roNo" data-fieldName="DELIVERY_NO" /> <span
+										class="input-group-btn">
+										<button class="btn default btn-sm" type="button"
+											data-url="repair/FeesSettlement/workOrder.html"
+											data-toggle="modal" data-info="repairOrder" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+										</div>
+                                 </div>
+							</div>
+						</div>
+					
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车牌号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control license" id="vehicleNumber" name="vehicleNumber">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					 <!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">工单备注</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="workOrderRemark" name="workOrderRemark">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					 <!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">结算单号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="settleAccountNumber" name="settleAccountNumber">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					 <!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">索赔单号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="claimNumber" name="claimNumber">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					 <!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">会员卡编号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="vipNumber" name="vipNumber">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					 <!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件销售单号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="partSaleNumber" name="partSaleNumber">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					 <!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">备注</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="remark" name="remark">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					 <!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">备注1</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="remarkFirst" name="remarkFirst">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					 <!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">检查结果</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="checkSource" name="checkSource">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					</div>
+				</div>
+			  </div>	
+			<div class="col-lg-9 tabbable-custom ">
+	<ul class="nav nav-tabs">
+		<li class="active">
+			<a href="#tab_workOrder" data-toggle="tab" id="workOrder">工单</a>
+		</li>
+		<li >
+			<a href="#tab_partSaleOrder" data-toggle="tab" id="partSaleOrder">配件销售单</a>
+		</li>
+	</ul>
+	<div class="tab-content">
+		<div class="tab-pane fade in active" id="tab_workOrder" data-url="repair/cancleSettlement/searchWorkOrder.html">
+		</div>
+		<div class="tab-pane  fade" id="tab_partSaleOrder" data-url="repair/cancleSettlement/searchPartSaleOrder.html">
+			
+		</div>
+	</div>
+</div>
+  
+		<div class="col-lg-3 panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">账户ID</label>
+							<div class="col-xs-8">
+									<select  class="bs-select form-control col-xs-8" id="workOrderNumber" name="workOrderNumber">
+									</select>
+                          </div> 
+                      </div> 
+                    </div> 
+                   <div class="col-xs-12 col-sm-6 col-md-4 col-lg-12">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">使用金额</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input type="text" class="form-control" id="workOrderNumber" name="workOrderNumber">
+                          </div>
+                          </div> 
+                      </div> 
+                    </div> 
+                   
+                   </div>
+                 </div>
+              </div>
+              <div class="col-lg-3 panel panel-default  pull-right">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">会员级别</label>
+							<div class="col-xs-8">
+									<select class="bs_select form-control" id="workOrderNumber" name="workOrderNumber">
+									</select>
+                          </div> 
+                      </div> 
+                    </div> 
+                   <div class="col-xs-12 col-sm-6 col-md-4 col-lg-12  ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">优惠模式</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input type="text" class="form-control" id="workOrderNumber" name="workOrderNumber">
+                          </div>
+                          </div> 
+                      </div> 
+                    </div> 
+                   
+                   </div>
+                 </div>
+              </div>
+                
+                <div class="col-lg-3 panel panel-default  pull-right">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">合约编号</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input type="text" class="form-control" id="workOrderNumber" name="workOrderNumber">
+                          </div>
+                          </div> 
+                      </div> 
+                    </div> 
+                   <div class="col-xs-12 col-sm-6 col-md-4 col-lg-12  ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">合同证书</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input type="text" class="form-control" id="workOrderNumber" name="workOrderNumber">
+                          </div>
+                          </div> 
+                      </div> 
+                    </div> 
+                    
+                     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-12  ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">发票编号</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input type="text" class="form-control" id="workOrderNumber" name="workOrderNumber">
+                          </div>
+                          </div> 
+                      </div> 
+                    </div> 
+                    
+                     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-12  ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">发票类型</label>
+							<div class="col-xs-8">
+									<select  class="bs_select form-control" id="workOrderNumber" name="workOrderNumber">
+									</select>
+                          </div> 
+                      </div> 
+                    </div> 
+                    
+                     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-12  ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">付款方式</label>
+							<div class="col-xs-8">
+									<select  class="ba-select form-control" id="workOrderNumber" name="workOrderNumber">
+									</select>
+                          </div> 
+                      </div> 
+                    </div> 
+                    
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-12  ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">保险公司</label>
+							<div class="col-xs-8">
+									<select  class="bs-select form-control" id="workOrderNumber" name="workOrderNumber">
+									</select>
+                          </div>
+                          </div> 
+                      </div> 
+                    </div> 
+                    
+                    
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-12  ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">理赔单号</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input type="text" class="form-control" id="workOrderNumber" name="workOrderNumber">
+                          </div>
+                          </div> 
+                      </div> 
+                    </div> 
+                    
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-12  ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">出险付款方式</label>
+							<div class="col-xs-8">
+									<select class="ba-select form-control" id="workOrderNumber" name="workOrderNumber">
+                 </select>
+                          </div> 
+                      </div> 
+                    </div> 
+                    
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-12">
+						<div class="form-group">
+		                            <input  id="isCheck" name="isCheck" type="checkbox"
+										data-dictCode="1057" data-dictLabel="是否欠款选中" data-excludeItems="10131004">
+							</div>
+						</div>
+					</div>
+                    
+                   
+                   </div>
+                 
+    <div class="col-lg-9 tabbable-custom ">
+	<ul class="nav nav-tabs">
+		<li class="active">
+			<a href="#tab_repairProject" data-toggle="tab" id="repairProject">维修项目</a>
+		</li>
+		<li >
+			<a href="#tab_repairMaterials" data-toggle="tab" id="repairMaterials">维修材料</a>
+		</li>
+		<li>
+			<a href="#tab_saleMatrial" data-toggle="tab" id="saleMatrial">销售材料</a>
+		</li>
+		<li>
+			<a href="#tab_additionItem" data-toggle="tab" id="additionItem">附加项目</a>
+		</li>
+	</ul>
+	<div class="tab-content">
+		<div class="tab-pane fade in active" id="tab_repairProject" data-url="repair/cancleSettlement/repairProject.html">
+		</div>
+		<div class="tab-pane  fade" id="tab_repairMaterials" data-url="repair/cancleSettlement/repairMaterial.html">
+			
+		</div>
+		<div class="tab-pane  fade" id="tab_saleMatrial" data-url="repair/cancleSettlement/saleMatrial.html">
+			
+		</div>
+		<div class="tab-pane  fade" id="tab_additionItem" data-url="repair/cancleSettlement/additionItem.html">
+			
+		</div>
+	</div>
+</div>
+
+     <div class="col-lg-3 panel panel-default  pull-right">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">总金额</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input type="text" class="form-control" id="workOrderNumber" name="workOrderNumber">
+                          </div>
+                          </div> 
+                      </div> 
+                    </div> 
+                    
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-12  ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">税率</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input type="text" class="form-control" id="workOrderNumber" name="workOrderNumber">
+                          </div>
+                          </div> 
+                      </div> 
+                    </div> 
+                    
+                    
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-12  ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">税额</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input type="text" class="form-control" id="workOrderNumber" name="workOrderNumber">
+                          </div>
+                          </div> 
+                      </div> 
+                    </div> 
+                    
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-12  ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">不含税金额</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input type="text" class="form-control" id="workOrderNumber" name="workOrderNumber">
+                          </div>
+                          </div> 
+                      </div> 
+                    </div> 
+                    
+                     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-12  ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">去零金额</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input type="text" class="form-control" id="workOrderNumber" name="workOrderNumber">
+                          </div>
+                          </div> 
+                      </div> 
+                    </div> 
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-12  ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">收款金额</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input type="text" class="form-control" id="workOrderNumber" name="workOrderNumber">
+                          </div>
+                          </div> 
+                      </div> 
+                    </div> 
+                   
+                   
+                   </div>
+                 </div>
+                 </div>
+
+ <div class="col-lg-9 tabbable-custom pull-left">
+	<ul class="nav nav-tabs">
+		<li class="active">
+			<a href="#tab_receivable" data-toggle="tab" id="receivable">应收</a>
+		</li>
+		<li >
+			<a href="#tab_received" data-toggle="tab" id="received">实收</a>
+		</li>
+	</ul>
+	<div class="tab-content">
+		<div class="tab-pane fade in active" id="tab_receivable" data-url="repair/cancleSettlement/searchReceivable.html">
+		</div>
+		<div class="tab-pane  fade" id="tab_received" data-url="repair/cancleSettlement/searchReceived.html">
+			
+		</div>
+	</div>
+</div>
+      		<div class="modal-footer center-block">
+			<a data-url="/basedata/appendProject/{[ADD_ITEM_CODE]}" data-model="repair" data-method="PUT"
+				 data-callBack='true' class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> 
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+
+		</form>
+	</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event, container) {
+     //触发工单查询
+     debugger;
+         $("button[data-info='roNo']",container).on("click",function(event){
+        	  var roNo = $("#roNo",container).val();
+        	  if(roNo != ""){
+        		  dmsCommon.ajaxRestRequest({
+        			  url : dmsCommon.getDmsPath()["repair"]+"/feesSettlement/searchRepairOrder"+roNo,
+        			  type : 'GET',
+        			  successCallBack : function(result){
+        				   if(result.length == 1){
+        		           $("div[data-tableSelect='true']",getElementContext()).initHtmlContent(vehicle,false);
+        				   }
+        			  }
+        		  });
+        	  }else{
+        		  $("a[data-info='repairOrder']",container).click();
+        	  }
+         }
+     );
+});
+     
+</script>	

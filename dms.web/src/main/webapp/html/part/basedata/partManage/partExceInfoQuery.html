@@ -1,0 +1,147 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件编号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="partCode" name="partCode">
+							</div>
+						</div>
+					</div>
+					
+					
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="partName" name="partName">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">状态</label>
+								<div class="col-xs-8">
+									<select id="partStatus"
+										class="bs-select form-control" name="partStatus"
+										data-url="/partBaseInfoManage/queryStatus"
+										data-model="part" data-labelValue="CO"
+										data-lableDesc="CODE_ID"   data-size="5" data-value=""  >
+									</select>
+									
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">数据标记</label>
+								<div class="col-xs-8">
+								<select  class="bs-select form-control" id="dataFlag" name="dataFlag"  data-dictCode="9335" data-type="oemDict">
+								</select>
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">调度时间</label>
+							<div class="col-xs-10 ">
+								 <div class="input-group input-daterange"  data-opens="right">
+		                             <input type="text" class="form-control" readonly  name="startDate">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="endDate">
+		                             <span class="input-group-btn">
+                                         <button class="btn default input-clear" type="button">
+                                            <i class="fa fa-close"></i>
+                                        </button>
+                                      </span> 
+		                        </div>
+							</div>
+						</div>
+					</div>		
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+							
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">信息列表 </div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+					<a data-url="/partBaseInfoManage/doSEDCSP12" data-model="part"
+								data-method="GET" data-callBack='true' class="btn btn-outline"
+								data-toggle="confirmation" ><i class="fa fa-save" ></i>SAP配件主数据接收</a>
+							<a data-url="/partBaseInfoManage/doP12" data-model="part"
+								data-method="GET" data-callBack='true' class="btn btn-outline"
+								data-toggle="confirmation" ><i class="fa fa-save" ></i>配件主数据导入业务表</a>
+							
+						 
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="partList"></table>
+		</div>
+	</div>
+		
+	</form>
+	
+	
+</div>
+<script type="text/javascript">
+ $(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "partList",
+		container:container,
+		url : dmsCommon.getDmsPath()["part"] + "/partBaseInfoManage/queryPartExce",
+		rowID : "ID",
+		sortName : "ID",
+		sortOrder : "asc",
+		autoHeight:false,
+		columns : [ 
+		    //{checkbox:true,sortable : false}, 
+		        {title: "配件编号", field:'MATNR'},
+				{title: "配件名称", field:'MAKTX'},
+				{title: "调度序号", field:'ID'},
+				{title: "调度时间", field: 'UPDATE_DATE'},
+				{title: "物料组", field: 'MATKL'},
+				{title: "项目类别组", field: 'MTPOS'},
+				{title: "采购单位", field: 'MSEHL'},
+				{title: "最小订货量", field: 'VORMG'},
+				{title: "定价", field: 'KBETR'},
+				{title: "定价数量", field:'KPEIN'},
+				{title: "数据标记", field:'ZFLAG'},
+				{title: "状态", field:'STATUS'},
+				{title: "错误消息", field:'ERR_INFO'}
+		  
+		]
+		
+	});
+	//通过或驳回 后置事件 
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){		
+		dmsCommon.tip({status:"success",msg:"操作成功"});
+		
+	});
+});
+    
+</script>

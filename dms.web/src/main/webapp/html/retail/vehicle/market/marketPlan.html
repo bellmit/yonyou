@@ -1,0 +1,421 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">活动名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="campaignName"
+									name="campaignName">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">当前审批状态</label>
+							<div class="col-xs-8">
+								<select id="curAuditingStatus" name="curAuditingStatus" data-excludeItems = "13621007,13621008,13621009,13621010"
+									class="bs-select form-control" data-dictCode="1362">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">开始时间</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange">
+									<input type="text" class="form-control" readonly
+										name="startBegin" id="startBegin" value="" data-fieldName="BEGIN_DATE"> <span
+										class="input-group-addon">至</span> <input type="text"
+										class="form-control" readonly name="startTo" id="startTo"
+										value=""> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4  hidden">
+						<div class="form-group">
+							<label class="control-label col-xs-4">市场活动编号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="CAMPAIGN_CODE"
+									name="CAMPAIGN_CODE">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">市场活动发起方式</label>
+							<div class="col-xs-8">
+								<select id="performType" name="performType"
+									class="bs-select form-control" data-dictCode="1299" 
+									data-fieldName="CAMPAIGN_PERFORM_TYPE">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">年月</label>
+							<div class="col-xs-8">
+								<div class="input-group date month-picker"
+									data-defaultToday="true" data-date-end-date="+0d"
+									data-orientation="top left">
+									<input id="yearMonth" name="yearMonth" readonly
+										class="form-control" type="text" value="" /> <span
+										class="input-group-btn">
+										<button class="btn default date-set" type="button">
+											<i class="fa fa-calendar"></i>
+										</button>
+										<button class="btn default date-reset" type="button">
+											<i class="fa fa-times"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<!-- /span -->
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">结束时间</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange">
+									<input type="text" class="form-control" readonly
+										name="endBegin" id="endBegin" data-fieldName="END_DATE"> <span
+										class="input-group-addon">至</span> <input type="text"
+										class="form-control" readonly name="endTo" id="endTo">
+									<span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="row">
+				<div class="col-xs-12 ">
+					<div class="query-btn">
+						<a href="javascript:;" class="btn btn-sm blue" > <i
+									class="fa fa-search"></i> 查询
+						</a> 
+						<!-- <a href="javascript:;" class="btn btn-sm blue"><i class="fa fa-undo"></i> 重置</a> -->
+					<!-- 	<a
+				data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a> -->
+					</div>
+				</div>
+					<!-- 	<div class="col-xs-12 ">
+							<div class="query-btn">
+								<a href="javascript:;" class="btn btn-sm blue" > <i
+									class="fa fa-search"></i> 查询
+								</a> 
+								<a href="javascript:;" class="btn btn-sm blue"><i class="fa fa-undo"></i> 重置</a>
+							</div>
+						</div> -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">活动计划列表</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+				<a class="btn btn-outline"
+						data-url="retail/vehicle/market/addmarketPlan.html"
+						data-toggle="modal" data-width="modal-lg"><i
+						class="fa fa-plus-square"></i> 新增</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="campaign_plan">
+				
+			</table>
+		</div>
+	</div>
+	<!--/span-->
+	<div class="tabbable-custom ">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#tab_CampaignGoal" data-toggle="tab"
+				id="CampaignGoal" data-beforeShowEvent="true">活动目标</a></li>
+			<li><a href="#tab_CampaignFee" data-toggle="tab"
+				id="CampaignFee" data-beforeShowEvent="true">广告费用</a></li>
+			<li><a href="#tab_CampaignPrFee" data-toggle="tab"
+				id="CampaignPrFee" data-beforeShowEvent="true">公关费用</a></li>
+			<li><a href="#tab_CampaignPopFee" data-toggle="tab"
+				id="CampaignPopFee" data-beforeShowEvent="true">现场布置费用及其他费用</a></li>
+			<li><a href="#tab_CampaignPsalesFee" data-toggle="tab"
+				id="CampaignPsalesFee" data-beforeShowEvent="true">促销费用</a></li>
+			<li><a href="#tab_CampaignPlanAttached" data-toggle="tab"
+				id="CampaignPlanAttached" data-beforeShowEvent="true">市场活动附件</a></li>
+			<li><a href="#tab_ApprovedMemo" data-toggle="tab"
+				id="ApprovedMemo" data-beforeShowEvent="true">审核记录</a></li>
+			<li><a href="#tab_CampaigSeries" data-toggle="tab"
+				id="CampaignSeries" data-beforeShowEvent="true">活动车系</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane fade in active" id="tab_CampaignGoal"
+				data-url="retail\vehicle\market\CampaignGoal\searchCampaignGoal.html">
+			</div>
+			<div class="tab-pane fade in active" id="tab_CampaignFee"
+				data-url="retail\vehicle\market\CampaignFee\searchCampaignFee.html">
+			</div>
+			<div class="tab-pane fade in active" id="tab_CampaignPrFee"
+				data-url="retail\vehicle\market\CampaignPrFee\searchCampaignPrFee.html">
+			</div>
+			<div class="tab-pane fade in active" id="tab_CampaignPopFee"
+				data-url="retail\vehicle\market\CampaignPopFee\searchCampaignPopFee.html">
+			</div>
+			<div class="tab-pane fade in active" id="tab_CampaignPsalesFee"
+				data-url="retail\vehicle\market\CampaignPsalesFee\searchCampaignPsalesFee.html">
+			</div>
+			<div class="tab-pane fade in active" id="tab_CampaignPlanAttached"
+				data-url="retail\vehicle\market\CampaignPlanAttached\searchCampaignPlanAttached.html">
+			</div>
+			<div class="tab-pane fade in active" id="tab_ApprovedMemo"
+				data-url="retail\vehicle\market\ApprovedMemo\searchApprovedMemo.html">
+			</div>
+			<div class="tab-pane fade in active" id="tab_CampaigSeries"
+				data-url="retail\vehicle\market\CampaigSeries\searchCampaigSeries.html">
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document)
+			.one(
+					"onload.dms",
+					function(event, container) {
+						
+						 //触发点击事件
+						/* $("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+							var parentTableRow = $("#campaign_plan",getElementContext()).dmsTable().getParentTabelRow();
+							if(parentTableRow==undefined){
+								dmsCommon.tip({status:"warning",msg:"至少有一个查询条件"});//总共的状态类型：info、success、error、warning
+								returnResult.status = false;
+								return;
+							}
+							//设置页面初始化值 
+							$(this).data("pageData",parentTableRow);
+
+							returnResult.status = true; 
+						});  */
+						
+						new Datatable()
+								.initPagination({
+									src : "campaign_plan",
+									rowID : "CAMPAIGN_CODE",
+									container : container,
+									url : dmsCommon.getDmsPath()["retail"]
+											+ "/markting/marktingPlan",
+									sortName : "CAMPAIGN_CODE",
+									autoHeight : false,//设置自动高度为false，把下面的tab页显示
+									isQueryFirst:false,
+									sortOrder : "asc",
+									undefinedText : "",
+									columns : [
+											{
+												radio : true,
+												sortable : false
+											},
+											{
+												field : "POSITION_ID",
+												title : "操作",
+												operateFormat : [
+														{
+															type : "edit",
+															url : "retail/vehicle/market/updateMarketPlan.html",
+															openWidth : "modal-lg"
+														},//默认不支持双击操作
+												/*  {type : "del",url : "/markting/marktingPlan/{[CAMPAIGN_CODE]}/plan",model : "retail",
+														callBack : function(response) {
+															$("#campaign_plan",getElementContext()).dmsTable().refreshTableWithForm();
+														}
+													}  */ ]
+											},
+
+											{
+												field : "CAMPAIGN_CODE",
+												title : "市场活动编号"
+											},
+											{
+												field : "CAMPAIGN_NAME",
+												title : "市场活动名称"
+											},
+											{
+												field : "CUR_AUDITING_STATUS",
+												title : "当前审批状态",
+												codeFormat : {
+													type : "dict",
+													codeType : "1362"
+												}
+											},
+											{
+												field : "CAMPAIGN_PERFORM_TYPE",
+												title : "市场活动发起方式",
+												codeFormat : {
+													type : "dict",
+													codeType : "1299"
+												}
+											}, {
+												field : "SPOT",
+												title : "地点"
+											}, {
+												field : "CAMPAIGN_BUDGET",
+												title : "活动预算",
+												numberFormat : {decimal:2}
+											}, {
+												field : "BEGIN_DATE",
+												title : "开始日期",
+												dateFormat : {
+													format : "YYYY-MM-DD"
+												}
+											}, {
+												field : "END_DATE",
+												title : "结束日期",
+												dateFormat : {
+													format : "YYYY-MM-DD"
+												}
+											}, {
+												field : "TARGET_CUSTOMER",
+												title : "目标客户"
+											}, {
+												field : "APPLY_DATE",
+												title : "申请时间",
+												dateFormat : {
+													format : "YYYY-MM-DD"
+												}
+											}, {
+												field : "USER_NAME",
+												title : "申请人",inputHiddenFormat : {hiddenField:"SOLD_BY"}
+											}, {
+												field : "MEMO",
+												title : "其他说明"
+											}, {
+												field : "CUR_AUDITOR",
+												title : "当前审批人"
+											}, {
+												field : "REF_WEB_LINK",
+												title : "参考网址"
+											}, {
+												field : "PRINCIPAL_NAME",
+												title : "联系负责人"
+											}, {
+												field : "PRINCIPAL_PHONE",
+												title : "负责人联系电话"
+											}, {
+												field : "PRINCIPAL_EMAIL",
+												title : "负责人电子邮件"
+											}, {
+												field : "DISTRIBUTER_PHONE",
+												title : "分发联系人电话"
+											}, {
+												field : "DISTRIBUTER_NAME",
+												title : "材料分发联系人"
+											}, {
+												field : "DISTRIBUTER_EMAIL",
+												title : "分发人电子邮件"
+											}, {
+												field : "TARGET_TRAFFIC",
+												title : "目标展厅客流量",
+												visible : false
+											}, {
+												field : "TARGET_NEW_ORDERS",
+												title : "目标展厅新增订单数",
+												visible : false
+											}, {
+												field : "TARGET_NEW_CUSTOMERS",
+												title : "目标新增潜在客户",
+												visible : false
+											}, {
+												field : "TARGET_NEW_VEHICLES",
+												title : "目标新增车辆数",
+												visible : false
+											}, {
+												field : "OEM_TAG",
+												title : "是否下发",
+												codeFormat : {
+													type : "dict",
+													codeType : "1278"
+												}
+											} ],
+									//当出现选择操作的按钮时，响应事件
+									onCheck : function(row) {
+										$("#CAMPAIGN_CODE").setDmsValue(
+												row.CAMPAIGN_CODE);
+										$("#targetTraffic").val(row.TARGET_TRAFFIC);
+										$("#targetNewOrders").val(row.TARGET_NEW_ORDERS);
+										$("#targetNewCustomers").val(row.TARGET_NEW_CUSTOMERS);
+										/* alert(row.TARGET_NEW_VEHICLES); */
+										$("#targetNewVehicles").val(row.TARGET_NEW_VEHICLES);
+									}
+								});
+
+						//触发点击事件
+						$("a[data-beforeShowEvent='true']", container).on(
+								"beforeShow.dms",
+								function(event, returnResult) {
+									var parentTableRow = $("#campaign_gold",
+											getElementContext()).dmsTable()
+											.getParentTabelRow();
+									if (parentTableRow == undefined) {
+										dmsCommon.tip({
+											status : "warning",
+											msg : "请双击选择父表格数据"
+										});//总共的状态类型：info、success、error、warning
+										returnResult.status = false;
+										return;
+									}
+									//设置页面初始化值
+									$(this).data("pageData", parentTableRow);
+
+									returnResult.status = true;
+								});
+
+						//绑定刷新表格操作
+						$("#refreshTableId", getElementContext())
+								.on(
+										'click',
+										function() {
+											$("#campaign_gold",
+													getElementContext())
+													.dmsTable()
+													.refreshUrl(
+															dmsCommon
+																	.getDmsPath()["retail"]
+																	+ "/markting/marktingPlan/204/campaignGold");
+										});
+
+						$("a[id='CampaignGoal']", container).click();
+						$("a[id='CampaignFee']", container).click();
+						$("a[id='CampaignPrFee']", container).click();
+						$("a[id='CampaignPopFee']", container).click();
+						$("a[id='CampaignPsalesFee']", container).click();
+						$("a[id='CampaignPlanAttached']", container).click();
+						$("a[id='ApprovedMemo']", container).click();
+						$("a[id='CampaignSeries']", container).click();
+
+					});
+</script>

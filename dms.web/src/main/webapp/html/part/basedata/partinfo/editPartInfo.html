@@ -1,0 +1,411 @@
+<div class="dms-edit ajaxrest" data-url="/basedata/partInfos/{[PART_NO]}" data-model="part">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">配件基本信息编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌</label>
+								<div class="col-xs-8">
+									<select id="brand" name="brand"
+										class="bs-select form-control "
+										data-url="/basedata/brandsdict" data-model="manage"
+										data-labelValue="BRAND_CODE" data-lableDesc="BRAND_NAME"
+										data-fieldName="BRAND">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件类型</label>
+								<div class="col-xs-8">
+									<select id="part_type" name="part_type"
+										class="bs-select form-control " data-dictCode="3340"
+										data-fieldName="PART_TYPE">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否用品</label>
+								<div class="col-xs-8">
+									<select id="is_acc" name="is_acc"
+										class="bs-select form-control " data-dictCode="1278"
+										data-fieldName="IS_ACC">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件代码</label>
+								<div class="col-xs-8">
+									<input id="partNo" name="partNo" class="form-control required" maxlength="27"
+										type="text" data-fieldName="PART_NO"  />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件名称</label>
+								<div class="col-xs-8">
+									<input id="partName" name="partName"
+										class="form-control required"  type="text" maxlength="120"
+										data-fieldName="PART_NAME" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">拼音代码</label>
+								<div class="col-xs-8">
+									<input id="spellCode" name="spellCode" class="form-control"
+										type="text" readonly="readonly" data-fieldName="SPELL_CODE"
+										data-autoPinYin="#partName" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件类别</label>
+								<div class="col-xs-8">
+									<select id="partGroupCode" name="partGroupCode"
+										data-ajaxSync="true" class="bs-select form-control"
+										data-fieldName="PART_GROUP_CODE" data-dictCode="1136">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">九大类</label>
+								<div class="col-xs-8">
+									<select id="partMainType" name="partMainType"
+										class="bs-select form-control" data-dictCode="1366"
+										data-fieldName="PART_MAIN_TYPE">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">单位</label>
+								<div class="col-xs-8">
+									<select id="unitCode" name="unitCode"   
+										data-url="/basedata/partInfos/partGroupCode" data-model="part"
+										data-labelValue="UNIT_CODE" data-lableDesc="UNIT_NAME"
+										class="bs-select form-control" 
+										data-fieldName="UNIT_CODE">
+									</select>
+								</div>
+							</div>
+						</div>	
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">最小包装数</label>
+								<div class="col-xs-8">
+									<input id="minPackage" name="minPackage" class="form-control"
+										type="text" maxlength="10" value="0" data-fieldName="MIN_PACKAGE" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" data-seldate='true'>
+								<label class="control-label col-xs-4">配件所属车型</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input id="pateVehicleModel" name="pateVehicleModel"
+											data-fieldName="MODEL_CODE" readonly="readonly"
+											class="form-control " type="text" />
+										<div class="input-group-btn">
+											<button class="btn default btn-sm" type="button" data-url="part/basedata/partinfo/searchModel.html"
+												data-toggle="modal" data-info="license"
+												data-width="modal-lg">
+												<i class="fa fa-search"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件车型组集</label>
+								<div class="col-xs-8">
+									<div class="input-group" data-seledate='true'>
+										<input id="partModelGroupCodeSet" name="partModelGroupCodeSet"
+											data-fieldName="PART_MODEL_GROUP_CODE" readonly="readonly"
+											class="form-control " type="text" />
+										<div class="input-group-btn">
+											<button class="btn default btn-sm" type="button" data-url="part/basedata/partinfo/partModelGroup.html"
+												data-toggle="modal" data-info="license">
+												<i class="fa fa-search" />
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">单车用量</label>
+								<div class="col-xs-8">
+									<input id="quantityPerCar" name="quantityPerCar" value="0"
+										class="form-control" type="text" maxlength="20"
+										data-fieldName="QUANTITY_PER_CAR" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">供应商代码</label>
+								<div class="col-xs-8">
+									<input id="providerCode" name="providerCode" readonly="readonly"
+										class="form-control" type="text" maxlength="20"
+										data-fieldName="PROVIDER_CODE" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">供应商名称</label>
+								<div class="col-xs-8">
+									<input id="providerName" name="providerName" readonly="readonly"
+										class="form-control" type="text" maxlength="20"
+										data-fieldName="PROVIDER_NAME" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">用品品牌</label>
+								<div class="col-xs-8">
+									<input id="goodsBrands" name="goodsBrands" readonly="readonly"
+										class="form-control" type="text" maxlength="20"
+										data-fieldName="GOODS_BRANDS" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">索赔价</label>
+								<div class="col-xs-8">
+									<input id="claimPrice" name="claimPrice" value="0"
+										class="form-control" type="text" maxlength="20"
+										data-fieldName="CLAIM_PRICE" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">保险价</label>
+								<div class="col-xs-8">
+									<input id="insurancePrice" name="insurancePrice" value="0"
+										class="form-control" type="text" maxlength="20"
+										data-fieldName="INSURANCE_PRICE" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">最大库存</label>
+								<div class="col-xs-8">
+									<input id="maxStock" name="maxStock" value="0"
+										class="form-control" type="text" maxlength="20"
+										data-fieldName="MAX_STOCK" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">安全库存</label>
+								<div class="col-xs-8">
+									<input id="safeStock" name="safeStock" value="0"
+										class="form-control" type="text" maxlength="20"
+										data-fieldName="SAFE_STOCK" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">最小库存</label>
+								<div class="col-xs-8">
+									<input id="minStock" name="minStock" value="0"
+										class="form-control" type="text" maxlength="20"
+										data-fieldName="MIN_STOCK" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">常规定价格</label>
+								<div class="col-xs-8">
+									<input id="regularPrice" name="regularPrice" value="0"
+										class="form-control" type="text" maxlength="20"
+										data-fieldName="REGULAR_PRICE" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">原厂编号</label>
+								<div class="col-xs-8">
+									<input id="oemNo" name="oemNo" readonly="readonly"
+										class="form-control" type="text" maxlength="20"
+										data-fieldName="OEM_NO" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">建议销售价</label>
+								<div class="col-xs-8">
+									<input id="instructPrice" name="instructPrice"
+										class="form-control  decimal" type="text"
+										data-fieldName="INSTRUCT_PRICE" maxDigit="8"
+										maxPrecision="2" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">用品大分类</label>
+								<div class="col-xs-8">
+									<input id="bigCategoryCode" name="bigCategoryCode" class="form-control"
+										type="text" data-fieldName="BIG_CATEGORY_CODE" readonly="readonly" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">用品中分类</label>
+								<div class="col-xs-8">
+									<input id="subCategoryCode" name="subCategoryCode" class="form-control"
+										type="text" data-fieldName="SUB_CATEGORY_CODE" readonly="readonly" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">用品小分类</label>
+								<div class="col-xs-8">
+									<input id="thdCategoryCode" name="thdCategoryCode" class="form-control"
+										type="text" data-fieldName="THD_CATEGORY_CODE" readonly="readonly" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销售限价</label>
+								<div class="col-xs-8">
+									<input id="limitPrice" name="limitPrice"
+										class="form-control  decimal" type="text"
+										data-fieldName="LIMIT_PRICE" maxDigit="8" maxPrecision="2" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否危险品</label>
+								<div class="col-xs-8">
+									<select id="isUnsafe" name="isUnsafe"
+										class="bs-select form-control " data-dictCode="1143"
+										data-value="" data-fieldName="IS_UNSAFE">
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否寄售</label>
+								<div class="col-xs-8">
+									<select id="isStorageSale" name="isStorageSale"
+										class="bs-select form-control " data-dictCode="1278"
+										data-value="" data-fieldName="IS_STORAGE_SALE">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-2">替代配件</label>
+								<div class="col-xs-10">
+									<input id="optionNo" name="optionNo" class="form-control"
+										type="text" maxlength="27" data-fieldName="OPTION_NO" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-2">替代关系</label>
+								<div class="col-xs-10">
+									<input id="optionRelation" name="optionRelation" class="form-control"
+										type="text" maxlength="20" data-fieldName="OPTION_RELATION" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-2">产地</label>
+								<div class="col-xs-10">
+									<input id="oriProCode" name="oriProCode" class="form-control"
+										type="text" maxlength="150" data-fieldName="ORI_PRO_CODE" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-2">备注</label>
+								<div class="col-xs-10">
+									<input id="remark" name="remark" class="form-control"
+										type="text" maxlength="300" data-fieldName="REMARK" />
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/basedata/partInfos/{[PART_NO]}" data-model="part"
+				data-method="PUT" data-callBack="true"
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>保存
+			</a>
+			<a data-dismiss="modal"
+				class="btn blue"> <i
+				class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+//页面加载后初始化
+$(document).one("onload.dms",function(event,container){
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+});
+</script>

@@ -1,0 +1,755 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="pannel-name">查询条件</div>
+				<div class="pannel-tools">
+					<a href="javascript:;" class="collapse"> <i class="fa fa-chevron-down"></i></a>
+				</div>
+			</div>
+			<div class="panel-body">	
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">入库类型</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" id="STOCK_IN_TYPE" name="STOCK_IN_TYPE"
+									data-dictCode="1307" data-excludeItems="13071001,13071003,13071004,13071006">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">出库类型</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" id="STOCK_OUT_TYPE" name="STOCK_OUT_TYPE"
+									data-dictCode="1324" data-excludeItems="13241002,13241003,13241005,13241006">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">钥匙编号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="KEY_NUMBER"
+									name="KEY_NUMBER">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">出库日</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" data-maxDays="30"
+									data-opens="right">
+									<input type="text" class="form-control" readonly name="OUTBEGIN">
+									<span class="input-group-addon">至</span> <input type="text"
+										class="form-control" readonly name="OUTEND"> <span
+										class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">OEM车</label>
+							<div class="col-xs-8 col-md-6">
+								<select class="bs-select form-control" id="OEM_TAG" name="OEM_TAG"
+									data-dictCode="1278" data-existsDefault="true">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">有合格证</label>
+							<div class="col-xs-8 col-md-6">
+								<select class="bs-select form-control" id="HAS_CERTIFICATE" name="HAS_CERTIFICATE"
+									data-dictCode="1278">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">二手车</label>
+							<div class="col-xs-8 col-md-6">
+								<select class="bs-select form-control" id="IS_SECONDHAND" name="IS_SECONDHAND"
+									data-dictCode="1278">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">入库日</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" data-maxDays="30"
+									data-opens="right">
+									<input type="text" class="form-control" readonly name="INBEGIN">
+									<span class="input-group-addon">至</span> <input type="text"
+										class="form-control" readonly name="INEND"> <span
+										class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">VIP预留</label>
+							<div class="col-xs-8 col-md-6">
+								<select class="bs-select form-control" id="IS_VIP" name="IS_VIP"
+									data-dictCode="1278">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">质损状态</label>
+							<div class="col-xs-8 col-md-6">
+								<select class="bs-select form-control" id="MAR_STATUS" name="MAR_STATUS"
+									data-dictCode="1306">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">试乘试驾</label>
+							<div class="col-xs-8 col-md-6">
+								<select class="bs-select form-control" id="IS_TEST_DRIVE_CAR" name="IS_TEST_DRIVE_CAR"
+									data-dictCode="1278" data-existsDefault="true">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">委托交车</label>
+							<div class="col-xs-8 col-md-6">
+								<select class="bs-select form-control" id="IS_CONSIGNED" name="IS_CONSIGNED"
+									data-dictCode="1278" data-existsDefault="true">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否促销</label>
+							<div class="col-xs-8 col-md-6">
+								<select class="bs-select form-control" id="IS_PROMOTION" name="IS_PROMOTION"
+									data-dictCode="1278" data-existsDefault="true">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">退车</label>
+							<div class="col-xs-8 col-md-6">
+								<select class="bs-select form-control" id="IS_PURCHASE_RETURN" name="IS_PURCHASE_RETURN"
+									data-dictCode="1278" data-existsDefault="true">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">改装车</label>
+							<div class="col-xs-8 col-md-6">
+								<select class="bs-select form-control" id="IS_REFITTING_CAR" name="IS_REFITTING_CAR"
+									data-dictCode="1278" data-existsDefault="true">
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">经销商</label>
+							<div class="col-xs-8">
+								<select id="DEALER_CODE" class="bs-select form-control"
+									name="DEALER_CODE" data-url="/stockManage/safeguard/findDealerInfo"
+									data-model="vehicle" data-labelValue="dealer_code" data-value="{[userInfo.dealerCode]}"
+									data-lableDesc="DEALER_SHORTNAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">仓库名称</label>
+							<div class="col-xs-8">
+								<select id="STORAGE_CODE" parent="DEALER_CODE" class="bs-select form-control"
+									name="STORAGE_CODE" data-url="/stockManage/safeguard/findStorage/{[DEALER_CODE]}"
+									data-model="vehicle" data-labelValue="STORAGE_CODE"
+									data-lableDesc="STORAGE_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">VIN</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="VIN"
+									name="VIN">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">品牌</label>
+							<div class="col-xs-8">
+								<select id="BRAND_CODE" class="bs-select form-control"
+									name="BRAND_CODE" data-url="/basedata/brandsdict2"
+									data-model="manage" data-labelValue="BRAND_CODE"
+									data-lableDesc="BRAND_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车系</label>
+							<div class="col-xs-8">
+								<select id="SERIES_CODE" parent="BRAND_CODE"
+									class="bs-select form-control" name="SERIES_CODE"
+									data-url="/basedata/brandsdict/{[BRAND_CODE]}/seriessdict"
+									data-model="manage" data-labelValue="SERIES_CODE"
+									data-lableDesc="SERIES_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车型</label>
+							<div class="col-xs-8">
+								<select id="MODEL_CODE" parent="SERIES_CODE" 
+									class="bs-select form-control" name="MODEL_CODE"
+									data-url="/basedata/brandsdict/{[BRAND_CODE]}/seriessdict/{[SERIES_CODE]}/modelsdict"
+									data-model="manage" data-labelValue="MODEL_CODE"
+									data-lableDesc="MODEL_NAME" data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配置</label>
+							<div class="col-xs-8">
+								<select id="CONFIG_CODE" class="bs-select form-control"
+									name="CONFIG_CODE"
+									data-url="/basedata/brandsdict/{[BRAND_CODE]}/seriessdict/{[SERIES_CODE]}/modelsdict/{[MODEL_CODE]}/packagesdict"
+									data-model="manage" data-labelValue="CONFIG_CODE"
+									data-lableDesc="CONFIG_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">颜色</label>
+							<div class="col-xs-8">
+								<select id="COLOR_CODE" class="bs-select form-control"
+									name="COLOR_CODE" data-url="/stockManage/safeguard/findColor"
+									data-model="vehicle" data-labelValue="COLOR_CODE"
+									data-lableDesc="COLOR_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">产品代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="PRODUCT_CODE"
+									name="PRODUCT_CODE">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">产品名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="PRODUCT_NAME"
+									name="PRODUCT_NAME">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配车状态</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" id="DISPATCHED_STATUS" name="DISPATCHED_STATUS"
+									data-dictCode="1305">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">库存状态</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" id="STOCK_STATUS" name="STOCK_STATUS"
+									data-dictCode="1304" data-value="13041002">
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+		<!-- <div class="panel panel-default">
+			<div class="panel-body">
+				
+			</div>
+		</div> -->
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"> <i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">车库信息列表</div>
+			<div class="pannel-button">
+				<a id="save" data-callBack="true"
+						class="btn btn-outline">
+					<i class="fa fa-save"></i> 保存
+				</a> 
+				<a data-url="/stockManage/safeguard/export/excel" data-model="vehicle"
+					data-method="downLoad" data-toggle="confirmation" id="export"
+					class="btn btn-outline "><i class="fa fa-download"></i>导出
+				</a>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	var jsonPara//用于存储修改了的json格式数据
+	var count = 0;//用来判断选择下拉框后是否会操作前面的主多选框
+	
+	   new Datatable().initPagination({
+			src : "dms_table",
+			url : dmsCommon.getDmsPath()["vehicle"] + "/stockManage/safeguard/findAll",
+			rowID : "VIN",
+			autoHeight : false,
+			sortName : "VIN", 
+			sortOrder : "asc",
+			checkboxHeader:true, //全选框
+			undefinedText : "",
+			columns : [ 
+				{checkbox:true,formatter:function(value, row, index){
+					
+				}},
+			    {field : "VIN",title : "修改配置",operateFormat : [
+                       {type:"edit",url:"vehicle/safeguard/editConfig.html",attr : ' data-validateUrl="vehicle/safeguard/editConfig.html"',openWidth:"modal-lg",isShow:function(value, row, index){
+                    	   if(row.stock_status=='13041002'&&row.dispatched_status=='13051001'){
+                    		   return true;
+                    	   }else{
+                    		   return false;
+                    	   } 
+                       }}
+                   ]
+                },  
+                {field : "dealer_code",visible : false},
+				{field : "dealer_shortname",title : "经销商简称"}, 
+				{field : "is_lock",title : "<span style='color: blue;'>是否锁定</span>",inputCheckBoxFormat : {type : "dict",codeType : "1057"}},
+				{field : "is_vip",title : "<span style='color: blue;'>是否VIP预留</span>",inputCheckBoxFormat : {type:"dict",codeType:"1057"}}, 
+				{field : "is_test_drive_car",title : "<span style='color: blue;'>是否试乘试驾车</span>",inputCheckBoxFormat : {type:"dict",codeType:"1057"}},
+				{field : "has_certificate",title : "<span style='color: blue;'>是否有合格证</span>",inputCheckBoxFormat : {type:"dict",codeType:"1057"}}, 
+				{field : "mar_status",title : "<span style='color: blue;'>质损状态</span>",inputSelectFormat : {type:"dict",codeType:"1306"}}, 
+				{field : "is_promotion",title : "<span style='color: blue;'>是否促销车</span>",inputCheckBoxFormat : {type:"dict",codeType:"1057"}},
+				{field : "is_secondhand",title : "<span style='color: blue;'>是否二手车</span>",inputCheckBoxFormat : {type:"dict",codeType:"1057"}}, 
+				{field : "is_refitting_car",title : "是否改装车",codeFormat : {type:"dict",codeType:"1278"}},
+				{field : "config_name",title : "配置"}, 
+				{field : "color_name",title : "颜色"}, 
+				{field : "vin",title : "VIN",inputHiddenFormat : {}},
+				{field : "storage_code_name",title : "仓库"}, 
+				{field : "engine_no",title : "<span style='color: blue;'>发动机号</span>",inputTextFormat : {}},
+				{field : "certificate_number",title : "<span style='color: blue;'>合格证号</span>",inputTextFormat : {}}, 
+				{field : "key_number",title : "<span style='color: blue;'>钥匙编号</span>",inputTextFormat : {}}, 
+				{field : "vs_purchase_date",minWidth : 65,title : "<span style='color: blue;'>采购日期</span>",inputDateTimeFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+				{field : "purchase_price",title : "<span style='color: blue;'>采购价格</span>",inputNumberFormat : {validate:{validateAttr:'maxlength="10"'}}}, 
+				{field : "oem_directive_price",title : "车厂指导价",numberFormat : {decimal:2}},
+				{field : "directive_price",title : "销售指导价",numberFormat : {decimal:2}}, 
+				{field : "wholesale_directive_price",title : "批售指导价",numberFormat : {decimal:2}}, 
+				{field : "oem_tag",title : "OEM标志",codeFormat : {type:"dict",codeType:"1278"}},
+				{field : "is_consigned",title : "是否委托交车",codeFormat : {type:"dict",codeType:"1278"}}, 
+				{field : "storage_position_code",title : "库位"},
+				{field : "product_code",title : "产品代码"}, 
+				{field : "product_name",title : "产品名称"}, 
+				{field : "brand_name",title : "品牌"},
+				{field : "series_name",title : "车系"}, 
+				{field : "model_name",title : "车型"},
+				{field : "stock_status",title : "库存状态",codeFormat : {type:"dict",codeType:"1304"},inputHiddenFormat : {}}, 
+				{field : "dispatched_status",title : "配车状态",codeFormat : {type:"dict",codeType:"1305"},inputHiddenFormat : {}}, 
+				{field : "manufacture_date",title : "生产日期",dateFormat : {format:"YYYY-MM-DD"}},
+				{field : "first_stock_in_date",title : "首次入库日期",dateFormat : {format:"YYYY-MM-DD"}}, 
+				{field : "se_no",title : "入库单号"},
+				{field : "stock_in_type",title : "入库类型",codeFormat : {type:"dict",codeType:"1307"}}, 
+				{field : "sd_no",title : "出库单号"}, 
+				{field : "stock_out_type",title : "出库类型",codeFormat : {type:"dict",codeType:"1324"}},
+				{field : "stock_out_date",title : "出库日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}}, 
+				{field : "factory_date",title : "出厂日期",dateFormat : {format:"YYYY-MM-DD"}}, 
+				{field : "remark",title : "<span style='color: blue;'>备注</span>",minWidth : 60,inputTextFormat : {validate:{validateAttr:'maxlength="400"'}}},
+				{field : "vsn",title : "VSN"}, 
+				{field : "exhaust_quantity",title : "排气量"}, 
+				{field : "discharge_standard",title : "排放标准",codeFormat : {type:"dict",codeType:"3010"}},
+				{field : "po_no",title : "采购订单编号"}, 
+				{field : "ec_order_no",title : "官网订单号"}
+			]
+	   		,
+			onLoadSuccess : function(row) {//total  rows
+					var tal = row.rows.length;//当前页总条数
+					jsonPara = initJSONLoad(tal);//初始化json数据
+					$('#dms_table tbody tr',container).on('click',function(){
+						var $this = $(this).children().find("input[name='btSelectItem']");
+						var flag = $this.prop("checked");
+						if(flag){
+							$this.prop("checked",false);
+							$this.parent().parent().find("input[name!='btSelectItem']").prop("disabled","disabled");
+							$this.parent().parent().find("select").prop("disabled","disabled");
+							$this.parent().parent().find("button").prop("disabled","disabled");
+						}else{
+							$this.prop("checked",true);
+							$this.parent().parent().find("input[name!='btSelectItem']").removeProp("disabled");
+							$this.parent().parent().find("select").removeProp("disabled");
+							$this.parent().parent().find("button").removeProp("disabled");
+						}
+					});
+			
+					var $check = $("#dms_table tbody input[name!='btSelectItem']",container);
+			 
+					$check.prop("disabled","disabled");
+					$check.parent().parent().find("select").prop("disabled","disabled"); 
+					$check.parent().parent().find("button").prop("disabled","disabled"); 
+					
+					//button标签
+					$("#dms_table tbody input[name!='btSelectItem'] ").next().on('click',function(){
+						$(this).prev().on('change',function(){
+							var no = $(this).parent().parent().parent().find('td').eq(0).html();//当前行号
+							var vin = $(this).parent().parent().parent().find('td').find("#vin"+(parseInt(no)-1)).val();//当前vin号
+							if(vin!=''&&vin!= undefined){//排除其他状况
+								var item = jsonPara[parseInt(no)-1];
+								item.vin = vin;//记录当前修改记录的vin号,用于后台做修改条件
+								item.status = true;//修改状态为true
+								var title = $(this).attr('data-inputname');
+								if($(this).attr('type')!='checkbox'){//代表文本域
+									item[title] = $(this).val();
+								}
+								/* if($(this).attr("data-inputname")==null){
+									$op.prop("checked",true);
+									$op.removeProp("disabled");
+									$op.parent().parent().find("input[name!='btSelectItem']").removeProp("disabled");
+									$op.parent().parent().find("select").removeProp("disabled");
+									$op.parent().parent().find("button").removeProp("disabled");
+								} */
+							}
+						}) 
+					});
+					
+					$check.on('change',function(){
+						//var check = $(this).parent().parent().parent().parent().find("input[name='btSelectItem']").prop("checked");//当前行是否被选中
+						var no = 0;//当前行号
+						var vin = '';//当前vin号
+						if($(this).attr('type')=='checkbox'){//多选框
+							no = $(this).parent().parent().parent().parent().find('td').eq(0).html();//当前行号
+							vin = $(this).parent().parent().parent().parent().find('td').find("#vin"+(parseInt(no)-1)).val();//当前vin号
+						}else{//代表文本域
+							no = $(this).parent().parent().find('td').eq(0).html();//当前行号
+							vin = $(this).parent().parent().find('td').find("#vin"+(parseInt(no)-1)).val();//当前vin号
+						}
+						
+						if(vin!=''&&vin!= undefined){//排除其他状况
+							var item = jsonPara[parseInt(no)-1];
+							item.vin = vin;//记录当前修改记录的vin号,用于后台做修改条件
+							item.status = true;//修改状态为true
+							var title = $(this).attr('data-inputname');
+							if($(this).attr('type')!='checkbox'){//代表文本域
+								item[title] = $(this).val();
+							}else{//代表多选框
+								if($(this).prop('checked')){
+									item[title] = 'Y';
+								}else{
+									item[title] = 'N';
+								}
+							}
+							/* if($(this).attr("data-inputname")==null){
+								$op.prop("checked",true);
+								$op.removeProp("disabled");
+								$op.parent().parent().find("input[name!='btSelectItem']").removeProp("disabled");
+								$op.parent().parent().find("select").removeProp("disabled");
+								$op.parent().parent().find("button").removeProp("disabled");
+							} */
+						}
+					}); 
+					
+					$("select[data-inputname='mar_status']").on('change',function(){
+						var no = $(this).parent().parent().find('td').eq(0).html();//当前行号
+						var vin = $(this).parent().parent().find('td').find("#vin"+(parseInt(no)-1)).val();//当前vin号
+						var item = jsonPara[parseInt(no)-1];
+						item.vin = vin ;//记录当前修改记录的vin号,用于后台做修改条件
+						item.status = true;//修改状态为true
+						var title = $(this).attr('data-inputname');
+						item[title] = $(this).val();
+						count = 1;
+					});
+					
+					$("input[name='btSelectItem']").on('change',function(){
+						var index = parseInt($(this).attr("data-index"));//当前行号
+						if($(this).prop("checked")){//被选中   修改json数据状态为true
+							//如果库存状态不是在库,并且配车状态不是未配车.那么,是否锁定,是否VIP预留,是否试乘试驾车,质损状态,是否促销车,是否二手车,采购价格.不允许修改
+							var a = $("#stock_status"+index).val()//13041002
+							var b = $("#dispatched_status"+index).val()//13051001
+							if(a!='13041002'||b!='13051001'){
+								jsonPara[index].status = true;//修改状态
+								$(this).parent().parent().find("input[name!='btSelectItem']").removeProp("disabled");
+								//$(this).parent().parent().find("select").removeProp("disabled");
+								$(this).parent().parent().find("button").removeProp("disabled");
+								$(this).parent().parent().find("input[name^='is_lock'],input[name^='is_vip'],input[name^='is_test_drive_car'],input[name^='is_promotion'],input[name^='is_secondhand'],input[name^='purchase_price']").prop("disabled","disabled");
+							}else{
+								jsonPara[index].status = true;//修改状态
+								$(this).parent().parent().find("input[name!='btSelectItem']").removeProp("disabled");
+								$(this).parent().parent().find("select").removeProp("disabled");
+								$(this).parent().parent().find("button").removeProp("disabled");
+							}
+						}else{//未选中   修改json数据状态为false
+							if(count==1){//因为上步操作为点击下拉框.所以对此行状态不进行修改
+								count = 0;
+							}else{
+								jsonPara[index].status = false;//修改状态
+							}
+							$(this).parent().parent().find("input[name!='btSelectItem']").prop("disabled","disabled");
+							$(this).parent().parent().find("select").prop("disabled","disabled");
+							$(this).parent().parent().find("buttun").prop("disabled","disabled");
+						} 
+					});
+			 
+			}
+		});
+	  
+	   
+	   $('#save',container).on('click',function(){
+			var all = '';
+			var k = 0;
+			var allRows = $("#dms_table",container).dmsTable().getRowDataByIndex();
+			$(allRows).each(function(e){//allRows[e]
+				$(jsonPara).each(function(m){//jsonPara[m]
+					if(jsonPara[m].status){
+						debugger
+						if(allRows[e].vin==jsonPara[m].vin){//找到对应的数据集合
+							if(k==0){
+								all += 'vin='+jsonPara[m].vin;
+								k = 1;
+							}else{
+								all += ',vin='+jsonPara[m].vin;
+							};
+							if(jsonPara[m].is_lock!=''){
+								if(jsonPara[m].is_lock=='Y'){
+									all += ',isLock='+12781001;
+								}
+								if(jsonPara[m].is_lock=='N'){
+									all += ',isLock='+12781002;
+								}
+							}
+							if(jsonPara[m].is_lock==''){
+								all += ',isLock='+numSwitch(allRows[e].is_lock);
+							}
+							if(jsonPara[m].is_vip!=''){
+								if(jsonPara[m].is_vip=='Y'){
+									all += ',isVip='+12781001;
+								}
+								if(jsonPara[m].is_vip=='N'){
+									all += ',isVip='+12781002;
+								}
+							}
+							if(jsonPara[m].is_vip==''){
+								all += ',isVip='+numSwitch(allRows[e].is_vip);
+							}
+							if(jsonPara[m].is_test_drive_car!=''){
+								if(jsonPara[m].is_test_drive_car=='Y'){
+									all += ',isTestDriveCar='+12781001;
+								}
+								if(jsonPara[m].is_test_drive_car=='N'){
+									all += ',isTestDriveCar='+12781002;
+								}
+							}
+							if(jsonPara[m].is_test_drive_car==''){
+								all += ',isTestDriveCar='+numSwitch(allRows[e].is_test_drive_car);
+							}
+							if(jsonPara[m].has_certificate!=''){
+								if(jsonPara[m].has_certificate=='Y'){
+									all += ',hasCertificate='+12781001;
+								}
+								if(jsonPara[m].has_certificate=='N'){
+									all += ',hasCertificate='+12781002;
+								}
+							}
+							if(jsonPara[m].has_certificate==''){
+								all += ',hasCertificate='+numSwitch(allRows[e].has_certificate);
+							}
+							if(jsonPara[m].is_promotion!=''){
+								if(jsonPara[m].is_promotion=='Y'){
+									all += ',isPromotion='+12781001;
+								}
+								if(jsonPara[m].is_promotion=='N'){
+									all += ',isPromotion='+12781002;
+								}
+							}
+							if(jsonPara[m].is_promotion==''){
+								all += ',isPromotion='+numSwitch(allRows[e].is_promotion);
+							}
+							if(jsonPara[m].is_secondhand!=''){
+								if(jsonPara[m].is_secondhand=='Y'){
+									all += ',isSecondhand='+12781001;
+								}
+								if(jsonPara[m].is_secondhand=='N'){
+									all += ',isSecondhand='+12781002;
+								}
+							}
+							if(jsonPara[m].is_secondhand==''){
+								all += ',isSecondhand='+numSwitch(allRows[e].is_secondhand);
+							}
+							if(jsonPara[m].mar_status!=''){
+								all += ',marStatus='+jsonPara[m].mar_status;
+							}
+							if(jsonPara[m].mar_status==''){
+								all += ',marStatus='+allRows[e].mar_status;
+							}
+							if(jsonPara[m].engine_no!=''){
+								all += ',engineNo='+jsonPara[m].engine_no;
+							}
+							if(jsonPara[m].engine_no==''){
+								all += ',engineNo='+allRows[e].engine_no;
+							}
+							if(jsonPara[m].certificate_number!=''){
+								all += ',certificateNumber='+jsonPara[m].certificate_number;
+							}
+							if(jsonPara[m].certificate_number==''){
+								all += ',certificateNumber='+allRows[e].certificate_number;
+							}
+							if(jsonPara[m].key_number!=''){
+								all += ',keyNumber='+jsonPara[m].key_number;
+							}
+							if(jsonPara[m].key_number==''){
+								all += ',keyNumber='+allRows[e].key_number;
+							}
+							if(jsonPara[m].vs_purchase_date!=''){
+								all += ',vsPurchaseDate='+dateToMS(jsonPara[m].vs_purchase_date);
+							}
+							if(jsonPara[m].vs_purchase_date==''){
+								all += ',vsPurchaseDate='+allRows[e].vs_purchase_date;
+							}
+							if(jsonPara[m].purchase_price!=''){
+								all += ',purchasePrice='+jsonPara[m].purchase_price;
+							}
+							if(jsonPara[m].purchase_price==''){
+								all += ',purchasePrice='+allRows[e].purchase_price;
+							}
+							if(jsonPara[m].remark!=''){
+								all += ',remark='+jsonPara[m].remark;
+							}
+							if(jsonPara[m].remark==''){
+								all += ',remark='+allRows[e].remark;
+							}
+						}
+					}
+				});
+			});
+			
+			console.log(all);
+	 		dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["vehicle"] + "/stockManage/safeguard/batchEdit/data:"+all,
+				type : 'PUT',
+				sucessCallBack : function(data) {
+					var f = data.back;
+					if(f==0){
+			        	dmsCommon.tip({status:"success",msg:"修改成功!"});
+			        }else if (f==1) {
+			        	dmsCommon.tip({status:"error",msg:"修改出现异常!"});
+					}else{
+						dmsCommon.tip({status:"info",msg:"请选择需要修改的记录!"});
+					}
+					
+					$("a[data-dismiss='modal']",container).click();
+					$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+				}
+			});  
+	   });
+	   
+	});
+	
+var initJSONLoad = function(rows){
+	var result = "[";
+	for(var i = 0;i < rows;i++){
+		if(i==rows-1){
+			result +=JSON.stringify(layoutTemplate(i));
+		}else{
+			result +=JSON.stringify(layoutTemplate(i))+",";
+		}
+	}
+	result += "]";
+	return JSON.parse(result);
+}
+
+var layoutTemplate = function(no){//可供修改的项
+	return {"is_lock":"","is_vip":"","is_test_drive_car":"",
+		"has_certificate":"","mar_status":"","is_promotion":"",
+		"is_secondhand":"","engine_no":"","certificate_number":"",
+		"key_number":"","vs_purchase_date":"","purchase_price":"",
+		"remark":"","vin":"","no":parseInt(no)+1,"status":false};
+}
+
+var dateToMS = function(time){//得到毫秒数
+	time= time.replace(new RegExp("-","gm"),"/"); 
+	varstarttimeHaoMiao = (new Date(time)).getTime();
+	return varstarttimeHaoMiao;
+}
+
+var numSwitch = function(num){//字典为1057转化成字典1278
+	if(num==10571001){
+		return 12781001;
+	}else{
+		return 12781002;
+	}
+}
+
+</script>

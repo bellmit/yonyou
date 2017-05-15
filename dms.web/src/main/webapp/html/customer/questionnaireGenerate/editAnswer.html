@@ -1,0 +1,128 @@
+<div class="dms-edit ajaxrest" data-url="/questionnaire/{[ANSWER_GROUP_NO]}/{[ANSWER_NO]}/findByAnswerNo" 
+	data-model="customer" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">修改</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" hidden="hidden">
+							<div class="form-group">
+								<label class="control-label col-xs-4">ANSWER_GROUP_NO</label>
+							<div class="col-xs-8">
+								<input id="answerGroupNo"   name="answerGroupNo" 
+								disabled="disabled" class="form-control" type="text" 
+								data-fieldName="ANSWER_GROUP_NO"/>
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">答案编号</label>
+							<div class="col-xs-8">
+								<input id="answerNo" name="answerNo" disabled="disabled" 
+								class="form-control" type="text" data-fieldName="ANSWER_NO"/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">答案组内容</label>
+							<div class="col-xs-8">
+								<input id="answer"   name="answer" 
+								class="form-control" type="text" data-fieldName="ANSWER"/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">答案说明</label>
+							<div class="col-xs-8">
+								<input id="answerDesc"   name="answerDesc" 
+								class="form-control" type="text" data-fieldName="ANSWER_DESC"/>
+							</div>
+						</div>
+					</div>										
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">启用</label>
+								<div class="col-xs-8">
+									<select id="isValid" name="isValid"  data-existsDefault = "false"
+										class="bs-select form-control" data-dictCode="1278"
+										data-fieldName="IS_VALID">
+									</select>
+								</div>
+							</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">OEM下发</label>
+								<div class="col-xs-8">
+									<select id="downTag" name="downTag"  disabled="disabled"
+										class="bs-select form-control" data-dictCode="1278"
+										data-fieldName="DOWN_TAG">
+									</select>
+								</div>
+							</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" hidden = "hidden">
+							<div class="form-group">
+								<label class="control-label col-xs-4">启用</label>
+								<div class="col-xs-8">
+									<select id="isValids" name="isValids"  data-existsDefault = "false"
+										class="bs-select form-control" data-dictCode="1278"
+										data-fieldName="IS_VALID">
+									</select>
+								</div>
+							</div>
+					</div>
+									
+				</div>
+			</div>
+			<div class="modal-footer">
+				<a data-url="/questionnaire/updateAnswer" data-model="customer" data-method="PUT" 
+				data-callBack="true"  class="btn blue"  data-toggle="confirmation"><i class="fa fa-save"></i>保存</a>
+				<a data-dismiss="modal" class="btn blue" ><i
+				class="fa fa-undo"></i>取消</a>
+			</div>
+		</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	$("#isValids",container).bindChange(function(){	
+     	if($("#isValids",container).val() == '12781001'){     	    		
+    		 $("#answer",container).attr("disabled","disable");
+    		 $("#answerDesc",container).attr("disabled","disable"); 		
+		}else if($("#isValids",container).val() == '12781002'){			  		 
+		 $("#answer",container).removeAttr("disabled");
+		 $("#answerDesc",container).removeAttr("disabled");
+		}
+	});
+	
+	
+	//新增页面回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#answer",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+}); 
+</script>

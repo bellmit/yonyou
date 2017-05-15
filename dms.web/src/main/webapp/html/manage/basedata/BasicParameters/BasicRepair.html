@@ -1,0 +1,530 @@
+<div class="dms-edit ajaxrest" data-url="/basedata/BasicParametersAfterSales/findAllRepair" data-model="manage">
+	<form class="form-horizontal">
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="pannel-name">缺省参数</div>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+									<div class="form-group">
+										<label class="control-label col-xs-6">车牌号前缀</label>
+										<div class="col-xs-6">
+											<input type="text" class="form-control" id="1002" name="1002" data-fieldName="1002">
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+									<div class="form-group">
+										<label class="control-label col-xs-6">索赔申请单起始号</label>
+										<div class="col-xs-6">
+											<input type="text" class="form-control" id="1001" name="1001" data-fieldName="1001">
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+									<div class="form-group">
+										<label class="control-label col-xs-6">维修税率</label>
+										<div class="col-xs-6">
+											<input type="text" class="form-control" id="1003" name="1003" data-fieldName="1003">
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+									<div class="form-group">
+										<label class="control-label col-xs-6">可同时编辑工单数</label>
+										<div class="col-xs-6">
+											<input type="text" class="form-control" id="1019" name="1019" data-fieldName="1019">
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+									<div class="form-group">
+										<label class="control-label col-xs-6">缺省品牌</label>
+										<div class="col-xs-6">
+											<select id="brand" class="bs-select form-control"
+												name="1004" data-url="/basedata/brandsdict2" data-model="manage" data-fieldName="1004"
+												data-labelValue="BRAND_CODE" data-lableDesc="BRAND_NAME">
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+									<div class="form-group">
+										<label class="control-label col-xs-6">缺省车系</label>
+										<div class="col-xs-6">
+											<select id="series" parent="brand" class="bs-select form-control"
+												name="1005" data-url="/basedata/brandsdict/{[brand]}/seriessdict" data-model="manage" data-fieldName="1005"
+												data-labelValue="SERIES_CODE" data-lableDesc="SERIES_NAME">
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+									<div class="form-group">
+										<label class="control-label col-xs-6">缺省车型</label>
+										<div class="col-xs-6">
+											<select id="model" parent="series" class="bs-select form-control"
+												name="1006" data-url="/basedata/brandsdict/{[brand]}/seriessdict/{[series]}/modelsdict" data-model="manage" data-fieldName="1006"
+												data-labelValue="MODEL_CODE" data-lableDesc="MODEL_NAME">
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+									<div class="form-group">
+										<label class="control-label col-xs-6">三包年限(年)</label>
+										<div class="col-xs-6">
+											<input type="text" class="form-control" id="1903" name="1903" data-fieldName="1903">
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+									<div class="form-group">
+										<label class="control-label col-xs-6">电话区号</label>
+										<div class="col-xs-6">
+											<input type="text" class="form-control" id="1010" name="1010" data-fieldName="1010">
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+									<div class="form-group">
+										<label class="control-label col-xs-6">缺省维修类型</label>
+										<div class="col-xs-6">
+											<select class="bs-select form-control" id="1119" name="1119" data-fieldName="1119" 
+												data-dictCode="1206" data-excludeItems="">
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+									<div class="form-group">
+										<label class="control-label col-xs-6">缺省工时单价根据</label>
+										<div class="col-xs-6">
+											<select class="bs-select form-control" id="1011" name="1011" data-fieldName="1011" 
+												data-dictCode="1291" data-excludeItems="">
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+									<div class="form-group">
+										<label class="control-label col-xs-6">三包里程(公里)</label>
+										<div class="col-xs-6">
+											<input type="text" class="form-control" id="1904" name="1904" data-fieldName="1904">
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+									<div class="form-group">
+										<label class="control-label col-xs-6">缺省仓库</label>
+										<div class="col-xs-6">
+											<select id="" class="bs-select form-control"
+												name="1008" data-url="/basedata/BasicParametersAfterSales/findAllStroageCode" data-model="manage" data-fieldName="1008"
+												data-labelValue="STORAGE_CODE" data-lableDesc="STORAGE_NAME">
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+									<div class="form-group">
+										<label class="control-label col-xs-6">缺省维修项目类型</label>
+										<div class="col-xs-6">
+											<select class="bs-select form-control" id="1082" name="1082" data-fieldName="1082" 
+												data-dictCode="1206" data-excludeItems="">
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+									<div class="form-group">
+										<label class="control-label col-xs-6">收费类别</label>
+										<div class="col-xs-6">
+											<select id="" class="bs-select form-control"
+												name="1060" data-url="/basedata/BasicParametersAfterSales/findChargeCode" data-model="manage" data-fieldName="1060"
+												data-labelValue="MANAGE_SORT_CODE" data-lableDesc="MANAGE_SORT_NAME">
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="pannel-name">预约</div>
+						</div>
+						<div class="panel-body">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									<label class="control-label col-xs-4">提前进厂时间</label>
+									<div class="col-xs-3">
+										<input type="text" class="form-control" id="1047" name="1047" data-fieldName="1047">
+									</div>
+									<label class="control-label col-xs-4.5">分钟前</label>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									<label class="control-label col-xs-4">延迟进厂</label>
+									<div class="col-xs-3">
+										<input type="text" class="form-control" id="1048" name="1048" data-fieldName="1048">
+									</div>
+									<label class="control-label col-xs-4.5">分钟后</label>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									<label class="control-label col-xs-4">取消进厂</label>
+									<div class="col-xs-3">
+										<input type="text" class="form-control" id="1049" name="1049" data-fieldName="1049">
+									</div>
+									<label class="control-label col-xs-4.5">小时后</label>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									<label class="control-label col-xs-9">预约及回访与当前时间的最小时间间隔</label>
+									<div class="col-xs-3">
+										<div class="input-group">
+											 <input type="text" id="1056" name="1056" data-fieldName="1056"
+												class="form-control timepicker timepicker-24 "> <span
+												class="input-group-btn">
+												<button class="btn default date-set" type="button">
+													<i class="fa fa-clock-o"></i>
+												</button>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									<label class="control-label col-xs-5">定期保养提醒后</label>
+									<div class="col-xs-2">
+										<input type="text" class="form-control" id="1084" name="1084" data-fieldName="1084">
+									</div>
+									<label class="control-label col-xs-4.5">天内回厂为提醒回厂</label>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									<label class="control-label col-xs-5">客户流失报警提醒后</label>
+									<div class="col-xs-2">
+										<input type="text" class="form-control" id="1094" name="1094" data-fieldName="1094">
+									</div>
+									<label class="control-label col-xs-4.5">天内回厂为提醒回厂</label>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									<label class="control-label col-xs-5">新车提醒后</label>
+									<div class="col-xs-2">
+										<input type="text" class="form-control" id="1095" name="1095" data-fieldName="1095">
+									</div>
+									<label class="control-label col-xs-4.5">天内回厂为提醒回厂</label>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									<label class="control-label col-xs-5">保修到期提醒后</label>
+									<div class="col-xs-2">
+										<input type="text" class="form-control" id="1225" name="1225" data-fieldName="1225">
+									</div>
+									<label class="control-label col-xs-4.5">天内回厂为提醒回厂</label>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									<label class="control-label col-xs-5">保险到期提醒后</label>
+									<div class="col-xs-2">
+										<input type="text" class="form-control" id="1156" name="1156" data-fieldName="1156">
+									</div>
+									<label class="control-label col-xs-4.5">天内回厂为提醒回厂</label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="pannel-name">开工单</div>
+						</div>
+						<div class="panel-body">
+							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+								<div class="form-group">
+									<div class="col-xs-12">
+										<input id="1067" name="1067" type="checkbox" data-fieldName="1067"
+											data-dictCode="1057" data-dictLabel="是否洗车"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+								<div class="form-group">
+									<div class="col-xs-12">
+										<input id="1068" name="1068" type="checkbox" data-fieldName="1068"
+											data-dictCode="1057" data-dictLabel="是否路试"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+								<div class="form-group">
+									<div class="col-xs-12">
+										<input id="1069" name="1069" type="checkbox" data-fieldName="1069"
+											data-dictCode="1057" data-dictLabel="是否质检"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+								<div class="form-group">
+									<div class="col-xs-12">
+										<input id="1050" name="1050" type="checkbox" data-fieldName="1050"
+											data-dictCode="1057" data-dictLabel="是否显示派工工时"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+								<div class="form-group">
+									<div class="col-xs-12">
+										<input id="1782" name="1782" type="checkbox" data-fieldName="1782"
+											data-dictCode="1057" data-dictLabel="是否带走旧件"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									<div class="col-xs-12">
+										<input id="1021" name="1021" type="checkbox" data-fieldName="1021"
+											data-dictCode="1057" data-dictLabel="工单中显示行管代码"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									<div class="col-xs-12">
+										<input id="1059" name="1059" type="checkbox" data-fieldName="1059"
+											data-dictCode="1057" data-dictLabel="是否提示选择出险记录"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									<div class="col-xs-12">
+										<input id="3335" name="3335" type="checkbox" data-fieldName="3335"
+											data-dictCode="1057" data-dictLabel="是否提醒理赔支付和旧件处理"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									<label class="control-label col-xs-7">定期保养时间间隔</label>
+									<div class="col-xs-3">
+										<input type="text" class="form-control" id="1038" name="1038" data-fieldName="1038">
+									</div>
+									<label class="control-label col-xs-2.5">天</label>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									<label class="control-label col-xs-7">定期保养里程间隔</label>
+									<div class="col-xs-3">
+										<input type="text" class="form-control" id="1072" name="1072" data-fieldName="1072">
+									</div>
+									<label class="control-label col-xs-2.5">公里</label>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									<label class="control-label col-xs-7">预交车时间为当前时间延迟</label>
+									<div class="col-xs-3">
+										<input type="text" class="form-control" id="1063" name="1063" data-fieldName="1063">
+									</div>
+									<label class="control-label col-xs-2.5">分钟</label>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									<div class="col-xs-12">
+										<br><br>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="pannel-name">结算</div>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<div class="form-group">
+										<label class="control-label col-xs-8">结算精度</label>
+										<div class="col-xs-4">
+											<select class="bs-select form-control" id="1009" name="1009" data-fieldName="1009" 
+												data-dictCode="1012" data-excludeItems="10121004">
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<div class="form-group">
+										<label class="control-label col-xs-8">结算圆整方式</label>
+										<div class="col-xs-4">
+											<select class="bs-select form-control" id="8011" name="8011" data-fieldName="8011" 
+												data-dictCode="1293" data-excludeItems="">
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<div class="form-group">
+										<label class="control-label col-xs-8">缺省发票类型</label>
+										<div class="col-xs-4">
+											<select id="" class="bs-select form-control"
+												name="1030" data-url="/basedata/BasicParametersAfterSales/findInvoiceCode" data-model="manage" data-fieldName="1030"
+												data-labelValue="INVOICE_TYPE_CODE" data-lableDesc="INVOICE_TYPE_NAME">
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<div class="form-group">
+										<label class="control-label col-xs-8">缺省付款方式</label>
+										<div class="col-xs-4">
+											<select id="" class="bs-select form-control"
+												name="1121" data-url="/basedata/BasicParametersAfterSales/findPaymentCode" data-model="manage" data-fieldName="1121"
+												data-labelValue="PAY_TYPE_CODE" data-lableDesc="PAY_TYPE_NAME">
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<div class="form-group">
+										<label class="control-label col-xs-8">结算应收款可调整幅度</label>
+										<div class="col-xs-4">
+											<input type="text" class="form-control" id="1029" name="1029" data-fieldName="1029">
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<div class="form-group">
+										<label class="control-label col-xs-8">工单应收金额为0不自动结清</label>
+										<div class="col-xs-4">
+											<select class="bs-select form-control" id="1096" name="1096" data-fieldName="1096"
+												data-dictCode="1278" data-existsDefault="false" data-value='12781002'>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="pannel-name">车间管理</div>
+						</div>
+						<div class="panel-body">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									<div class="col-xs-12">
+										<input id="1025" name="1025" type="checkbox" data-fieldName="1025"
+											data-dictCode="1057" data-dictLabel="车间派工显示收费工时/工时费"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									<div class="col-xs-12">
+										<input id="1051" name="1051" type="checkbox" data-fieldName="1051"
+											data-dictCode="1057" data-dictLabel="车间派工显示配件单价/配件费"/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="pannel-name">客户关怀</div>
+						</div>
+						<div class="panel-body">
+							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
+								<div class="form-group">
+									<label class="control-label col-xs-1"></label>
+									<div class="col-xs-3">
+										<input type="text" class="form-control" id="1062" name="1062" data-fieldName="1062">
+									</div>
+									<label class="control-label col-xs-4">天未进厂,自动标记为非激活客户</label>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
+								<div class="form-group">
+									<label class="control-label col-xs-8">保修结束里程</label>
+									<div class="col-xs-4">
+										<input type="text" class="form-control" id="1070" name="1070" data-fieldName="1070">
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
+								<div class="form-group">
+									<label class="control-label col-xs-7">保修结束天数</label>
+									<div class="col-xs-4">
+										<input type="text" class="form-control" id="1071" name="1071" data-fieldName="1071">
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
+								<div class="form-group">
+									<label class="control-label col-xs-7">新车提醒预计提前天数</label>
+									<input type="hidden" id="checkCode" name="checkCode"/>
+									<div class="col-xs-4">
+										<input type="text" class="form-control" id="1078" name="1078" data-fieldName="1078">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<div class="row">
+				<a data-url="/basedata/BasicParametersAfterSales/update" data-model="manage"
+					data-method="PUT" data-callBack="true" data-beforeRequest="true" 
+					class="btn blue" data-toggle="confirmation"><i
+					class="fa fa-save"></i>保存</a> 
+				<a data-dismiss="modal" class="btn blue"><i
+					class="fa fa-undo"></i>取消</a>
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	$('a[data-beforeRequest="true"]',container).on('beforeRequest.dms',function(event,returnResult){
+		var k = "";
+		$("input[type=checkbox]").each(function(i){
+			k += $(this).attr("name")+"-";
+		});
+		$("#checkCode",container).val(k);
+		returnResult.status = true;
+	});
+	
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("a[data-goback='page']",container).click();
+	});
+});
+</script>

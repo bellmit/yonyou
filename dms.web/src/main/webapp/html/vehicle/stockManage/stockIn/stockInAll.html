@@ -1,0 +1,67 @@
+<div class="dms-edit" data-model="part">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<h4 class="modal-title">批量验收</h4>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<input type="hidden" id="ids" name="ids" value="">
+						<div class="col-xs-4">
+							<div class="form-group form-group-xs m-b-xs">
+								<label class="control-label col-xs-4 ">仓库</label>
+								<div class="col-xs-8">
+									<select id="storageCode" name="storageCode"
+										data-fieldName="STORAGE_CODE"
+										class="bs-select form-control required"
+										data-url="/basedata/store/vehicleWarehouse/powerChecks"
+										data-model="part" data-labelValue="STORAGE_CODE"
+										data-lableDesc="STORAGE_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/stockManage/StockIn/inbounds" data-model="vehicle"
+				data-method="PUT" data-callBack="true" data-beforeRequest="true"
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>入库</a> <a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+	<div class="panel-body">
+		<table
+			class="table table-striped table-bordered table-hover table-responsive"
+			id="dms_table">
+		</table>
+	</div>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#stockInlist",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	//执行保存前的执行函数
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+		var selectIds = $("#stockInlist",getElementContext()).dmsTable().getSelectionIds();
+		$("#ids",container).val(selectIds);
+		returnResult.status = true; 
+	});
+});
+</script>

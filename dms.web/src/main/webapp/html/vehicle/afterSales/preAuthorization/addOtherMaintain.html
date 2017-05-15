@@ -1,0 +1,65 @@
+<div class="dms-add"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">预授权其他费用维护</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+					
+					<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">项目名称</label>
+								<div class="col-xs-8">
+									<select id="itemCode"
+										class="bs-select form-control  required" name="itemCode"
+										data-url="/otherMaintain/getAll"
+										data-model="vehicle" data-labelValue="OTHER_FEE_CODE"
+										data-lableDesc="NAME" data-live-search="fales" data-size="5" >
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">项目描述</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="itemDesc" name="itemDesc"/>
+							</div>
+						</div>
+					</div>
+	
+					
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/otherMaintain/addOtherMaintain" data-model="vehicle"
+				data-method="POST" data-callBack='true'
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>新增</a> <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("a.clear").click();
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	})
+</script>
+

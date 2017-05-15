@@ -1,0 +1,86 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">其他费用代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control"  id="OTHER_FEE_CODE" name="OTHER_FEE_CODE" />
+							</div>
+						</div>
+					</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">其他费用名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control"  id="OTHER_FEE_NAME" name="OTHER_FEE_NAME" />
+							</div>
+						</div>
+					</div>		
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >预授权其他费用规则维护</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" data-url="vehicle/afterSales/preAuthorization/otherRuleAdd.html" data-width="modal-lg"data-toggle="modal"> 
+							<i class="fa fa-plus-square"></i> 新增
+							</a> 
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/ttWrForeotheritemsRule/ttWrForepartRuleSearch",
+		rowID : "RULE_ID",
+		sortName : "OTHER_FEE_CODE",
+		sortOrder : "desc",
+		
+	columns : [       
+	           {field : "RULE_ID",title : "操作",operateFormat : [
+	                                                	{type:"edit",url:"vehicle/afterSales/preAuthorization/otherRuleModify.html",openWidth:"modal-lg",doubleClick:true},
+	                                           	        {type:"del",url:"/ttWrForeotheritemsRule/{[RULE_ID]}",model:"vehicle",callBack:function(response){
+	                                                       	   $("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	                                                          }}
+	                                           	   	    ]
+	                                           	   	  },    
+	{field : "OTHER_FEE_CODE",title : "其他费用代码"},
+	{field : "OTHER_FEE_NAME",title : "其他费用名称"},
+	{field:"200",title:"Technical Engineer",inputCheckBoxFormat : {type:"dict",codeType:"1057",disabled:true}},
+	{field:"300",title:"Warranty District Personnel",inputCheckBoxFormat : {type:"dict",codeType:"1057",disabled:true}},
+	{field:"400",title:"小区经理",inputCheckBoxFormat : {type:"dict",codeType:"1057",disabled:true}},	
+	{field:"500",title:"大区经理",inputCheckBoxFormat : {type:"dict",codeType:"1057",disabled:true}},
+	{field:"600",title:"Technical Senior Manager",inputCheckBoxFormat : {type:"dict",codeType:"1057",disabled:true}},
+	{field:"700",title:"Claims Manager",inputCheckBoxFormat : {type:"dict",codeType:"1057",disabled:true}},
+	{field:"800",title:"售后总监",inputCheckBoxFormat : {type:"dict",codeType:"1057",disabled:true}},
+	{field:"900",title:"Vice After-Sales President",inputCheckBoxFormat : {type:"dict",codeType:"1057",disabled:true}},
+	{field:"1000",title:"销售公司总裁",inputCheckBoxFormat : {type:"dict",codeType:"1057",disabled:true}}
+        ]
+             });
+                      });
+</script>

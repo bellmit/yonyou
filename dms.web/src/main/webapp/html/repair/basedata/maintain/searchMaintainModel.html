@@ -1,0 +1,178 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6  col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">项目车型组名称</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" id="modelLabourName"
+							name="modelLabourName">
+						</div>
+					</div>
+				</div>
+			<div class="col-xs-12 col-sm-6  col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">是否OEM</label>
+					<div class="col-xs-8">
+						<select class="bs-select form-control" name="oemTag"
+							data-dictCode="1004">
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6  col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">是否有效</label>
+					<div class="col-xs-8">
+						<select class="bs-select form-control" id="isValid"
+							name="isValid" data-dictCode="1004" data-value="10041001">
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+			<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">
+				维修车型组列表
+			</div>
+			<div class="pannel-button" >
+					<div class="btn-group btn-group-sm">
+						<a class="btn btn-outline" data-url="repair/basedata/maintain/addMaintainModel.html"
+						data-toggle="modal" data-width="modal-md"> <i class="fa fa-plus-square"></i> 新增
+						</a> 
+					</div>
+			</div>
+			
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">车型清单</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+					<a id="out" class="btn btn-outline" data-url="repair/basedata/maintain/addMaintainModelList.html"
+						data-toggle="modal" data-beforeShowEvent="true" data-width="modal-md"> <i class="fa fa-plus-square"></i> 新增
+						</a> 
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="groupitem"></table>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+	var selectParentRow;
+	
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["repair"] + "/basedata/modelgroups",
+		rowID : "MODEL_GROUP_ID",
+		sortName : "MODEL_GROUP_ID", 
+		sortOrder : "asc",
+		pageSize:5,
+		autoHeight:false,
+		columns : [ 
+		    {field : "MODEL_GROUP_ID",title : "操作",operateFormat : [
+				   {type:"event",title : "车型清单",operateIcon:'<i class="fa fa-exchange"></i>',onclick:function(value, row, index){
+					   		 selectParentRow = row;
+					   		 $("#groupitem",getElementContext()).dmsTable().setParentTabelRow(row);
+	  						 $("#groupitem",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["repair"] + "/basedata/modelgroups/"+row.MODEL_GROUP_ID+"/groupitems");
+						}},
+                   {type:"edit",url:"repair/basedata/maintain/editMaintainModel.html",openWidth:"modal-md",isShow:function(value, row, index){
+						   if(row.OEM_TAG!="10041001"){
+							   return true;
+                    	   }else{
+                    		   return false;
+                    	   }      
+					   }
+					},
+               ]
+            },  
+            {field : "MODEL_LABOUR_CODE",title : "维修车型分组代码"}, 
+			{field : "MODEL_LABOUR_NAME",title : "维修车型分组名称"}, 
+			{field : "OEM_TAG",title : "是否OEM",codeFormat : {type : "dict",codeType : "1004"}}, 
+			{field : "IS_VALID",title : "是否有效",codeFormat : {type : "dict",codeType : "1004"}}
+			]
+		});
+	//地址列表
+	new Datatable().initPagination({
+		src : "groupitem",
+		container:container,
+		rowID:"ITEM_ID",
+		url : dmsCommon.getDmsPath()["repair"] + "/basedata/modelgroups/{[MODEL_GROUP_ID]}/groupitems",
+		sortName : "ITEM_ID", 
+		sortOrder : "asc",
+		pageSize:5,
+		autoHeight:false,
+		parentTable:"dms_table",
+		columns : [ 
+		            {field : "ITEM_ID",title : "操作",operateFormat : [ 
+						   {type : "del",url : "/basedata/modelgroups/{[ITEM_ID]}/groupitems",model : "repair",callBack : function(response){
+		                	   $("#groupitem",getElementContext()).dmsTable().refreshTableWithForm();
+		                   },isShow:function(value, row, index){
+		               		var parentTableRow = $("#groupitem",getElementContext()).dmsTable().getParentTabelRow();
+							   if(parentTableRow.OEM_TAG!="10041001"){
+								   return true;
+	                    	   }else{
+	                    		   return false;
+	                    	   }      
+						   }},
+						]
+					}, 
+					{field : "MODEL_LABOUR_CODE",inputField:"modelGroupId",title : "维修车型分组代码"}, //默认是全部排序，如果不需要排序，请设置为false
+					{field : "MODEL_LABOUR_NAME",title : "维修车型分组名称"}, 
+					{field : "MODEL_NAME",title : "车型名称"} 
+				],
+				//如果OEM为是新增Disabled
+				onLoadSuccess : function(row) {
+					var parentTableRow = $("#groupitem",getElementContext()).dmsTable().getParentTabelRow();
+					if(parentTableRow.OEM_TAG=="10041001"){
+						$("#out",container).attr("disabled","disabled");
+					}else{
+						$("#out",container).removeAttr("disabled");
+					}
+						
+				}
+			});
+	//触发点击事件
+	$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+		var parentTableRow = $("#groupitem",getElementContext()).dmsTable().getParentTabelRow();
+		if(parentTableRow==undefined){
+			dmsCommon.tip({status:"warning",msg:"请双击选择父表格数据"});
+			returnResult.status = false;
+			return;
+		}
+		//设置页面初始化值
+		$(this).data("pageData",parentTableRow);
+		returnResult.status = true;
+	});
+	
+});
+</script>

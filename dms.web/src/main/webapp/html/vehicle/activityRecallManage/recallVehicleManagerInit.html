@@ -1,0 +1,297 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+				
+				
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">大区</label>
+								<div class="col-xs-8">
+									<select id="bigArea"
+										class="bs-select form-control" name="bigArea"
+										data-url="/partObsoleteMaterialDeaHistory/getBigArea"
+										data-model="part" data-labelValue="BIG_AREA_ID" data-value = ""
+										data-lableDesc="BIG_AREA_NAME" data-live-search="fales" data-size="5"  >
+									</select>
+									
+								</div>
+							</div>
+					</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">小区</label>
+								<div class="col-xs-8">
+									<select id="smallArea" parent="bigArea"
+										class="bs-select form-control" name="smallArea"
+										data-url="/partObsoleteMaterialDeaHistory/{[bigArea]}/getSmallArea"
+										data-model="part" data-labelValue="SMALL_AREA_ID" data-value = ""
+										data-lableDesc="SMALL_AREA_NAME" data-live-search="fales" data-size="5"  >
+									</select>
+									
+								</div>
+							</div>
+						</div>
+				
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">召回编号</label>
+							<div class="col-xs-8">
+								<!-- <div class="input-group"> -->
+									<input type="text" class="form-control" id="recallNo" name="recallNo">
+									<!-- <span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                 </span> -->
+                                 <!-- </div> -->
+							</div>
+						</div>
+					</div>
+					
+					
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">召回名称</label>
+							<div class="col-xs-8">
+								<!-- <div class="input-group"> -->
+									<input type="text" class="form-control" id="recallName" name="recallName">
+									<!-- <span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                 </span> -->
+                                 <!-- </div> -->
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">VIN</label>
+							<div class="col-xs-8">
+								<!-- <div class="input-group"> -->
+									<input type="text" class="form-control" id="vin" name="vin">
+									<!-- <span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                 </span> -->
+                                <!--  </div> -->
+							</div>
+						</div>
+					</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" data-tableSelect="true">
+						<div class="form-group">
+								<label class="control-label col-xs-4">经销商代码</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+									<input id="dealerCode" readonly
+										name="dealerCode" class="form-control" type="text"
+										data-fieldName="dealer_code" /> <span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="manage/basedata/dealers/searchAfterDealers.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+					</div>	
+	
+
+
+									
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">完成状态</label>
+							<div class="col-xs-8">
+								<select id="recallStatus" name="recallStatus" class="bs-select form-control" data-type="oemDict" data-dictCode="4033"   >
+								</select>
+							</div>
+						</div>
+					</div>						
+
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">预计召回时间</label>
+							<div class="col-xs-8 col-sm-10">
+								 <div class="input-group input-daterange"  data-opens="right">
+		                             <input type="text" class="form-control" readonly  id="beginDate" name="beginDate">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly id="endDate" name="endDate">
+		                             <span class="input-group-btn">
+                                         <button class="btn default input-clear" type="button">
+                                            <i class="fa fa-close"></i>
+                                        </button>
+                                      </span> 
+		                        </div>
+							</div>
+						</div>
+					</div>
+				<!-- 隐藏域 -->
+				<input id="idStr" name="idStr" type="hidden">
+				
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">结算时间</label>
+							<div class="col-xs-8 col-sm-10">
+								 <div class="input-group input-daterange"  data-opens="right">
+		                             <input type="text" class="form-control" readonly id="beginTime" name="beginTime">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly id="endTime" name="endTime">
+		                             <span class="input-group-btn">
+                                         <button class="btn default input-clear" type="button">
+                                            <i class="fa fa-close"></i>
+                                        </button>
+                                      </span> 
+		                        </div>
+							</div>
+						</div>
+					</div>	
+					
+														
+					
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >信息列表</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">					
+							<a class="btn btn-outline" data-url="vehicle/activityRecallManage/recallVehicleManagerImport.html" data-width="modal-lg" 
+								data-toggle="modal"> <i class="fa fa-upload"></i> 导入
+							</a> 
+							
+							<a id="update" class="btn btn-outline" data-url="vehicle/activityRecallManage/recallVehicleManagerUpdateDealers.html" data-width="modal-lg" 
+								data-onclickEvent="true" data-toggle="modal"> <i class="fa fa-print"></i> 批量修改
+							</a> 
+							<a href="javascript:;" data-url="/recallVehicleManage/recallVehicleDownload" data-model="vehicle" data-method="downLoad" data-toggle="confirmation"
+								class="btn btn-outline " ><i class="fa fa-download"></i>下载</a>
+								
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="orderList"></table>
+		</div>
+	</div>
+	
+</div>
+<script type="text/javascript">
+
+    $(document).one("onload.dms",function(event,container){
+    	new Datatable().initPagination({
+			src : "orderList",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/recallVehicleManage/recallVehicleQuery",
+			rowID : "ID",
+			//detailView : true, //当需要显示明细时，打开此开关，否则不需要写
+			sortName : "", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+			sortOrder : "",
+			isQueryFirst:false,
+			//当需要开启显示明细时才实现，否则不实现
+			detailFormatter : function(index, row, element) {
+				return row.NAME;
+			},
+			columns : [ 
+			    {field : "RECALL_ID",title : "操作",inputField:"recallId", operateFormat : [						                   
+                       {type:"edit", title:"修改", url:"vehicle/activityRecallManage/recallVehicleManagerUpdateDealer.html",openWidth:"modal-lg",doubleClick:true,isShow:function(value, row, index){
+                    	   if(row.TRV_RECALL_STATUS=="40331001"){
+                    		   return true;
+                    	   }else{
+                    		   return  false;
+                    	   }  
+                       },attr:'data-validateUrl="" data-validateMethod="" data-validateModel=""'}, //默认不支持双击操作
+                   
+                       {type:"detail", title:"明细查询", url:"vehicle/activityRecallManage/recallVehicleManagerDetailDealer.html",openWidth:"modal-lg",isShow:function(value, row, index){
+                    	   if(row.TRV_RECALL_STATUS=="40331002"){
+                    		   return true;
+                    	   }else{
+                    		   return  false;
+                    	   }                  	
+                       }}
+                       
+                   ]
+                },
+                {checkbox:true,sortable : false}, 
+                {field : "VIN",title : "VIN"},
+			    {field : "RECALL_NO",title : "召回编号"},
+			    {field : "RECALL_NAME",title : "召回名称"},
+			   	{field : "RECALL_THEME",title : "召回类别",codeFormat : {type:"oemDict",codeType:"7041"}},
+			    {field : "RECALL_STATUS",title : "召回状态",codeFormat : {type:"oemDict",codeType:"7045"}},			    
+			    {field : "RECALL_START_DATE",title : "召回开始时间"},
+			    {field : "RECALL_END_DATE",title : "召回结束时间"},
+			    {field : "BIG_AREA",title : "大区"},
+			    {field : "SMALL_AREA",title : "小区"},
+			    {field : "DEALER_CODE",title : "责任经销商代码"},
+			    {field : "DEALER_SHORTNAME",title : "责任经销商简称"},
+			    {field : "TRV_RECALL_STATUS",title : "完成状态",codeFormat : {type:"oemDict",codeType:"4033"}},
+			    {field : "DMS_RECALL_STATUS",title : "DMS状态",codeFormat : {type:"oemDict",codeType:"4033"}},
+			    {field : "GCS_RECALL_STATUS",title : "GCS状态",codeFormat : {type:"oemDict",codeType:"4033"}},
+			    {field : "REPAIR_NO",title : "工单号"},
+			    {field : "EXPECT_RECALL_DATE",title : "预计召回时间"},
+			    {field : "BALANCE_TIME",title : "结算时间"}
+				
+			],
+			onLoadSuccess : function() {
+				$("#orderList",container).dmsTable().bootstrapTable('resetView');
+			}
+		});
+    	      	
+    	//事件点击
+		$("#update[data-onclickEvent='true']",container).on("dms.click",function(event){
+// 			console.log("into callBack");
+			var selectRow = $("#orderList",container).dmsTable().getSelections();
+			debugger;
+			if(!selectRow){
+				dmsCommon.tip({status:"warning",msg:"请选择表格记录"});//总共的状态类型：info、success、error、warning				
+				$("#idStr",getElementContext()).setDmsValue("");
+			}
+			if(selectRow.length > 0){
+				var idStr = "";
+				
+				for(var i = 0 ;i<selectRow.length;i++){										
+					if(idStr=="" ){ //第一次循环为空值
+						idStr = selectRow[i]["ID"];
+					}else{
+						idStr = idStr+","+selectRow[i]["ID"];
+						
+					}
+					
+				}
+				$("#idStr",getElementContext()).setDmsValue(idStr);
+				//alert(idStr);
+			}
+			
+
+		});
+    	
+    });
+		
+
+
+</script>

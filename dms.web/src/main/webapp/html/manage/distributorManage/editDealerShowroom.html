@@ -1,0 +1,251 @@
+<div class="dms-edit ajaxrest" data-url="/queryDealers/dealerShowroomDetail/{[ID]}" data-model="manage" >
+	<form class="form-horizontal" >
+		<div class="modal-header">
+			<div class="modal-title">新增经销商展厅</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="model-body" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+					
+					<input  type="hidden" id="dealerId" name = "dealerId">
+					<input  type="hidden" id="dealerRoomId" name = "dealerRoomId" data-fieldName="ID">
+					<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">展厅地址</label>
+								<div class="col-xs-8">
+									<input id="address" name="address" data-fieldName="ADDRESS"  class="form-control "  type="text" />
+								</div>
+							</div>
+						</div>
+					
+					<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">邮编：</label>
+								<div class="col-xs-8">
+									<input id="zipCode" name="zipCode" data-fieldName="ZIP_CODE"  class="form-control zipCode "  type="text" />
+								</div>
+							</div>
+						</div>
+					
+					<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">展厅开业时间：</label>
+								<div class="col-xs-8">
+									<div class="input-group date  date-picker">
+										<input id="openTime" name="openTime" 
+											class="form-control" readOnly type="text" value=""  data-fieldName="OPEN_TIME" />
+											 <span  class="input-group-btn">
+											<button class="btn default date-set" type="button" >
+												<i class="fa fa-calendar"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					
+					<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">热线电话</label>
+								<div class="col-xs-8">
+									<input id="rxPhone" name="rxPhone" data-fieldName="RX_PHONE"  class="form-control mobile required"  type="text" />
+								</div>
+							</div>
+						</div>
+					
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6  "> 
+							<div class="form-group">
+								<label class="control-label col-xs-4">办公电话：</label>
+								<div class="col-xs-8">
+									<input id="officePhone" 
+										name="officePhone" class="form-control mobile required" type="text"
+										data-fieldName="OFFICE_PHONE"/> 
+									</div>	
+							</div>
+						</div> 
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">传真：</label>
+								<div class="col-xs-8">
+									<input id="fax" name="fax" data-fieldName="FAX"  class="form-control fax required" type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系人：</label>
+								<div class="col-xs-8">
+									<input id="linkMan" name="linkMan" data-fieldName="LINK_MAN"  class="form-control required"  type="text" maxlength="30" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系电话：</label>
+								<div class="col-xs-8">
+									<input id="linkPhone" name="linkPhone" data-fieldName="LINK_PHONE"  class="form-control  phone required"  type="text" />
+								</div>
+							</div>
+						</div>
+				
+					<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">营业时间：</label>
+								<div class="col-xs-8">
+									<input id="buninessTime" name="buninessTime" data-fieldName="BUNINESS_TIME"  class="form-control required" type="text" maxlength="30"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">展厅面宽</label>
+								<div class="col-xs-8">
+									<input id="showroomWidth" name="showroomWidth" data-fieldName="SHOWROOM_WIDTH"  class="form-control required" type="text" maxlength="8" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">展厅面积</label>
+								<div class="col-xs-8">
+									<input id="showroomArea" name="showroomArea" data-fieldName="SHOWROOM_AREA"  class="form-control required" type="text" maxlength="11" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">授权品牌：</label>
+								<div class="col-xs-8">
+									<select id="brand" class="bs-select form-control required" name="brand" data-url="/basedata/material/brand/2"
+									data-model="manage" multiple data-labelValue="BRAND_NAME" data-lableDesc="BRAND_NAME" data-fieldName="BRAND" data-existsDefault="false" ></select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">展车数量</label>
+								<div class="col-xs-8">
+									<input id="showcarNum" name="showcarNum" data-fieldName="SHOWCAR_NUM"  class="form-control required"  type="text"  maxlength="8"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">停车位数量</label>
+								<div class="col-xs-8">
+									<input id="stoppingNum" name="stoppingNum" data-fieldName="STOPPING_NUM"  class="form-control required"  type="text" maxlength="8"  />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">土地性质</label>
+								<div class="col-xs-8">
+									<input id="landPro" name="landPro" data-fieldName="LAND_PRO"  class="form-control required" type="text"  maxlength="30"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">土地租赁/购买</label>
+								<div class="col-xs-8">
+									<input id="landBuyOfRent" name="landBuyOfRent" data-fieldName="LAND_BUY_OF_RENT"  class="form-control required" type="text"  maxlength="30" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">状态</label>
+								<div class="col-xs-8">
+									<select id="status" name="status" class="bs-select form-control" data-dictCode="1001" data-fieldName="STATUS"
+									 data-type="oemDict"  data-existsDefault="false"  ></select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">维修工位</label>
+								<div class="col-xs-8">
+									<input id="weixiuNum" name="weixiuNum" data-fieldName="WEIXIU_NUM"  class="form-control "  type="text"  maxlength="8"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">机修工位</label>
+								<div class="col-xs-8">
+									<input id="jixiuNum" name="jixiuNum" data-fieldName="JIXIU_NUM"  class="form-control "  type="text" maxlength="8" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">钣喷工位</label>
+								<div class="col-xs-8">
+									<input id="banpenNum" name="banpenNum" data-fieldName="BANPEN_NUM"  class="form-control " type="text" maxlength="8" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">预检工位</label>
+								<div class="col-xs-8">
+									<input id="yujianNum" name="yujianNum" data-fieldName="YUJIAN_NUM"  class="form-control " type="text" maxlength="8" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">预留工位</label>
+								<div class="col-xs-8">
+									<input id="yuliuNum" name="yuliuNum" data-fieldName="YULIU_NUM"  class="form-control "  type="text" maxlength="8" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">售后配件仓库面积</label>
+								<div class="col-xs-8">
+									<input id="aftersaleArea" name="aftersaleArea" data-fieldName="AFTERSALE_AREA"  class="form-control"  type="text" maxlength="11" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">危险库面积</label>
+								<div class="col-xs-8">
+									<input id="dangerArea" name="dangerArea" data-fieldName="DANGER_AREA"  class="form-control " type="text" maxlength="11" />
+								</div>
+							</div>
+						</div>
+						
+			<div class="panel-footer">
+							<div style="text-align:center">
+								<a data-toggle="confirmation" data-url="/queryDealers/editDealerShowRoom"  data-model="manage" 
+									data-method="PUT" class="btn blue" data-callBack='true'><i class="fa fa-save"></i>保存</a>
+								<a  data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>返回</a> 
+							</div>	
+							</div>					
+				</div>
+		</div>
+	</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	$("#dealerId",container).val($("#dealerId").val(),getElementContext());
+	
+	//保存的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dealerList",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+});   
+</script>

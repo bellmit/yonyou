@@ -1,0 +1,473 @@
+<div class="dms-edit ajaxrest" data-url="/complaintDisposalDealer/disposalComplaintDealer/{[COMP_ID]}" data-model="vehicle" >
+	<form class="form-horizontal" >
+		<div class="modal-header">
+			<div class="modal-title">客户基本信息</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="panel-body">
+	    		<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系人名称</label>
+								<div class="col-xs-8">
+									<input id="isR"  name="isR" class="form-control" type="hidden" /> 
+									<input id="alloDate"  name="alloDate" class="form-control" type="hidden" data-fieldName="ALLOT_DATE"/> 
+									<input id="" readonly name="" class="form-control" type="text" data-fieldName="LINK_MAN"/> 
+									</div>	
+							</div>
+					</div> 
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+							<div class="form-group">
+								<label class="control-label col-xs-4">客户编号</label>
+								<div class="col-xs-8">
+									<input id="" name=""  data-fieldName="CUSTOM_NO" class="form-control" type="text" readonly /> 
+									</div>	
+							</div>
+					</div> 
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">生日</label>
+								<div class="col-xs-8">
+									<input id="birthday" readonly="readonly" name="birthday" data-fieldName="BIRTHDAY"  class="form-control "  type="text" />
+								</div>
+							</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">性别</label>
+								<div class="col-xs-8">
+									<select id="sex" name="sex" data-fieldName="SEX"  class="bs-select form-control"   disabled data-dictCode="1003" data-type="oemDict">
+									</select>
+								</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+							<div class="form-group">
+								<label class="control-label col-xs-4">所属大区</label>
+								<div class="col-xs-8">
+									<input id="ownOrgName" name="ownOrgName"  data-fieldName="ORG_NAME" class="form-control" type="text" readonly /> 
+								</div>	
+							</div>
+					</div> 
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+						<div class="form-group">
+							<label class="control-label col-xs-4">年龄</label>
+								<div class="col-xs-8">
+									<select id="sex" name="sex" data-fieldName="AGE"  class="form-control"   disabled data-dictCode="4041" data-type="oemDict">
+									</select>
+								</div>	
+						</div>
+					</div> 
+					
+					<div class="col-xs-12 col-sm-6 col-md-4  col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">省份</label>
+								<div class="col-xs-8">
+									<select id="province" 
+										class="bs-select form-control" name="provinceId"
+										data-url="/custcomVehicleManage/province" 
+										data-model="vehicle" data-labelValue="REGION_CODE" disabled
+										data-lableDesc="REGION_NAME"  data-live-search="fales" data-size="5"  data-fieldName="PROVINCE">
+									</select>	
+								</div>
+							</div>
+						</div>
+					
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+						<div class="form-group">
+							<label class="control-label col-xs-4">联系电话</label>
+								<div class="col-xs-8">
+									<input id="tel" name="tel"  data-fieldName="TEL" class="form-control" type="text" readonly /> 
+								</div>	
+						</div>
+					</div> 
+					
+					
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">地级市</label>
+								<div class="col-xs-8">
+									<select id="city" parent="province"
+										class="bs-select form-control" name="cityId"
+										data-url="/custcomVehicleManage/{[province]}/city"
+										data-model="vehicle" data-labelValue="REGION_CODE" disabled
+										data-lableDesc="REGION_NAME"  data-live-search="fales" data-size="5"  data-fieldName="CITY">
+									</select>	
+								</div>
+							</div>
+						</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">区、县</label>
+								<div class="col-xs-8">
+									<select id="countyId" parent="city"
+										class="bs-select form-control" name="countyId"
+										data-url="/custcomVehicleManage/{[city]}/town"
+										data-model="vehicle" data-labelValue="REGION_CODE" disabled
+										data-lableDesc="REGION_NAME"  data-live-search="fales" data-size="5"  data-fieldName="DISTRICT">
+									</select>	
+								</div>
+							</div>
+						
+						</div>
+					
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+						<div class="form-group">
+							<label class="control-label col-xs-4">邮编</label>
+							<div class="col-xs-8">
+								<input id="zipCode" name="zipCode"  data-fieldName="ZIP_CODE" class="form-control" type="text" readonly /> 
+								</div>	
+							</div>
+					</div> 
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+						<div class="form-group">
+							<label class="control-label col-xs-4">人车关系</label>
+								<div class="col-xs-8">
+									<select id="carRelation" name="carRelation" data-fieldName="CAR_RELATION"  class="bs-select form-control"   disabled data-dictCode="4042" data-type="oemDict">
+									</select>
+								</div>	
+						</div>
+					</div> 
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+						<div class="form-group">
+							<label class="control-label col-xs-4">家庭住址</label>
+							<div class="col-xs-8">
+								<input id="address" name="address"  data-fieldName="ADDRESS" class="form-control" type="text" readonly /> 
+								</div>	
+							</div>
+					</div> 
+					
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-header">
+			<div class="modal-title">投诉内容</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="panel-body">
+	    		<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+						<div class="form-group">
+							<label class="control-label col-xs-4">投诉编号</label>
+								<div class="col-xs-8">
+									<input id="compCode" name="compCode"  data-fieldName="COMP_CODE" class="form-control" type="text" readonly /> 
+								</div>	
+						</div>
+					</div> 
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+						<div class="form-group">
+							<label class="control-label col-xs-4">投诉时间</label>
+							<div class="col-xs-8">
+								<input id="compTime" name="compTime"  data-fieldName="COMP_DATE" class="form-control" type="text" readonly /> 
+								</div>	
+							</div>
+					</div> 
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+						<div class="form-group">
+							<label class="control-label col-xs-4">周别</label>
+								<div class="col-xs-8">
+									<input id="week" name="week"  data-fieldName="WEEK" class="form-control" type="text" readonly /> 
+								</div>	
+						</div>
+					</div> 
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+						<div class="form-group">
+							<label class="control-label col-xs-4">投诉经销商</label>
+							<div class="col-xs-8">
+								<input id="compDealerName2" name="compDealerName2"  data-fieldName="TS_DEALER_NAME" class="form-control" type="text" readonly /> 
+								</div>	
+							</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+						<div class="form-group">
+							<label class="control-label col-xs-4">投诉性质</label>
+								<div class="col-xs-8">
+									<select id="compNature" name="compNature" data-fieldName="COMP_NATURE"  class="bs-select form-control"   disabled data-dictCode="4040" data-type="oemDict">
+									</select>
+								</div>	
+						</div>
+					</div> 
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+						<div class="form-group">
+							<label class="control-label col-xs-4">投诉等级</label>
+							<div class="col-xs-8">
+									<select id="compLevel" name="compLevel" data-fieldName="COMP_LEVEL"  class="bs-select form-control"   disabled data-dictCode="4037" data-type="oemDict">
+									</select>
+								</div>	
+							</div>
+					</div> 
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+						<div class="form-group">
+							<label class="control-label col-xs-4">投诉大类</label>
+								<div class="col-xs-8">
+									<select id="compBtype" name="compBtype" data-fieldName="COMP_BTYPE"  class="bs-select form-control"   disabled data-dictCode="4035" data-type="oemDict">
+									</select>
+								</div>	
+						</div>
+					</div> 
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+						<div class="form-group">
+							<label class="control-label col-xs-4">投诉小类</label>
+							<div class="col-xs-8">
+								<input id="compStype" name="compStype"  data-fieldName="COMP_STYPE" class="form-control" type="text" readonly /> 
+								</div>	
+							</div>
+					</div> 
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+						<div class="form-group">
+							<label class="control-label col-xs-4">投诉创建人</label>
+								<div class="col-xs-8">
+									<input id="compCreateby" name="compCreateby"  data-fieldName="COMP_CREATEBY" class="form-control" type="text" readonly /> 
+								</div>	
+						</div>
+					</div> 
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"> 
+						<div class="form-group">
+							<label class="control-label col-xs-4">客户投诉内容</label>
+							<div class="col-xs-8">
+								<input id="compContent" name="compContent"  data-fieldName="COMP_CONTENT" class="form-control" type="text" readonly /> 
+								</div>	
+							</div>
+					</div>  
+					
+										
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-header">
+			<div class="modal-title">处理明细</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="panel-body">
+	    		<div class="row">
+					
+					
+    				<div class="col-xs-12 col-sm-6 col-md-9 "> 
+						<div class="form-group">
+							<label class="control-label col-xs-4">处理方案</label>
+								<div class="col-xs-8">
+									<textarea id="dealPlan" name="dealPlan" cols="90" rows="4" class="form-control required"  maxlength="750" ></textarea>
+								</div>	
+						</div>
+					</div> 
+					<div class="col-xs-12 col-sm-6 col-md-9 "> 
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">处理人</label>
+								<div class="col-xs-4">
+									<input id="dealUser" name="dealUser"   class="form-control required" type="text"  /> 
+								</div>	
+						</div>
+					</div> 
+					
+					<div class="col-xs-12 col-sm-6 col-md-9 "> 
+						<div class="form-group">
+							<label class="control-label col-xs-4">客户反馈</label>
+								<div class="col-xs-8">
+									<textarea id="customFeedback" name="customFeedback" cols="90" rows="4" class="form-control required"  maxlength="750" ></textarea>
+								</div>	
+						</div>
+					</div> 
+					
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		<div class="modal-header">
+			<div class="modal-title"> 不需回访原因</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="panel-body">
+	    		<div class="row">
+	    			
+					<div class="col-xs-12 col-sm-6 col-md-9 ">
+							<div class="form-group">
+							<label class="control-label col-xs-4"></label>
+								<div class="col-xs-4">
+									<input id="isReturn" name="isReturn" type="checkbox" onclick="IdSave(this)"
+									data-dictLabel = "不需回访"  data-dictCode = "1057"/>					
+								</div>
+							</div>
+						</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-9 "> 
+						<div class="form-group">
+							<label class="control-label col-xs-4">不回访原因</label>
+								<div class="col-xs-8">
+									<textarea id="noReturnMark" name="noReturnMark" cols="90" rows="4" class="form-control"  maxlength="450" ></textarea>
+								</div>	
+						</div>
+					</div> 
+					
+					
+    				<div class="col-xs-12 col-sm-6 col-md-9"> 
+						<div class="form-group">
+							<label class="control-label col-xs-4">厂家驳回原因</label>
+								<div class="col-xs-4">
+									<input id="noreturnBackremark" name="noreturnBackremark"  data-fieldName="NORETURN_BACKREMARK" class="form-control" type="text" readonly /> 
+								</div>	
+						</div>
+					</div> 
+					<div class="col-xs-12 col-sm-6 col-md-9 "> 
+						<div class="form-group">
+							<label class="control-label col-xs-4">厂家驳回时间</label>
+							<div class="col-xs-4">
+								<input id="noreturnDealdate" name="noreturnDealdate"  data-fieldName="NORETURN_DEALDATE" class="form-control" type="text" readonly /> 
+								</div>	
+							</div>
+					</div>  
+    				
+    				
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel-footer">
+			<div style="text-align:center">
+			<a id = "save" data-url="/complaintDisposalDealer/saveComplaint/{[COMP_ID]}" data-model="vehicle" data-method="PUT" data-callBack='true'
+			class="btn blue" data-toggle="confirmation" onclick="saveComplaint()" ><i class="fa fa-save"></i>保存</a>
+			<a id = "save" data-url="/complaintDisposalDealer/updateComplaint/{[COMP_ID]}" data-model="vehicle" data-method="PUT" data-callBack='true'
+			class="btn blue" data-toggle="confirmation" onclick="updateComplaint()"><i class="fa fa-save"></i>申请结案</a>  
+			<a  data-goback="page" href="vehicle/customerRelationships/complaintDisposalDealer.html"
+			class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>	
+			</div>						
+		</div>
+	</form>
+	
+	<div class="panel panel-default table-panel">
+			<div class="modal-header">
+			<div class="modal-title">客户车辆信息</div>
+			
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="tableList1"></table>
+		</div>
+
+	</div>
+	
+	<div class="panel panel-default table-panel">
+			<div class="modal-header">
+			<div class="modal-title">客户投诉处理历史</div>
+			
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="tableList2"></table>
+		</div>
+
+	</div>
+	
+</div>
+<script type="text/javascript">
+
+function IdSave(obj){
+		if(obj.checked==true){
+			document.getElementById('save').setAttribute("disabled","disabled")
+			$("#noReturnMark").addClass("required");
+		}else{
+			document.getElementById('save').removeAttribute('disabled');
+			$("#noReturnMark").removeClass("required");
+		}
+	}
+	
+function saveComplaint(){
+	 	var isReturn="YES";
+		if(!document.getElementById("isReturn0").checked){
+			isReturn="No";
+		}
+		
+		document.getElementById('isR').value = isReturn;
+		 console.log(document.getElementById("isR").value)
+	}
+function updateComplaint(){
+	var isReturn="YES";
+	 console.log(document.getElementById("alloDate").value)
+	var checkbox = document.getElementById("isReturn0").checked;
+	if(!checkbox){
+		isReturn="No";
+	}
+	document.getElementById('isR').value = isReturn;
+		if(checkbox){
+			if(noReturnMark.trim().length<=0){
+				dmsCommon.tip({status:"warning",msg:"不回访原因必填"});
+				return;
+			}
+		}else{
+			if($("dealPlan").value.trim().length<=0){
+				dmsCommon.tip({status:"warning",msg:"处理方案必填"});
+				return;
+			}
+			if($("dealUser").value.trim().length<=0){
+				dmsCommon.tip({status:"warning",msg:"处理人案必填"});
+				return;
+			}
+			if($("customFeedback").value.trim().length<=0){
+				dmsCommon.tip({status:"warning",msg:"客户反馈必填"});
+				return;
+			}
+		}
+	
+}
+$(document).one("onload.dms",function(event,container){
+	
+	 new Datatable().initPagination({
+		src : "tableList1",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/complaintDisposalDealer/getVicheil/{[COMP_ID]}",
+		rowID : "VIN",
+		sortName : "VIN",
+		sortOrder : "asc",
+		autoHeight:false,
+		pageSize:5,
+		columns : [ 
+					{field : "VIN",title : "VIN"},
+					{field : "BRAND_NAME",title : "品牌"},
+					{field : "MODEL_NAME",title : "车型"},
+					{field : "ENGINE_NO",title : "发动机号"},
+					{field : "LICENSE_NO",title : "车牌号"},
+					{field : "MILEAGE",title : "行驶里程"},
+					{field : "GC_DEALER_NAME",title : "购车经销商" },
+					{field : "PURCHASED_DATE",title : "购车日期" }
+					
+		]
+
+	});
+	 new Datatable().initPagination({
+		src : "tableList2",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/complaintDisposalDealer/comPlaintsHistory/{[COMP_ID]}",
+		rowID : "ID",
+		sortName : "ID",
+		sortOrder : "asc",
+		autoHeight:false,
+		pageSize:5,
+		columns : [ 
+				{field : "DEAL_USER",title : "处理人",sortable :false,maxLengthFormat :{length:10}},
+				{field : "DEAL_DATE",title : "处理时间",dateFormat : {format:"YYYY-MM-DD"}},
+				{field : "DEAL_PLAN",title : "处理方案",sortable :false,maxLengthFormat :{length:10}},
+				{field : "DEAL_RESULT",title : "处理结果",sortable :false,maxLengthFormat :{length:10}},
+				{field : "CUSTOM_FEEDBACK",title : "客户反馈",sortable :false,maxLengthFormat :{length:10}}
+				
+		]
+
+	});
+	
+	 
+	
+});
+
+   
+</script>

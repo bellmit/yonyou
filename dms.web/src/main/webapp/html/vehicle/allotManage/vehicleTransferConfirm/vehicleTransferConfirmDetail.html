@@ -1,0 +1,188 @@
+<div class="dms-edit ajaxrest" data-url="/vehicleAllotMange/query/{[TRANSFER_ID]}" data-model="vehicle" data-pageInitCallBack="true" >
+			<form class="form-horizontal">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<input type="hidden" id="transRegionalFlag" data-fieldName="TRANS_REGIONAL_FLAG">
+							<table class="table table-bordered">
+								<tr>
+									<th width="auto" align="center" nowrap="nowrap" colspan="6">
+										<strong style="letter-spacing: 5px;">车辆调拨基本信息</strong>
+									</th>
+								</tr>
+								
+								<tr>
+									<th width="50px" align="center" nowrap="nowrap" rowspan="4">调<br/>&nbsp;<br/>拨<br/>&nbsp;<br/>出<br/>&nbsp;<br/>库</th>
+									<th width="100px" align="center" nowrap="nowrap">大区</th>
+									<td nowrap="nowrap"><input style="border-style:none" class="col-xs-12" type="text" readonly="readonly" data-fieldName="OUT_BIG_AREA" /></td>
+								</tr>
+								
+								<tr>
+									<th width="100px" align="center" nowrap="nowrap">小区</th>
+									<td nowrap="nowrap"><input style="border-style:none" class="col-xs-12" type="text" readonly="readonly" data-fieldName="OUT_SMALL_AREA" /></td>
+								</tr>
+								
+								<tr>
+									<th width="100px" align="center" nowrap="nowrap">经销商代码</th>
+									<td nowrap="nowrap"><input style="border-style:none" class="col-xs-12" type="text" readonly="readonly" data-fieldName="OUT_DEALER_CODE" /></td>
+								</tr>
+								
+								<tr>
+									<th width="100px" align="center" nowrap="nowrap">经销商名称</th>
+									<td nowrap="nowrap"><input style="border-style:none" class="col-xs-12" type="text" readonly="readonly" data-fieldName="OUT_DEALER_NAME" /></td>
+								</tr>
+								
+								<tr>
+									<th width="50px" align="center" nowrap="nowrap" rowspan="4">调<br/>&nbsp;<br/>拨<br/>&nbsp;<br/>入<br/>&nbsp;<br/>库</th>
+									<th width="100px" align="center" nowrap="nowrap">大区</th>
+									<td nowrap="nowrap"><input style="border-style:none" class="col-xs-12" type="text" readonly="readonly" data-fieldName="IN_BIG_AREA" /></td>
+								</tr>
+								
+								<tr>
+									<th width="100px" align="center" nowrap="nowrap">小区</th>
+									<td nowrap="nowrap"><input style="border-style:none" class="col-xs-12" type="text" readonly="readonly" data-fieldName="IN_SMALL_AREA" /></td>
+								</tr>
+								
+								<tr>
+									<th width="100px" align="center" nowrap="nowrap">经销商代码</th>
+									<td nowrap="nowrap"><input style="border-style:none" class="col-xs-12" type="text" readonly="readonly" data-fieldName="IN_DEALER_CODE" /></td>
+								</tr>
+								
+								<tr>
+									<th width="100px" align="center" nowrap="nowrap">经销商名称</th>
+									<td nowrap="nowrap"><input style="border-style:none" class="col-xs-12" type="text" readonly="readonly" data-fieldName="IN_DEALER_NAME" /></td>
+								</tr>
+								
+								<tr>
+									<th align="center" nowrap="nowrap" colspan="2">VIN号</th>
+									<td nowrap="nowrap"><input style="border-style:none" class="col-xs-12" type="text" readonly="readonly" data-fieldName="VIN" /></td>
+								</tr>
+								
+								<tr>
+									<th align="center" nowrap="nowrap" colspan="2">车系</th>
+									<td nowrap="nowrap"><input style="border-style:none" class="col-xs-12" type="text" readonly="readonly" data-fieldName="SERIES_NAME" /></td>
+								</tr>
+								
+								<tr>
+									<th align="center" nowrap="nowrap" colspan="2">车型</th>
+									<td nowrap="nowrap"><input style="border-style:none" class="col-xs-12" type="text" readonly="readonly" data-fieldName="MODEL_NAME" /></td>
+								</tr>
+								
+								<tr>
+									<th align="center" nowrap="nowrap" colspan="2">车款</th>
+									<td nowrap="nowrap"><input style="border-style:none" class="col-xs-12" type="text" readonly="readonly" data-fieldName="GROUP_NAME" /></td>
+								</tr>
+								
+								<tr>
+									<th align="center" nowrap="nowrap" colspan="2">颜色</th>
+									<td nowrap="nowrap"><input style="border-style:none" class="col-xs-12" type="text" readonly="readonly" data-fieldName="COLOR_NAME" /></td>
+								</tr>
+								
+								<tr>
+									<td width="auto" align="center" nowrap="nowrap" colspan="6" style="border: 0;">&nbsp;</td>
+								</tr>
+								
+								<tr>
+									<th width="auto" align="center" nowrap="nowrap" colspan="6">
+										<strong style="letter-spacing: 5px;">车辆调拨审批信息</strong>
+									</th>
+								</tr>
+								
+								<!-- 调出小区审批信息 Begin -->
+								<tr>
+									<th width="50px" align="center" nowrap="nowrap" rowspan="3">调&nbsp;出<br/>&nbsp;<br/>小&nbsp;区</th>
+									<th width="100px" align="center" nowrap="nowrap">审批日期</th>
+									<td nowrap="nowrap"><input style="border-style:none" class="col-xs-12" type="text" readonly="readonly" data-fieldName="CHECK_DATE" /></td>
+								</tr>
+								<tr>
+									<th width="100px" align="center" nowrap="nowrap">审批描述</th>
+									<td nowrap="nowrap"><input style="border-style:none" class="col-xs-12" type="text" readonly="readonly" data-fieldName="CHECK_DESC" /></td>
+								</tr>
+								<tr>
+									<th width="100px" align="center" nowrap="nowrap">审批人员</th>
+									<td nowrap="nowrap"><input style="border-style:none" class="col-xs-12" type="text" readonly="readonly" data-fieldName="CHECK_USER" /></td>
+								</tr>
+								<!-- 调出小区审批信息 End -->
+								<!-- 调出大区审批信息 Begin -->
+								<tr data-pageInitCallBack='true' class="outBig" style="">
+									<th width="50px" align="center" nowrap="nowrap" rowspan="3">调&nbsp;出<br/>&nbsp;<br/>大&nbsp;区</th>
+									<th width="100px" align="center" nowrap="nowrap">审批日期</th>
+									<td nowrap="nowrap"><input style="border-style:none" class="col-xs-12" type="text" readonly="readonly" data-fieldName="OUT_BIG_CHK_DATE" /></td>
+								</tr>
+								<tr data-pageInitCallBack='true' class="outBig" style="">
+									<th width="100px" align="center" nowrap="nowrap">审批描述</th>
+									<td nowrap="nowrap"><input style="border-style:none" class="col-xs-12" type="text" readonly="readonly" data-fieldName="OUT_BIG_CHK_DESC" /></td>
+								</tr>
+								<tr data-pageInitCallBack='true' class="outBig" style="">
+									<th width="100px" align="center" nowrap="nowrap">审批人员</th>
+									<td nowrap="nowrap"><input style="border-style:none" class="col-xs-12" type="text" readonly="readonly" data-fieldName="OUT_BIG_USER" /></td>
+								</tr>
+								<!-- 调出大区审批信息 End -->
+								
+								<!-- 调入小区审批信息 Begin -->
+								<tr data-pageInitCallBack='true' class="inSmall" style="">
+									<th width="50px" align="center" nowrap="nowrap" rowspan="3">调&nbsp;入<br/>&nbsp;<br/>小&nbsp;区</th>
+									<th width="100px" align="center" nowrap="nowrap">审批日期</th>
+									<td nowrap="nowrap"><input style="border-style:none" class="col-xs-12" type="text" readonly="readonly" data-fieldName="IN_SMALL_CHK_DATE" /></td>
+								</tr>
+								<tr data-pageInitCallBack='true' class="inSmall" style="">
+									<th width="100px" align="center" nowrap="nowrap">审批描述</th>
+									<td nowrap="nowrap"><input style="border-style:none" class="col-xs-12" type="text" readonly="readonly" data-fieldName="IN_SMALL_CHK_DESC" /></td>
+								</tr>
+								<tr data-pageInitCallBack='true' class="inSmall" style="">
+									<th width="100px" align="center" nowrap="nowrap">审批人员</th>
+									<td nowrap="nowrap"><input style="border-style:none" class="col-xs-12" type="text" readonly="readonly" data-fieldName="IN_SMALL_USER" /></td>
+								</tr>
+								<!-- 调入小区审批信息 End -->
+								
+								<!-- 调入大区审批信息 Begin -->
+								<tr data-pageInitCallBack='true' class="inBig" style="">
+									<th width="50px" align="center" nowrap="nowrap" rowspan="3">调&nbsp;入<br/>&nbsp;<br/>大&nbsp;区</th>
+									<th width="100px" align="center" nowrap="nowrap">审批日期</th>
+									<td nowrap="nowrap"><input style="border-style:none" class="col-xs-12" type="text" readonly="readonly" data-fieldName="IN_BIG_CHK_DATE" /></td>
+								</tr>
+								<tr data-pageInitCallBack='true' class="inBig" style="">
+									<th width="100px" align="center" nowrap="nowrap">审批描述</th>
+									<td nowrap="nowrap"><input style="border-style:none" class="col-xs-12" type="text" readonly="readonly" data-fieldName="IN_BIG_CHK_DESC" /></td>
+								</tr>
+								<tr data-pageInitCallBack='true' class="inBig" style="">
+									<th width="100px" align="center" nowrap="nowrap">审批人员</th>
+									<td nowrap="nowrap"><input style="border-style:none" class="col-xs-12" type="text" readonly="readonly" data-fieldName="IN_BIG_USER" /></td>
+								</tr>
+								<!-- 调入大区审批信息 End -->								
+								<tr>
+									<th align="center" nowrap="nowrap" colspan="2">申请日期</th>
+									<td nowrap="nowrap"><input style="border-style:none" class="col-xs-12" class="charToDate" type="text" readonly="readonly" data-fieldName="CREATE_DATE" /></td>
+								</tr>
+								
+								<tr>
+									<th align="center" nowrap="nowrap" colspan="2">审批状态</th>
+									<td nowrap="nowrap"><select style="border: none;outline: none;appearance:none;-moz-appearance:none;-webkit-appearance:none;-ms-appearance:none;"
+											disabled="disabled" data-fieldName="CHECK_STATUS" data-Type="oemDict" data-dictCode="2020" ></select></td>
+								</tr>
+							</table>
+						</div>
+						<div class="panel-footer">
+							<div style="text-align:center">
+								<a data-goback="page" href="vehicle/allotManage/vehicleTransferConfirm/vehicleTransferConfirmInit.html"
+								class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>	
+							</div>						
+						</div>
+					</div>
+			</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	$("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){
+		var flag = $("#transRegionalFlag").val();
+		if(flag == "0"){			
+			$(".outBig").css("display","none");
+			$(".inBig").css("display","none");
+			$(".inSmall").css("display","none");
+		}else if(flag == "1"){
+			$(".inBig").css("display","none");
+			$(".outBig").css("display","none");
+		}
+		
+	});
+});
+</script>

@@ -1,0 +1,167 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">问题新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+
+				<div class="panel-body" data-parentTable ="partInfoTable">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">问题编号</label>
+								<div class="col-xs-8 ">
+									<input id="quotedAmount" name="questionCode" data-fieldName="QUESTION_CODE" class="form-control required systemCode"  type="text"  maxlength="6" minlength="6"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">问题类型</label>
+								<div class="col-xs-8 ">
+									<select id="quesType" name="questionType"
+									class="bs-select form-control required" data-dictCode="1132" 
+									data-value=""></select>
+					 			</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">问题名称</label>
+								<div class="col-xs-8 ">
+									<input id="questName" name="questionName"  class="form-control required"  type="text" />
+								</div>
+							</div>
+						</div>
+				
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">问题内容</label>
+								<div class="col-xs-8 ">
+									<input id="quesContent" name="questionContent"  class="form-control "   type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">问题说明</label>
+								<div class="col-xs-8 ">
+									<input id="quesDesc" name="questionDesc" class="form-control "   type="text" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">启用</label>
+								<div class="col-xs-8 ">
+									<select id="isValid" name="isValid" data-existsDefault = "false"
+									class="bs-select form-control " data-dictCode="1278" 
+									data-value="12781002"></select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">统计报表</label>
+								<div class="col-xs-8 ">
+									<select id="isStatReport" name="isStatReport" data-existsDefault = "false"
+									class="bs-select form-control " data-dictCode="1278" 
+									data-value="12781002"></select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">OEM下发</label>
+								<div class="col-xs-8 ">
+									<select id="downTag" name="downTag"  disabled ="disabled"
+									class="bs-select form-control " data-dictCode="1278" 
+									data-value="12781002"></select>
+								</div>
+							</div>
+						</div>				
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">必填项</label>
+								<div class="col-xs-8 ">
+									<select id="isMustFilled" name="isMustFilled" data-existsDefault = "false"
+									class="bs-select form-control " data-dictCode="1278" 
+									data-value="12781002"></select>
+								</div>
+							</div>
+						</div>										
+						
+						<!-- <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"></label>
+								<div class="col-xs-8 ">
+									<input type="checkbox"  name="isValid" id="isValid"  data-dictCode="1057" data-dictLabel="启用"   />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"></label>
+								<div class="col-xs-8 ">
+									<input type="checkbox" name="isStatReport" id="isStatReport" data-dictCode="1057" data-dictLabel="统计报表" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"></label>
+								<div class="col-xs-8 ">
+									<input type="checkbox" name="downTag" id="downTag" data-dictCode="1057" data-dictLabel="OEM下发"    disabled="disabled"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"></label>
+								<div class="col-xs-8 ">
+									<input type="checkbox" name="isMustFilled" id="isMustFilled" data-dictCode="1057" data-dictLabel="必填项" />
+								</div>
+							</div>
+						</div> -->
+					</div>
+				</div>
+			</div>	
+				
+			<div class="modal-footer center-block">
+			<a data-url="/questionnaire/addQuestions" data-model="customer" data-method="POST"
+				data-callBack="true" class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> <a
+				data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+			</div>
+		</div>
+	
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",
+			function(event, container) {
+				//新增页面回调函数
+				$("a[data-callBack='true']", container).on("callBack.dms",
+						function(event, response) {
+							//关闭窗口
+							$("a[data-dismiss='modal']", container).click();
+							//刷新表格
+							$("#questions", getElementContext()).dmsTable()
+									.refreshTableWithForm();
+						});
+			});
+</script>

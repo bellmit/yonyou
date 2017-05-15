@@ -1,0 +1,205 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-4 ">
+					<div class="form-group">
+						<label class="control-label col-xs-4">销售顾问</label>
+						<div class="col-xs-8">
+							 <select id="SOLD_BY" name="SOLD_BY" 
+									class="bs-select form-control"
+									data-url="/basedata/employees/-1/salesConsultant"
+									data-model="manage" data-labelValue="USER_ID" 
+									data-lableDesc="USER_NAME" >
+								</select>
+						</div>
+					</div>
+				</div>
+		<!-- 		
+				<div class="col-xs-12 col-sm-6 col-md-4 ">
+					<div class="form-group">
+						<label class="control-label col-xs-4">查询条件</label>
+						<div class="col-xs-8">
+							     <select class="bs-select form-control"  id="dynamicSelect" name="dynamicSelect" >  
+								    </select>  
+						</div>
+					</div>
+				</div> -->
+				
+				<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<div class="col-xs-12">
+		                            <input id="isCheck" name="isCheck" type="checkbox"
+										data-dictCode="5033" data-dictLabel="是否选中" data-value="50331001"/>
+							</div>
+						</div>
+				</div>
+				
+
+
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a class="btn blue" data-onclickEvent="true"> <i class="fa icon-search"></i>查询
+			                </a>
+						 	<a href="javascript:;" class="btn btn-sm blue hidden"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn btn-sm blue "><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">留存订单简表</div>
+				<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+				<a href="javascript:;" data-url="/keepOrder/remainingOrderDetail/export/excel" data-model="report" data-method="downLoad" data-toggle="confirmation"
+								class="btn btn-outline " ><i class="fa fa-download"></i>导出</a>
+				</div>
+		   </div>
+		</div>
+		<div class="panel-body" id="saletabl">
+			<table class="table table-striped table-bordered table-hover table-responsive" id="dms_table"></table>
+		</div>
+	</div>
+	
+	 <div class="panel panel-default table-panel">
+		<div class="panel-body" id="stocktabl">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table2"></table>
+		</div>
+	</div>
+
+</div>
+<script type="text/javascript">
+ $(document).one("onload.dms",function(event,container){
+ 	var S_column1=[];
+	var S_column2=[];
+	var M_column1=[];
+	var M_column2=[];
+	var initPagtable = function(column1,column2) {
+	//	console.log("----------------------列"+JSON.stringify(column1));
+			new Datatable().initPagination({
+				src : "dms_table",
+				rowID:"RO_ID",
+				container:container,
+				url : dmsCommon.getDmsPath()["report"] + "/keepOrder/remainingOrderDetail",
+				sortName : "", 
+				sortOrder : "asc",
+				autoHeight:false,
+				isQueryFirst:false,
+				mergeTotal:{
+					megerCellNumber:1,
+					megerCellName:"合计"
+				},
+				columns : column1
+			});
+			
+			new Datatable().initPagination({
+				src : "dms_table2",
+				rowID:"RO_ID",
+				container:container,
+				url : dmsCommon.getDmsPath()["report"] + "/keepOrder/remainingOrderDetail/item",
+				sortName : "", 
+				sortOrder : "asc",
+				autoHeight:false,
+				isQueryFirst:false,
+				
+				columns : column2
+			});
+	};
+	var  LoadedRequestColu= function(column1,column2) {
+		 if(column1.length<=1){
+			// console.log("----------------------表格加载执行了请求");
+			 dmsCommon.ajaxRestRequest({
+					url : dmsCommon.getDmsPath()["report"] + "/keepOrder/remainingOrderDetail/quryModel",
+					type : 'GET',
+					data :"isCheck="+$("[name='isCheck']:checked",container).val(),
+					sucessCallBack : function(data) {
+						 columnData(column1,column2,data);
+					}
+				}); 
+		 }else{
+			 initPagtable(column1,column2);
+		 }
+	};
+	var  columnData= function(column1,column2,data) {
+		$.each(data,function(n,value) {
+			column1.push( {field : ''+value.CODE+'',title : ''+value.NAME+''});
+			column2.push( {field : ''+value.CODE+'',title : ''+value.NAME+''});
+		 }); 
+			column1.push( {field : "countSOLD",title : "合计"});
+			column2.push( {field : "countSOLD",title : "合计"});
+		initPagtable(column1,column2);
+		 $("div.query-btn i.fa-search",container).click();
+	};
+	+function(){
+	
+		S_column1.push( {field : "USER_NAME",title : "销售顾问",minWidth:20});
+		S_column2.push( {field : "stock",title : "库存",minWidth:20,inputHiddenFormat : {defaultValue:"库存数量"}});
+		M_column1.push( {field : "USER_NAME",title : "销售顾问",minWidth:20});
+		M_column2.push( {field : "stock",title : "库存",minWidth:20,inputHiddenFormat : {defaultValue:"库存数量"}})
+		initPagtable(S_column1,S_column2);
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			 $("#saletabl",container).children().remove();
+			 $("#saletabl",container).append(' <table class="table table-striped table-bordered table-hover table-responsive" id="dms_table"></table>');
+			 $("#stocktabl",container).children().remove();
+			 $("#stocktabl",container).append(' <table class="table table-striped table-bordered table-hover table-responsive" id="dms_table2"></table>');
+			 if($("[name='isCheck']",container).val()){
+				// console.log("----------------------[name='isCheck']列"+$("[name='isCheck']",container).val());
+			 }
+			 if($("[name='isCheck']:checked",container).val()=='50331001'){
+	        	  LoadedRequestColu(S_column1,S_column2);
+	          }else if($("[name='isCheck']:checked",container).val()=='50331002'){
+	        	  LoadedRequestColu(M_column1,M_column2);
+	          }else{
+	        	  
+	          }
+			 $("div.query-btn i.fa-search",container).click();
+		});
+		
+		$("[name='isCheck']",container).bindChange(function(obj){
+	          $("[name^='isCheck']",container).each(function () {
+				  if (this != obj)
+					  if(!$(obj).prop("checked")){
+						  $(this).prop("checked",true)
+					  }
+					 else $(this).prop("checked",false)
+			    });
+				 $("#saletabl",container).children().remove();
+				 $("#saletabl",container).append(' <table class="table table-striped table-bordered table-hover table-responsive" id="dms_table"></table>');
+				 $("#stocktabl",container).children().remove();
+				 $("#stocktabl",container).append(' <table class="table table-striped table-bordered table-hover table-responsive" id="dms_table2"></table>');
+	          if($("[name='isCheck']:checked",container).val()=='50331001'){
+	        	  initPagtable(S_column1,S_column2);
+	        	  $("div.query-btn i.fa-search",container).click();
+	          }else if($("[name='isCheck']:checked",container).val()=='50331002'){
+	        	  initPagtable(M_column1,M_column2);
+	        	  $("div.query-btn i.fa-search",container).click();
+	          }else{
+	        	  
+	          }
+	         
+		});
+	
+	}();
+/* 	$(function() {
+	    console.log("----------------------");
+	})
+ */
+
+/* 	//动态刷新下拉框的值
+	var selectData = new Array();
+	selectData.push({id:"S",name:"按车系查询"});
+	selectData.push({id:"M",name:"按车型查询"});
+	dmsDict.refreshSelectByData($( "#dynamicSelect" ,container),selectData,"id","name"); */
+
+
+}); 
+</script>

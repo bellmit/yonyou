@@ -1,0 +1,180 @@
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">日访问活动计划</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+					<a class="btn btn-outline"
+						data-url="customer/potentialcus/potentialCusFollow/addPoteCusFollow.html"
+						data-toggle="modal" data-width="modal-lg"  data-validateUrl="customer/potentialcus/potentialCusFollow/addPoteCusFollow.html" data-validateModel="customer"  data-validateMethod=""> <i
+						class="fa fa-plus-square"></i> 新增
+					</a> 
+					<a class="btn btn-outline" data-beforeShowEvent="true"
+						data-url="customer/potentialcus/potentialCusFollow/searchBigCusIntHis.html"
+						data-toggle="modal" data-width="modal-lg"> <i
+						class="fa fa-plus-square"></i>大客户意向
+					</a> 
+					<a class="btn btn-outline" data-url="customer/potentialcus/potentialCusFollow/setSoldBy.html"  id="soldDBtn"
+							data-toggle="modal"  data-width="modal-sm" data-beforeShowEvent="true" data-validateUrl="customer/potentialcus/potentialCusFollow/setSoldBy.html" data-validateModel="customer"  data-validateMethod=""> <i class="fa fa-plus-square"></i> 延迟再分配
+					</a>
+					<a data-url="/customerManage/salesPromotion/export/excel" data-model="customer" data-method="downLoad"  data-width="modal-sm" class="btn btn-outline" data-toggle="confirmation" data-validateUrl="/customerManage/salesPromotion/export/excel" data-validateModel="customer"  data-validateMethod="downLoad"><i  class="fa fa-download"></i>导出</a> 
+				
+					<a href=""
+						class="btn  btn-outline btn-circle btn-sm dropdown-toggle"
+						data-toggle="dropdown" data-hover="dropdown" id="dropdown_menucoler"
+						data-close-others="true"> 颜色说明 <span class="fa fa-angle-down">
+					</span>
+					</a>
+
+					<ul class="dropdown-menu pull-right">
+					     <li><a href="javascript:;"> <span
+								class="label label-sm label-black label-success"> 浅绿色：未到跟进日期</span>
+
+						</a></li>
+						<li><a href="javascript:;"> <span
+								class="label label-sm label-black label-warning"> 浅黄色：当日跟进</span>
+
+						</a></li>
+						<li><a href="javascript:;"> <span
+								class="label label-sm label-black label-danger"> 浅红色：超期</span>
+						</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["customer"] + "/customerManage/salesPromotion/follow/tab1",
+		rowID : "ITEM_ID",
+		sortName : "CREATED_AT",
+		sortOrder : "desc",
+		checkboxHeader:true, //全选框
+		selectItemName:"ITEM_ID",
+		undefinedText : "",
+		autoHeight:false,
+		columns : [ 
+		    {checkbox:true},
+		    {field : "ITEM_ID",title : "操作",operateFormat : [
+                   {type:"edit",url:"customer/potentialcus/potentialCusFollow/editPoteCusFollow.html",openWidth:"modal-lg",title:"修改",isShow:function(value, row, index){
+                	   var promResult=row.PROM_RESULT;
+                	   if(promResult==''||promResult==null){
+                	   	   return true;
+                	   }else{
+                	   	   return false;
+                	   }
+                   },attr:'data-validateUrl="customer/potentialcus/potentialCusFollow/editPoteCusFollow.html" data-validateModel="customer"  data-validateMethod=""'}, 
+                   /* {type:"detail",url:"customer/potentialcus/potentialCusFollow/editPoteCusFollow.html",openWidth:"modal-lg",title:"明细",operateIcon:'<i class="fa fa-lg fa-list-alt"></i>'}, */
+                   {type:"detail",url:"customer/potentialcus/potentialCusFollow/editCusInfo.html",openWidth:"modal-lg",title:"查看客户",operateIcon:'<i class="fa fa-lg fa-user-plus"></i>'},
+                  {type:"del",url:"/customerManage/salesPromotion/{[ITEM_ID]}",model:"customer",callBack:function(response){
+                	   $("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+                   },isShow:function(value, row, index){
+                	   var promResult=row.PROM_RESULT;
+                	   var createType=row.CREATE_TYPE;
+                	   if(promResult==''||promResult==null||promResult=='13341003'){
+                		   if(createType=='13291001'){
+                			   return false;
+                		   }else{
+                			   return true;
+                		   }
+                	   	  
+                	   }else{
+                	   	   return false;
+                	   }
+                   }} 
+               ]
+            }, 
+            {field : "CREATE_TYPE",title : "活动类型",codeFormat : {type:"dict",codeType:"1329"}},
+            {field : "CUSTOMER_NO",title : "客户编号"},
+            {field : "BOOKING_CUSTOMER_TYPE",title : "客户是否接受邀约",codeFormat : {type:"dict",codeType:"1278"}},
+            {field : "BOOKING_DATE",title : "邀约日期",dateFormat : {format:"YYYY-MM-DD"}},
+            {field : "CUSTOMER_NAME",title : "客户名称"},
+            {field : "CONTACTOR_NAME",title : "联系人"},
+            {field : "PHONE",title : "电话"},            
+            {field : "MOBILE",title : "手机"},
+            {field : "PRIOR_GRADE",title : "促进前客户级别", codeFormat : {type:"dict",codeType:"1310"}},
+            {field : "NEXT_GRADE",title : "促进后客户级别", codeFormat : {type:"dict",codeType:"1310"}},
+            {field : "SCHEDULE_DATE",title : "计划日期",dateFormat : {format:"YYYY-MM-DD"}},
+            {field : "ACTION_DATE",title : "执行日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+            {field : "PROM_WAY",title : "跟进方式", codeFormat : {type:"dict",codeType:"1325"}},
+            {field : "PROM_CONTENT",title : "跟进内容", inputHiddenFormat : {}},
+            {field : "PROM_RESULT",title : "跟进结果", codeFormat : {type:"dict",codeType:"1334"}},
+            {field : "SCENE",title : "经过情形", inputHiddenFormat : {}},
+            {field : "AUDITING_REMARK",title : "审核意见", inputHiddenFormat : {}},
+            {field : "NEXT_PROM_DATE",title : "下次预定时间",dateFormat : {format:"YYYY-MM-DD"}},
+            {field : "NEXT_BOOKING_DATE",title : "预计下次来店日期",dateFormat : {format:"YYYY-MM-DD"}},
+            {field : "USER_NAME",title : "销售顾问",inputHiddenFormat : {hiddenField:"SOLD_BY"}},
+            {field : "BRAND_NAME",title : "意向品牌"},
+            {field : "SERIES_NAME",title : "意向车系"},
+            {field : "MODEL_NAME",title : "意向车型"},
+            {field : "CONFIG_NAME",title : "意向配置"},
+            {field : "COLOR_NAME",title : "意向颜色"},
+            {field : "INTENT_MODEL",title : "意向车型",visible:false, inputHiddenFormat : {}},
+            {field : "INTENT_SERIES",title : "意向车系",visible:false, inputHiddenFormat : {}},
+            {field : "INTENT_COLOR",title : "意向颜色",visible:false, inputHiddenFormat : {}},
+            {field : "INTENT_BRAND",title : "意向品牌",visible:false, inputHiddenFormat : {}},
+            {field : "INTENT_CONFIG",title : "意向配置",visible:false, inputHiddenFormat : {}},
+            {field : "LAST_SCENE",title : "上次跟进的经过情形", inputHiddenFormat : {}},
+            {field : "REAL_VISIT_ACTION",title : "实际到店动作", codeFormat : {type:"dict",codeType:"3333"}},  
+            {field : "LMS_REMARK",title : "LMS校验反馈", inputHiddenFormat : {}},
+            {field : "IS_BIG_CUSTOMER",title : "是否大客户", codeFormat : {type:"dict",codeType:"1278"}}
+           /*  {field : "REMARK",inputField:"remark",title : "备注",inputTextFormat : {validate:{validateClass:"required",validateAttr:' maxlength="120"'}}} */
+         ],	onLoadSuccess : function() {
+			var rownu = $("#dms_table",container).dmsTable().getTableRows();
+			$("tbody>tr",container).each(function(indexTr,trItem){
+				var row = $("#dms_table",container).dmsTable().getRowDataByIndex(indexTr);
+				if(row!=undefined&&row!=null&&indexTr<rownu){
+					if(row["PROM_RESULT"]==null||row["PROM_RESULT"]==undefined||row["PROM_RESULT"]==''||row["PROM_RESULT"]==0){
+						if((formatDate(row["SCHEDULE_DATE"])<formatDate(new Date(),"YYYY-MM-DD"))){
+							$("tr[data-index='"+indexTr+"']",container).attr("class","danger");
+						}
+						else if((formatDate(row["SCHEDULE_DATE"])==formatDate(new Date(),"YYYY-MM-DD"))){
+							$("tr[data-index='"+indexTr+"']",container).attr("class","warning");
+						}else if((formatDate(row["SCHEDULE_DATE"])>formatDate(new Date(),"YYYY-MM-DD"))){
+							$("tr[data-index='"+indexTr+"']",container).attr("class","success");
+						}
+					}
+				
+				}
+
+			});
+		} 
+	});
+	//弹出页面打开前执行函数
+	$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+		var bstatus=false;
+		var selectRow = $("#dms_table",container).dmsTable().getSelections();
+		if(!selectRow){
+			dmsCommon.tip({status:"warning",msg:"请单击选择表格数据"});
+			returnResult.status = false;
+			return ;
+		}
+	 	 $(selectRow).each(function(e){
+	 		
+	   		 if(event.target.id=='soldDBtn'){
+	   			if((formatDate(selectRow[e].SCHEDULE_DATE)>=formatDate(new Date(),"YYYY-MM-DD"))){
+	   				bstatus=true;
+				} 
+	   		 }
+			}); 
+	 	 if(bstatus){
+	 		dmsCommon.tip({status:"warning",msg:"请选择超期的跟进活动进行延迟再分配!"});
+			returnResult.status = false;
+			return ;
+	 	 }
+		returnResult.status = true;
+	});
+	$(function(){
+		 $("#dropdown_menucoler").on("mouseenter mouseleave", function () {
+			 $(this).dropdown('toggle');
+		 });
+	});
+});	
+</script>

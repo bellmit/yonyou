@@ -1,0 +1,256 @@
+<div class="dms-edit ajaxrest" data-url="/warrantyTypeAct/queryActivity/{[AID]}" data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">活动编号</label>
+								<div class="col-xs-8">
+									<input type="hidden" id="id" name="id" data-fieldName="ID">
+									<input type="hidden" id="actId" name="actId" data-fieldName="ID">
+									<input type="hidden" id="isAct" name="isAct" value="1">
+									<input type="text" class="form-control required" maxlength="5"
+									id="actCode" name="actCode" data-fieldName="ACT_CODE">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">活动名称</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control required" id="actName" name="actName"  
+									data-fieldName="ACT_NAME" maxlength="30" />
+								</div>
+							</div>
+						</div>
+												<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">开始时间</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker" data-defaultToday = "false">
+										<input id="beginTime" name="beginTime" readonly data-fieldName="BEGIN_TIME"
+											class="form-control required" type="text" value="" /> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">结束时间</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker" data-defaultToday = "false">
+										<input id="endTime" name="endTime" readonly data-fieldName="END_TIME"
+											class="form-control required" type="text" value="" /> <span
+											class="input-group-btn" >
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-xs-2">排他规则</label>
+							<div class="col-xs-8">
+								<label class="radio-inline">
+									<input type="checkbox" id="isOptLock" name="isOptLock" 
+									data-fieldName="IS_OPT_LOCK" data-isinit="true" value="10041001"><span>操作代码排他</span>
+								</label>
+								<label class="radio-inline">
+									<input type="checkbox" id="isPtLock" name="isPtLock" 
+									data-fieldName="IS_PT_LOCK" data-isinit="true" value="10041001"><span>零部件排他</span>
+								</label>
+							</div>
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/warrantyTypeAct/updateAct" data-model="vehicle" data-method="PUT" data-callBack="true" 
+			class="btn blue" data-toggle="confirmation"><i class="fa fa-save"></i>保存</a>
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+<div class="panel panel-default table-panel">
+	<div class="modal-header">
+		<div class="modal-title">保修参数清单 </div>
+		<div class="btn-group btn-group-sm">
+			<a class="btn btn-outline" data-url="vehicle/afterSales/warranty/warrantyTypeParmAdd.html"
+				data-width="modal-lg" data-toggle="modal"> <i
+				class="fa fa-plus-square"></i> 新增
+			</a>
+		</div>
+	</div>
+	<div class="panel-body">
+		<table class="table table-striped table-bordered table-hover table-responsive" id="parmList"></table>
+	</div>
+</div>
+<div class="panel panel-default table-panel" id="bugdiv" >
+	<div class="modal-header">
+		<div class="modal-title">故障代码清单  </div>
+		<div class="btn-group btn-group-sm">
+			<a class="btn btn-outline" data-url="vehicle/afterSales/warranty/warrantyTypeBugAdd.html"
+				data-width="modal-lg" data-toggle="modal"> <i
+				class="fa fa-plus-square"></i> 新增
+			</a>
+		</div>
+	</div>
+	<div class="panel-body">
+		<table class="table table-striped table-bordered table-hover table-responsive" id="bugList"></table>
+	</div>
+</div>
+<div class="panel panel-default table-panel" id="operdiv" >
+	<div class="modal-header">
+		<div class="modal-title">操作代码清单 </div>
+		<div class="btn-group btn-group-sm">
+			<a class="btn btn-outline" data-url="vehicle/afterSales/warranty/warrantyTypeOperAdd.html"
+				data-width="modal-lg" data-toggle="modal"> <i
+				class="fa fa-plus-square"></i> 新增
+			</a>
+		</div>
+	</div>
+	<div class="panel-body">
+		<table class="table table-striped table-bordered table-hover table-responsive" id="operList"></table>
+	</div>
+</div>
+<div class="panel panel-default table-panel" id="partdiv" >
+	<div class="modal-header">
+		<div class="modal-title">零部件清单 </div>
+				<div class="btn-group btn-group-sm">
+			<a class="btn btn-outline" data-url="vehicle/afterSales/warranty/warrantyTypePartAdd.html"
+				data-width="modal-lg" data-toggle="modal"> <i
+				class="fa fa-plus-square"></i> 新增
+			</a>
+		</div>
+	</div>
+	<div class="panel-body">
+		<table class="table table-striped table-bordered table-hover table-responsive" id="partList"></table>
+	</div>
+</div>
+
+</div>
+
+<script type="text/javascript">
+
+$(document).one("onload.dms",function(event,container){
+	//新增页面的回调函数
+	$("a[data-callBack='true']", container).on(	"callBack.dms",	function(event, response) {
+		//关闭窗口
+		$("a[data-dismiss='modal']", container).click();
+		//刷新表格
+		$("#actList", getElementContext()).dmsTable().refreshTableWithForm();	
+	});
+	
+		 new Datatable().initPagination({
+				src : "parmList",
+				container:container,
+				url : dmsCommon.getDmsPath()["vehicle"] + "/warrantyTypeAct/queryWarrantyParm/{[AID]}",
+				rowID : "PID",
+				sortName : "PID",
+				sortOrder : "asc",
+				autoHeight:false,
+				pageSize:5,
+				columns : [ 
+ 							{field :"PID",title : "操作",operateFormat : [
+							                                           {type:"del",title:"删除",url:"/warrantyTypeNotAct/deleteParm/{[PID]}",model:"vehicle",method:"DELETE",operateIcon:'<i class="fa fa-lg fa-minus-square"></i>',
+							                                        	   callBack:function(response){$("#parmList",getElementContext()).dmsTable().refreshTableWithForm();},
+							                                           }
+							                                           ]
+ 							},
+							{field : "MVS",title : "MVS"},
+							{field : "WR_DAYS",title : "保修天数"},
+							{field : "WR_RANGE",title : "保修里程"},
+							{field : "WR_NUM",title : "单车次数"}
+				]
+				});
+			 
+ 			 new Datatable().initPagination({
+				src : "bugList",
+				container:container,
+				url : dmsCommon.getDmsPath()["vehicle"] + "/warrantyTypeAct/queryWarrantyBug/{[AID]}",
+				rowID : "BID",
+				sortName : "BID",
+				sortOrder : "asc",
+				autoHeight:false,
+				pageSize:5,
+				columns : [ 
+ 							{field :"BID",title : "操作",operateFormat : [
+							                                           {type:"del",title:"删除",url:"/warrantyTypeNotAct/deleteBug/{[BID]}",model:"vehicle",method:"DELETE",operateIcon:'<i class="fa fa-lg fa-minus-square"></i>',
+							                                        	   callBack:function(response){$("#bugList",getElementContext()).dmsTable().refreshTableWithForm();},
+							                                           }
+							                                           ]
+ 							},
+				    {field : "BUG_CODE",title : "故障代码"}, 
+					{field : "BUG_NAME",title : "故障描述"},
+					{field : "MVS",title : "MVS"},
+					{field : "TAG",title : "召回标记",codeFormat : {type:"oemDict",codeType:"8036"}}
+				]
+				});
+			 
+			 new Datatable().initPagination({
+					src : "operList",
+					container:container,
+					url : dmsCommon.getDmsPath()["vehicle"] + "/warrantyTypeAct/queryWarrantyOper/{[AID]}",
+					rowID : "OID",
+					sortName : "OID",
+					sortOrder : "asc",
+					autoHeight:false,
+					pageSize:5,
+					columns : [ 
+								{field :"OID",title : "操作",operateFormat : [
+								                                           {type:"del",title:"删除",url:"/warrantyTypeNotAct/deleteOper/{[OID]}",model:"vehicle",method:"DELETE",operateIcon:'<i class="fa fa-lg fa-minus-square"></i>',
+								                                        	   callBack:function(response){$("#operList",getElementContext()).dmsTable().refreshTableWithForm();},
+								                                           }
+								                                           ]
+								},
+						{field : "OPT_CODE",title : "操作代码"}, 
+						{field : "OPT_NAME_CN",title : "操作描述"},
+						{field : "MVS",title : "MVS"},
+						{field : "TAG",title : "召回标记",codeFormat : {type:"oemDict",codeType:"8036"}}
+					]
+					});
+			 
+ 			 new Datatable().initPagination({
+					src : "partList",
+					container:container,
+					url : dmsCommon.getDmsPath()["vehicle"] + "/warrantyTypeAct/queryWarrantyPart/{[AID]}",
+					rowID : "PID",
+					sortName : "PID",
+					sortOrder : "asc",
+					autoHeight:false,
+					pageSize:5,
+					columns : [ 
+								{field :"PID",title : "操作",operateFormat : [
+									                                           {type:"del",title:"删除",url:"/warrantyTypeNotAct/deletePart/{[PID]}",model:"vehicle",method:"DELETE",operateIcon:'<i class="fa fa-lg fa-minus-square"></i>',
+									                                        	   callBack:function(response){$("#partList",getElementContext()).dmsTable().refreshTableWithForm();},
+									                                           }
+									                                           ]
+									},
+						{field : "PT_CODE",title : "零部件编号"}, 
+						{field : "PT_NAME",title : "零部件名称"},
+						{field : "MVS",title : "MVS"},
+						{field : "QTY",title : "数量"},
+						{field : "OPT_CODE",title : "操作代码"},
+						{field : "TAG",title : "召回标记",codeFormat : {type:"oemDict",codeType:"8036"}}
+					]
+					});
+});
+	
+</script>

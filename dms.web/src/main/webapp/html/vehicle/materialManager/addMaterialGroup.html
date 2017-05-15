@@ -1,0 +1,268 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">物料组信息新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">物料组代码</label>
+								<div class="col-xs-8">
+									<input id="groupCode" name="groupCode" class="form-control required systemCode" maxlength="30" type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">物料组名称</label>
+								<div class="col-xs-8">
+										<input id="groupName" name="groupName" class="form-control required"  maxlength="60" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6  " data-tableSelect="true">
+							<div class="form-group">
+								<label class="control-label col-xs-4">上级物料组代码</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+									<input id="parentGroupId" name="parentGroupId" type="hidden"
+										data-fieldName="parent_group_id" />
+									<input id="groupLevel" name=groupLevel type="hidden"
+										data-fieldName="group_level" />
+									<input id="parentGroupCode" readonly
+										name="parentGroupCode" class="form-control" type="text"
+										data-fieldName="parent_group_code" /> <span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="vehicle/materialManager/selectSuperMaterialGroup.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">物料组状态</label>
+								<div class="col-xs-8">
+									<select id="status" name="status" class="bs-select form-control required" data-type="oemDict" data-dictCode="1001" data-value="10011001" data-existsDefault="false"  >
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6   hidden" id="LV2">
+							<div class="form-group">
+								<label class="control-label col-xs-4">物料组类型</label>
+								<div class="col-xs-8">
+									<select id="groupType" name="groupType" class="bs-select form-control required" data-type="oemDict" data-dictCode="9008" data-existsDefault="false" >
+									</select>
+								</div>
+							</div>
+						</div>
+												
+						<div class="col-xs-12 col-sm-6   hidden" id="LV3_1">
+							<div class="form-group">
+								<label class="control-label col-xs-4">发动机排量</label>
+								<div class="col-xs-8">
+										<input id="wxEngine" name="wxEngine" class="form-control"  maxlength="10" type="text"/>
+								</div>
+							</div>
+						</div>
+												
+						<div class="col-xs-12 col-sm-6   hidden" id="LV3_2">
+							<div class="form-group">
+								<label class="control-label col-xs-4">燃油类型</label>
+								<div class="col-xs-8">
+									<select id="oileType" name="oileType" class="bs-select form-control" data-type="oemDict" data-dictCode="5055" >
+									</select>
+								</div>
+							</div>
+						</div>
+												
+						<div class="col-xs-12 col-sm-6   hidden" id="LV3_3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否参加预测</label>
+								<div class="col-xs-8">
+									<select id="ifForec" name="ifForec" class="bs-select form-control" data-type="oemDict" data-dictCode="1004" data-value="10041001" data-existsDefault="false">
+									</select>
+								</div>
+							</div>
+						</div>
+												
+						<div class="col-xs-12 col-sm-6   hidden" id="LV3_4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否官网</label>
+								<div class="col-xs-8">
+									<select id="isEc" name="isEc" class="bs-select form-control" data-type="oemDict" data-dictCode="1004" data-value="10041001" data-existsDefault="false">
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6   hidden" id="LV4_1">
+							<div class="form-group">
+								<label class="control-label col-xs-4">年款</label>
+								<div class="col-xs-8">
+										<input id="modelYear" name="modelYear" class="form-control required" maxlength="4" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6   hidden" id="LV4_2">
+							<div class="form-group">
+								<label class="control-label col-xs-4">标准配置</label>
+								<div class="col-xs-8">
+										<input id="otherOption" name="otherOption" class="form-control "  maxlength="30" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6   hidden" id="LV4_3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">其他配置</label>
+								<div class="col-xs-8">
+										<input id="otherOption" name="otherOption" class="form-control "  maxlength="30" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6   hidden" id="LV4_4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">本地配置</label>
+								<div class="col-xs-8">
+										<input id="localOption" name="localOption" class="form-control "  maxlength="30" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6   hidden" id="LV4_5">
+							<div class="form-group">
+								<label class="control-label col-xs-4">PC车款代码</label>
+								<div class="col-xs-8">
+										<input id="pcModleCode" name="pcModleCode" class="form-control "  maxlength="15" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6   hidden" id="LV4_6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">SpecialSerieCode</label>
+								<div class="col-xs-8">
+										<input id="specialSerieCode" name="specialSerieCode" class="form-control "  maxlength="3" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6   hidden" id="LV4_7">
+							<div class="form-group">
+								<label class="control-label col-xs-4">LowCposCode</label>
+								<div class="col-xs-8">
+										<input id="lowCposCode" name="lowCposCode" class="form-control "  maxlength="3" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6   hidden" id="LV4_8">
+							<div class="form-group">
+								<label class="control-label col-xs-4">CPOS描述</label>
+								<div class="col-xs-8">
+										<input id="modelName" name="modelName" class="form-control "  maxlength="30" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6   hidden" id="LV4_9">
+							<div class="form-group">
+								<label class="control-label col-xs-4">PC对应的车系</label>
+								<div class="col-xs-8">
+										<input id="pcModle" name="pcModle" class="form-control "  maxlength="6" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6   hidden" id="LV4_10">
+							<div class="form-group">
+								<label class="control-label col-xs-4">齿轮</label>
+								<div class="col-xs-8">
+										<input id="gear" name="gear" class="form-control "  maxlength="30" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6   hidden" id="LV4_11">
+							<div class="form-group">
+								<label class="control-label col-xs-4">发动机</label>
+								<div class="col-xs-8">
+										<input id="engine" name="engine" class="form-control "  maxlength="30" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6   hidden" id="LV4_12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">变速器</label>
+								<div class="col-xs-8">
+										<input id="transmission" name="transmission" class="form-control "  maxlength="30" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6   hidden" id="LV4_13">
+							<div class="form-group">
+								<label class="control-label col-xs-4">发动机描述</label>
+								<div class="col-xs-8">
+										<input id="engineDesc" name="engineDesc" class="form-control "  maxlength="50" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 hidden" id="LV4_14">
+							<div class="form-group">
+								<label class="control-label col-xs-4">变速器描述</label>
+								<div class="col-xs-8">
+										<input id="transmissionDesc" name="transmissionDesc" class="form-control "  maxlength="50" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/materialGroupMaintain" data-model="vehicle" data-method="POST"
+				data-callBack="true" class="btn blue"
+				data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+			</a> <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one("onload.dms",function(event,container){
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	});
+</script>

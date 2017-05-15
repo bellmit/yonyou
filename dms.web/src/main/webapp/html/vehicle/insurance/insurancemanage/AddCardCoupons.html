@@ -1,0 +1,160 @@
+<div class="dms-add"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">新增卡券类型</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">卡券类型ID</label>
+								<div class="col-xs-8">
+									<input type="text" class="bs-select form-control"
+										id="voucherNo" name="voucherNo" /> <input type="hidden"
+										class="form-control" id="groupIds" name="groupIds" /> <input
+										type="hidden" class="form-control" id="groupIds2"
+										name="groupIds2" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">卡券类型名称</label>
+								<div class="col-xs-8">
+									<input type="text" class="bs-select form-control"
+										id="voucherName" name="voucherName" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">卡券类型</label>
+								<div class="col-xs-8">
+									<select id="voucherType" name="voucherType"
+										class="bs-select form-control" data-dictCode="9124"
+										data-type="oemDict">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">单张抵扣金额</label>
+								<div class="col-xs-8">
+									<input type="text" class="bs-select form-control"
+										id="singleAmount" name="singleAmount" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">单次最多发放数量</label>
+								<div class="col-xs-8">
+									<select id="issueNumber" name="issueNumber"
+											class="bs-select form-control"
+											data-url="" data-model="part">
+										<option value="">请选择</option>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+									</select>
+								</div>
+							</div>
+						</div>
+							<div class="col-xs-12 col-sm-6 ">
+								<div class="form-group">
+									<label class="control-label col-xs-4 ">发券标准</label>
+									<div class="col-xs-8">
+										<select id="voucherStandard" name="voucherStandard"
+											class="bs-select form-control" data-dictCode="9126"
+											data-type="oemDict">
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 ">
+								<div class="form-group">
+									<label class="control-label col-xs-4 ">使用范围</label>
+									<div class="col-xs-8">
+										<select id="useRange" name="useRange"
+											class="bs-select form-control" data-dictCode="9125"
+											data-type="oemDict">
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12  col-sm-6" data-tableSelect="true">
+								<div class="form-group">
+									<label class="control-label col-xs-4">维修类型</label>
+									<div class="col-xs-8">
+										<div class="input-group">
+											<input id="codeDesc" readonly name="codeDesc"
+												class="form-control" type="text" data-fieldName="CODE_DESC" />
+											<input type="hidden" id="codeId" readonly name="codeId"
+												class="form-control" type="text" data-fieldName="CODE_ID" />
+											<span class="input-group-btn">
+												<button class="btn default btn-sm" type="button"
+													data-url="vehicle/insurance/insurancemanage/codeDescQuery.html"
+													data-toggle="modal" data-width="modal-lg">
+													<i class="fa fa-list-alt"></i>
+												</button>
+												<button class="btn default input-clear" type="button">
+													<i class="fa fa-close"></i>
+												</button>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 ">
+								<div class="form-group">
+									<label class="control-label col-xs-4 col-sm-2">有效日期</label>
+									<div class="col-xs-8 col-sm-10">
+										<div class="input-group input-daterange" data-opens="left">
+											<input type="text" class="form-control" readonly
+												id="maintainStartdate" name="maintainStartdate"> <span
+												class="input-group-addon">至</span> <input type="text"
+												class="form-control" readonly id="maintainEnddate"
+												name="maintainEnddate"> <span
+												class="input-group-btn">
+												<button class="btn default input-clear" type="button">
+													<i class="fa fa-close"></i>
+												</button>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<div class="modal-footer center-block">
+			<a data-onclickEvent="true" class="btn blue" >
+			<i class="fa fa-save"></i>保存</a> 
+			<a data-dismiss="modal"class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+				var row=  $('.form-horizontal',container).serializeFormJson();
+				$("#cardCouponsTable", getParentModal(container)).dmsTable().appendRow(row);
+				//关闭窗口
+				$("a[data-dismiss='modal']",container).click();
+		});
+	})
+</script>
+

@@ -1,0 +1,534 @@
+<div class="dms-edit ajaxrest"
+	data-url="/basedata/users/gfkUser/{[USER_ID]}" data-model="manage"
+	data-pageInitCallBack="true">
+	<form class="form-horizontal">
+		<div class="panel panel-default ">
+			<div class="panel-heading">
+				<div class="pannel-name">用户权限编辑</div>
+				<div class="pannel-button">
+
+					<div class="btn-group btn-group-sm ">
+						<div class="query-btn">
+							<a data-url="manage/basedata/employeePermission/selectRolePermission.html" data-beforeShowEvent="true"
+								data-width="modal-mg" class="btn btn-outline hidden"  data-beforeShowRole="true"
+								data-toggle="modal"> <i class="fa fa-copy"></i>角色模板
+							</a>
+							<a data-url="manage/basedata/employeePermission/superChangePassword.html"
+								data-width="modal-mg" class="btn btn-outline" data-beforeShowEvent="true" data-beforeShowEvent1="true"
+								data-toggle="modal"> <i class="fa fa-user-secret"></i>修改密码
+							</a>
+							
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="row" >
+			<div class="col-xs-12 col-sm-6 col-md-3" data-tableSelect="true">
+				<div class="form-group">
+					<label class="control-label col-xs-4">员工编号</label>
+					<div class="col-xs-8">
+						<div class="input-group">
+						<input id="roleCode" name="roleCode" type="hidden"
+							data-fieldName="role_Code" />
+						<input id="employeeId" name="employeeId" type="hidden"
+							data-fieldName="employee_id" />
+						<input id="userId" name="userId" type="hidden"
+							data-fieldName="USER_ID" value="{[USER_ID]}" /> 
+							 <input id="employeeNo" readonly
+							name="employeeNo" class="form-control required" type="text"
+							data-fieldName="employee_no" /> <span
+								class="input-group-btn" >
+								<button class="btn default btn-sm" type="button"
+									data-url="manage/basedata/employeePermission/searemplRole.html"
+									data-toggle="modal" data-width="modal-lg">
+									<i class="fa fa-list-alt"></i>
+								</button>
+								<button class="btn default input-clear" type="button">
+									<i class="fa fa-close"></i>
+								</button>
+							</span>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">用户代码</label>
+					<div class="col-xs-8">
+					<input type="hidden" id="thisUserCode" name="thisUserCode" data-fieldName="user_code">
+						<input type="text" class="form-control required systemCode" data-autoUpper="false"  id="userCode" maxlength="30"
+							name="userCode" data-fieldName="user_code" >
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" data-tableSelect="true">
+				<div class="form-group">
+					<label class="control-label col-xs-4">用户姓名</label>
+					<div class="col-xs-8 ">
+						<input type="text" class="form-control" id="employeeName"
+							name="employeeName" data-fieldName="employee_name" >
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<div class="col-xs-12">
+						<input id="userStatus" name="userStatus" type="radio"  data-fieldName="user_status"  data-dictCode="1210" data-value="12101001" data-fieldName="user_status"/>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">是否客户经理</label>
+					<div class="col-xs-8">
+						<select id="isServiceAdvisor" name="isServiceAdvisor" class="bs-select form-control"
+							data-dictCode="1278" data-value="12781002">
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">是否销售顾问</label>
+					<div class="col-xs-8">
+						<select id="isConsultant" name="isConsultant" class="bs-select form-control"
+							data-dictCode="1278" data-value="12781002">
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" data-tableSelect="true">
+				<div class="form-group">
+					<label class="control-label col-xs-4 ">组织</label>
+					<div class="col-xs-8">
+						<div class="input-group">
+							<input id="orgName" name="orgName" data-fieldName="ORG_NAME" readonly class="form-control required"
+								type="text" /> <input id="orgCode" name="orgCode" type="hidden"
+								data-fieldName="org_code" /> <span class="input-group-btn">
+								<button class="btn default btn-sm" type="button"
+									data-url="manage/basedata/employee/selectDept.html"
+									data-toggle="modal" data-width="modal-md">
+									<i class="fa fa-sitemap"></i>
+								</button>
+								<button class="btn default input-clear" type="button">
+									<i class="fa fa-close"></i>
+								</button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- ----------------------------------- -->
+		<div data-info="refesh">
+			<!--  -->
+			<div class="panel-heading col-xs-4">
+				<div class="pannel-name ">菜单权限</div>
+
+			</div>
+			<!--  -->
+			<div class="panel-heading col-xs-4">
+				<div class="pannel-name ">客户信息操作权限</div>
+				<div class="pannel-button"></div>
+			</div>
+			<!--  -->
+			<div class="panel-heading col-xs-4">
+				<div class="pannel-name ">系统选项权限</div>
+
+			</div>
+			<!--  -->
+
+			<div class="panel-body col-xs-4 "
+				style="border: solid 1px #DDDDDD; height: 350px; overflow-y: scroll; overflow-x: hidden">
+
+				<div id="using_json_2"></div>
+				<div id="using_json_3"></div>
+
+			</div>
+			<div class="panel-body col-xs-4 "
+				style="border: solid 1px #DDDDDD; height: 350px; overflow-y: scroll; overflow-x: hidden">
+
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12">
+					<label></label>
+				</div>
+
+				
+				<div class="col-xs-8" id="roleMenuRangeDiv">
+						<input id="roleMenuRange" name="roleMenuRange" type="checkbox"
+							data-allFlag="false" data-displayStyle="vertical" data-url=""
+							data-alwaysRefresh="true" data-model="manage" data-alwaysRefresh="true"
+							data-labelValue="MENU_RANGE_ID" data-lableDesc="CODE_CN_DESC"
+							data-dictLabel="数据访问范围" data-check="range" />
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12">
+					<label></label>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12">
+					<label></label>
+				</div>
+
+				
+				<div class="col-xs-8 " id="roleMenuActionDiv">
+						<input id="roleMenuAction" name="roleMenuAction" type="checkbox"
+							data-allFlag="false" data-displayStyle="vertical" data-url=""
+							data-model="manage" data-labelValue="MENU_CURING_ID" data-alwaysRefresh="true"
+							data-lableDesc="ACTION_NAME" data-dictLabel="受控权限" />
+				</div>
+
+			</div>
+			<!-- 第四列 -->
+			<div class="panel-body col-xs-4 "
+				style="border: solid 1px #DDDDDD; height: 350px; overflow-y: scroll; overflow-x: hidden"
+				data-tableSelect="true">
+				
+				<div id="tree_2" class="tree-demo"> </div>
+
+				<input type="hidden" id="nowRole" name="nowRole" /> 
+				<input type="hidden" id="nowTree" name="nowTree" />
+				<input type="hidden" id="tree_2date" name="treeCtrlCode" />
+              <!--   <input type="hidden" id="treeMenuRange" name="treeMenuRange" /> -->
+				<div class="hidden" data-selectTable="true">
+					<input type="hidden" id="treeMenuAction" name="treeMenuAction" />
+				</div>
+				
+				<div class="hidden" data-selectRange="true">
+					<input type="hidden" id="treeMenuRange" name="treeMenuRange" />
+				</div>
+			</div>
+
+		</div>
+
+		<div class="form-actions">
+			
+			<a id="saveOrg" data-model="manage" data-method="PUT"
+				data-url="/basedata/users/permission" data-callBack="true"
+				class="btn blue" data-beforeRequest="true" data-toggle="confirmation"><i
+				class="fa fa-save"></i> 保存 </a> <a data-goback="page"
+				href="manage/basedata/employeePermission/searchEmployeePermission.html"
+				class="btn blue ajaxify"> <i class="fa fa-reply"></i>返回
+			</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	    var listTree=new Object();
+	    $("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){
+		    $('#treeMenuAction',container).data('listTree',listTree);
+	    	var menuIdBefore;
+			var menuId;
+	    	////控制usercode有无时的状态
+	        var thisUserCode = $("#thisUserCode",container).val();
+	    	if(thisUserCode!=null&&thisUserCode!=""){
+	    		$("#userCode",container).attr("readonly","readonly");
+	    		$("#userCode",container).attr("class","form-control");
+	    	} 
+	    	
+	    	$("#roleMenuActionDiv",container).hide();
+		    $("#roleMenuRangeDiv",container).hide();
+	    	var userId=$("#userId").val();
+			var userId="userId="+(isStringNull(userId)?-1:userId);
+
+			 dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["manage"]
+						+ "/basedata/users/userData",
+				type : 'GET',
+				data :userId,
+				
+				sucessCallBack : function(data) {
+					if(data.checkbox!=null){
+						$("div[data-tableSelect='true']",getElementContext()).initHtmlContent(data.checkbox);	
+					}
+
+					listTree.action=data.treeMenuAction;
+					listTree.range=data.treeMenuRange;//////
+					listTree.treejson=data.treejson;
+			    	
+					$('#using_json_2',container).jstree({
+						'core' : {
+
+							'data' : data.treejson
+						},
+						'types' : {  
+		                    "default" : {  
+		                        "icon" : "fa fa-folder icon-state-warning icon-lg"  
+		                    },  
+		                    "file" : {  
+		                        "icon" : "fa fa-file icon-state-warning icon-lg"  
+		                     }  
+		                }, 
+					
+					   'checkbox' : {  
+					        'keep_selected_style' : true, 
+					        'whole_node':false,
+					        'tie_selection':false 
+					          
+					    }, 
+					       
+						plugins : ["checkbox" , "changed","types","wholerow"]
+
+					});
+				}
+			}); 
+			 
+			 
+			 
+			 dmsCommon.ajaxRestRequest({
+					url : dmsCommon.getDmsPath()["manage"]+ "/basedata/userCtrl/{[USER_ID]}",
+					type : 'GET',			
+					sucessCallBack : function(data) {
+						$('#tree_2',container).jstree({
+							'core' : {
+								'data' : data.userCtrl
+							},
+
+						   'types' : {  
+			                    "default" : {  
+			                        "icon" : "fa fa-folder icon-state-warning icon-lg"  
+			                    },  
+			                    "file" : {  
+			                        "icon" : "fa fa-file icon-state-warning icon-lg"  
+			                     }  
+			                }, 
+						  'checkbox' : {  
+						        'keep_selected_style' : true,  
+						        'whole_node':false,
+						        'tie_selection':false  
+						    }, 
+						       
+							plugins : ["checkbox" , "changed","types","wholerow"]
+						});
+					}
+				}); 
+		
+		/////////////////////////////////////////////////////////
+			
+				
+		     $('#using_json_2',container).bind("activate_node.jstree", function (obj, e) {
+				    // 获取当前节点
+				    var currentNode = e.node;
+				});
+				 
+			 $('#using_json_2',container).bind("check_node.jstree", function (obj, e) {
+					 var nodes=$("#using_json_2").jstree("get_checked");
+					 listTree.treejson=nodes;
+					 $("#nowTree").val(listTree.treejson);
+				    // 处理代码
+				    // 获取当前节点
+				    var currentNode = e.node;
+				});
+						
+		    $('#using_json_2',container).bind('click.jstree', function(event) { 
+                 /* 
+		    	var ref = $(this).jstree(true),
+		        sel = ref.get_selected(); */		    	
+		    	 var treeMenuActionMap;
+				 var treeMenuRangeMap;///
+			     var eventNodeName = event.target.nodeName;
+			     menuId=JSON.stringify($(event.target).parents('li').attr('id'));
+			     menuId = menuId.replace(new RegExp("\"",'gm'),"");
+			     //获取选择的roleMenuAction 的值
+			     var obj=document.getElementsByName('roleMenuAction'); 
+			     //huoqu选中的checkbox
+			     var chickId=''; 
+			    	  for(var i=0; i<obj.length; i++){ 
+					        if(obj[i].checked) {
+					        	if(chickId==''){
+					        		chickId+=obj[i].value;
+					        	}else{
+					        		chickId+=','+obj[i].value; //如果选中，将value添加到变量s中 
+					        	}
+					        }
+					    }  
+			    //获取选择的roleRange 的值
+			    var objRange=document.getElementsByName('roleMenuRange');
+				//huoqu选中的checkbox
+				var chickIdRange=''; 
+				for(var i=0; i<objRange.length; i++){ 
+				    if(objRange[i].checked) {
+				       if(chickIdRange==''){
+				         chickIdRange+=objRange[i].value;
+				        }else{
+				         chickIdRange+=','+objRange[i].value; //如果选中，将value添加到变量s中 
+				        }
+				      }
+				   } 
+				
+			   treeMenuActionMap=menuIdBefore+"-"+chickId;
+			   treeMenuRangeMap=menuIdBefore+"-"+chickIdRange;///
+			   if(chickId!=''){
+			   var s5= $.jstree.reference("#using_json_2").is_parent(menuIdBefore);
+			       if(s5==false){	
+			        listTree.action=$.grep(listTree.action,function(value){		
+			    	return value.indexOf(menuIdBefore)==-1;
+			      });
+			    	
+			   	    listTree.action.push(treeMenuActionMap);
+			     }	    	   
+		      }
+			   
+			   if(chickIdRange!=''){
+		    	   var s5=  $.jstree.reference("#using_json_2").is_parent(menuIdBefore);
+		    	   if(s5==false){
+		    		   listTree.range=$.grep(listTree.range,function(value){	
+		    		   return value.indexOf(menuIdBefore)==-1;
+		    		});
+		    		   listTree.range.push(treeMenuRangeMap);
+		    	   } 
+		       }
+			  var s3= $.jstree.reference("#using_json_2").is_parent(menuId);
+				 if(s3==true){
+					 //不是子节点 
+					 $("#roleMenuActionDiv",container).hide();
+				     $("#roleMenuRangeDiv",container).hide();   
+				    }else{
+				    	//是子节点
+				        var ischecked= $.jstree.reference("#using_json_2").is_checked(menuId);
+				    	if(ischecked==true){
+				    		//是子节点 checkbox是被选中
+				    	 var s4=  $.jstree.reference("#using_json_2").is_selected(menuId);
+				    	 if(s4==true){
+				    		//是子节点 checkbox是被选中，是被选中
+				    		//判断之前选的有没有，有的话去input里面找 没有的话去数据库查
+				    	 var huancun=$.grep(listTree.action,function(value){		
+			    		 return value.indexOf(menuId)!=-1;
+			    		});
+				    	 var huancunRange=$.grep(listTree.range,function(value){	
+				    	 return value.indexOf(menuId)!=-1;
+				        });///
+				 		 var roleMenuActionObj = $("input[type='checkbox'][name^='roleMenuAction']:first",container);
+				 	     var roleMenuRangeObj = $("input[type='checkbox'][name^='roleMenuRange']:first",container);		 	        
+				 	     roleMenuActionObj.attr("data-url","/basedata/roles/roleMenuAction/"+menuId);
+				 	     roleMenuRangeObj.attr("data-url","/basedata/roles/roleMenuRange/"+menuId); 
+				 	     roleMenuActionObj.attr("data-value",huancun.join("").split("-")[1]);
+				 	     roleMenuRangeObj.attr("data-value",huancunRange.join("").split("-")[1]);/// 
+				 	     $("#roleMenuActionDiv",container).show();
+			 	         $("#roleMenuRangeDiv",container).show();
+				 	     dmsDict.initObject(roleMenuActionObj); 
+				 	     dmsDict.initObject(roleMenuRangeObj);
+				 	     
+				    	 }
+				    	 else{
+				    		 $("#roleMenuActionDiv",container).hide();
+						     $("#roleMenuRangeDiv",container).hide(); 
+				    		//是子节点 checkbox是被选中，没被选中
+				    	 }
+				    	}
+				    	else{
+				    		 $("#roleMenuActionDiv",container).hide();
+						     $("#roleMenuRangeDiv",container).hide(); 
+				    		//是子节点 checkbox没有被选中
+				    	}
+				    	
+				    }  
+				    menuIdBefore=menuId;
+			    });
+			  
+			    $("a[data-beforeRequest='true']",getElementContext()).on("beforeRequest.dms",function(event,returnResult){
+			    	
+			    	   var obj=document.getElementsByName('roleMenuAction'); 
+			    	   //huoqu选中的checkbox
+			    	   var chickId=''; 
+			    	   if(obj!=null){
+			    	       for(var i=0; i<obj.length; i++){ 
+			    	        if(obj[i].checked) {
+			    	        	if(chickId==''){
+			    	        		chickId+=obj[i].value;
+			    	        	}else{
+			    	        		chickId+=','+obj[i].value; //如果选中，将value添加到变量s中 
+			    	        	}
+			    	        }
+			    	      } 
+			    	   }
+			    	  var objRange=document.getElementsByName('roleMenuRange'); 
+				    	   //huoqu选中的checkbox
+				    	   var chickIdRange=''; 
+				    	   if(objRange!=null){
+				    	   for(var i=0; i<objRange.length; i++){ 
+				    	        if(objRange[i].checked) {
+				    	        	if(chickIdRange==''){
+				    	        		chickIdRange+=objRange[i].value;
+				    	        	}else{
+				    	        		chickIdRange+=','+objRange[i].value; //如果选中，将value添加到变量s中 
+				    	        	}
+				    	        }
+				    	     }  
+				    	   }
+			    	    var treeMenuActionMap;
+			    	    var treeMenuRangeMap;
+			    	    if(menuId!=null&&chickId!=''){
+			    	      treeMenuActionMap=menuId+"-"+chickId;	
+			    	    }
+			    	    if(menuId!=null&&chickIdRange!=''){
+			    	      treeMenuRangeMap=menuId+"-"+chickIdRange;	
+			    	    }
+			    	    var childListtreeMenuAction=$("#treeMenuAction").val();
+			    	    if(childListtreeMenuAction!=null&&childListtreeMenuAction!=''){
+			    	    	var childListtreeMenuActions=[];
+					    	childListtreeMenuActions=childListtreeMenuAction.split(";");
+					    	listTree.action=childListtreeMenuActions;    	
+			    	    }
+			    	    var childListtreeMenuRange=$("#treeMenuRange").val();
+			    	    listTree.action=$.grep(listTree.action,function(value){	
+			 			   return value.indexOf(menuId)==-1;
+			 			});
+			    	    listTree.range=$.grep(listTree.range,function(value){	
+				 		   return value.indexOf(menuId)==-1;
+				 		});
+			    	     if(treeMenuActionMap!=null){
+			    	       listTree.action.push(treeMenuActionMap);
+			    	     }
+			    	     if(treeMenuRangeMap!=null){
+			    	    	 listTree.range.push(treeMenuRangeMap);
+			    	     }
+
+			    	     $("#treeMenuAction").val(listTree.action.join(";"));
+			    	     $("#treeMenuRange").val(listTree.range.join(";"));///
+			    	     
+			    	    //获取选中的树checkbox
+			    	     var nodes=$("#using_json_2").jstree("get_checked");
+			 			 listTree.treejson=nodes;
+			 			 $("#nowTree").val(listTree.treejson);
+			 			 $("#tree_2date").val($("#tree_2").jstree("get_checked"));
+			 			 returnResult.status = true; //定义返回值
+					});
+		});
+	    //设置复选框不可更改
+	  /*   $("input[type='checkbox'][name='employeeRoles']",container).click( 
+	    		   function(){ 
+	    				 this.checked = !this.checked; 
+	    		   } 
+	    		 ); */
+	  //密码页面打开前执行函数
+      $("a[data-beforeShowEvent1='true']",container).on("beforeShow.dms",function(event,returnResult){	
+    		var userCode = $("#thisUserCode",container).val();
+    		if(userCode==null||userCode==''){
+    			dmsCommon.tip({status:"warning",msg:"请先创建账号"});
+    			returnResult.status = false;
+    			return ;
+    		}
+    		returnResult.status = true;
+      });
+	  //模板打开前执行函数
+	  $("a[data-beforeShowRole='true']",container).on("beforeShow.dms",function(event,returnResult){	
+		 $('#treeMenuAction',container).data('listTree',listTree);
+		 returnResult.status = true;
+	  });
+      $("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+    	  $(container).data("pageData",{USER_ID:response.user_id});
+          dmsCommon.refreshPageByUrl("manage/basedata/employeePermission/editEmployeePermission.html",container);
+      }); 
+});
+</script>
+

@@ -1,0 +1,54 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+	  <div class="panel panel-default">
+	     <div class="panel-body">
+			<div class="row"><!-- pull-left -->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<a href="javascript:;" class="btn blue"><i class="fa fa-search"></i>含预收款客户查询</a>
+<!-- 							<a href="javascript:;" class="btn blue btn-sm" data-onclickEvent="true" class="fa fa-search ">含预收款客户查询</a> -->
+						</div>
+					</div>	
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<a data-url="/basedata/advancesReceivedManage/export" data-model="repair" data-method="downLoad" data-toggle="confirmation"
+								class="btn btn-outline "><i class="fa fa-download"/>导出客户</a>
+<!-- 							<a href="javascript:;" class="btn blue btn-sm" class="fa fa-download" >导出客户</a> -->
+						</div>
+					</div>		
+			</div>
+		  </div>
+		  <div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="advancesList"></table>
+		</div>
+	  </div>
+	</form>
+</div>	 
+<script type="text/javascript">
+    $(document).one("onload.dms",function(event,container){
+    	new Datatable().initPagination({
+    		src : "advancesList",
+    		container:container,
+    		url : dmsCommon.getDmsPath()["repair"] + "/basedata/advancesReceivedManage/prepay",
+    		rowID : "CUSTOMER_CODE",
+    		sortName : "CUSTOMER_CODE", 
+    		sortOrder : "desc",
+    		height:300,
+    		autoHeight : false,
+    		isQueryFirst : false,
+    		undefinedText : "",
+    		columns : [ 
+                {field : "CUSTOMER_CODE",title : "客户代码"},
+    			{field : "CUSTOMER_NAME",title : "客户名称"} , 
+    			{field : "ADDRESS",title : "地址"}, 
+    			{field : "ZIP_CODE",title : "邮编"}, 
+    			{field : "CONTACTOR_PHONE",title : "联系人电话"}, 
+    			{field : "CONTACTOR_MOBILE",title : "联系人手机"}, 
+                {field : "PRE_PAY",title : "预收款"},
+    		]	
+    	});
+    	
+    	
+    });
+</script>

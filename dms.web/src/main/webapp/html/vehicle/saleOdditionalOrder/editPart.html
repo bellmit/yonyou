@@ -1,0 +1,252 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">精品材料编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body" data-parentTable ="partInfoTable">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">仓库代码</label>
+								<div class="col-xs-8">
+									<input id="storageCode" name="STORAGE_CODE" class="form-control" 
+										type="text" data-fieldName="STORAGE_CODE"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">库位代码</label>
+								<div class="col-xs-8">
+									<input id="storagePositionCode" name="STORAGE_POSITION_CODE" class="form-control" 
+										type="text" data-fieldName="STORAGE_POSITION_CODE"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件代码</label>
+								<div class="col-xs-8">
+								    <input id="partNo" name="PART_NO" class="form-control" disabled
+										type="text" data-fieldName="PART_NO"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件名称</label>
+								<div class="col-xs-8">
+								    <input id="partName" name="PART_NAME" class="form-control" disabled
+										type="text" data-fieldName="PART_NAME"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">计量单位</label>
+								<div class="col-xs-8">
+								    <input id="unitCode" name="UNIT_CODE" class="form-control" disabled
+										type="text" data-fieldName="UNIT_CODE"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件销售单价</label>
+								<div class="col-xs-8">
+								    <input id="partSalesPrice" name="PART_SALES_PRICE" class="form-control" disabled 
+										type="text" data-fieldName="PART_SALES_PRICE"/>
+								</div>
+							</div>
+					    </div>	
+					    <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">实际销售单价</label>
+								<div class="col-xs-8">
+								    <input id="realPrice" name="REAL_PRICE" class="form-control"  
+										type="text" data-fieldName="REAL_PRICE"/>
+								</div>
+							</div>
+					    </div>		
+					    <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件数量</label>
+								<div class="col-xs-8">
+								    <input id="partQuantity" name="PART_QUANTITY" class="form-control" 
+										type="text" data-fieldName="PART_QUANTITY"/>
+								</div>
+							</div>
+					    </div>		
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:red;">*</span>结算方式</label>
+								<div class="col-xs-8 ">
+									<select id="accountMode" name="ACCOUNT_MODE" data-fieldName="ACCOUNT_MODE" data-excludeItems="14061001"
+									   class="bs-select form-control required" data-dictCode="1406" >
+								    </select>							
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">折扣率</label>
+								<div class="col-xs-8">
+									<input id="discount" name="DISCOUNT" data-fieldName="DISCOUNT" class="form-control money"  maxDigit="30" type="text" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件销售金额</label>
+								<div class="col-xs-8 ">
+									<input id="partSalesAmount" name="PART_SALES_AMOUNT" disabled data-fieldName="PART_SALES_AMOUNT" data-autoValueDigits="2" class="form-control money"  maxDigit="30" type="text" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">备注</label>
+								<div class="col-xs-8 ">
+									<input id="remark1" name="REMARK"  class="form-control "  maxDigit="30" type="text" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">优惠金额</label>
+								<div class="col-xs-8 ">
+									<input id="discountAmount" name="DISCOUNT_AMOUNT" disabled data-fieldName="DISCOUNT_AMOUNT" data-autoValueDigits="2" class="form-control money"  maxDigit="30" type="text" />
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-onclickEvent="true" data-callBack="true"><i
+				class="fa fa-save"></i>确定</a> <a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+	//将上页数据赋给本页面
+	var selectRow = $("#soDecrodatePartList",getElementContext()).dmsTable().getSelections();
+   	$(selectRow).each(function(index){
+   		
+   	   storageCode = selectRow[index].STORAGE_CODE
+   	   storagePositionCode = selectRow[index].STORAGE_POSITION_CODE;
+   	   partNo = selectRow[index].PART_NO;
+   	   partName = selectRow[index].PART_NAME;
+   	   unitCode = selectRow[index].UNIT_CODE;
+	   partSalesPrice = selectRow[index].PART_SALES_PRICE;
+	   realPrice = selectRow[index].REAL_PRICE;
+	   partQuantity = selectRow[index].PART_QUANTITY;
+	   accountMode = selectRow[index].ACCOUNT_MODE;
+	   discount = selectRow[index].DISCOUNT;
+	   partSalesAmount = selectRow[index].PART_SALES_AMOUNT;   
+	   remark = selectRow[index].REMARK;
+	   discountAmount = selectRow[index].DISCOUNT_AMOUNT;
+	   
+	   $("#storageCode").val(storageCode);
+	   $("#storagePositionCode").val(storagePositionCode);
+	   $("#partNo").val(partNo);
+	   $("#partName").val(partName); 
+	   $("#unitCode").val(unitCode);
+	   $("#partSalesPrice").val(partSalesPrice);
+	   $("#realPrice").val(realPrice);
+	   $("#partQuantity").val(partQuantity);
+	   $("#accountMode").selectpicker('val',accountMode);
+	   $("#discount").val(discount);
+	   $("#partSalesAmount").val(partSalesAmount);
+	   $("#remark1").val(remark);
+	   $("#discountAmount").val(discountAmount);
+	   
+	});
+   	
+    //实际销售单价 
+   	$("#realPrice",container).bindChange(function(obj){
+	 	$("#partSalesAmount").bindAutoValueEvent("#realPrice * #partQuantity * #discount");
+	 	$("#discountAmount").bindAutoValueEvent("#realPrice * #partQuantity * (1 - #discount)");
+   	    //$("#partSalesAmount").removeAttr("disabled");
+	});	
+    //配件销售金额 
+   /* 	$("#partSalesAmount",container).bindChange(function(obj){
+	 	$("#realPrice").bindAutoValueEvent("#partSalesAmount / #discount");
+   	    $("#realPrice").removeAttr("disabled");
+	}); */
+   	
+   	
+   	
+   	var index = $.cookie('DecrodateIndex');//下标
+   	var aaa = $.cookie('Decrodate');
+ 	var item = JSON.parse($.cookie('Decrodate'));//将cookie的string转化成json
+ 	$(".form-horizontal",container).jsonToForm(item);//将json填充到相应的框中 
+	
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+	   var newInfo =  $('.form-horizontal',container).formToJson();
+	   $("#soDecrodateList",getElementContext()).dmsTable().updateRowByIndex(index,newInfo);
+
+	   dmsCommon.tip({status:"success",msg:"修改成功！"});
+	   $("a[data-dismiss='modal']",container).click();
+	   //刷新表格
+	   $("#soDecrodateList",getElementContext()).dmsTable().refreshTableWithForm();
+	   
+	});
+	
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$.cookie('Decrodate', '', { expires: -1 });//删除cookie
+		$.cookie('DecrodateIndex', '', { expires: -1 });//删除cookie
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#soDecrodateList",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+   	
+	
+});	
+
+//去掉json格式的中括号对[]
+$.fn.formToJson = function()    
+{    
+   var obj = {};    
+   var jsonInfo = this.serializeArray();    
+   $.each(jsonInfo, function() {    
+       if (obj[this.name]) {    
+           if (!obj[this.name].push) {    
+               obj[this.name] = [obj[this.name]];    
+           }    
+           obj[this.name].push(this.value || '');    
+       } else {    
+           obj[this.name] = this.value || '';    
+       }    
+   });    
+   return obj;    
+}; 
+
+//将json数据存入form表单
+$.fn.jsonToForm = function (info){
+	//1.循环JSON数据
+	for (var key in info) { 
+		var value = info[key];
+			$("[name=" + key + "]", $(this)).val(value);
+	}
+}
+</script>

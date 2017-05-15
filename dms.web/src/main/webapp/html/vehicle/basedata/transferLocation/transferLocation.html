@@ -1,0 +1,197 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">移位仓库</label>
+								<div class="col-xs-8 col-md-5 col-lg-5">
+									<select id="storageCode" class="bs-select form-control"
+										name="storageCode"
+										data-url="/stockManage/safeguard/findStorage/{[dealer_code]}"
+										data-model="vehicle" data-labelValue="STORAGE_CODE"
+										data-lableDesc="STORAGE_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+							<div class="form-group">
+								<label class="control-label col-xs-3 col-sm-3 col-md-3 col-lg-3">移出仓库库位</label>
+								<div class="col-xs-8 col-md-5 col-lg-5">
+									<input type="text" class="form-control" id="outPosition"
+										name="outPosition" maxlength="30"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+							<div class="form-group">
+								<label class="control-label col-xs-2 col-sm-2 col-md-2 col-lg-2">VIN</label>
+								<div class="col-xs-8 col-md-7 col-lg-7">
+									 <input
+										type="text" class="form-control" id="vin" name="vin"
+										onkeyup="this.value = this.value.toUpperCase();">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row ">
+						<div class="col-xs-12 ">
+							<div class="query-btn">
+								<a href="javascript:;" class="btn blue"> <i
+									class="fa fa-search"></i> 查询
+								</a>
+								<a href="javascript:;" class="btn blue"> <i
+									class="fa fa-undo"></i> 重置
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-md-12 col-lg-12">
+							<div class="panel panel-default table-panel">
+								<div class="panel-heading">
+									<div class="pannel-name">库存信息</div>
+								</div>
+								<div class="panel-body">
+									<table
+										class="table table-striped table-bordered table-hover table-responsive"
+										id="dms_table"></table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">移位操作</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i
+							class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span
+									style="color: red; position: relative; top: 2px;">*&nbsp;</span>移入仓库库位</label>
+								<div class="col-xs-8">
+									<input type="hidden" name="vins" id="vins" />
+									<input type="text" class="form-control required"
+										name="inPosition">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a id="move" data-model="vehicle" data-method="PUT"
+				data-callBack="true" class="btn blue ajaxrest"
+				data-url="/transferRepository/moveLocation" data-validate="true"
+				data-beforeRequest="true"><i class="fa fa-check-square-o"></i>移位</a>
+			<a id="print" href="vehicle/basedata/transferRepository/transferPrint.html" 
+				class="btn blue ajaxify" data-beforeShowEvent="true"><i class="fa fa-check-square-o"></i>打印</a> 
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				
+				$("#print",container).attr('disabled','disabled');
+
+				new Datatable().initPagination({
+					src : "dms_table",
+					url : dmsCommon.getDmsPath()["vehicle"]
+							+ "/transferRepository/findAllVehicleInfoForLocal",
+					rowID : "VIN",
+					autoHeight : false,
+					sortName : "VIN",
+					sortOrder : "asc",
+					checkboxHeader : true, //全选框
+					columns : [ {
+						checkbox : true,
+						sortable : false
+					}, {
+						field : "VIN",
+						title : "VIN"
+					}, {
+						field : "OUT_STORAGE",
+						title : "仓库"
+					}, {
+						field : "STORAGE_POSITION_CODE",
+						title : "库位"
+					}, {
+						field : "BRAND_NAME",
+						title : "品牌"
+					}, {
+						field : "SERIES_NAME",
+						title : "车系"
+					}, {
+						field : "MODEL_NAME",
+						title : "车型"
+					}, {
+						field : "CONFIG_NAME",
+						title : "配置"
+					}, {
+						field : "COLOR_NAME",
+						title : "颜色"
+					}, {
+						field : "STOCK_STATUS",
+						title : "库存状态",
+						codeFormat : {
+							type : "dict",
+							codeType : "1304"
+						}
+					} ]
+
+				});
+
+				$('a[data-beforeRequest="true"]', container).on(
+						'beforeRequest.dms',
+						function(event, returnResult) {
+							var text = $("#dms_table", container).dmsTable()
+									.getSelections();
+							var vins = '';
+							if (text != null) {
+								$(text).each(function(e) {
+									vins += text[e].VIN + ';';
+								});
+								$("#vins", container).val(vins);
+								returnResult.status = true;
+							} else {
+								dmsCommon.tip({
+									status : "warning",
+									msg : "请选择移库对象！"
+								});
+								returnResult.status = false;
+								return;
+							}
+						});
+
+				//新增页面的回调函数
+				$("a[data-callBack='true']", container).on(
+						"callBack.dms",
+						function(event, response) {
+							$("#print",container).removeAttr('disabled');
+							//关闭窗口
+							$("a[data-dismiss='modal']", container).click();
+							//刷新表格
+							$("#dms_table", getElementContext()).dmsTable()
+									.refreshTableWithForm();
+						});
+			});
+</script>

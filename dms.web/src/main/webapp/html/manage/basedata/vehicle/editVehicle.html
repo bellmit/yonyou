@@ -1,0 +1,71 @@
+<div class="dms-edit ajaxrest" data-url="/basedata/vehicle/{[POSITION_ID]}"
+	data-model="manage">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">挂靠单位编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">挂靠单位代码</label>
+								<div class="col-xs-8">
+									<input  class="form-control" type="text"  data-fieldName="position_code" disabled="disabled" />
+									<input type="hidden" id="positionCode" name="positionCode" data-fieldName="position_code"/>
+								</div>
+							</div>
+						</div>
+		
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">挂靠单位名称</label>
+								<div class="col-xs-8">
+										<input id="positionName" name="positionName" class="form-control required"  maxlength="30" type="text" data-fieldName="position_name"/>
+								</div>
+							</div>
+						</div>
+		
+						
+						
+					<!-- 	<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否有效</label>
+								<div class="col-xs-8">
+									<select id="isValid" name="isValid"
+										class="bs-select form-control" data-dictCode="1004"
+										data-value="10041002" data-existsDefault="false" data-fieldName="is_valid" >
+									</select>
+								</div>
+							</div>
+						</div> -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/basedata/vehicle/{[POSITION_ID]}" data-model="manage"
+				data-method="PUT" data-callBack='true'
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>保存</a> <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	})
+</script>

@@ -1,0 +1,205 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">投诉单号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="complaint_no" name="complaint_no" >
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">投诉来源</label>
+							<div class="col-xs-8">
+							 <select id="complaint_origin" name="complaint_origin" class="bs-select form-control" data-dictCode="1500" data-value="" ></select>
+							
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">投诉大类</label>
+							<div class="col-xs-8">
+		                         <select id="complaintMainType" name="complaintMainType" class="bs-select form-control" data-dictCode="1501" data-value="" ></select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">投诉类型</label>
+							<div class="col-xs-8">
+		                         <select id="complaint_type" name="complaint_type" class="bs-select form-control" data-dictCode="1502" data-value="" ></select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">投诉人姓名</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="complaint_name" name="complaint_name">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+				  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">联系方式</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="complaint_mobile" name="complaint_mobile">
+								
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">投诉时间</label>
+							<div class="col-xs-8 col-sm-10">
+								 <div class="input-group input-daterange"  data-defaultDays="7">
+		                             <input type="text" class="form-control" readonly  name="complaint_startdate" id="complaint_startdate">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="complaint_enddate" id="complaint_enddate"> 
+		                             <span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                 </span>
+	                               </div>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+				
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">严重性</label>
+							<div class="col-xs-8">
+		                         <select id="complaint_serious" name="complaint_serious" class="bs-select form-control" data-dictCode="1503" data-value="" ></select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">优先级</label>
+							<div class="col-xs-8">
+		                         <select id="priority" name="priority" class="bs-select form-control" data-dictCode="1504" data-value="" ></select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">处理状态</label>
+							<div class="col-xs-8">
+		                         <select id="deal_status" name="deal_status" class="bs-select form-control"  data-dictCode="1505" data-value=""  ></select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+				<div class="hidden">
+						<div class="form-group">
+							<label class="control-label col-xs-4">首页用的</label>
+							<div class="col-xs-8">
+		                         <select id="notdeal" name="notdeal" class="bs-select form-control"  data-dictCode="1004" data-value=""  ></select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >客户投诉信息列表</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+					
+					        <a data-url="customer/cusComplaint/addComplaint.html" class="btn btn-outline" data-toggle="modal" data-width="modal-lg" > <i
+								class="fa fa-plus-square"></i> 新增
+							</a>
+							<div class="hidden">
+						    <a class="btn btn-outline" data-url="customer/cusComplaint/settleComplaint.html"
+								data-toggle="modal" data-width="modal-lg"  data-onclickEvent="true"> <i class="fa fa-plus-square"></i>非OEM手动结案跳转
+					        </a> 
+						   </div>
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+			url : dmsCommon.getDmsPath()["customer"] + "/customerComplaint",
+			rowID : "COMPLAINT_ID",
+			sortName : "COMPLAINT_DATE",
+			sortOrder : "desc",
+			columns : [ 
+              
+			    {field : "COMPLAINT_ID",title : "操作",operateFormat : [
+                       {type:"edit",url:"customer/cusComplaint/editComplaint.html",openWidth:"modal-lg",isShow:function(value, row, index){
+                    	   var promResult=row.DEAL_STATUS;
+                    	   if(promResult=='15051003'||promResult=='15051004'){
+                    	   	   return false;
+                    	   }else{
+                    	   	   return true;
+                    	   }
+                       }},
+                       {type:"detail",url:"customer/cusComplaint/editComplaint.html",openWidth:"modal-lg"},
+                       {type:"edit",url:"customer/cusComplaint/settleComplaint.html",openWidth:"modal-lg",title:"结案",operateIcon:'<i class="font-red fa fa-lg fa-power-off"></i>',isShow:function(value, row, index){
+                    	   if((row.DEAL_STATUS=='15051003'&&row.DEAL_STATUS=='10041001'&&row.COMPLAINT_ORIGIN=='15001001')||row.DEAL_STATUS=='15051004'||row.DEAL_STATUS=='15051001'||row.DEAL_STATUS=='15051002'){
+                    	   	   return false;
+                    	   }else{
+                    	   	   return true;
+                    	   } 
+                       }}
+                   ]
+                },  
+			    {field : "COMPLAINT_NO",title : "投诉编号"},
+				{field : "COMPLAINT_ORIGIN",title : "投诉来源",codeFormat : {type:"dict",codeType:"1500"}}, 
+				{field : "COMPLAINT_MAIN_TYPE",title : "投诉大类",codeFormat : {type:"dict",codeType:"1501"}},
+				{field : "COMPLAINT_TYPE",title : "投诉类型",codeFormat : {type:"dict",codeType:"1502"}}, 
+				{field : "COMPLAINT_SUMMARY",title : "投诉摘要"}, 
+				{field : "DEAL_STATUS",title : "处理状态",codeFormat : {type:"dict",codeType:"1505"}},
+				{field : "EMPLOYEE_NAME",title : "被投诉员工"}, 
+				{field : "ORG_NAME",title : "被投诉部门"}, 
+				{field : "COMPLAINT_DATE",title : "投诉日期",dateFormat : {format:"YYYY-MM-DD HH:MM"}}, 
+				{field : "COMPLAINT_NAME",title : "投诉人姓名"}, 
+				{field : "COMPLAINT_MOBILE",title : "联系方式"}, 
+				{field : "COMPLAINT_SERIOUS",title : "严重性(投诉性质)",codeFormat : {type:"dict",codeType:"1503"}}, 
+				{field : "PRIORITY",title : "优先级",codeFormat : {type:"dict",codeType:"1504"}},
+				{field : "OPE_TYPE",title : "OEM是否手动结案",codeFormat : {type:"dict",codeType:"1004"}}
+				
+			]
+
+		});
+	});
+	
+</script>

@@ -1,0 +1,299 @@
+<div class="dms-edit ajaxrest" data-url="/queryDealers/queryDealerInfoDetail/{[DEALER_ID]}" data-model="manage" >
+	<form class="form-horizontal" >
+		<div class="modal-header">
+			<div class="modal-title">经销商基本信息</div>
+			<div class="modal-close">
+				<a data-goback="page" href="manage/distributorManage/dealerInformationView.html" class="btn btn-lg ajaxify"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="model-body" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+					<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商公司</label>
+								<div class="col-xs-8">
+									<input id="companyShoptname" name="companyShoptname" data-fieldName="COMPANY_SHORTNAME" readonly="readonly" class="form-control required systemCode" maxlength="30" type="text" />
+								</div>
+							</div>
+						</div>
+					
+					<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商名称</label>
+								<div class="col-xs-8">
+									<input id="dealerName" name="dealerName" data-fieldName="DEALER_NAME" readonly="readonly" class="form-control required systemCode" maxlength="30" type="text" />
+								</div>
+							</div>
+						</div>
+					
+					<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商简称</label>
+								<div class="col-xs-8">
+									<input id="dealerShortname" name="dealerShortname" data-fieldName="DEALER_SHORTNAME" readonly="readonly" class="form-control required systemCode" maxlength="30" type="text" />
+								</div>
+							</div>
+						</div>
+					
+					<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">英文名称</label>
+								<div class="col-xs-8">
+									<input id="markeTing" name="markeTing" data-fieldName="MARKETING" readonly="readonly" class="form-control required systemCode" maxlength="30" type="text" />
+								</div>
+							</div>
+						</div>
+					
+					<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商代码:</label>
+								<div class="col-xs-8">
+									<input id="dealerCode" name="dealerCode" data-fieldName="DEALER_CODE" readonly="readonly" class="form-control required systemCode" maxlength="30" type="text" />
+								</div>
+							</div>
+						</div>
+					
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 "> 
+							<div class="form-group">
+								<label class="control-label col-xs-4">所属区域</label>
+								<div class="col-xs-8">
+									<input id="orgName" readonly
+										name="orgName" class="form-control" type="text"
+										data-fieldName="ORG_NAME"/> 
+									</div>	
+							</div>
+						</div> 
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商集团</label>
+								<div class="col-xs-8">
+									<input id="groupName" name="groupName" data-fieldName="GROUP_NAME" readonly="readonly" class="form-control" maxlength="30" type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">成立日期</label>
+								<div class="col-xs-8 date">
+									<input id="foundDate" name="foundDate" data-fieldName="FOUND_DATE" readonly="readonly" class="form-control "  type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">三包授权类型</label>
+								<div class="col-xs-8">
+									<select id="acuraGhasType" name="acuraGhasType" class="bs-select form-control" data-dictCode="1079" data-type="oemDict" data-fieldName="ACURA_GHAS_TYPE"  >
+									</select>
+								</div>
+							</div>
+						</div>
+				
+					<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商状态</label>
+								<div class="col-xs-8">
+									<select id="status" name="status" class="bs-select form-control" data-dictCode="1001" data-type="oemDict" data-fieldName="STATUS"  >
+								</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">省份:</label>
+								<div class="col-xs-8">
+									<select  class="bs-select form-control required " id="province" name="province" data-type="oemRegion" data-fieldName="PROVINCE_ID" ></select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">地级市:</label>
+								<div class="col-xs-8">
+									<select  class="bs-select form-control required " parent="province" class="bs-select form-control" name="city" id = "city"  data-fieldName="CITY_ID" ></select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">邮编</label>
+								<div class="col-xs-8">
+									<input id="zipCode" name="zipCode" data-fieldName="ZIP_CODE" readonly="readonly" class="form-control" type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">热线电话</label>
+								<div class="col-xs-8">
+									<input id="phone" name="phone" data-fieldName="PHONE" readonly="readonly" class="form-control"  type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系人</label>
+								<div class="col-xs-8">
+									<input id="linkMan" name="linkMan" data-fieldName="LINK_MAN" readonly="readonly" class="form-control "  type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系人手机</label>
+								<div class="col-xs-8">
+									<input id="linkManMobile" name="linkManMobile" data-fieldName="LINK_MAN_MOBILE" readonly="readonly" class="form-control"type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">传真</label>
+								<div class="col-xs-8">
+									<input id="faxNo" name="faxNo" data-fieldName="FAX_NO" readonly="readonly" class="form-control" type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">Email</label>
+								<div class="col-xs-8">
+									<input id="email" name="email" data-fieldName="EMAIL" readonly="readonly" class="form-control "  type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">税号</label>
+								<div class="col-xs-8">
+									<input id="taxesNo" name="taxesNo" data-fieldName="TAXES_NO" readonly="readonly" class="form-control "  type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">开票单位</label>
+								<div class="col-xs-8">
+									<input id="erpCode" name="erpCode" data-fieldName="ERP_CODE" readonly="readonly" class="form-control "  type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">开户银行</label>
+								<div class="col-xs-8">
+									<input id="beginBank" name="beginBank" data-fieldName="BEGIN_BANK" readonly="readonly" class="form-control " type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">账号</label>
+								<div class="col-xs-8">
+									<input id="bankCode" name="bankCode" data-fieldName="BANK_CODE" readonly="readonly" class="form-control required systemCode" type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经营范围</label>
+								<div class="col-xs-8">
+									<input id="openRange" name="openRange" data-fieldName="OPEN_RANGE" readonly="readonly" class="form-control "  type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">CG Code/ CJ Code</label>
+								<div class="col-xs-8">
+									<input id="ccCode" name="ccCode" data-fieldName="CC_CODE" readonly="readonly" class="form-control"  type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销店等级</label>
+								<div class="col-xs-8">
+									<select id="companyLevel" name="companyLevel" class="bs-select form-control required" data-type="oemDict" data-dictCode="1155" data-fieldName="COMPANY_LEVEL" ></select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">办公电话</label>
+								<div class="col-xs-8">
+									<input id="companyPhone" name="companyPhone" data-fieldName="COMPANY_PHONE" readonly="readonly" class="form-control "  type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联行号</label>
+								<div class="col-xs-8">
+									<input id="lineNumber" name="lineNumber" data-fieldName="LINE_NUMBER" readonly="readonly" class="form-control" type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">统一社会信用代码</label>
+								<div class="col-xs-8">
+									<input id="integratedSocial" name="integratedSocial" data-fieldName="INTEGRATED_SOCIAL" readonly="readonly" class="form-control" type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">营业时间</label>
+								<div class="col-xs-8">
+									<input id="openTime" name="openTime" data-fieldName="OPEN_TIME" readonly="readonly" class="form-control "  type="text" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否官网</label>
+								<div class="col-xs-8">
+									<select id="isEc" name="isEc" class="bs-select form-control" data-fieldName="IS_EC"  data-type="oemDict" data-dictCode="1004"  >
+								</select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">详细地址</label>
+								<div class="col-xs-8">
+									<input id="address" name="address" data-fieldName="ADDRESS" readonly="readonly" class="form-control "  type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">备注</label>
+								<div class="col-xs-8">
+									<input id="remark" name="remark" data-fieldName="REMARK" readonly="readonly" class="form-control " type="text" />
+								</div>
+							</div>
+						</div>
+							
+				
+			</div>
+		</div>
+	</div>
+	<div class="model-footer">
+		<div style="text-align:center">
+			<a data-goback="page" href="manage/distributorManage/distributorInformationView.html"
+			class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>	
+		</div>						
+	</div>
+	</form>
+</div>
+<script type="text/javascript">
+
+    
+</script>

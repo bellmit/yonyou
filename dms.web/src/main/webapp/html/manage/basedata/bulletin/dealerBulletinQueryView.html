@@ -1,0 +1,226 @@
+<div class="dms-edit ajaxrest" data-url="/bulletin/dealerQuery/viewBulletin/{[BULLETIN_ID]}" data-model="manage" data-pageInitCallBack="true">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">通告内容</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">通告主要信息</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-3">通告主题</label>
+								<div class="col-xs-8" >
+									  <input class="form-control dmsDisabled" type="text" id="topic" name="topic" data-fieldName="TOPIC"/>
+								</div>
+							</div>
+						</div>	
+						
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-3">通告类别</label>
+								<div class="col-xs-8" >
+									  <input class="form-control dmsDisabled" type="text" id="typename" name="typename" data-fieldName="TYPENAME"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-3">开始时间</label>
+								<div class="col-xs-8" >
+									  <input class="form-control dmsDisabled" type="text" id="beginDate" name="beginDate" data-fieldName="START_TIME_DATE"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-3">结束时间</label>
+								<div class="col-xs-8" >
+									  <input class="form-control dmsDisabled" type="text" id="endDate" name="endDate" data-fieldName="END_TIME_DATE"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-3">通告紧急程度</label>
+								<div class="col-xs-8" >
+									  <input class="form-control dmsDisabled" type="text" id="level" name="level" data-fieldName="LEVEL"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-3">接受职位</label>
+								<div class="col-xs-8" >
+									  <input class="form-control dmsDisabled" type="text" id="poseName" name="poseName" data-fieldName="POSE_NAME"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-3">主要内容</label>
+								<div class="col-xs-8" >
+									<textarea id="content" name="content" class="col-xs-12 dmsDisabled" data-fieldName="CONTENT"></textarea>
+								</div>
+							</div>
+						</div>
+						
+												
+						<div class="col-xs-12 sign" >
+							<input type="hidden" id="sign" data-fieldName="SIGN" >
+							<input type="hidden" id="is_sign" data-fieldName="is_sign" >
+							<div class="form-group">
+								<label class="control-label col-xs-3">是否签收</label>
+								<a class="btn blue sign" data-value="1" > <i class="fa fa-save"></i>已签收</a>
+								<!-- <a class="btn blue sign" data-value="0" > <i class="fa fa-remove"></i>未签收</a> -->
+							</div>
+						</div>				
+										
+					</div>					
+				</div>
+			</div>
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">文件名称</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="fileList">
+					</table>
+				</div>			
+			</div>
+
+	
+			<input type="hidden" name="typeId" data-fieldName=TYPE_ID >
+			<input type="hidden" name="bulletinId" data-fieldName=BULLETIN_ID >	
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">回复内容</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="rows">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2">回复内容</label>
+								<div class="col-xs-8" >
+									<textarea id="reply" name="reply" class="col-xs-12" ></textarea>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2">回复附件</label>
+							</div>							
+						</div>
+					</div>
+					<div class="rows">
+						<div class="col-xs-12">
+							<input type="file" class="importFiles" id="fileupload" name="dmsFile" data-inputName="dmsFileIds">
+						</div>
+					</div>
+				</div>			
+			</div>
+									
+		</div>
+		
+		<div class="modal-footer">
+			<div class="modal-footer center-block">
+				<a data-url="/bulletin/dealerQuery/replyBulletin" data-model="manage" data-method="PUT" data-fileUploadBtn="true"
+				 data-callBack="true"  class="btn blue "data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+				</a> 
+				<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+			</div>
+		</div>
+		
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+	$("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){
+			var data = $("#sign").val();
+			if(data == "是" ){
+				$("div.sign").css("display","block");
+				//$("a.sign").css("display","block");
+				//$("a.sign").css("display","block");
+			}
+			if(data == "否" ){
+				$("div.sign").css("display","none");
+				$("a.sign").css("display","none");
+				$("a.sign").css("display","none");
+			}
+			
+			var is_sign = $("#is_sign").val();
+			if(is_sign == 1){
+				//禁用按钮
+				$("a.sign").attr("disabled",true);
+				$("a.sign").unbind();
+			}
+			
+			$("#reply").removeAttr("disabled");
+	});
+	
+	$("a.sign",container).bind("click",function(){
+		//禁用按钮
+		$("a.sign").attr("disabled",true);
+		$("a.sign").unbind();
+			dmsCommon.ajaxRestRequest({
+		url : dmsCommon.getDmsPath()["manage"] + "/bulletin/dealerQuery/isSign/"+{[BULLETIN_ID]}+"/"+$(this).attr("data-value"),
+		type : 'PUT',
+		async: false,
+		sucessCallBack : function(data) {						
+			if(data){
+				dmsCommon.tip({status:"success",msg:"操作成功!"});
+			}else{
+				dmsCommon.tip({status:"warning",msg:"操作失败!"});
+			}
+		}
+	});
+	})
+	
+	//文件列表
+	new Datatable().initPagination({
+		src : "fileList",
+		container:container,
+	    url : dmsCommon.getDmsPath()["manage"] + "/bulletin/bulletinMaintain/getFiles/"+{[BULLETIN_ID]},
+		autoHeight:false,
+		columns : [
+		            {field : "FILENAME",title : "文件名"}
+		          ]
+	}); 
+	
+	//表格刷新和关闭
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+	
+});
+
+</script>

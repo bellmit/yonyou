@@ -1,0 +1,110 @@
+<div class="dms-search" >
+  <form class="form-horizontal">
+		<div class="panel-heading">
+			<div class="pannel-name">预约配件</div>
+			<div class="pannel-button">
+			</div>
+		</div>
+		<div class="panel-body">
+		<div class="row" >
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<div class="form-group">
+				<label class="control-label col-xs-4 ">仓库代码</label>
+				<div class="col-xs-8">
+						<select id="STORAGE_CODE" name="STORAGE_CODE"
+						class="bs-select form-control required" 	data-url="/partStocks/StockCode" data-model="part" data-existsDefault = "false"
+						 data-lableDesc="STORAGE_NAME"> 
+						</select>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<div class="form-group">
+				<label class="control-label col-xs-4">配件代码</label>
+				<div class="col-xs-8">
+				<div class="input-group">
+					<input type="text" class="form-control required" id="partNo" name="partNo"> <span
+						class="input-group-btn">
+						<button class="btn default btn-sm required" type="button"
+						data-url="repair/precontract/precontractArrange/selectPart.html"
+							data-toggle="modal" data-width="modal-lg">
+							<i class="fa fa-list-alt"></i>
+						</button>
+						<button class="btn default input-clear" type="button">
+							<i class="fa fa-close"></i>
+						</button>
+					</span>
+				</div>
+				</div>
+			</div>
+		</div>	
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<div class="form-group">
+				<label class="control-label col-xs-4">配件名称</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control" id="partName" name="partName">
+				</div>
+			</div>
+		</div>	
+		</div>	
+		<div class="row" >
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<div class="form-group">
+				<label class="control-label col-xs-4">预约数量</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control" id="bookingCount" name="bookingCount"  value='0.00'>
+				</div>
+			</div>
+		</div>	
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<div class="form-group">
+				<label class="control-label col-xs-4">可用库存</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control" id="stockQuantity" name="stockQuantity">
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4 ">
+			<div class="form-group">
+				<label class="control-label col-xs-4">预留</label>
+				<div class="col-xs-8">
+					<select id="ifSave" name="ifSave"  data-existsDefault = "true"
+						class="bs-select form-control" data-dictCode="1278"
+						data-fieldName="IS_SAVE">
+					</select>
+				</div>
+			</div>
+		</div>
+		</div>	
+		</div>	
+		</div>	
+		<div class="modal-footer center-block">
+					 <a  id="save" data-onclickEvent="true" 
+					data-callBack="true" class="btn blue"><i
+					class="fa fa-save"></i>确定</a>
+					<a data-dismiss="modal" class="btn blue">
+					<i class="fa fa-undo"></i>取消
+				</a>
+		</div>
+	
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event, container) {
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event,container){
+		
+
+		var jsonTr={};
+		jsonTr["STORAGE_CODE"]=	$("#STORAGE_CODE").val();
+		jsonTr["PART_NO"]=	$("#PART_NO").val();
+		jsonTr["PART_NAME"]=	$("#PART_NAME").val();
+	/* 	jsonTr["BOOKING_QUANTITY"]=	$("STORAGE_CODE", container).val();
+	
+		jsonTr["IS_OBLIGATED"]=	$("STORAGE_CODE", container).val();
+		jsonTr["BOOKING_QUANTITY"]=	$("STORAGE_CODE", container).val(); 
+		jsonTr["BOOKING_TYPE_CODE"]=$("STORAGE_CODE", container).val();*/
+		$("#dms_tablepart",getElementContext()).dmsTable().appendRow(jsonTr,true);	
+		$("a[data-dismiss='modal']",container).click();
+	});
+});
+</script>

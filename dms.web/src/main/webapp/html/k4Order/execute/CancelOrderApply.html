@@ -1,0 +1,257 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+				
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌</label>
+								<div class="col-xs-8">
+									<select id="brandId" name="brandId"
+										class="bs-select form-control" name="brandCode"
+										data-url="/basedata/material/brand/90081002"
+										data-model="manage" data-labelValue="BRAND_ID"
+										data-lableDesc="BRAND_NAME">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系</label>
+								<div class="col-xs-8">
+									<select id="seriesId" name="seriesId" parent="brandId"
+										class="bs-select form-control" name="seriesName"
+										data-url="/basedata/material/series/90081002/{[brandId]}"
+										data-model="manage" data-labelValue="SERIES_ID"
+										data-lableDesc="SERIES_NAME">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车款</label>
+								<div class="col-xs-8">
+									<select id="groupId" name="groupId" parent="seriesId"
+										class="bs-select form-control" name="groupName"
+										data-url="/basedata/material/group/90081002/{[seriesId]}"
+										data-model="manage" data-labelValue="GROUP_ID"
+										data-lableDesc="GROUP_NAME" >
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">年款</label>
+								<div class="col-xs-8">
+									<select id="modelId" name="modelId" parent="groupId"
+										class="bs-select form-control" name="modelYear"
+										data-url="/basedata/material/modelYear/90081002/{[groupId]}"
+										data-model="manage" data-labelValue="MODEL_YEAR"
+										data-lableDesc="MODEL_YEAR">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">颜色</label>
+								<div class="col-xs-8">
+									<select id="colorId" name="colorId" parent="modelId"
+										class="bs-select form-control" name="colorName"
+										data-url="/basedata/material/color/90081002/{[groupId]}/{[modelId]}"
+										data-model="manage" data-labelValue="COLOR_CODE"
+										data-lableDesc="COLOR_NAME" >
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">内饰</label>
+								<div class="col-xs-8">
+									<select id="trimId" name="trimId" parent="colorId"
+										class="bs-select form-control" name="trimName"
+										data-url="/basedata/material/trim/90081002/{[groupId]}/{[modelId]}/{[colorId]}"
+										data-model="manage" data-labelValue="TRIM_CODE"
+										data-lableDesc="TRIM_NAME" >
+									</select>
+									
+								</div>
+							</div>
+						</div>
+																										
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">VIN</label>
+							<div class="col-xs-8">								
+								<input type="text" class="form-control" id="vin" name="vin">
+								<input id="vins" name="vins" type="hidden"/>
+							</div>
+						</div>
+					</div>
+					
+						<input id="orderIds" name="orderIds" type="hidden"/>
+						<input id="isEc" name="isEc" type="hidden"/>
+																						
+						
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+	</form>
+	
+	
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >查询信息列表</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+
+							<a href="javascript:;" data-url="/CancelOrderApply/cancleDealer/applyDownload" data-model="vehicle" data-method="downLoad" data-toggle="confirmation"
+								class="btn btn-outline " ><i class="fa fa-download"></i>下载</a>
+						
+							<a id="testPass" href="javascript:;" class="btn btn-outline" data-url="/CancelOrderApply/cancleDealer/applyPass" data-model="vehicle" data-method="PUT"
+								data-toggle="confirmation" data-callBack="true" data-beforeRequest="true"> <i
+								class="fa fa-print" ></i>申请
+							</a>	
+						 
+						</div>						 
+				</div>
+		</div>
+		
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="orderList"></table>
+						
+		</div>
+	</div>
+	
+		
+	
+</div>
+<script type="text/javascript">
+	//console.log("111");
+    $(document).one("onload.dms",function(event,container){
+    	new Datatable().initPagination({
+			src : "orderList",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/CancelOrderApply/cancleDealer/orderApply",
+			rowID : "VIN",
+			sortName : "PAYMENT_TYPE",
+			sortOrder : "asc",
+			isQueryFirst:false,
+			columns : [ 
+			    {checkbox:true,sortable : false}, 
+			    {field : "ORDER_TYPE",title : "订单类型" ,codeFormat : {type:"oemDict",codeType:"2083"}  },
+			    {field : "PAYMENT_TYPE",title : "付款方式"},
+			    {field : "VIN",title : "VIN"},
+			    {field : "BRAND_CODE",title : "品牌"},
+			    {field : "ORDER_ID",title : "ORDER_ID",visible :false},
+			    {field : "SERIES_NAME",title : "车系"},
+			    {field : "GROUP_NAME",title : "车款"},
+			    {field : "MODEL_YEAR",title : "年款"},
+			    {field : "COLOR_NAME",title : "外饰颜色"},
+			    {field : "TRIM_NAME",title : "内饰颜色"},
+			    {field : "REMARK",title : "车辆分配备注",codeFormat : {type:"oemDict",codeType:"1121"}},
+			    {field : "VEHICLE_USAGE",title : "车辆用途"},
+			    {field : "OTHER_REMARK",title : "其它备注"},
+			    {field : "IS_LOCK",title : "是否锁定",codeFormat : {type:"oemDict",codeType:"1004"}},		    
+			    {field : "USER_ID",title : "操作",operateFormat : [			           
+			           {type:"del",url:"/CancelOrderApply/apply/{[VIN]}",model:"vehicle",callBack:function(response){
+			               $("#orderList",getElementContext()).dmsTable().refreshTableWithForm();
+			           }}
+			        ]
+			    }
+			    
+				
+			], 
+			onLoadSuccess : function() {
+				$("#orderList",container).dmsTable().bootstrapTable('resetView');
+			}
+		});
+    	//console.log("1111");
+    	
+    	
+    	//绑定查询按钮回调
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+ 		//	console.log("into callBack");
+		});
+		
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//刷新表格
+			$("#orderList",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+		
+		
+		//批量删除的前执行函数
+		$("#testPass,[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			var selectRow = $("#orderList",container).dmsTable().getSelections();
+			debugger;
+			if(!selectRow){
+				dmsCommon.tip({status:"warning",msg:"请选择订单"});//总共的状态类型：info、success、error、warning
+				returnResult.status = false;
+				return ;
+			}
+			if(selectRow.length > 0){
+				var vins = "";
+				var orderIds="";
+				var isEc="";
+				for(var i = 0 ;i<selectRow.length;i++){
+					if(vins=="" ){ //第一次循环为空值
+						vins = selectRow[i]["VIN"];
+					}else{
+						vins = vins+","+selectRow[i]["VIN"];
+					}
+					
+				}
+				$("#vins",getElementContext()).setDmsValue(vins);
+				for(var i = 0 ;i<selectRow.length;i++){
+					if(orderIds=="" ){ //第一次循环为空值
+						orderIds = selectRow[i]["ORDER_ID"];
+					}else{
+						orderIds = orderIds+","+selectRow[i]["ORDER_ID"];
+					}
+					
+				}
+				$("#orderIds",getElementContext()).setDmsValue(orderIds);
+				for(var i = 0 ;i<selectRow.length;i++){
+					if(isEc=="" ){ //第一次循环为空值
+						isEc = selectRow[i]["IS_LOCK"];
+					}else{
+						isEc = isEc+","+selectRow[i]["IS_LOCK"];
+					}
+					
+				}
+				$("#isEc",getElementContext()).setDmsValue(isEc);
+			}
+			returnResult.status = true;
+		});
+		
+		
+		
+    	
+    });
+
+</script>

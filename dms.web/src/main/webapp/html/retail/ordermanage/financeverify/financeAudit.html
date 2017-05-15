@@ -1,0 +1,189 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">审核意见</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+					 <div class="col-xs-12">
+										<div class="form-group">
+											<label class="control-label col-xs-2"><span style="color:Red">*</span>审核结果</label>
+											<div class="col-xs-10">
+												<select id="auditingResult" name="auditingResult"
+													class="form-control required" data-dictCode="1315" 
+													data-value="">
+												</select>
+											</div>
+										</div>
+					</div>
+					<div class="col-xs-12 ">
+										<div class="form-group">
+										<label class="control-label col-xs-2">意见批注</label>
+											<div class="col-xs-10">
+										<textarea id="auditingPostil" name="auditingPostil"
+									   class="form-control" maxlength="120"
+										rows="2" cols=""></textarea>
+											</div>
+										</div>
+					</div>
+					 <div class="col-xs-12 " hidden="hidden" id="treatmentAdviceID">
+										<div class="form-group " >
+										<label class="control-label col-xs-2">处理意见</label>
+											<div class="col-xs-10">
+										<textarea id="treatmentAdvice" name="treatmentAdvice"
+									   class="form-control required" maxlength="120"
+										rows="2" cols=""></textarea>
+											</div>
+										</div>
+					</div>
+									<!--/span-->
+							    <div class="col-xs-12" >
+							        <div class="form-group hidden" >
+							        <label class="control-label col-xs-4">隐藏</label>
+									<div class="col-xs-8">
+									<input  name="auditList" id="auditList" 
+									class="form-control" type="text"/>
+									</div>
+								     </div>
+							     </div>
+							      <div class="col-xs-12" >
+							        <div class="form-group hidden" >
+							        <label class="control-label col-xs-4">隐藏</label>
+									<div class="col-xs-8">
+									<input  name="businessTypeList" id="businessTypeList" 
+									class="form-control" type="text"/>
+									</div>
+								     </div>
+							      </div>
+							        <div class="col-xs-12" >
+							        <div class="form-group hidden" >
+							        <label class="control-label col-xs-4">隐藏</label>
+									<div class="col-xs-8">
+									<input  name="isSpeedinessList" id="isSpeedinessList" 
+									class="form-control" type="text"/>
+									</div>
+								     </div>
+							       </div>
+							       <div class="col-xs-12" >
+							        <div class="form-group hidden" >
+							        <label class="control-label col-xs-4">隐藏</label>
+									<div class="col-xs-8">
+									<input  name="soStatusList" id="soStatusList" 
+									class="form-control" type="text"/>
+									</div>
+								     </div>
+							       </div>
+							       <div class="col-xs-12" >
+							        <div class="form-group hidden" >
+							        <label class="control-label col-xs-4">隐藏</label>
+									<div class="col-xs-8">
+									<input  name="verList" id="verList" 
+									class="form-control" type="text"/>
+									</div>
+								     </div>
+							       </div>
+							       <div class="col-xs-12" >
+							        <div class="form-group hidden" >
+							        <label class="control-label col-xs-4">隐藏</label>
+									<div class="col-xs-8">
+									<input  name="vinList" id="vinList" 
+									class="form-control" type="text"/>
+									</div>
+								     </div>
+							       </div>
+							        <div class="col-xs-12" >
+							        <div class="form-group hidden" >
+							        <label class="control-label col-xs-4">隐藏</label>
+									<div class="col-xs-8">
+									<input  name="isAccountList" id="isAccountList" 
+									class="form-control" type="text"/>
+									</div>
+								     </div>
+							      </div>
+							<div class="col-md-12" >
+							<div class="form-group hidden" >
+								<label class="control-label col-md-2">隐藏</label>
+								<div class="col-md-10">
+									<input name="auditByList" id="auditByList"
+									 class="form-control " type="text"
+										max="120" />
+								</div>
+							</div>
+						</div>
+					
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel" hidden="hidden" id="mainCustomer">
+				<div class="panel-heading">
+					<div class="pannel-name">审核人</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="mainCustomerList">
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+		 	<a data-url="/ordermanage/submit/audit/auditList" data-model="retail" data-method="PUT"
+				data-callBack="true" class="btn blue" 
+				data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+			</a> 
+		<!-- 	<a data-url="/ordermanage/submit/audit/auditList" data-model="retail"
+				data-method="PUT" data-callBack="true" data-beforeRequest="true"
+				class="btn blue" id="saveBtn" name="saveBtn" data-onclickEvent1='true'
+				data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+			</a> -->
+			
+			
+			
+			<a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one("onload.dms",function(event,container){
+		//弹出页面打开前执行函数
+		debugger
+		var selectRow = $("#intentList",getElementContext()).dmsTable().getSelections();
+		   	$("#auditList").val(selectRow[0].SO_NO);
+		   	$("#businessTypeList").val(selectRow[0].BUSINESS_TYPE);
+			$("#soStatusList").val(selectRow[0].SO_STATUS);
+			$("#isSpeedinessList").val(selectRow[0].IS_SPEEDINESS);
+			$("#verList").val(selectRow[0].VER);
+			$("#vinList").val(selectRow[0].VIN);
+			$("#isAccountList").val(selectRow[0].IS_ACCOUNTANT_AUDITING);
+			
+// 			$("#auditingResult",container).bindChange(function(obj){
+// 				var isReceive=$("#auditingResult",container).val();
+// 				var isAccountList=$("#isAccountList",container).val();
+// 				if(isReceive=="13151001"&&isAccountList=="12781001"){
+// 					$("#mainCustomer",container).removeAttr("hidden");
+// 					$("#treatmentAdviceID",container).removeAttr("hidden");
+					
+// 				}else{
+// 					$("#mainCustomer",container).attr("hidden","hidden");
+// 					$("#treatmentAdviceID",container).attr("hidden","hidden");
+// 				}
+// 			});
+			
+		//新增页面的回调函数
+ 		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+ 			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#intentList",getElementContext()).dmsTable().refreshTableWithForm();
+		}); 
+	});
+</script>

@@ -1,0 +1,139 @@
+<link rel="stylesheet" type="text/css" href="../assets/layouts/layout/css/PrintArea.css">
+<div class="dms-edit PrintArea ajaxrest" data-url="/ordermanage/settleOrders/{[RECEIVE_ID]}/settleCollection"
+	data-model="retail">
+	<div class="panel panel-default panel-print">
+		<div class="panel-body">
+			<div class="print-title">
+				<div class="row h1Title">
+					<div class="col-xs-12">
+						<label >{[userInfo.dealerName]}</label>
+					</div>
+				</div>
+				<div class="row h2Title">
+					<div class="col-xs-12">
+						<label>收款收据</label>
+					</div>
+				</div>
+				<div class="row print-gap">
+			
+				</div>
+				<div class="row print-singleRow">
+					<div class="col-xs-12 ">
+						<label>收款单号:<span  class="form-show" data-fieldName="SO_NO_ID"></span></label>
+						<label>收款日期:<span class="form-show " data-fieldName="RECEIVE_DATE" data-date-format="YYYY-MM-DD "></span></label>
+					</div>
+				</div>
+			</div>
+			<div class="print-main">
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4" >付款人</label>
+							<div class="col-xs-8">
+								<span class="form-show" data-fieldName="CUSTOMER_NO"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6" >
+						<div class="form-group">
+							<label class="control-label col-xs-4">付款方式</label>
+							<div class="col-xs-8" >
+								<span class="form-show " data-fieldName="PAY_TYPE_CODE"></span>
+							</div>
+						</div>
+					</div>
+					
+					</div>
+					<div class="row">
+						<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4">收款金额</label>
+							<div class="col-xs-8">
+								<span class="form-show " data-fieldName="RECEIVE_AMOUNT"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4" >收款金额大写</label>
+							<div class="col-xs-8" >
+								<span class="form-show " data-fieldName="RECEIVE_AMOUNT" data-chinese-numeral="true"></span>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				<div class="row">
+				<div class="col-xs-6" data-tableSelect="true">
+						<div class="form-group">
+							<label class="control-label col-xs-4">收款类型</label>
+							<div class="col-xs-8">
+								<span class="form-show " data-fieldName="GATHERING_TYPE"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4">票据号码</label>
+							<div class="col-xs-8">
+								<span class="form-show " data-fieldName="BILL_NO"></span>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				<div class="row">
+				<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4" >销账人</label>
+							<div class="col-xs-8" >
+								<span class="form-show " data-fieldName="WRITEOFF_BY"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4" >销账日期</label>
+							<div class="col-xs-8">
+								<span class="form-show " data-fieldName="WRITEOFF_DATE" data-date-format="YYYY-MM-DD "></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6" >
+						<div class="form-group">
+							<label class="control-label col-xs-4" >登记人</label>
+							<div class="col-xs-8">
+								<span class="form-show " value="{[userInfo.userName]}"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6" >
+						<div class="form-group">
+							<label class="control-label col-xs-4" >备注</label>
+							<div class="col-xs-8">
+								<span class="form-show "  data-fieldName="REMARK"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			
+			<div class="row print-gap">
+			
+			</div>
+			
+		</div>
+	</div>
+</div>
+<div class="print-without">
+	<a id="print" class="btn blue printfy"><i class="fa fa-print"></i>打印</a>
+    <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		
+});
+</script>

@@ -1,0 +1,177 @@
+<div class="dms-edit ajaxrest" data-url="/oldPartRule/{[RULE_ID]}" data-model="vehicle" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">旧件返回规则修改</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="modal-body">
+					<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">规则编号</label>
+								<div class="col-xs-8">
+									<input type="text"  
+										id="ruleCode" class="form-control"
+										name="ruleCode" data-fieldName="RULE_CODE">
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">规则名称</label>
+							<div class="col-xs-8">
+								<input type="text" id="ruleName" name="ruleName"
+								class="form-control"	data-fieldName="RULE_NAME">
+							</div>
+						</div>
+					</div>
+				</div>
+					<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">状态</label>
+							<div class="col-xs-8">
+								<select id="status" name="status" class="bs-select form-control"
+								data-fieldName="STATUS"	data-type="oemDict" data-dictCode="1001">
+								</select>
+							</div>
+						</div>
+					</div>
+		
+			
+				<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">备注</label>
+							<div class="col-xs-8">
+								<textarea  id="remark" name="remark"
+								class="form-control"	data-fieldName="REMARK">
+									</textarea>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+					<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">维修日期选择范围</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" data-maxDays="30"
+									data-opens="right">
+									<input type="text" class="form-control" readonly
+									data-fieldName="REPAIR_START_DATE"	name="repairStartDate"> <span class="input-group-addon">-</span>
+									<input type="text" class="form-control" readonly
+										data-fieldName="REPAIR_END_DATE" name="repairEndDate"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">生效日期</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" data-maxDays="30"
+									data-opens="right">
+									<input type="text" class="form-control" readonly
+										data-fieldName="EFFECTIVE_START_DATE" name="effectiveStartDate"> <span class="input-group-addon">-</span>
+									<input type="text" class="form-control" readonly
+										data-fieldName="EFFECTIVE_END_DATE" name="effectiveEndDate"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					</div>
+					<div class="row">
+					<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">VIN列表生效日期</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" data-maxDays="30"
+									data-opens="right">
+									<input type="text" class="form-control" readonly
+									data-fieldName="VIN_START_DATE"	name="vinStartDate"> <span class="input-group-addon">-</span>
+									<input type="text" class="form-control" readonly
+									data-fieldName="VIN_END_DATE"	name="vinEndDate"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">旧件列表生效日期</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" data-maxDays="30"
+									data-opens="right">
+									<input type="text" class="form-control" readonly
+						data-fieldName="OLDPART_START_DATE"	name="oldpartStartDate"> <span class="input-group-addon">-</span>
+									<input type="text" class="form-control" readonly
+							data-fieldName="OLDPART_END_DATE"		name="oldpartEndDate"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/oldPartRule/{[RULE_ID]}" data-model="vehicle" data-method="PUT"
+				data-callBack="true" class="btn blue"
+				data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+			</a>
+			 <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+	
+<div class="tabbable-custom ">
+	<ul class="nav nav-tabs">
+		<li class="active">
+			<a href="#tab_brand" data-toggle="tab" id="brandTab">保修件剔出列表</a>
+		</li>
+		<li >
+			<a href="#tab_serials" data-toggle="tab" id="seriesTab">自销毁件剔出列表</a>
+		</li>
+	</ul>
+	<div class="tab-content">
+		<div class="tab-pane fade in active" id="tab_brand" data-url="vehicle/oldpart/oldPartRule/importVin.html">
+		</div>
+		<div class="tab-pane  fade" id="tab_serials" data-url="vehicle/oldpart/oldPartRule/importReturn.html">
+		</div>
+
+	</div>
+</div>
+
+<script type="text/javascript">
+//页面加载后初始化
+$(document).one("onload.dms",function(event,container){
+	
+	$("#brandTab",container).on("dms.click",function(event){
+		console.log("into tab click");
+	});
+	
+});
+	
+</script>

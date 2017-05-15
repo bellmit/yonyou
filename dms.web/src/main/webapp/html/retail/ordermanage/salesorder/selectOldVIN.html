@@ -1,0 +1,115 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">客户二手车车辆查询</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"><i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >车辆信息</div>
+			</div>
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="stockList">
+				</table>
+			</div>
+		</div>
+		查询出该潜客名下已经填写VIN和车牌号的二手车
+</div>
+<div class="modal-footer center-block">
+
+	<a class="btn blue" data-onclickEvent="true" disabled id="okBtn"><i class="fa fa-save"></i>确定</a>
+	<a data-dismiss="modal" class="btn blue"> <i
+		class="fa fa-undo"></i>取消
+	</a>
+</div>
+</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		var str="1"
+	    str = $("#customerNo",getElementContext()).val();
+		
+	 	new Datatable().initPagination({
+			src : "stockList",
+			rowID:"VIN",
+			container:container,
+		 	url : dmsCommon.getDmsPath()["retail"] + "/ordermanage/salesOrders/query/oldCustomerVin/"+str,
+			sortName : "VIN", 
+			sortOrder : "asc",
+			pageSize:5,
+			autoHeight:false,
+			isQueryFirst:true,
+			undefinedText : "",
+			columns : [ 
+			            {radio:true},
+			            {field : "PERMUTED_VIN",title : "VIN"},
+			            {field : "BRAND",title : "品牌名称"},
+			            {field : "MODEL",title : "车型名称"},
+			            {field : "OLD_BRAND_CODE",title : "品牌名称",visible:false},
+			            {field : "OLD_MODEL_CODE",title : "车型名称",visible:false},
+			            {field : "VEHICLE_COUNT",title : "车辆数量"},
+			            {field : "PURCHASE_DATE",title : "首次上牌日期",dateFormat : {format:"YYYY-MM-DD"}},
+			            {field : "REMARK",title : "备注"},
+			            {field : "COLOR_NAME",title : "颜色"},
+			            {field : "ASSESSED_LICENSE",title : " 车牌号"},
+			            {field : "ENGINE_NUM",title : "发动机号"},
+			            {field : "MILEAGE",title : "里程数"},
+			            {field : "PRODUCTION_DATE",title : "出厂日期",dateFormat : {format:"YYYY-MM-DD"}},
+			            {field : "GEAR_FORM",title : "排挡形式"},
+			            {field : "FUEL_TYPE",title : "燃料种类"},
+			            {field : "USE_TYPE",title : "使用性质",codeFormat : {type:"dict",codeType:"1052"}},
+			            {field : "TRAFFIC_INSURE_INFO",title : "交强险信息",codeFormat : {type:"dict",codeType:"1055"}},
+			            {field : "DRIVING_LICENSE",title : "机动车行驶证",codeFormat : {type:"dict",codeType:"1055"}},
+			            {field : "BUSINESS_INSURE_INFO",title : "商业险信息",codeFormat : {type:"dict",codeType:"1055"}},
+			            {field : "REGISTRY",title : "登记证书",codeFormat : {type:"dict",codeType:"1055"}},
+			            {field : "ORIGIN_CERTIFICATE",title : "来历凭证",codeFormat : {type:"dict",codeType:"1055"}},
+			            {field : "PURCHASE_TAX",title : "购置税凭证",codeFormat : {type:"dict",codeType:"1055"}},
+			            {field : "VEHICLE_AND_VESSEL_TAX",title : "车船使用税",codeFormat : {type:"dict",codeType:"1055"}},
+			            {field : "TRAFFIC_INSURE_DATA",title : "交强有效期",dateFormat : {format:"YYYY-MM-DD"}},
+			            {field : "ANNUAL_INSPECTION_DATE",title : "年检有效期",dateFormat : {format:"YYYY-MM-DD"}},
+			            {field : "SCRAP_DATE",title : "强制报废期",dateFormat : {format:"YYYY-MM-DD"}},
+			            {field : "PROCEDURE_SPECIAL_EXPLAIN",title : "手续项目特殊说明"},
+			            {field : "FILE_MESSAGE_A",title : "检查报告ID1"},
+			            {field : "FILE_URLMESSAGE_A",title : "检查报告1"},
+			            {field : "FILE_MESSAGE_B",title : "旧车行驶证ID"},
+			            {field : "FILE_URLMESSAGE_B",title : "旧车行驶证"},
+			            {field : "FILE_MESSAGE_C",title : "检查报告ID2"},
+			            {field : "FILE_URLMESSAGE_C",title : "检查报告2"},
+			            {field : "IS_ASSESSED",title : "是否评估",inputField:"isAssessed",visible:false, inputHiddenFormat : {}},
+			            {field : "SERIES_NAME",title : "车系",inputField:"seriesName",visible:false, inputHiddenFormat : {}},
+			            {field : "MODEL_NAME",title : "车型",inputField:"modelName",visible:false, inputHiddenFormat : {}},
+			            {field : "VEHICLE_ALLOCATION",title : "车辆配置",inputField:"vehicleAllocation",visible:false, inputHiddenFormat : {}},
+			            {field : "ASSESSED_PRICE",title : "评估价格",inputField:"assessedPrice",visible:false, inputHiddenFormat : {}},
+			            {field : "OTHER_ACCESSORY",title : "其他附件"} 
+			         ] , onClickRow(rowData, element){
+				 if(rowData.FILE_URLMESSAGE_A!=null&&rowData.FILE_URLMESSAGE_A!=''&&rowData.FILE_URLMESSAGE_A!=0&&rowData.FILE_URLMESSAGE_A!=undefined
+						 &&rowData.FILE_URLMESSAGE_B!=null&&rowData.FILE_URLMESSAGE_B!=''&&rowData.FILE_URLMESSAGE_B!=0&&rowData.FILE_URLMESSAGE_B!=undefined
+						 &&rowData.FILE_URLMESSAGE_C!=null&&rowData.FILE_URLMESSAGE_C!=''&&rowData.FILE_URLMESSAGE_C!=0&&rowData.FILE_URLMESSAGE_C!=undefined){
+					 $("#okBtn",container).removeAttr("disabled");
+
+				 }else{
+
+						// dmsCommon.tip({status:"warning",msg:"登记日期已超过一个月，无法进行零售更改!"});
+						 $("#okBtn",container).attr("disabled","disabled");
+					
+				 }
+				
+				} 
+		});
+	 	//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			var selectRow = $("#stockList",container).dmsTable().getFirstSelection();
+			$("div[data-tableOldVINSelect='true']",getElementContext()).initHtmlContent(selectRow);
+			/* $("div[data-tableSelect2='true']",getElementContext()).initHtmlContent(selectRow); */
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+		});
+	});
+
+</script>

@@ -1,0 +1,84 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">应收费用</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+						         <div class="col-xs-12">
+										<div class="form-group">
+											<label class="control-label col-xs-3">违约金</label>
+											<div class="col-xs-9">
+												<input id="penaltyAmount" name="penaltyAmount" 
+												  class="form-control money" type="text"/>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+				                 <div class="col-xs-12">
+										<div class="form-group">
+											<label class="control-label col-xs-3"><span style="color:Red">*</span>申请原因</label>
+											<div class="col-xs-9">
+												<select id="abortingReason" name="abortingReason"
+													class="form-control required" data-dictCode="1616" 
+													data-excludeItems="16161001,16161005">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									
+									<!--/span-->
+							    <div class="col-xs-12" hidden="hidden">
+							        <div class="form-group" >
+							        <label class="control-label col-xs-4">隐藏</label>
+									<div class="col-xs-8">
+									<input  name="applyList" id="applyList"
+									class="form-control" type="text"/>
+									</div>
+								     </div>
+							     </div>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/ordermanage/salesOrderCancel/apply/cancelApply" data-model="retail" data-method="PUT"
+				data-callBack="true" class="btn blue" 
+				data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+			</a> <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one("onload.dms",function(event,container){
+		//弹出页面打开前执行函数
+	
+	 	 var str='';
+		var selectRow = $("#dms_table",getElementContext()).dmsTable().getSelections();
+		   	$(selectRow).each(function(index){
+			   str+=selectRow[index].SO_NO+',';
+	  		});
+		   	$("#penaltyAmount").val(selectRow[0].PENALTY_AMOUNT);
+		   	$("#abortingReason").val(selectRow[0].ABORTING_REASON);
+	  		/* var selectIds = $("#cusList",getElementContext()).dmsTable().getSelectionIds(); */
+		   	$("#applyList").val(str);
+		//新增页面的回调函数
+ 		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		}); 
+	});
+</script>

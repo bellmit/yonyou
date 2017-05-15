@@ -1,0 +1,42 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">选择维修建议</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="tabbable-custom ">
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#Labour_tab" data-toggle="tab">建议维修项目</a>
+							</li>
+
+							<li><a href="#Part_tab" data-toggle="tab">建议维修配件</a></li>
+
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane fade in active" id="Labour_tab"
+								data-url="repair/order/repair/repairAdviseTab/adviceLabourImport.html">
+							</div>
+							<div class="tab-pane fade " id="Part_tab"
+								data-url="repair/order/repair/repairAdviseTab/advicePartImport.html">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms", function(event, container) {
+		//新增页面的回调函数
+		// 	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		// 		$("a[data-goback='page']",container).click();
+		// 	});
+	});
+</script>

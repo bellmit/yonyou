@@ -1,0 +1,192 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">入库日</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" data-defaultDays="7">
+									<input type="text" class="form-control" readonly value=""
+										name="startdate"> <span
+										class="input-group-addon">至</span> <input type="text" value=""
+										class="form-control" readonly name="enddate"><span class="input-group-btn">
+										<!-- <button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button> -->
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">品牌</label>
+							<div class="col-xs-8">
+								<select id="brand" class="bs-select form-control"
+									name="brandCode" data-url="/basedata/brandsdict"
+									data-model="manage" data-labelValue="BRAND_CODE"
+									data-lableDesc="BRAND_NAME">
+
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车系</label>
+							<div class="col-xs-8">
+								<select id="series" 
+									class="bs-select form-control" name="seriesCode"
+									data-url="/basedata/selectSeries"
+									data-model="manage" data-labelValue="SERIES_CODE"
+									data-lableDesc="SERIES_NAME">
+
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车型</label>
+							<div class="col-xs-8">
+								<select id="model" 
+									class="bs-select form-control" name="modelCode"
+									data-url="/basedata/selectModel"
+									data-model="manage" data-labelValue="MODEL_CODE"
+									data-lableDesc="MODEL_NAME">
+
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-2 ">VIN</label>
+							<div class="col-xs-10">
+								<input type="text" class="form-control" id="vin"
+									name="vin">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否入库</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" id="isInStock" name="isInStock"
+									data-dictCode="1278">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">入库类型</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" id="stockInType" name="stockInType"
+									data-dictCode="1307" data-excludeItems="13071003,13071004">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">仓库名称</label>
+							<div class="col-xs-8">
+								<select id="stockName" class="bs-select form-control" data-ajaxSync = "true" name="stockName"
+									data-url="/basedata/vehicleInStore/store" data-model="report" 
+									data-labelValue="STORAGE_CODE" data-lableDesc="STORAGE_NAME"
+									data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div>
+					
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn btn-sm blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn btn-sm blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">车辆入库明细</div>
+				<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+				<a href="javascript:;" data-url="/basedata/vehicleInStore/export" data-model="report" data-method="downLoad" data-toggle="confirmation"
+								class="btn btn-outline " ><i class="fa fa-download"></i>导出</a>
+				</div>
+		   </div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dms_table",
+		rowID:"INSTOCK_DATE",
+		container:container,
+	    url : dmsCommon.getDmsPath()["report"] + "/basedata/vehicleInStore/inStoreSearch",
+		sortName : "INSTOCK_DATE", 
+		sortOrder : "desc",
+		autoHeight : false,
+		undefinedText : "",
+		columns : [ 
+                   {field : "INSTOCK_DATE",title : "入库日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+                    {field : "SE_NO",title : "入库单编号"},
+                    {field : "MODEL_NAME",title : "车型"},
+                    {field : "COLOR_NAME",title : "颜色"},
+                    {field : "VIN",title : "VIN"},
+                    {field : "CERTIFICATE_NUMBER",title : "合格证号"},
+                    {field : "STORAGE_NAME",title : "仓库名称"},
+                    {field : "VEH_STATUS",title : "库存状态",codeFormat : {type:"dict",codeType:"1304"}},
+                    {field : "VENDOR_CODE",title : "供应单位代码"},
+                    {field : "VENDOR_NAME",title : "供应单位名称"},
+                    {field : "PURCHASE_PRICE",title : "采购价格（含税）",numberFormat : {decimal:2}},
+                    {field : "SALES_ADVICE_PRICE",title : "销售指导价"},
+                    {field : "STORAGE_POSITION_CODE",title : "库位代码"},
+                    {field : "PRODUCT_CODE",title : "产品代码"},
+                    {field : "ENGINE_NO",title : "发动机号"},
+                    {field : "KEY_NUMBER",title : "钥匙编号"},
+                    {field : "ADDITIONAL_COST2",title : "附加成本",numberFormat : {decimal:2}},
+                    {field : "MANUFACTURE_DATE",title : "生产日期",dateFormat : {format:"YYYY-MM-DD"}},
+                    {field : "FACTORY_DATE",title : "出厂日期",dateFormat : {format:"YYYY-MM-DD"}},
+                    {field : "PO_NO",title : "采购订单编号"},
+                    {field : "VSN",title : "VSN"},
+                    {field : "EXHAUST_QUANTITY",title : "排气量"},
+                    {field : "DISCHARGE_STANDARD",title : "排气标准"},
+                    {field : "REMARK",title : "备注"},
+                    {field : "PRODUCTING_AREA",title : "产地"},
+                    {field : "INSPECTION_CONSIGNED2",title : "是否代验收",codeFormat : {type:"dict",codeType:"1278"}},
+                    {field : "IS_DIRECT",title : "是否直销",codeFormat : {type:"dict",codeType:"1278"}},
+                    {field : "HAS_CERTIFICATE",title : "是否有合格证",codeFormat : {type:"dict",codeType:"1278"}},
+                    {field : "SHIPPING_DATE",title : "发车日期",dateFormat : {format:"YYYY-MM-DD"}},
+                    {field : "ARRIVING_DATE",title : "预计送到日期",dateFormat : {format:"YYYY-MM-DD"}},
+                    {field : "DELIVERYMAN_NAME",title : "送车人姓名"},
+                    {field : "DELIVERYMAN_PHONE",title : "送车人电话"},
+                    {field : "SHIPPER_LICENSE",title : "承运车牌号"},
+                    {field : "SHIPPER_NAME",title : "承运商名称"},
+                    {field : "VS_PURCHASE_DATE",title : "采购日期",dateFormat : {format:"YYYY-MM-DD"}},
+                    {field : "SHIPPING_ADDRESS",title : "收货地址"},
+                    {field : "CONSIGNER_CODE",title : "委托单位代码"},              
+                    {field : "CONSIGNER_NAME",title : "委托单位名称"}                                     
+		         ]
+	});
+});		
+</script>

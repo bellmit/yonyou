@@ -1,0 +1,118 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">下订超过60天未交车</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+		      <div class="panel panel-default">
+					<div class="row">
+							<div class="col-xs-4  ">
+								<div class="form-group">
+									<label class="control-label col-xs-3">销售顾问</label>
+									<div class="col-xs-4">
+											<select id="soldBy" name="soldBy"
+												class="bs-select form-control"
+												data-url="/basedata/employees/-1/salesConsultant"
+												data-model="manage" data-labelValue="USER_ID" data-value="{[userInfo.userId]}"
+												data-lableDesc="USER_NAME" >
+										    </select>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-4">
+								<div class="form-group">
+									<label class="control-label col-xs-3">订单状态</label>
+									<div class="col-xs-4">
+										<select id="intentLevel" name="" data-fieldName=""
+													class="bs-select form-control" data-dictCode="1301" data-excludeItems="13011001,13011002,13011003,13011004,13011005,13011006,13011007,13011008,13011009" 
+													data-value="" >
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-4 control-label center-block">
+								<div class="query-btn">
+									<a href="javascript:;" class="btn blue"> <i
+										class="fa fa-search"></i> 查询
+									</a> 
+								</div>
+							</div>
+					  </div>
+				</div>
+		 </div>				
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+	<form class="form-horizontal">
+		<div class="modal-body">
+		      <div class="panel panel-default">
+					<div class="row">
+							<div class="col-xs-2">
+								<div class="query-btn">
+									<a href="javascript:;" class="btn blue">有效订单
+									</a> 
+								</div>
+							</div>
+							
+							<div class="col-xs-2">
+								<div class="query-btn">
+									<a href="javascript:;" class="btn blue">取消订单
+									</a> 
+								</div>
+							</div>
+							<div class="col-xs-6">
+								<div class="form-group">
+									<label class="control-label col-xs-3">取消订单原因</label>
+									<div class="col-xs-5">
+										<select class="bs-select form-control"  name="OEM_TAG" id="OEM_TAG" data-dictCode="1616">
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="control-label center-block">
+					 			<a data-dismiss="modal" class="btn blue"><i
+									class="fa fa-undo"></i>退出</a>
+		    				</div>
+					  </div>
+				</div>
+		 </div>				
+	</form>
+</div>			 	
+			 	
+		
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		    url : dmsCommon.getDmsPath()["manage"] + "/basedata/vehicleMasterDatas",
+			rowID : "PRODUCT_CODE",
+			sortName : "PRODUCT_CODE",
+			sortOrder : "PRODUCT_CODE",
+			sortOrder : "asc",
+			selectItemName:"userIds",
+			//checkboxHeader:true, 
+			autoHeight : false,
+			columns : [ 
+                {field : "PRODUCT_CODE",title : "订单编号"},
+                {field : "PRODUCT_NAME",title : "订单状态",codeFormat : {type:"dict",codeType:"1308"}},
+                {field : "BRAND_NAME",title : "创建日期"},
+                {field : "SERIES_NAME",title : "客户姓名"},
+                {field : "MODEL_NAME",title : "联系方式"},
+                {field : "CONFIG_NAME",title : "销售顾问"},
+                {field : "COLOR_NAME",title : "保留时间"},
+                {field : "VIN",title : "VIN"}
+               
+			]
+		});
+	 
+});	
+</script>

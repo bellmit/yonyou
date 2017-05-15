@@ -1,0 +1,94 @@
+<div class="dms-edit ajaxrest" data-url="/maintain/getMaintainById2/{[ID]}" data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">修改项目内容</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+					
+
+					
+					<div class="col-xs-12  col-sm-6" data-tableSelect="true">
+						<div class="form-group">
+								<label class="control-label col-xs-4">项目代码:</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+									<input id="labourCode" readonly
+										name="LABOUR_CODE" class="form-control" type="text"
+										data-fieldName="LABOUR_CODE" /> <span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="vehicle/afterSales/basicDataMgr/searchXiangMuCode.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+					</div>	
+					
+				<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">工时数</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control"  id="frt" name="FRT"  data-fieldName="FRT"/>
+							</div>
+						</div>
+					</div>
+					
+				<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">处理</label>
+							<div class="col-xs-8">
+								  <select id="dealType" name="DEAL_TYPE" class="bs-select form-control"  data-type="oemDict"  data-dictCode="4003"  	data-fieldName="DEAL_TYPE" ></select>
+							</div>
+						</div>
+					</div>
+				
+				
+				
+				
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-onclickEvent="true" 
+				class="btn blue" ><i
+				class="fa fa-save"></i>修改</a> <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		var rows = $("#one_table",getElementContext()).dmsTable().getSelections();
+		
+			$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+					var row=  $('.form-horizontal',container).serializeFormJson();
+					$("#one_table",getElementContext()).dmsTable().updateRowByIndex(rows[0].index,row);
+					//关闭窗口
+					$("a[data-dismiss='modal']",container).click();
+			});
+		
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#one_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	})
+</script>
+

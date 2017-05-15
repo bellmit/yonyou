@@ -1,0 +1,235 @@
+<div class="tabbable-custom ">
+			<ul class="nav nav-tabs">
+					<li class="active"><a href="#tab_questions" data-toggle="tab">问题设定</a></li>
+					<li><a href="#tab_answers" data-toggle="tab">答案组设定</a></li>
+					<li><a href="#tab_quesAndAns" data-toggle="tab">问题答案关联设定</a></li>
+					<li><a href="#tab_questionnaire" data-toggle="tab">问卷设定</a></li>
+					<li><a href="#tab_questionnaireRelation" data-toggle="tab">问卷关联设定
+					</a></li>
+				</ul>	
+			<div class="tab-content">
+			<div class="tab-pane fade in active" id="tab_questions"
+				data-url="customer\questionnaireGenerate\questionSeting.html">
+			</div>
+			<div class="tab-pane fade in active" id="tab_answers"
+				data-url="customer\questionnaireGenerate\answersSeting.html">
+			</div>
+			<div class="tab-pane fade in active" id="tab_quesAndAns"
+				data-url="customer\questionnaireGenerate\quesAndAnsSeting.html">
+			</div>
+			<div class="tab-pane fade in active" id="tab_questionnaire"
+				data-url="customer\questionnaireGenerate\searchQuestionnaire.html">
+			</div>
+			<div class="tab-pane fade in active" id="tab_questionnaireRelation"
+				data-url="customer\questionnaireGenerate\questionnairSeting.html">
+			</div>
+		</div>
+</div>
+		<!-- 
+					<div class="tab-pane fade in active" id="tab_questionnaire">
+						<div class="panel panel-default table-panel">
+							<div class="panel-heading">
+								<div class="pannel-name">问卷设定</div>
+							</div>
+							<div class="panel-body">
+								<table
+									class="table table-striped table-bordered table-hover table-responsive"
+									id="questionnaire"></table>
+							</div>
+
+						</div>
+					</div>
+					<div class="tab-pane fade in active" id="tab_questionnaireRelation">
+						<div class="panel panel-default table-panel">
+							<div class="panel-heading">
+								<div class="pannel-name">问卷关联设定</div>
+							</div>
+							<div class="panel-body">
+								<table
+									class="table table-striped table-bordered table-hover table-responsive"
+									id="questionnaireRelation"></table>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event, container) {
+			
+			 		//触发点击事件
+					$("a[data-beforeShowEvent='true']", container).on(
+							"beforeShow.dms",
+							function(event, returnResult) {
+								var parentTableRow = $("#answers",getElementContext()).dmsTable().getParentTabelRow();
+								if (parentTableRow == undefined) {
+									dmsCommon.tip({
+										status : "warning",
+										msg : "请双击选择父表格数据"
+									});//总共的状态类型：info、success、error、warning
+									returnResult.status = false;
+									return;
+								}
+								//设置页面初始化值
+								$(this).data("pageData", parentTableRow);
+
+								returnResult.status = true;
+							});
+				 	$("a[id='answers']",getElementContext()).on("dms.click",function(event){
+						$("#answer",container).dmsTable().refreshUrl( dmsCommon.getDmsPath()["customer"]+ "/questionnaire/{[id]}/seachAnswer");
+					 }); 
+					
+			 		new Datatable().initPagination({
+						src : "answer",
+						container : container,
+						url : dmsCommon.getDmsPath()["customer"]+ "/questionnaire/{[id]}/seachAnswer",
+						rowID : "ANSWER_NO",
+						//selectItemName:"VIN", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+						sortOrder : "asc",
+						autoHeight : false,
+						columns : [
+								{field : "ANSWER_NO",
+									title : "答案编号"
+								},
+								{
+									field : "ANSWER",
+									title : "答案组内容"
+								},
+								{
+									field : "ANSWER_DESC",
+									title : "答案说明"
+								},
+								{
+									field : "IS_VALID",
+									title : "启用",
+									inputCheckBoxFormat : {type:"dict",codeType:"1057",disabled:false}
+								},
+								{
+									field : "DOWN_TAG",
+									title : "OEM下发",
+									inputCheckBoxFormat : {type:"dict",codeType:"1057",disabled:true}
+								},
+								 ]
+					});
+				//第三个
+					new Datatable().initPagination({
+						src : "quesAndAns",
+						container : container,
+						url : dmsCommon.getDmsPath()["customer"]+ "/questionnaire/searchQuestions",
+						rowID : "QUESTION_CODE",
+						//selectItemName:"VIN", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+						sortOrder : "asc",
+						autoHeight : false,
+						checkboxHeader : true, //全选框
+						columns : [
+								{
+									checkbox : true,
+									sortable : false
+								},
+								{field : "QUESTION_CODE",
+									title : "问题编号"
+								},
+								{
+									field : "QUESTION_TYPE",
+									title : "问题类型",
+									codeFormat:{type:"dict",codeType:"1132"}
+								},
+								{
+									field : "QUESTION_NAME",
+									title : "问题名称"
+								},
+								{
+									field : "QUESTION_CONTENT",
+									title : "问题内容"
+								},
+								{
+									field : "QUESTION_DESC",
+									title : "问题说明"
+								},
+								{
+									field : "DOWN_TAG",
+									title : "OEM下发",
+									inputCheckBoxFormat : {type:"dict",codeType:"1057",disabled:true}
+								},
+								{
+									field : "ANSWER_GROUP_NO",
+									title : "答案组编号"
+								},
+								 ]
+					});
+					
+					new Datatable().initPagination({
+						src : "quesAanswers",
+						container : container,
+						url : dmsCommon.getDmsPath()["customer"]+ "/questionnaire/seachquesAndAns",
+						rowID : "ANSWER_GROUP_NO",
+						// selectItemName:"VIN", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+						sortOrder : "asc",
+						autoHeight : false,
+						columns : [
+								{field : "ANSWER_GROUP_NO",
+									title : "答案组编号"
+								},
+								{
+									field : "ANSWER_GROUP_NAME",
+									title : "答案组名称"
+								},
+								{
+									field : "ANSWER_NO",
+									title : "答案编号"
+								},
+								{
+									field : "ANSWER",
+									title : "答案"
+								},
+								{
+									field : "ANSWER_DESC",
+									title : "答案说明"
+								},
+								{
+									field : "DOWN_TAG",
+									title : "OEM下发",
+									inputCheckBoxFormat : {type:"dict",codeType:"1057",disabled:true}
+								},
+								 ]
+					}); 
+			 	/* 	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+						var selectRow = $("#repairProList",container).dmsTable().getFirstSelection();
+					}  */
+					//保存前事件
+				 	/* $('a[data-beforeRequest="true"]', container).on('beforeRequest.dms',
+							function(event, returnResult) {
+						if($(this).attr('id')=='editquestions'){
+								var questionCodes = "";
+								var isValids = "";
+								var isReports = "";
+								var isFilleds = "";
+								$(text).each(function(e) {
+									questionCodes += text[e].QUESTION_CODE + ';';
+									isValids += text[e].IS_VALID + ';';
+									isReports += text[e].IS_STAT_REPORT + ';';
+									isFilleds += text[e].IS_MUST_FILLED + ';';});
+								$("#questionCodes", container).val(questionCodes);
+								$("#isValids", container).val(isValids);
+								$("#isReports", container).val(isReports);
+								$("#isFilleds", container).val(isFilleds);
+								returnResult.status = true;
+						}	}); 
+ */
+					//新增页面的回调函数
+				$("a[data-callBack='true']", container).on("callBack.dms",function(event, response) {
+								//关闭窗口
+								$("a[data-dismiss='modal']", container)
+										.click();
+								//刷新表格
+								$("#dms_table", getElementContext())
+										.dmsTable().refreshTableWithForm();
+							}); 
+});
+</script>
+ -->

@@ -1,0 +1,132 @@
+<div class="dms-edit">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="panel panel-default table-panel">
+					<div class="panel-heading">
+						<div class="pannel-name">答案组</div>
+						<div class="btn-group btn-group-sm">
+							<div class="btn-group btn-group-sm">
+								<a class="btn btn-outline" data-url="customer/questionnaireGenerate/addAnswers.html"
+									data-toggle="modal" data-width="modal-lg"><i class="fa fa-plus-square"></i>添加 </a>
+							</div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<table class="table table-striped table-bordered table-hover table-responsive" id="answers"></table>
+					</div>
+
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 hidden ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">问题组编号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="ANSWER_GROUP_NO" name="ANSWER_GROUP_NO"
+									data-beforeShowEvent="true">
+							</div>
+						</div>
+					</div>
+					<div class="tabbable-custom ">
+						<ul class="nav nav-tabs hidden ">
+							<li class="active"><a href="#tab_CampaignGoal" data-toggle="tab" id="CampaignGoal"">活动目标</a></li>
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane fade in active" id="tab_CampaignGoal"
+								data-url="customer/questionnaireGenerate/answerSeting.html"></div>
+						</div>
+					</div>
+
+
+					<!-- 			<div class="modal-footer">
+					<a data-url="/questionnaire/saveAnswersA" data-model="customer" data-method="PUT" data-callBack="true"  class="btn blue"  data-toggle="confirmation"><i class="fa fa-save"></i>保存</a>
+					<a data-dismiss="modal" class="btn blue" ><i
+					class="fa fa-undo"></i>取消</a>
+					</div> -->
+				</div>
+			</div>
+
+		</div>
+	</form>
+</div>
+
+
+<script type="text/javascript">
+	$(document)
+			.one(
+					"onload.dms",
+					function(event, container) {
+						new Datatable()
+								.initPagination({
+									src : "answers",
+									container : container,
+									url : dmsCommon.getDmsPath()["customer"]
+											+ "/questionnaire/searchAnswers",
+									rowID : "ANSWER_GROUP_NO",
+									// selectItemName:"VIN", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+									sortOrder : "asc",
+									autoHeight : false,
+									columns : [
+											{
+												radio : true,
+												sortable : false
+											},
+											{
+												field : "ANSWER_GROUP_NO",
+												title : "修改",
+												operateFormat : [ {
+													type : "edit",
+													url : "customer/questionnaireGenerate/editAnswers.html",
+													openWidth : "modal-lg",
+													isShow : function(value,
+															row, index) {
+														if (row.DOWN_TAG == '12781001') {
+															return false;
+														} else {
+															return true;
+														}
+													}
+												} ]
+
+											}, {
+												field : "ANSWER_GROUP_NO",
+												title : "答案组编号"
+											}, {
+												field : "ANSWER_GROUP_NAME",
+												title : "答案组名称"
+											}, {
+												field : "ANSWER_GROUP_DESC",
+												title : "答案组说明"
+											}, 
+											{field:"IS_VALID",title:"启用",codeFormat:{type:"dict",codeType:"1278"}},
+											{field:"DOWN_TAG",title:"OEM下发",codeFormat:{type:"dict",codeType:"1278"}},
+										],
+									//当出现选择操作的按钮时，响应事件
+									onCheck : function(row) {
+										$("#ANSWER_GROUP_NO").setDmsValue(
+												row.ANSWER_GROUP_NO);
+
+									}
+								});
+
+						//触发点击事件
+						$("a[data-beforeShowEvent='true']", container).on(
+								"beforeShow.dms",
+								function(event, returnResult) {
+									var parentTableRow = $("#answers",
+											getElementContext()).dmsTable()
+											.getParentTabelRow();
+									if (parentTableRow == undefined) {
+										dmsCommon.tip({
+											status : "warning",
+											msg : "请双击选择父表格数据"
+										});//总共的状态类型：info、success、error、warning
+										returnResult.status = false;
+										return;
+									}
+									//设置页面初始化值
+									$(this).data("pageData", parentTableRow);
+									returnResult.status = true;
+								});
+
+					});
+</script>

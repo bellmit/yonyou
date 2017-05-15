@@ -1,0 +1,204 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<!-- <div class="panel-heading">
+				<div class="pannel-name">维修收款</div>
+			</div> -->
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">业务类型</label>
+							<div class="col-xs-8">
+								<select id="businessType" data-ajaxSync="true" data-existsDefault="false" name="businessType" class="bs-select form-control" data-dictCode="1216" data-value="12161001">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">业务单号</label>
+							<div class="col-xs-8">
+								<input id="businessNo" name="businessNo" class="form-control" type="text" />
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">结算时间</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange"  data-defaultDays="7">
+									<input type="text" class="form-control" readonly name="balanceFrom"> 
+									<span class="input-group-addon">至</span> 
+									<input type="text" class="form-control" readonly name="balanceTo">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">结算单号</label>
+							<div class="col-xs-8">
+								<input id="balanceNo" name="balanceNo" class="form-control" type="text" />
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">收费对象名称</label>
+							<div class="col-xs-8">
+								<input id="paymentObjectName" name="paymentObjectName" class="form-control" type="text" />
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">结清日期</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange">
+									<input type="text" class="form-control" readonly name="squareFrom"> 
+									<span class="input-group-addon">至</span> 
+									<input type="text" class="form-control" readonly name="squareTo">
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车主</label>
+							<div class="col-xs-8">
+								<input id="ownerName" name="ownerName" class="form-control" type="text" />
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车牌号</label>
+							<div class="col-xs-8">
+								<input id="license" name="license" class="form-control" type="text" />
+							</div>
+						</div>
+					</div> -->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">结清</label>
+							<div class="col-xs-8">
+								<input id="payOff" name="payOff" type="radio" data-dictCode="1004" data-value="10041002" />
+							</div>
+						</div>
+					</div>
+					<!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">未收账款</label>
+							<div class="col-xs-8 col-sm-3">
+								<select   id="notReceivedAmount" data-dictCode="1224" data-value="12241001"  name="notReceivedAmount" class="bs-select form-control">
+								</select>
+							</div>
+							<div>0</div>
+						</div>
+					</div> -->
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i class="fa fa-undo"></i>重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name">工单信息</div>
+				<div class="btn-group btn-group-sm">
+						<a class="btn btn-outline" data-url="repair/receipt/repairReceipt/gathering.html" data-width="modal-lg" data-toggle="modal" data-beforeShowEvent="true"><i class="fa fa-plus-square" ></i>  收款 </a>
+						<a data-url="repair/receipt/repairReceipt/addChargeDerate.html" data-width="modal-lg" data-toggle="modal" class="btn btn-outline" data-beforeShowEvent="true"> <i class="fa fa-minus-square"></i>减免
+						</a>
+						<a data-url="repair/receipt/repairReceipt/searchDetailed.html" data-width="modal-lg" data-toggle="modal" class="btn btn-outline" data-beforeShowEvent="true"> <i class="fa fa-minus-square"></i>收款减免明细
+						</a>
+						<a data-url="repair/receipt/repairReceipt/searchReceiveMoney.html" data-width="modal-lg" data-toggle="modal" class="btn btn-outline" data-beforeShowEvent="true"><i class="fa fa-minus-square"></i>销账</a>
+						<a href="javascript:;" data-url="/balance/balanceAccounts/export/receiveMoneys" data-method="downLoad" data-toggle="confirmation" data-model="repair" class="btn btn-outline"> <i class="fa fa-upload"></i>Excel导出
+						</a>
+						
+				</div>
+			</div>
+			<div class="panel-body">
+				<table class="table table-striped table-bordered table-hover table-responsive" id="dms_table"></table>
+			</div>
+		</div>
+
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["repair"] + "/balance/balanceAccounts/query/repairAccounts",
+		rowID : "BALANCE_ID",
+		sortName : "BALANCE_TIME", 
+		sortOrder : "asc",
+		pageSize:5,
+		autoHeight:false,
+		columns : [
+		    {radio:true},
+		    {field : "BALANCE_ID",title : "操作",operateFormat : [
+						{type:"detail",url:"repair/Settlement/charge/detailChargeSettlement.html",openType:"jump",
+							isShow:function(value, row, index){
+								  var val=$("#businessType",container).val();
+		                    	   if(val=="12161001"){
+		                    		   return true;
+		                    	   }else{
+		                    		   return false;
+		                    	   } 
+						 },disableHidden:true},	                                        
+		                {type:"detail",url:"repair/Settlement/charge/editSalesPart.html",openType:"jump",
+		                	isShow:function(value, row, index){
+			                	   var val=$("#businessType",container).val();
+		                    	   if(val=="12161002"){
+		                    		   return true;
+		                    	   }else{
+		                    		   return false;
+		                    	   } 
+		                      },disableHidden:true},
+		                {type:"detail",url:"repair/Settlement/charge/editTransfers.html",openType:"jump",
+		                 isShow:function(value, row, index){
+		                	  var val=$("#businessType",container).val();
+	                    	   if(val=="12161003"){
+	                    		   return true;
+	                    	   }else{
+	                    		   return false;
+	                    	   } 
+	                      },disableHidden:true}
+               ]
+            },
+            {field : "BALANCE_NO",title : "结算单号"}, 
+			{field : "PAYMENT_OBJECT_CODE",title : "收费对象代码"}, 
+			{field : "PAYMENT_OBJECT_NAME",title : "收费对象名称"}, 
+			{field : "RECEIVABLE_AMOUNT",title : "应收账款",numberFormat : {decimal:2}}, 
+			{field : "RECEIVED_AMOUNT",title : "已收账款",numberFormat : {decimal:2}}, 
+			{field : "DERATE_AMOUNT",title : "已免账款",numberFormat : {decimal:2}}, 
+			{field : "NOT_RECEIVED_AMOUNT",title : "未收账款",numberFormat : {decimal:2}}, 
+			{field : "BALANCE_TIME",title : "结算时间",dateFormat:{}}, 
+			{field : "PAY_OFF",title : "是否结清",codeFormat : {type:"dict",codeType:"1004"}}, 
+			{field : "SQUARE_DATE",title : "结清日期",dateFormat:{}},
+			{field : "BUSINESS_NO",title : "业务单号"}
+			//{field : "OWNER_NAME",title : "车主"}, 
+			//{field : "LICENSE",title : "车牌号"}, 
+			]
+		});
+	
+	    //弹出页面打开前执行函数
+		$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+			var formJson = $("#dms_table",container).dmsTable().getFirstSelection()
+			//console.log(formJson);
+			if(!formJson){
+				dmsCommon.tip({status:"warning",msg:"请选中一条表格数据"});
+				returnResult.status = false;
+				return ;
+			}
+			returnResult.status = true;
+		});
+	});
+</script>

@@ -1,0 +1,141 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">展厅流量快速登记</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">展厅接待信息</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row" data-tableSelect="true">
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" >
+								<label class="control-label col-xs-4">客户名称</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input type="hidden" class="form-control" id="customerNo"
+											name="customerNo" data-fieldName="CUSTOMER_NO">
+										<input type="hidden" class="form-control" id="potentialCustomerId"
+											name="potentialCustomerId" data-fieldName="POTENTIAL_CUSTOMER_ID">
+										<input type="hidden" class="form-control " id="visitTypeX"
+											name="visitTypeX" data-fieldName="VISIT_TYPE">
+										<input type="text" class="form-control required" id="customerName"
+											name="customerName" data-fieldName="CUSTOMER_NAME" maxlength="120">
+										 <span class="input-group-btn">
+											<button class="btn default btn-sm" type="button"
+												data-url="customer/potentialcus/visitReception/searchCusInfoChoice.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+	                                            	<i class="fa fa-close"></i>
+	                                    	</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+									<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">来访人数</label>
+								<div class="col-xs-8">
+									<input id="visitor" name="visitor"
+										class="form-control required" maxlength="30" type="text" value="1" data-fieldName="VISITOR" />
+								</div>
+							</div>
+						</div>
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销售顾问</label>
+								<div class="col-xs-8">
+								 <select id="soldBy" name="soldBy"
+									class="bs-select form-control"
+									data-url="/basedata/employees/-1/salesConsultant"
+									data-model="manage" data-labelValue="EMPLOYEE_NO" data-fieldName="SOLD_BY" data-value="{[userInfo.employeeNo]}"
+									data-lableDesc="EMPLOYEE_NAME" >
+								</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">客户来源</label>
+								<div class="col-xs-8">
+									<select id="cusSource" name="cusSource"
+										class="bs-select form-control" data-existsDefault="false" data-dictCode="1311" data-fieldName="CUS_SOURCE"
+										data-excludeItems="13111016,13111021"
+										>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">来访方式</label>
+								<div class="col-xs-8">
+									<select id="visitType" name="visitType"
+										class="bs-select form-control" data-existsDefault="false" data-dictCode="1309" data-fieldName="VISIT_TYPE"
+										>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a data-url="/customerManage/visitingRegister" data-model="customer" data-method="POST"
+				data-callBack="true" class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> <a
+				data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	var currentDate;
+	+function(){
+        var date = new Date();
+        var seperator1 = "-";
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        currentDate= year + seperator1 + month + seperator1 + strDate;
+	}();
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("a[data-dismiss='modal']",container).click();
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	$("#foundDate",container).val(currentDate);
+	$("#isOnjob",container).bindChange(function(obj){
+		var isOnJob=$("#isOnjob",container).val();
+		if(isOnJob=="10081002"){
+			$("#dimissionDate",container).val(currentDate);
+		}else{
+			$("#dimissionDate",container).val("");
+		}
+		
+	});
+});
+
+</script>

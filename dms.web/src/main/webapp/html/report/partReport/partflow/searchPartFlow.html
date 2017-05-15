@@ -1,0 +1,107 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">仓库名称</label>
+							<div class="col-xs-8">
+								<input type="hidden" id="storageMark" name="storageMark" value="one">
+								<select id="storageCode" name="storageCode"
+									class="bs-select form-control" data-ajaxSync = "true"
+									data-url="/basedata/store/accessories/powerWarehouses" data-model="part" data-labelValue="STORAGE_CODE" data-lableDesc="STORAGE_NAME"
+									data-valueUrl="/basedata/BasicParameters/1023/Repair_warehouse" data-valueType="parameter" data-ajaxSync="true"></select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件代码</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="partCode"
+									name="partCode">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="partName"
+									name="partName">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">库存信息</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">					
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+// 	dmsCommon.ajaxRestRequest({
+// 		url : dmsCommon.getDmsPath()["manage"] + "/basedata/BasicParameters/1023/Repair_warehouse",
+// 		type : 'GET',
+// 		sucessCallBack : function(data) {
+// 			$("#storageCode",container).setDmsValue(data.paramValue);
+// 			$("#STORAGE_CODE",container).setDmsValue(data.paramValue);
+// 		}
+// 	});
+
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["report"] + "/partReport/partflows", ///basedata
+		rowID : "PART_STOCK_ID",
+		sortName : "PART_STOCK_ID", 
+		sortOrder : "asc",
+		isQueryFirst:false,
+		columns : [ 
+		    {field : "PART_STOCK_ID",title : "操作",operateFormat : [
+                   {type:"detail",url:"report/partReport/partflow/editPartFlow.html",openType:"jump"}
+               ]
+            }, 
+            {field : "STORAGE_NAME",title : "仓库名称"},
+            {field : "STORAGE_POSITION_CODE",title : "库位"}, 
+            {field : "PART_CODE",title : "配件代码"}, 
+            {field : "PART_NAME",title : "配件名称"},
+            {field : "STOCK_QUANTITY",title : "库存数量"},
+            {field : "BORROW_QUANTITY",title : "借进数量"},
+            {field : "LEND_QUANTITY",title : "借出数量"},
+            {field : "aaa",title : "可用库存"},
+			{field : "LAST_STOCK_IN",title : "最新入库时间",dateFormat : {format:"YYYY-MM-DD"}},
+			{field : "LAST_STOCK_OUT",title : "最新出库时间",dateFormat : {format:"YYYY-MM-DD"}}
+			],
+			onLoadSuccess : function() {
+				  $("#storageMark",container).val("");
+		    }
+		}); 
+	});
+</script>

@@ -1,0 +1,101 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+				<input id="dealerCode" readonly name="dealerCode"
+				class="form-control" type="text" data-fieldName="dealer_code" />
+			
+				</div>
+
+			<span style="color: red;text-align: left;">经销商资金覆盖率（一）=经销商当前账户合计余额/经销商截止本周的未执行订单；
+		  经销商资金覆盖率（二）=经销商当前账户合计余额/经销商截止下周的未执行订单；   
+		</span>	
+		<span >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="hist" data-onclickEvent1="true" href="#">&nbsp;(+)</a></span>历史未执行订单
+	<div class="panel panel-default table-panel">
+					<div class="panel-heading">
+						<div class="pannel-name"></div>
+					</div>
+					<div class="panel-body">
+						<table
+							class="form-group  table table-striped table-bordered table-hover table-responsive"
+							id="dms_table"></table>
+					</div>
+				</div>
+	<div class="panel panel-default table-panel hidden" id="countId">
+		<div class="panel-heading">
+			<div class="pannel-name">历史未执行订单</div>
+			
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="forecast"></table>
+		</div>
+	</div>
+	
+			</div>
+		</div>
+	</form>
+
+
+</div>
+<script type="text/javascript">
+
+$(document).one("onload.dms",function(event,container){
+	
+	//
+	new Datatable().initLocale({
+		src : "dms_table",
+		container:container,
+		   url : dmsCommon.getDmsPath()["repair"] + "/k4AccountManage/dealerPayQuery1",
+		   rowID : "",
+		  
+		  
+		 
+			columns : [ 
+			           {field : "GROUP_WEEK",title : "zhou",visible :false},
+			           {field : "COUNTT",title : "订单数量"},
+			            {field : "AMOUNT",title : "订单总金额"},
+			            {field : "RATE1",title : "经销商资金覆盖率（一）"},
+			            {field : "RATE2",title : "经销商资金覆盖率（二）"},
+			            {field : "ACCOUNT",title : "经销商账户总金额"}
+			],
+			onLoadSuccess : function() {
+				$("#dms_table",container).dmsTable().bootstrapTable('resetView');
+				
+			}
+		});
+	
+	new Datatable().initPagination({
+		src : "forecast",
+		container:container,
+		   url : dmsCommon.getDmsPath()["repair"] + "/k4AccountManage/dealerPayQuery",
+		   rowID : "",
+		   pageSize:5,
+		   autoHeight:false,
+		 
+			columns : [ 
+			           {field : "ORDER_NO",title : "订单号"},
+			           {field : "ORDER_TYPE",title : "订单类型",codeFormat : {type:"oemDict",codeType:"9016"}},
+			            {field : "BRAND_NAME",title : "品牌"},
+			            {field : "SERIES_NAME",title : "车系"},
+			            {field : "MODEL_NAME",title : "车款"},
+			            {field : "COLOR_NAME",title : "颜色"},
+			            {field : "TRIM_NAME",title : "内饰"},
+			            {field : "ORDER_STATUS",title : "订单状态",codeFormat : {type:"oemDict",codeType:"7003"}},
+			            {field : "ORDER_DATE",title : "订单提报时间",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+			            {field : "ORDER_WEEK",title : "订单执行周"},
+			            {field : "BASE_PRICE",title : "订单金额"}
+			],
+			onLoadSuccess : function() {
+				$("#forecast",container).dmsTable().bootstrapTable('resetView');
+				
+			}
+		});
+	
+	$("a[data-onclickEvent1='true']",container).on("dms.click",function(event){
+		$("#countId",container).removeClass("hidden");
+	});
+});
+</script>

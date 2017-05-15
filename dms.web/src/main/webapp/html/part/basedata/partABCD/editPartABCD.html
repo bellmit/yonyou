@@ -1,0 +1,53 @@
+<div class="dms-edit ajaxrest" data-url="/basedata/partABCD/{[PART_NO]}" data-model="part">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">配件ABCD属性修改</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-3 ">
+							<div class="form-group form-group-xs m-b-xs">
+								<label class="control-label col-xs-4 ">现ABCD属性</label>
+								<div class="col-xs-8">
+									<select id="ABC_TYPE" name="ABC_TYPE"
+										class="bs-select form-control" data-dictCode="1391">
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/basedata/partABCD/{[PART_NO]}" data-model="part"
+				data-method="PUT" data-callBack="true"
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>保存
+			</a>
+			<a data-dismiss="modal"
+				class="btn blue"> <i
+				class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+//页面加载后初始化
+$(document).one("onload.dms",function(event,container){
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+});
+</script>

@@ -1,0 +1,95 @@
+<div class="dms-edit" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">战败再分配</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				
+				<div class="panel-body">
+					<div class="row">
+						
+						<!--/span-->
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销售顾问</label>
+								<div class="col-xs-8">
+									<select id="consultant" name="consultant" data-fieldName="CONSULTANT"
+										class="bs-select form-control"
+										data-url="/basedata/employees/10061001/employeesdict"
+										data-model="manage" data-labelValue="EMPLOYEE_NO"
+										data-lableDesc="EMPLOYEE_NAME">
+									</select>
+									<input type="hidden" id="customerIds" name="customerIds" value = "">
+									<input type="hidden" id="intentLevel" name="intentLevel" value = "">
+									
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="hidden">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销售顾问</label>
+								<div class="col-xs-8">
+									<select id="consultantX" name="consultantX" data-autoSyncValue="#consultant"
+										class="bs-select form-control"
+										data-url="/basedata/employees/10061001/employeesdict"
+										data-model="manage" data-labelValue="EMPLOYEE_NO"
+										data-lableDesc="EMPLOYEE_NAME">
+									</select>
+									
+									
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/customerManage/potentialcus/redistribution" data-model="customer"
+				data-method="PUT" data-callBack="true" data-beforeRequest="true"  class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> <a
+				data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+		var selectIds = $("#cusList",getElementContext()).dmsTable().getSelectionIds();
+		var selectRow = $("#cusList",getElementContext()).dmsTable().getSelections();
+		var consultantX =$('option:selected',$("#consultantX",container)).text();
+		var falg=true;
+		$(selectRow).each(function(e){
+			 if(selectRow[e].EMPLOYEE_NAME==consultantX){
+				 dmsCommon.tip({status:"warning",msg:"存在分配后与分配前销售顾问一样的潜客记录，请重新分配"});
+				 falg= false;
+ 				 return false;
+			 }
+	  		});
+		if(!falg){
+			returnResult.status = false;
+			return ;
+		}
+		$("#customerIds",container).val(selectIds);
+		$("#intentLevel",container).val(selectRow[0].INTENT_LEVEL); 
+		 returnResult.status = true; //定义返回值
+	});
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#cusList",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	//$(".modal-title",container).text($.cookie('_buttonTitle'));
+});
+</script>

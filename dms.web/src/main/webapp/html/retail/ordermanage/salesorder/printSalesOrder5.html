@@ -1,0 +1,307 @@
+<link rel="stylesheet" type="text/css" 
+	href="../assets/layouts/layout/css/PrintArea.css">
+<div class="dms-edit PrintArea ajaxrest" data-url="/ordermanage/salesOrders/{[SO_NO]}" data-model="retail" data-pageInitCallBack="true">
+	<div class="panel panel-default panel-print">
+		<div class="panel-body">
+			<div class="print-title">
+				<div class="row h1Title">
+					<div class="col-xs-12">
+						<label>{[userInfo.dealerName]}</label>
+					</div>
+				</div>
+				<div class="row h2Title">
+					<div class="col-xs-12">
+						<label>合约书(预收款)</label>
+					</div>
+				</div>
+			</div>
+			
+			    <div>
+			   <table width="100%" height="100%" border="1">
+  <tr>
+    <td height="33" colspan="3">购车单位 (个人)名称</td>
+    <td colspan="3"><span class="form-show" data-fieldName="CUSTOMER_NAME"></span></td>
+    <td colspan="2">性别</td>
+    <td width="15%">
+    <div class="col-xs-8">
+							    <span class="form-show" id="gender" ></span>
+								<select  class="form-show hidden dmsDisabled" id="selectGender" data-dictCode="1006"   data-fieldName="GENDER"  data-existsDefault = "false"></select>
+							</div>
+	</td>
+  </tr>
+  <tr>
+    <td height="30" colspan="3">车型</td>
+    <td width="25%"><span class="form-show" data-fieldName="MODEL_NAME"></span></td>
+    <td width="15%">排气量</td>
+    <td width="17%"><span class="form-show" data-fieldName="EXHAUST_QUANTITY"></span></td>
+    <td colspan="2">颜色</td>
+    <td><span class="form-show" data-fieldName="COLOR_NAME"></span></td>
+  </tr>
+  <tr>
+    <td height="30" colspan="3">车辆价格</td>
+    <td colspan="6"><span class="form-show" id="zhwen"></span></td>
+  </tr>
+  <tr>
+    <td height="31" colspan="3">预付款</td>
+    <td colspan="3">人民币&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;佰&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;拾&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;万&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仟&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;佰&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;拾&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;元整</td>
+    <td colspan="2">预定交车日期</td>
+    <td><span class="form-show" data-date-format="YYYY-MM-DD" data-fieldName="DELIVERING_DATE"></span></td>
+  </tr>
+  <tr>
+    <td height="29" colspan="3">提车前应付讫款项</td>
+    <td colspan="6">人民币&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;佰&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;拾&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;万&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仟&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;佰&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;拾&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;元整</td>
+  </tr>
+  <tr>
+    <td height="29" colspan="3">付款方式</td>
+    <td colspan="3"><input type="checkbox" name="isPersonDriveCar"
+													id="isPersonDriveCar" data-dictCode="8765"
+													 />
+    <td colspan="2">余款拟付款日期</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="29" colspan="3">交车地点</td>
+    <td colspan="6">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="3%" height="20%">约<br />
+定<br />
+事<br />
+项</td>
+    <td colspan="5"><p>1.合约价格仅为车价。不含上牌过程中所发生的任何税费。上牌过程中所需税费</p>
+      <p> （包括保险费、购置税、上牌费等）须由购方另行支付。</p>
+      <p>2.购方提车前需将本合约之车价款缴清后方可提车。如购方超过议定交车日期30天时,</p>
+      <p> 经卖方书面催促仍未在2天内不办理交款提车手续的,卖方有权解除合约，按20元/天</p>
+      <p> 计收购方车辆场地占用费，自议定交车日期之日起至卖方解除合约之日止。如卖方</p>
+      <p> 未能于协定交车日期交车已逾期30天以上，经购方书面催促卖方仍未能在5天之内交</p>
+      <p> 车的，购方有权解除合约，由卖方退还所收预付款，并按同期银行流动资金存款利</p>
+      <p> 率计付利息给购方。</p>
+      <p>3.  卖方于购方全款到帐时将新车做完新车检验工作后，经购方核对无误后交车。</p>
+      <p>4.  卖方所售全新车辆在交车后按厂方产品质量保用手册所规定的内容执行。</p>
+      <p>5.  本合约内之标准规格配备以原厂发布为准如有变动仍以原厂发布规格为准。</p>
+      <p>6.  本合约不得进行债权债务转让与质押。</p>
+      <p>7.  如有未尽事宜由双方共同协商另定。</p>
+    <p>8.  本合约书一式三份。卖方执二份，购方执一份，自双方签字、盖章之日起生效</p></td>
+    <td width="5%">备注：</td>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+       <tr>
+    <td height="100" colspan="2"><p>签<br />
+      约<br />
+    人</p></td>
+    <td colspan="3">
+    <span class="form-show" >卖方：{[userInfo.dealerName]}</span><br /><br />
+    <span class="form-show" >经办人 :{[USER_NAME]}</span><br /><br />
+    <span class="form-show" id="foot1"></span><br /><br />
+    <span class="form-show" id="foot2"></span><br /><br />
+    <span class="form-show" id="foot3"></span><br /><br />
+    <span class="form-show" id="foot4"></span>
+    </td>
+    <td colspan="4">
+    <span class="form-show" >购方：{[CUSTOMER_NAME]}</span><br /><br />
+    <span class="form-show" >经办人：{[USER_NAME]}</span><br /><br />
+    <span class="form-show" id="foot5"></span><br /><br />
+    <span class="form-show" >开户行：</span><br /><br />
+    <span class="form-show" >帐号：</span><br /><br />
+    <span class="form-show" >电话：</span>
+    </td>
+  </tr> 
+</table>
+
+			   
+			</div>
+
+			<div class="panel panel-default " hidden="hidden">
+				<div class="panel-heading">
+					<div class="pannel-name">财务收费信息</div>
+				</div>
+				<div >
+					<div class="print-main">
+						<div class="row">
+							<div class="col-xs-4" hidden="hidden">
+								<div class="form-group">
+							<label class="control-label col-xs-4"><span style="color:Red">*</span>车辆价格</label>
+							<div class="col-xs-8">
+								<input id="vehiclePrice" name="vehiclePrice" maxDigit="12" maxPrecision="2" data-autoValueDigits="2"
+									class="form-control required decimal" type="text" value="0"  data-fieldName="VEHICLE_PRICE"/>
+						
+							</div>
+						</div>
+							</div>
+							<div class="col-xs-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">账号</label>
+									<div class="col-xs-8">
+										<input id="bankCccount" name="bankCccount" data-fieldName="BANK_ACCOUNT" 
+									class="form-control" type="text" disabled="disabled" />
+									</div>
+								</div>
+							</div>
+								<div class="col-xs-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">地址</label>
+									<div class="col-xs-8">
+										<input id="address" name="address" data-fieldName="ADDRESS" 
+									class="form-control" type="text" disabled="disabled" />
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">开户银行</label>
+									<div class="col-xs-8">
+										<input id="mbankName" name="mbankName" data-fieldName="MBANK_NAME" 
+									class="form-control" type="text" disabled="disabled" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+				
+							<div class="col-xs-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">销售专线</label>
+									<div class="col-xs-8">
+										<input id="hotLine" name="hotLine" data-fieldName="HOT_LINE" 
+									class="form-control" type="text" disabled="disabled" />
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">地址</label>
+									<div class="col-xs-7">
+										<input id="footAddress" name="footAddress" data-fieldName="FOOT_ADDRESS" 
+									class="form-control" type="text" disabled="disabled" />
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div> 
+		</div>
+	</div>
+</div>
+<div class="print-without">
+	<a id="print" class="btn blue printfy"><i class="fa fa-print"></i>打印</a>
+	<a data-info="editOrder"
+		href="retail/ordermanage/salesorder/searchSalesOrder.html"
+		class="btn blue ajaxify" data-beforeShowEvent="true"><i
+		class="fa fa-reply"></i>返回</a>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms", function(event, container) {
+		 $("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){
+			 var vehiclePrice=$("#vehiclePrice",container).val();
+			 var bankCccount=$("#bankCccount",container).val();
+			 var mbankName=$("#mbankName",container).val();
+			 var hotLine=$("#hotLine",container).val();
+			 var footAddress=$("#footAddress",container).val();
+			 var address=$("#address",container).val();
+			 $("#foot1",container).setDmsValue("地址 :"+footAddress);
+			 $("#foot2",container).setDmsValue("开户行 :"+mbankName);
+			 $("#foot3",container).setDmsValue("帐号 :"+bankCccount);
+			 $("#foot4",container).setDmsValue("销售专线 :"+hotLine);
+			 $("#foot5",container).setDmsValue("地址："+address)
+			 convertCurrency(vehiclePrice+".00")
+			 $("#gender",container).setDmsValue($('option:selected',$("#selectGender",container)).text());
+			 $("#businessType",container).setDmsValue($('option:selected',$("#selectBusinessType",container)).text());
+			 debugger;
+			 console.log("---------------"+$('option:selected',$("#selectGender",container)));
+		 });
+		function convertCurrency(currencyDigits) {
+			 
+		    var MAXIMUM_NUMBER = 99999999999.99;  //最大值
+		    // 定义转移字符
+		    var CN_ZERO = "零";
+		    var CN_ONE = "壹";
+		    var CN_TWO = "贰";
+		    var CN_THREE = "叁";
+		    var CN_FOUR = "肆";
+		    var CN_FIVE = "伍";
+		    var CN_SIX = "陆";
+		    var CN_SEVEN = "柒";
+		    var CN_EIGHT = "捌";
+		    var CN_NINE = "玖";
+		    var CN_TEN = "拾";
+		    var CN_HUNDRED = "佰";
+		    var CN_THOUSAND = "仟";
+		    var CN_TEN_THOUSAND = "万";
+		    var CN_HUNDRED_MILLION = "亿";
+		    var CN_DOLLAR = "元";
+		    var CN_TEN_CENT = "角";
+		    var CN_CENT = "分";
+		    var CN_INTEGER = "整";
+		 
+		    // 初始化验证:
+		    var integral, decimal, outputCharacters, parts;
+		    var digits, radices, bigRadices, decimals;
+		    var zeroCount;
+		    var i, p, d;
+		    var quotient, modulus;
+		    parts = currencyDigits.split(".");
+		    if (parts.length > 1) {
+		        integral = parts[0];
+		        decimal = parts[1];
+		        decimal = decimal.substr(0, 2);
+		    }
+		    else {
+		        integral = parts[0];
+		        decimal = "";
+		    }
+		    // 实例化字符大写人民币汉字对应的数字
+		    digits = new Array(CN_ZERO, CN_ONE, CN_TWO, CN_THREE, CN_FOUR, CN_FIVE, CN_SIX, CN_SEVEN, CN_EIGHT, CN_NINE);
+		    radices = new Array("", CN_TEN, CN_HUNDRED, CN_THOUSAND);
+		    bigRadices = new Array("", CN_TEN_THOUSAND, CN_HUNDRED_MILLION);
+		    decimals = new Array(CN_TEN_CENT, CN_CENT);
+		    
+		    outputCharacters = "";
+		    //大于零处理逻辑
+		    if (Number(integral) > 0) {
+		        zeroCount = 0;
+		        for (i = 0; i < integral.length; i++) {
+		            p = integral.length - i - 1;
+		            d = integral.substr(i, 1);
+		            quotient = p / 4;
+		            modulus = p % 4;
+		            if (d == "0") {
+		                zeroCount++;
+		            }
+		            else {
+		                if (zeroCount > 0) {
+		                    outputCharacters += digits[0];
+		                }
+		                zeroCount = 0;
+		                outputCharacters += digits[Number(d)] + radices[modulus];
+		            }
+		            if (modulus == 0 && zeroCount < 4) {
+		                outputCharacters += bigRadices[quotient];
+		            }
+		        }
+		        outputCharacters += CN_DOLLAR;
+		    }
+		    // 包含小数部分处理逻辑
+		    if (decimal != "") {
+		        for (i = 0; i < decimal.length; i++) {
+		            d = decimal.substr(i, 1);
+		            if (d != "0") {
+		                outputCharacters += digits[Number(d)] + decimals[i];
+		            }
+		        }
+		    }
+		    //确认并返回最终的输出字符串
+		    if (outputCharacters == "") {
+		        outputCharacters = CN_ZERO + CN_DOLLAR;
+		    }
+		    if (decimal == "") {
+		        outputCharacters += CN_INTEGER;
+		    }
+		    $("#zhwen",container).setDmsValue("人民币                                       "+outputCharacters+"               整"+"        (¥"+currencyDigits+")");
+		    //获取人民币大写
+		    
+		}
+
+	});
+</script>

@@ -1,0 +1,544 @@
+<div class="dms-add" >
+	<form class="form-horizontal" >
+	<div class="modal-header">
+			<div class="modal-title">经销商信息</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+		<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">新增经销商</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+	    		<div class="panel-body">
+	    		<div class="row">
+					
+					<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商公司</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+									<input type="hidden" id="companyId" name="companyId" class=" add">
+									<input id="companyShortname" readonly
+										name="companyShortname" class="form-control required" type="text" /> <span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="manage/distributorManage/searchDealersAdd.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					
+					<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商名称</label>
+								<div class="col-xs-8">
+									<input id="dealerName" name="dealerName"   class="form-control required add"  type="text" maxlength="100"/>
+								</div>
+							</div>
+						</div>
+					
+					<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商简称</label>
+								<div class="col-xs-8">
+									<input id="dealerShortname" name="dealerShortname"   class="form-control required add"  type="text"  maxlength="100"/>
+								</div>
+							</div>
+						</div>
+					
+					<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">英文名称</label>
+								<div class="col-xs-8">
+									<input id="marketing" name="marketing"   class="form-control required "  type="text" maxlength="80" />
+								</div>
+							</div>
+						</div>
+					
+					<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销售代码</label>
+								<div class="col-xs-8">
+									<input id="dealerCode_" name="dealerCode_" class="form-control required systemCode"  type="text" maxlength="20" />
+								</div>
+							</div>
+						</div>
+					
+					
+					<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">售后代码</label>
+								<div class="col-xs-8">
+									<input id="dealerCodeA_"  name="dealerCodeA_" class="form-control required systemCode"  type="text" />
+								</div>
+							</div>
+						</div>
+					<!--/span-->
+					
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销售区域</label>
+								<div class="col-xs-8">
+									<select id="smallOrg"
+										class="bs-select form-control required" name="orgId"
+										data-url="/queryDealers/getAllOrg/12351001"
+										data-model="manage" data-labelValue="ORG_ID"
+										data-lableDesc="ORG_NAME" data-live-search="fales" data-size="5"  >
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">售后区域</label>
+								<div class="col-xs-8">
+									<select id="bigOrg"
+										class="bs-select form-control required" name="orgIdA"
+										data-url="/queryDealers/getAllOrg/12351002"
+										data-model="manage" data-labelValue="ORG_ID"
+										data-lableDesc="ORG_NAME" data-live-search="fales" data-size="5"  >
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商集团</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+									<input type="hidden" id="tmGroupId" name="tmGroupId" data-fieldName="GROUP_ID">
+									<input id="groupShotname" readonly
+										name="groupShotname" class="form-control" type="text"
+										 /> <span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="manage/distributorManage/searchDealerGroup.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">成立日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date  date-picker">
+										<input id="foundDate" name="foundDate" 
+											class="form-control" readonly type="text" value=""  data-fieldName="foundDate" />
+											 <span  class="input-group-btn">
+											<button class="btn default date-set" type="button" >
+												<i class="fa fa-calendar"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">三包授权类型</label>
+								<div class="col-xs-8">
+									<select id="acuraGhasType" name="acuraGhasType" class="bs-select form-control" data-dictCode="1079" 
+										data-type="oemDict" data-existsDefault="false" data-value="10791001"  >
+								</select>
+								</div>
+							</div>
+						</div>
+				
+					<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商状态</label>
+								<div class="col-xs-8">
+									<select id="status" name="status" class="bs-select form-control" data-dictCode="1001"
+									 data-type="oemDict"  data-existsDefault="false" data-value="10011001"  >
+								</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">省份</label>
+								<div class="col-xs-8">
+									<select  class="bs-select form-control required add" id="province" name="province" data-type="oemRegion" data-fieldName="province" ></select>
+								</div>
+							</div>
+						</div>
+				
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">地级市</label>
+								<div class="col-xs-8">
+									<select  class="bs-select form-control required" parent="province" class="bs-select form-control" name="city" id = "city"  data-fieldName="city" ></select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">邮编</label>
+								<div class="col-xs-8">
+									<input id="groupShotname" 
+										name="groupShotname" class="form-control" type="hidden"  />
+									<input id="zipCode" name="zipCode" class="form-control required zipCode"  type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">热线电话</label>
+								<div class="col-xs-8">
+									<input id="phone" name="phone" class="form-control mobile"  type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系人</label>
+								<div class="col-xs-8">
+									<input id="linkMan" name="linkMan" class="form-control " type="text"  maxlength="30" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系人手机</label>
+								<div class="col-xs-8">
+									<input id="linkManMobile" name="linkManMobile" class="form-control " type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">传真</label>
+								<div class="col-xs-8">
+									<input id="faxNo" name="faxNo"  class="form-control fax"  type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">Email</label>
+								<div class="col-xs-8">
+									<input id="email" name="email" class="form-control email"  type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">税号</label>
+								<div class="col-xs-8">
+									<input id="taxesNo" name="taxesNo"  class="form-control"  type="text"  maxlength="50" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">开票单位</label>
+								<div class="col-xs-8">
+									<input id="erpCode" name="erpCode"  class="form-control "  type="text"  maxlength="50" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">开户银行</label>
+								<div class="col-xs-8">
+									<input id="beginBank" name="beginBank"  class="form-control" type="text"  maxlength="90" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">账号</label>
+								<div class="col-xs-8">
+									<input id="bankCode" name="bankCode"   class="form-control "  type="text" maxlength="50" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商建店等级</label>
+								<div class="col-xs-8">
+									<select id="range" name="range" class="bs-select form-control"  data-type="oemDict" 
+									data-dictCode="9028"  data-existsDefault="false" data-value="90281001" >
+								</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">CG Code/ CJ Code</label>
+								<div class="col-xs-8">
+									<input id="ccCode" name="ccCode"  class="form-control "  type="text" maxlength="10" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销店等级</label>
+								<div class="col-xs-8">
+									<select id="companyLevel" name="companyLevel" class="form-control bs-select required" data-type="oemDict"
+									 data-dictCode="1155"  data-existsDefault="false" data-value="11551001" >
+								</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">授权品牌</label>
+								<div class="col-xs-8">
+									<!-- <input id="licensedBrands" name="licensedBrands"  class="form-control required " type="text" /> -->
+									<select id="licensedBrands" class="bs-select form-control required" name="licensedBrands" data-url="/basedata/material/brand/2"
+									data-model="manage" multiple data-labelValue="BRAND_NAME" data-lableDesc="BRAND_NAME" data-fieldName="LICENSED_BRANDS" data-existsDefault="false"></select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联行号</label>
+								<div class="col-xs-8">
+									<input id="lineNumber" name="lineNumber"   class="form-control " type="text" maxlength="30" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">统一社会信用代码</label>
+								<div class="col-xs-8">
+									<input id="integratedSocial" name="integratedSocial"  class="form-control " type="text" maxlength="30" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">终止授权时间</label>
+								<div class="col-xs-8">
+									<div class="input-group date  date-picker">
+										<input id="endDate" name="endDate" 
+											class="form-control" readonly type="text" value=""  data-fieldName="endDate" />
+											 <span  class="input-group-btn">
+											<button class="btn default date-set" type="button" >
+												<i class="fa fa-calendar"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否官网</label>
+								<div class="col-xs-8">
+									<select id="isEc" name="isEc" class="bs-select form-control"  data-type="oemDict" 
+										data-dictCode="1004"  data-existsDefault="false" data-value="10041002" >
+								</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">详细地址</label>
+								<div class="col-xs-8">
+									<input id="address" name="address"  class="form-control"type="text" maxlength="200"  />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">备注</label>
+								<div class="col-xs-8">
+									<input id="groupIds" name="groupIds"  class="form-control"type="hidden" />
+									<input id="remark" name="remark"  class="form-control"  type="text" maxlength="200"  />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">国产JEEP授权与否</label>
+								<div class="col-xs-8">
+									<select id="isK4" name="isK4" class="bs-select form-control bussCheck" data-type="oemDict"
+									 data-dictCode="1004"  data-existsDefault="false" data-value="10041002" checkval="JEEP">
+								</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">FIAT授权与否</label>
+								<div class="col-xs-8">
+									<select id="isFiat" name="isFiat" class="bs-select form-control bussCheck"data-type="oemDict"
+									 data-dictCode="1004"  data-existsDefault="false" data-value="10041002" checkval="FIAT" >
+								</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">CJD授权与否</label>
+								<div class="col-xs-8">
+									<select id="isCjd" name="isCjd" class="bs-select form-control bussCheck" data-type="oemDict"
+									 data-dictCode="1004"  data-existsDefault="false" data-value="10041002" checkval="CJD" >
+								</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/queryDealers/addModifyDealerInfo" data-model="manage" data-method="POST" data-callBack='true'
+			class="btn blue" data-toggle="confirmation" data-beforeRequest='true' ><i class="fa fa-save"></i>保存</a> 			
+				<a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">业务范围</div>
+			<div class="pannel-tools">
+				<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="tableList"></table>
+		</div>
+	</div>
+	<div class="panel panel-default table-panel">
+			
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="addRessList"></table>
+		</div>
+	</div>
+	
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initLocale({
+		src : "addRessList",
+		container:container,
+		url : dmsCommon.getDmsPath()["manage"] + "/queryDealers/findDealerBuss",
+		rowID : "GROUPID",
+		sortName : "GROUPID",
+		sortOrder : "asc",
+		autoHeight:false,
+		isQueryFirst:true,
+		columns : [ 
+		     {checkbox:true,sortable : true}, 
+		    {field : "BNAME",title : "品牌"}, 
+			{field : "SNAME",title : "车系"}, 
+			{field : "GTYPE",title : "业务类型" ,codeFormat : {type:"dict",codeType:"9008"}}
+		]
+
+	});
+	
+	$("select.bussCheck",container).bind("change",function(){
+		var rows = $("#addRessList",container).dmsTable().getRowDataByIndex();
+		var type = $(this).attr("checkval");
+		if($(this).val() == '10041001'){
+			if(type == "JEEP"){			
+				for(var i = 0; i < rows.length; i++){
+					if(rows[i].BCODE == "JEEP" && rows[i].GROUP_TYPE == "国产"){
+						$("#addRessList tbody tr[data-uniqueid="+rows[i].GROUPID+"]").addClass("selected");	
+						$("#addRessList tbody tr td input[value="+rows[i].GROUPID+"]").prop("checked",true);
+					}
+				}
+			}
+			
+			if(type == "FIAT"){			
+				for(var i = 0; i < rows.length; i++){
+					if(rows[i].BCODE == "FIAT" && rows[i].GROUP_TYPE == "国产"){
+						$("#addRessList tbody tr[data-uniqueid="+rows[i].GROUPID+"]").addClass("selected");	
+						$("#addRessList tbody tr td input[value="+rows[i].GROUPID+"]").prop("checked",true);
+					}
+				}
+			}
+			
+			if(type == "CJD"){			
+				for(var i = 0; i < rows.length; i++){
+					if(rows[i].GROUP_TYPE == "进口"){
+						$("#addRessList tbody tr[data-uniqueid="+rows[i].GROUPID+"]").addClass("selected");	
+						$("#addRessList tbody tr td input[value="+rows[i].GROUPID+"]").prop("checked",true);
+					}
+				}
+			}
+		}else{
+			if(type == "JEEP"){			
+				for(var i = 0; i < rows.length; i++){
+					if(rows[i].BCODE == "JEEP" && rows[i].GROUP_TYPE == "国产"){
+						$("#addRessList tbody tr[data-uniqueid="+rows[i].GROUPID+"]").removeClass("selected");
+						$("#addRessList tbody tr td input[value="+rows[i].GROUPID+"]").prop("checked",false);
+					}
+				}
+			}
+			
+			if(type == "FIAT"){			
+				for(var i = 0; i < rows.length; i++){
+					if(rows[i].BCODE == "FIAT" && rows[i].GROUP_TYPE == "国产"){
+						$("#addRessList tbody tr[data-uniqueid="+rows[i].GROUPID+"]").removeClass("selected");
+						$("#addRessList tbody tr td input[value="+rows[i].GROUPID+"]").prop("checked",false);
+					}
+				}
+			}
+			
+			if(type == "CJD"){			
+				for(var i = 0; i < rows.length; i++){
+					if(rows[i].GROUP_TYPE == "进口"){
+						$("#addRessList tbody tr[data-uniqueid="+rows[i].GROUPID+"]").removeClass("selected");
+						$("#addRessList tbody tr td input[value="+rows[i].GROUPID+"]").prop("checked",false);
+					}
+				}
+			}
+		}
+	});
+		
+	//保存前处理多选值
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+	 	var str='';
+	 	/* var selectRow = $("#addRessList",container).dmsTable().getSelections();
+	   	$(selectRow).each(function(index){
+		  
+		   str+=selectRow[index].GROUPID+',';
+  		}); */
+	 	var selectRow = $("#addRessList tbody tr.selected");
+	   	for(var i = 0; i < selectRow.length; i++){	   		
+	   		str += $(selectRow[i]).attr("data-uniqueid") + ",";
+	   	}
+	   	$("#groupIds").val(str.substring(0,str.length-1));debugger;
+	   	returnResult.status = true;
+	});
+	
+	
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dealerList",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+})
+    
+</script>

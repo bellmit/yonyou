@@ -1,0 +1,178 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="panel-heading">
+				<div class="pannel-name">维修建议</div>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel-body">
+				<div class="row">
+					<!-- <span /> -->
+					<div class="col-xs-12 col-md-12 col-lg-12">
+						<div class="panel panel-default table-panel">
+							<div class="panel-heading"></div>
+							<div class="panel-body">
+								<input type="hidden" id="engineNo" name="engineNo"> 
+								<input type="hidden" id="license" name="license"> 
+								<input type="hidden" id="address" name="address"> 
+								<input type="hidden" id="owerNo" name="owerNo"> 
+								<input type="hidden" id="suggestBeginDate" name="suggestBeginDate"> 
+								<input type="hidden" id="suggestEndDate" name="suggestEndDate">
+								<table class="table table-striped table-bordered table-hover table-responsive" id="dms_project"></table>
+							</div>
+						</div>
+					</div>
+					<!-- <span /> -->
+					<div class="col-xs-12 col-md-12 col-lg-12">
+						<div class="panel panel-default table-panel">
+							<div class="panel-heading"></div>
+							<div class="panel-body">
+								<input type="hidden" id="engineNo" name="engineNo"> 
+								<input type="hidden" id="license" name="license"> 
+								<input type="hidden" id="address" name="address"> 
+								<input type="hidden" id="owerNo" name="owerNo"> 
+								<input type="hidden" id="suggestBeginDate" name="suggestBeginDate"> 
+								<input type="hidden" id="suggestEndDate" name="suggestEndDate">
+								<table class="table table-striped table-bordered table-hover table-responsive" id="dms_part"></table>
+							</div>
+						</div>
+					</div>
+					<!-- <span /> -->
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms", function(event, container) {
+		
+		
+		var addresss = $("#address2",getElementContext()).val();
+		$("#address",container).val(addresss);
+		/* alert(addresss); */
+		var licenses = $("#license2",getElementContext()).val();
+		$("#license",container).val(licenses);
+		/* alert(licenses); */
+		var engineNos = $("#engineNo2",getElementContext()).val();
+		$("#engineNo",container).val(engineNos);
+		/* alert(engineNos); */
+		var ownerNos = $("#ownerNo2", getElementContext()).val();
+		$("#ownerNo", container).val(ownerNos); 
+		/* alert(ownerNos); */
+		
+		new Datatable().initPagination({
+			src : "dms_project",
+			rowID : "LABOUR_CODE",
+			container : container,
+			url : dmsCommon.getDmsPath()["customer"] + "/customer/solicitude/project",
+			sortName : "LABOUR_CODE",
+			sortOrder : "asc",
+			autoHeight : false,
+			undefinedText : "",
+			columns : [ {
+				field : "DEALER_SHORTNAME",
+				title : "经销商简称"
+			}, {
+				field : "LABOUR_CODE",
+				title : "项目代码"
+			}, {
+				field : "LABOUR_NAME",
+				title : "项目名称"
+			}, {
+				field : "STD_LABOUR_HOUR",
+				title : "工时"
+			}, {
+				field : "LABOUR_AMOUNT",
+				title : "工时费"
+			}, {
+				field : "REASON",
+				title : "不修原因",
+				codeFormat : {
+					type : "dict",
+					codeType : "9002"
+				}
+			}, {
+				field : "SUGGEST_DATE",
+				title : "建议日期",
+				dateFormat : {
+					format : "YYYY-MM-DD"
+				}
+			}, {
+				field : "CONTACTOR_ZIP_CODE",
+				title : "操作员"
+			}, {
+				field : "VIN",
+				title : "VIN"
+			}, {
+				field : "LICENSE",
+				title : "车牌号"
+			}, {
+				field : "ENGINE_NO",
+				title : "发动机号"
+			}, {
+				field : "SERVICE_ADVISOR_NAME",
+				title : "客户经理"
+			} ]
+		});
+
+		new Datatable().initPagination({
+			src : "dms_part",
+			rowID : "PART_NO",
+			container : container,
+			url : dmsCommon.getDmsPath()["customer"] + "/customer/solicitude/part", 
+			sortName : "PART_NO",
+			sortOrder : "asc",
+			autoHeight : false,
+			undefinedText : "",
+			columns : [ {
+				field : "dealer_shortname",
+				title : "经销商简称"
+			}, {
+				field : "PART_NO",
+				title : "配件代码"
+			}, {
+				field : "PART_NAME",
+				title : "配件名称"
+			}, {
+				field : "QUANTITY",
+				title : "数量"
+			}, {
+				field : "SALES_PRICE",
+				title : "单价"
+			}, {
+				field : "REASON",
+				title : "不修原因",
+				codeFormat : {
+					type : "dict",
+					codeType : "9002"
+				}
+			}, {
+				field : "SUGGEST_DATE",
+				title : "建议日期",
+				dateFormat : {
+					format : "YYYY-MM-DD"
+				}
+			}, {
+				field : "CONTACTOR_ZIP_CODE",
+				title : "操作员"
+			}, {
+				field : "VIN",
+				title : "VIN"
+			}, {
+				field : "LICENSE",
+				title : "车牌号"
+			}, {
+				field : "ENGINE_NO",
+				title : "发动机号"
+			}, {
+				field : "SERVICE_ADVISOR_NAME",
+				title : "客户经理"
+			} ]
+		});
+	});
+</script>

@@ -1,0 +1,109 @@
+<div class="dms-edit ajaxrest" data-url="/vehicleStock/StockLog/{[VIN]}/detail" data-model="vehicle" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">库存信息</div>
+			 <div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			  </div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">库存明细信息</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i
+							class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="col-xs-12 col-sm-12 col-md-5">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">操作日期</label>
+							<div class="col-xs-10 ">
+								<div class="input-group input-daterange" data-opens="right">
+									<input type="text" class="form-control" readonly value=""
+										name="startDate" id="startDate"> <span
+										class="input-group-addon">至</span> <input type="text" value=""
+										class="form-control" readonly name="endDate" id="endDate">
+									<span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                </span>	
+								</div>
+							</div>
+						</div>
+				    </div>
+				    
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="query-btn" id="aaa">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 明细查询
+							</a>
+						</div>
+					</div>
+							
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="detailList">
+					</table>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="modal-footer center-block">
+		 <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>返回</a>
+		</div>
+	 </div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "detailList",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/vehicleStock/StockLog/{[VIN]}/vehicle",
+		rowID : "VIN",
+		sortName : "VIN",
+		sortOrder : "asc",
+		pageSize:5,
+		autoHeight : false,
+		columns : [ 
+			{field : "VIN",title : "车辆信息",operateFormat : [
+		    	{type:"detail",url:"vehicle/stockLog/searchStockLogDetail.html",openWidth:"modal-lg"}
+                 
+               ]
+            }, 
+		    {field : "VIN",title : "VIN"},
+			{field : "STORAGE_NAME",title : "仓库"}, 
+			{field : "STORAGE_POSITION_CODE",title : "库位"},
+			{field : "PRODUCT_CODE",title : "产品代码"}, 
+			{field : "PURCHASE_PRICE",title : "最新采购价"}, 
+			{field : "DIRECTIVE_PRICE",title : "销售指导价"}, 
+			{field : "OLD_DIRECTIVE_PRICE",title : "原销售指导价"},
+			{field : "ADDITIONAL_COST",title : "附加成本"},
+			{field : "OPERATION_TYPE",title : "操作类型",codeFormat : {type:"dict",codeType:"1320"}},
+			{field : "OPERATE_DATE",title : "发生日期",dateFormat : {format:"YYYY-MM-DD"}},
+			{field : "STOCK_STATUS",title : "库存状态",codeFormat : {type:"dict",codeType:"1304"}},
+			{field : "MAR_STATUS",title : "质损状态",codeFormat : {type:"dict",codeType:"1306"}},
+			{field : "DISPATCHED_STATUS",title : "配车状态",codeFormat : {type:"dict",codeType:"1305"}},
+			{field : "IS_PRICE_ADJUSTED",title : "是否调价",inputCheckBoxFormat : {type:"dict",codeType:"1057",disabled:true}},
+			{field : "ADJUST_REASON",title : "调价原因"},
+			{field : "IS_SECONDHAND",title : "是否二手车",inputCheckBoxFormat : {type:"dict",codeType:"1057",disabled:true}},
+			{field : "IS_TEST_DRIVE_CAR",title : "是否试乘试驾车",inputCheckBoxFormat : {type:"dict",codeType:"1057",disabled:true}},
+			{field : "IS_VIP",title : "是否VIP预留",inputCheckBoxFormat : {type:"dict",codeType:"1057",disabled:true}},
+			{field : "IS_PROMOTION",title : "是否促销车",inputCheckBoxFormat : {type:"dict",codeType:"1057",disabled:true}},
+			{field : "IS_PURCHASE_RETURN",title : "是否采购退回",inputCheckBoxFormat : {type:"dict",codeType:"1057",disabled:true}},
+			{field : "IS_CONSIGNED",title : "是否受托代交车",inputCheckBoxFormat : {type:"dict",codeType:"1057",disabled:true}},
+			{field : "OEM_TAG",title : "OEM标志",inputCheckBoxFormat : {type:"dict",codeType:"1057",disabled:true}},
+			{field : "USER_NAME",title : "操作人"}
+		]
+	});
+	
+});		
+</script>

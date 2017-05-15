@@ -1,0 +1,81 @@
+<div class="dms-add"
+	data-model="customer">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">添加申请数据</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+							<div  class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">政策类别</label>
+							<div class="col-xs-8">
+								<select id="psType" name="psType" class="bs-select form-control"  data-excludeItems="15971002"  data-dictCode="1597" >
+								</select>
+							</div>
+						</div>
+					</div>
+						<div  class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">客户类型</label>
+								<div class="col-xs-8">
+									<select id="employeeId" parent="psType"
+										class="bs-select form-control" name="employeeType"
+										data-url="/bigCustomerApplyDate/{[psType]}/searchEmpType"
+										data-model="customer" data-labelValue="CODE_ID"
+										data-lableDesc="CODE_DESC"   data-live-search="fales" data-size="5" data-existsDefault = "false"  >
+									</select>	
+								</div>
+							</div>
+						</div>
+						
+					<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">数量</label>
+								<div class="col-xs-8">
+										<input id="number" name="number" class="form-control required"  maxlength="30" type="text" data-fieldName="number"/>
+								</div>
+							</div>
+						</div>
+						
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">状态</label>
+							<div class="col-xs-8">
+								<select id="status" name="status" class="bs-select form-control"  data-fieldName="status"  data-type="oemDict"  data-dictCode="1001" >
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/bigCustomerApplyDate/addApplyData" data-model="customer"
+				data-method="POST" data-callBack='true'
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>新增</a> <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	})
+</script>

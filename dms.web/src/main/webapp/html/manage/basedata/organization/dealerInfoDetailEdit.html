@@ -1,0 +1,364 @@
+<div class="dms-edit ajaxrest" data-url="/queryDealers/queryDealerInfoDetail/{[DEALER_ID]}" data-model="manage" data-pageInitCallBack="true">
+	<form class="form-horizontal" >
+	<div class="modal-header">
+			<div class="modal-title">经销商基本信息</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+		<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">经销商信息</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+	    		<div class="panel-body">
+	    		<input type="hidden" id="dealer_name_f" name="dealerNameF" data-fieldName="dealer_name_f">
+	    		<input type="hidden" id="dealer_shortname_f" name="dealerShortnameF" data-fieldName="dealer_shortname_f">
+	    		<input type="hidden" id="marketing_f" name="marketingF" data-fieldName="marketing_f">
+	    		<input type="hidden" id="zip_code_f" name="zip_code_f" data-fieldName="zip_code_f">
+	    		<input type="hidden" id="phone_f" name="phone_f" data-fieldName="phone_f">
+	    		<input type="hidden" id="link_man_f" name="link_man_f" data-fieldName="link_man_f">
+	    		<input type="hidden" id="link_man_mobile_f" name="link_man_mobile_f" data-fieldName="link_man_mobile_f">
+	    		<input type="hidden" id="fax_no_f" name="fax_no_f" data-fieldName="fax_no_f">
+	    		<input type="hidden" id="email_f" name="email_f" data-fieldName="email_f">
+	    		<input type="hidden" id="taxes_no_f" name="taxes_no_f" data-fieldName="taxes_no_f">
+	    		<input type="hidden" id="erp_code_f" name="erp_code_f" data-fieldName="erp_code_f">
+	    		<input type="hidden" id="begin_bank_f" name="begin_bank_f" data-fieldName="begin_bank_f">
+	    		<input type="hidden" id="bank_code_f" name="bank_code_f" data-fieldName="bank_code_f">
+	    		<input type="hidden" id="address_f" name="address_f" data-fieldName="address_f">
+	    		<input type="hidden" id="remark_f" name="remark_f" data-fieldName="remark_f">
+	    		<input type="hidden" id="range_f" name="range_f" data-fieldName="range_f">
+	    		<input type="hidden" id="cc_code_f" name="cc_code_f" data-fieldName="cc_code_f">
+	    		<input type="hidden" id="open_range_f" name="open_range_f" data-fieldName="open_range_f">
+	    		<input type="hidden" id="company_phone_f" name="company_phone_f" data-fieldName="company_phone_f">
+	    		<input type="hidden" id="line_number_f" name="line_number_f" data-fieldName="line_number_f">
+	    		<input type="hidden" id="integrated_social_f" name="integrated_social_f" data-fieldName="integrated_social_f">
+	    		<input type="hidden" id="open_time_f" name="open_time_f" data-fieldName="open_time_f">
+	    		<input type="hidden" id="company_id_f" name="company_id_f" data-fieldName="company_id_f">
+	    		<input type="hidden" id="dealer_group_id_f" name="dealer_group_id_f" data-fieldName="dealer_group_id_f">
+	    		<input type="hidden" id="licensed_brans_f" name="licensed_brans_f" data-fieldName="licensed_brans_f">
+	    		
+	    		<div class="row">				
+					<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商公司：</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+									<input id="companyId" name="companyId" type="hidden" data-fieldName="COMPANY_ID">
+									<input id="companyShortname" readonly
+										name="companyShortname" class="form-control required" type="text"
+										data-fieldName="COMPANY_SHORTNAME" /> <span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="manage/distributorManage/searchDealers.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					
+					<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商名称：</label>
+								<div class="col-xs-8">
+									<input id="dealerName" name="dealerName" data-fieldName="DEALER_NAME"  class="form-control required"  type="text" style=""/>
+								</div>
+							</div>
+						</div>
+					
+					<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商简称：</label>
+								<div class="col-xs-8">
+									<input id="dealerShortname" name="dealerShortname" data-fieldName="DEALER_SHORTNAME"  class="form-control required " maxlength="30" type="text" />
+								</div>
+							</div>
+						</div>
+					
+					<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">英文名称：</label>
+								<div class="col-xs-8">
+									<input id="marketing" name="marketing" data-fieldName="COMPANY_EN"  class="form-control required" type="text" />
+								</div>
+							</div>
+						</div>
+					
+					<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4" id="lab_dealerCode_">销售代码：</label>
+								<div class="col-xs-8">
+									<input id="dealerCode_" readonly="readonly" name="dealerCode_" data-fieldName="DEALER_CODE"  class="form-control required "  type="text" />
+								</div>
+							</div>
+						</div>
+					
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6  "> 
+							<div class="form-group">
+								<label class="control-label col-xs-4" id="lab_orgId">销售区域：</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+									<input id="orgName" readonly name="orgName" data-fieldName="ORG_NAME" class="form-control required" type="text"/> 
+									<input id="orgId" readonly name="orgId" class="form-control" type="hidden" data-fieldName="DEALER_ORG_ID"/>
+										<span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="manage/distributorManage/searchsmallOrg.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+											
+							</div>
+						</div> 
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商集团：</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+									<input type="hidden" id="tmGroupId" name="tmGroupId" data-fieldName="GROUP_ID">
+									<input id="groupShotname" readonly
+										name="groupShotname" class="form-control" type="text"
+										data-fieldName="GROUP_NAME" /> <span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="manage/distributorManage/searchDealerGroup.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">成立日期：</label>
+								<div class="col-xs-8">
+									<div class="input-group date  date-picker" data-date-format="yyyy-MM-dd">
+										<input id="foundDate" name="foundDate" readonly
+											class="form-control" type="text" value=""  data-fieldName="FOUND_DATE" />
+											 <span  class="input-group-btn">
+											<button class="btn default date-set" type="button" >
+												<i class="fa fa-calendar"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">三包授权类型：</label>
+								<div class="col-xs-8">
+									<select id="acuraGhasType" name="acuraGhasType" class="bs-select form-control" data-dictCode="1079" data-fieldName="acura_ghas_type"
+										data-type="oemDict" data-existsDefault="false"  >
+								</select>
+								</div>
+							</div>
+						</div>
+				
+					<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商状态：</label>
+								<div class="col-xs-8">
+									<select id="status" name="status" class="bs-select form-control" data-dictCode="1001" data-fieldName="STATUS"
+									 data-type="oemDict"  data-existsDefault="false"  >
+								</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">省份：</label>
+								<div class="col-xs-8">
+									<select  class="bs-select form-control required " id="province" name="province" data-type="oemRegion" data-fieldName="PROVINCE_ID" ></select>
+								</div>
+							</div>
+						</div>
+				
+						
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">地级市：</label>
+								<div class="col-xs-8">
+									<select  class="bs-select form-control required " parent="province" class="bs-select form-control" name="city" id = "city"  data-fieldName="CITY_ID" ></select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">邮编：</label>
+								<div class="col-xs-8">
+									<input id="zipCode" name="zipCode" data-fieldName="ZIP_CODE"  class="form-control required "  type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">热线电话：</label>
+								<div class="col-xs-8">
+									<input id="phone" name="phone" data-fieldName="PHONE"  class="form-control "  type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系人：</label>
+								<div class="col-xs-8">
+									<input id="linkMan" name="linkMan" data-fieldName="LINK_MAN"  class="form-control "  type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系人手机：</label>
+								<div class="col-xs-8">
+									<input id="linkManMobile" name="linkManMobile" data-fieldName="LINK_MAN_MOBILE"  class="form-control phone"  type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">传真：</label>
+								<div class="col-xs-8">
+									<input id="faxNo" name="faxNo" data-fieldName="FAX_NO"  class="form-control " type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">Email：</label>
+								<div class="col-xs-8">
+									<input id="email" name="email" data-fieldName="EMAIL"  class="form-control" type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">税号：</label>
+								<div class="col-xs-8">
+									<input id="taxesNo" name="taxesNo" data-fieldName="TAXES_NO"  class="form-control " type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">开票单位：</label>
+								<div class="col-xs-8">
+									<input id="erpCode" name="erpCode" data-fieldName="ERP_CODE"  class="form-control " type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">开户银行：</label>
+								<div class="col-xs-8">
+									<input id="beginBank" name="beginBank" data-fieldName="BEGIN_BANK"  class="form-control "  type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">账号：</label>
+								<div class="col-xs-8">
+									<input id="bankCode" name="bankCode" data-fieldName="BANK_CODE"  class="form-control " type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">详细地址：</label>
+								<div class="col-xs-8">
+									<input id="address" name="address" data-fieldName="ADDRESS"  class="form-control " type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">备注：</label>
+								<div class="col-xs-8">
+									<input id="groupIds" name="groupIds" data-fieldName="groupIds"   class="form-control " type="hidden" />
+									<input id="remark" name="remark" data-fieldName="REMARK" type="text"  class="form-control "  />
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			
+		<a data-url="/queryDealers/editModifyDealerInfo/{[DEALER_ID]}" data-model="manage" data-method="PUT" data-callBack='true' data-beforeRequest='true'
+			class="btn blue" data-toggle="confirmation" ><i class="fa fa-save"></i>保存</a> 			
+				<a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+	
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+	//页面加载后置事件
+	$("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){
+		
+		//区分销售和售后
+		var dealerCode = $("#dealerCode_").val();
+		if(dealerCode.includes("A")){
+			$("#lab_dealerCode_").html("售后代码：");
+			$("#lab_orgId").html("售后区域：");
+			$(".item_hidden_after").addClass("hidden");
+		}
+		
+	});
+		
+	//保存前处理多选值
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+	 	var str='';
+		/* var selectRow = $("#addRessList",container).dmsTable().getSelections();
+	   	$(selectRow).each(function(index){
+		  
+		   str+=selectRow[index].GROUPID+',';
+  		}); */
+		var selectRow = $("#addRessList tbody tr.selected");
+	   	for(var i = 0; i < selectRow.length; i++){	   		
+	   		str += $(selectRow[i]).attr("data-uniqueid") + ",";
+	   	}
+	   	
+	   	$("#groupIds").val(str.substring(0,str.length-1));
+		returnResult.status = true;
+	});
+	
+	//修改页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dealerList",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+});
+    
+</script>

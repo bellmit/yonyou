@@ -1,0 +1,58 @@
+<div class="dms-edit" data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+		<div class="modal-header">
+			<h4 class="modal-title">批量价格调整</h4>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="form-group">
+						<label class="control-label col-xs-4">销售指导价</label>
+						<div class="col-xs-8">
+							<input id="directive_price" name="directivePrice" maxlength="12" class="form-control decimal" maxDigit="10" maxPrecision="2" type="text">
+							<input type="hidden" id="userIds" name="userIds" value = "">
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/basedata/vehicleMasterDatas/changeSalesPrice" data-model="vehicle" data-method="PUT"
+			 data-callBack="true" data-beforeRequest="true" class="btn blue"  data-toggle="confirmation"
+			 ><i class="fa fa-save"></i>保存</a>
+			<a data-dismiss="modal" class="btn blue">
+			<i class="fa fa-undo"></i>取消</a>
+		</div>
+		</div>
+	</form>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table">
+			</table>
+		</div>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+	//执行保存前的执行函数:获取ID和dto值
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+		var selectIds = $("#dms_table",getElementContext()).dmsTable().getSelectionIds();
+		$("#userIds",container).val(selectIds);
+		returnResult.status = true; 
+	});
+});
+</script>

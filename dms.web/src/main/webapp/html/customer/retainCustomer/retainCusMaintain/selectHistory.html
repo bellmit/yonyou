@@ -1,0 +1,111 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+			<div class="modal-header">
+			<div class="modal-title">保有客户历史信息</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+		</div>
+		</div>
+		<div class="modal-body">
+			
+			<!-- <div class="panel panel-default">
+				<div class="pannel-name">保有客户历史信息</div>
+				<div class="panel-body">
+				
+				
+				</div>
+			</div> -->
+	
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">客户意向信息</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="int_table"></table>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">客户跟进记录</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="cus_table"></table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			   <a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>关闭
+			</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initLocale({
+			src : "int_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["customer"] + "/OwnerManage/ownercus/{[CUSTOMER_NO]}/history",
+			rowID : "CUSTOMER_NO",
+			sortName : "CUSTOMER_NO",
+			sortOrder : "desc",
+			autoHeight:false,
+			undefinedText : "",
+			columns : [    
+            {field : "BUDGET_AMOUNT",title : "预算金额"}, 
+			{field : "PURCHASE_TYPE",title : "采购方式",codeFormat : {type:"dict",codeType:"1363"}}, 
+			{field : "FAIL_TYPE",title : "战败类型"}, 
+			{field : "FAIL_MODEL",title : "战败车型"}, 
+			{field : "DR_CODE",title : "战败原因"}, 
+			{field : "ABORT_REASON",title : "战败备注原因"},
+			{field : "IS_BUDGET_ENOUGH",title : "预算是否充足",codeFormat : {type:"dict",codeType:"1278"}}, 
+		    {field : "IS_TEST_DRIVE",title : "是否试乘试驾",codeFormat : {type:"dict",codeType:"1278"}}, 
+			{field : "INTENT_FINISHED",title : "意向是否完成",codeFormat : {type:"dict",codeType:"1278"}}, 
+			{field : "TEST_DRIVE_DATE",title : "试驾时间",dateFormat : {format:"YYYY-MM-DD"}}	
+    			]
+		});
+		new Datatable().initLocale({
+			src : "cus_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["customer"] + "/OwnerManage/ownercus/{[CUSTOMER_NO]}/intent/{[INTENT_ID]}",
+			rowID : "",
+			sortName : "phone",
+			sortOrder : "desc",
+			autoHeight:false,
+			undefinedText : "",
+			columns : [ 			  
+			{field : "CREATE_TYPE",title : "活动类型",codeFormat : {type:"dict",codeType:"1329"}}, 
+			{field : "CUSTOMER_NAME",title : "客户名称"}, 
+			{field : "CONTACTOR_NAME",title : "联系人"}, 
+			{field : "PHONE",title : "电话"}, 
+			{field : "MOBILE",title : "手机"}, 
+			{field : "PRIOR_GRADE",title : "促进前客户级别", codeFormat : {type:"dict",codeType:"1310"}}, 
+			{field : "NEXT_GRADE",title : "促进后客户级别", codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "SCHEDULE_DATE",title : "计划日期"}, 
+		    {field : "ACTION_DATE",title : "执行日期"}, 
+			{field : "PROM_WAY",title : "跟进方式", codeFormat : {type:"dict",codeType:"1325"}}, 
+			{field : "PROM_CONTENT",title : "跟进内容"}, 
+			{field : "PROM_RESULT",title : "跟进过程", codeFormat : {type:"dict",codeType:"1334"}}, 
+			{field : "SCENE",title : "经过情形"},
+		    {field : "AUDITING_REMARK",title : "审核意见"}, 
+			{field : "NEXT_PROM_DATE",title : "预定时间",dateFormat : {format:"YYYY-MM-DD"}}, 
+			{field : "SOLD_BY",title : "销售顾问"}
+
+    			]
+		});
+		
+		//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			var selectRow = $("#dms_table",container).dmsTable().getFirstSelection();
+			$("div[data-companySelect='true']",getElementContext()).initHtmlContent(selectRow);		
+			//关闭窗口		
+			
+			$("a[data-dismiss='modal']",container).click();
+		});
+	});
+</script>  

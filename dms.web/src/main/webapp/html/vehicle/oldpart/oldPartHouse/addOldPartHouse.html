@@ -1,0 +1,102 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">旧件仓库新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="modal-body">
+					<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">仓库代码</label>
+								<div class="col-xs-8">
+									<input type="text"  
+										id="storCode" class="form-control required"
+										name="storCode" data-fieldName="STOR_CODE">
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">仓库名称</label>
+							<div class="col-xs-8">
+								<input type="text" id="storName" name="storName"
+								class="form-control required"	data-fieldName="STOR_NAME">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">状态</label>
+							<div class="col-xs-8">
+								<select id="status" name="status" class="bs-select form-control required"
+									data-type="oemDict" data-dictCode="1001">
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">仓库地址</label>
+							<div class="col-xs-8">
+								<input type="text" id="storAddress" name="storAddress"
+								class="form-control required"	data-fieldName="STOR_ADDRESS">
+							</div>
+						</div>
+					</div>
+				</div>
+				
+						<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">备注</label>
+									<div class="col-xs-8">
+										<textarea id="remark" name="remark" cols="62" rows="3" maxlength="600" 
+							onkeydown="www_zzjs_net(this.form.remark,this.form.remLen,100)" onkeyup="www_zzjs_net(this.form.remark,this.form.remLen,100)" data-fieldName="REMARK"></textarea>
+							    可输入100字，还剩<span  id="remLen"><font color="red">100</font></span>字
+
+									</div>
+								</div>
+							</div>
+						</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/oldParthHouse/add" data-model="vehicle" data-method="POST"
+				data-callBack="true" class="btn blue"
+				data-toggle="confirmation"> <i class="fa fa-save"></i>新增
+			</a>
+			 <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+function www_zzjs_net(field, countfield, maxlimit) {
+	console.log("123456");
+	if (field.value.length > maxlimit)
+	field.value = field.value.substring(0,maxlimit);
+	else
+	document.getElementById('remLen').innerHTML = '<font color="red">'+(maxlimit - field.value.length)+'</font>';
+}
+	//页面加载后初始化
+	$(document).one("onload.dms",function(event,container){
+
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	});
+</script>

@@ -1,0 +1,71 @@
+<div class="dms-edit ajaxrest" data-url="" data-model="retail">
+	<form class="form-horizontal">
+
+		<div class="modal-header">
+			<div class="modal-title">答案</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="panel panel-default table-panel">
+					<div class="panel-body">
+						<table
+							class="table table-striped table-bordered table-hover table-responsive"
+							id="answerAAA">
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer">
+
+					<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+<script type="text/javascript">
+	$(document)
+			.one(
+					"onload.dms",
+					function(event, container) {
+						new Datatable()
+								.initPagination({
+									src : "answerAAA",
+									container : container,
+									url : dmsCommon.getDmsPath()["customer"]
+											+ "/questionnaire/searchAnswerDetail/{[ANSWER_GROUP_NO]}",
+									rowID : "ANSWER_GROUP_NO",
+									sortName : "ANSWER_GROUP_NO",
+									sortOrder : "asc",
+									autoHeight : false,
+									columns : [ {
+										field : "ANSWER_GROUP_NO",
+										title : "答案组编号"
+									}, {
+										field : "ANSWER_GROUP_NAME",
+										title : "答案组名称"
+									}, {
+										field : "ANSWER_NO",
+										title : "答案编号"
+									}, {
+										field : "ANSWER",
+										title : "答案"
+									}, {
+										field : "ANSWER_DESC",
+										title : "答案说明"
+									}, {
+										field : "DOWN_TAG",
+										title : "OEM下发",
+										codeFormat : {
+											type : "dict",
+											codeType : "1278"
+										}
+									}, ]
+								});
+					});
+</script>

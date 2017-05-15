@@ -1,0 +1,152 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">提醒记录</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="tabbable-retail ">
+				<div class="tab-content">
+					<div class="tab-pane fade in active" id="tab_basreceive">
+						<div class="panel-body" data-tableRetailSelect="true">
+							<div class="row">
+								<!--/span-->
+								<div class="col-6">
+									<div class="form-group">
+										<label class="control-label col-xs-2"><span
+											style="color: red;">*</span>提醒内容</label>
+										<div class="col-xs-10">
+											<textarea id="remindContent" name="remindContent" data-fieldName="REMIND_CONTENT"
+												class="form-control required" rows="3" cols=""></textarea>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-6">
+									<div class="form-group">
+										<label class="control-label col-xs-2">客户反馈</label>
+										<div class="col-xs-10">
+											<textarea id="customerFeedback" name="customerFeedback" data-fieldName="CUSTOMER_FEEDBACK"
+												class="form-control" rows="3" cols=""></textarea>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-6 col-sm-6">
+									<div class="form-group">
+										<label class="control-label col-xs-4">提醒方式</label>
+										<div class="col-xs-8">
+											<select id="remindWay" class="bs-select form-control" 
+												name="remindWay" data-dictCode="1128" data-fieldName="REMIND_WAY">
+											</select>
+										</div>
+									</div>
+								</div>
+								<!-- /span -->
+								<div class="col-6 col-sm-6">
+									<div class="form-group">
+										<label class="control-label col-xs-4">提醒人</label>
+										<div class="col-xs-8">
+											<select id="reminder" name="reminder" data-fieldName="REMINDER"
+												class="bs-select form-control " disabled="disabled"
+												data-url="/basedata/employees/-1/salesConsultant"
+												data-model="manage" data-labelValue="USER_ID"
+												data-value="{[userInfo.userId]}" data-lableDesc="USER_NAME">
+											</select>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-6 col-sm-6">
+									<div class="form-group">
+										<label class="control-label col-xs-4">提醒状态</label>
+										<div class="col-xs-8">
+											<select id="remindStatus" class="bs-select form-control"
+												name="remindStatus" data-dictCode="1382" data-fieldName="REMIND_STATUS">
+											</select>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-6 col-sm-6">
+									<div class="form-group">
+										<label class="control-label col-xs-4">提醒失败原因</label>
+										<div class="col-xs-8">
+											<div class="input-group">
+												<input id="remindFailReason" name="remindFailReason"
+													class="form-control" type="text"
+													data-fieldName="REMIND_FAIL_REASON" disabled="disabled"/> 
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-6">
+									<div class="form-group">
+										<label class="control-label col-xs-2">备注</label>
+										<div class="col-xs-10">
+											<textarea id="remark" name="remark" data-fieldName="REMARK"
+												class="form-control" rows="3" cols=""></textarea>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/customer/protectRepair/vins"
+				data-model="customer" data-method="POST" data-callBack="true" data-beforeRequest="true"
+				class="btn blue" data-toggle="confirmation"> <i class="fa fa-save "></i>保存
+			</a> 
+			<a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				
+				var vins = $("#vin2",getElementContext()).val();
+				$("#vin",container).val(vins);
+				
+				var ownerNos = $("#ownerNo2",getElementContext()).val();
+				$("#ownerNo",container).val(ownerNos);
+				
+				var nextMaintainMileages = $("#nextMaintainMileage2",getElementContext()).val();
+				$("#nextMaintainMileage",container).val(nextMaintainMileages);
+				//新增页面回调函数
+				$("a[data-callBack='true']", container).on(
+						"callBack.dms",
+						function(event, response) {
+							//关闭窗口
+							$("a[data-dismiss='modal']", container).click();
+							//刷新表格
+							$("#dms_protectRepair", getElementContext()).dmsTable().refreshTableWithForm();
+						});
+				
+				/* $("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+					if(true){
+						//获取提醒内容
+						var context = $("#remindContent",container).val();
+						//设置保养里程语句
+						var first = "下次保养里程由"+$("#nextMaintainMileage1",container).val()+"改为"+$("#nextMaintainMileage",container).val();
+						var second = "下次保养日期由"+$("#nextMaintainDate1",container).val()+"改为"+$("nextmaintainDate",container).val();
+						//往提醒内容赋值
+						$("#remindContent",container).val(context+"("+first+")"+"("+second+")");
+						returnResult.status = true;
+					}else{
+						returnResult.status = false;
+					}
+				}); */
+			});
+</script>

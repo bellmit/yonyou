@@ -1,0 +1,125 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+		<div class="modal-title">标记规则维护</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">规则编号</label>
+							<div class="col-xs-8">
+								<input type="text" id="ruleCode" name="ruleCode"
+								class="form-control"	data-fieldName="RULE_CODE">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">状态</label>
+							<div class="col-xs-8">
+								<select id="status" name="status" class="bs-select form-control"
+									data-type="oemDict" data-dictCode="1001">
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+					</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a>
+							
+								 <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+		
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >旧件标记信息</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" data-url="vehicle/oldpart/oldPartRule/addRule.html" data-width="modal-lg"
+								data-toggle="modal"> <i class="fa fa-plus-square"></i> 旧件标记规则新增
+							</a> 	
+							<a class="btn btn-outline" data-url="vehicle/oldpart/oldPartRule/addReturn.html" data-width="modal-lg"
+								data-toggle="modal"> <i class="fa fa-plus-square"></i> 旧件返回规则新增
+							</a> 			
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+
+	$(document)
+			.one(
+					"onload.dms",
+					function(event, container) {
+						new Datatable()
+								.initPagination({
+									src : "dms_table",
+									container : container,
+									url : dmsCommon.getDmsPath()["vehicle"]
+											+ "/oldPartRule",
+									rowID : "RULE_ID",
+									sortName : "RULE_ID",
+									sortOrder : "asc",
+									columns : [
+											{
+												field : "RULE_ID",
+												title : "操作",
+												operateFormat : [ 
+												{type:"edit", title:"返回修改", url:"vehicle/oldpart/oldPartRule/editReturn.html",openWidth:"modal-lg",isShow:function(value, row, index){
+							                    	   if(row.RULE_TYPE=="91091002"){
+							                    		   return true;
+							                    	   }else{
+							                    		   return  false;
+							                    	   }                  	
+							                       }}
+												,	{type:"edit", title:"标记修改", url:"vehicle/oldpart/oldPartRule/editRule.html",openWidth:"modal-lg",isShow:function(value, row, index){
+							                    	   if(row.RULE_TYPE=="91091001"){
+							                    		   return true;
+							                    	   }else{
+							                    		   return  false;
+							                    	   }                  	
+							                       }} ]
+											}, {
+												field : "RULE_CODE",
+												title : "规则系统编号"
+											}, {
+												field : "RULE_NAME",
+												title : "规则名称",
+											}, {
+												field : "STATUS",
+												title : "规则状态"
+													,codeFormat : {type:"oemDict",codeType:"1001"}
+											}, {
+												field : "RULE_TYPE",
+												title : "规则类型"
+													,codeFormat : {type:"oemDict",codeType:"9109"}
+											}, {
+												field : "CREATE_DATE",
+												title : "创建时间"
+												
+											}, {
+												field : "NAME",
+												title : "创建人"
+											}, {
+												field : "REMARK",
+												title : "备注"
+											}]
+
+								});
+					});
+</script>

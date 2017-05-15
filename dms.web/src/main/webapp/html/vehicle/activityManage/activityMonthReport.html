@@ -1,0 +1,165 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">活动系统编号</label>
+							<div class="col-xs-8">
+									<input type="text" class="form-control" id="activityCode" name="activityCode">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">经销商代码</label>
+							<div class="col-xs-8">
+									<input type="text" class="form-control" id="dealerCode" name="dealerCode">
+							</div>
+						</div>
+					</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">开始日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker" >
+										<input id="startDate" name="startDate" readonly
+											class="form-control"
+											type="text" value="" /> <span class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+
+									</div>
+								</div>
+							</div>
+						</div>	
+	
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">结束日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker" >
+										<input id="endDate" name="endDate" readonly
+											class="form-control"
+											type="text" value="" /> <span class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+			
+		
+				
+						
+						
+						
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+	</form>
+	
+	
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >查询信息列表</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+
+							<a href="javascript:;" data-url="/activityMonthReport/monthReportDownload" data-model="vehicle" data-method="downLoad" data-toggle="confirmation"
+								class="btn btn-outline " ><i class="fa fa-download"></i>导出</a>
+									
+						 
+						</div>						 
+				</div>
+		</div>
+		
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="orderList"></table>
+						
+		</div>
+	</div>
+	
+		
+	
+</div>
+<script type="text/javascript">
+	//console.log("111");
+    $(document).one("onload.dms",function(event,container){
+    	new Datatable().initPagination({
+			src : "orderList",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/activityMonthReport/monthReportQuery",
+			rowID : "VIN",
+			sortName : "VIN",
+			sortOrder : "asc",
+			isQueryFirst:false,
+			columns : [ 
+
+			    {field : "ACTIVITY_CODE",title : "活动系统代码"},
+			    {field : "VIN",title : "参加活动车架号"},
+			    {field : "DEALER_CODE",title : "经销商代码"},
+			    {field : "DEALER_NAME",title : "经销商名称"},
+			    {field : "MODEL_NAME",title : "车型"  },
+			    {field : "CTM_NAME",title : "客户姓名"},
+			    {field : "EMAIL",title : "E-mail"},
+			    {field : "AMOUNT",title : "结算金额"},
+			    {field : "EXECUTE_DATE",title : "参加活动日期"}
+				
+			], 
+			onLoadSuccess : function() {
+				$("#orderList",container).dmsTable().bootstrapTable('resetView');
+			}
+		});
+    	//console.log("1111");
+    	
+    	
+    	//绑定查询按钮回调
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+ 		//	console.log("into callBack");
+		});
+		
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//刷新表格
+			$("#orderList",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+		
+	
+				
+    	
+    });
+
+</script>

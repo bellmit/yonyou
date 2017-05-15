@@ -1,0 +1,408 @@
+<div class ="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">订单编号</label>
+							<div class="col-xs-8">
+								<input id="soNo" name="soNo" class="form-control" type="text"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">客户名称</label>
+							<div class="col-xs-8">
+								<input id="customerName" name="customerName" class="form-control" type="text"/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">VIN号</label>
+							<div class="col-xs-8">
+								<input id="vin" name="vin" class="form-control" type="text"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">开单日</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" 
+								 data-date-format="yyyy/mm/dd/hh/mm/ss">	
+									<input type="text" class="form-control" readonly
+										name="deBegin" id="deBegin"> <span
+										class="input-group-addon">至</span> <input type="text"
+										class="form-control" readonly name="deEnd"
+										id="deEnd">
+										 <span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                  </span>
+									</div>	 
+							
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+										<div class="form-group">
+											<label class="control-label col-xs-4">订单状态</label>
+											<div class="col-xs-8">
+												<select class="bs-select form-control"  data-dictCode="1301" id="soStatus" name="soStatus" data-fieldName="SO_STATUS" data-value="13011020" data-excludeItems="13011010,13011015,13011030,13011040,13011050,13011055,13011060,13011065,13011070" ></select>
+											</div>
+										</div>
+									</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+										<div class="form-group">
+											<label class="control-label col-xs-4">业务类型</label>
+											<div class="col-xs-8">
+												<select class="bs-select form-control"  data-dictCode="1300"  id="businessType" name="businessType" data-fieldName="BUSINESS_TYPE"  data-excludeItems="13001002,13001003"
+												></select>
+											</div>
+										</div>
+									</div>	
+                   <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">关单人</label>
+							<div class="col-xs-8">
+								<select id="consultant" name="consultant" 
+									data-fieldName="DCRC_ADVISOR" class="bs-select form-control"
+									data-url="/basedata/employees/shut/dict"
+									data-model="manage" data-labelValue="EMPLOYEE_NO"
+									data-lableDesc="EMPLOYEE_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">关单日</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" 
+								 data-date-format="yyyy/mm/dd/hh/mm/ss">	
+									<input type="text" class="form-control" readonly
+										name="deBegins" id="deBegins"> <span
+										class="input-group-addon">至</span> <input type="text"
+										class="form-control" readonly name="deEnds"
+										id="deEnds">
+										 <span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                  </span>
+									</div>	 
+							
+							</div>
+						</div>
+					</div>
+					
+					
+					
+						<!-- <div class="col-xs-12 col-sm-12 col-md-8 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">关单日</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" 
+									 data-date-format="yyyy/mm/dd/hh/mm/ss">
+									
+									<input type="text" class="form-control" readonly
+										name="deBeginS" id="deBeginS"> <span
+										class="input-group-addon">至</span> <input type="text"
+										class="form-control" readonly name="deEndS"
+										id="deEndS">
+										 <span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                  </span>
+									</div>	 
+							
+							</div>
+						</div>
+					</div> -->	
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">其他金额已付</label>
+							<div class="col-xs-8">
+								<select id="otherPayOff" name="otherPayOff" data-fieldName="OTHER_PAY_OFF"
+									class="bs-select form-control" data-dictCode="1278"
+									data-value=""></select>
+
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">官网订单编号</label>
+							<div class="col-xs-8">
+								<input id="ecOrderNoclass" name="ecOrderNoclass" class="form-control" type="text"/>
+							</div>
+						</div>
+					</div>			
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" hidden="hidden">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">影藏</label>
+							<div class="col-xs-8">
+								<input id="soNos" name="soNos" class="form-control" type="text"/>
+							</div>
+						</div>
+					</div>		
+					
+					
+				</div>
+
+				
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue">
+								<i class="fa fa-search"></i>查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i>重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name" >订单列表</div>			
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+					<a href="javascript:;" class="btn btn-outline" id="audit" 
+						data-url="retail/ordermanage/financeverify/financeAudit.html" data-callBack="true" data-beforeRequest="true"
+						data-toggle="modal" data-width="modal-md" data-beforeShowEvent="true" data-beforeRequest="true" > <i
+						class="fa fa-plus-square"></i> 审核
+					</a> 
+	<!-- 					<a href="javascript:;" class="btn btn-outline" data-url="retail/ordermanage/financeverify/financeAudit.html" 
+								data-toggle="model" data-callBack="true"  data-beforeShowEvent="true" data-beforeRequest="true" id="audit"> <i
+								class="fa fa-plus-square" ></i>审核
+							</a> -->
+					
+					
+					<a href="javascript:;" class="btn btn-outline" data-url="/ordermanage/submit/financeverify/shut" data-model="retail" data-method="PUT"
+								data-toggle="confirmation" data-callBack="true" data-beforeRequest="true" id="tt"> <i
+								class="fa fa-print" ></i>关单
+							</a>
+					<a href="javascript:;" class="btn btn-outline" data-url="/ordermanage/submit/financeverify/money" data-model="retail" data-method="PUT"
+								data-toggle="confirmation" data-callBack="true" data-beforeRequest="true" id="tr"> <i
+								class="fa fa-print" ></i>其他金额付讫
+							</a>
+						</div>
+				</div>
+			
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="intentList"></table>
+		</div>
+		<div class="modal-footer">
+		<!-- 	<a data-url="/basedata/employees" data-model="manage" data-method="POST"
+				data-callBack="true" class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>其他金额付讫</a>  -->
+		
+		</div>
+		
+	</div>
+</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "intentList",
+			container:container,
+			url : dmsCommon.getDmsPath()["retail"] + "/ordermanage/submit/FinanceVerify/query",
+			rowID : "SO_NO",
+			sortName : "SO_NO",
+			sortOrder : "desc",
+			selectItemName:"soNos",
+			autoHeight:false,	
+			undefinedText : "",
+			columns : [ 
+				{checkbox:true,sortable : false},
+			    {field : "SO_NO",title : "操作",operateFormat : [
+					{type:"detail",url:"retail/ordermanage/financeverify/salesOrderDetail.html",openType:"jump",title:"订单详细"},			  
+				 //  	{type:"detail",url:"customer/potentialcus/visitReception/editVisitRecord.html",openWidth:"modal-lg",title:"客户详细",operateIcon:'<i class="fa fa-history glyphicon-lg"></i>'},	
+				    {type:"detail",url:"customer/potentialcus/customerInfo/editCusInfo.html",openWidth:"modal-lg",title:"客户详细"},
+				   	{type:"edit",url:"retail/ordermanage/financeverify/auditLoggingSalesBack.html",openWidth:"modal-lg",title:"审核记录",operateIcon:'<i class="fa fa-history glyphicon-lg"></i>'}
+                   ]
+                },
+                {field:"SO_NO",title:"订单编号",inputField:"soNo"},
+        //        {field:"APPLY_NO",title:"调拨申请单号",inputField:"applyNo"},    
+                {field:"SO_STATUS",title:"订单状态",codeFormat : {type:"dict",codeType:"1301"},inputField:"soStatus"},
+                {field:"BUSINESS_TYPE",title:"业务类型",codeFormat : {type:"dict",codeType:"1300"},inputField:"businessType"},
+         //       {field:"IS_SPEEDINESS",title:"是否快速订单",codeFormat : {type:"dict",codeType:"1278"},inputField:"isSpeediness"},
+                {field:"SHEET_CREATE_DATE",title:"开单日期",inputField:"sheetCreateDate",dateFormat : {format:"YYYY-MM-DD"}},
+                //{field:"SOLD_BY",title:"销售顾问",inputField:"soldBy",inputSelectFormat : {url:"/basedata/employees/-1/salesConsultant",model:"manage",labelValue:"USER_ID",lableDesc:"USER_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"}},             
+                {field:"USER_NAME",title:"销售顾问"},
+                {field:"EMPLOYEE_NAME",title:"关单人"},
+                //{field:"OBLIGATED_OPERATOR",title:"关单人",inputField:"obligatedOperator",inputSelectFormat : {url:"/basedata/employees/shut/dict",model:"manage",labelValue:"EMPLOYEE_NO",lableDesc:"EMPLOYEE_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"}},
+                {field:"BALANCE_CLOSE_TIME",title:"关单日期",inputField:"balanceCloseTime",dateFormat : {format:"YYYY-MM-DD"}},
+                {field:"CUSTOMER_NO",title:"客户编号",inputField:"customerNo"},
+                {field:"CUSTOMER_NAME",title:"客户名称",inputField:"customerName"},
+            	{field:"VIN",title:"VIN",inputField:"vin"},
+            	{field:"VER",title:"VER",inputField:"ver",visible:false},
+                //{field:"MODEL_CODE",title:"车型",inputField:"modelCode", inputSelectFormat : {url:"/basedata/intentionModel",model:"manage",labelValue:"MODEL_CODE",lableDesc:"MODEL_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"}},
+            	//{field:"CONFIG_CODE",title:"配置",inputField:"configCode",inputField:"intentConfig",inputSelectFormat : {url:"/basedata/brandsdictC/{[intentBrand]}/seriessdictC/{[intentSeries]}/modelsdictC/{[intentModel]}/packagesdictC",model:"manage",labelValue:"CONFIG_CODE",lableDesc:"CONFIG_NAME",parent:"intentModel",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"}},
+    			//{field:"COLOR_CODE",title:"颜色",inputField:"colorCode", inputSelectFormat : {url:"/basedata/colors/colorInfo/dicts",model:"repair",labelValue:"COLOR_CODE",lableDesc:"COLOR_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"}},
+    			{field:"MODEL_NAME",title:"车型"},
+    			{field:"CONFIG_NAME",title:"配置"},
+    			{field:"COLOR_NAME",title:"颜色"},
+    			{field:"CUSTOMER_TYPE",title:"客户类型",codeFormat : {type:"dict",codeType:"1018"},inputField:"customerType"},
+    			{field:"CONTACTOR_NAME",title:"联系人",inputField:"contactorName"},
+    			{field:"MOBILE",title:"电话"},
+    			{field:"CONTRACT_NO",title:"合约编号",inputField:"contractNo"},	
+    			{field:"BALANCE_CLOSE_TIME",title:"签约日期",inputField:"balanceCloseTime",dateFormat : {format:"YYYY-MM-DD"}},
+    			{field:"ORDER_RECEIVABLE_SUM",title:"订单应收",inputField:"orderReceivableSum"},
+    			{field:"ORDER_PAYED_AMOUNT",title:"订单已收",inputField:"orderPayedAmount"},
+    			{field:"OTHER_AMOUNT_OBJECT",title:"其他金额对象",inputField:"otherAmountObject"},
+    			{field:"OTHER_AMOUNT",title:"其他金额",inputField:"otherAmount"},
+    			{field:"OTHER_PAY_OFF",title:"其他金额是否已付",codeFormat : {type:"dict",codeType:"1278"},inputField:"otherPayOff"},
+    			{field:"REMARK",title:"备注",inputField:"remark"},
+    			{field:"DELIVERY_MODE_ELEC",title:"官网交车方式",codeFormat : {type:"dict",codeType:"1600"},inputField:"deliveryModeElec"},
+    			{field:"ESC_ORDER_STATUS",title:"官网订单状态",codeFormat : {type:"dict",codeType:"1619"},inputField:"escOrderStatus"},
+    			{field:"ESC_TYPE",title:"官网客户类型",codeFormat : {type:"dict",codeType:"1618"},inputField:"escType"},
+    			{field:"EC_ORDER_NO",title:"官网订单号",inputField:"ecOrderNo"}, 
+    			{field:"PAY_OFF",title:"是否结清",visible:false}, 
+    			]
+		});
+		$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+			var selectRow = $("#intentList",container).dmsTable().getSelections();
+			var falg=true;
+			 $(selectRow).each(function(e){
+				
+		   		if(event.target.id=='audit'){
+		   			if(selectRow[e].SO_STATUS!="13011020"){
+		   			 dmsCommon.tip({status:"warning",msg:"请选择财务审核中的订单！"});
+		   			falg=false;
+					 return false; 
+		   			}
+		   		}
+		   		 
+		   		if(!falg){
+					returnResult.status = false;
+					return ;
+			}
+		
+			returnResult.status = true; 
+		   		
+				}); 
+		
+			if(!selectRow){
+				dmsCommon.tip({status:"warning",msg:"请单击选择表格数据"});
+				returnResult.status = false;
+				return ;
+			}
+			if(selectRow.length>1){
+				dmsCommon.tip({status:"warning",msg:"只能选择一条订单进行审核"});
+				returnResult.status = false;
+				return ;
+			}		
+			
+			/*
+			 if(selectRow.SO_STATUS!="13011020"){
+				 alert(selectRow.SO_STATUS);
+		    	dmsCommon.tip({status:"warning",msg:"非财务审核中的订单不能再次审核！"});			    	
+	          	returnResult.status = false;
+		    	return ;
+			 } 
+
+			
+			returnResult.status = true;*/
+		});
+		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			var selectRow = $("#intentList",container).dmsTable().getSelections();
+			var flag=true;
+			debugger;
+			if(!selectRow){
+				dmsCommon.tip({status:"warning",msg:"请单击选择表格数据"});
+			//	returnResult.status = false;
+				return ;
+			}		
+			if (event.target.id=='tt'){
+				var soNo = '';
+				 $(selectRow).each(function(m){
+	 				    if(selectRow[m].SO_STATUS!="13011035"){
+	 				    	flag=false;
+	 				    	dmsCommon.tip({status:"warning",msg:"只能选择已完成的销售单"});			    	
+	 			          	returnResult.status = false;
+	 				    	return false;
+	 				    }else{
+	 				    	if(soNo == ''){
+	 				    		soNo = selectRow[m].SO_NO;
+	 				    	}else{	 				    		
+	 				    		soNo = soNo+','+	selectRow[m].SO_NO;
+	 				    	}
+	 				    }
+	 			   });
+				 $("#soNos").val(soNo);
+			}
+			if (event.target.id=='tr'){
+				var soNo = '';
+				
+				 $(selectRow).each(function(m){	
+					    if(selectRow[m].PAY_OFF!="12781001"){
+					    	flag=false;
+					    	dmsCommon.tip({status:"warning",msg:"选项中有单未结清，不能付讫其他金额！"});			    	
+				          	returnResult.status = false;
+					    	return false;
+					    }else{
+					    	if(selectRow[m].OTHER_PAY_OFF!="12781002"){
+					    		flag=false;
+						    	dmsCommon.tip({status:"warning",msg:"已付讫过的单据不能再次付讫！"});			    	
+					          	returnResult.status = false;
+						    	return false;
+					    	}					    						    	
+	 				    	if(soNo == ''){
+	 				    		soNo = selectRow[m].SO_NO;
+	 				    	}else{	 				    		
+	 				    		soNo = soNo+','+	selectRow[m].SO_NO;
+	 				    	}
+	 				    }
+				   });	
+				 
+				 $("#soNos").val(soNo);
+ 
+			} 
+		if (event.target.id=='audit'){		
+				if(selectRow.length>1){
+					dmsCommon.tip({status:"warning",msg:"只能选择一条信息进行审核"});
+					returnResult.status = false;
+					return ;
+				}				
+				 $(selectRow).each(function(m){			
+					   if(selectRow[m].SO_STATUS!="13011020"){
+						   alert(selectRow[m].SO_STATUS);
+					    	flag=false;
+					    	dmsCommon.tip({status:"warning",msg:"非财务审核中的订单不能再次审核"});			    	
+				          	returnResult.status = false;
+					    	return false;
+					    }
+				   });	 
+			} 
+ 			
+ 			 if(flag){
+ 				returnResult.status = true;
+ 			 }
+			
+		});
+		
+		//新增页面的回调函数
+ 		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+ 			
+			//刷新表格
+			$("#intentList",getElementContext()).dmsTable().refreshTableWithForm();
+		}); 
+		
+	});
+</script>       

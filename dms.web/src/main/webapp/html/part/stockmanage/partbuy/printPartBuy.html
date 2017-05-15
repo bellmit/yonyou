@@ -1,0 +1,93 @@
+<link rel="stylesheet" type="text/css"
+	href="../assets/layouts/layout/css/PrintArea.css">
+<div class="dms-edit PrintArea ajaxrest"
+	data-url="/stockmanage/purchaseOrders/{[PART_BUY_ID]}/print"
+	data-pageInitCallBack="true" data-model="part">
+	<div class="panel panel-default panel-print">
+		<div class="panel-body">
+			<div class="print-title">
+				<div class="row h1Title">
+					<div class="col-xs-12">
+						<label>{[userInfo.dealerName]}</label>
+					</div>
+				</div>
+				<div class="row h2Title">
+					<div class="col-xs-12">
+						<label>采购入库单</label>
+					</div>
+				</div>
+				<div class="row print-gap"></div>
+				<div class="row print-singleRow">
+					<div class="col-xs-12 ">
+						<label>入库单号:&nbsp;<span class="form-show"
+							data-fieldName="STOCK_IN_NO" style="padding-right: 20px"></span></label>
+						<label>开单日期:&nbsp;<span class="form-show "
+							data-fieldName="ORDER_DATE" data-date-format="YYYY-MM-DD "></span></label>
+					</div>
+				</div>
+				<div class="row print-singlesRow">
+					<div class="col-xs-12 ">
+						<label>供应商名称:<span class="form-show"
+							data-fieldName="CUSTOMER_NAME"></span></label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class=" print-table">
+			<div class="panel panel-default table-panel">
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="partbuyList">
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="row print-gap"></div>
+		<div class="row">
+			<div class="col-xs-6 ">
+				<div>
+					<label>打印时间:&nbsp;<span class="form-show "
+						data-fieldName="printdata" data-date-format="YYYY-MM-DD HH:mm"></span></label>
+				</div>
+			</div>
+			<div class="col-xs-6">
+				<div>
+					<label>操作员:&nbsp;{[userInfo.userName]}</label>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="print-without">
+	<a id="print" class="btn blue printfy"><i class="fa fa-print"></i>打印</a>
+	<a data-goback="page" data-onclickEvent="true"
+		href="part/stockmanage/partbuy/searchPartBuy.html"
+		class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initLocale({
+		src : "partbuyList",
+		container:container,
+		rowID:"PART_BUY_ID",
+		url : dmsCommon.getDmsPath()["part"] + "/stockmanage/purchaseOrders/{[PART_BUY_ID]}/partbuyprint",
+		mergeTotal:{
+			megerCellNumber:7,
+			megerCellName:"合计"
+		},
+		columns : [
+		           {field:"STORAGE_NAME",title:"仓库"},
+		           {field:"STORAGE_POSITION_CODE",title:"库位"},
+		           {field:"PART_NO",title:"配件代码"},
+		           {field:"PART_NAME",title:"配件名称"},
+		           {field:"UNIT",title:"单位"},
+		           {field:"IN_PRICE",title:"不含税单价",numberFormat : {decimal:2}},
+		           {field:"IN_PRICE_TAXED",title:"含税单价",numberFormat : {decimal:2}},
+		           {field:"IN_QUANTITY",title:"数量"},
+		           {field:"IN_AMOUNT",title:"不含税金额",numberFormat : {decimal:2}},
+		           {field:"IN_AMOUNT_TAXED",title:"含税金额",numberFormat : {decimal:2}}
+		           ]
+	});
+});
+</script>

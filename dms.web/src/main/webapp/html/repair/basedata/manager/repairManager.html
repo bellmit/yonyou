@@ -1,0 +1,359 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="pannel-name">维修项目管理</div>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">项目车型组</label>
+							<div class="col-xs-8">
+								<select id="carTypeGroup" name="carTypeGroup" class="bs-select form-control" multiple 
+								data-existsDefault="false"
+								data-model="repair" 
+								data-url="/basedata/modelgroups/getMaintainModel/dicts" 
+								data-labelValue="MODEL_LABOUR_CODE" 
+								data-lableDesc="MODEL_LABOUR_NAME" 
+								data-live-search="true">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class=" col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">车型代码</label>
+							<div class="col-xs-8 col-sm-10">
+								<input id="catTypeCode" name="catTypeCode" type="text" class="form-control" id="hotLine"
+									name="hotLine" value="" data-fieldName="hot_line" disabled>
+								<input id="modeLabourCode" name="modeLabourCode" type="hidden">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">主分类名称</label>
+							<div class="col-xs-8">
+								<select id="primaryGroup" name="primaryGroupName" class="bs-select form-control"
+									data-model="repair" 
+									data-url="/basedata/labourgroups/getGroupList/dicts/items" 
+									data-labelValue="MAIN_GROUP_CODE" 
+									data-lableDesc="MAIN_GROUP_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">二级分类名称</label>
+							<div class="col-xs-8">
+								<select id="subGroup" parent="primaryGroup" name="subGroupName" class="bs-select form-control"
+									data-fieldName="property" 
+									data-model="repair" 
+									data-url="/basedata/labourgroups/getGroupList/{[primaryGroup]}" 
+									data-labelValue="SUB_GROUP_CODE" 
+									data-lableDesc="SUB_GROUP_NAME"></select>
+							</div>
+						</div>
+					</div>
+					<!-- span -->
+					<div class="col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">维修项目代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="repairCode"
+									name="repairCode" value="" data-fieldName="hot_line">
+							</div>
+						</div>
+					</div>
+					<!-- span -->
+					<div class="col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">维修项目名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="repairName"
+									name="repairName" value="" data-fieldName="hot_line">
+							</div>
+						</div>
+					</div>
+					<!-- span -->
+					<div class="col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">维修项目拼音</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="repairSpell"
+									name="repairSpell" value="" data-fieldName="hot_line">
+							</div>
+						</div>
+					</div>
+					<!-- span -->
+					<div class="col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否OEM</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" data-dictCode="1004"
+									data-fieldName="property" id="isOem" name="isOem"></select>
+							</div>
+						</div>
+					</div>
+					<!-- span -->
+					<div class="col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">行管项目代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="localCode"
+									name="localCode" value="" data-fieldName="hot_line">
+							</div>
+						</div>
+					</div>
+					<!-- span -->
+					<div class="col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">行管项目名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="localName"
+									name="localName" value="" data-fieldName="hot_line">
+							</div>
+						</div>
+					</div>
+					<!-- span -->
+				</div>
+				<!-- row end -->
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a id="reset" name="reset" href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<input id="repairProId" name="repairProId" type="hidden">
+		<input id="treeSearch" name="treeSearch" type="hidden" value="page">
+		<input id="groupCode" name="groupCode" type="hidden" >
+		<input id="labourId" name="labourId" type="hidden" >
+	</form>
+
+	<div class="row horizationDiv" style="height: 500px;">
+		<div class="panel col-xs-3">
+			<div class="panel-heading ">
+				<div class="pannel-name ">维修项目分类</div>
+			</div>
+			<div class="panel-body ">
+				<div class = "fixedHeightDiv" id="labourGroupTree" style="height: 450px;"></div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel col-xs-9">
+			<div class="panel-heading">
+				<div class="pannel-name ">维修项目</div>
+				<div class="pannel-button">
+					<a data-url="repair/basedata/manager/addRepairProject.html" class="btn btn-outline" data-toggle="modal" data-width="modal-lg" >
+					 <i class="fa fa-plus-square"></i> 新增
+					</a>
+					<a data-url="repair/basedata/manager/singleCopy.html" data-beforeShowEvent="true" data-onclickEvent="true" class="btn btn-outline" data-toggle="modal" data-width="modal-lg">
+					 <i class="fa fa-copy"></i> 单项复制
+					</a>
+					<a data-url="repair/basedata/manager/allCopy.html" class="btn btn-outline" data-toggle="modal" data-width="modal-lg">
+					 <i class="fa fa-copy"></i> 全部复制
+					</a>
+					<a data-url="repair/basedata/manager/importRepairProject.html" class="btn btn-outline" data-toggle="modal" >
+					 <i class="fa fa-upload"></i> 导入
+					</a>
+					<a data-url="/basedata/repairProManager/export/excel" data-model="repair" data-method="downLoad" data-toggle="confirmation"
+									class="btn btn-outline " ><i class="fa fa-download"></i>导出</a>
+				</div>
+			</div>
+			
+			<div class="panel-body ">
+				<table class="table table-striped table-bordered table-hover table-responsive"
+					id="repairProMng" ></table>
+			</div>
+			
+			<div class="panel-heading">
+				<div class="pannel-name ">配件</div>
+				<div class="pannel-button">
+					<a  data-url="repair/basedata/manager/repairParts.html" class="btn btn-outline" data-toggle="modal" data-width="modal-lg" data-beforeShowEvent="true">
+					 <i class="fa fa-plus-square"></i> 新增
+					</a>			
+					<a data-url="repair/basedata/manager/importRepairPart.html" class="btn btn-outline" data-toggle="modal">
+						<i class="fa fa-plus-square"></i> 导入
+					</a>
+					<a id="exportParts" name="exportParts" data-url="/basedata/repairProManager/parts/export" data-model="repair" data-method="downLoad" data-toggle="confirmation" class="btn btn-outline " data-beforeRequest="true">
+						<i class="fa fa-download"></i>导出
+					</a>
+	<!-- 				<a id="updateParts" name="updateParts" data-url="" data-model="repair" data-method="PUT" data-toggle="confirmation" class="btn btn-outline " > -->
+	<!-- 					<i class="fa fa-download"></i>保存 -->
+	<!-- 				</a> -->
+				</div>
+			</div>
+			<div class="panel-body">
+				<table class="table table-striped table-bordered table-hover table-responsive"
+					id="partsTable"></table>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		$('#labourGroupTree',container).jstree({ 'core' : {
+			'data' : {
+			'url':dmsCommon.getDmsPath()["repair"] + "/basedata/labourgroups/getLabourGroup/trees",
+			'data':function(node){
+				return{'id':node.id}
+			}}},
+			'types' : {  
+                "default" : {  
+                    "icon" : "fa fa-folder icon-state-warning icon-lg"  
+                },  
+                "file" : {  
+                    "icon" : "fa fa-file icon-state-warning icon-lg"  
+                 }
+            }, 
+			"plugins" : ["changed","types"]
+		}).bind('dblclick.jstree',function(event){
+			$("#treeSearch").val("tree");
+			$(".fa.fa-search",container).click();
+			
+			var groupText = $(event.target).text();
+			var groupCodeArr = groupText.split(" ");
+			var groupCode = groupCodeArr[0];
+			$("#groupCode").val(groupCode);
+			$(".fa.fa-search").click();
+			
+			$("#treeSearch").val("page");
+			$("#partsTable",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["repair"] + "/basedata/repairProManager/"+groupCode+"/queryRepairProsByTree/"+modeGroupsStr);
+			$("#partsTable",container).dmsTable().refreshTableWithForm();
+		});	
+		
+		//维修表格
+		var labourTable = new Datatable().initPagination({
+			src : "repairProMng",
+	  		container:container,
+			url :dmsCommon.getDmsPath()["repair"] + "/basedata/repairProManager",
+			rowID : "LABOUR_ID",
+			sortName : "LABOUR_CODE", 
+			sortOrder : "asc",
+			pageSize:5,
+			autoHeight:false,
+			onCheck:function(row){
+				var id = $("#repairProMng",container).dmsTable().getSelectionIds();
+				$("#labourId",container).val(id);
+			},
+			columns:[
+			         {radio:true,sortable : false},
+			         {field : "LABOUR_ID",title : "操作",operateFormat : [
+			           {type:"edit",url:"repair/basedata/manager/editRepairPro.html",openWidth:"modal-lg",isShow:function(value, row, index){
+			        		if(row.CODE_CN_DESC=="是"){
+			        			return false;
+			        		}else{
+			        			return true;
+			        		}   
+			           	}
+			           },
+			           {type:"del",url:"/basedata/repairProManager/{[LABOUR_ID]}",model:"repair",callBack:function(response){
+			        	   $("#repairProMng",getElementContext()).dmsTable().refreshTableWithForm();
+			        	   $("#partsTable",getElementContext()).dmsTable().refreshTableWithForm();
+			           },isShow:function(value, row, index){
+			        		if(row.CODE_CN_DESC=="是"){
+			        			return false;
+			        		}else{
+			        			return true;
+			        		}   
+			           	}},
+			        	]
+			           },
+						{field:"MODEL_LABOUR_CODE",title:"项目车型组代码"},
+						{field:"LABOUR_CODE",title:"维修项目代码"},
+						{field:"LABOUR_NAME",title:"维修项目名称"},
+						{field:"REPAIR_TYPE_NAME",title:"维修分类",inputField:"REPAIR_TYPE_CODE",inputHiddenFormat : {hiddenField:"REPAIR_TYPE_CODE"}},
+						{field:"STD_LABOUR_HOUR",title:"标准工时"},
+						{field:"ASSIGN_LABOUR_HOUR",title:"派工工时"},
+						{field:"CLAIM_LABOUR",title:"索赔工时"},
+						{field:"MAIN_GROUP_CODE",title:"主分类代码"},
+						{field:"SUB_GROUP_CODE",title:"二级分类代码"},
+						{field:"CODE_CN_DESC",title:"是否OEM",inputField:"OEM_TAG",inputHiddenFormat : {hiddenField:"OEM_TAG"}},
+						{field:"WORKER_TYPE_NAME",title:"工种",inputField:"WORKER_TYPE_CODE",inputHiddenFormat : {hiddenField:"WORKER_TYPE_CODE"}},
+						{field:"LOCAL_LABOUR_CODE",title:"行管项目代码"},
+						{field:"LOCAL_LABOUR_NAME",title:"行管项目名称"},
+			    	  ]
+		});
+		
+		//配件表格
+		var partsTable = new Datatable().initPagination({
+			src : "partsTable",
+	  		container:container,
+			url :dmsCommon.getDmsPath()["repair"] + "/basedata/repairProManager/{[LABOUR_ID]}/parts",
+			rowID : "LABOUR_PART_ID",
+			sortName : "LABOUR_PART_ID", 
+			sortOrder : "asc",
+			pageSize:5,
+			autoHeight:false,
+			parentTable : "repairProMng",
+			columns:[
+			         {field : "LABOUR_PART_ID",title : "操作",operateFormat : [
+			           {type:"del",url:"/basedata/repairProManager/{[LABOUR_PART_ID]}/parts/",model:"repair",callBack:function(response){
+			        	   $("#partsTable",getElementContext()).dmsTable().refreshTableWithForm();
+			           }}
+			           ]},
+						{field:"PART_NO",title:"配件代码"},
+						{field:"PART_NAME",title:"配件名称"},
+						{field:"PART_QUAUTITY_NUM",title:"数量",numberFormat : {decimal:2}},
+						{field:"AVAILABLE",title:"可用库存",numberFormat : {decimal:4}},
+						{field:"PART_SALES_PRICE",title:"销售价",numberFormat : {decimal:2}},
+						{field:"LABOUR_CODE",title:"维修项目代码"},
+						{field:"MODEL_LABOUR_CODE",title:"维修车型组代码"}
+			    	  ]
+		});
+		
+		//绑定变更事件
+		$("select[name='carTypeGroup']",container).bindChange(function(obj){
+			var carTypeGroData = $("select[name='carTypeGroup']",container).val();
+			if(carTypeGroData){
+				var modeLabourCode = carTypeGroData.join("-");
+				var modeLabourCodeSearch = carTypeGroData.join(",");
+				$("input[name='modeLabourCode']").val(modeLabourCodeSearch);
+				var catTypeCode;
+				dmsCommon.ajaxRestRequest({
+					url : dmsCommon.getDmsPath()["repair"] + "/basedata/repairProManager/"+modeLabourCode,
+					type : 'GET',
+					sucessCallBack : function(modelData) {
+						var sameType //同类型的
+						var defType = new Array();//不同类型的
+						for(var i=0;i<carTypeGroData.length;i++){
+							var modecodes = modelData[carTypeGroData[i]];
+							var tempData;
+							sameType = new Array();//每次去掉重复的
+							$.each(modecodes,function(i,data){
+								sameType.push(data.MODEL_CODE);
+							});
+							tempData = sameType.join(",");
+							defType.push(tempData);
+						}
+						$("input[name='catTypeCode']",container).val(defType.join("-"));
+					}
+				});
+			}else{
+				$("input[name='catTypeCode']",container).val("");
+				$("input[name='modeLabourCode']",container).val("");
+			}
+		});
+		
+		//弹出页面打开前执行函数
+		$("a[data-beforeShowEvent='true'],a[data-beforeRequest='true']",container).on("beforeShow.dms beforeRequest.dms",function(event,returnResult){
+			var selectRow = $("#repairProMng",container).dmsTable().getFirstSelection();
+			if(!selectRow){
+				dmsCommon.tip({status:"warning",msg:"请选择维修项目"});
+				returnResult.status = false;
+				return ;
+			}
+			var partTableRows = $("#partsTable",container).dmsTable().getTableRows();
+			console.log("partTableRows: "+partTableRows);
+			returnResult.status = true;
+		});
+		
+	});
+</script>

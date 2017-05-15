@@ -1,0 +1,184 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="modal-header">
+				<div class="modal-title">工时维护</div>
+				<div class="modal-close">
+					<a data-dismiss="modal" class="btn btn-lg">
+					<i class="fa fa-remove"></i></a>
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="row ">	
+
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">工时代码：</label>
+							<div class="col-xs-8">								
+								<input type="text" class="form-control" id="labourCode" name="labourCode">
+							</div>
+						</div>
+					</div>	
+
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">工时名称：</label>
+							<div class="col-xs-8">								
+								<input type="text" class="form-control" id="labourName" name="labourName">
+							</div>
+						</div>
+					</div>	
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系代码</label>
+								<div class="col-xs-8">
+									<select id="groupCode" name="groupCode"
+										class="bs-select form-control" 
+										data-url="/activityMaintain/groupCode/selectList"
+										data-model="vehicle" data-labelValue="GROUP_CODE"
+										data-lableDesc="GROUP_CODE">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+										
+						<div class="col-xs-12 col-sm-6 col-md-6 ">
+							<div class="form-group">
+								<!-- <label class="control-label col-xs-4">活动系统编号：</label> -->
+								<div class="col-xs-8">
+									<!-- <input id="activityCode" name="activityCode" data-fieldName="ACTIVITY_CODE"  class="form-control required systemCode" maxlength="30" type="text" /> -->
+									<input id="activityId2" name="activityId2"   class="form-control required "  type="hidden" />
+									<input id="groupIds" name="groupIds"   class="form-control required "  type="hidden" />
+								</div>
+							</div>
+						</div>
+						
+						
+						
+					
+					</div>
+					
+				<div class="row ">				
+					<div class="col-xs-12 ">
+ 						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div> 
+					</div>
+				</div>
+				
+			<div class="row ">	
+				<div class="panel panel-default table-panel">
+					<div class="panel-heading">
+						<div class="pannel-name"> 信息列表</div>
+							<div class="pannel-button">
+								<div class="btn-group btn-group-sm">
+									<a id="labour" href="javascript:;" class="btn btn-outline" data-url="/activityMaintain/editRange/labourSave" data-model="vehicle" data-method="PUT"
+										data-toggle="confirmation" data-callBack="true" data-beforeRequest="true"> <i
+										class="fa fa-print" ></i>确定
+									</a>
+								</div>
+						 </div>
+					</div>
+					<div class="panel-body">
+						<table class="table table-striped table-bordered table-hover table-responsive"
+							id="labourTable"></table>
+						</div>
+					</div>				
+			</div>				
+				
+			</div>
+		</div>
+	
+	
+		<div class="modal-footer center-block">
+			<a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	
+
+	
+	
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		var activityId = $("#activityId",getElementContext()).val();
+		$("#activityId2",container).val(activityId); 
+		//alert(activityId);
+		
+		new Datatable().initPagination({
+			src : "labourTable",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/activityMaintain/editRange/labourQuery",
+			rowID : "ID",
+			sortName : "",
+			sortOrder : "",
+			isQueryFirst:false,
+			autoHeight:false,
+			columns : [ 
+						{checkbox:true,sortable : false}, 		
+						{field : "LABOUR_CODE",title : "工时编码"}, 
+						{field : "LABOUR_NAME",title : "工时名称"},
+						{field : "DISCOUNT",title : "折扣"},
+						{field : "LABOUR_NUM",title : "工时数"}
+
+			], 
+			onLoadSuccess : function() {
+				$("#labourTable",container).dmsTable().bootstrapTable('resetView');
+			}
+
+		});
+		
+		
+		//绑定查询按钮回调
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+ 		//	console.log("into callBack");
+		});
+		
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//刷新表格
+			$("#labourTableList",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+		
+		//批量删除的前执行函数
+		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			var selectRow = $("#labourTable",container).dmsTable().getSelections();
+			debugger;
+			if(!selectRow){
+				dmsCommon.tip({status:"warning",msg:"请选择工时"});//总共的状态类型：info、success、error、warning
+				returnResult.status = false;
+				return ;
+			}
+			if(selectRow.length > 0){
+				var groupIds = "";
+				
+				for(var i = 0 ;i<selectRow.length;i++){
+					if(groupIds=="" ){ //第一次循环为空值
+						groupIds = selectRow[i]["ID"];
+						groupIds = groupIds+"#"+selectRow[i]["LABOUR_CODE"];
+						groupIds = groupIds+"#"+selectRow[i]["LABOUR_NAME"];
+						groupIds = groupIds+"#"+selectRow[i]["LABOUR_NUM"];
+					}else{
+						groupIds = groupIds+","+selectRow[i]["ID"];
+						groupIds = groupIds+"#"+selectRow[i]["LABOUR_CODE"];
+						groupIds = groupIds+"#"+selectRow[i]["LABOUR_NAME"];
+						groupIds = groupIds+"#"+selectRow[i]["LABOUR_NUM"];
+					}
+					
+				}
+				$("#groupIds",getElementContext()).setDmsValue(groupIds);
+				
+			}
+			returnResult.status = true;
+		});
+		
+	});
+</script>

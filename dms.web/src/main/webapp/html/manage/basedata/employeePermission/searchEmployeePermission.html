@@ -1,0 +1,113 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+	  <div class="panel panel-default">
+	     <div class="panel-body">
+			<div class="row"><!-- pull-left -->
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4 ">员工编号</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" id="employeeNo" name="employeeNo">
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">账号</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" id="userCode" name="userCode">
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">姓名</label>
+						<div class="col-xs-8 ">
+							<input type="text" class="form-control" id="employeeName" name="employeeName">
+						</div>
+					</div>
+				</div>
+				
+				<!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">在职状态</label>
+						<div class="col-xs-8">
+							 <select id="workingState"  name="workingState" class="bs-select form-control" data-dictCode="1008" data-value="10081001" ></select>
+						</div>
+					</div>
+				</div>	 -->
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">用户状态</label>
+						<div class="col-xs-8">
+							 <select id="userState"  name="userState" class="bs-select form-control" data-dictCode="1210"  ></select>
+						</div>
+					</div>
+				</div>			
+			</div>
+			<div class="row ">
+				<div class="col-xs-12 ">
+					<div class="query-btn">
+						<a href="javascript:;" class="btn blue  "> <i
+							class="fa fa-search"></i> 查询
+						</a> <a href="javascript:;" class="btn blue"><i
+							class="fa fa-undo"></i> 重置</a>
+					</div>
+				</div>
+		   </div>
+		  </div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel ">
+		<div class="panel-heading">
+			<div class="pannel-name">
+				用户信息
+			</div>
+			 <div class="pannel-button" >
+					<div class="btn-group btn-group-sm">
+						<!-- <a class="btn btn-outline" data-url="manage/basedata/employeePermission/addEmployeePermission.html"
+							data-toggle="modal"  data-width="modal-lg"> <i class="fa fa-plus-square"></i> 新增
+						</a>  -->
+						<a href="manage/basedata/employeePermission/addEmployeePermission.html" class="btn btn-outline ajaxify" data-beforeShowEvent="true" > <i
+								class="fa fa-plus-square"></i>新增
+					   </a>
+					</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["manage"] + "/basedata/employees/permission/item",
+		rowID : "USER_ID",
+		sortName : "USER_ID", 
+		sortOrder : "asc",
+		columns : [ 
+		    {field : "USER_ID",title : "操作",operateFormat : [
+                  {type:"edit",url:"manage/basedata/employeePermission/editEmployeePermission.html",openType:"jump"}
+                  ]
+            },  
+            {field : "EMPLOYEE_NO",title : "员工编号"},
+            {field : "USER_CODE",title : "账号"},
+			{field : "USER_NAME",title : "姓名"}, 
+			{field : "ORG_NAME",title : "部门",inputHiddenFormat : {hiddenField:"ORG_CODE"}}/*, 
+			{field : "IS_ONJOB",title : "在职状态",codeFormat : {type:"dict",codeType:"1008"}} ,
+			{field : "USER_STATUS",title : "状态",codeFormat : {type:"dict",codeType:"1003"}} */
+		]	
+	});
+	$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+		//设置页面初始化值
+		$(this,container).data("pageData",{USER_ID:-1});
+
+		returnResult.status = true;
+	});
+});
+	
+</script>

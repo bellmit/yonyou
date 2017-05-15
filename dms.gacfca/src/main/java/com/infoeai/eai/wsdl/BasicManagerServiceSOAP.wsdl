@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/BasicManagerService/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="BasicManagerService" targetNamespace="http://www.example.org/BasicManagerService/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.example.org/BasicManagerService/">
+      <xsd:element name="getMaterialList">
+        <xsd:complexType>
+          <xsd:sequence>
+          	<xsd:element name="from" type="xsd:date"/>
+          	<xsd:element name="to" type="xsd:date"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getMaterialListResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+          	<xsd:element maxOccurs="unbounded" minOccurs="0" name="vo" type="tns:MaterialVO"/>
+
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getDealerList">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getDealerListResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element maxOccurs="unbounded" minOccurs="0" name="vo" type="tns:DealerVo"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+    
+      <xsd:complexType name="MaterialVO">
+      	<xsd:sequence>
+      		<xsd:element name="BRAND_CODE" type="xsd:string"/>
+      		<xsd:element name="BRAND_NAME" type="xsd:string"/>
+      		<xsd:element name="BRAND_LEVEL" type="xsd:int"/>
+      		<xsd:element name="BRAND_STATUS" type="xsd:int"/>
+      		<xsd:element name="SERIES_CODE" type="xsd:string"/>
+      		<xsd:element name="SERIES_NAME" type="xsd:string"/>
+      		<xsd:element name="SERIES_LEVEL" type="xsd:int"/>
+      		<xsd:element name="SERIES_STATUS" type="xsd:int"/>
+      		<xsd:element name="MODEL_CODE" type="xsd:string"/>
+      		<xsd:element name="MODEL_NAME" type="xsd:string"/>
+      		<xsd:element name="MODEL_LEVEL" type="xsd:int"/>
+      		<xsd:element name="MODEL_STATUS" type="xsd:int"/>
+      		<xsd:element name="GROUP_CODE" type="xsd:string"/>
+      		<xsd:element name="GROUP_NAME" type="xsd:string"/>
+      		<xsd:element name="GROUP_LEVEL" type="xsd:int"/>
+      		<xsd:element name="MODEL_YEAR" type="xsd:string"/>
+      		<xsd:element name="STANDARD_OPTION" nillable="true" type="xsd:string"/>
+      		<xsd:element name="LOCAL_OPTION" nillable="true" type="xsd:string"/>
+      		<xsd:element name="FACTORY_OPTIONS" nillable="true" type="xsd:string"/>
+      		<xsd:element name="GROUP_STATUS" type="xsd:int"/>
+      		<xsd:element name="TRIM_CODE" type="xsd:string"/>
+      		<xsd:element name="TRIM_NAME" type="xsd:string"/>
+      		<xsd:element name="COLOR_CODE" type="xsd:string"/>
+      		<xsd:element name="COLOR_NAME" type="xsd:string"/>
+      		<xsd:element name="STATUS" type="xsd:int"/>
+      		<xsd:element name="IS_EC" type="xsd:int"/>
+      	</xsd:sequence>
+      </xsd:complexType>
+      
+            <xsd:complexType name="DealerVo">
+            	<xsd:sequence>
+            		<xsd:element name="DEALER_CODE" type="xsd:string"/>
+            		<xsd:element name="DEALER_SHORTNAME" type="xsd:string">
+            		</xsd:element>
+            		<xsd:element name="DEALER_NAME" type="xsd:string"/>
+            		<xsd:element name="OFFICE_PHONE" nillable="true" type="xsd:string">
+            		</xsd:element>
+            		<xsd:element name="PROVINCE" nillable="true" type="xsd:string"/>
+            		<xsd:element name="CITY" nillable="true" type="xsd:string"/>
+            		<xsd:element name="ADDRESS" nillable="true" type="xsd:string"/>
+            		<xsd:element name="STATUS" type="xsd:int"/>
+            		<xsd:element name="IS_EC" type="xsd:int"/>
+            	</xsd:sequence>
+            </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="getMaterialListRequest">
+    <wsdl:part element="tns:getMaterialList" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getMaterialListResponse">
+    <wsdl:part element="tns:getMaterialListResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getDealerListRequest">
+  	<wsdl:part element="tns:getDealerList" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getDealerListResponse">
+  	<wsdl:part element="tns:getDealerListResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="BasicManagerService">
+    <wsdl:operation name="getMaterialList">
+      <wsdl:input message="tns:getMaterialListRequest"/>
+      <wsdl:output message="tns:getMaterialListResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getDealerList">
+    	<wsdl:input message="tns:getDealerListRequest"/>
+    	<wsdl:output message="tns:getDealerListResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicManagerServiceSOAP" type="tns:BasicManagerService">
+  	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+  	<wsdl:operation name="getMaterialList">
+  		<soap:operation soapAction="http://www.example.org/BasicManagerService/getMaterialList"/>
+  		<wsdl:input>
+  			<soap:body use="literal"/>
+  		</wsdl:input>
+  		<wsdl:output>
+  			<soap:body use="literal"/>
+  		</wsdl:output>
+  	</wsdl:operation>
+  	<wsdl:operation name="getDealerList">
+  		<soap:operation soapAction="http://www.example.org/BasicManagerService/getDealerList"/>
+  		<wsdl:input>
+  			<soap:body use="literal"/>
+  		</wsdl:input>
+  		<wsdl:output>
+  			<soap:body use="literal"/>
+  		</wsdl:output>
+  	</wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="BasicManagerService">
+    <wsdl:port binding="tns:BasicManagerServiceSOAP" name="BasicManagerServiceSOAP">
+      <soap:address location="http://localhost:8080/DMS_HMCI/services/BasicManagerServiceSOAP"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

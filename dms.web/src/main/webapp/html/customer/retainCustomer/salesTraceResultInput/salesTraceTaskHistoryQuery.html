@@ -1,0 +1,96 @@
+<div class="dms-search">
+<form class="form-horizontal">
+
+									  
+		<div class="modal-body">
+		
+			<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+			<div class="pannel-name">销售回访历史列表</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">		
+					<a href="javascript:;" data-url="/customerManage/salesTraceResultInput/export/excel1" data-model="customer" data-method="downLoad" data-toggle="confirmation"
+						class="btn btn-outline " ><i class="fa fa-download"></i>导出</a>
+				</div>
+			</div>
+		</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_table">
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>关闭</a>
+		</div>
+</form>
+
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	var str='';
+	var selectRow = $("#dms_table",getElementContext()).dmsTable().getSelections();
+	   	$(selectRow).each(function(index){
+		   str=selectRow[index].VIN;
+  		});
+	   	$("#vin1").val(str);
+	   	
+	new Datatable().initLocale({
+		src : "dms_table",
+		container:container,
+
+		
+		url : dmsCommon.getDmsPath()["customer"] + "/customerManage/salesTraceResultInput/history/"+str,
+		rowID : "VIN",
+		sortName : "VIN",
+		sortOrder : "asc",
+		autoHeight:false,
+		columns : [ 
+		    
+		 
+          
+			 {field : "USER_NAME",title : "跟踪人"},
+			 {field : "IS_SELECTED",title : "结束跟踪",codeFormat : {type:"dict",codeType:"1278"}},
+			 {field : "CUSTOMER_NO",title : "客户编号"},
+			 {field : "CUSTOMER_NAME",title : "客户名称"},
+			 {field : "SOLD_NAME",title : "销售顾问"},
+			 {field : "ORG_NAME",title : "组别"},
+			 {field : "VIN",title : "VIN"},
+			 {field : "BRAND_NAME",title : "品牌"},
+			 {field : "SERIES_NAME",title : "车系"},
+			 {field : "MODEL_NAME",title : "车型"},
+			 {field : "STOCK_OUT_DATE",title : "开票日期",dateFormat : {format:"YYYY-MM-DD HH:MM"}},
+			 {field : "GENDER",title : "性别",codeFormat : {type:"dict",codeType:"1006"}},
+			 {field : "ADDRESS",title : "地址"},
+			 {field : "CONTACTOR_PHONE",title : "联系人电话"},
+			 {field : "CONTACTOR_MOBILE",title : "联系人手机"},
+			 {field : "PROVINCE",title : "省份",codeFormat : {type:"dict",codeType:"9001"}},
+			 {field : "CITY",title : "城市",codeFormat : {type:"dict",codeType:"9002"}},
+			 {field : "DISTRICT",title : "区县",codeFormat : {type:"dict",codeType:"9003"}},
+			 {field : "QUESTIONNAIRE_NAME",title : "问卷名称"},
+			 {field : "INPUT_DATE",title : "跟踪日期",dateFormat : {format:"YYYY-MM-DD HH:MM"}},
+			 {field : "TRACE_STATUS",title : "跟踪状态",codeFormat : {type:"dict",codeType:"1237"}},
+			 {field : "E_MAIL",title : "E_MAIL"},
+			 {field : "CUSTOMER_TYPE",title : "客户类型",codeFormat : {type:"dict",codeType:"1018"}},
+			 {field : "OWNER_MARRIAGE",title : "婚姻状况",codeFormat : {type:"dict",codeType:"1119"}},
+			 {field : "AGE_STAGE",title : "年龄段",codeFormat : {type:"dict",codeType:"1342"}},
+			 {field : "EDUCATION_LEVEL",title : "教育水平",codeFormat : {type:"dict",codeType:"1116"}},
+			 {field : "INDUSTRY_FIRST",title : "行业大类",codeFormat : {type:"dict",codeType:"3001"}},
+			 {field : "INDUSTRY_SECOND",title : "行业小类",codeFormat : {type:"dict",codeType:"3002"}},
+			 {field : "VOCATION_TYPE",title : "职业",codeFormat : {type:"dict",codeType:"1111"}},
+			 {field : "POSITION_NAME",title : "职务名称"},
+			 {field : "FAMILY_INCOME",title : "家庭月收入"},
+			 {field : "HOBBY",title : "爱好",codeFormat : {type:"dict",codeType:"1117"}},
+			 {field : "CONFIRMED_DATE",title : "交车日期",dateFormat : {format:"YYYY-MM-DD HH:MM"}},
+			 {field : "CUS_SOURCE",title : "客户来源",codeFormat : {type:"dict",codeType:"1311"}},
+			 {field : "TASK_REMARK",title : "备注"}
+	       
+           
+           /*  {field : "REMARK",inputField:"remark",title : "备注",inputTextFormat : {validate:{validateClass:"required",validateAttr:' maxlength="120"'}}} */
+         ]
+	});
+
+});	
+</script>

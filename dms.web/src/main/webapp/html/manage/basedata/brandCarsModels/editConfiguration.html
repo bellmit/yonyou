@@ -1,0 +1,117 @@
+<div class="dms-edit ajaxrest"
+	data-url="/basedata/packages/{[config_code2]}" data-model="manage">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">配置信息编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌名称</label>
+								<div class="col-xs-8">
+									<input type="hidden" name="brandCode" data-fieldName="BRAND_CODE">
+									<select id="brand" class="bs-select form-control" disabled
+										name="brandId" data-url="/basedata/brandsdict2" data-fieldName="BRAND_CODE"
+										data-model="manage" data-labelValue="BRAND_CODE"
+										data-lableDesc="BRAND_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系名称</label>
+								<div class="col-xs-8">
+									<input type="hidden" name="seriesId" data-fieldName="series_code">
+									<select id="series" parent="brand"
+										class="bs-select form-control" name="seriesId" disabled
+										data-url="/basedata/brandsdict/{[brand]}/seriessdict" data-fieldName="series_code"
+										data-model="manage" data-labelValue="SERIES_CODE"
+										data-lableDesc="SERIES_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车型名称</label>
+								<div class="col-xs-8">
+									<input type="hidden" name="modelId" data-fieldName="model_code">
+									<select id="modelcode" parent="series"
+										class="bs-select form-control" name="modelName" disabled
+										data-url="/basedata/brandsdict/{[brand]}/seriessdict/{[series]}/modelsdict"
+										data-model="manage" data-labelValue="MODEL_CODE" data-fieldName="model_code"
+										data-lableDesc="MODEL_NAME" data-alwaysRefresh="true">
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配置代码</label>
+								<div class="col-xs-8">
+									<input id="configCode"
+										name="configCode" type="text" class="form-control"
+										data-fieldName="config_code" disabled />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配置名称</label>
+								<div class="col-xs-8">
+									<input id="configName" name="configName" type="text"
+										class="form-control required" data-fieldName="config_name"
+										maxlength="600" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12  col-sm-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否OEM</label>
+								<div class="col-xs-8">
+									<input type="hidden" name="OemTag" data-fieldName="oem_tag">
+									<select id="OemTag" name="OemTag"
+										class="bs-select form-control" data-dictCode="1278"
+										data-fieldName="oem_tag" disabled
+										style="background-color: #D3D3D3">
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/basedata/packages/{[config_code2]}" data-model="manage"
+				data-method="PUT" data-callBack="true" class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> <a
+				data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("a[data-dismiss='modal']",container).click();
+		$("#dms_table4",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+	
+	
+});
+</script>

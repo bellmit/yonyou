@@ -1,0 +1,61 @@
+<div class="dms-edit ajaxrest" data-url="/markting/marktingPlan/{[ITEM_ID]}/planConclusion" data-model="retail" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">活动目标编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">目标项目</label>
+							<div class="col-xs-8">
+								<input id="goalItem" name="goalItem" readonly="readonly" class="form-control" type="text" data-fieldName="GOAL_ITEM"/>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 ">
+					<div class="form-group">
+						<label class="control-label col-xs-4">项目指标</label>
+						<div class="col-xs-8">
+							<input id="itemIndex" name="itemIndex" readonly="readonly" class="form-control" type="text" data-fieldName="ITEM_INDEX"/>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 ">
+					<div class="form-group">
+						<label class="control-label col-xs-4">其他说明</label>
+						<div class="col-xs-8">
+							<input id="memo" name="memo" class="form-control" type="text" data-fieldName="MEMO"/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+		<div class="modal-footer">
+			<a data-url="/markting/marktingPlan/{[ITEM_ID]}/planConclusion" data-model="retail" data-method="PUT" data-callBack="true"  class="btn blue"  data-toggle="confirmation"><i class="fa fa-save"></i>保存</a>
+			<a data-dismiss="modal" class="btn blue" ><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+
+	$(document).one("onload.dms",function(event,container){
+		//新增页面回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	}); 
+</script>

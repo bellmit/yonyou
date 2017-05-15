@@ -1,0 +1,522 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌</label>
+								<div class="col-xs-8">
+									<select id="brandId"
+										class="bs-select form-control" name="brandId"
+										data-url="/basedata/material/brand/90081002"
+										data-model="manage" data-labelValue="BRAND_ID"
+										data-lableDesc="BRAND_NAME">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系</label>
+								<div class="col-xs-8">
+									<select id="seriesId" parent="brandId"
+										class="bs-select form-control" name="seriesName"
+										data-url="/basedata/material/series/90081002/{[brandId]}"
+										data-model="manage" data-labelValue="SERIES_ID"
+										data-lableDesc="SERIES_NAME">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车款</label>
+								<div class="col-xs-8">
+									<select id="groupId" parent="seriesId"
+										class="bs-select form-control" name="groupName"
+										data-url="/basedata/material/group/90081002/{[seriesId]}"
+										data-model="manage" data-labelValue="GROUP_ID"
+										data-lableDesc="GROUP_NAME" >
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">年款</label>
+								<div class="col-xs-8">
+									<select id="modelId" parent="groupId"
+										class="bs-select form-control" name="modelYear"
+										data-url="/basedata/material/modelYear/90081002/{[groupId]}"
+										data-model="manage" data-labelValue="MODEL_YEAR"
+										data-lableDesc="MODEL_YEAR">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">颜色</label>
+								<div class="col-xs-8">
+									<select id="colorId" parent="modelId"
+										class="bs-select form-control" name="colorName"
+										data-url="/basedata/material/color/90081002/{[groupId]}/{[modelId]}"
+										data-model="manage" data-labelValue="COLOR_CODE"
+										data-lableDesc="COLOR_NAME" >
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">内饰</label>
+								<div class="col-xs-8">
+									<select id="trimId" parent="colorId"
+										class="bs-select form-control" name="trimName"
+										data-url="/basedata/material/trim/90081002/{[groupId]}/{[modelId]}/{[colorId]}"
+										data-model="manage" data-labelValue="TRIM_CODE"
+										data-lableDesc="TRIM_NAME" >
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">工厂选装</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="factoryOption"
+									name="factoryOption">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">VIN</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="vin" name="vin">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" 
+						data-tableSelect="true">
+						<div class="form-group">
+							<label  class="control-label col-xs-12  col-md-4">经销商代码</label>
+							<div class="col-xs-8 ">
+								<div class="input-group">
+									<input id="dealerCode" readonly name="dealerCode"
+										class="form-control" type="text" data-fieldName="dealer_code" />
+									<span class="input-group-btn">
+										<button class="btn default btn-sm" type="button"
+											data-url="manage/basedata/dealers/searchDealers.html"
+											data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">库存类型</label>
+							<div class="col-xs-8">
+								<select id="lifcycle" name="lifcycle"
+									class="bs-select form-control" data-type="oemDict"
+									data-dictCode="1379" data-value=""></select>
+
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">分配状态</label>
+							<div class="col-xs-8">
+								<select id="storeType" name="storeType"
+									class="bs-select form-control" data-type="oemDict"
+									data-dictCode="2026" ></select>
+
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">订单类型</label>
+							<div class="col-xs-8">
+								<select id="orderType" name="orderType"
+									class="bs-select form-control" data-type="oemDict"
+									data-dictCode="2083" data-value=""></select>
+
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">订单状态</label>
+							<div class="col-xs-8">
+								<select id="orderStatus" name="orderStatus"
+									class="bs-select form-control" data-type="oemDict"
+									data-dictCode="2007" data-excludeItems="20071001,20071002,20071003,20071008,20071009"></select>
+
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-8 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">节点时间</label>
+							<div class="col-xs-8 col-sm-8">
+								<div class="input-group input-daterange" 
+									data-opens="right">
+									<input type="text" class="form-control" readonly
+										name="nodeDate1"> <span class="input-group-addon">至</span>
+									<input type="text" class="form-control" readonly
+										name="nodeDate2"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车辆用途</label>
+							<div class="col-xs-8">
+								<select id="vehicleUse" name="vehicleUse"
+									class="bs-select form-control" data-type="oemDict"
+									data-dictCode="2084" data-value=""></select>
+
+							</div>
+						</div>
+					</div>
+	             <input hidden="true" id="resource" name="resource"/>
+					
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+								<label class="control-label col-xs-4">开始节点</label>
+							<div class="col-xs-8">
+							
+								<select id="nodeStatus1" name="nodeStatus1" class="bs-select form-control "
+									 data-type="oemDict" data-dictCode="1151"data-excludeItems="11511009,11511011,"
+									data-fieldName="nodeStatus1"></select>
+									
+									
+							</div>
+						</div>
+					</div>
+			
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">结束节点</label>
+							<div class="col-xs-8">
+								<select id="nodeStatus2" name="nodeStatus2" parent="nodeStatus1"
+									class="bs-select form-control"
+									 data-url="/inventoryManage/findnodeStatus/{[nodeStatus1]}"
+										data-model="vehicle" data-labelValue="CODE_ID"
+										data-lableDesc="CODE_DESC"></select>
+								
+							</div>
+						</div>
+					</div>
+					
+				</div>
+
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true" id="conutdetailquery">
+								<i class="fa fa-search"></i>查询
+							</a>
+							
+								<a class="btn blue" ><i class="fa fa-undo"></i>重置 </a>
+						</div>
+					</div>
+				</div>
+						
+	
+	<div class="panel panel-default table-panel" id = "detailId">
+		<div class="panel-heading">
+			<div class="pannel-name">area车辆查询列表</div>
+			<a href="javascript:;" data-url="/inventoryManage/areaVehicleDownload" data-model="vehicle" data-method="downLoad" data-toggle="confirmation"
+							class="btn " ><i class="fa fa-download"></i>下载</a> 
+			<div class="pannel-button">
+				
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="forecastQuery_table"></table>
+		</div>
+	</div>
+			</div>
+		</div>
+	</form>
+
+
+</div>
+<script type="text/javascript">
+	//查询
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				
+				
+				new Datatable().initPagination({
+					src : "forecastQuery_table",
+					container : container,
+					url : dmsCommon.getDmsPath()["vehicle"]
+							+ "/inventoryManage/areaVehicleDetailedQuery",
+					rowID : "oemvehicle",
+					pageSize : 5,
+					isQueryFirst:false,
+					columns : [
+
+					{
+						field : "VEHICLE_ID",
+						
+						title : "操作",
+						operateFormat : [
+
+						       {type:"edit",url:"vehicle/oeminvty/vehicleDetailQuery.html",openWidth : "modal-lg"}//打开方式默认弹出:open          
+						 ]
+					},
+
+					{
+						field : "ORDER_TYPE",
+						title : "分配类型",
+						codeFormat : {
+							type : "oemDict",
+							codeType : "2083"
+						}
+					}, {
+						field : "RESOURCE_TYPE",
+						title : "资源池类型",
+						codeFormat : {
+							type : "oemDict",
+							codeType : "7030"
+						}
+					}, {
+						field : "BIG_AREA",
+						title : "大区"
+					}, {
+						field : "SMALL_AREA",
+						title : "小区"
+					}, {
+						field : "DEALER_CODE",
+						title : "批售经销商代码"
+					}, {
+						field : "DEALER_NAME",
+						title : "批售经销商名称"
+					}, {
+						field : "VIN",
+						title : "VIN"
+					},  {
+						field : "MODEL_YEAR",
+						title : "年款"
+					}, {
+						field : "BRAND_CODE",
+						title : "品牌"
+					}, {
+						field : "SERIES_NAME",
+						title : "车系"
+					}, {
+						field : "GROUP_NAME",
+						title : "车款"
+					}, {
+						field : "COLOR_CODE",
+						title : "外饰代码"
+					}, {
+						field : "COLOR_NAME",
+						title : "外饰颜色"
+					}, {
+						field : "TRIM_CODE",
+						title : "内饰代码"
+					}, {
+						field : "TRIM_NAME",
+						title : "内饰颜色"
+					}, {
+						field : "VEHICLE_USAGE",
+						title : "车辆用途"
+					}, {
+						field : "IS_SUPPORT",
+						title : "任务内/外"
+					}, {
+						field : "SPECIAL_REMARK",
+						title : "OTD备注",
+						codeFormat : {
+							type : "oemDict",
+							codeType : "1251"
+						}
+					}, {
+						field : "REMARK",
+						title : "车辆分配备注",
+						codeFormat : {
+							type : "oemDict",
+							codeType : "1121"
+						}
+					}, {
+						field : "OTHER_REMARK",
+						title : "其它备注"
+					}, {
+						field : "IS_LOCK",
+						title : "是否锁定"
+					}, {
+						field : "PAYMENT_TYPE",
+						title : "付款方式",
+						codeFormat : {
+							type : "oemDict",
+							codeType : "2027"
+						}
+					}, {
+						field : "NODE_STATUS",
+						title : "车辆节点",
+						codeFormat : {
+							type : "oemDict",
+							codeType : "1151"
+						}
+					}, {
+						field : "ORDER_STATUS",
+						title : "订单状态",
+						codeFormat : {
+							type : "oemDict",
+							codeType : "2007"
+						}
+					}, {
+						field : "DEAL_ORDER_AFFIRM_DATE",
+						title : "订单确认日期"
+					}, {
+						field : "PAYMENG_DATE",
+						title : "付款日期"
+					}, {
+						field : "START_SHIPMENT_DATE",
+						title : "起运时间"
+					}, {
+						field : "ARRIVE_DATE",
+						title : "经销商收车日期"
+					}, {
+						field : "NVDR_DATE",
+						title : "零售交车日期"
+					},{
+						field : "CLORDER_SCANNING_NO",
+						title : "关单扫描件"
+					}, {
+						field : "SCORDER_SCANNING_NO",
+						title : "商检单扫描件"
+					}
+					],
+					onLoadSuccess : function() {
+						$("#forecastQuery_table",container).dmsTable().bootstrapTable('resetView');
+					}
+
+				});
+				//事件点击
+				$("a[data-onclickEvent='true']", container).on("dms.click",
+						function(event) {
+							
+						});
+				//事件点击
+				$("#conutdetailquery", container).on("dms.click",
+						function(event) {
+					
+					var brandId=$("#brandId").val();
+					var factoryOption=$("#factoryOption").val();
+					var lifcycle=$("#lifcycle").val();
+					var dealerCode=$("#dealerCode").val();
+					var storeType=$("#storeType").val();
+					var orderStatus=$("#orderStatus").val();
+					var vehicleUse=$("#vehicleUse").val();
+					var nodeStatus1=$("#nodeStatus1").val();
+					var nodeDate1=$("#nodeDate1").val();
+					var nodeStatus2=$("#nodeStatus2").val();
+					var vin=$("#vin").val();
+				
+					if(brandId ==''&& factoryOption==''&& lifcycle==''&& dealerCode==''&& storeType==''&& orderStatus==''
+						&& vehicleUse==''&& nodeStatus1==''&& nodeDate1==undefined&& nodeStatus2==null&& vin==''){
+						dmsCommon.tip({status:"warning",msg:"请选择至少一个条件"});
+						returnResult.status=false;
+					}
+
+// 					var factoryOption=$("#factoryOption").val();
+// 					if(factoryOption==''){
+// 						dmsCommon.tip({status:"warning",msg:"请选择至少一个条件"});
+// 						returnResult.status=false;
+// 					}
+// 					var lifcycle=$("#lifcycle").val();
+// 					if(lifcycle==''){
+// 						dmsCommon.tip({status:"warning",msg:"请选择至少一个条件"});
+// 						returnResult.status=false;
+// 					}
+// 					var dealerCode=$("#dealerCode").val();
+// 					if(dealerCode==''){
+// 						dmsCommon.tip({status:"warning",msg:"请选择至少一个条件"});
+// 						returnResult.status=false;
+// 					}
+// 					var storeType=$("#storeType").val();
+// 					if(storeType==''){
+// 						dmsCommon.tip({status:"warning",msg:"请选择至少一个条件"});
+// 						returnResult.status=false;
+// 					}
+// 					var orderStatus=$("#orderStatus").val();
+// 					if(orderStatus==''){
+// 						dmsCommon.tip({status:"warning",msg:"请选择至少一个条件"});
+// 						returnResult.status=false;
+// 					}
+// 					var vehicleUse=$("#vehicleUse").val();
+// 					if(vehicleUse==''){
+// 						dmsCommon.tip({status:"warning",msg:"请选择至少一个条件"});
+// 						returnResult.status=false;
+// 					}
+// 					var nodeStatus1=$("#nodeStatus1").val();
+// 					if(nodeStatus1==''){
+// 						dmsCommon.tip({status:"warning",msg:"请选择至少一个条件"});
+// 						returnResult.status=false;
+// 					}
+// 					var nodeStatus2=$("#nodeStatus2").val();
+// 					if(nodeStatus2==''){
+// 						dmsCommon.tip({status:"warning",msg:"请选择至少一个条件"});
+// 						returnResult.status=false;
+// 					}
+// 					var vin=$("#vin").val();
+// 					if(vin==''){
+// 						dmsCommon.tip({status:"warning",msg:"请选择至少一个条件"});
+// 						returnResult.status=false;
+// 					}
+						});
+				//绑定汇总查询按钮回调
+				$("#conutquery[data-onclickEvent='true']",container).on("dms.click",function(event){
+					$("#countId",container).removeClass("hidden");
+					$("#detailId",container).addClass("hidden");
+					$("#forecastQueryTotal_table",container).dmsTable().refreshTableWithForm();
+					
+				});
+				
+				//绑定明细查询按钮回调
+				$("#conutdetailquery[data-onclickEvent='true']",container).on("dms.click",function(event){
+					$("#detailId",container).removeClass("hidden");
+					$("#countId",container).addClass("hidden");
+					$("#forecastQuery_table",container).dmsTable().refreshTableWithForm();
+				});
+				
+
+			});
+</script>

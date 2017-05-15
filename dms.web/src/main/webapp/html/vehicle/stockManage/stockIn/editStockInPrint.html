@@ -1,0 +1,134 @@
+<link rel="stylesheet" type="text/css" href="../assets/layouts/layout/css/PrintArea.css">
+<div class="dms-edit PrintArea">
+	<div class="panel panel-default panel-print">
+		<div class="panel-body">
+			<div class="print-title">
+				<div class="row h1Title">
+					<div class="col-xs-12">
+						<label >{[userInfo.dealerName]}</label>
+					</div>
+				</div>
+				<div class="row h2Title">
+					<div class="col-xs-12">
+						<label>入库单</label>
+					</div>
+				</div>
+				<div class="row print-gap">
+			
+				</div>
+				<div class="row print-singleRow">
+					<div class="col-xs-4">
+						<label class="control-label col-xs-4">入库单号:</label>
+						<span  class="form-show col-xs-4" id="seNo"></span>
+					</div>
+					<div class="col-xs-4">
+						<label class="control-label col-xs-4">入库日期:</label>
+						<span class="form-show col-xs-4 text-left" id="inDate"></span>
+					</div>
+					<div class="col-xs-4">
+						<label class="control-label col-xs-4">开单日期:</label>
+						<span class="form-show col-xs-5 text-left" id="sheetDate"></span>
+					</div>
+				</div>
+				<div class="row print-singleRow">
+					<div class="col-xs-4">
+						<label class="control-label col-xs-4">供应商:</label>
+						<span class="form-show col-xs-4" id="vendorName"></span>
+					</div>
+					<div class="col-xs-4">
+						<label class="control-label col-xs-4">车辆数量:</label>
+						<span class="form-show col-xs-2" id="amount"></span>
+					</div>
+				</div>
+			</div>
+			<div class=" print-table">
+				<div class="panel panel-default table-panel">
+					<div class="panel-body">
+						<table class="table table-striped table-bordered table-hover table-responsive"
+								id="dms_table">
+						</table>
+					</div>
+				</div>
+			
+			<div class="row print-gap">
+					
+			</div>
+			<div class="row print-singleRow">
+				<div class="col-xs-12">
+					<div class="col-xs-3">
+						<label class="text-left">制单人:</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+</div>
+<div class="print-without">
+	<a id="print" class="btn blue printfy"><i class="fa fa-print"></i>打印</a>
+    <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		var seNo = $("#seNo",getElementContext()).val();//入库单号
+		var vname = $("#vendorName",getElementContext()).val();//供应商
+		var vins = $("#vins",getElementContext()).val();//VIN号
+		var inType = $("#inType",getElementContext()).val();//入库类型
+		var deDate = $("#sheetCreatedDate",getElementContext()).val()//开单日期
+		$("#seNo",container).html(seNo);
+		$("#vendorName",container).html(vname);
+		$("#sheetDate",container).html(deDate);
+		console.log(seNo+","+vname+","+deDate);
+		new Datatable().initLocale({
+			src : "dms_table",
+			container:container,
+			rowID:"VIN",
+			undefinedText : "",
+			url : dmsCommon.getDmsPath()["vehicle"] + "/vehicleStock/stockIn/loadPrintInfo/"+seNo+"/"+vins,
+			mergeTotal:{
+				megerCellNumber:7,
+			},
+			columns : [
+			           {field:"MODEL_NAME",title:"车型"},
+			           {field:"COLOR_NAME",title:"颜色"},
+			           {field:"PRODUCT_CODE",title:"产品代码"},
+			           {field:"VIN",title:"VIN码"},
+			           {field:"inType",title:"入库类型",formatter:function(){
+			        	   if(inType=="13071002"){
+			        		   return '新车采购入库';
+			        	   }else if(inType=="13071005"){
+			        		   return '销售退回入库';
+			        	   }
+			           }},
+			           {field:"storage_NAME",title:"仓库"},
+			           {field:"PERCENT",title:"税率",formatter:function(){
+			        	   return '17%';
+			           }},
+			           {field:"PURCHASE_PRICE",title:"采购价",numberFormat : {decimal:2}},
+			           {field:"IN_OUT_STOCK_NO",title:"税额",formatter:function(value,row,index){
+			        	   return (row.PURCHASE_PRICE*0.17).formatMoney();//采购价乘以税率
+			           }},
+			           {field:"finished_date",title:"入库日期",visible:false},
+			           ],
+			onLoadSuccess : function(row){
+				$("#inDate",container).html(msToDay(row[0].finished_date));
+				$("#amount",container).html(row.length);
+			}
+		});
+});
+	Number.prototype.formatMoney = function (places, symbol, thousand, decimal) {
+        places = !isNaN(places = Math.abs(places)) ? places : 2;
+        symbol = symbol !== undefined ? symbol : "";
+        thousand = thousand || ",";
+        decimal = decimal || ".";
+        var number = this,
+            negative = number < 0 ? "-" : "",
+            i = parseInt(number = Math.abs(+number || 0).toFixed(places), 10) + "",
+            j = (j = i.length) > 3 ? j % 3 : 0;
+        return symbol + negative + (j ? i.substr(0, j) + thousand : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousand) + (places ? decimal + Math.abs(number - i).toFixed(places).slice(2) : "");
+    };
+    var msToDay = function(time){
+		var date = new Date(time);
+		return date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate()+" ";
+	}
+</script>

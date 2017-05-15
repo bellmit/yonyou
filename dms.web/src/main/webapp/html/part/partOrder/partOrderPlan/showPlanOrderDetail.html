@@ -1,0 +1,101 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">替互换查询</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="panel panel-default">
+		<div class="modal-body">
+				<div class="row ">
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">配件代码</label>
+							<div class="col-xs-8">
+								<input id="partNo" name="partNo" class="form-control"
+									type="text" />
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">配件名称</label>
+							<div class="col-xs-8">
+								<input id="partName" name="partName" class="form-control"
+									type="text" />
+							</div>
+						</div>
+					</div>
+
+
+
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" >
+								<i class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置 </a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="fcdsPart">
+			</table>
+		</div>
+	</div>
+	<div class="modal-footer center-block">
+		<a class="btn blue" data-onclickEvent="true"><i class="fa fa-save"></i>确定</a>
+		<a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消
+		</a>
+	</div>
+
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+ 	new Datatable().initPagination({
+		src : "fcdsPart",
+		container:container,
+		url : dmsCommon.getDmsPath()["part"] + "/partOrder/placeAnorder/queryDmsPartInfoAboutOrder",
+		autoHeight:false,
+		isQueryFirst:false,
+		columns : [ 
+		            {checkbox:true,sortable : false},
+		            {field : "PART_NO",title : "零部件编号"},
+		            {field : "PART_NAME",title : "零部件名称"},
+		            {field : "ARKTX",title : "别名"},
+					{field : "COUNT",title : "计划量"},
+					{field : "Is_Stock",title : "车厂库存"},
+					{field : "NETWR",title : "含税单价"},
+					{field : "TOTAL",title : "含税金额"},
+					{field : "OPNETWR",title : "不含税单价"},
+					{field : "OPTOTAL",title : "不含税金额"},
+					{field : "HAS_CHANGE",title : "是否有替代件"},
+					{field : "NO_TAX_PRICE",title : "不含税终端销售价"},
+					{field : "SINGLE_Discount",title : "单个折扣"}
+		         ]
+	});
+	var formJson = $("div[data-parentTable='ownerInfoTable,replaceList']",getElementContext()).serializeFormJson();
+	$("#partOrderType",container).setDmsValue(formJson.partOrderType);
+      
+ 	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		var selectRow = $("#fcdsPart",container).dmsTable().getSelections();
+
+		$("a[data-dismiss='modal']",container).click();
+	});
+
+
+});	
+</script>

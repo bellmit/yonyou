@@ -1,0 +1,135 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">优惠模式新增</div>
+				<div class="modal-close">
+					<a data-dismiss="modal" class="btn btn-lg">
+					<i class="fa fa-remove"></i></a>
+				</div>
+			</div>
+			<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+
+					<div class="row">
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-8">优惠模式代码</label>
+								<div class="col-xs-4">
+									<input id="discountModeCode" name="discountModeCode"
+										class="form-control required" type="text" maxlength="4"
+										data-fieldName="discount_mode_code" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-5">优惠模式说明</label>
+								<div class="col-xs-7">
+									<input id="discountModeName" name="discountModeName"
+										type="text" class="form-control required" maxlength="60"
+										data-fieldName="discount_mode_name" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-8">工时费优惠率</label>
+								<div class="col-xs-4">
+									<input id="labourAmountDiscount" name="labourAmountDiscount"
+										type="text" class="form-control required decimal" max="1"
+										min="0" maxlength="4"  data-fieldName="labour_amount_discount" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-8">维修材料费优惠率</label>
+								<div class="col-xs-4">
+									<input id="repairPartDiscount" name="repairPartDiscount"
+										type="text" class="form-control required decimal" max="1"
+										min="0" maxlength="4" data-fieldName="repair_part_discount" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-8">销售材料费优惠率</label>
+								<div class="col-xs-4">
+									<input id="salesPartDiscount" name="salesPartDiscount"
+										type="text" class="form-control required decimal" max="1"
+										min="0" maxlength="4" data-fieldName="sales_part_discount" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-8">附加费优惠率</label>
+								<div class="col-xs-4">
+									<input id="addItemDiscount" name="addItemDiscount" type="text"
+										class="form-control required decimal" max="1" min="0" maxlength="4"
+										data-fieldName="add_item_discount" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-8">装潢工时费优惠率</label>
+								<div class="col-xs-4">
+									<input id="upholsterAmountDiscount"
+										name="upholsterAmountDiscount" type="text"
+										class="form-control required decimal" max="1" min="0" maxlength="4"
+										data-fieldName="upholster_amount_discount" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-8">装潢材料费优惠率</label>
+								<div class="col-xs-4">
+									<input id="upholsterPartDiscount" name="upholsterPartDiscount"
+										type="text" class="form-control required decimal" max="1"
+										min="0" maxlength="4" data-fieldName="upholster_part_discount" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-8">保险类默认无优惠</label>
+								<div class="col-xs-4">
+
+									<select id="noDiscountByInsurance" name="noDiscountByInsurance"
+										class="bs-select form-control required" data-dictCode="1278"
+										data-fieldName="no_discount_by_insurance">
+									</select>
+
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a data-url="/basedata/discountmodes" data-model="repair" data-method="POST" data-callBack="true"  class="btn blue"  data-toggle="confirmation"><i class="fa fa-save"></i>保存</a>
+			<a data-dismiss="modal" class="btn blue" ><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	//新增页面回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+}); 
+</script>

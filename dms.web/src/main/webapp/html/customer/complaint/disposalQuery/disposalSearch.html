@@ -1,0 +1,195 @@
+<div class="dms-search" data-pageInitCallBack= "true">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+					<div class="panel-body">
+						<!-- /span -->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商</label>
+								<div class="col-xs-8">
+									<select id="DEALER_CODE" class="bs-select form-control"
+										name="DEALER_CODE"
+										data-url="/stockManage/safeguard/findDealerInfo"
+										data-value="{[userInfo.dealerCode]}" data-model="customer"
+										data-labelValue="dealer_code"
+										data-lableDesc="DEALER_SHORTNAME">
+									</select>
+								</div>
+							</div>
+						</div>
+						<!-- /span -->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+
+							<div class="form-group">
+								<label class="control-label col-xs-4">日期类型</label>
+								<div class="col-xs-8">
+										<select id="dateType" class="bs-select form-control" name="dateType">
+									</select>
+								</div>
+							</div>
+						</div>
+						<!-- /span -->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">满意程度</label>
+								<div class="col-xs-8">
+									<select id="complaintResult"
+										class="bs-select form-control"
+										data-fieldName="COMPLAINT_RESULT" name="complaintResult"
+										data-dictCode="1135">
+									</select>
+								</div>
+							</div>
+						</div>
+					<!--/span-->
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn btn-sm blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn btn-sm blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">客户投诉处理情况</div>
+					<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<!--/span-->
+							<a href="javascript:;" data-url="/customer/disposal/export"
+								data-model="customer" data-method="downLoad" id="excel"
+								data-toggle="confirmation" class="btn btn-outline "> <i
+								class="fa fa-download"></i>导出
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="dms_disposal">
+				</table>
+			</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event, container) {
+				
+		var selectData = new Array();
+		selectData.push({
+			id : "roCreateDate",
+			name : "开单日期"
+		});
+		selectData.push({
+			id : "clwcrq",
+			name : "处理完成日期"
+		});
+		selectData.push({
+			id : "closeDate",
+			name : "结案日期"
+		});
+dmsDict.refreshSelectByData($("#dateType", container), selectData,"id", "name");
+		
+				new Datatable().initPagination({
+					src : "dms_disposal",
+					rowID : "COMPLAINT_NO",
+					container : container,
+					url : dmsCommon.getDmsPath()["customer"]+ "/customer/disposal",
+					sortName : "COMPLAINT_NO",
+					undefinedText : "",
+					sortOrder : "desc",
+					autoHeight : false,
+					columns : [ 
+						{field : "dealer_shortname",title : "经销商"},
+						{field : "PRINCIPAL",title : "处理人"}, 
+						{field : "COMPLAINT_COUNT",title : "投诉个数"},
+						{field : "ON_TIME_COUNT",title : "及时处理"},
+						{field : "ON_TIME_RATE",title : "及时处理率"},
+						{field : "CONTENTMENT_COUNT",title : "满意数"},
+						{field : "CONTENTMENT_RATE",title : "处理结果满意率"},
+						{field : "REPEAT_COUNT",title : "重复处理数"}, 
+						{field : "REPEAT_RATE",title : "重复处理率"}
+						]
+				});
+
+				 /* $("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+					 var selectRow = $("#dms_solicitude",container).dmsTable().getSelections();
+					 
+					 if(!selectRow){
+							dmsCommon.tip({status:"warning",msg:"请选择表格数据"});
+							returnResult.status = false;
+							return ;
+						}
+					 
+					 	
+						$(this).data("pageData",{COMPLAINT_NO:selectRow[0].COMPLAINT_NO,VIN:selectRow[0].VIN,LICENSE:selectRow[0].LICENSE,RO_CREATE_DATE:selectRow[0].RO_CREATE_DATE,OWNER_NO:selectRow[0].OWNER_NO,OWNER_NAME:selectRow[0].OWNER_NAME});//传递多个值
+						/* alert(selectRow[0].LICENSE);
+						alert(selectRow[0].RO_CREATE_DATE); 
+						alert(selectRow[0].OWNER_NAME);
+						returnResult.status = true;
+					
+					 var vins = '';
+					 var ownerNos = '';
+					 var nextMaintainMileages = '';
+					 
+					 var engineNos = '';
+					 var licenses = '';
+					 var addresss= '';
+					 
+					 for(var i = 0;i<selectRow.length;i++){
+						 if(i==selectRow.length-1){
+							 vins +=selectRow[i].VIN;
+							 ownerNos +=selectRow[i].OWNER_NO;
+							 nextMaintainMileages +=selectRow[i].NEXT_MAINTAIN_MILEAGES;
+							 
+							 engineNos +=selectRow[i].ENGINE_NO;
+							 licenses +=selectRow[i].LICENSE;
+							 addresss +=selectRow[i].ADDRESS;
+							 
+						 }else{
+							 vins +=selectRow[i].VIN+',';
+							 ownerNos +=selectRow[i].OWNER_NO+',';
+							 nextMaintainMileages +=selectRow[i].NEXT_MAINTAIN_MILEAGES+',';
+							 
+							 engineNos +=selectRow[i].ENGINE_NO+',';
+							 licenses +=selectRow[i].LICENSE+',';
+							 addresss +=selectRow[i].ADDRESS+',';
+						 }
+					 }
+					 
+					 $("#vin2",container).val(vins);
+					 /* $("#vin",container).removeClass("required");
+					 $("#ownerNo2",container).val(ownerNos);
+					 $("#ownerNo",container).removeClass("required");
+					 $("#nextMaintainMileage2",container).val(nextMaintainMileages);
+					 $("#nextMaintainMileage",container).removeClass("required");
+					 
+					 $("#license2",container).val(licenses);
+					 $("#license",container).removeClass("required");
+					 $("#engineNo2",container).val(engineNos);
+					 $("#engineNo",container).removeClass("required");
+					 $("#address2",container).val(addresss);
+					 $("#address",container).removeClass("required");
+					 returnResult.status = true; 
+					 
+				 });  */
+				 
+				 
+				//执行校验
+				/* $("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+					var selectRow = $("#dms_disposal",container).dmsTable().getSelections();
+					console.log(JSON.stringify(selectRow));
+					debugger
+					if(isStringNull(selectRow[0].LICENSE)&&isStringNull(selectRow[0].VIN)&&isStringNull(selectRow)){
+					$("#complainHistory",container).attr('disabled','disabled');
+					$("#maintainHistory",container).attr('disabled','disabled');
+					returnResult.status = true;
+					}
+				}); */
+	});
+</script>

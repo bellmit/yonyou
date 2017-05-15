@@ -1,0 +1,116 @@
+<div class="dms-edit ajaxrest" data-url="/maintain/getMaintain/{[PACKAGE_ID]}"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">复制保养套餐</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+	
+             	  	<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">被复制的保养套餐代码</label>
+							<div class="col-xs-8">
+									<span class="form-show"  id="Code"  data-fieldName="PACKAGE_CODE" ></span>
+							</div>
+						</div>
+					</div>
+						<div class="col-xs-12 col-sm-6  ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">被复制的保养套餐名称</label>
+							<div class="col-xs-8">	
+									<span class="form-show"  id="name"  data-fieldName="PACKAGE_NAME" ></span>
+							</div>
+						</div>
+					</div>
+					   <div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">保养套餐代码：</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control"  id="packageCode" name="packageCode"  />
+									<input type="hidden" class="form-control"  id="groupIds" name="groupIds" />
+								<input type="hidden" class="form-control"  id="groupIds2" name="groupIds2" />
+							</div>
+						</div>
+					</div>
+					
+			
+				<div class="col-xs-12 col-sm-6  ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">保养套餐名称：</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control"  id="packageName" name="packageName"  />
+							</div>
+						</div>
+					</div>
+			<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车型</label>
+								<div class="col-xs-8">
+									<select id="groupName"
+										class="bs-select form-control" name="modelId"
+										data-url="/maintain/GetAllCheXing"
+										data-model="vehicle" data-labelValue="GROUP_ID"
+										data-lableDesc="GROUP_NAME" data-fieldName="MODEL_ID" >
+									</select>
+								</div>
+							</div>
+						</div>
+				
+			
+				
+                                 <input type="hidden" class="bs-select form-control"  id="maintainStartmileage" name="maintainStartmileage"  data-fieldName="MAINTAIN_STARTMILEAGE" />
+								<input type="hidden" class="bs-select form-control"  id="maintainEndmileage" name="maintainEndmileage"  data-fieldName="MAINTAIN_ENDMILEAGE" />
+							    <input type="hidden" class="bs-select form-control"  id="maintainStartday" name="maintainStartday" data-fieldName="MAINTAIN_STARTDAY"  />
+								<input type="hidden" class="bs-select form-control"  id="maintainEndday" name="maintainEndday"  data-fieldName="MAINTAIN_ENDDAY" />
+			
+					<div class="col-xs-12 col-sm-6 ">
+					<div class="form-group">
+						<label class="control-label col-xs-4 col-sm-2">有效日期</label>
+						<div class="col-xs-8 col-sm-10">
+							 <div class="input-group input-daterange" data-opens="left">
+	                             <input type="text" class="form-control" readonly id="maintainStartdate" name="maintainStartdate">
+	                             <span class="input-group-addon">至</span>
+	                             <input type="text" class="form-control" readonly  id="maintainEnddate"  name="maintainEnddate">
+	                             <span class="input-group-btn">
+                                    <button class="btn default input-clear" type="button">
+                                       <i class="fa fa-close"></i>
+                                   </button>
+                                 </span> 
+	                        </div>
+						</div>
+					</div>
+				</div>	
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/maintain/fuZhi/{[PACKAGE_ID]}" data-model="vehicle"
+				data-method="POST" data-callBack='true'
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>复制</a> <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("a.clear").click();
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	
+	});
+</script>

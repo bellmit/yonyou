@@ -1,0 +1,304 @@
+<div class="dms-edit ajaxrest"
+	data-url="/basedata/repairtypes/getRepairTypes/item"
+	data-pageInitCallBack="true" data-model="manage">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">收费对象拆分</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="tabbable-custom ">
+					<div class="panel-body" data-parentTable="partInfoTable">
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">应收总金额</label>
+									<div class="col-xs-8" data-tableSelect='true'>
+										<input type="text" class="form-control" id="labourAmount"
+											readonly name="labourAmount">
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">实收总金额</label>
+									<div class="col-xs-8" data-tableSelect='true'>
+										<input type="text" class="form-control"
+											id="calcRealReceiveAmount" readonly
+											name="calcRealReceiveAmount">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="modal-body">
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-button">
+					<div class="btn-group btn-group-sm">
+						<a class="btn btn-outline" id="But4"
+							data-url="repair\FeesSettlement\searchOwnerAndCustomer.html"
+							id="TraceTaskHistory" data-toggle="modal" data-width="modal-lg">
+							<i class="fa fa-plus-square"></i> 新增
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="paymentObjectList">
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer center-block">
+		<a class="btn blue" data-onclickEvent="true"><i class="fa fa-save"></i>确定</a>
+		<a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消
+		</a>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms", function(event, container) {
+		new Datatable().initLocale({
+			src : "paymentObjectList",
+			container:container,
+			rowID:"RO_ADD_ITEM_ID",
+			sortName : "RO_ADD_ITEM_ID",
+			sortOrder : "asc",
+			autoHeight : false,
+			columns : [    			
+				{field : "ADD_ITEM_CODE",inputHiddenFormat : {},title : "附加项目代码"},
+               {field : "PAYMENT_OBJECT_CODE",inputHiddenFormat : {},title : "收费对象代码"},
+               {field : "PAYMENT_OBJECT_NAME",inputHiddenFormat : {},title : "收费对象名称"},
+	           {field : "LABOUR_AMOUNT",inputHiddenFormat : {},inputField:"labourAmount",title : "应收金额"},
+	           {field : "DISCOUNT",inputHiddenFormat : {},title : "折扣率"},
+	           {field : "DIS_LABOUR_AMOUNT",inputHiddenFormat : {},inputField:"disLabourAmount",title : "折让金额"},
+	           {field : "CALC_REAL_RECEIVE_AMOUNT",inputField:"calcRealReceiveAmount",title : "实收金额",inputNumberFormat : {decimal : 2,validate:{validateClass:"money",validateAttr:'maxPrecision="2"'}}}	           
+	           ],
+	         onLoadSuccess : function() {
+	         } , onClickRow(rowData, element){
+      	    	 var row  = $("#paymentObjectList",container).dmsTable().getRowDataByIndex();
+				   $.each(row,function(index,obj){				  
+						   var discount  = row[0].DISCOUNT;
+						   var amountChange = $("input[id^='calcRealReceiveAmount']",$("tr[data-index='"+index+"']")).val();//实收金额
+						   var labourAmount = (parseFloat(amountChange)/parseFloat(discount)).toFixed(2);//应收金额
+						   var disAmount = (parseFloat(labourAmount)*(1-parseFloat(discount))).toFixed(2);//折让金额
+						   $("#paymentObjectList",getElementContext()).dmsTable().updateRowByIndex(index,{
+							   LABOUR_AMOUNT:labourAmount,
+							   DISCOUNT:discount,
+							   DIS_LABOUR_AMOUNT:disAmount
+							});
+				   }) 
+				} 
+		});
+		 $("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){
+		 	 var str1=0;		 
+		 	 var str2=0;
+		 	 var str3='';
+		 	 var str4='';
+		 	 var str5='';
+			var selectRow = $("#bAIDtoList",getElementContext()).dmsTable().getSelections();
+			   	$(selectRow).each(function(index){
+				   str1 =selectRow[index].ADD_ITEM_AMOUNT;	   
+				   str2 =$("input[id^='crrAmount']",$("#bAIDtoList tr.selected",getElementContext())).val();				   
+				   str3 =selectRow[index].CHARGE_PARTITION_CODE; 
+				   str4 =$("input[id^='discount']",$("#bAIDtoList tr.selected",getElementContext())).val();				  
+				   str5 = $("input[id^='zkAmountZ']",$("#bAIDtoList tr.selected",getElementContext())).val();
+				   str6 =selectRow[index].ADD_ITEM_CODE;
+		  		}); 
+			   	$("#labourAmount",container).setDmsValue(str1);
+			   	$("#calcRealReceiveAmount",container).setDmsValue(str2);
+			   var sPayObjectCode = $("#ownerNo",getElementContext()).val();
+			   var sPayObjectName = $("#owner",getElementContext()).val();
+			   var sPayObjectCodeOEM = "999999999999";
+			   var sPayObjectNameOEM = "OEM(主机厂)";
+			   var sPayObjectCodeDLR = "888888888888";
+			   var sPayObjectNameDLR = "4S站";
+			   if(str3 == "S"){
+				   paymentObjectCode = sPayObjectCodeOEM;
+				   paymentObjectName = sPayObjectNameOEM;
+				}else if(str3 != ""&&str3 != null){
+					paymentObjectCode = sPayObjectCodeDLR;
+					paymentObjectName = sPayObjectNameDLR;
+				}else{
+					paymentObjectCode = sPayObjectCode;
+					paymentObjectName = sPayObjectName;
+				}
+			   $("#paymentObjectList", getElementContext()).dmsTable().appendRow(
+						{"PAYMENT_OBJECT_CODE":paymentObjectCode,
+						 "PAYMENT_OBJECT_NAME":paymentObjectName,
+						 "LABOUR_AMOUNT":str1,
+						 "DISCOUNT":str4,
+						 "DIS_LABOUR_AMOUNT":str5,
+						 "CALC_REAL_RECEIVE_AMOUNT":str2,
+						 "ADD_ITEM_CODE":str6
+						});
+			   $("input[id^='calcRealReceiveAmount']",$("#paymentObjectList",container)).attr("max",str2);
+	 		   $("input[id^='calcRealReceiveAmount']",$("#paymentObjectList",container)).bindChange(function(obj) {				  				  
+				   var row  = $("#paymentObjectList",container).dmsTable().getRowDataByIndex();
+				   $.each(row,function(index,obj){
+					   var amountChange = $("input[id^='calcRealReceiveAmount']",$("tr[data-index='"+index+"']")).val();   
+				   		if(parseFloat(amountChange)>parseFloat(str2)){
+				   			dmsCommon.tip({status:"warning",msg:"实收金额不能大于汇总金额!"});
+				   		}
+				   }) 
+			   });
+			    
+		 });
+		 
+		 $("a[data-onclickEvent='true']",container).on("dms.click",function(event,container){
+		 	var row  = $("#paymentObjectList",container).dmsTable().getRowDataByIndex();
+		 	var amountChange = 0;
+		 	var allLabour = $("input[id^='labourAmount']",$("#bAIDtoList tr.selected",getElementContext())).val();	
+		 	var allAmount = $("input[id^='crrAmount']",$("#bAIDtoList tr.selected",getElementContext())).val();	
+		 	var falg = true;	
+		    $.each(row,function(index,obj){
+		    	var indexAmount = $("input[id^='calcRealReceiveAmount']",$("tr[data-index='"+index+"']")).val();
+		    	amountChange = parseFloat(amountChange)+parseFloat(indexAmount);
+		    });
+			if(amountChange != parseFloat(allAmount)){
+				dmsCommon.tip({status:"warning",msg:"拆分后的金额之和与总金额不相符,请重新调整!"});
+				returnResult.status = false;
+				return;
+			} 
+			if (!falg) {
+				returnResult.status = false;
+				return;
+			}			
+			var  payList =  $("#paymentObjectList",container).dmsTable().getRowDataByIndex();
+			var rowY  = $("#receivableList", getElementContext()).dmsTable().getRowDataByIndex();//应收
+			var rowS  = $("#receivedList", getElementContext()).dmsTable().getRowDataByIndex();//实收
+			var codeCalc = [];
+			var code = '';
+			var partFee = '';//应收维修材料费
+			var tAmount = '';//应收总金额
+			var codeReal = [];
+			var code = '';
+			var realPartFee = '';//实收维修材料费
+			var sunAmount = '';//汇总金额
+			var realToAmount ='';//实收总金额
+			var tax = '';
+			var calReceAmount = '';
+			var amountS = '';
+			var taxAmount = '';
+			var taxAmount2 =  '';
+			var tax = dmsCommon.getSystemParamInfo("1003","1003");
+			$.each(rowY,function(indexY,obj){
+				 code = rowY[indexY].PAYMENT_OBJECT_CODE;
+				codeCalc.push(code);
+			});	
+			$.each(rowS,function(indexS,obj){
+				 code = rowS[indexS].PAYMENT_OBJECT_CODE;
+				 codeReal.push(code);		
+			}); 
+			
+			$.each(payList,function(index,obj){
+				var partName = payList[index].PART_NAME;
+				var payCode = payList[index].PAYMENT_OBJECT_CODE;
+				var payName = payList[index].PAYMENT_OBJECT_NAME;
+				var labourAmount = payList[index].LABOUR_AMOUNT;
+				var discount = payList[index].DISCOUNT;
+				$("#hiddenList4",getElementContext()).dmsTable().appendRow(payList[index]); 
+				debugger;
+				var codeIndexY = indexOf(codeCalc,payCode);				
+					if(codeCalc.contains(payCode)){
+						 partFee = rowY[codeIndexY].RECEIVEABLE_ADD_ITEM_FEE;
+						 tAmount = rowY[codeIndexY].CALC_RECEIVEABLE_TOTAL_AMOUNT;
+						$("#receivableList",getElementContext()).dmsTable().updateRowByIndex(codeIndexY,{
+							RECEIVEABLE_ADD_ITEM_FEE:labourAmount,
+							CALC_RECEIVEABLE_TOTAL_AMOUNT:tAmount-(partFee-labourAmount)
+						});
+					}else {
+						$("#receivableList",getElementContext()).dmsTable().appendRow({
+							PAYMENT_OBJECT_CODE:payCode,
+							PAYMENT_OBJECT_NAME:	payName,
+							RECEIVEABLE_LABOUR_FEE:0,
+							RECEIVEABLE_REPAIR_PART_FEE:0,
+							RECEIVEABLE_SALES_PART_FEE:0,
+							RECEIVEABLE_ADD_ITEM_FEE:labourAmount,
+							RECEIVEABLE_OVER_ITEM_FEE:0,
+							CALC_RECEIVEABLE_TOTAL_AMOUNT:labourAmount
+						});
+					} 
+					
+					var codeIndexS = indexOf(codeReal,payCode);
+					if(codeReal.contains(payCode)){
+						 realAddFee = rowS[codeIndexS].REAL_ADD_ITEM_FEE;//实收维修材料费
+						 sunAmount = rowS[codeIndexS].CALC_SUM_AMOUNT;//汇总金额
+						 realToAmount =rowS[codeIndexS]. CALC_REAL_TOTAL_AMOUNT;//实收总金额
+						 calReceAmount = rowS[codeIndexS].CALC_RECEIVABLE_AMOUNT;
+						 amountS = parseFloat(realToAmount)-(parseFloat(realAddFee)-parseFloat(labourAmount));
+						 taxAmount = (parseFloat(amountS) - (parseFloat(amountS)/(1+parseFloat(tax))).toFixed(2)).toFixed(2);						
+						$("#receivedList",getElementContext()).dmsTable().updateRowByIndex(codeIndexS,{
+							REAL_ADD_ITEM_FEE:labourAmount,
+							CALC_SUM_AMOUNT:sunAmount-(realAddFee-labourAmount),
+							CALC_REAL_TOTAL_AMOUNT:amountS,
+							CALC_TAX_AMOUNT:taxAmount,
+							CALC_NET_AMOUNT:amountS-taxAmount,
+							CALC_RECEIVABLE_AMOUNT :calReceAmount-(realAddFee-labourAmount)
+						});
+					}else {
+						 taxAmount2 =  (parseFloat(labourAmount) - (parseFloat(labourAmount)/(1+parseFloat(tax))).toFixed(2)).toFixed(2);
+						$("#receivedList",getElementContext()).dmsTable().appendRow({
+							PAYMENT_OBJECT_CODE : payCode,
+							PAYMENT_OBJECT_NAME : payName,
+							REAL_LABOUR_FEE : 0,
+							CALC_SUM_AMOUNT : labourAmount,
+							CALC_REAL_TOTAL_AMOUNT : labourAmount,
+							CALC_TAX_AMOUNT : taxAmount2,
+							CALC_NET_AMOUNT : labourAmount - taxAmount2,
+							REAL_REPAIR_PART_FEE :0 ,
+							REAL_SALES_PART_FEE : 0,
+							REAL_ADD_ITEM_FEE :labourAmount,
+							REAL_OVER_ITEM_FEE : 0,
+							CARDS_AMOUNT : 0,
+							GIFT_AMOUNT : 0,
+							SUB_OBB_AMOUNT : 0,
+							CALC_RECEIVABLE_AMOUNT : labourAmount,
+							RECEIVED_AMOUNT : 0,
+							NOT_RECEIVED_AMOUNT : 0,
+							PAY_OFF : 12781002,
+							INVOICE_TAG : 12781002
+						});					
+					}
+			
+			 });
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+		 });
+		 
+		 Array.prototype.contains = function ( needle ) {
+			  for (i in this) {
+			    if (this[i] == needle) return true;
+			  }
+			  return false;
+			}
+		 
+		 
+		 function indexOf(arr, str){
+			    // 如果可以的话，调用原生方法
+			    if(arr && arr.indexOf){
+			        return arr.indexOf(str);
+			    }
+			    var len = arr.length;
+			    for(var i = 0; i < len; i++){
+			        // 定位该元素位置
+			        if(arr[i] == str){
+			            return i;
+			        }
+			    }
+			    // 数组中不存在该元素
+			    return -1;
+			}
+		 
+	});
+</script>

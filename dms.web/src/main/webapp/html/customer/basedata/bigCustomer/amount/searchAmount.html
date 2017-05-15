@@ -1,0 +1,39 @@
+<div class="dms-search">
+
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">大客户申请数量定义</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				new Datatable().initPagination({
+					src : "dms_table",
+					container : container,
+					url : dmsCommon.getDmsPath()["customer"]
+							+ "/basedata/bigCusAmount", ///basedata
+					rowID : "NUMBER",
+					sortName : "NUMBER", //默认按主键升序排列
+					sortOrder : "asc",
+					columns : [ {
+						field : "PS_TYPE",
+						title : "政策类别",codeFormat : {type:"dict",codeType:"1597"}
+					}, {
+						field : "EMPLOYEE_TYPE",
+						title : "客户类别",codeFormat : {type:"dict",codeType:"6120"}
+					}, {
+						field : "NUMBER",
+						title : "数量"
+					} ]
+				})
+
+			});
+</script>

@@ -1,0 +1,588 @@
+<div class="dms-edit ajaxrest"
+	data-url="/basedata/repairtypes/getRepairTypes/item"
+	data-pageInitCallBack="true" data-model="manage">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">收费对象拆分</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="tabbable-custom ">
+					<div class="panel-body" data-parentTable="partInfoTable">
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">应收总金额</label>
+									<div class="col-xs-8" data-tableSelect='true'>
+										<input type="text" class="form-control" id="labourAmount"
+											readonly name="labourAmount">
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">实收总金额</label>
+									<div class="col-xs-8" data-tableSelect='true'>
+										<input type="text" class="form-control"
+											id="calcRealReceiveAmount" readonly
+											name="calcRealReceiveAmount">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">原收费对象</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_table6"></table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="tabbable-custom ">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#repairProject_tab"
+						data-toggle="tab" id="repairProject">维修项目</a></li>
+					<li><a href="#repairMaterials_tab" data-toggle="tab"
+						id="repairMaterials">维修材料</a></li>
+					<li><a href="#saleMatrial_tab" data-toggle="tab"
+						id="saleMatrial">销售材料</a></li>
+					<li><a href="#additionItem_tab" data-toggle="tab"
+						id="additionItem">附加项目</a></li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane  fade in active" id="repairProject_tab">
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<div class="panel panel-default table-panel">
+									<table
+										class="table table-striped table-bordered table-hover table-responsive"
+										id="dms_table1">
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="tab-pane  fade in " id="repairMaterials_tab">
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<div class="panel panel-default table-panel">
+									<table
+										class="table table-striped table-bordered table-hover table-responsive"
+										id="dms_table2">
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="tab-pane  fade in " id="saleMatrial_tab">
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<div class="panel panel-default table-panel">
+									<table
+										class="table table-striped table-bordered table-hover table-responsive"
+										id="dms_table3">
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="tab-pane  fade in " id="additionItem_tab">
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<div class="panel panel-default table-panel">
+									<table
+										class="table table-striped table-bordered table-hover table-responsive"
+										id="dms_table4">
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal-body">
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">新收费对象</div>
+					<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" id="But4"
+								data-url="repair\FeesSettlement\searchOwnerAndCustomer.html"
+								id="TraceTaskHistory" data-toggle="modal" data-width="modal-lg">
+								<i class="fa fa-plus-square"></i> 新增
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="paymentObjectList"></table>
+				</div>
+			</div>
+		</div>
+
+	</form>
+	<div class="modal-footer center-block">
+		<a class="btn blue" data-onclickEvent="true"><i class="fa fa-save"></i>确定</a>
+		<a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消
+		</a>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event, container) {		
+	new Datatable().initLocale({
+		src : "dms_table1",
+		container:container,
+		rowID:"CARD_CODE",
+		sortName : "CARD_CODE", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+		sortOrder : "asc",
+		autoHeight : false,
+		columns : [ 
+					{field : "CARD_CODE",title : "会员卡编号"},
+					{field : "MANAGE_SORT_CODE",title : "收费类别"},
+		            {field : "CHARGE_PARTITION_CODE",title : "收费区分"}, 
+		            {field : "STD_LABOUR_HOUR",title : "维修类型"}, 
+		            {field : "TROUBLE_DESC",title : "故障原因"},
+		            {field : "LABOUR_CODE",title : "项目代码"}, 
+		            {field : "LABOUR_NAME",title : "项目名称"}, 
+		            {field : "LABOUR_AMOUNT",title : "工时费"}, 
+		            {field : "TECHNICIAN",title:"责任技师"},
+		            {field : "DISCOUNT",inputHiddenFormat : {},title : "折扣率"}, 
+		            {field : "DIS_LABOUR_AMOUNT",inputHiddenFormat : {},title : "折扣金额"}, 
+		            {field : "CALC_REAL_RECEIVE_AMOUNT",inputHiddenFormat : {},title : "实收金额"}, 		          
+		            {field : "STD_LABOUR_HOUR",title : "标准工时"},
+		            {field : "ASSIGN_LABOUR_HOUR",title : "派工工时"},
+		            {field : "LABOUR_PRICE",title : "工时单价"},
+		            {field : "ACTIVITY_CODE",title : "活动编号"},
+		            {field : "TROUBLE_DESC",title : "检查结果"},
+		            {field : "PACKAGE_CODE",title : "组合代码"},
+		            {field : "MODEL_LABOUR_CODE",title : "项目车型组"},
+		            {field : "REMARK",title : "备注"},
+		            {field : "MAINTAIN_PACKAGE_CODE",title : "保养套餐代码"}
+		   
+		         ],
+		         onLoadSuccess : function() {
+		         }
+	});
+	
+	new Datatable().initLocale({
+		src : "dms_table2",
+		container:container,
+		rowID:"CARD_CODE",
+		sortName : "CARD_CODE", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+		sortOrder : "asc",
+		autoHeight : false,
+		columns : [ {field : "CARD_CODE",title : "会员卡编号"},
+		            {field : "MANAGE_SORT_CODE",title :"收费类别"},
+		            {field : "CHARGE_PARTITION_CODE",title : "收费区分"}, 
+		            {field : "PART_NAME",title : "配件名称"},
+		            {field : "PART_SALES_PRICE",title : "配件销售单价"},
+		            {field : "PART_QUANTITY",title : "配件数量"}, 
+		            {field : "PART_SALES_AMOUNT",title : "配件销售金额"},
+		            {field : "DISCOUNT",title : "折扣率"},	            
+		            {field : "CALC_DISCOUNT_AMOUNT",title : "优惠金额"},
+		            {field : "CALC_REAL_RECEIVE_AMOUNT",title : "实收金额"},	
+		            {field : "STORAGE_CODE",title : "仓库代码"},
+		            {field : "UNIT_CODE",title : "计量单位"},		            
+		            {field : "PART_NO",inputField:"partNo",title : "配件代码"},
+		            {field : "CONSIGN_EXTERIOR",title : "是否委外"},
+		            {field : "ACTIVITY_CODE",title : "活动编号"},
+		            {field : "LABOUR_CODE",title : "维修项目代码"},
+		            {field : "MODEL_LABOUR_CODE",title : "项目车型组"},
+		            {field : "PACKAGE_CODE",title : "组合代码"},
+		            {field : "IS_DISCOUNT",title : "不可打折"},
+		            {field : "PART_CATEGORY",title : "配件类别"},
+		            {field : "MAINTAIN_PACKAGE_CODE",title : "保养套餐代码"}
+		     
+		         ],
+		         onLoadSuccess : function() {
+		        	
+		         }
+	});
+	
+	new Datatable().initLocale({
+		src : "dms_table3",
+		container:container,
+		rowID:"STORAGE_CODE",
+		sortName : "STORAGE_CODE", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+		sortOrder : "asc",
+		autoHeight : false,
+		columns : [
+		           {field : "STORAGE_CODE",title : "仓库代码"},
+                   {field : "STORAGE_NAME",title : "仓库名称"},
+                   {field : "PART_NO",title : "配件代码"}, 
+		           {field : "PART_NAME",title : "配件名称"},
+		           {field : "PART_QUANTITY",title : "配件销售数量"}, 			           
+		           {field : "UNIT_CODE",title : "计量单位"},
+		           {field : "PART_SALES_PRICE",title : "配件销售单价"},   
+		           {field : "PART_SALES_AMOUNT",title : "配件销售金额"},
+		           {field : "CALC_DISCOUNT_AMOUNT",title : "优惠金额"},
+		           {field : "DISCOUNT",title : "折扣率"},  
+		           {field : "CALC_REAL_RECEIVE_AMOUNT",title : "实收金额"},
+		           {field : "IS_DISCOUNT",title : "不可打折"}
+		           
+		         ],
+		         onLoadSuccess : function() {
+					
+		         }
+	});
+	
+	new Datatable().initLocale({
+		src : "dms_table4",
+		container:container,
+		rowID:"MANAGE_SORT_CODE",
+		sortName : "MANAGE_SORT_CODE",
+		sortOrder : "asc",
+		autoHeight : false,
+		columns : [    
+		               {field : "MANAGE_SORT_CODE",title : "收费类别"},
+		               {field : "CHARGE_PARTITION_CODE",title : "收费区分"},
+			           {field : "ADD_ITEM_CODE",title : "附加项目代码"},
+			           {field : "ADD_ITEM_NAME",title : "附加项目名称"}, 
+			           {field : "ADD_ITEM_AMOUNT",title : "附加项目费"},
+			           {field : "CALC_DISCOUNT_AMOUNT",title : "折让金额"}, 
+			           {field : "DISCOUNT",title : "折扣率"},  			           
+			           {field : "CALC_REAL_RECEIVE_AMOUNT",title : "实收金额"}, 
+			           {field : "REMARK",title : "备注"},
+			           {field : "ACTIVITY_CODE",title : "活动编码"}
+			           
+			           ],
+				         onLoadSuccess : function() {
+				        	 
+				         }
+	});
+	
+	new Datatable().initLocale({
+		src : "dms_table6",
+		container:container,
+		rowID:"RO_ADD_ITEM_ID",
+		sortName : "RO_ADD_ITEM_ID",
+		sortOrder : "asc",
+		autoHeight : false,
+		columns : [    
+				{field : "PAYMENT_OBJECT_CODE",inputHiddenFormat : {},title : "收费对象代码"},
+            	{field : "PAYMENT_OBJECT_NAME",inputField:"paymentObjectName",inputHiddenFormat : {},title : "收费对象名称"},
+	           {field : "RECEIVEABLE_LABOUR_FEE",inputField:"receiveableLabourFee",inputHiddenFormat : {},title : "应收工时费"},
+	           {field : "RECEIVEABLE_REPAIR_PART_FEE",inputField:"receiveableRepairPartFee",inputHiddenFormat : {},title : "应收维修材料费"}, 
+	           {field : "RECEIVEABLE_SALES_PART_FEE",inputField:"receiveableSalesPartFee",inputHiddenFormat : {},title : "应收销售材料费"},
+	           {field : "RECEIVEABLE_ADD_ITEM_FEE",inputField:"receiveableAddItemFee",inputHiddenFormat : {},title : "应收附加项目费"}, 
+	           {field : "RECEIVEABLE_OVER_ITEM_FEE",inputField:"receiveableOverItemFee",inputHiddenFormat : {},title : "应收辅料管理费"},  			           
+	           {field : "CALC_RECEIVEABLE_TOTAL_AMOUNT",inputField:"calcReceiveableTotalAmount",inputHiddenFormat : {},title : "应收总金额"}	,	
+	           {field : "REAL_LABOUR_FEE",inputHiddenFormat : {},title : "实收工时费"},
+	           {field : "REAL_REPAIR_PART_FEE",inputHiddenFormat : {},title : "实收维修材料费"}, 
+	           {field : "REAL_SALES_PART_FEE",inputHiddenFormat : {},title : "实收销售材料费"},
+	           {field : "REAL_ADD_ITEM_FEE",inputHiddenFormat : {},title : "实收附加项目费"}, 
+	           {field : "REAL_OVER_ITEM_FEE",inputHiddenFormat : {},title : "实收辅料管理费"},  
+	           {field : "CALC_SUM_AMOUNT",inputHiddenFormat : {},title : "汇总金额"},
+	           {field : "CALC_REAL_TOTAL_AMOUNT",inputField:"calcRealTotalAmount",inputHiddenFormat : {},title : "实收总金额"}, 
+	           {field : "CALC_TAX_AMOUNT",inputHiddenFormat : {},title : "税额"},
+	           {field : "CALC_NET_AMOUNT",inputHiddenFormat : {},title : "不含税金额"},
+	           {field : "CARDS_AMOUNT",inputField:"cardsAmount",inputHiddenFormat : {},title : "积分金额"},
+	           {field : "GIFT_AMOUNT",inputField:"giftAmount",inputHiddenFormat : {},title : "抵扣金额"},				           
+	           {field : "SUB_OBB_AMOUNT",inputField:"subObbAmount",title : "去零金额"},				          
+	           {field : "CALC_RECEIVABLE_AMOUNT",inputHiddenFormat : {},title : "应收账款"},					 
+			   {field : "RECEIVED_AMOUNT",inputHiddenFormat : {},title : "已收账款"},
+	           {field : "NOT_RECEIVED_AMOUNT",inputHiddenFormat : {},title : "未收账款"},
+	           {field : "PAY_OFF",inputHiddenFormat : {},title : "是否结清",codeFormat : {type:"dict",codeType:"1278"}},
+	           ],
+         onLoadSuccess : function() {
+         }
+	});
+	
+	new Datatable().initLocale({
+		src : "paymentObjectList",
+		container:container,
+		rowID:"RO_ADD_ITEM_ID",
+		sortName : "RO_ADD_ITEM_ID",
+		sortOrder : "asc",
+		autoHeight : false,
+		columns : [    				  
+           {field : "PAYMENT_OBJECT_CODE",inputHiddenFormat : {},title : "收费对象代码"},
+           {field : "PAYMENT_OBJECT_NAME",inputHiddenFormat : {},title : "收费对象名称"},
+           {field : "CALC_REAL_RECEIVE_AMOUNT",inputField:"calcRealReceiveAmount",title : "实收金额",inputNumberFormat : {decimal : 2,validate:{validateClass:"money",validateAttr:'maxPrecision="2"'}}}	           
+           
+           ],
+         onLoadSuccess : function() {
+         }
+	});
+	
+	$("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){
+		
+		//维修项目表格加载
+		var selectRow =  $("#bLDtoList",getElementContext()).dmsTable().getRowDataByIndex();
+		$.each(selectRow,function(index,obj){
+			var discount = $("input[id^='discount']",$("#bLDtoList tr[data-index='"+index+"']",getElementContext())).val();
+			var zkAmountZ = $("input[id^='zkAmountZ']",$("#bLDtoList tr[data-index='"+index+"']",getElementContext())).val();
+			var crrAmount = $("input[id^='crrAmount']",$("#bLDtoList tr[data-index='"+index+"']",getElementContext())).val();
+			obj['DISCOUNT']=discount;
+			obj['DIS_LABOUR_AMOUNT']=zkAmountZ;
+			obj['CALC_REAL_RECEIVE_AMOUNT']=crrAmount;
+			$("#dms_table1",container).dmsTable().appendRow(obj);
+		});
+		//维修材料表格加载
+		var selectRow2 =  $("#bRPDtoList",getElementContext()).dmsTable().getRowDataByIndex();
+		$.each(selectRow2,function(index,obj){
+			var discount = $("input[id^='discount']",$("#bRPDtoList tr[data-index='"+index+"']",getElementContext())).val();
+			var zkAmountZ = $("input[id^='zkAmountZ']",$("#bRPDtoList tr[data-index='"+index+"']",getElementContext())).val();
+			var crrAmount = $("input[id^='crrAmount']",$("#bRPDtoList tr[data-index='"+index+"']",getElementContext())).val();
+			obj['DISCOUNT']=discount;
+			obj['CALC_DISCOUNT_AMOUNT']=zkAmountZ;
+			obj['CALC_REAL_RECEIVE_AMOUNT']=crrAmount;			
+			$("#dms_table2",container).dmsTable().appendRow(obj);
+		});
+		//销售材料表格加载
+		var selectRow3 =  $("#bSPDtoList",getElementContext()).dmsTable().getRowDataByIndex();
+		$.each(selectRow3,function(index,obj){
+			var discount = $("input[id^='discount']",$("#bSPDtoList tr[data-index='"+index+"']",getElementContext())).val();
+			var zkAmountZ = $("input[id^='zkAmountZ']",$("#bSPDtoList tr[data-index='"+index+"']",getElementContext())).val();
+			var crrAmount = $("input[id^='crrAmount']",$("#bSPDtoList tr[data-index='"+index+"']",getElementContext())).val();
+			obj['DISCOUNT']=discount;
+			obj['CALC_DISCOUNT_AMOUNT']=zkAmountZ;
+			obj['CALC_REAL_RECEIVE_AMOUNT']=crrAmount;			
+			$("#dms_table3",container).dmsTable().appendRow(obj);
+		});
+		//附加项目表格加载
+		var selectRow4 =  $("#bAIDtoList",getElementContext()).dmsTable().getRowDataByIndex();
+		$.each(selectRow4,function(index,obj){
+			var discount = $("input[id^='discount']",$("#bAIDtoList tr[data-index='"+index+"']",getElementContext())).val();
+			var zkAmountZ = $("input[id^='zkAmountZ']",$("#bAIDtoList tr[data-index='"+index+"']",getElementContext())).val();
+			var crrAmount = $("input[id^='crrAmount']",$("#bAIDtoList tr[data-index='"+index+"']",getElementContext())).val();
+			obj['DISCOUNT']=discount;
+			obj['CALC_DISCOUNT_AMOUNT']=zkAmountZ;
+			obj['CALC_REAL_RECEIVE_AMOUNT']=crrAmount;	
+			$("#dms_table4",container).dmsTable().appendRow(obj);
+		});
+		//原收费对象表格加载
+		var row = $("#receivedList",getElementContext()).dmsTable().getFirstSelection();//选中的实收行
+		var selectRow5 =  $("#receivableList",getElementContext()).dmsTable().getRowDataByIndex();//应收表格
+		var ind = row["index"];
+		var row2 = selectRow5[ind];
+		var json = mergeJsonObject(row,row2);
+		$("#dms_table6",container).dmsTable().appendRow(json);
+		var labourAmount = json["CALC_RECEIVEABLE_TOTAL_AMOUNT"];
+		var calcRealReceiveAmount = json["CALC_REAL_TOTAL_AMOUNT"];
+		$("#labourAmount",container).setDmsValue(labourAmount);
+		$("#calcRealReceiveAmount",container).setDmsValue(calcRealReceiveAmount);
+		//新收费对象表格加载
+		var code = row["PAYMENT_OBJECT_CODE"];
+		var name = row["PAYMENT_OBJECT_NAME"];
+		var amount = $("input[id^='calcRealTotalAmount']",$("#receivedList tr[data-index='"+ind+"']",getElementContext())).val();
+		var jsonX = {};
+		jsonX["PAYMENT_OBJECT_CODE"] = code;
+		jsonX["PAYMENT_OBJECT_NAME"] = name;
+		jsonX["CALC_REAL_RECEIVE_AMOUNT"] = amount;
+		$("#paymentObjectList",container).dmsTable().appendRow(jsonX);
+		
+	});
+	
+	 $("a[data-onclickEvent='true']",container).on("dms.click",function(event,container){
+		 
+		 	var row  = $("#paymentObjectList",container).dmsTable().getRowDataByIndex();
+		 	var amountChange = 0;			
+		 	var allAmount = $("#calcRealReceiveAmount",container).val();
+		    $.each(row,function(index,obj){
+		    	var indexAmount = $("input[id^='calcRealReceiveAmount']",$("tr[data-index='"+index+"']")).val();
+		    	amountChange = parseFloat(amountChange)+parseFloat(indexAmount);
+		    });
+			if(amountChange != parseFloat(allAmount)){
+				dmsCommon.tip({status:"warning",msg:"拆分后的金额之和与总金额不相符,请重新调整!"});
+				return;
+			} 
+			
+			var  payList =  $("#paymentObjectList",container).dmsTable().getRowDataByIndex();
+			var rowY  = $("#receivableList", getElementContext()).dmsTable().getRowDataByIndex();//应收
+			var rowS  = $("#receivedList", getElementContext()).dmsTable().getRowDataByIndex();//实收
+			var code = '';
+			var codeCalc = [];
+			var codeReal = [];
+			var tax = dmsCommon.getSystemParamInfo("1003","1003");
+			$.each(rowY,function(indexY,obj){
+				 code = rowY[indexY].PAYMENT_OBJECT_CODE;
+				codeCalc.push(code);
+			});	
+			$.each(rowS,function(indexS,obj){
+				 code = rowS[indexS].PAYMENT_OBJECT_CODE;
+				 codeReal.push(code);		
+			}); 
+			
+			
+			var row = $("#receivedList",getElementContext()).dmsTable().getFirstSelection();//选中的实收行
+			var indexX = row["index"];
+			var objectCode = row["PAYMENT_OBJECT_CODE"];
+			var realLabourFee = $("input[id^='realLabourFee']",$("#receivedList tr[data-index='"+indexX+"']",getElementContext())).val();//实收工时费
+			var realRepairPartFee = $("input[id^='realRepairPartFee']",$("#receivedList tr[data-index='"+indexX+"']",getElementContext())).val();//实收维修材料费
+			var realSalesPartFee = $("input[id^='realSalesPartFee']",$("#receivedList tr[data-index='"+indexX+"']",getElementContext())).val();//实收销售材料费
+			var realAddItemFee = $("input[id^='realAddItemFee']",$("#receivedList tr[data-index='"+indexX+"']",getElementContext())).val();//实收附加项目费
+			var realOverItemFee = $("input[id^='realOverItemFee']",$("#receivedList tr[data-index='"+indexX+"']",getElementContext())).val();//实收辅料管理费
+			var calcSumAmount = $("input[id^='calcSumAmount']",$("#receivedList tr[data-index='"+indexX+"']",getElementContext())).val();//汇总金额
+			var calcRealTotalAmount= $("input[id^='calcRealTotalAmount']",$("#receivedList tr[data-index='"+indexX+"']",getElementContext())).val();//实收总金额
+			var calcTaxAmount= $("input[id^='calcTaxAmount']",$("#receivedList tr[data-index='"+indexX+"']",getElementContext())).val();//税额
+			var calcNetAmount = $("input[id^='calcNetAmount']",$("#receivedList tr[data-index='"+indexX+"']",getElementContext())).val();//不含税金额
+			var cardsAmount = $("input[id^='cardsAmount']",$("#receivedList tr[data-index='"+indexX+"']",getElementContext())).val();//积分金额
+			var giftAmount = $("input[id^='giftAmount']",$("#receivedList tr[data-index='"+indexX+"']",getElementContext())).val();//抵扣金额
+			var subObbAmount = $("input[id^='subObbAmount']",$("#receivedList tr[data-index='"+indexX+"']",getElementContext())).val();//去零金额
+			var calcReceivableAmount = $("input[id^='calcReceivableAmount']",$("#receivedList tr[data-index='"+indexX+"']",getElementContext())).val();//应收账款
+			var receivedAmount = $("input[id^='receivedAmount']",$("#receivedList tr[data-index='"+indexX+"']",getElementContext())).val();//已收账款
+			var notReceivedAmount = $("input[id^='notReceivedAmount']",$("#receivedList tr[data-index='"+indexX+"']",getElementContext())).val();//未收账款
+
+			var row1 = $("#receivableList",getElementContext()).dmsTable().getRowDataByIndex();//选中的应收行
+			var indexS = indexX;
+			$.each(row1,function(index,obj){
+				if(obj["PAYMENT_OBJECT_CODE"] == objectCode){
+					indexS = index;
+					return false;
+				}
+			});
+			var receiveableLabourFee = $("input[id^='receiveableLabourFee']",$("#receivableList tr[data-index='"+indexS+"']",getElementContext())).val();//应收工时费
+			var receiveableRepairPartFee = $("input[id^='receiveableRepairPartFee']",$("#receivableList tr[data-index='"+indexS+"']",getElementContext())).val();//应收维修材料费
+			var receiveableSalesPartFee = $("input[id^='receiveableSalesPartFee']",$("#receivableList tr[data-index='"+indexS+"']",getElementContext())).val();//应收销售材料费
+			var receiveableAddItemFee = $("input[id^='receiveableAddItemFee']",$("#receivableList tr[data-index='"+indexS+"']",getElementContext())).val();//应收附加项目费
+			var receiveableOverItemFee = $("input[id^='receiveableOverItemFee']",$("#receivableList tr[data-index='"+indexS+"']",getElementContext())).val();//应收辅料管理费
+			var calcReceiveableTotalAmount = $("input[id^='calcReceiveableTotalAmount']",$("#receivableList tr[data-index='"+indexS+"']",getElementContext())).val();//应收总金额
+			
+			
+			
+				$.each(payList,function(index,obj){
+					debugger;
+					var payCode = payList[index].PAYMENT_OBJECT_CODE;
+					var payName = payList[index].PAYMENT_OBJECT_NAME;
+					var labourAmount = $("input[id^='calcRealReceiveAmount']",$("#paymentObjectList tr[data-index='"+index+"']",container)).val();
+					var rate = parseFloat(labourAmount)/parseFloat(allAmount);    //倍率   
+				
+					var codeIndexY = indexOf(codeCalc,payCode);	
+						if(codeCalc.contains(payCode)){
+								$("#receivableList",getElementContext()).dmsTable().updateRowByIndex(codeIndexY,{
+									RECEIVEABLE_LABOUR_FEE : parseFloat(receiveableLabourFee*rate).toFixed(2),
+									RECEIVEABLE_REPAIR_PART_FEE : parseFloat(receiveableRepairPartFee*rate).toFixed(2),
+									RECEIVEABLE_SALES_PART_FEE : parseFloat(receiveableSalesPartFee*rate).toFixed(2),
+									RECEIVEABLE_ADD_ITEM_FEE : parseFloat(receiveableAddItemFee*rate).toFixed(2),
+									RECEIVEABLE_OVER_ITEM_FEE :  parseFloat(receiveableOverItemFee*rate).toFixed(2),
+									CALC_RECEIVEABLE_TOTAL_AMOUNT :  parseFloat(calcReceiveableTotalAmount*rate).toFixed(2)
+									
+								});
+							}else{
+								$("#receivableList",getElementContext()).dmsTable().appendRow({
+										PAYMENT_OBJECT_CODE :payCode,
+										PAYMENT_OBJECT_NAME :	payName,
+										RECEIVEABLE_LABOUR_FEE : parseFloat(receiveableLabourFee*rate).toFixed(2),
+										RECEIVEABLE_REPAIR_PART_FEE : parseFloat(receiveableRepairPartFee*rate).toFixed(2),
+										RECEIVEABLE_SALES_PART_FEE : parseFloat(receiveableSalesPartFee*rate).toFixed(2),
+										RECEIVEABLE_ADD_ITEM_FEE : parseFloat(receiveableAddItemFee*rate).toFixed(2),
+										RECEIVEABLE_OVER_ITEM_FEE :  parseFloat(receiveableOverItemFee*rate).toFixed(2),
+										CALC_RECEIVEABLE_TOTAL_AMOUNT :  parseFloat(calcReceiveableTotalAmount*rate).toFixed(2)
+								});
+							}  
+	
+						var ind = indexOf(codeReal,payCode);
+								
+						if(codeReal.contains(payCode)){
+							debugger;
+						
+							$("#receivedList",getElementContext()).dmsTable().updateRowByIndex(ind,{
+								REAL_LABOUR_FEE : parseFloat( realLabourFee*rate).toFixed(2),
+								REAL_REPAIR_PART_FEE : parseFloat( realRepairPartFee*rate).toFixed(2), 
+								REAL_SALES_PART_FEE : parseFloat( realSalesPartFee*rate).toFixed(2),
+								REAL_ADD_ITEM_FEE : parseFloat( realAddItemFee*rate).toFixed(2),
+								REAL_OVER_ITEM_FEE : parseFloat( realOverItemFee*rate).toFixed(2),
+								CALC_SUM_AMOUNT : parseFloat( calcSumAmount*rate).toFixed(2),
+								CALC_REAL_TOTAL_AMOUNT : parseFloat( calcRealTotalAmount*rate).toFixed(2),
+								CALC_TAX_AMOUNT : parseFloat( calcTaxAmount*rate).toFixed(2),
+								CALC_NET_AMOUNT : parseFloat( calcNetAmount*rate).toFixed(2),
+								CARDS_AMOUNT : parseFloat( cardsAmount*rate).toFixed(2),
+								GIFT_AMOUNT : parseFloat(giftAmount *rate).toFixed(2),
+								SUB_OBB_AMOUNT : parseFloat(subObbAmount *rate).toFixed(2),
+								CALC_RECEIVABLE_AMOUNT : parseFloat( calcReceivableAmount*rate).toFixed(2),
+								RECEIVED_AMOUNT : parseFloat(receivedAmount *rate).toFixed(2),
+								NOT_RECEIVED_AMOUNT : parseFloat(notReceivedAmount *rate).toFixed(2)
+							});
+						}else{										
+							$("#receivedList",getElementContext()).dmsTable().appendRow({
+								PAYMENT_OBJECT_CODE : payCode,
+								PAYMENT_OBJECT_NAME : payName,
+								REAL_LABOUR_FEE : parseFloat( realLabourFee*rate).toFixed(2),
+								REAL_REPAIR_PART_FEE : parseFloat( realRepairPartFee*rate).toFixed(2), 
+								REAL_SALES_PART_FEE : parseFloat( realSalesPartFee*rate).toFixed(2),
+								REAL_ADD_ITEM_FEE : parseFloat( realAddItemFee*rate).toFixed(2),
+								REAL_OVER_ITEM_FEE : parseFloat( realOverItemFee*rate).toFixed(2),
+								CALC_SUM_AMOUNT : parseFloat( calcSumAmount*rate).toFixed(2),
+								CALC_REAL_TOTAL_AMOUNT : parseFloat( calcRealTotalAmount*rate).toFixed(2),
+								CALC_TAX_AMOUNT : parseFloat( calcTaxAmount*rate).toFixed(2),
+								CALC_NET_AMOUNT : parseFloat( calcNetAmount*rate).toFixed(2),
+								CARDS_AMOUNT : parseFloat( cardsAmount*rate).toFixed(2),
+								GIFT_AMOUNT : parseFloat(giftAmount *rate).toFixed(2),
+								SUB_OBB_AMOUNT : parseFloat(subObbAmount *rate).toFixed(2),
+								CALC_RECEIVABLE_AMOUNT : parseFloat( calcReceivableAmount*rate).toFixed(2),
+								RECEIVED_AMOUNT : parseFloat(receivedAmount *rate).toFixed(2),
+								NOT_RECEIVED_AMOUNT : parseFloat(notReceivedAmount *rate).toFixed(2),																
+								PAY_OFF : 12781002,
+								INVOICE_TAG : 12781002
+							});
+						}
+			});
+			
+			
+					//关闭窗口
+					$("a[data-dismiss='modal']",container).click();
+		 });
+	
+	var mergeJsonObject = function (jsonbject1, jsonbject2) {
+		var resultJsonObject={};
+		for(var attr in jsonbject1){
+		resultJsonObject[attr]=jsonbject1[attr];
+		}
+		for(var attr in jsonbject2){
+		resultJsonObject[attr]=jsonbject2[attr];
+		}
+		return resultJsonObject;
+		};
+		
+		 Array.prototype.contains = function ( needle ) {
+			  for (i in this) {
+			    if (this[i] == needle) return true;
+			  }
+			  return false;
+			}
+		 
+		 
+		 function indexOf(arr, str){
+			    // 如果可以的话，调用原生方法
+			    if(arr && arr.indexOf){
+			        return arr.indexOf(str);
+			    }
+			    var len = arr.length;
+			    for(var i = 0; i < len; i++){
+			        // 定位该元素位置
+			        if(arr[i] == str){
+			            return i;
+			        }
+			    }
+			    // 数组中不存在该元素
+			    return -1;
+			}
+		
+});
+</script>
+
+
+
+
+

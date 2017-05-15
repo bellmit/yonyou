@@ -1,0 +1,522 @@
+<div class="dms-edit ajaxrest"
+	data-url="/order/bookingOrder/{[BO_ID]}/bookingOrder" data-model="repair">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">预约信息修改</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">预约信息</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row" data-tableSelect="true">
+					    <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" >
+								<label class="control-label col-xs-4">车牌号</label>
+								<div class="col-xs-8">
+								  <div class="input-group">
+								        <input id="boId" name="boId" type="hidden" data-fieldName="BO_ID">
+									    <input id="license" disabled name="license" data-fieldName="LICENSE"  class="form-control required" type="text" maxlength="15"/>
+									    <input id="vehicleId" name="vehicleId" data-fieldName="VEHICLE_ID"  class="form-control" type="hidden" /> 
+								        <div class="input-group-btn">
+											<button disabled="disabled" class="btn default btn-sm" type="button"
+												  data-url="repair/order/appointment/carInfo.html" data-toggle="modal" data-width="modal-lg" > <i class="fa fa-search"></i>
+											</button>
+											
+											<button disabled class="btn default input-clear" type="button">
+	                                            			<i class="fa fa-close"></i>
+	                                    	</button>
+										</div>
+								  </div>		
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系人</label>
+								<div class="col-xs-8">
+									<input id="contactorName" name="contactorName" maxlength="20" class="form-control required" type="text"
+										data-fieldName="CONTACTOR_NAME"/>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">手机</label>
+								<div class="col-xs-8">
+									<input id="contactorMobile" name="contactorMobile" class="form-control required phone" type="text"
+										data-fieldName="mobile"/>
+								</div>
+							</div>
+						</div>
+
+						
+					<!-- <div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">品牌</label>
+							<div class="col-xs-8">
+								<select id="brandCode" data-fieldName="BRAND_CODE" class="bs-select form-control"
+									name="brandCode" data-url="/basedata/brandsdict"
+									data-model="manage" data-labelValue="BRAND_ID"
+									data-lableDesc="BRAND_NAME">
+
+								</select>
+							</div>
+						</div>
+					</div>
+					/span
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车系</label>
+							<div class="col-xs-8">
+								<select id="seriesCode" data-fieldName="SERIES_CODE" parent="brandCode"
+									class="bs-select form-control" name="seriesCode"
+									data-url="/basedata/brandsdict/{[brandCode]}/seriessdict"
+									data-model="manage" data-labelValue="SERIES_ID"
+									data-lableDesc="SERIES_NAME">
+
+								</select>
+							</div>
+						</div>
+					</div>
+					/span
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车型</label>
+							<div class="col-xs-8">
+								<select id="modelCode" data-fieldName="MODEL_CODE" parent="seriesCode"
+									class="bs-select form-control" name="modelCode"
+									data-url="/basedata/brandsdict/{[brandCode]}/seriessdict/{[seriesCode]}/modelsdict"
+									data-model="manage" data-labelValue="MODEL_ID"
+									data-lableDesc="MODEL_NAME">
+
+								</select>
+							</div>
+						</div>
+					</div> -->
+					<!--/span-->
+                             <div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">品牌</label>
+											<div class="col-xs-8">
+												<select id="brand" class="bs-select form-control" 
+													name="brandCode"  data-url="/basedata/brandsdict"
+													data-model="manage" data-labelValue="BRAND_CODE"
+													data-lableDesc="BRAND_NAME" data-fieldName="BRAND_CODE" data-lableDesc="BRAND_NAME" >
+
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">车系名称</label>
+											<div class="col-xs-8">
+												<select id="series" parent="brand"
+													class="bs-select form-control" name="seriesCode" 
+													data-url="/basedata/brandsdictC/{[brand]}/seriessdictC"
+													
+													data-model="manage" data-labelValue="SERIES_CODE"
+													data-lableDesc="SERIES_NAME"
+													data-lableDesc="BRAND_NAME" data-fieldName="SERIES_CODE" 
+													data-lableDesc="SERIES_NAME">
+
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">车型名称</label>
+											<div class="col-xs-8">
+												<select id="model" parent="series"
+													class="bs-select form-control" name="modelCode" 
+													data-url="/basedata/brandsdictC/{[brand]}/seriessdictC/{[series]}/modelsdictC"
+													data-model="manage" data-labelValue="MODEL_CODE"
+													data-lableDesc="MODEL_NAME" data-fieldName="MODEL_CODE"
+													data-lableDesc="BRAND_NAME"  data-lableDesc="MODEL_NAME">
+
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">预约类型</label>
+								<div class="col-xs-8">
+									<select id="bookingTypeCode" data-fieldName="BOOKING_TYPE_CODE" name="bookingTypeCode" class="bs-select form-control required"
+										data-url="/basedata/repairtypes/getRepairTypes/item" data-model="manage" data-labelValue="REPAIR_TYPE_CODE"  data-lableDesc="REPAIR_TYPE_NAME" data-valueUrl="/basedata/BasicParameters/1023/Repair_type" data-valueType="parameter">
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">资料来源</label>
+								<div class="col-xs-8">
+									<select id="bookingSource" data-fieldName="BOOKING_SOURCE" name="bookingSource" class="bs-select form-control required"
+										data-dictCode="1228" >
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">预约时间</label>
+								<div class="col-xs-8">
+									<div class="input-group date datetime">
+										<input id="bookingComeTime" name="bookingComeTime" readonly
+											class="form-control required" type="text" data-fieldName="BOOKING_COME_TIME"
+											data-fieldName="entry_time" />
+										<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+					                    <span class="input-group-addon"><span class="fa fa-times"></span></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">服务顾问</label>
+								<div class="col-xs-8">
+									<select id="serviceAdvisorAss" name="serviceAdvisorAss"
+										data-fieldName="SERVICE_ADVISOR_ASS" class="bs-select form-control"
+										data-url="/basedata/employees/queryServiceAss/dicts"
+										data-model="manage" data-labelValue="employee_no"
+										data-lableDesc="employee_name">
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">到店前确认</label>
+								<div class="col-xs-8">
+									<select id="isComfirm" name="isComfirm"
+										class="bs-select form-control"
+										data-dictCode="1004"  data-fieldName="IS_COMFIRM">
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">取送车服务</label>
+								<div class="col-xs-8">
+									<div class="col-xs-2">
+		                            <input   id="isDrivingService" name="isDrivingService" type="checkbox"
+										data-dictCode="1013"  data-dictLabel=" "/>
+									</div>
+									<div class="col-xs-10" data-djId="true">
+										<input id="aaaa" name="aaa" class="form-control" type="text" data-fieldName="DJ_ID"/> 
+									</div>
+									<div class="hidden">
+										<a  data-url="repair/order/appointment/designatedDriver.html" class="btn btn-outline"
+											data-toggle="modal" data-width="modal-lg" data-info="deDriver" ></a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /span -->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">预估价格</label>
+								<div class="col-xs-8">
+									<input id="estimateAmount" data-fieldName="ESTIMATE_AMOUNT"  name="estimateAmount" disabled   class="form-control" type="text" /> 
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-8">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2">备注</label>
+								<div class="col-xs-8 col-sm-10" >
+										<input id="remark" name="remark" data-fieldName="remark" class="form-control" type="text" maxlength="150"/> 
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">预约项目</div>
+					<div class="pannel-button">
+							<div class="btn-group btn-group-sm">
+								<a class="btn btn-outline" data-url="repair/order/appointment/selectLabour.html" data-width="modal-lg"
+								data-toggle="modal"> <i class="fa fa-plus-square"></i>
+								</a> 
+							</div>
+					</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="bolabourList">
+					</table>
+				</div>
+			</div>
+			
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">预约领料</div>
+					<div class="pannel-button">
+							<div class="btn-group btn-group-sm">
+								<a class="btn btn-outline" data-url="repair/order/appointment/selectPart.html" data-width="modal-lg"
+								data-toggle="modal"> <i class="fa fa-plus-square"></i>
+								</a> 
+							</div>
+					</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="boPartList">
+					</table>
+				</div>
+			</div>
+			
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">预约附加项目</div>
+					<div class="pannel-button">
+							<div class="btn-group btn-group-sm">
+								<a class="btn btn-outline" data-url="repair/order/appointment/addItem.html" data-width="modal-sm"
+								data-toggle="modal"> <i class="fa fa-plus-square"></i>
+								</a>  
+							</div>
+					</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="boAddItemList">
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/order/bookingOrder/{[BO_ID]}/bookingOrder" data-method="PUT" data-model="repair" data-callBack="true" class="btn blue" data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> 
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+		<input type="hidden" id="delBolabourId" name="delBolabourId" value="">
+		<input type="hidden" id="delBoPartId" name="delBoPartId" value="">
+		<input type="hidden" id="delBoAddItemId" name="delBoAddItemId" value="">
+	</form>
+</div>
+
+<script type="text/javascript">
+	
+$(document).one("onload.dms",function(event,container){
+	var calcTotalAmount=function(){
+		var tab=$("#bolabourList tbody");//预约项目
+		var tab2=$("#boPartList tbody");//预约配件
+		var tab3=$("#boAddItemList tbody");//预约附加项目
+		var rows=$("tr",tab).length;
+		var rows2=$("tr",tab2).length;
+		var rows3=$("tr",tab3).length;
+		
+		var labourAmount = parseFloat(0);
+		var sumLabourAmount = parseFloat(0);
+		var partSalesAmount=parseFloat(0);
+		var sumPartSalesAmount=parseFloat(0);
+		var sumReceivableAmount=parseFloat(0);
+		var receivableAmount=parseFloat(0);
+		
+		for(var i=0;i<rows;i++){
+			labourAmount = $("tr:eq("+i+") td:eq(7) input[id^=labourAmount]",tab).val();//预约项目工时费
+			if(labourAmount =="" || labourAmount ==undefined){
+				var labourAmount=parseFloat(0);
+				sumLabourAmount=parseFloat(sumLabourAmount)+parseFloat(labourAmount);
+			}else{
+				sumLabourAmount=parseFloat(sumLabourAmount)+parseFloat(labourAmount);
+			}
+		}
+		
+		for(var i=0;i<rows2;i++){
+			partSalesAmount = $("tr:eq("+i+") td:eq(6) input[id^=partSalesAmount]",tab2).val();//预约配件发料金额
+			if(partSalesAmount =="" || partSalesAmount ==undefined){
+				var partSalesAmount=parseFloat(0);
+				sumPartSalesAmount=parseFloat(sumPartSalesAmount)+parseFloat(partSalesAmount);
+			}else{
+				sumPartSalesAmount=parseFloat(sumPartSalesAmount)+parseFloat(partSalesAmount);
+			}
+		}
+		
+		for(var i=0;i<rows3;i++){
+			receivableAmount = $("tr:eq("+i+") td:eq(5) input[id^=receivableAmount]",tab3).val();//预约附加项目应收金额
+			if(receivableAmount =="" || receivableAmount ==undefined){
+				var receivableAmount=parseFloat(0);
+				sumReceivableAmount=parseFloat(sumReceivableAmount)+parseFloat(receivableAmount);
+			}else{
+				sumReceivableAmount=parseFloat(sumReceivableAmount)+parseFloat(receivableAmount);
+			}
+		}
+		
+		$("#estimateAmount",container).setDmsValue((parseFloat(sumLabourAmount) + parseFloat(sumPartSalesAmount) + parseFloat(sumReceivableAmount)).toFixed(2));
+	};
+	new Datatable().initLocale({
+		src : "bolabourList",
+		container:container,
+		rowID:"BO_LABOUR_ID",
+		url : dmsCommon.getDmsPath()["repair"] + "/order/bookingOrder/{[BO_ID]}/boLabour",
+		sortName : "BO_LABOUR_ID", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+		sortOrder : "asc",
+		columns : [ {field : "BO_LABOUR_ID",title : "操作",operateFormat : [ {type : "localDel",
+			         onBeforeEvent:function(value, row, index){
+			        	    //记录删除id
+			        	    var inputValue=$("#delBolabourId",container).val();
+			        	    if(inputValue==""&&row.BO_LABOUR_ID!=undefined){
+			        	    	$("#delBolabourId",container).val(row.BO_LABOUR_ID);
+			        	    }else if(row.BO_LABOUR_ID!=undefined){
+			        	    	$("#delBolabourId",container).val(inputValue+","+row.BO_LABOUR_ID);
+			        	    }
+			        	    
+			        	    var tab=$("#bolabourList tbody");
+							var afterDiscountAmount =parseFloat(0);
+							afterDiscountAmount = $("tr:eq("+index+") td:eq(7) input[id^=labourAmount]",tab).val();
+							var estimateAmount = $("#estimateAmount",container).val();
+							if(afterDiscountAmount == 0 || afterDiscountAmount == "" || afterDiscountAmount == undefined){
+								
+							}else{
+								$("#estimateAmount",container).setDmsValue(parseFloat(estimateAmount)-parseFloat(afterDiscountAmount).toFixed(2));
+							}
+		             }} ]}, 
+		            {field:"LABOUR_CODE",title:"项目代码",inputField:"labourCode",inputHiddenFormat : {}},
+		            {field:"LABOUR_NAME",title:"项目名称",inputField:"boLabourId",inputHiddenFormat : {hiddenField:"BO_LABOUR_ID"}},
+		            {field:"ASSIGN_LABOUR_HOUR",title:"派工工时",inputField:"assignLabourHour",inputHiddenFormat : {}},
+		            {field:"STD_LABOUR_HOUR",title:"标准工时",inputField:"stdLabourHour",inputHiddenFormat : {}},
+		            {field:"LABOUR_PRICE",inputField:"labourPrice",inputSelectFormat : {validate:{validateClass:"required money"},url:"/basedata/labours/laboursPriceDict/dicts",model:"part",labelValue:"LABOUR_PRICE",lableDesc:"LABOUR_PRICE"},title : "工时单价"},
+		            {field:"LABOUR_AMOUNT",title:"工时费",inputField:"labourAmount",inputHiddenFormat:{},numberFormat : {decimal : 2,autoValueFormat:{autoValue:"#stdLabourHour*#labourPrice",afterEvent:calcTotalAmount}}},
+		            {field:"",title:"活动编号",inputField:"labourCode",inputHiddenFormat : {}},
+		            {field:"",title:"组合编号",inputField:"labourCode",inputHiddenFormat : {}},
+		            {field:"LOCAL_LABOUR_CODE",title:"行管项目代码",inputField:"localLabourCode",inputHiddenFormat : {}},
+		            {field:"LOCAL_LABOUR_NAME",title:"行管项目名称",inputField:"localLabourName",inputHiddenFormat : {}},
+		            {field:"MODEL_LABOUR_CODE",title:"项目车型组",inputField:"modelLabourCode",inputHiddenFormat : {}}
+		         ]  //inputField:"boLabourId",inputHiddenFormat:{}
+	});
+	
+	new Datatable().initLocale({
+		src : "boPartList",
+		container:container,
+		rowID:"BO_PART_ID",
+		url : dmsCommon.getDmsPath()["repair"] + "/order/bookingOrder/{[BO_ID]}/boPart",
+		columns : [ {field : "BO_PART_ID",title : "操作",operateFormat : [ {type : "localDel",
+						onBeforeEvent:function(value, row, index){
+							//记录删除id
+			        	    var inputValue=$("#delBoPartId",container).val();
+			        	    if(inputValue==""&&row.BO_PART_ID!=undefined){
+			        	    	$("#delBoPartId",container).val(row.BO_PART_ID);
+			        	    }else if(row.BO_PART_ID!=undefined){
+			        	    	$("#delBoPartId",container).val(inputValue+","+row.BO_PART_ID);
+			        	    }
+			        	    
+			        	    var tab=$("#boPartList tbody");
+							var afterDiscountAmount =parseFloat(0);
+							afterDiscountAmount = $("tr:eq("+index+") td:eq(6) input[id^=partSalesAmount]",tab).val();
+							var estimateAmount = $("#estimateAmount",container).val();
+							if(afterDiscountAmount == 0 || afterDiscountAmount == "" || afterDiscountAmount == undefined){
+								
+							}else{
+								$("#estimateAmount",container).setDmsValue(parseFloat(estimateAmount)-parseFloat(afterDiscountAmount).toFixed(2));
+							}
+						
+					}} ]}, 
+		            {field:"partCodeShow",inputField:"partNo",inputHiddenFormat : {},title:"配件代码"},
+		            {field:"partNameShow",inputField:"partName",title:"配件名称",inputHiddenFormat:{}},
+		            {field:"salesPriceShow",inputField:"partSalesPrice",inputNumberFormat : {decimal : 2,validate:{validateClass:"required money"}},title : "发料单价"},
+		            {field:"canNumShow",inputField:"partQuantity",inputNumberFormat : {validate:{validateClass:"required decimal",validateAttr:'maxPrecision="4"'}},title : "数量"},
+		            {field:"salesAmountShow",inputField:"partSalesAmount",title:"发料金额",inputHiddenFormat:{ },numberFormat : {decimal : 2,autoValueFormat:{autoValue:"#partSalesPrice*#partQuantity",afterEvent:calcTotalAmount}}},
+		            {field:"storageCodeShow",inputField:"storageCode",title:"仓库代码",inputHiddenFormat:{}},
+		            {field:"storagePositionCodeShow",inputField:"boPartId",title:"库位代码",inputHiddenFormat:{hiddenField:"BO_PART_ID"}},
+		            {field:"LOCAL_LABOUR_NAME",inputField:"",title:"活动编号"},
+		            {field:"LOCAL_LABOUR_NAME",inputField:"",title:"组合编号"},
+		         ]  //inputField:"",title:"发料金额",inputHiddenFormat:{  }
+	});
+	
+	new Datatable().initLocale({
+		src : "boAddItemList",
+		url : dmsCommon.getDmsPath()["repair"] + "/order/bookingOrder/{[BO_ID]}/addItem",
+		container:container,
+		rowID:"BO_ADD_ITEM_ID",
+		columns : [ 	{field : "BO_ADD_ITEM_ID",title : "操作",operateFormat : [ {type : "localDel",onBeforeEvent:function(value, row, index){
+								//记录删除id
+					    	    var inputValue=$("#delBoAddItemId",container).val();
+					    	    if(inputValue==""&&row.BO_ADD_ITEM_ID!=undefined){
+					    	    	$("#delBoAddItemId",container).val(row.BO_ADD_ITEM_ID);
+					    	    }else if(row.BO_ADD_ITEM_ID!=undefined){
+					    	    	$("#delBoAddItemId",container).val(inputValue+","+row.BO_ADD_ITEM_ID);
+					    	    }
+			
+					    	    var tab=$("#boAddItemList tbody");
+								var afterDiscountAmount =parseFloat(0);
+								afterDiscountAmount = $("tr:eq("+index+") td:eq(5) input[id^=receivableAmount]",tab).val();
+								var estimateAmount = $("#estimateAmount",container).val();
+								if(afterDiscountAmount == 0 || afterDiscountAmount == "" || afterDiscountAmount == undefined){
+									
+								}else{
+									$("#estimateAmount",container).setDmsValue(parseFloat(estimateAmount)-parseFloat(afterDiscountAmount).toFixed(2));
+								}
+			
+		                }}]},
+			           {field : "addItemCode",inputField:"addItemCode",inputHiddenFormat : {},title : "附加项目代码"},
+			           {field : "addItemName",inputField:"addItemName",inputTextFormat : {},title : "附加项目名称"}, 
+			           {field : "addItemAmount",inputField:"boAddItemId",inputHiddenFormat : {hiddenField:"BO_ADD_ITEM_ID"},title : "附加项目费"},
+			           {field : "receivableAmount",inputField:"receivableAmount",inputHiddenFormat : {},title : "应收金额"},
+			           {field : "remark",inputField:"remark",inputHiddenFormat : {},title : "备注"}
+			      ]
+	});
+	
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("a[data-dismiss='modal']",container).click();
+		$("#tabList",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		$("#addressList",container).dmsTable().appendBlankRow();
+	});
+	
+	//绑定onchange 事件 
+	 $("[name='isDrivingService']",container).bindChange(function(obj){
+		var isChecked = $(obj).is(':checked');
+		if(isChecked){
+			$("a[data-info='deDriver']").click();
+			
+			
+		}
+        
+	}); 
+	
+	
+});
+	
+</script>

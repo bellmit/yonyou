@@ -1,0 +1,88 @@
+<div class="dms-detail ajaxrest" data-model="vehicle" data-pageInitCallBack="true" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">经销商信息</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<input type="hidden" name="companyId"  data-fieldName="companyId">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+						<div class="pannel-name">经销商信息</div>
+				</div>
+	    		<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2">经销商代码：</label>
+								<div class="col-xs-8">
+									<input id="dealerCode" name="dealerCode" class="form-control required dmsDisabled" type="text" data-fieldName="DEALER_CODE"  />
+								</div>
+							</div>
+						</div>						
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2">经销商名称：</label>
+								<div class="col-xs-8">
+										<input id="dealerName" name="dealerName" class="form-control dmsDisabled"  type="text" data-fieldName="DEALER_NAME" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2">联系人名称：</label>
+								<div class="col-xs-8">
+										<input id="linkMan" name="linkMan" class="form-control dmsDisabled"  type="text" data-fieldName="LINK_MAN" />
+								</div>
+							</div>
+						</div>						
+						
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2">联系人电话：</label>
+								<div class="col-xs-8">
+										<input id="linkManMobile" name="linkManMobile" class="form-control dmsDisabled"  type="text" data-fieldName="LINK_MAN_MOBILE" />
+								</div>
+							</div>
+						</div>							
+											
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			 <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+$(document).one("onload.dms",function(event,container){
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+	//动态获取  经销商的信息  
+	var inDealerCode = $("#inDealerCode").val();
+	dmsCommon.ajaxRestRequest({
+		url : dmsCommon.getDmsPath()["vehicle"] + "/vehicleAllotMange/dealerApply/"+inDealerCode,
+		type : 'GET',
+		dataType:'json',
+		async: false,
+		sucessCallBack : function(data) {						
+			$("#dealerCode").val(data.dealer_code);
+			$("#dealerName").val(data.dealer_name);
+			$("#linkMan").val(data.link_man);
+			$("#linkManMobile").val(data.link_man_mobile);
+		}
+	});
+	
+});
+</script>

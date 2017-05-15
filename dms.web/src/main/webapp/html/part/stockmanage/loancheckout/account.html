@@ -1,0 +1,76 @@
+<div class="search">
+		<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">系统提示</div>
+		</div>
+		<div class="modal-body">
+				<input type="hidden" id="partNo2" name="partNo2" value="{[PART_NO]}" />
+				<input type="hidden" id="storageCode" name="storageCode" value="{[STORAGE_CODE]}" />
+				<input type="hidden" id="lendNo" name="lendNo" value="{[LEND_NO]}" />
+			<div class="panel panel-default table-panel">
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_account">
+					</table>
+				</div>
+			</div>
+			<div class="modal-footer center-block">
+				<p>是否负库存：上述配件出入库会造成负库存,是否入账？</p>					
+				<p>是否库存或金额为零:&nbsp;1.库存数量*成本单价<>成本金额且库存数量或成本金额有为零;<br/>&nbsp;2.成本单价为零。</p>					
+				<a id="yes" data-onclickEvent="true" class="btn blue"><i class="fa fa-save"></i>是</a>
+				<a id="exit" class="btn blue"><i class="fa fa-print"></i>否</a>
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	alert($("#lendNo").val());
+		new Datatable().initPagination({
+			src : "dms_account",
+			container:container,
+			rowID:"PART_NO",
+			undefinedText : "",
+			url :dmsCommon.getDmsPath()["part"] + "/part/lendOrderChoose/"+$('#partNo2',container).val()+"/"+$('#storageCode',container).val(),
+			pageSize:5,
+			autoHeight:false,
+			clickToSelect: false,
+			uniqueDataName:"PART_NO",
+			columns : [ 
+				{checkbox : true,sortable : false},
+	            {field : "STORAGE_CODE",title : "仓库",inputHiddenFormat:{hiddenField:"STORAGE_CODE"}},
+	            {field : "PART_NO",title : "配件代码",inputHiddenFormat:{hiddenField:"PART_NO"}},
+	            {field : "PART_NAME",title : "配件名称",inputHiddenFormat:{hiddenField:"PART_NAME"}},
+	            {field : "ISNORMAL",title : "是否库存为零或金额为零",codeFormat : {type : "dict",codeType : "1278"}},
+	            {field : "ISNEGATIVE",title : "是否负库存",codeFormat : {type : "dict",codeType : "1278"}},
+	            {field : "USEABLE_STOCK",title : "可用库存",inputHiddenFormat:{hiddenField:"USEABLE_STOCK"}},
+	            {field : "PART_QUANTITY",title : "出库数量",inputHiddenFormat:{hiddenField:"PART_QUANTITY"}},
+	            {field : "LOCKED_QUANTITY",title : "锁定数量",numberFormat : {decimal : 2}}
+	         ],	
+		});
+		
+		//事件点击
+		debugger
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event,container){
+			
+			dmsCommon.ajaxRestRequest({
+				url:dmsCommon.getDmsPath()["part"] +"/part/lendOrderChoose/"+$('#lendNo',container).val(),
+				type:"POST",
+				sucessCallBack : function(data) {
+					
+				}
+			});
+			
+			returnResult.status = true;
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+		}); 
+		
+		//点击否按钮
+		$("#exit", container).click(function(){
+		 	dmsCommon.refreshPageByUrl("part/stockmanage/loancheckout/checkout.html",container);
+		});
+		
+});
+</script>

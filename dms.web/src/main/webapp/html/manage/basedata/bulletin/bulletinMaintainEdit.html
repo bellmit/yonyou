@@ -1,0 +1,322 @@
+<div class="dms-edit ajaxrest" data-url="/bulletin/bulletinMaintain/{[BULLETIN_ID]}" data-model="manage" data-pageInitCallBack="true">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">通告发布</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">通告主要信息</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<input type="hidden" name="typeId" data-fieldName=TYPE_ID >
+					<input type="hidden" name="bulletinId" data-fieldName=BULLETIN_ID >
+					<input type="hidden" id="isShow" data-fieldName=isshow >
+					<input type="hidden" id="isCheck" data-fieldName=sign >
+					<input type="hidden" id="level" data-fieldName=level >
+					<input type="hidden" id="region" data-fieldName=activity_scope >
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-3">通告主题</label>
+								<div class="col-xs-8" >
+									  <input class="form-control required" type="text" id="topic" name="topic" data-fieldName="TOPIC"/>
+								</div>
+							</div>
+						</div>	
+						
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-3">通告类别</label>
+								<div class="col-xs-8" >
+									  <input class="form-control dmsDisabled" type="text" id="typename" name="typename" data-fieldName="TYPENAME"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-3">通告时间</label>
+								<div class="col-xs-8">
+									 <div class="input-group input-daterange date"  data-date-format="yyyy-MM-dd" data-opens="right">
+			                             <input type="text" class="form-control required" readonly  name="beginDate" data-fieldName="START_TIME_DATE" >
+			                             <span class="input-group-addon">至</span>
+			                             <input type="text" class="form-control required" readonly  name="endDate" data-fieldName="END_TIME_DATE">
+			                             <span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                      </span> 
+			                        </div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-3">超过有效期是否继续显示</label>
+								<div class="col-xs-6" >
+									<div class="radio-list">
+										<label class="radio-inline col-xs-2"><input type="radio" name="isShow" data-fieldName="isShow"
+											  data-isinit="true" value="1"><span>是</span>
+										</label>
+										<label class="radio-inline col-xs-2"><input type="radio" name="isShow" data-fieldName="isShow"
+											  data-isinit="true" value="0"><span>否</span>
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-3">是否需要经销商签收</label>
+								<div class="col-xs-6" >
+									<div class="radio-list">
+										<label class="radio-inline col-xs-2"><input type="radio" name="isCheck" data-fieldName="sign"
+											  data-isinit="true" value="1"><span>是</span>
+										</label>
+										<label class="radio-inline col-xs-2"><input type="radio" name="isCheck" data-fieldName="sign"
+											  data-isinit="true" value="0"><span>否</span>
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-3">通告紧急程度</label>
+								<div class="col-xs-6" >
+									<div class="radio-list">
+										<label class="radio-inline col-xs-2"><input type="radio" name="level" data-fieldName="level"
+											  data-isinit="true" value="2"><span>高</span>
+										</label>
+										<label class="radio-inline col-xs-2"><input type="radio" name="level" data-fieldName="level"
+											  data-isinit="true" value="1"><span>中</span>
+										</label>
+										<label class="radio-inline col-xs-2"><input type="radio" name="level" data-fieldName="level"
+											  data-isinit="true" value="0"><span>低</span>
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-3">主要内容</label>
+								<div class="col-xs-8" >
+									<textarea id="content" name="content" class="col-xs-12" data-fieldName="CONTENT"></textarea>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-3">发布范围</label>
+								<div class="col-xs-6" >
+									<div class="radio-list">
+										<label class="radio-inline col-xs-2 "><input type="radio" name="region" class="dealerShow" data-fieldName="activity_scope"
+											  data-isinit="true" value="0"><span>全国</span>
+										</label>
+										<label class="radio-inline col-xs-2 "><input type="radio" name="region" class="dealerShow" data-fieldName="activity_scope"
+											  data-isinit="true" value="1"><span>区域</span>
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>						
+										
+					</div>					
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">通告附件</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+			        <!-- <div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" id="addFile" > <i class="fa fa-plus-square"></i> 新增
+							</a> 
+						</div>
+					</div> -->
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="fileList">
+					</table>
+					<input type="file" class="importFiles" id="fileupload" multiple name="dmsFile" data-inputName="dmsFileIds">
+				</div>
+				
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">通告经销商选择</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div id="dealerBody" style="display:none;">
+					<div class="row"  >
+						<div class="col-xs-12">
+							<div class="form-group">
+									<label class="control-label col-xs-3">经销商</label>
+									<div class="col-xs-8">
+									     <div class="input-group">
+											    <input id="outDealerName" readonly name="outDealerName"class="form-control " type="text" />
+											    <input id="dealerId"  name="dealerId" class="form-control required" type="hidden" />											
+												<span class="input-group-btn">
+													<button class="btn default btn-sm" type="button" data-url="manage/basedata/bulletin/searchDealers.html"
+														data-toggle="modal" data-width="modal-lg"> <i class="fa fa-list-alt"></i>
+													</button>
+													<button class="btn default input-clear" type="button">
+		                                            	<i class="fa fa-close"></i>
+		                                    		</button>
+											   </span>
+										   </div>
+									</div>
+							</div>
+						</div>
+					</div>
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dealerList">
+					</table>
+				</div>
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">选择通告发布经销商的职位</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="posList">
+					</table>
+					<input type="hidden" id="position" name="position">
+				</div>			
+			</div>
+			
+		</div>
+		<div class="modal-footer">
+			<div class="modal-footer center-block">
+				<a data-url="/bulletin/bulletinMaintain" data-model="manage" data-method="PUT" data-fileUploadBtn="true" data-beforeRequest="true"
+				 data-callBack="true"  class="btn blue "data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+				</a> 
+				<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){	
+	$("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){debugger;
+		if($("#region").val() == 0){
+			$("#dealerBody").css("display","none");
+		}
+		if($("#region").val() == 1){
+			$("#dealerBody").css("display","block");
+		}
+	});
+	
+	//经销商列表
+	new Datatable().initPagination({
+		src : "fileList",
+		container:container,
+	    url : dmsCommon.getDmsPath()["manage"] + "/bulletin/bulletinMaintain/getFiles/"+{[BULLETIN_ID]},
+		autoHeight:false,
+		columns : [ {title : "操作",operateFormat : [ 
+		            {type : "localDel"}]},
+		            {field : "ATTACHMENT_ID",inputField:"attachmentId",title : "ID",inputTextFormat : {validate:{validateAttr:' disabled'}}},
+		            {field : "FILENAME",inputField:"fileName",title : "文件名",inputTextFormat : {validate:{validateAttr:' disabled'}}}
+		          ]
+	}); 
+	
+	//经销商列表
+	new Datatable().initPagination({
+		src : "dealerList",
+		container:container,
+	    url : dmsCommon.getDmsPath()["manage"] + "/bulletin/bulletinMaintain/getDealers/"+{[BULLETIN_ID]},
+		autoHeight:false,
+		columns : [ {title : "操作",operateFormat : [ 
+		            {type : "localDel"}]},
+		            {field : "DEALER_ID",inputField:"dealerId",title : "ID",inputTextFormat : {validate:{validateAttr:' disabled'}}},
+		            {field : "DEALER_CODE",inputField:"dealerCode",title : "经销商代码",inputTextFormat : {validate:{validateAttr:' disabled'}}},
+   		            {field : "DEALER_SHORTNAME",inputField:"dealerShortName",title : "经销商",inputTextFormat : {validate:{validateAttr:' disabled'}}}
+		          ]
+	}); 
+	
+	$("#addFile",container).bind("click",function(){
+		$("#fileList",getElementContext()).dmsTable().appendBlankRow();
+	});
+	
+	//职位列表
+	new Datatable().initLocale({
+		src : "posList",
+		container:container,
+		columns : [ {checkbox :true,inputField:"checked"},
+		            {field:"CODE",inputField:"code",visible:false},
+		            {field:"NAME",inputField:"name",title : "职位名称"}
+		         ]
+	});
+	var row1 = {"CODE":20991001,"NAME":"销售经理"};
+	var row2 = {"CODE":20991002,"NAME":"售后经理"};
+	$("#posList",getElementContext()).dmsTable().appendRow(row1);
+	$("#posList",getElementContext()).dmsTable().appendRow(row2);
+	
+	//通过区域选择控制经销商
+	$(".dealerShow",container).bind("change",function(){
+		if($(this).val() == 0){
+			$("#dealerBody").css("display","none");
+		}else{
+			$("#dealerBody").css("display","block");
+		}
+	});
+	
+	//职位选择
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+		var flag0 = $("#posList tbody tr").eq(0).hasClass("selected");
+		var flag1 = $("#posList tbody tr").eq(1).hasClass("selected");
+		if(flag0){
+			if(flag1){
+				$("#position").val(3);
+			}else{
+				$("#position").val(2);
+			}
+		}else{
+			if(flag1){
+				$("#position").val(1);
+			}else{
+				$("#position").val(0);
+			}
+		}
+		returnResult.status = true;
+
+	});
+	
+	//表格刷新和关闭
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+});
+
+</script>

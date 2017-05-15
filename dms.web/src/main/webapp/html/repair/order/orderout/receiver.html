@@ -1,0 +1,44 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+	<input type="hidden" value="{[RO_ID]}" id="roId" name="roId">
+		<div class="modal-header">
+			<div class="modal-title">领料人选择</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="form-group">
+						<label class="control-label col-xs-4">领料人</label>
+						<div class="col-xs-8">
+							  <select id="receiver" data-value="{[userInfo.employeeNo]}" name="receiver" class="bs-select form-control" data-url="/basedata/employees/employees/dict" data-model="manage" data-labelValue="EMPLOYEE_NO" data-lableDesc="EMPLOYEE_NAME"  >
+							  </select>
+						</div>
+					</div>
+				</div>								
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a data-url="/order/repair/{[RO_ID]}/orderstatus" data-model="repair" data-method="GET" data-callBack="true"  class="btn blue" data-toggle="confirmation"><i class="fa fa-save"></i>确定</a>
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+		<div class="hidden">
+							<a href="repair/order/orderout/searchOrder.html" class="btn btn-outline ajaxify" data-onclickEvent="true"> 
+							<i class="fa fa-plus-square"></i> 保存成功后
+						    </a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+
+$(document).one("onload.dms",function(event,container){
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("a[data-dismiss='modal']",container).click();
+		$("a[data-onclickEvent='true']",container).click();
+	});
+});
+</script>

@@ -1,0 +1,282 @@
+<div class="dms-edit ajaxrest" data-url="/customerManage/retainCusTracking/{[ITEM_ID]}/cus"
+	data-model="customer">
+<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">CR关怀编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="tabbable-custom ">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#tab_vehicle" data-toggle="tab">关怀编辑</a></li>
+					<li><a href="#tab_vehicleRepair" data-toggle="tab">关怀历史</a></li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane fade in active" id="tab_vehicle">
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<div class="row"></div>
+								<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group"  >
+							<label class="control-label col-xs-4">VIN</label>
+							<div class="col-xs-8 ">
+								<input id="vin" name="vin" data-fieldName='VIN'
+													class="form-control required" type="text" />
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group"  >
+							<label class="control-label col-xs-4">客户名称</label>
+							<div class="col-xs-8 ">
+									<input id="customerName" name="customerName" data-fieldName='CUSTOMER_NAME'
+													class="form-control" type="text" disabled="disabled"/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">手工创建</label>
+											<div class="col-xs-8">
+												<select id="createType" name="createType" data-fieldName='CREATE_TYPE'
+													class="bs-select form-control" data-dictCode="1329" disabled="disabled"
+													data-value=""  >
+												</select>
+											</div>
+										</div>
+									</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group" data-linkSelect="true" >
+							<label class="control-label col-xs-4">联系人</label>
+							<div class="col-xs-8 ">
+								<div class="input-group">
+									<input type="text" class="form-control required" id="crLinker"
+										disabled="disabled" name="crLinker" data-fieldName="CR_LINKER"/>
+										 <input
+										type="hidden" class="form-control" id="crLinker" name="crLinker" data-fieldName="CR_LINKER"
+										 />  <span class="input-group-btn">
+										<button class="btn default btn-sm" type="button"
+											data-url="customer/retainCustomer/retainCusTrack/selectLink.html"
+											data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">联系电话</label>
+											<div class="col-xs-8 ">
+												<input id="linkPhone" name="linkPhone" data-fieldName='LINK_PHONE'
+													class="form-control number" type="text" />
+											</div>
+										</div>
+									</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">联系手机</label>
+											<div class="col-xs-8 ">
+												<input id="linkMobile" name="linkMobile" data-fieldName='LINK_MOBILE'
+													class="form-control number" type="text" />
+											</div>
+										</div>
+									</div>
+				     <div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">计划日期</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker" data-orientation="top right">
+													<input id="cheduleDate" name="cheduleDate" readonly data-fieldName='SCHEDULE_DATE'
+														class="form-control" type="text" value="" /> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+													</span>
+
+												</div>
+											</div>
+										</div>
+									</div>
+									  <div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">执行日期</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker" data-orientation="top right">
+													<input id="actionDate" name="actionDate" readonly data-fieldName='ACTION_DATE'
+														class="form-control" type="text" value="" /> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+													</span>
+
+												</div>
+											</div>
+										</div>
+									</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">关怀方式</label>
+											<div class="col-xs-8">
+												<select id="crType" name="crType" data-fieldName='CR_TYPE'
+													class="bs-select form-control" data-dictCode="1326"
+													  >
+												</select>
+											</div>
+										</div>
+									</div>
+								<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">关怀名称</label>
+											<div class="col-xs-8 ">
+												<input id="crName" name="crName" data-fieldName='CR_NAME'
+													class="form-control" type="text" />
+											</div>
+										</div>
+									</div>
+					    <div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">关怀结果</label>
+											<div class="col-xs-8">
+												<select id="crResult" name="crResult" data-fieldName='CR_RESULT'
+													class="bs-select form-control" data-dictCode="1327"
+													data-value=""  >
+												</select>
+											</div>
+										</div>
+									</div>
+									
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" data-customerSelect="true">
+							
+								<div class="col-xs-8">
+									<input id="ownerNo" name="ownerNo" data-fieldName="OWNER_NO" class="form-control hidden"
+										type="text" maxlength="120" />
+								</div>
+							</div>
+						</div>
+							<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">销售顾问</label>
+											<div class="col-xs-8">
+												<select id="soldBy" name="soldBy" data-fieldName="SOLD_BY"
+												    class="bs-select form-control"
+													data-url="/basedata/employees/-1/salesConsultant"
+													data-model="manage" data-labelValue="USER_ID"
+													data-lableDesc="USER_NAME" >
+												</select>
+											</div>
+										</div>
+									</div>
+					<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2 col-md-1">回访经过</label>
+								<div class="col-xs-8 col-sm-10 col-md-11">
+									<textarea id="crScene" name="crScene" data-fieldName="CR_SCENE" class="form-control required"
+										rows="3" cols=""></textarea>
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2 col-md-1">关怀内容</label>
+								<div class="col-xs-8 col-sm-10 col-md-11">
+									<textarea id="crContext" name="crContext"  data-fieldName="CR_CONTEXT" class="form-control"
+										rows="3" cols=""></textarea>
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" data-customerSelect="true">
+							
+								<div class="col-xs-8">
+									<input id="customerNo" name="customerNo" data-fieldName="CUSTOMER_NO" class="form-control hidden"
+										type="text" maxlength="120" />
+								</div>
+							</div>
+						</div>
+						
+						
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane" id="tab_vehicleRepair">
+						<div class="panel panel-default table-panel">
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="ownerList1">
+					</table>
+				</div>
+			</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+		    <a class="btn blue "   title="编辑客户资料" data-tableflag="true" id="print"  data-onclickEvent2='true' data-url="customer/retainCustomer/retainCusTrack/editOwnerRecord2.html" ><i class="fa fa-print"> 编辑客户资料</i></a>
+			<a data-url="/customerManage/retainCusTracking/{[ITEM_ID]}/id" data-model="customer"
+				data-method="PUT" data-callBack='true' 
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>保存</a> <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){			
+	new Datatable().initLocale({
+		src : "ownerList1",
+		container:container,
+		url : dmsCommon.getDmsPath()["customer"] + "/customerManage/retainCusTracking/{[VIN]}/treat/{[CUSTOMER_NO]}",
+		columns : [ {title : "操作"}, 
+		            {field : "VIN",title : "VIN"},
+		            {field : "CUSTOMER_NAME",title : "客户名称"},
+		            {field : "CR_LINKER",title : "联系人"},
+		            {field : "LINK_PHONE",title : "联系电话"},
+		            {field : "LINK_MOBILE",title : "联系手机"},
+		            {field : "SCHEDULE_DATE",title : "计划日期",dateFormat : {format:"YYYY-MM-DD"}},
+		            {field : "ACTION_DATE",title : "执行日期",dateFormat : {format:"YYYY-MM-DD"}},
+		            {field : "CR_NAME",title : "关怀名称"},
+		            {field : "CR_TYPE",title : "关怀方式", codeFormat : {type:"dict",codeType:"1326"}},
+		            {field : "CR_RESULT",title : "关怀结果",codeFormat : {type:"dict",codeType:"1327"}},
+		            {field : "CR_SCENE",title : "访问经过"},
+		            {field : "SOLD_BY",title : "销售顾问"},
+		            {field : "CR_CONTEXT",title : "关怀内容"}	          
+		         ]
+	});
+	
+	//绑定onchange 事件
+	$("a[data-onclickEvent2='true']",container).on("dms.click",function(obj){
+		var vin = "{[vin]}";
+		var customerNo = "{[CUSTOMER_NO]}";
+		var ownerNo = "{[OWNER_NO]}";
+		
+		$(container).data("pageData",{CUSTOMER_NO:customerNo,VIN:vin,OWNER_NO:ownerNo});
+		dmsCommon.refreshPageByUrl("customer/retainCustomer/retainCusTrack/editOwnerRecord1.html",container);  
+		var customerNo=$("#technician",container).val();
+		
+     
+	    changeFormal(obj); 
+	});
+
+});		
+</script>

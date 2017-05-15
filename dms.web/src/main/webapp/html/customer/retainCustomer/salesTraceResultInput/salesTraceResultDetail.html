@@ -1,0 +1,321 @@
+<div class="dms-search">
+<form class="form-horizontal">
+		<div class="row ">
+		</div>
+		<div class="row ">
+	   </div>			
+	   		  
+		<div class="modal-body">
+		
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">客户信息</div>
+					<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+						</div>
+					</div>
+					<div class="panel-body">
+						<table
+							class="table table-striped table-bordered table-hover table-responsive"
+							id="dms_table1">
+						</table>
+					</div>
+				</div>
+			</div>
+			
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">回访信息</div>
+					<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+						</div>
+					</div>
+					
+
+					
+					<div class="panel-body">
+					
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">问卷选择</label>
+								<div class="col-xs-8">
+									<select id="questionnaireName" name="questionnaireName" 
+										data-fieldName="QUESTIONNAIRE_NAME" class="bs-select form-control required"
+										data-url="/customerManage/salesTraceResultInput/-1/salesConsultant"
+										data-model="manage" data-labelValue="QUESTIONNAIRE_CODE"
+										data-lableDesc="QUESTIONNAIRE_NAME" >
+									</select>
+								</div>
+							</div>
+						</div>			
+						
+						<div class="col-xs-12 col-sm-6 col-md-4" >
+							 <div class="form-group">
+								  <label class="control-label col-xs-4">隐藏</label>
+								  <div class="col-xs-8">
+										<input  name="noList" id="noList" data-fieldName="NO_LIST"
+											class="form-control" type="text" />
+									</div>
+							 </div>
+					    </div>
+					    
+					   <div class="col-xs-12 col-sm-6 col-md-4" >
+							 <div class="form-group">
+								  <label class="control-label col-xs-4" >隐藏</label>
+								  <div class="col-xs-8">
+										<input  name="noList1" id="noList1" data-fieldName="NO_LIST1"
+											class="form-control" type="text" />
+									</div>
+							 </div>
+					    </div>
+						
+						<div class="row ">
+								<div class="col-xs-12 ">
+									<div class="query-btn">
+
+
+									</div>
+								</div>
+						   </div>
+					
+						<table
+							class="table table-striped table-bordered table-hover table-responsive"
+							id="dms_table2">
+						</table>
+							
+					</div>
+				</div>
+			</div>			
+			
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name"></div>
+							<div class="row "></div>			
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">跟踪状态</label>
+											<div class="col-xs-8">
+												<select id="traceStatus" name="traceStatus" data-fieldName="TRACE_STATUS"
+													class="form-control " data-dictCode="1237"  
+													data-value="">
+												</select>
+											</div>
+										</div>
+									</div>
+						
+						
+						<div class="col-xs-8 col-sm-8 col-md-8">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2 ">备注</label>
+								<div class="col-xs-8 col-sm-10">
+									<textarea id="scene" name="scene" data-fieldName="SCENE" class="form-control" rows="2" maxlength="120" cols=""></textarea>
+								</div>
+							</div>
+						</div>
+							
+								
+
+				</div>
+			</div>
+			
+			
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">跟进记录</div>
+
+								<div class="pannel-button">
+									<div class="btn-group btn-group-sm">
+										<a class="btn btn-outline"
+											data-url="customer/retainCustomer/salesTraceResultInput/addTrackRecord.html"
+											data-toggle="modal" data-width="modal-lg"><i
+											class="fa fa-plus-square"></i>新增 </a>
+									</div>
+								</div>
+							
+								
+					<div class="panel-body">
+						<table
+							class="table table-striped table-bordered table-hover table-responsive"
+							id="dms_table3">
+						</table>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/customerManage/potentialcus" data-model="customer"
+				data-method="POST" data-callBack="true" data-beforeRequest="true" class="btn blue"
+				id="saveBtn" name="saveBtn" data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+			</a> 
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+
+		</div>
+</form>
+</div>
+
+<script type="text/javascript">
+
+$(document).one("onload.dms",function(event,container){
+	var str='';
+	var str1='';
+	var str2='';
+	var selectRow = $("#dms_table",getElementContext()).dmsTable().getSelections();
+	   	$(selectRow).each(function(index){
+		   str+=selectRow[index].VIN+',';
+		   str1=selectRow[index].TRACE_TASK_ID;
+		   str2=selectRow[index].TRACE_STATUS;
+  		});
+
+	   	$("#noList").val(str1); 
+	   	$("#noList1").val(str2); 
+	
+	   	
+	   	alert("VIN : "+str);
+		alert("TRACE_TASK_ID : "+str1);
+		alert("TRACE_STATUS : "+str2); 
+		
+   	new Datatable().initPagination({
+		src : "dms_table1",
+		container:container,
+		url : dmsCommon.getDmsPath()["customer"] + "/customerManage/salesTraceResultInput/history/"+str,
+		rowID : "VIN",
+		sortName : "VIN",
+		sortOrder : "asc",
+		autoHeight:false,
+		
+		columns : [ 
+			
+			 {field : "EMPLOYEE_NAME",title : "跟踪人"},
+			 {field : "INPUT_DATE",title : "跟踪日期",dateFormat : {format:"YYYY-MM-DD HH:MM"}},
+			 {field : "IS_SELECTED",title : "结束跟踪",codeFormat : {type:"dict",codeType:"1278"}},
+			 {field : "CUSTOMER_NO",title : "客户编号"},
+			 {field : "CUSTOMER_NAME",title : "客户名称"},
+			 {field : "SOLD_NAME",title : "销售顾问"},
+			 {field : "ORG_NAME",title : "组别"},
+			 {field : "VIN",title : "VIN"},
+			 {field : "BRAND_NAME",title : "品牌"},
+			 {field : "SERIES_NAME",title : "车系"},
+			 {field : "MODEL_NAME",title : "车型"},
+			 {field : "STOCK_OUT_DATE",title : "开票日期",dateFormat : {format:"YYYY-MM-DD HH:MM"}},
+			 {field : "GENDER",title : "性别",codeFormat : {type:"dict",codeType:"1006"}},
+			 {field : "ADDRESS",title : "地址"},
+			 {field : "CONTACTOR_PHONE",title : "联系人电话"},
+			 {field : "CONTACTOR_MOBILE",title : "联系人手机"},
+			 {field : "PROVINCE",title : "省份",codeFormat : {type:"dict",codeType:"9001"}},
+			 {field : "CITY",title : "城市",codeFormat : {type:"dict",codeType:"9002"}},
+			 {field : "DISTRICT",title : "区县",codeFormat : {type:"dict",codeType:"9003"}},
+			 {field : "QUESTIONNAIRE_NAME",title : "问卷名称"},	
+			 {field : "TRACE_STATUS",title : "跟踪状态",codeFormat : {type:"dict",codeType:"1237"}},
+			 {field : "E_MAIL",title : "E_MAIL"},
+			 {field : "CUSTOMER_TYPE",title : "客户类型",codeFormat : {type:"dict",codeType:"1018"}},
+			 {field : "OWNER_MARRIAGE",title : "婚姻状况",codeFormat : {type:"dict",codeType:"1119"}},
+			 {field : "AGE_STAGE",title : "年龄段",codeFormat : {type:"dict",codeType:"1342"}},
+			 {field : "EDUCATION_LEVEL",title : "教育水平",codeFormat : {type:"dict",codeType:"1116"}},
+			 {field : "INDUSTRY_FIRST",title : "行业大类",codeFormat : {type:"dict",codeType:"3001"}},
+			 {field : "INDUSTRY_SECOND",title : "行业小类",codeFormat : {type:"dict",codeType:"3002"}},
+			 {field : "VOCATION_TYPE",title : "职业",codeFormat : {type:"dict",codeType:"1111"}},
+			 {field : "POSITION_NAME",title : "职务名称"},
+			 {field : "FAMILY_INCOME",title : "家庭月收入"},
+			 {field : "HOBBY",title : "爱好",codeFormat : {type:"dict",codeType:"1117"}},
+			 {field : "CONFIRMED_DATE",title : "交车日期",dateFormat : {format:"YYYY-MM-DD HH:MM"}},
+			 {field : "CUS_SOURCE",title : "客户来源",codeFormat : {type:"dict",codeType:"1311"}},
+			 {field : "TASK_REMARK",title : "备注"}
+
+         ]
+	});   	
+		
+		
+		//动态刷新下拉框的值
+/*		dmsDict.refreshSelectByUrl($("#seriesMemual",container),{brand: "112"});
+		
+		//动态刷新下拉框的值
+		var selectData = new Array();
+		selectData.push({id:"1",name:"张三"});
+		selectData.push({id:"2",name:"李四"});
+		selectData.push({id:"3",name:"王五"});
+		selectData.push({id:"5",name:"马自达"});
+		dmsDict.refreshSelectByData($( "#dynamicSelect" ,container),selectData,"id","name"); 
+*/
+
+
+   	new Datatable().initLocale({
+		src : "dms_table2",
+		container:container,
+		url : dmsCommon.getDmsPath()["customer"] + "/customerManage/salesTraceResultInput/salesqusetionnaire",
+		autoHeight:false,
+		columns : [
+					{field : "QUESTIONNAIRE_NAME",title : "问卷", inputHiddenFormat : {}},	
+					{field : "QUESTION_NAME",title : "问题名称", inputHiddenFormat : {}},
+					{field : "QUESTION_CONTENT",inputField:"questionContent",title : "问题内容",inputNumberFormat : {decimal : 2,validate:{validateClass:"text",validateAttr:'maxDigit="20"'}}},					
+					{field : "QUESTION_TYPE",title : "类型", inputHiddenFormat : {},codeFormat : {type:"dict",codeType:"1132"}},
+					{field : "IS_MUST_FILLED",title : "必填", inputHiddenFormat : {},codeFormat : {type:"dict",codeType:"1278"}},
+					{field : "ANSWER_GROUP_NO",title : "答案", inputHiddenFormat : {}},
+					{field : "ANSWER",title : "答案", inputHiddenFormat : {}},
+		      		{field : "ANSWER_NAME",inputField:"ANSWER_NAME",id:"answer11",title : "答案",inputSelectFormat : {}},
+
+					{field : "REMARK",inputField:"remark",title : "备注",inputNumberFormat : {decimal : 2,validate:{validateClass:"text",validateAttr:'maxDigit="300"'}}},		
+		         ],
+		 onLoadSuccess:function(){
+			 alert('aaa');
+				var table2 = $("#dms_table2",getElementContext()).dmsTable().getTableRows();
+				console.log(JSON.stringify(table2));
+				alert(table2);
+			   	if(table2>0){
+			   		for(var i=0;i<table2.length;i++){
+				   		var answer = table2[i].ANSWER;
+				   		var answerName=answer.split(",");	
+				   		alert(answerName[0]);
+						var selectData = new Array();	
+						for(var j=0;j<answerName.length;j++){
+							selectData.push({id:j,name:answerName[j]});	
+						}
+						
+						dmsDict.refreshSelectByData($( "#answer11" ,container),selectData,"id","name"); 
+			   		}
+			   	}
+		 }
+	});
+
+	
+
+		
+	new Datatable().initPagination({
+		src : "dms_table3",
+		container:container,
+		autoHeight:false,
+		columns : [ {title : "操作",operateFormat : [ {type : "localDel",onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){}}]}, 		            
+		            {field : "TRACE_LOG_DATE",title : "跟踪时间", inputHiddenFormat : {format:"YYYY-MM-DD HH:MM"}},
+		            {field : "TRACE_LOG_DESC",title : "描述", inputHiddenFormat : {}}
+		            
+		         ]
+	});
+	
+	$("#questionnaireName",container).bindChange(function(obj){
+		var index = $("#questionnaireName",container).val();
+		if(index!=null){
+			$("#dms_table2",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["customer"]
+				+  "/customerManage/salesTraceResultInput/salesqusetionnaire");
+			$("#dms_table2",container).dmsTable().refreshTableWithForm();
+		}
+	});
+	
+	//弹出页面打开前执行函数
+	$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+		var selectRow = $("#dms_table",container).dmsTable().getSelections();
+		if(!selectRow){
+			dmsCommon.tip({status:"warning",msg:"请单击选择表格数据"});
+			returnResult.status = false;
+			return ;
+		}
+		returnResult.status = true;
+	});
+	$(function(){
+		 $("#dropdown_menucoler").on("mouseenter mouseleave", function () {
+			 $(this).dropdown('toggle');
+		 });
+	});
+	 
+});	
+</script>

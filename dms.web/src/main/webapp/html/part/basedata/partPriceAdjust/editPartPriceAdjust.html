@@ -1,0 +1,259 @@
+<div class="dms-edit ajaxrest" data-url="/basedata/partPrice/bb/{[PART_NO]}/{[STORAGE_CODE]}" data-model="part">
+	<form class="form-horizontal">
+		<input  type="hidden"  name="storage_code" class="form-control"  data-fieldName="storage_code">
+		<input  type="hidden"  name="part_group_code" class="form-control"  data-fieldName="part_group_code">
+		<div class="modal-header">
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+			<div class="modal-title">配件销售价编辑</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group form-group-xs m-b-xs">
+								<label class="control-label col-xs-4 ">仓库</label>
+								<div class="col-xs-8">
+									<select id="STORAGE_CODE" name="STORAGE_CODE" data-fieldName="STORAGE_CODE"
+										class="bs-select form-control" disabled="disabled"
+										data-url="/partStocks/StockCode" data-model="part"  data-labelValue="STORAGE_CODE"
+										data-lableDesc="STORAGE_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件代码</label>
+								<div class="col-xs-8">
+									<input id="PART_NO" name="PART_NO" class="form-control"
+										type="text" data-fieldName="PART_NO" readonly="readonly" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件名称</label>
+								<div class="col-xs-8">
+									<input id="PART_NAME" name="PART_NAME" class="form-control"
+										type="text" data-fieldName="PART_NAME" readonly="readonly" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件类别</label>
+								<div class="col-xs-8">
+									<input id="PART_GROUP_CODE" name="PART_GROUP_CODE"
+										class=" form-control" type="text"
+										data-fieldName="PART_GROUP_CODE" readonly="readonly" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">索赔价</label>
+								<div class="col-xs-8">
+									<input id="CLAIM_PRICES" name="CLAIM_PRICE" class="form-control" value="0"
+										data-fieldName="CLAIM_PRICE" type="text" readonly="readonly" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">最新进货价</label>
+								<div class="col-xs-8">
+									<input id="LATEST_PRICE" name="LATEST_PRICE" class="form-control" value="0"
+										type="text" data-fieldName="LATEST_PRICE" readonly="readonly" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">库位</label>
+								<div class="col-xs-8">
+									<input id="STORAGE_POSITION_CODE" name="STORAGE_POSITION_CODE"
+										class="form-control" type="text"
+										data-fieldName="STORAGE_POSITION_CODE" readonly="readonly" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销售价</label>
+								<div class="col-xs-8">
+									<input id="LIMIT_PRICE" name="LIMIT_PRICE" class="form-control" value="0"
+										type="text" data-fieldName="LIMIT_PRICE" readonly="readonly" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">基准价类型</label>
+								<div class="col-xs-8">
+									<select id="BASE_COST_TYPE" name="BASE_COST_TYPE"
+										data-existsDefault="false" class="bs-select form-control"
+										data-dictCode="1236" data-excludeItems="12361006"></select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">基准价</label>
+								<div class="col-xs-8">
+									<input id="LATEST_PRICES" name="LATEST_PRICES" class="form-control"
+										type="text" data-fieldName="LATEST_PRICES" disabled="disabled"/>
+									<input type="hidden" data-fieldName="COST_PRICE" id="COST_PRICE"/>
+									<input type="hidden" data-fieldName="SALES_PRICE" id="SALES_PRICE"/>
+									<input type="hidden" data-fieldName="CLAIM_PRICE" id="CLAIM_PRICE"/>
+									<input type="hidden" data-fieldName="NODE_PRICE" id="NODE_PRICE"/>
+									<input type="hidden" data-fieldName="LATEST_PRICE" id="LATEST_PRICE"/>
+									<input type="hidden" data-fieldName="INSTRUCT_PRICE" id="INSTRUCT_PRICE"/>
+									<input type="hidden" data-fieldName="LIMIT_PRICE" id="LIMIT_PRICE"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">加价率</label>
+								<div class="col-xs-8">
+									<input id="markup_percentage" name="markup_percentage" 
+										value="0.0" maxPrecision="2" class="form-control money"
+										type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">调整价类型</label>
+								<div class="col-xs-8">
+									<select id="IS_COST_TYPE" name="IS_COST_TYPE"
+										class="bs-select form-control" data-excludeInit="false"  data-existsDefault="false"
+										data-dictCode="1236" data-alwaysRefresh="true" 
+										data-excludeItems="12361001,12361003,12361005,12361006,12361008,12361009"
+										></select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">调整价</label>
+								<div class="col-xs-8">
+									<input id="SALES_PRICES" name="SALES_PRICES" value="0"
+										class="form-control money" type="text" maxDigit="10" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">保险价</label>
+								<div class="col-xs-8">
+									<input id="INSURANCE_PRICE" name="INSURANCE_PRICE" value="0" readonly="readonly"
+										class="form-control money" type="text" maxDigit="10" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4" >
+							<div class="form-group">
+								<label class="control-label col-xs-6 ">调整价格四舍五入</label>
+								<div class="col-xs-6">
+									<select id="ROND" name="ROND"
+										class="bs-select form-control" data-existsDefault="false"
+										data-dictCode="1292" data-value="原值"></select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/basedata/partPrice/aa/{[PART_NO]}/{[STORAGE_CODE]}/{[PART_BATCH_NO]}" data-model="part" data-method="PUT"
+			 data-callBack="true"  class="btn blue"
+			 data-toggle="confirmation"><i class="fa fa-save"></i>保存</a>
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+	<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		//通过加价率和价格类型计算调整价 
+		/*  $("#markup_percentage",container).bindChange(function(obj){
+			 countAmount();
+		 });
+		 $("#benchmark_type",container).bindChange(function(obj){
+			 countAmount();
+		 }); */
+		 $("#BASE_COST_TYPE",container).bindChange(function(obj){
+				var priceType = $("#BASE_COST_TYPE",container).val();
+				if(priceType=="12361001"){
+					$("#LATEST_PRICES",container).val($("#COST_PRICE",container).val())
+					$("#IS_COST_TYPE",container).attr("data-excludeItems","12361001,12361003,12361005,12361006,12361008,12361009");
+					dmsDict.initObject($("#IS_COST_TYPE",container));
+				}else if(priceType=="12361002"){
+					$("#markup_percentage",container).val("-1.00");
+					$("#LATEST_PRICES",container).val($("#LIMIT_PRICE",container).val());
+					$("#IS_COST_TYPE",container).attr("data-excludeItems","12361001,12361002,12361003,12361004,12361005,12361006,12361008,12361009");
+					dmsDict.initObject($("#IS_COST_TYPE",container));
+				}else if(priceType=="12361003"){
+					if(parseFloat($("#IS_COST_TYPE",container).val())==12361002){
+						$("#markup_percentage",container).val("-0.40");
+					}else{
+						$("#markup_percentage",container).val("-1.00");
+					}
+					$("#LATEST_PRICES",container).val($("#LIMIT_PRICE",container).val())
+					$("#IS_COST_TYPE",container).attr("data-excludeItems","12361001,12361003,12361004,12361005,12361006,12361008,12361009");
+					dmsDict.initObject($("#IS_COST_TYPE",container));
+				}else if(priceType=="12361004"){
+					$("#LATEST_PRICES",container).val(("#NODE_PRICE",container).val());
+					$("#IS_COST_TYPE",container).attr("data-excludeItems","12361001,12361003,12361005,12361006,12361008,12361009");
+					dmsDict.initObject($("#IS_COST_TYPE",container));
+				}else if(priceType=="12361005"){
+					$("#LATEST_PRICES",container).val(("#LATEST_PRICE",container).val());
+					$("#IS_COST_TYPE",container).attr("data-excludeItems","12361001,12361003,12361005,12361006,12361008,12361009");
+					dmsDict.initObject($("#IS_COST_TYPE",container));
+				}else if(priceType=="12361007"){
+					$("#LATEST_PRICES",container).val(("#INSURANCE_PRICE",container).val());
+					$("#IS_COST_TYPE",container).attr("data-excludeItems","12361001,12361003,12361004,12361005,12361006,12361007,12361008,12361009");
+					dmsDict.initObject($("#IS_COST_TYPE",container));
+				}else if(priceType=="12361008"){
+					$("#LATEST_PRICES",container).val(("#INSTRUCT_PRICE",container).val());
+					$("#IS_COST_TYPE",container).attr("data-excludeItems","12361001,12361003,12361005,12361006,12361008,12361009");
+					dmsDict.initObject($("#IS_COST_TYPE",container));
+				}else if(priceType=="12361009"){
+					$("#LATEST_PRICES",container).val(("#LIMIT_PRICE",container).val());
+					$("#IS_COST_TYPE",container).attr("data-excludeItems","12361001,12361003,12361005,12361006,12361008,12361009");
+					dmsDict.initObject($("#IS_COST_TYPE",container));
+				}
+		 });
+		 $("#markup_percentage",container).bindChange(function(obj){
+		 	 $("#SALES_PRICES",container).val(parseFloat($("#LATEST_PRICES",container).val())*(parseFloat($("#markup_percentage",container).val())+1)); 
+		 });
+		 $("#IS_COST_TYPE",container).bindChange(function(obj){
+			 if(parseFloat($("#IS_COST_TYPE",container).val())==12361002){
+				 $("#markup_percentage",container).val("-0.40");
+			 }else if(parseFloat($("#IS_COST_TYPE",container).val())==12361007){
+				 $("#markup_percentage",container).val("-1.00");
+			 }
+		 });
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	});
+	</script>
+</div>
+

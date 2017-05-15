@@ -1,0 +1,94 @@
+<div class="dms-edit ajaxrest" data-url="/basicParams/getBasicParams/{[PARA_ID]}" data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">修改索赔基本参数设定</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+							<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">经销商代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="dealerCode" name="dealerCode" data-fieldName="DEALER_CODE"  disabled="disabled"/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">经销商简称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="dealerShortName" name="dealerShortName" data-fieldName="DEALER_SHORTNAME"   disabled="disabled"/>
+							</div>
+						</div>
+					</div>
+					
+						<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">一般工时单价</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control required" id="labourPrice" name="labourPrice" data-fieldName="LABOUR_PRICE"/>
+							</div>
+						</div>
+					</div>
+					
+				<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">税率</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control  required" id="taxRate" name="taxRate" data-fieldName="TAX_RATE"/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">配件管理费率</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control required" id="partMangefee" name="partMangefee" data-fieldName="PART_MANGEFEE"/>
+							</div>
+						</div>
+					</div>
+					
+				<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">索赔有效期限制</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control required" id="validDays" name="validDays" data-fieldName="VALID_DAYS"/>
+							</div>
+						</div>
+					</div>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/basicParams/edit/{[PARA_ID]}" data-model="vehicle"
+				data-method="PUT" data-callBack='true'
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>修改</a> <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	})
+</script>
+

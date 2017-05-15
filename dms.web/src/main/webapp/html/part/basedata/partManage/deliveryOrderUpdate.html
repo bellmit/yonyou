@@ -1,0 +1,172 @@
+<div class="dms-edit ajaxrest" data-url="/partDeliverManage/deliverOrderUpdateInit/{[DELIVER_ID]}" data-model="part" >
+	<form class="form-horizontal" >
+		<div class="modal-header">
+			<div class="modal-title">交货单基本信息</div>
+			
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="panel-body">
+	    		<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 "> 
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商代码</label>
+								<div class="col-xs-8">
+									<input id="dealerCode" readonly
+										name="dealerCode" class="form-control" type="text"
+										data-fieldName="DEALER_CODE"/> 
+									</div>	
+							</div>
+						</div> 
+						<div class="col-xs-12 col-sm-6 col-md-4 "> 
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商名称</label>
+								<div class="col-xs-8">
+									<input id="dealerName" readonly
+										name="dealerName" class="form-control" type="text"
+										data-fieldName="DEALER_SHORTNAME"/> 
+									</div>	
+							</div>
+						</div> 
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">交货单编号:</label>
+								<div class="col-xs-8">
+									<input id="ddeliverNo" readonly="readonly" name="ddeliverNo" data-fieldName="DELIVER_NO"  class="form-control "  type="text" />
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">总价:</label>
+								<div class="col-xs-8">
+									<input id="amount" name="amount" data-fieldName="AMOUNT"  class="form-control"  type="text" readonly="readonly"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">净价:</label>
+								<div class="col-xs-8">
+									<input id="netPrice" name="netPrice" data-fieldName="NET_PRICE"  class="form-control"  type="text" readonly="readonly"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">税额:</label>
+								<div class="col-xs-8">
+									<input id="taxAmount" name="taxAmount" data-fieldName="TAX_AMOUNT"  class="form-control"  type="text" readonly="readonly"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">运费:</label>
+								<div class="col-xs-8">
+									<input id="transAmount" name="transAmount" data-fieldName="TRANS_AMOUNT"  class="form-control"  type="text" readonly="readonly"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">运单编号:</label>
+								<div class="col-xs-8">
+									<input id="transNo" name="transNo" data-fieldName="TRANS_NO"  class="form-control"  type="text" readonly="readonly"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">运输公司名称:</label>
+								<div class="col-xs-8">
+									<input id="transCompany" name="transCompany" data-fieldName="TRANS_COMPANY"  class="form-control"  type="text" readonly="readonly"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">运输方式:</label>
+								<div class="col-xs-8">
+								<select id="transType" name="transType" class="bs-select form-control" data-fieldName="TRANS_TYPE"  data-type="oemDict" data-dictCode="1004" disabled >
+								</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">运单日期:</label>
+								<div class="col-xs-8">
+									<input id="transDate" name="transDate" data-fieldName="TRANS_DATE"  class="form-control"  type="text" readonly="readonly"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">预计到店日期:</label>
+								<div class="col-xs-8">
+									<input id="arrivedDate" name="arrivedDate" data-fieldName="ARRIVED_DATE"  class="form-control"  type="text" readonly="readonly"/>
+								</div>
+							</div>
+						</div>
+							
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel-footer">
+			<div style="text-align:center">
+			<a  data-url="/partDeliverManage/saveDeliveryOrder/{[DELIVER_ID]}" data-model="part" data-method="POST" data-callBack='true'
+			class="btn blue" data-toggle="confirmation" ><i class="fa fa-save"></i>保存</a> 
+					 			
+			<a  data-goback="page" href="part/basedata/partManage/deliveryOrder.html"
+			class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>	
+			</div>						
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="modal-header">
+			<div class="modal-title">接货清单</div>
+			
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+
+	</div>
+	</form>
+
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	 new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["part"] + "/partDeliverManage/findAcceptInfoByDeliverId/{[DELIVER_ID]}",
+		rowID : "DETAIL_ID",
+		sortName : "DETAIL_ID",
+		sortOrder : "asc",
+		autoHeight:false,
+		pageSize:5,
+		columns : [ //此传值 DETAIL_ID  后台需用 PART_CODE为名接收
+					{field : "PART_CODE",title : "配件编号",inputHiddenFormat : {hiddenField:"DETAIL_ID"}},
+					{field : "PART_NAME",title : "配件名称",inputHiddenFormat : {hiddenField:"PART_NAME"}},
+					{field : "PLAN_NUM",title : "计划量",inputTextFormat : {hiddenField:"PLAN_NUM"}},
+					{field : "NET_PRICE",title : "净价",inputHiddenFormat : {hiddenField:"NET_PRICE"}},
+					{field : "INSTOR_PRICE",title : "入库单价",inputHiddenFormat : {hiddenField:"INSTOR_PRICE"}},
+					{field : "DELIVER_AMOUNT",title : "运单总额",inputHiddenFormat : {hiddenField:"DELIVER_AMOUNT"}},
+					{field : "DISCOUNT",title : "折扣额" ,inputHiddenFormat : {hiddenField:"DISCOUNT"}},
+					{field : "DMS_ORDER_NO",title : "订单编码"  ,inputHiddenFormat : {hiddenField:"DMS_ORDER_NO"}}
+					
+		]
+	});
+	
+	 $("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		 $("#dms_table",container).dmsTable().refreshTableWithForm();
+	 });
+	
+});
+    
+</script>

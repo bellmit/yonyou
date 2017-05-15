@@ -1,0 +1,153 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+				
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">活动系统编号</label>
+							<div class="col-xs-8">
+									<input type="text" class="form-control" id="activityCode" name="activityCode">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">活动名称</label>
+							<div class="col-xs-8">
+									<input type="text" class="form-control" id="activityName" name="activityName">
+							</div>
+						</div>
+					</div>
+	
+
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">活动类别</label>
+							<div class="col-xs-8">
+								<select id="activityType" name="activityType" class="bs-select form-control" data-type="oemDict" data-dictCode="4015" >
+								</select>
+							</div>
+						</div>
+					</div>
+									
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">活动状态</label>
+							<div class="col-xs-8">
+								<select id="activityStatus" name="activityStatus" class="bs-select form-control" data-type="oemDict" data-dictCode="4017"  data-excludeItems="40171002" >
+								</select>
+							</div>
+						</div>
+					</div>						
+
+										
+					
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >信息列表</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="orderList"></table>
+		</div>
+	</div>
+	
+</div>
+<script type="text/javascript">
+
+    $(document).one("onload.dms",function(event,container){
+    	new Datatable().initPagination({
+			src : "orderList",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/ActivityIssueMaintain/activityIssueQuery",
+			rowID : "ACTIVITY_ID",
+			//detailView : true, //当需要显示明细时，打开此开关，否则不需要写
+			sortName : "ACTIVITY_ID", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+			sortOrder : "desc",
+			isQueryFirst:false,
+			//当需要开启显示明细时才实现，否则不实现
+			detailFormatter : function(index, row, element) {
+				return row.NAME;
+			},
+			columns : [ 
+			    {field : "ACTIVITY_ID",title : "操作",inputField:"activityId", operateFormat : [
+                       {type:"del",title:"发布",url:"/ActivityIssueMaintain/activityIssue/{[ACTIVITY_ID]}",model:"vehicle",callBack:function(response){
+                    	   $("#orderList",container).dmsTable().refreshTableWithForm();
+                       },isShow:function(value, row, index){
+                    	   if(row.STATUS=="40171001"){
+                    		   return true;
+                    	   }else{
+                    		   return false;
+                    	   }                    	   
+                       }},
+                       {type:"detail",url:"vehicle/activityManage/activityInitDetail.html",openWidth:"modal-lg",isShow:function(value, row, index){
+                     		   return true;                   	
+                       }},//打开方式默认弹出:open
+                       {type:"edit",title:"活动经销商",url:"vehicle/activityManage/activityIssueDealerQuery.html",openWidth:"modal-lg",doubleClick:true,isShow:function(value, row, index){
+                    	   if(row.STATUS=="40171002"){
+                    		   return true;
+                    	   }else{
+                    		   return false;
+                    	   }
+                       },attr:'data-validateUrl="" data-validateMethod="" data-validateModel=""'}, //默认不支持双击操作
+                     
+                        {type:"del",title:"取消发布",url:"/ActivityIssueMaintain/activityCancleIssue/{[ACTIVITY_ID]}",model:"vehicle",callBack:function(response){
+                    	   $("#orderList",container).dmsTable().refreshTableWithForm();
+                       },isShow:function(value, row, index){
+                    	   if(row.STATUS=="40171002"){
+                    		   return true;
+                    	   }else{
+                    		   return false;
+                    	   }                    	   
+                       }}
+                       
+                   ]
+                },  
+			    {field : "ACTIVITY_CODE",title : "活动系统编号"},
+			    {field : "ACTIVITY_NAME",title : "活动名称"},
+			    {field : "ACTIVITY_TYPE",title : "活动类别",codeFormat : {type:"oemDict",codeType:"4015"}},
+			    {field : "CLAIM_TYPE",title : "索赔类型",codeFormat : {type:"oemDict",codeType:"4030"}},	    
+			    {field : "START_DATE",title : "开始时间"},
+			    {field : "END_DATE",title : "结束时间"},
+			    {field : "STATUS",title : "发布状态",codeFormat : {type:"oemDict",codeType:"4017"}}
+			],
+			onLoadSuccess : function() {
+				$("#orderList",container).dmsTable().bootstrapTable('resetView');
+			}
+		});
+    	      	
+    	//绑定查询按钮回调
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+// 			console.log("into callBack");
+		});
+    	
+    });
+		
+
+
+</script>

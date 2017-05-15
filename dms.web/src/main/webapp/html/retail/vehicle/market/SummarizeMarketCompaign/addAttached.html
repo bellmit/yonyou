@@ -1,0 +1,50 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">活动总结附件新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 ">	
+							<div class="form-group">
+								<div class="col-xs-12">
+								    <input type="hidden" name="campaignCode">
+	                             	<input type="file" class="importFiles" id="fileName" name="fileName" multiple name="dmsFile" data-inputName="dmsFileIds">
+	                            </div>
+							</div>
+						</div>
+			        </div>
+		        </div>
+	        </div>
+        </div>
+		<div class="modal-footer">
+			<a data-url="/markting/marktingPlan/attached" data-model="retail" data-method="POST" data-callBack="true"  class="btn blue"  data-toggle="confirmation"><i class="fa fa-save"></i>保存</a>
+			<a data-dismiss="modal" class="btn blue" ><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+
+	$(document).one("onload.dms",function(event,container){
+		//得到活动名称编号
+		$("input[name=campaignCode]",container).val($("#CAMPAIGN_CODE",getElementContext()).val());
+		//得到附件名称
+		$("input[name=fileName]",container).val($("#FILE_NAME",getElementContext()).val());
+		
+		//新增页面回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#campaign_conatteched",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	}); 
+</script>

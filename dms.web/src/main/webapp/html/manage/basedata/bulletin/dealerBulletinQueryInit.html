@@ -1,0 +1,38 @@
+<div class="dms-search">
+ <form class="form-horizontal">
+	<div class="panel  panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" ></div>
+			</div>
+	   		<div class="panel-body">
+				<table class="table table-striped table-bordered table-hover table-responsive"
+					id="dms_table">
+				</table>
+			</div>
+	</div>
+ </form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+ 	new Datatable().initPagination({
+		src:"dms_table",
+		container:container,
+	    url : dmsCommon.getDmsPath()["manage"] + "/bulletin/dealerQuery",
+	    rowID:"TYPE_ID",
+	    sortName:"TYPE_ID",
+	    sortOrder:"ASC",
+		columns : [ 
+		      {field:"TYPE_ID",title : "操作",operateFormat : [
+                    {type:"detail",url:"manage/basedata/bulletin/dealerBulletinQueryDetail.html",openType:"jump"}
+                 ]
+              },
+		      {field:"TYPENAME",title:"通告类别"},
+		      {field:"NUM",title:"通告数量"},
+		      {field:"NOTREADNUM",title:"未读数量"},
+		      {field:"CREATE_DATE",title:"最近一次通告发布时间"}
+	      ]
+	});
+ 	
+ 	
+});
+</script>

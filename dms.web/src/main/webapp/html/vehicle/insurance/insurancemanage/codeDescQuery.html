@@ -1,0 +1,76 @@
+<div class="dms-search">
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name" >维修类型</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+	<div class="modal-footer center-block">
+			 <a class="btn blue" data-onclickEvent="true"><i class="fa fa-save hidden"></i>确定</a> 
+				<a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/InsurancePolicyManage/codeDescQuery",
+			rowID : "",
+			sortName : "",
+			sortOrder : "",
+			autoHeight:false,
+			isQueryFirst:true,
+			pageSize:10,
+			columns : [ 
+			    {checkbox:true,sortable : true},
+			    {field : "CODE_ID",title : "维修ID"},
+			    {field : "CODE_DESC",title : "维修类型"}
+			]
+		});
+		
+		//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			var selectRow = $("#dms_table",container).dmsTable().getSelections();
+			if(selectRow.length>0){
+				var codeDesc = "";
+				for(var i = 0 ;i<selectRow.length;i++){
+					if(codeDesc==""){
+						codeDesc = selectRow[i]["CODE_DESC"];
+					}else{
+						codeDesc =codeDesc+","+selectRow[i]["CODE_DESC"];
+					}
+				}
+				$("#codeDesc",getElementContext()).setDmsValue(codeDesc);
+			}else{
+				dmsCommon.tip({status:"warning",msg:"请选择所需要的维修类型！"});
+				return false;
+			}
+			$("a[data-dismiss='modal']",container).click();
+		}); 
+		//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			var selectRow = $("#dms_table",container).dmsTable().getSelections();
+			if(selectRow.length>0){
+				var codeId = "";
+				for(var i = 0 ;i<selectRow.length;i++){
+					if(codeId==""){
+						codeId = selectRow[i]["CODE_ID"];
+					}else{
+						codeId =codeId+","+selectRow[i]["CODE_ID"];
+					}
+				}
+				$("#codeId",getElementContext()).setDmsValue(codeId);
+			}else{
+				dmsCommon.tip({status:"warning",msg:"请选择所需要的维修类型！"});
+				return false;
+			}
+			$("a[data-dismiss='modal']",container).click();
+		}); 
+	});
+</script>

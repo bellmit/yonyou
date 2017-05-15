@@ -1,0 +1,115 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">			
+			<div class="modal-title">工单预留编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">仓库</label>
+							<div class="col-xs-8">
+								<input id="STORAGE_CODE" name="STORAGE_CODE" type="text" readonly="readonly"
+									class="bs-select form-control "> </input>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">配件代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="PART_NO" readonly="readonly"
+									name="PART_NO">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">配件名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="PART_NAME"
+									name="PART_NAME">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">数量</label>
+							<div class="col-xs-8">
+								<input id="QUANTITY" name="QUANTITY"
+									class="form-control" type="text" value="0.00"
+									data-fieldName="QUANTITY" />
+							</div>
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+		<div class="panel-body"  >
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table3"></table>
+		</div>
+	</div>
+		<div class="modal-footer">
+			<a data-callBack="true" class="btn blue"><i class="fa fa-save"></i>保存</a>
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	var item = JSON.parse($.cookie('partProfitForUpdate'));
+	var index = $.cookie('partProfitUpdateIndex');
+	$(".form-horizontal",container).jsonToForm(item);//将json填充到相应的框中
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("#QUANTITY",getElementContext()).dmsTable().setDmsValue($("#QUANTITY",container).val());
+		$("#PART_NAME",getElementContext()).dmsTable().setDmsValue($("#PART_NAME",container).val());
+		$("#biaoji",getElementContext()).dmsTable().val("U");
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#tables",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+});
+//去掉json格式的中括号对[]
+$.fn.formToJson = function()    
+{    
+   var obj = {};    
+   var jsonInfo = this.serializeArray();    
+   $.each(jsonInfo, function() {    
+       if (obj[this.name]) {    
+           if (!obj[this.name].push) {    
+               obj[this.name] = [obj[this.name]];    
+           }    
+           obj[this.name].push(this.value || '');    
+       } else {    
+           obj[this.name] = this.value || '';    
+       }    
+   });    
+   return obj;    
+}; 
+	
+//将json数据存入form表单
+$.fn.jsonToForm = function (info){
+	//1.循环JSON数据
+	for (var key in info) { 
+		var value = info[key];
+		if(key=="STORAGE_CODE"){
+			$("#storage").val(value);
+			$("#STORAGE_CODE").setDmsValue(value);
+		}else{
+			$("[name=" + key + "]", $(this)).val(value);
+		}
+	}
+}
+</script>

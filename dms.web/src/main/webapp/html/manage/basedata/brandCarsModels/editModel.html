@@ -1,0 +1,143 @@
+<div class="dms-edit ajaxrest"
+	data-url="/basedata/models/{[MODEL_CODE]}/{[SERIES_CODE]}/{[BRAND_CODE]}"
+	data-model="manage" data-pageInitCallBack="true">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">车型信息编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12  col-sm-4 col-md-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌名称</label>
+								<div class="col-xs-8">
+									<input name="brandId" type="hidden" class="form-control"
+										data-fieldName="brand_code" />
+									<input name="brandName" type="text" class="form-control"
+										data-fieldName="brand_name" disabled />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12  col-sm-4 col-md-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系名称</label>
+								<div class="col-xs-8">
+									<input name="seriesId" type="hidden" class="form-control"
+										data-fieldName="series_code" />
+									<input name="seriesName" type="text" class="form-control"
+										data-fieldName="series_name" disabled />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12  col-sm-4 col-md-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车型代码</label>
+								<div class="col-xs-8">
+									<input type="hidden" name="modelCode"
+										data-fieldName="model_code"> <input id="modelCode"
+										name="modelCode" type="text" class="form-control"
+										data-fieldName="MODEL_CODE" disabled />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12  col-sm-4 col-md-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车型名称</label>
+								<div class="col-xs-8">
+									<input type="hidden" id="oem" data-fieldName="OEM_TAG"/>
+									<input id="modelName" name="modelName" type="text"
+										class="form-control required" data-fieldName="MODEL_NAME"
+										maxlength="600" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12  col-sm-4 col-md-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">行管车型码</label>
+								<div class="col-xs-8">
+									<input name="localCode" type="text" maxlength="30"
+										class="form-control" data-fieldName="LOCAL_MODEL_CODE"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12  col-sm-4 col-md-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">维修车型组</label>
+								<div class="col-xs-8">
+									<select class="bs-select form-control"
+										name="modelLabourCode" data-url="/basedata/laboursdict"
+										data-model="manage" data-labelValue="MODEL_LABOUR_CODE" data-fieldName="MODEL_LABOUR_CODE"
+										data-lableDesc="MODEL_LABOUR_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12  col-sm-4 col-md-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">工时单价</label>
+								<div class="col-xs-8">
+									<select class="bs-select form-control"
+										name="price" data-url="/basedata/pricedict" data-fieldName="LABOUR_PRICE"
+										data-model="manage" data-labelValue="LABOUR_PRICE"
+										data-lableDesc="LABOUR_PRICE">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12  col-sm-4 col-md-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否有效</label>
+								<div class="col-xs-8">
+									<select id="isValid" name="isValid" 
+										class="bs-select form-control" data-dictCode="1278"
+										data-fieldName="IS_VALID">
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a
+				data-url="/basedata/models/{[MODEL_CODE]}/{[SERIES_CODE]}/{[BRAND_CODE]}"
+				data-model="manage" data-method="PUT" data-callBack="true"
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>保存</a> <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms", function(event, container) {
+		
+				$("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){
+					$("a[data-callBack='true']", container).on(
+							"callBack.dms",
+							function(event, response) {
+								$("a[data-dismiss='modal']", container).click();
+								$("#dms_table3", getElementContext()).dmsTable()
+										.refreshTableWithForm();
+							});
+					var oem = $("#oem").val();
+					if(oem=='12781001'){
+						$('#modelName').attr('disabled','true');
+						$('#isValid').attr('disabled','true');
+					}else{
+						$('#modelName').removeAttr('disabled');
+						$('#isValid').removeAttr('disabled');
+					}
+				});
+			});
+</script>

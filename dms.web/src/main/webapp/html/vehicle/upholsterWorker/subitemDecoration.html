@@ -1,0 +1,125 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+	   <div class="modal-header">
+			<div class="modal-title">装潢整单派工</div>
+			 <div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			  </div>
+		</div>
+		<div class="modal-body">
+		
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name">装潢项目</div>
+		
+			</div>
+			<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_table"></table>
+		    </div>
+		</div>
+		&nbsp;
+	     <div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name">装潢项目派工明细</div>
+				<div class="pannel-button">
+					 <div class="btn-group btn-group-sm">
+					      <a class="btn btn-outline" data-url="vehicle/upholsterWorker/addProject.html" id="redistribution" data-model="vehicle" 
+							data-toggle="modal" data-beforeShowEvent="true"  data-width="modal-lg" > <i class="fa fa-plus-square"></i> 新增
+					      </a>
+					     
+					 </div>
+				</div>
+			</div>
+			<div class="panel-body">
+					<table class="table table-striped table-bordered table-hover table-responsive"
+						id="veInspectList1"></table>
+		    </div>
+		</div>
+		&nbsp;
+	</div>
+	 
+		
+		
+		
+		
+	</form>
+	</div>		
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event, container) {
+		new Datatable().initPagination({
+			src : "dms_table",
+			url : dmsCommon.getDmsPath()["vehicle"] + "/stockManage/UpholsterWorker/SearchWorker1/{[SO_NO]}",
+			rowID : "SO_NO",
+			autoHeight : false,
+			sortName : "SO_NO", 
+			undefinedText : "",
+			sortOrder : "asc",
+			checkboxHeader:true, //全选框
+			columns : [ 
+				{radio:true,sortable : false},
+				{field : "UPHOLSTER_CODE",title : "装潢项目代码"}, 
+				{field : "UPHOLSTER_NAME",title : "装潢项目名称"}, 
+				{field : "LOCAL_LABOUR_CODE",title : "行管项目代码"}, 
+				{field : "LOCAL_LABOUR_NAME",title : "行管项目名称"}, 
+				{field : "LABOUR_AMOUNT",title : "工时费"}, 
+				{field : "ASSIGN_LABOUR_HOUR",title : "派工工时"}, 
+				{field : "TECHNICIAN",title : "技师"},
+				{field : "ASSIGN_TAG",title : "派工标志"},
+			 	{field : "REMARK",title : "备注"},
+		        {field : "SO_NO",title : "id"}
+			]
+		});
+	   
+		new Datatable().initPagination({
+			src : "veInspectList1",
+			url : dmsCommon.getDmsPath()["vehicle"] + "/stockManage/UpholsterWorker/SearchWorker/{[SO_NO]}/{[item_id]}",
+			rowID : "SO_NO",
+			autoHeight : false,
+			sortName : "SO_NO", 
+			undefinedText : "",
+			sortOrder : "asc",
+			checkboxHeader:true, //全选框
+			parentTable:"dms_table",
+			columns : [ 
+				  
+				  {field : "SO_NO",title : "操作",operateFormat : [
+                       {type:"edit",url:"vehicle/upholsterWorker/editProject.html",openWidth:"modal-lg",doubleClick:true },
+                       {type:"del",url:"/stockManage/UpholsterWorker/deleteProject/{[ASSIGN_ID]}",model:"vehicle",callBack:function(response){
+                      	   $("#veInspectList1",getElementContext()).dmsTable().refreshTableWithForm();
+                          }}
+                       /*  {type:"edit",url:"vehicle/upholsterWorker/editProject.html",openType:"jump"},//整个页面
+                       {type:"detail",url:"retail/ordermanage/serviceproject/detailService.html",openType:"jump"}, */
+                   	  /*  {type:"del",url:"/service/project/{[SERVICE_ID]}",model:"retail",callBack:function(response){
+                    	   $("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+                       }}, */
+                ]}, 
+				{field : "TECHNICIAN",title : "技师"}, 
+				{field : "LOCAL_LABOUR_CODE",title : "工位"}, 
+				{field : "ASSIGN_LABOUR_HOUR",title : "派工工时"}, 
+				{field : "ASSIGN_TIME",title : "派工时间",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}}, 
+				{field : "ITEM_START_TIME",title : "开工时间",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}}, 
+				{field : "ESTIMATE_END_TIME",title : "预计完工时间",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}}, 
+			 	{field : "FINISHED_TAG",title : "完工标志"},
+			 	{field : "ITEM_END_TIME",title : "完工时间",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}}, 
+				{field : "CHECKER",title : "检验人"}
+			]
+		});
+		
+		//获取表格中的SO_NO和ITEM_ID--传值
+		$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+			var selectRow = $("#dms_table",container).dmsTable().getSelections();
+			var falg=true;
+			if(!selectRow){
+				dmsCommon.tip({status:"warning",msg:"请选择表格数据"});
+				returnResult.status = false;
+				return ;
+			}
+			returnResult.status = true;
+		});
+				
+						
+      });
+</script>

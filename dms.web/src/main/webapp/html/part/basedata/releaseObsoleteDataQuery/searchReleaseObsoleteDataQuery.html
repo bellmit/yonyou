@@ -1,0 +1,128 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group form-group-xs m-b-xs">
+							<label class="control-label col-xs-4">仓库</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" id="storageCode" 
+									name="storageCode" data-url="/basedata/releaseObsoleteDataQuery/storageCode"
+									data-model="manage" data-labelValue="STORAGE_CODE"
+									data-lableDesc="STORAGE_NAME" data-ajaxSync = "true" 
+									data-existsDefault = "true">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">库位代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="storagePositionCode" name="storagePositionCode">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">配件代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="partNo" name="partNo">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">配件名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="partName" name="partName">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">上报日期</label>
+							<div class="col-xs-8 col-sm-10">
+								 <div class="input-group input-daterange" data-maxDays = "30" data-opens="right">
+		                             <input type="text" class="form-control" readonly  name="visit_startdate" id="visit_startdate">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="visit_enddate" id="visit_enddate">
+		                             <span class="input-group-btn">
+                                         <button class="btn default input-clear" type="button">
+                                            <i class="fa fa-close"></i>
+                                        </button>
+                                      </span> 
+		                        </div>
+							</div>
+						</div>
+					</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >已发布呆滞品信息展示</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+					<a data-url="/basedata/releaseObsoleteDataQuery/export/excel"
+						data-model="manage" data-method="downLoad"
+						data-toggle="confirmation" class="btn btn-outline "><i class="fa fa-download"></i>Excel
+					</a> 
+					</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive "
+				id="dms_table"></table>
+		</div>
+	</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+			new Datatable().initPagination({
+				src : "dms_table",
+				container:container,
+				url : dmsCommon.getDmsPath()["manage"] + "/basedata/releaseObsoleteDataQuery",
+				rowID : "PART_NO",
+				sortName : "PART_NO",
+				checkboxHeader:true, 
+				pageSize:5,
+				autoHeight:false,
+				sortOrder : "asc",
+				columns : [
+				       	{field : "STORAGE_CODE_NAME",title : "仓库"},
+				       	{field : "STORAGE_POSITION_CODE",title : "库位代码"}, 
+					    {field : "PART_NO",title : "配件代码"}, 
+					    {field : "PART_NAME",title : "配件名称"}, 
+						{field : "UNIT_CODE",title : "计量单位"}, 
+			            {field : "REPORTED_DATE",title : "上报日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+			            {field : "REPORTED_NUMBER",title : "上报数量"},
+			            {field : "REPORTED_PRICE",title : "上报单价"},
+			            {field : "REPORTED_TOTAL",title : "上报金额"},
+			            {field : "CONTACTS",title : "联系人"},
+			            {field : "PHONE",title : "联系电话"},
+			            {field : "ADDRESS",title : "联系地址"},
+			            {field : "REPORTED_COST_PRICE",title : "上报时成本单价"},
+			            {field : "REPORTED_SALE_PRICE",title : "上报时销售单价"},
+			            {field : "EXPIRATION_DATE",title : "呆滞品发布过期日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+			            {field : "CANCEL_DATE",title : "取消日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+			            {field : "SHELF_DATE",title : "下架日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}}
+				]
+			});
+	});
+</script>

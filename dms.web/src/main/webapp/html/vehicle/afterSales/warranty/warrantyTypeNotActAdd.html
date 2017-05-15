@@ -1,0 +1,107 @@
+<div class="dms-add" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">保修类型(非活动)新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">类型代码</label>
+								<div class="col-xs-8">
+									<input  type="text" class="form-control required" charlength="3" id="wtCode" name="wtCode">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">类型名称</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control required" id="wtName" name="wtName" maxlength="30" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">状态</label>
+								<div class="col-xs-8">
+									<select  class="form-control required" id="status" name="status"  data-dictCode="1001" data-type="oemDict">
+								</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2"></label>
+								<div class="col-xs-8">
+									<input id="wtTypeParm" name="wtTypeParm" type="radio" class="required"
+									data-dictCode="9901" data-type="oemDict" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2">保修类型</label>
+								<div class="col-xs-8">
+									<input id="wtType" name="wtType" type="radio" class="required"
+									data-dictCode="8031" data-type="oemDict" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-xs-2">排他规则</label>
+							<div class="col-xs-8">
+								<label class="radio-inline">
+									<input type="checkbox" id="isOptLock" name="isOptLock" data-isinit="true" value="10041001"><span>操作代码排他</span>
+								</label>
+								<label class="radio-inline">
+									<input type="checkbox" id="isPtLock" name="isPtLock" data-isinit="true" value="10041001"><span>零部件排他</span>
+								</label>
+							</div>
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/warrantyTypeNotAct/addWarrantyType" data-model="vehicle" data-method="POST"
+				data-callBack="true" class="btn blue" data-toggle="confirmation">
+				<i class="fa fa-save"></i>保存
+			</a> <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one("onload.dms",function(event, container) {
+		//新增页面的回调函数
+		$("a[data-callBack='true']", container).on(	"callBack.dms",	function(event, response) {
+			//关闭窗口
+			$("a[data-dismiss='modal']", container).click();
+			//刷新表格
+			$("#warrantyList", getElementContext()).dmsTable().refreshTableWithForm();	
+		});
+		
+		//绑定onchange 事件
+		$("[name='wtType']",container).bindChange(function(obj){
+			var isChecked = $(obj).val();
+			if(isChecked=="80311003"){
+				$("#isOptLock",container).attr("disabled","true");
+				$("#isPtLock",container).attr("disabled","true");
+			}else{
+				$("#isOptLock",container).removeAttr("disabled");
+				$("#isPtLock",container).removeAttr("disabled");
+			}
+		});
+	});
+	
+</script>

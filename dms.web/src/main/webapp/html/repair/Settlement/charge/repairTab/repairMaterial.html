@@ -1,0 +1,93 @@
+<div class="dms-edit ajaxrest" 
+	data-model="manage">
+	<!-- BEGIN FORM-->
+	<form class="form-horizontal">
+		<div class="panel panel-default table-panel">
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="bRPDtoList">
+				</table>
+				<input type="hidden" id="afterDiscountAmountPart" name="afterDiscountAmountPart" value="0">
+				<input type="hidden" id="zkAmountPart" name="zkAmountPart" value="0">
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		var roId=$("#roId",getElementContext()).val();
+		var discountModeCode=$("#discountModeCode",getElementContext()).val();
+		var calcTotalAmount = function(){ 
+			var tab=$("#bRPDtoList tbody");
+			var rows=$("tr",tab).length;
+			var zkAmount=0;
+			var afterDiscountAmount=0;
+			for(var i=0;i<rows;i++){
+				var partSalesAmount = $("tr:eq("+i+") td:eq(8) input[id^=partSalesAmount]",tab).val();
+				var zkAmountZ = $("tr:eq("+i+") td:eq(10) input[id^=zkAmountZ]",tab).val();
+				var afterDiscountAmountZ = $("tr:eq("+i+") td:eq(11) input[id^=afterDiscountAmount]",tab).val();
+				console.log(partSalesAmount);
+				if(zkAmountZ==""||zkAmountZ==null){
+					zkAmountZ=parseFloat(0);
+				}
+				if(afterDiscountAmountZ==""||afterDiscountAmountZ==null){
+					afterDiscountAmountZ=parseFloat(0);
+				}
+				if(partSalesAmount==""||partSalesAmount==0){
+					labourAmount=parseFloat(0);
+					zkAmountZ=parseFloat(0);
+					afterDiscountAmountZ=parseFloat(0);
+				}
+				zkAmount=parseFloat(zkAmount)+parseFloat(zkAmountZ);
+				afterDiscountAmount=parseFloat(afterDiscountAmount)+parseFloat(afterDiscountAmountZ);
+			}
+			$("#zkAmountPart",container).setDmsValue(zkAmount);
+			$("#afterDiscountAmountPart",container).setDmsValue(afterDiscountAmount);
+			var map={zkAmountPart:zkAmount,afterDiscountAmountPart:afterDiscountAmount};
+			$("div[data-countAmount='true']",getElementContext()).initHtmlContent(map,false);
+		}
+		new Datatable().initLocale({
+			src : "bRPDtoList",
+			container:container,
+			rowID:"RO_PART_ID",
+			sortName : "RO_PART_ID", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+			sortOrder : "asc",
+			columns : [ {field : "CHARGE_PARTITION_NAME",inputField:"chargePartitionCode",inputHiddenFormat : {},title : "收费区分"}, 
+			            {field : "REPAIR_TYPE_NAME",title : "维修分类"}, 
+			            {field : "PART_NO",inputField:"partNo",inputHiddenFormat : {},title : "配件代码"}, 
+			            {field : "PART_NAME",inputField:"partName",inputHiddenFormat : {},title : "配件名称"}, 
+			            {field : "LABOUR_NAME",title : "维修项目"}, 
+			            {field : "PART_SALES_PRICE",inputField:"partSalesPrice",inputHiddenFormat : {},title : "发料单价"}, 
+			            {field : "PART_QUANTITY",inputField:"partQuantity",inputHiddenFormat : {},title : "数量"}, 
+			            {field : "PART_SALES_AMOUNT",inputField:"partSalesAmount",inputHiddenFormat : {},title : "发料金额"}, 
+			            {field : "DISCOUNT",inputField:"discount",title : "折扣率",inputNumberFormat : {decimal : 2,validate:{validateClass:"decimal",validateAttr:'maxPrecision="2"'}}},
+			            {field : "DIS_PART_SALES_AMOUNT",title : "折扣金额",inputField:"zkAmountZ",inputHiddenFormat : {},numberFormat:{decimal : 1,autoValueFormat:{autoValue:"(1-#discount)*#partSalesAmount"}}},
+			            {field : "AFTER_DISCOUNT_AMOUNT",inputField:"afterDiscountAmount",inputHiddenFormat : {},title : "应收金额",numberFormat:{decimal : 1,autoValueFormat:{autoValue:"#discount*#partSalesAmount",afterEvent:calcTotalAmount}}}
+			         ],
+			         onLoadSuccess : function() {
+			        	 dmsCommon.ajaxRestRequest({
+				 				url : dmsCommon.getDmsPath()["repair"] + "/basedata/discountmodes/minDiscountMode/dict",
+				 				type : 'GET',
+				 				sucessCallBack : function(data) {
+				 					var repairPartNum = $("#bRPDtoList",getElementContext()).dmsTable().getTableRows();
+				 					for(var i=0;i<repairPartNum;i++){
+				 						$("#bRPDtoList tbody tr:eq("+i+") td:eq(9) input[id^=discount]",container).attr("min",parseFloat(data.REPAIR_PART_DISCOUNT).toFixed(2));
+				 					}
+				 				}
+				 			});
+				     		var balanceId=$("#balanceId",getElementContext()).val();
+				        	 	if(balanceId!=""){
+				        	 		$("#bRPDtoList",container).setContainerReadOnly();
+				      		   }
+							}
+		});
+		if(roId!=""){
+			$("#bRPDtoList",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["repair"] + "/balance/balanceAccounts/queryRoPart/"+roId);
+			calcTotalAmount();
+			$("#oldRoId",getElementContext()).setDmsValue(roId);
+		};
+	});
+
+</script>

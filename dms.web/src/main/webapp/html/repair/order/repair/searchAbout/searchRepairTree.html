@@ -1,0 +1,53 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">维修项目选择</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div id="projectTree"></div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a  class="btn blue" data-onclickEvent="true"> <i class="fa fa-save"></i>选择</a>
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	var code = "";
+	var text = "";
+	
+	//加载树形结构
+	$("#projectTree",container).initTree({
+		url:dmsCommon.getDmsPath()["repair"] + "/basedata/repairProject/findRepairProjectTree",
+		dataFunc:$('.form-horizontal').serialize(),
+		loadedFunc: function(e,data){
+			 var index = $("#LABOUR_CODE_L",getParentModal(container)).val();
+			 var inst = data.instance;  
+			 inst.select_node(index); 
+		}
+	});
+	
+	//树节点选择
+	$('#projectTree',container).on('changed.jstree', function (e, data) {
+		var content = data.node.text;
+		var node = data.changed.selected;
+		if(node!=""){
+			text = content;
+			code = node;
+		} 
+	});
+	
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event,response){
+		$("#LABOUR_CODE_L",getElementContext()).val(code);
+		$("#LABOUR_CODE",getElementContext()).val(text);
+		$("a[data-dismiss='modal']",container).click();
+	});
+});
+</script>

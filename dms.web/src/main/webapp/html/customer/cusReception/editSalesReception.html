@@ -1,0 +1,369 @@
+<div class="dms-edit ajaxrest" 
+    data-url="/customerManage/visitingRegister/{[ITEM_ID]}" data-model="customer">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">展厅接待修改</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">展厅接待信息</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row" data-tableSelect="true">
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" >
+								<label class="control-label col-xs-4">客户名称</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+									   <input type="hidden" class="form-control" id="customerNo"
+											name="customerNo" data-fieldName="CUSTOMER_NO">
+										<input type="text" class="form-control required" id="customerName"
+											name="customerName" data-fieldName="CUSTOMER_NAME" maxlength="120">
+										 <span class="input-group-btn">
+											<button class="btn default btn-sm" type="button"
+												data-url="customer/potentialcus/visitReception/searchCusInfoChoice.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+	                                            			<i class="fa fa-close"></i>
+	                                    				</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">性别</label>
+								<div class="col-xs-8">
+									<select id="gender" name="gender"
+										class="bs-select form-control" data-dictCode="1006" data-fieldName="GENDER"
+										 data-existsDefault="false" >
+									</select>
+								</div>
+							</div>
+						</div>
+                        	<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销售顾问</label>
+								<div class="col-xs-8">
+								 <select id="soldBy" name="soldBy"
+									class="bs-select form-control"
+									data-url="/basedata/employees/-1/salesConsultant"
+									data-model="manage" data-labelValue="EMPLOYEE_NO" data-fieldName="SOLD_BY" 
+									data-lableDesc="EMPLOYEE_NAME" >
+								</select>
+								</div>
+							</div>
+						</div>
+					
+                       <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系人</label>
+								<div class="col-xs-8">
+									<select id="contactorName" name="contactorName" data-fieldName="CS"
+									    class="bs-select form-control " disabled="disabled"
+										data-url="/customerManage/visitingRecord/contactor"
+										data-model="customer" data-labelValue="CUSTOMER_NO"
+										data-lableDesc="CONTACTOR_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系电话</label>
+								<div class="col-xs-8">
+									<input id="contactorPhone" name="contactorPhone" type="text" class="form-control" maxlength="15" data-fieldName="CONTACTOR_PHONE"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系手机</label>
+								<div class="col-xs-8">
+									<input id="contactorMobile" name="contactorMobile" type="text" class="form-control" maxlength="15" data-fieldName="CONTACTOR_MOBILE"/>
+								</div>
+							</div>
+						</div>
+					
+
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">来访方式</label>
+								<div class="col-xs-8">
+									<select id="visitType" name="visitType"
+										class="bs-select form-control" data-existsDefault="false" data-dictCode="1309" data-fieldName="VISIT_TYPE"
+										>
+									</select>
+								</div>
+							</div>
+						</div>
+							<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">来访人数</label>
+								<div class="col-xs-8">
+									<input id="visitor" name="visitor"
+										class="form-control required" maxlength="30" type="text" data-fieldName="VISITOR" />
+								</div>
+							</div>
+						</div>
+
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4"> 来访时间</label>
+								<div class="col-xs-8">
+									<div class="input-group date datetime" data-defaultNow="true" data-dateEndDate="now" 
+									data-pickerPosition="top-left">
+					                    <input id="visitTime" name="visitTime" class="form-control" disabled type="text" data-fieldName="VISIT_TIME" >
+					                    <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+					                    <span class="input-group-addon"><span class="fa fa-times"></span></span>
+					                </div>
+								</div>
+							</div>
+						</div>
+						
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4"> 离店时间</label>
+								<div class="col-xs-8">
+									<div class="input-group date datetime" data-defaultNow="true" data-dateEndDate="now" 
+									data-pickerPosition="top-left"  >
+					                    <input id="leaveTime" name="leaveTime" class="form-control" type="text" data-fieldName="LEAVE_TIME" >
+					                    <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+					                    <span class="input-group-addon"><span class="fa fa-times"></span></span>
+					                </div>
+								</div>
+							</div>
+						</div>
+						
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">客户来源</label>
+								<div class="col-xs-8">
+									<select id="cusSource" name="cusSource"
+										class="bs-select form-control" data-existsDefault="false" data-dictCode="1311" data-fieldName="CUS_SOURCE"
+										>
+									</select>
+								</div>
+							</div>
+						</div>
+							<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">信息渠道</label>
+								<div class="col-xs-8">
+									<select id="mediaType" name="mediaType"
+										class="bs-select form-control" data-existsDefault="false" data-dictCode="1298" data-fieldName="MEDIA_TYPE"
+										>
+									</select>
+								</div>
+							</div>
+						</div>
+							<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否首次</label>
+								<div class="col-xs-8">
+									<select id="isFirstVisit" name="isFirstVisit"
+										class="bs-select form-control" data-existsDefault="false" data-dictCode="1278" data-fieldName="IS_FIRST_VISIT"
+										>
+									</select>
+								</div>
+							</div>
+						</div>
+							<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否有效</label>
+								<div class="col-xs-8">
+									<select id="isValid" name="isValid"
+										class="bs-select form-control" data-existsDefault="false" data-dictCode="1278" data-fieldName="IS_VALID"
+										>
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-12 col-md-8">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2">备注</label>
+								<div class="col-xs-8 col-sm-10 col-md-10">
+								<textarea name="remark" class="form-control" id="remark" rows="3" cols="" maxlength="500" data-fieldName="REMARK"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a data-url="/customerManage/visitingRegister/{[ITEM_ID]}" data-model="customer" data-method="PUT"
+				data-callBack="true" class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> <a
+				data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		$("#intentList",getElementContext()).dmsTable().appendBlankRow();
+	});
+	var visitindex=$("#visitType>option[value='15181003']",container).index(); 
+	var visittext=$("#visitType>option[value='15181003']",container).text();
+	//来访方式事件
+	$("#visitType",container).bindChange(function(obj){
+		var visitValue =$(obj).selectpicker('val');
+	    var mobileValue=$("#mobile",container).val();
+
+	   if(visitValue=='15181001'){
+			$("#cusSource",container).selectpicker('val','15121005');	
+		}
+		else if(visitValue=='15181002'){
+			//来访方式为来店或邀约时，手机号必填 //设置必填
+			$("#cusSource",container).selectpicker('val','15121006');	
+			
+		}
+		//邀约时不可编辑  手机号必填(设置必填)
+		else if(visitValue=='15181003'){
+			$(obj).attr("disabled","disabled");
+			
+		}
+	   if($.trim(mobileValue)&&$("#mobile",container).validateElement()){
+			setisarrive(mobileValue,visitValue);
+		}
+	   
+		if(visitValue!='15181003'){
+			$("li[data-original-index='"+visitindex+"']",container).find("span:contains("+visittext+")").parents("li").attr("class","disabled");
+		}
+		
+		//邀约时不可编辑  手机号必填(设置必填)
+		if(visitValue=='15181003'||visitValue=='15181002'){
+			$("#mobile",container).addClass("required");
+		}else{
+			$("#mobile",container).removeClass("required");
+
+		}
+		
+	});
+	//客户来源事件
+	$("#cusSource",container).bindChange(function(obj){
+		var visitTypevalue=$("#visitType",container).selectpicker('val');
+		var objValue =$(obj).find("option:selected").val();
+
+		if(visitTypevalue=='15181003') return ;
+		//来访为邀约不执行下面的
+		
+		if(objValue=='15121005'){
+			$("#visitType",container).selectpicker('val','15181001');	
+		}
+		
+		else if(objValue=='15121006'){
+			$("#visitType",container).selectpicker('val','15181002');	
+		}
+		
+		 $("li[data-original-index='"+visitindex+"']",container).find("span:contains("+visittext+")").parents("li").attr("class","disabled");
+
+	});
+	$("#mobile",container).bindChange(function(obj){
+ 		var mobileValue=$(obj).val();
+		var visitTypevalue=$("#visitType",container).selectpicker('val');
+		
+		if(!$.trim(mobileValue)){
+			$("#isFirstArrive",container).selectpicker('val','10041002');
+			$("#isSecondArrive",container).selectpicker('val','10041002');
+		}
+		else if($.trim(visitTypevalue)&&$("#mobile",container).validateElement()){
+			setisarrive(mobileValue,visitTypevalue);
+		}
+	}); 
+	$("button[data-onclickEvent1='true']",container).on("dms.click",function(event){
+		var mobile=$("#mobile",container).val();
+		if(!$.trim(mobile)&&!($("#mobile",container).validateElement()))  return;
+		checkoutMobile(mobile);
+		
+
+	});
+	//认默来访方式(邀约)不可选	
+	+function(){
+		 $("li[data-original-index='"+visitindex+"']",container).find("span:contains("+visittext+")").parents("li").attr("class","disabled");
+	}();
+	 var setisarrive=function(mobileValue,visitTypevalue){
+			dmsCommon.ajaxRestRequest({
+					url : dmsCommon.getDmsPath()["customer"] + "/customerManage/visitingRecord/visits/"+mobileValue+"/{[ITEM_ID]}",
+					type : 'GET',
+					sucessCallBack : function(data) {
+							if(visitTypevalue=='15181002'||visitTypevalue=='15181003'){
+								$("#isFirstArrive",container).selectpicker('val','10041001');
+								if(data){
+									$("#isSecondArrive",container).selectpicker('val','10041001');
+								}
+							}else{
+								if(data){
+									$("#isFirstArrive",container).selectpicker('val','10041001');
+									$("#isSecondArrive",container).selectpicker('val','10041002');
+								}else{
+									$("#isFirstArrive",container).selectpicker('val','10041002');
+									$("#isSecondArrive",container).selectpicker('val','10041002');
+								}
+							}
+					}
+				});
+	    }
+	 var checkoutMobile=function(mobileValue){
+		  var cusno=$("#customerNo",container).val();
+		  if($.trim(cusno)==''||$.trim(cusno)==null){
+			  cusno="\"";
+		  }
+			dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["customer"] + "/customerManage/visitingRecord/checkoutMobile/"+mobileValue+"/"+cusno,
+				type : 'GET',
+				sucessCallBack : function(data) {
+					if(data){
+						dmsCommon.tip({status:"warning",msg:"该手机号已存在!"});//总共的状态类型：info、success、error、warning	
+					}
+				}
+			});
+	 }
+		$("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){
+		   var isStepForwordGreeting=$("#isStepForwordGreeting3",container).val();
+		   var isLeavingFarewell=$("#isLeavingFarewell3",container).val();
+		   var isRecording=$("#isRecording3",container).val();
+		   
+		   if(!isStringNull(isStepForwordGreeting)&&isStepForwordGreeting=='12781001'){
+			   $("[name = isStepForwordGreeting]:checkbox",container).prop("checked",true);
+		   }
+		   if(!isStringNull(isLeavingFarewell)&&isLeavingFarewell=='12781001'){
+			   $("[name = isLeavingFarewell]:checkbox",container).prop("checked",true);
+		   }
+		   if(!isStringNull(isRecording)&&isRecording=='12781001'){
+			   $("[name = isRecording]:checkbox",container).prop("checked",true);
+		   }
+		});
+});
+
+</script>

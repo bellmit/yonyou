@@ -1,0 +1,127 @@
+<div class="dms-add">
+<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">客户选择</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">客户代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="customerNo"
+									name="customerNo">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">客户名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="customerName" name="customerName">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">OEM下发</label>
+							<div class="col-xs-8 ">
+								<select id="oemTag" name="oemTag"
+										class="bs-select form-control" data-dictCode="1278" >
+									</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">客户类别</label>
+							<div class="col-xs-8">
+								<select id="customerType" name="customerType"
+									data-url="/basedata/businessCustomer/customersdict" data-model="customer" 
+									data-lableDesc="CUSTOMER_TYPE_NAME" data-labelValue="CUSTOMER_TYPE_CODE"
+									class="bs-select form-control" 
+									data-value="">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row ">
+						<div class="col-xs-12 ">
+							<div class="modal-footer center-block">
+							<div class="query-btn">
+								<a href="javascript:;" class="btn blue"> <i
+									class="fa fa-search"></i>查询</a> 
+								<a href="javascript:;" class="btn blue"><i
+									class="fa fa-undo"></i>重置</a>
+							</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">客户信息</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="customerList">
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-onclickEvent="true"><i class="fa fa-save"></i>确定</a>
+			<a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消</a>
+		</div>
+</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+ 	new Datatable().initPagination({
+		src : "customerList",
+		container:container,
+		url : dmsCommon.getDmsPath()["part"] + "/basedata/accountPayableManage/queryCustomer",
+		sortName : "CUSTOMER_CODE",
+		sortOrder : "desc",
+		autoHeight:false,
+		isQueryFirst:true,
+		undefinedText : "",
+		onDblClickRow:function(rowData,trElement){
+			var selectRow = $("#customerList",container).dmsTable().getSelections();
+       	 	$("#customerCode",getElementContext()).val(selectRow[0].CUSTOMER_CODE)
+       	 	$("#customerName",getElementContext()).val(selectRow[0].CUSTOMER_NAME)
+       	 	//关闭窗口
+       		$("a[data-dismiss='modal']",container).click();
+		},	
+		columns : [ 
+		            {radio:true,sortable : false},
+		            {field : "CUSTOMER_CODE",title : "客户代码"},
+					{field : "CUSTOMER_NAME",title : "客户名称"}, 
+					{field : "CUSTOMER_SPELL",title : "客户拼音"},
+					{field : "CUSTOMER_TYPE_CODE",title : "客户类别"}, 
+					{field : "PRICE_ADD_RATE",title : "加价率"},
+					{field : "LEAD_TIME",title : "订货周期"}, 
+					{field : "OEM_TAG",title : "OEN标志",codeFormat:{type : "dict",codeType : "1278"}},
+					{field : "DEALER_NAME",title : "经销商"}
+		         ]
+	});
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		var selectRow = $("#customerList",container).dmsTable().getSelections();
+		$("#customerCode",getElementContext()).val(selectRow[0].CUSTOMER_CODE)
+	 	$("#customerName",getElementContext()).val(selectRow[0].CUSTOMER_NAME)
+		$("div[data-tableCustomerSelect='true']",getElementContext()).initHtmlContent(selectRow);
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+	});
+	
+});
+</script>

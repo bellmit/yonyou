@@ -1,0 +1,212 @@
+<div class="dms-edit ajaxrest"
+	data-url="/basedata/vsstock/{[VS_STOCK_ID]}"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">修改配置</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">		
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">车辆信息</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row">	
+								
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">VIN</label>
+								<div class="col-xs-8">
+									<input id="vin" name="vin" class="form-control" type="text" data-fieldName="VIN" disabled/>
+								</div>
+							</div>
+						</div>
+							
+						
+							<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">发动机号</label>
+								<div class="col-xs-8">
+									<input id="productCode" name="engineNO" class="form-control" type="text" data-fieldName="ENGINE_NO" disabled/>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">原配置信息信息</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down" ></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+				<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">产品代码</label>
+								<div class="col-xs-8">
+									<input  class="form-control" type="text" data-fieldName="PRODUCT_CODE" disabled/>
+								</div>
+							</div>
+						</div>
+							<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">产品名称</label>
+								<div class="col-xs-8">
+									<input  class="form-control" type="text" data-fieldName="PRODUCT_NAME" disabled/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">颜色</label>
+								<div class="col-xs-8">
+									<input class="form-control" type="text" data-fieldName="COLOR_NAME" disabled/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌</label>
+								<div class="col-xs-8">
+									<input  class="form-control" type="text" data-fieldName="BRAND_NAME" disabled/>
+								</div>
+							</div>
+						</div>
+							<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系</label>
+								<div class="col-xs-8">
+									<input  class="form-control" type="text" data-fieldName="SERIES_NAME" disabled/>
+								</div>
+							</div>
+						</div>
+							<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车型</label>
+								<div class="col-xs-8">
+									<input  class="form-control" type="text" data-fieldName="MODEL_NAME" disabled/>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">新配置信息</div>
+					
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+						<div class="row">
+				
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">产品代码</label>
+							<div class="col-xs-8 ">
+								<div class="input-group">
+									<input type="text" class="form-control required"
+										id="productCodeConfi" name="productCode"
+										data-fieldName="PRODUCT_CODE" readonly /> <input
+										type="hidden" class="form-control" id="productIdConfi"
+										name="productId" data-fieldName="PRODUCT_ID" /> <span
+										class="input-group-btn">
+										<button class="btn default btn-sm" type="button"
+											data-url="vehicle/basedata/InventoryMaintenance/selectProduct.html"
+											data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+							<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">产品名称</label>
+								<div class="col-xs-8">
+									<input  class="form-control" type="text" id="productNameConfi" data-fieldName="PRODUCT_NAME" disabled/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">颜色</label>
+								<div class="col-xs-8">
+								<input class="form-control" type="hidden" name="color" id="colorIdConfi">
+									<input class="form-control" type="text" id="colorNameConfi"  data-fieldName="COLOR_NAME" disabled/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌</label>
+								<div class="col-xs-8">
+								    <input class="form-control" type="hidden" name="brandCode" id="brandCodeConfi">
+									<input  class="form-control" type="text" id="brandNameConfi" data-fieldName="BRAND_NAME" disabled/>
+								</div>
+							</div>
+						</div>
+							<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系</label>
+								<div class="col-xs-8">
+								    <input class="form-control" type="hidden" name="seriesCode" id="seriesCodeConfi">
+									<input  class="form-control" type="text" id="seriesNameConfi" data-fieldName="SERIES_NAME" disabled/>
+								</div>
+							</div>
+						</div>
+							<div class="col-xs-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车型</label>
+								<div class="col-xs-8">
+								    <input class="form-control" type="hidden" name="modelCode" id="modelCodeConfi" name="modelCode">
+									<input  class="form-control" type="text" id="modelNameConfi" data-fieldName="MODEL_NAME" disabled/>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a data-url="/basedata/vsstock/editConfiguration/{[VS_STOCK_ID]}"
+				data-model="vehicle" data-method="PUT" data-callBack="true"
+				data-validateUrl="/basedata/vsstock/editConfiguration/{id}" data-validateMethod="PUT" data-validateModel="vehicle"
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>保存</a> <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+
+$(document).one("onload.dms",function(event,container){
+	
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#pdiList",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+}); 
+</script>

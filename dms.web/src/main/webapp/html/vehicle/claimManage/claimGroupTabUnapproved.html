@@ -1,0 +1,170 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+	
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" data-tableSelect="true">
+						<div class="form-group">
+								<label class="control-label col-xs-4">经销商代码</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+									<input id="dealerCode" readonly
+										name="dealerCode" class="form-control" type="text"
+										data-fieldName="dealer_code" /> <span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="manage/basedata/dealers/searchAfterDealers.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+					</div>
+				
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">VIN</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input type="text" class="form-control" id="vin" name="vin">
+									
+                                 </div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">索赔单号</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input type="text" class="form-control" id="claimNo" name="claimNo">
+									
+                                 </div>
+							</div>
+						</div>
+					</div>
+
+						
+				
+				
+				
+						
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">工单号</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input type="text" class="form-control" id="repairNo" name="repairNo">
+									
+                                 </div>
+							</div>
+						</div>
+					</div>
+																		
+				<div class="col-xs-8 col-sm-6 col-md-4 col-lg-6">
+					<div class="form-group">
+						<label class="control-label col-xs-4 col-sm-2">索赔申请日期</label>
+						<div class="col-xs-8 col-sm-10">
+							 <div class="input-group input-daterange" data-opens="right">
+	                             <input type="text" class="form-control" readonly  id="claimStartDate" name="claimStartDate">
+	                             <span class="input-group-addon">至</span>
+	                             <input type="text" class="form-control" readonly  id="claimEndDate" name="claimEndDate">
+	                             
+	                        </div>
+						</div>
+					</div>
+				</div>					
+					
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >信息列表</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">							
+						
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="unapprovedList"></table>
+		</div>
+	</div>
+	
+</div>
+<script type="text/javascript">
+
+    $(document).one("onload.dms",function(event,container){
+    	new Datatable().initPagination({
+			src : "unapprovedList",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/claimGroupApproval/query/1",
+			rowID : "CLAIM_ID",
+			sortName : "CLAIM_NO", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+			sortOrder : "desc",
+			isQueryFirst:false,
+			columns : [ 
+			    {field : "CLAIM_ID",title : "操作",inputField:"claimId", operateFormat : [	
+			           {type:"del", title:"明细下载", url:"/claimGroupApproval/download/{[CLAIM_ID]}", model:"vehicle", method:"downLoad",callBack:function(response){
+			                 // $("#unapprovedList",container).dmsTable().refreshTableWithForm();
+			           },isShow:function(value, row, index){                   	   	  				
+			             return true;               	   
+			           }},                                               
+                       {type:"edit", title:"审核", url:"vehicle/claimManage/claimGroupApproval.html", openWidth:"modal-lg",isShow:function(value, row, index){                	   
+                    		   return true;          	                	
+                       }},
+                       {type:"detail", title:"打印索赔单", url:"vehicle/claimManage/claimGroupApproval.html", openWidth:"modal-lg",isShow:function(value, row, index){                	   
+                		   return true;          	                	
+                   }}
+                   ]
+                },  
+			    {field : "DEALER_CODE",title : "经销商代码"},
+			    {field : "DEALER_NAME",title : "经销商名称"},
+			    {field : "CLAIM_NO",title : "索赔单号"},
+			    {field : "RO_NO",title : "维修工单号"},
+			    {field : "VIN",title : "VIN"},
+			    {field : "CLAIM_TYPE",title : "索赔类型"},
+			    {field : "APPLY_DATE",title : "索赔申请日期"},
+			    {field : "SUBMIT_COUNT",title : "提报次数"},
+			    {field : "STATUS",title : "申请状态",codeFormat : {type:"oemDict",codeType:"4008"}},
+			    {field : "BIG_AREA_APPROVAL_STATUS",title : "大区审批状态",codeFormat : {type:"oemDict",codeType:"9002"}},
+			    {field : "BIG_AREA_APPROVAL_DATE",title : "大区审批日期"}
+			],
+			onLoadSuccess : function() {
+				$("#unapprovedList",container).dmsTable().bootstrapTable('resetView');
+			}
+		});
+    	      	
+    	//绑定查询按钮回调
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+// 			console.log("into callBack");
+		});
+    	
+    });
+		
+
+
+</script>

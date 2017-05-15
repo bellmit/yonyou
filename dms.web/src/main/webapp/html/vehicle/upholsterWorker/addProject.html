@@ -1,0 +1,274 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">装潢项目添加</div>
+			 <div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			  </div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">订单信息</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i
+							class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row" data-tableSelect="true">
+						 <div data-tableVINSelect="true" data-tableProductSelect="true">
+					    <!--    
+					    <div class="col-xs-12 col-sm-6 col-md-4" hidden="hidden">
+							<div class="form-group"> 
+								<label class="control-label col-xs-4">隐藏字段</label>
+								<div class="col-xs-8">
+									<input id="bzc" name="bzc" type="text" class="form-control" data-fieldName="BZC">
+								</div>
+							</div>
+						</div> 
+						-->
+						
+						
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					      <div class="form-group">
+								<label class="control-label col-xs-4">派工技师</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input type="hidden" name='soNo' value='{[SO_NO]}' /> 
+										<input type="hidden" name='itemId' value='{[ITEM_ID]}' /> 
+										<input id="employeeName" name="employeeName" onMouseMove="this.title=this.value" disabled
+											class="form-control" type="text" data-fieldName="EMPLOYEE_NAME"/> 
+										<span class="input-group-btn">
+											<button class="btn default btn-sm" type="button"
+												data-url="vehicle/upholsterWorker/selectTechnician.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-sitemap"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+					  </div>
+					  
+				   <div class="col-xs-12 col-sm-6 col-md-4  col-lg-3">
+						<div class="form-group">
+							<div class="col-xs-8 ">
+								<input id="employeeNo" name="employeeNo" data-fieldName="EMPLOYEE_NO" disabled
+									class="form-control" type="text" />
+							</div>
+						</div>
+				   </div>
+				      
+				      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">工种名称</label>
+							<div class="col-xs-8">
+								<select
+									class="bs-select form-control" id = "workTypeCode" name="workTypeCode"
+									data-url="/stockManage/UpholsterWorker/WorkType"
+									data-model="vehicle" data-fieldName="WORKER_TYPE_CODE"  data-labelValue="WORKER_TYPE_CODE" 
+									data-lableDesc="WORKER_TYPE_NAME" >
+								</select>
+							</div>
+						</div>
+				     </div>
+				     
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">开工时间</label>
+							<div class="col-xs-8">
+								<div class="input-group date date-picker">
+									<input id="roCreateDate" name="roCreateDate" data-fieldName="ITEM_START_TIME"  
+										class="form-control"
+										type="text" value="" /> <span class="input-group-btn" >
+										<button class="btn default date-set" type="button" disabled="disabled" >
+											<i class="fa fa-calendar"></i>
+										</button>
+	                                            <button class="btn default date-reset" type="button" >
+	                                                <i class="fa fa-times"></i>
+	                                            </button>
+									</span>
+								</div>
+							</div>
+						</div>
+					 </div>
+				     
+				     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">派工工位</label>
+							<div class="col-xs-8">
+								<select
+									class="bs-select form-control" id = "positionCode" name="positionCode"
+									data-url="/stockManage/UpholsterWorker/LabourPostion"
+									data-model="vehicle" data-fieldName="LABOUR_POSITION_CODE"  data-labelValue="LABOUR_POSITION_CODE" 
+									data-lableDesc="LABOUR_POSITION_NAME" >
+								</select>
+							</div>
+						</div>
+				     </div>
+				     
+				  
+				     
+				   <div class="col-xs-12 col-sm-6 col-md-4  col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">分工工时</label>
+							<div class="col-xs-8 ">
+								<input id="labourHour" name="labourHour" data-fieldName="ASSIGN_LABOUR_HOUR" disabled
+									class="form-control" type="text" />
+							</div>
+						</div>
+				   </div>
+				   
+				      
+				     
+				   <div class="col-xs-12 col-sm-6 col-md-4  col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">工时系数</label>
+							<div class="col-xs-8 ">
+								<input id="labourFactor" name="labourFactor" data-fieldName="LABOUR_FACTOR" disabled
+									class="form-control" type="text" />
+							</div>
+						</div>
+				   </div>
+				      
+				   <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">预计完成日期</label>
+						<div class="col-xs-8">
+							<div class="input-group date date-picker">
+								<input id="roCreateDate1" name="roCreateDate1" data-fieldName="ESTIMATE_END_TIME" 
+									class="form-control"
+									type="text" value="" /> <span class="input-group-btn" >
+									<button class="btn default date-set" type="button" disabled="disabled" >
+										<i class="fa fa-calendar"></i>
+									</button>
+                                            <button class="btn default date-reset" type="button" >
+                                                <i class="fa fa-times"></i>
+                                            </button>
+								</span>
+							</div>
+						</div>
+					</div>
+				 </div>
+				 
+				 
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">完工时间</label>
+						<div class="col-xs-8">
+							<div class="input-group date date-picker" data-date-format="YYYY-MM-DD">
+								<input id="roCreateDate2" name="roCreateDate2" data-fieldName="ITEM_END_TIME" 
+									class="form-control"
+									type="text" value="" /> 
+									<span class="input-group-btn" >
+										<button class="btn default date-set" type="button" disabled="disabled" >
+											<i class="fa fa-calendar"></i>
+										</button>
+		                                           <button class="btn default date-reset" type="button" >
+		                                               <i class="fa fa-times"></i>
+		                                           </button>
+									</span>
+							</div>
+						</div>
+					</div>
+				 </div>
+				
+			    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">是否完工</label>
+						<div class="col-xs-8">
+							<select class="bs-select form-control" name="finishedTag"
+								id="FINISHED_TAG" data-dictCode="1278"  >
+							</select>
+						</div>
+					</div>
+				</div>
+				 
+				</div>
+				 
+			</div>
+			
+			
+				 
+				  <div class="col-xs-12" >
+							        <div class="form-group" >
+							        <label class="control-label col-xs-4">隐藏</label>
+									<div class="col-xs-8">
+									<input  name="soNo" id="soNo" data-fieldName="SO_NO" disabled="disabled"
+									class="form-control" type="text" max="99"/>
+									</div>
+								     </div>
+			     </div>
+			     
+				  <div class="col-xs-12" >
+							        <div class="form-group" >
+							        <label class="control-label col-xs-4">隐藏</label>
+									<div class="col-xs-8">
+									<input  name="itemId" id="itemId" data-fieldName="ITEM_ID" disabled="disabled"
+									class="form-control" type="text" max="99"/>
+									</div>
+								     </div>
+			     </div>
+		</div>
+	</div>
+
+	
+
+		
+		<div class="modal-footer center-block">
+			<a data-url="" data-model="vehicle" 
+				data-method="POST" data-callBack="true" class="btn blue" id="tt" data-beforeRequest="true"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> <a
+				data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>       
+
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	 var id='';
+	 var id1='';
+	 var selectRow = $("#dms_table",getElementContext()).dmsTable().getSelections();
+   	  $(selectRow).each(function(index){
+	   id=selectRow[index].SO_NO;
+	   id1=selectRow[index].ITEM_ID;
+ 	  });
+	  	
+	  $("#soNo").val(id);
+	  $("#itemId").val(id1);
+	
+     
+	
+	
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("a[data-goback='page']",container).click();
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+	/* 	//刷新表格
+		$("#veInspectList",getElementContext()).dmsTable().refreshTableWithForm(); */
+	});
+	
+	//为保存添加url
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+		var soNo= $("#soNo").val();
+		var itemId=$("#itemId",container).val();
+		
+		returnResult.status = true;
+	    $("#tt",container).attr("data-url","/stockManage/UpholsterWorker/addProject/"+itemId+"/project/"+soNo+"  ");
+	    //刷新表格
+	    $("#veInspectList1",getElementContext()).dmsTable().refreshTableWithForm();
+	    $("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	    //刷新页面
+	    //dmsCommon.refreshPageByUrl("vehicle/upholsterWorker/subitemDecoration.html",container); 
+	 });	
+});		
+</script>

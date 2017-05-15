@@ -1,0 +1,156 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">品牌</label>
+							<div class="col-xs-8">
+								<select id="brand" class="bs-select form-control"
+									name="brandId" data-url="/basedata/brandsdict2"
+									data-model="manage" data-labelValue="BRAND_CODE"
+									data-lableDesc="BRAND_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车系</label>
+							<div class="col-xs-8">
+								<select id="series" parent="brand"
+									class="bs-select form-control" name="seriesId"
+									data-url="/basedata/brandsdict/{[brand]}/seriessdict"
+									data-model="manage" data-labelValue="SERIES_CODE"
+									data-lableDesc="SERIES_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车型名称</label>
+							<div class="col-xs-8">
+								<select id="modelcode" parent="series"
+									class="bs-select form-control" name="modelName"
+									data-url="/basedata/brandsdict/{[brand]}/seriessdict/{[series]}/modelsdict"
+									data-model="manage" data-labelValue="MODEL_CODE"
+									data-lableDesc="MODEL_NAME" data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">车型代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="modelCode"
+									name="modelCode">
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否OEM</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" name="OemTag" id="OemTag"
+									data-dictCode="1278" data-existsDefault="true">
+								</select>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否有效</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" name="IsValid" id="IsValid"
+									data-dictCode="1278" data-existsDefault="true">
+								</select>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"> <i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">车型列表</div>
+			<!-- <div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+					<a data-url="manage/basedata/brandCarsModels/addModel.html"
+						class="btn btn-outline" data-toggle="modal" data-width="modal-sm">
+						<i class="fa fa-plus-square"></i> 新增
+					</a> 
+					<a data-url="/basedata/models/export/excel" data-model="manage"
+						data-method="downLoad" data-toggle="confirmation"
+						class="btn btn-outline "><i class="fa fa-download"></i>导出</a>
+				</div>
+			</div> -->
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive" id="dms_table3"></table>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	   new Datatable().initPagination({
+			src : "dms_table3",
+			url :dmsCommon.getDmsPath()["manage"] + "/basedata/models",
+			rowID : "MODEL_CODE",
+			sortName : "MODEL_CODE", 
+			sortOrder : "asc",
+			autoHeight : false,
+			undefinedText : "",
+			columns:[
+			            {field : "MODEL_CODE",title : "操作",operateFormat : [
+			            {type:"edit",url:"manage/basedata/brandCarsModels/editModel.html",openWidth:"modal-lg",doubleClick:true,isShow:function(value, row, index){
+		                      if(row.OEM_TAG=='12781002'){
+	                    		   return true;
+	                    	   }else{
+	                    		   return false;
+	                    	   } 
+	                       }}			           
+			             ]
+			            }, 
+			            {field : "IVS",title : "IVS",visible : false},
+						{field:"BRAND_NAME",title:"品牌"},
+						{field:"SERIES_NAME",title:"车系"},
+						{field:"MODEL_CODE",title:"车型代码"},
+						{field:"MODEL_NAME",title:"车型名称"},
+						{field:"LABOUR_PRICE",title:"工时单价"},
+						{field:"MODEL_LABOUR_NAME",title:"车型维修项目分组"},
+						{field:"LOCAL_MODEL_CODE",title:"行管车型"},
+						{field:"MODEL_GROUP_NAME",title:"索赔车型组"},
+						{field:"OEM_TAG",title:"是否OEM",codeFormat : {type:"dict",codeType:"1278"}},
+					    {field:"IS_VALID",title:"是否有效",codeFormat : {type:"dict",codeType:"1278"}}
+			    	  ]
+			
+		});
+
+		
+		
+	});
+ 
+	
+</script>

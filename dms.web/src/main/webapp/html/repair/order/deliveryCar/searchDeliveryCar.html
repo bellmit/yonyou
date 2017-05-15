@@ -1,0 +1,172 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group" data-tableSelect="true">
+							<label class="control-label col-xs-4">是否交车</label>
+							<div class="col-xs-8 ">
+								<select id="isDeliveryCar" name="isDeliveryCar"
+								    class="bs-select form-control" data-dictCode="1004" data-value="10041002">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group form-group-xs m-b-xs">
+							<label class="control-label col-xs-4">工单编号</label>
+							<div class="col-xs-8 ">
+								<input id="roNo" name="roNo"
+									class="form-control" type="text"/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">开单日期</label>
+							<div class="col-xs-8 col-sm-10">
+								 <div class="input-group input-large input-daterange">
+		                             <input type="text" class="form-control" readonly  name="roFrom">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="roTo">
+		                              <span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+                                         </span>  
+		                        </div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">车牌号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="license" name="license">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">服务顾问</label>
+							<div class="col-xs-8 ">
+								<select class="bs-select form-control" id="serviceAdvisorAss" name="serviceAdvisorAss" 
+								data-url="/basedata/employees/queryServiceAss/dicts" data-model="manage"
+									data-labelValue="employee_no" data-lableDesc="employee_name"></select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">结算日期</label>
+							<div class="col-xs-8 col-sm-10">
+								 <div class="input-group input-large input-daterange" data-defaultDays="7" ><!- -->
+		                             <input type="text" class="form-control" readonly  name="balanceFrom">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="balanceTo"> 
+		                              <span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+                                      </span> 
+		                        </div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >工单信息</div>
+				<div class="pannel-button">
+					<div class="btn-group btn-group-sm">
+					<!-- 	<a data-url="/basedata/partPrice/export/excel" data-model="" data-method="downLoad" data-toggle="confirmation"
+								class="btn btn-outline" ><i class="fa fa-save"></i>交车确认</a>
+						<a data-url="/basedata/partPrice/export/excel" data-model="" data-method="downLoad" data-toggle="confirmation"
+								class="btn btn-outline" ><i class="fa fa-undo"></i>取消交车</a> -->
+						<a href="repair/order/deliveryCar/printDeliveryCar.html" class="btn btn-outline ajaxify" ><i class="fa fa-print"></i>打印出门证</a>
+						<a data-url="/order/repair/export/deliveryCars" data-model="repair" data-method="downLoad" data-toggle="confirmation"
+								class="btn btn-outline" ><i class="fa fa-download"></i>Excel导出</a>
+					</div>
+				</div>
+			</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			container:container,
+			src : "dms_table",
+			url : dmsCommon.getDmsPath()["repair"] + "/order/repair/querys/deliveryCars",
+			rowID : "RO_ID",
+			sortName : "FOR_BALANCE_TIME",
+			sortOrder : "desc",
+			columns : [ //
+				{field : "RO_ID",title : "操作",operateFormat : [
+                       {type:"del",url:"/order/repair/{[RO_ID]}/isDeliveryCar",model:"repair",method:"GET",title:"交车确认",callBack:function(value, row, index){
+                    	   $("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+                       },operateIcon:'<i class="glyphicon-lg fa fa-check-square-o "></i>',
+	                       isShow:function(value, row, index){
+							   if(row.DELIVERY_TAG=="10041001"){
+								   return false;
+	                    	   }else{
+	                    		   return true;
+	                    	   }      
+						   }
+                       },
+                       {type:"del",url:"/order/repair/{[RO_ID]}/noDeliveryCar",model:"repair",method:"GET",callBack:function(value, row, index){
+                    	   $("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+                        },operateIcon:'<i class="glyphicon-lg fa fa-undo"></i>',title:"取消交车",
+                        	 isShow:function(value, row, index){
+  							   if(row.DELIVERY_TAG=="10041002"){
+  								   return false;
+  	                    	   }else{
+  	                    		   return true;
+  	                    	   }      
+  						   }
+                        
+                       },
+                   ]
+                },  
+				{field : "DELIVERY_TAG",title : "是否交车",codeFormat : {type:"dict",codeType:"1004"}},
+			    {field : "DELIVERY_DATE",title : "交车日期",dateFormat:{}}, 
+				{field : "DELIVERY_EMPLOYEE_NAME",title : "交车人"},
+				{field : "PAY_OFF",title : "是否结清",codeFormat : {type:"dict",codeType:"1223"}},
+				{field : "RO_NO",title : "工单号"},
+				{field : "LICENSE",title : "车牌号"},
+				{field : "RO_CREATE_DATE",title : "开单日期",dateFormat:{}},
+				{field : "VIN",title : "VIN"},
+				{field : "EMPLOYEE_NAME",title : "服务顾问"},
+				{field : "DELIVERER",title : "送修人"},
+				{field : "DELIVERER_MOBILE",title : "送修人手机"},
+				{field : "BALANCE_NO",title : "结算单号"},
+				{field : "BALANCE_TIME",title : "结算时间",dateFormat:{}}
+			],
+		});
+    });
+	
+</script>

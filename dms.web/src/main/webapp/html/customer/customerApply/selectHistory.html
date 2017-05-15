@@ -1,0 +1,57 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">历史审核明细</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+			<div class="panel panel-default table-panel">
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_table"></table>
+				</div>
+			</div>
+		</div>
+		</div>
+		<div class="modal-footer center-block">
+			 <a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["customer"] + "/BigCustomer/manage/{[WS_NO]}/history",
+			rowID : "WS_NO",
+			sortName : "WS_NO",
+			sortOrder : "asc",
+			autoHeight:false,
+		
+			columns : [      
+            {field : "WS_NO",title : "报备编号"}, 
+			{field : "AUDITING_DATE",title : "审核日期"}, 
+			{field : "WS_AUDITING_REMARK",title : "审核备注"}, 
+			{field : "WS_STATUS",title : "审核结果", codeFormat : {type:"dict",codeType:"1598"}}		
+    			]
+		});
+		
+		//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			var selectRow = $("#dms_table",container).dmsTable().getFirstSelection();
+		
+			$("div[data-customerSelect='true']",getElementContext()).initHtmlContent(selectRow);		
+			//关闭窗口		
+			
+			$("a[data-dismiss='modal']",container).click();
+		});
+	});
+</script>  

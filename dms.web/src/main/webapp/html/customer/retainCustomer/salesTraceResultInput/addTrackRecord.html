@@ -1,0 +1,117 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">新增跟进记录</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body" data-parentTable="partInfoTable">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">记录信息</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i
+							class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body" data-parentTable="partInfoTable">
+					<div class="row">
+
+						<div class="col-xs-12  ">
+							<div class="form-group">
+								<label class="control-label col-xs-1 ">跟踪日期</label>
+								<div class="col-xs-2 ">
+									<div class="input-group date date-picker"
+										data-orientation="top right" data-defaulttoday="true">
+										<input id="traceLogDate" name="TRACE_LOG_DATE" 
+											class="form-control" type="text" value="" /> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button" >
+												<i class="fa fa-calendar"></i>
+											</button>
+											<button class="btn default date-reset" type="button" >
+												<i class="fa fa-times"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-1">描述</label>
+								<div class="col-xs-11">
+									<textarea id="traceLogDesc" name="TRACE_LOG_DESC"
+										class="form-control" rows="2" maxlength="120" cols=""></textarea>
+
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 " hidden="hidden">
+							<div class="form-group">
+								<label class="control-label col-xs-4">状态</label>
+								<div class="col-xs-8">
+									<input id="updateStatus" name="UPDATE_STATUS" class="form-control " value="A"readonly
+										type="text"  maxlength="120" />
+								</div>
+							</div>
+						</div>
+						
+						<!--/span-->
+
+
+					</div>
+				</div>
+			</div>
+
+
+
+
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-onclickEvent="true" data-validate="true"><i
+				class="fa fa-save"></i>确定</a> <a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				//事件点击
+				$("a[data-onclickEvent='true']", container).on(
+						"dms.click",
+						function(event) {
+							var formJson = $(
+									"div[data-parentTable='partInfoTable']",
+									container).serializeFormJson();
+							$("#dms_table3", getElementContext()).dmsTable()
+									.appendRow(formJson);
+							$("a[data-dismiss='modal']", container).click();
+						$("#dms_table3", getElementContext())
+							.find(
+									"th[data-field='TRACE_TASK_LOG_ID']")
+							.hide();
+					$("#dms_table3", getElementContext())
+							.find(
+									"input[name='TRACE_TASK_LOG_ID']")
+							.parent().hide();
+					$("#dms_table3", getElementContext())
+							.find(
+									"th[data-field='UPDATE_STATUS']")
+							.hide();
+					$("#dms_table3", getElementContext()).find(
+							"input[name='UPDATE_STATUS']")
+							.parent().hide(); 
+						});
+			});
+</script>

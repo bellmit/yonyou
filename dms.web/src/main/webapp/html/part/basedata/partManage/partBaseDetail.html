@@ -1,0 +1,232 @@
+<div class="dms-edit ajaxrest" data-url="/partBaseInfoManage/updateQueryInit/{[ID]}" data-model="part">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件编号</label>
+							<div class="col-xs-8">
+							<input type="hidden" class="form-control" id="modelCodes" name="modelCodes">
+								<input type="text" class="form-control" id="partCode" name="partCode" data-fieldName="PART_NAME" readonly = "readonly">
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件类别</label>
+							<div class="col-xs-8">
+								<select id="partType" name="partType" class="bs-select form-control" data-dictCode="8001" data-type="oemDict" data-fieldName="PART_MDOEL"  disabled>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件属性</label>
+							<div class="col-xs-8">
+								<select id="partProperty" name="partProperty" class="bs-select form-control" data-dictCode="8002" data-type="oemDict" data-fieldName="PART_PROPERTY" disabled>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否可采购</label>
+							<div class="col-xs-8">
+							<select id="isPurchase" name="isPurchase" class="bs-select form-control" data-type="oemDict" data-dictCode="1004"  data-fieldName="IS_PURCHASE" disabled>
+								</select>
+								
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否可销售</label>
+							<div class="col-xs-8">
+							<select id="isSales" name="isSales" class="bs-select form-control" data-type="oemDict" data-dictCode="1004"  data-fieldName="IS_SALES" disabled>
+								</select>
+								
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">DNP价格</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="dnpPrice" name="dnpPrice" data-fieldName="DNP_PRICE"  readonly = "readonly">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-6">保修基准价(不含税)</label>
+							<div class="col-xs-6">
+								<input type="text" class="form-control" id="partPrice" name="partPrice" data-fieldName="PART_PRICE"  readonly = "readonly">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">最小订货量</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="packageNum" name="packageNum" data-fieldName="PACKAGE_NUM" readonly = "readonly">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">计量单位</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="partNuit" name="partNuit" data-fieldName="PART_NUIT" readonly = "readonly">
+							</div>
+						</div>
+					</div>
+					
+					
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否S</label>
+							<div class="col-xs-8">
+								<select id="isMjv" name="isMjv" class="bs-select form-control" data-type="oemDict" data-dictCode="1004" data-fieldName="IS_MJV" disabled>
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否M</label>
+							<div class="col-xs-8">
+								<select id="isMop" name="isMop" class="bs-select form-control" data-type="oemDict" data-dictCode="1004"  data-fieldName="IS_MOP" disabled>
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">提报方式</label>
+							<div class="col-xs-8">
+							<select id="reportType" name="reportType" class="bs-select form-control" data-type="oemDict" data-dictCode="8003"  data-fieldName="REPORT_TYPE" disabled>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否常用件</label>
+							<div class="col-xs-8">
+							<select id="isNormal" name="isNormal" class="bs-select form-control" data-type="oemDict" data-dictCode="1004"  data-fieldName="IS_NORMAL" disabled>
+								</select>
+								
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="col-xs-12 col-sm-6 col-md-4">
+    					
+    					<label class="control-label col-xs-4">备注</label>
+    						
+   						
+        				<div class="col-xs-12 col-sm-6 col-md-4">
+							<textarea id="approvalRemark" name="approvalRemark" cols="70" rows="3" maxlength="750" data-fieldName="remark"></textarea>
+							
+       					 </div>
+    					</div>
+    					
+    				</div>	
+				
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			
+			
+				<a data-goback="page" href="part/basedata/partManage/partBaseInfoQueryDLR.html"
+								class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>	
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="modal-header">
+			<div class="modal-title">替换件信息 </div>
+			<div class="modal-close">
+			
+			
+			</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+	<div class="panel panel-default table-panel">
+			<div class="modal-header">
+			<div class="modal-title">车型信息  </div>
+			<div class="modal-close">
+			
+			
+			</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dmsList"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+ $(document).one("onload.dms",function(event,container){
+	 
+
+	 
+	 new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/partBaseInfoManage/addPartSerch/{[ID]}",
+			rowID : "ID",
+			sortName : "ID",
+			sortOrder : "asc",
+			autoHeight:false,
+			columns : [ 
+			    {checkbox:true,sortable : false},
+			    {field : "PART_CODE",title : "配件编号"},
+			    {field : "PART_NAME",title : "配件名称"}
+			    
+			                                                      
+			    
+			]
+			
+		});
+	 
+	 new Datatable().initPagination({
+			src : "dmsList",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/partBaseInfoManage/selectVhclMaterial/{[ID]}",
+			rowID : "group_id",
+			sortName : "group_id",
+			sortOrder : "asc",
+			autoHeight:false,
+			columns : [ 
+			    {checkbox:true,sortable : false},
+			    {field : "GROUP_CODE",title : "车型编号"},
+			    {field : "GROUP_NAME",title : "车型名称"}
+			   
+			                                                      
+			    
+			]
+			
+		});
+	 
+	
+});
+    
+</script>

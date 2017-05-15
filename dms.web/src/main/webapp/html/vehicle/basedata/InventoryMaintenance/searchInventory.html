@@ -1,0 +1,340 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">仓库</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" id="storageCode"
+									name="storageCode"
+									data-url="/basedata/store/vehicleWarehouse/powerChecks"
+									data-model="part" data-labelValue="STORAGE_CODE"
+									data-lableDesc="STORAGE_NAME"></select>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">库存状态</label>
+							<div class="col-xs-8">
+								<select id="ownStockStatus" name="ownStockStatus"
+									class="bs-select form-control" data-dictCode="1413">
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配车状态</label>
+							<div class="col-xs-8">
+								<select id="dispatched" name="dispatched"
+									class="bs-select form-control" data-dictCode="1414"
+									data-value="">
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">质损状态</label>
+							<div class="col-xs-8">
+								<select id="trafficMarStatus" name="trafficMarStatus"
+									class="bs-select form-control" data-dictCode="1040"
+									data-value="">
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">品牌</label>
+							<div class="col-xs-8">
+								<select id="brand" class="bs-select form-control"
+									name="brandName" data-url="/basedata/brandsdict"
+									data-model="manage" data-labelValue="BRAND_CODE"
+									data-lableDesc="BRAND_NAME" data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车系</label>
+							<div class="col-xs-8">
+								<select id="series" parent="brand"
+									class="bs-select form-control" name="seriesName"
+									data-url="/basedata/brandsdictC/{[brand]}/seriessdictC"
+									data-model="manage" data-labelValue="SERIES_CODE"
+									data-lableDesc="SERIES_NAME" data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车型</label>
+							<div class="col-xs-8">
+								<select id="model" parent="series"
+									class="bs-select form-control" name="modelName"
+									data-url="/basedata/brandsdictC/{[brand]}/seriessdictC/{[series]}/modelsdictC"
+									data-model="manage" data-labelValue="MODEL_CODE"
+									data-lableDesc="MODEL_NAME" data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配置</label>
+							<div class="col-xs-8">
+								<select id="configCode" parent="model"
+									class="bs-select form-control" name="configName"
+									data-url="/basedata/brandsdictC/{[brand]}/seriessdictC/{[series]}/modelsdictC/{[model]}/packagesdictC"
+									data-model="manage" data-labelValue="CONFIG_CODE"
+									data-lableDesc="CONFIG_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">颜色</label>
+							<div class="col-xs-8">
+								<select id="color" class="bs-select form-control" name="color"
+									data-url="/basedata/colors/colorinfo/dicts" data-model="repair"
+									data-labelValue="COLOR_ID" data-lableDesc="COLOR_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">产品代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="productCode"
+									name="productCode">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">VIN</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="vin" name="vin">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否OEM</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" name="OemTag"
+									data-dictCode="1004">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">入库类型</label>
+							<div class="col-xs-8">
+								<select id="entryType" name="entryType"
+									class="bs-select form-control" data-dictCode="1317"
+									data-value="">
+								</select>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">入库日期</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" data-maxDays="30"
+									data-defaultDays="7">
+									<input type="text" class="form-control" readonly
+										name="lastStockInDateFrom" id="lastStockInDateFrom"> <span
+										class="input-group-addon">至</span> <input type="text"
+										class="form-control" readonly name="lastStockInDateTo"
+										id="lastStockInDateTo"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">出库类型</label>
+							<div class="col-xs-8">
+								<select id="deliveryType" name="deliveryType"
+									class="bs-select form-control" data-dictCode="1318"
+									data-value="">
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">出库日期</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" data-maxDays="30">
+									<input type="text" class="form-control" readonly
+										name="lastStockOutDateFrom" id="lastStockOutDateFrom">
+									<span class="input-group-addon">至</span> <input type="text"
+										class="form-control" readonly name="lastStockOutDateTo"
+										id="lastStockOutDateTo"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+
+					<!--/span-->
+
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >车辆明细</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							
+                            <a href="javascript:;" data-url="/basedata/vsstock/export/excel" data-model="vehicle" data-method="downLoad" data-toggle="confirmation"
+								class="btn btn-outline " ><i class="fa fa-upload"></i>Excel导出</a>
+						
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+				<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="pdiList">
+			</table>
+		</div>
+	</div>
+	
+	<!--  -->
+ </div>
+<script type="text/javascript">
+
+    $(document).one("onload.dms",function(event,container){
+    	new Datatable().initPagination({
+    		src : "pdiList",
+    		container:container,
+    		   url : dmsCommon.getDmsPath()["vehicle"] + "/basedata/vsstock",
+    		   rowID : "VS_STOCK_ID",
+    			//sortName : "",
+    			//sortOrder : "",
+    			columns : [ 
+    			    {checkbox:true},
+    			    {field : "VS_STOCK_ID",title : "操作",operateFormat : [
+    		                       {type:"edit",url:"vehicle/basedata/InventoryMaintenance/editInventory.html",openWidth:"modal-lg",isShow:function(value, row, index){
+    		                    	   if(row.OWN_STOCK_STATUS=='在库'&&row.DISPATCHED_STATUS=='未配车'){
+    		                    		   return true;
+    		                    	   }else{
+    		                    		   return false;
+    		                    	   } 
+    		                    	   
+    		                       }},
+    		                       {type:"detail",url:"vehicle/basedata/InventoryMaintenance/editInventory.html",openWidth:"modal-lg"},
+    		                      /*  {type:"edit",url:"vehicle/basedata/InventoryMaintenance/editConfiguration.html",openWidth:"modal-lg",title:"修改配置",isShow:function(value, row, index){
+    		                    	   if(row.OWN_STOCK_STATUS=='在库'){
+    		                    		   return true;
+    		                    	   }else{
+    		                    		   return false;
+    		                    	   } 
+    		                       },attr:'data-validateUrl="/basedata/vsstock/editConfiguration/{id}" data-validateMethod="PUT" data-validateModel="vehicle"'} */
+    		                       {type:"edit",url:"vehicle/basedata/InventoryMaintenance/inventoryMaintenancePDI.html",openType:"jump",title:"PDI检查",operateIcon:'<i class="fa fa-plus-square"></i>',isShow:function(value, row, index){
+    		                    	   if(row.OWN_STOCK_STATUS=='在库'){
+    		                    		   return true;
+    		                    	   }else{
+    		                    		   return false;
+    		                    	   } 
+    		                       }}
+    		                   ]
+    		                },  
+                   
+                    {field : "IS_LOCK",title : "是否锁定",codeFormat : {type:"dict",codeType:"1004"}},
+                    {field : "IS_TEST_DRIVE",title : "是否试驾车",codeFormat : {type:"dict",codeType:"1004"}},
+                    {field : "PRODUCT_CODE",title : "产品代码"},
+                    {field : "PRODUCT_NAME",title : "产品名称"},
+                    {field : "STORAGE_NAME",title : "仓库"},
+                    {field : "VIN",title : "VIN"},
+                    {field : "OWN_STOCK_STATUS",title : "库存状态"},
+                    {field : "DISPATCHED_STATUS",title : "配车状态"},
+                    {field : "TRAFFIC_MAR_STATUS",title : "质损状态",codeFormat : {type:"dict",codeType:"1040"}},//运损状态？
+                    {field : "BRAND_NAME",title : "品牌"},
+                    {field : "SERIES_NAME",title : "车系"},
+                    {field : "MODEL_NAME",title : "车型"},
+                    {field : "CONFIG_NAME",title : "配置"},
+                    {field : "COLOR_NAME",title : "颜色"},
+                    {field : "PURCHASE_DATE",title : "采购日期"},//
+                    {field : "PURCHASE_PRICE",title : "采购价格"},//含税采购价
+                    {field : "OEM_DIRECTIVE_PRICE",title : "车厂指导价"},
+                    {field : "DIRECTIVE_PRICE",title : "销售指导价"},
+                    {field : "WHOLESALE_DIRECTIVE_PRICE",title : "批售指导价"},
+                    {field : "STORAGE_POSITION_CODE",title : "车位"},//库位？
+                    {field : "ENTRY_TYPE",title : "入库类型"},//
+                    {field : "FIRST_STOCK_IN_DATE",title : "首次入库日期",dateFormat : {format:"YYYY-MM-DD"}},
+                    {field : "LATEST_STOCK_IN_DATE",title : "入库日期",dateFormat : {format:"YYYY-MM-DD"}},//最后入库日期
+                    {field : "DELIVERY_TYPE",title : "出库类型"},//?
+                    {field : "LATEST_STOCK_OUT_DATE",title : "出库日期",dateFormat : {format:"YYYY-MM-DD"}},//最后出库日期
+                    {field : "FACTORY_DATE",title : "出厂日期",dateFormat : {format:"YYYY-MM-DD"}},
+                    {field : "MANUFACTURE_DATE",title : "生产日期",dateFormat : {format:"YYYY-MM-DD"}},
+                    {field : "ENGINE_NO",title : "发动机号"},
+                    {field : "KEY_NUMBER",title : "钥匙号"},
+                    {field : "CERTIFICATE_NUMBER",title : "合格证号"},
+                    {field : "IS_DIRECT",title : "是否直销"},//??
+                    {field : "EXHAUST_QUANTITY",title : "排气量"},
+                    {field : "DISCHARGE_STANDARD",title : "排放标准"},
+                    {field : "OEM_TAG",title : "是否OEM"},
+                    {field : "REMARK",title : "备注"}
+                   
+    			]
+
+    		});
+    });
+
+</script>

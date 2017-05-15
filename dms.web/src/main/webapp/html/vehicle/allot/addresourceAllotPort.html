@@ -1,0 +1,68 @@
+<div class="dms-add">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+			
+			
+				<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">港口</label>
+							<div class="col-xs-8">
+								<select id="vpcPort" name="vpcPort"
+									class="bs-select form-control required" data-type="oemDict" data-dictCode="1392"
+									data-value=""></select>
+
+							</div>
+						</div>
+					</div>
+			
+				<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">级别</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control required" id="portLevel" name="portLevel">
+							</div>
+						</div>
+					</div>
+			
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="modal-footer center-block">
+							<a data-url="/resourceallotport/addResourceallotport" data-model="vehicle"data-method="POST" data-callBack='true'
+				                    class="btn blue" data-toggle="confirmation"><i class="fa fa-save"></i>保存</a>				
+							<a data-goback="page"  href="vehicle/allot/resourceAllotPort.html"
+			   class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>
+						</div>
+						
+					</div>
+				</div>
+				
+				
+				
+			</div>
+		</div>
+	</form>
+	
+</div>
+ <script type="text/javascript">
+ $(document).one("onload.dms",function(event,container){
+		new Datatable().initLocale({
+			src : "dms_table",
+			container:container,
+			//url : dmsCommon.getDmsPath()["vehicle"] + "/orderRepeal/queryAll/{[USER_ID]}",
+			//rowID : "ORG_BIG_ID",
+			//sortOrder : "asc",
+	columns : [ 
+	
+]
+});
+		
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			dmsCommon.refreshPageByUrl("vehicle/allot/resourceAllotPort.html",container);
+		}); 
+
+		
+		
+		
+});	
+</script>

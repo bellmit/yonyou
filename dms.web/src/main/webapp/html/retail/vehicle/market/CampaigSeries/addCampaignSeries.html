@@ -1,0 +1,116 @@
+<div class="dms-search">
+	<form class="form-horizontal">	
+		<div class="modal-header">
+			<div class="modal-title">车辆信息</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>	
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-xs-12 col-md-12 col-lg-12">
+					<div class="panel panel-default table-panel">
+						<div class="panel-heading">
+							<div class="pannel-name">市场活动车系车型</div>
+							<div class="pannel-button">
+							<input type="hidden" name="campaignCode"/>
+								<!-- <a id="save" data-callBack="true" data-onclickEvent='true'
+										class="btn btn-outline"> 
+									<i class="fa fa-check-square-o"></i> 确定
+								</a>  -->
+							</div>
+						</div>
+						<div class="panel-body">
+							<table class="table table-striped table-bordered table-hover table-responsive"
+								id="campaign_series"></table>
+						</div>
+					</div>
+				</div> 					
+			</div>
+		</div>
+	<!-- 	<div class="modal-footer">
+			<a id="save" data-callBack="true" data-onclickEvent='true'
+				class="btn btn-outline"> <i class="fa fa-check-square-o"></i> 确定
+			</a>
+			<a data-dismiss="modal" class="btn btn-outline"><i class="fa fa-undo"></i>取消
+			</a>
+		</div> -->
+		<div class="modal-footer center-block">
+		<a id="save" data-model="retail" data-method="POST" data-beforeRequest="true" data-onclickEvent='true'
+				class="btn blue ajaxrest"  data-validate="true" data-onclickEvent="true" data-callBack="true" 
+				><i class="fa fa-save"></i>保存</a>
+		<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	//活动车系车型
+	new Datatable().initPagination({
+		src : "campaign_series",
+ 		url : dmsCommon.getDmsPath()["retail"] + "/markting/marktingPlan/campaignSeriesAign",
+		rowID : "SERIES_CODE",
+		autoHeight : false,
+		sortOrder : "asc",
+		pageSize:25,
+		checkboxHeader:true, //全选框
+		columns : [
+				   {checkbox : true},	
+		           {field : "SERIES_CODE",title : "车系代码"},
+		           {field : "SERIES_NAME",title : "车系名称"},
+		           {field : "MODEL_CODE",title : "车型代码"},
+		           {field : "MODEL_NAME",title : "车型名称"}
+		         ]
+	});
+	
+   $("a[data-onclickEvent='true']",container).on("dms.click",function(event,container){
+	   var parentRow = $("#campaign_campaignseries",getElementContext()).dmsTable().getRowDataByIndex();
+	   var selectRow = $("#campaign_series",container).dmsTable().getSelections();
+	   var items = $("#campaign_campaignseries",getElementContext()).val().split(";");
+	   
+	   $("input[name=campaignCode]",container).val($("#CAMPAIGN_CODE",getElementContext()).val());
+
+	   var flag = false;
+	   var seriesCodes='';
+	   $(selectRow).each(function(e){
+		   $(parentRow).each(function(m){
+			   if(!flag){
+				   if(parentRow[m].SERIES_CODE==selectRow[e].SERIES_CODE){
+					   if($.inArray(selectRow[e].SERIES_CODE,items)!=-1){
+						   flag=false;
+					   }else{
+						   flag=true;
+					   }
+				   }
+			   }
+		   });
+		   if(flag){
+			   dmsCommon.tip({status:"warning",msg:"SERIES_CODE已存在!"});
+		   }else{
+			   
+			   seriesCodes +=selectRow[e].SERIES_CODE+";";
+/*   			   alert(seriesCodes);
+ */  		   $("#campaign_campaignseries",getElementContext()).dmsTable().appendRow(selectRow[e]);
+			   dmsCommon.ajaxRestRequest({
+					url : dmsCommon.getDmsPath()["retail"] + "/markting/marktingPlan/add/servies/"
+					+$("#CAMPAIGN_CODE",getElementContext()).val()+
+					"/"+selectRow[e].SERIES_CODE
+					+"/"+selectRow[e].MODEL_CODE,
+					model : "retail",
+					type : 'POST',
+					sucessCallBack : function(data) {
+						$("a[data-dismiss='modal']",container).click();
+						$("#campaign_campaignseries",getElementContext()).val("");
+					}
+				});
+		   }
+	   });
+	 	//得到活动名称编号
+	   $("#campaign_campaignseries",getElementContext()).removeAttr('disabled');
+	   $("#series_codes",getElementContext()).val(series_codes);
+	   
+   });
+
+});	
+</script>

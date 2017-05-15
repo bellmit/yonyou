@@ -1,0 +1,169 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">目标类型</label>
+							<div class="col-xs-8">
+								<select id="planTypeId" class="bs-select form-control"
+									name="planTypeName"  data-existsDefault="false"
+									 data-type="oemDict"
+									data-dictCode="2078">
+								</select>
+							</div>
+						</div>
+					</div>
+					
+				<div class="col-xs-12 col-sm-6 col-md-4 ">
+					<div class="form-group">
+						<label class="control-label col-xs-4">选择年份</label>
+						<div class="col-xs-8">
+							<select id="planYearId" class="bs-select form-control"
+								name="planYearName" data-url="/oemYearPlanQuery/yearPlanQueryInit"
+								 data-model="manage" 
+								data-labelValue="PLAN_YEAR" data-lableDesc="PLAN_YEAR"
+								data-alwaysRefresh="true">
+							</select>
+						</div>
+					</div>
+				</div>
+					
+				<div class="col-xs-12 col-sm-6 col-md-4 " data-tableSelect="true">
+					<div class="form-group">
+						<label class="control-label col-xs-4">选择经销商</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+								<input id="dealerCode" readonly
+									name="dealerCode" class="form-control" type="text"
+									data-fieldName="dealer_code" /> <span
+										class="input-group-btn" >
+										<button class="btn default btn-sm" type="button"
+											data-url="manage/basedata/dealers/searchDealers.html"
+											data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>	
+
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">版本号</label>
+							<div class="col-xs-8">
+								<select id="planVerId"  class="bs-select form-control"
+									name="planVerName" data-url="/oemYearPlanQuery/findPlanVerByYear"
+									 data-model="manage" 
+									data-labelValue="PLAN_VER" data-lableDesc="PLAN_VER">
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">上传用户</label>
+							<div class="col-xs-5">
+								<input id="acnt" name="acnt" class="form-control" type="text"
+									data-labelValue="ACNT" data-lableDesc="ACNT" />
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-12 col-sm-4">上传日期</label>
+							<div class="col-xs-6 col-sm-8">
+								 <div class="input-group input-daterange" data-maxDays = "30" data-opens="right">
+		                             <input type="text" class="form-control" readonly  name="vehicleDate3">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="vehicleDate4">
+		                             <span class="input-group-btn">
+	                                        <button class="btn default input-clear" type="button">
+	                                           <i class="fa fa-close"></i>
+	                                       <tton>
+	                                     </span> 
+		                        </div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+</form>
+
+<div class="panel panel-default table-panel">
+	<div class="panel-heading">
+		<div class="pannel-name">年度目标查询</div>
+		<div class="pannel-button">
+			<div class="btn-group btn-group-sm">
+				<a href="javascript:;" data-url="/oemYearPlanQuery/yearPlanDetailDownload/export/excel"
+				 data-model="manage" data-method="downLoad" data-toggle="confirmation"
+					class="btn btn-outline " ><i class="fa fa-download"></i>下载</a> 
+			</div>
+		</div>
+	</div>
+	<div class="panel-body">
+		<table
+			class="table table-striped table-bordered table-hover table-responsive"
+			id="year_plan_query_table"></table>
+	</div>
+</div>
+</div>
+<script type="text/javascript">
+
+    $(document).one("onload.dms",function(event,container){
+    	new Datatable().initPagination({
+    		src : "year_plan_query_table",
+    		container:container,
+    		   url : dmsCommon.getDmsPath()["manage"] + "/oemYearPlanQuery/yearPlanDetailQuery",
+    			columns : [ 
+    		                {field : "SWT_CODE",title : "SAP代码"},
+		                    {field : "DEALER_CODE",title : "经销商代码"},
+		                    {field : "DEALER_SHORTNAME",title : "经销商名称"},
+		                    {field : "GROUP_NAME",title : "车系"},
+		                    {field : "AMOUNT1",title : "1月"},
+		                    {field : "AMOUNT2",title : "2月"},
+		                    {field : "AMOUNT3",title : "3月"},
+		                    {field : "AMOUNT4",title : "4月"},
+		                    {field : "AMOUNT5",title : "5月"},//
+		                    {field : "AMOUNT6",title : "6月"},//含税采购价
+		                    {field : "AMOUNT7",title : "7月"},
+		                    {field : "AMOUNT8",title : "8月"},
+		                    {field : "AMOUNT9",title : "9月"},
+		                    {field : "AMOUNT10",title : "10月"},
+		                    {field : "AMOUNT11",title : "11月"},
+		                    {field : "AMOUNT12",title : "12月"},
+		                    {field : "TOTAL_AMOUNT",title : "合计"}
+    			]
+    		});
+    	
+    	//绑定查询按钮回调
+    	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+    	});
+    	
+    });
+
+</script>

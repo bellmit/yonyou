@@ -1,0 +1,415 @@
+<div class="dms-search">
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">部门信息列表</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+					<a id="addOrg" name="addOrg" data-callBack="true"
+						class="btn btn-outline" data-model="manage">
+						<i class="fa fa-plus-square"></i>新增
+					</a>
+				 	<!-- <a id="checkAll" name="checkAll" data-callBack="true"
+						class="btn btn-outline" data-model="manage">
+						<i class="fa fa-search"></i>全部
+					</a>
+					<a id="isValidTree" name="isValidTree" data-callBack="true"
+						class="btn btn-outline" data-model="manage">
+						<i class="fa fa-search"></i>有效
+					</a> -->
+					<a id="deleteOrg" data-model="manage" name="deleteOrg" 
+						data-callBack="true" class="btn btn-outline" data-toggle="confirmation"
+						data-url="/basedata/orgs/{[id]}">
+						<i class="fa fa-minus-square"></i>删除 
+				    </a>
+				</div>
+
+
+			</div>
+		</div>
+<!-- sjc -->
+		<div class="panel-body col-sm-4 col-xs-12" style="border:solid 1px #DDDDDD;height:400px;overflow:scroll;">
+           <div id="departTree" name="departTree" class="tree"></div> 
+           <div id="departTreeCheckValid" name="departTree" class="tree"></div>
+    </div>
+	<form class="form-horizontal">
+		<div class="panel-body col-xs-8" style="border:solid 1px #DDDDDD;height:400px;">
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-2">上级组织</label>
+				<div class="col-xs-12 col-sm-6">	 
+					 <select class="bs-select form-control " id="parentOrgCode" name = "parentOrgCode" data-model="manage" 
+						 data-url="/basedata/orgs/getParents/super" data-labelValue="ORG_CODE"
+					 data-excludeInit="true" data-lableDesc="ORG_NAME" data-alwaysRefresh="true">
+                  	</select>
+				</div>
+			</div>
+			
+			 	<!-- data-url="/basedata/orgs/getParents/super/{[parentOrgCode]}" -->
+				<!-- data-existsDefault="false" --> 
+				<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-2"><span style="color: red;">*</span>组织代码</label>
+				<div class="col-xs-12 col-sm-6">
+					<input id="orgCode" name="orgCode" class="form-control required" type="text" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-2"><span style="color: red;">*</span>组织名称</label>
+				<div class="col-xs-12 col-sm-6">
+					<input id="orgName" name="orgName" class="form-control required" type="text" maxlength="30"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-2">组织类型</label>
+				<div class="col-xs-12 col-sm-6">
+					<select id="orgType" name="orgType" class="bs-select form-control " data-excludeInit="true" data-dictCode="1341" data-alwaysRefresh="true"></select>
+				</div>
+			</div>
+			<div class="form-group" style="display:none";>
+				<label class="control-label col-xs-12 col-sm-2">是否有效</label>
+				<div class="col-xs-12 col-sm-6">
+					<select id="isValid" name="isValid" class="bs-select form-control required" data-excludeInit="true" data-dictCode="1001" data-alwaysRefresh="true" data-existsDefault="true"></select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-2">名称缩写</label>
+				<div class="col-xs-12 col-sm-6">
+					<input id="orgShortName" name="orgShortName" class="form-control " type="text" maxlength="20"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-2">组织描述</label>
+				<div class="col-xs-12 col-sm-6">
+					<textarea id="orgDesc" name="orgDesc" class="form-control " type="textera" style="height:100px;" maxlength="90"></textarea>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3"></label>
+				<div class="col-xs-12 col-sm-6">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3"></label>
+				<div class="col-xs-12 col-sm-6">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-3"></label>
+				<div class="col-xs-12 col-sm-6">
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="control-label col-xs-12 col-sm-4"></label>
+				<div class="col-xs-12 col-sm-8">
+					<a id="saveOrg" data-model="manage" data-method="POST" disabled="disabled"
+						data-callBack="true" class="btn blue" data-toggle="confirmation">
+						<i class="fa fa-save "></i>保存
+					</a>
+					<a id="cancle" data-model="manage" class="btn blue" disabled="disabled"
+						data-callBack="true" data-toggle="confirmation" data-method="POST">
+						<i class="fa fa-undo"></i>取消
+					 </a>	
+				</div>
+			</div>
+						
+		</div>
+	</form>
+</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		
+		//初始化操作
+		var selectedData;
+		$(".form-control",container).attr("disabled","disabled");
+		$(".form-control",container).val("");
+
+		//树初始化
+		loadTree("departTreeCheckValid",container);		
+		
+		//树节点选择
+		$('.tree',container).on('changed.jstree', function (e, data) {
+			var orgCode = data.changed.selected; 
+			if(orgCode!=""){
+				dmsCommon.ajaxRestRequest({
+					url : dmsCommon.getDmsPath()["manage"] + "/basedata/orgs/"+orgCode,
+					type : 'GET',
+					sucessCallBack : function(data) {
+						selectedData = data;
+						
+						$("#orgCode",container).val(data.ORG_CODE);
+						/* alert($("#parentOrgCode").val()); */
+						if(data){							
+							$(".form-control",container).attr("disabled","disabled");
+							$(".form-control",container).val("");
+							$("#saveOrg",container).attr("disabled","disabled"); 
+							$("#cancle",container).attr("disabled","disabled");	
+ 							$("#saveOrg",container).attr("data-method","POST");
+							$("#saveOrg",container).attr("data-url","/basedata/orgs/"+data.ORGDEPT_ID);
+							$("#deleteOrg",container).attr("data-url","/basedata/orgs/{id}"+data.ORGDEPT_ID);
+							$("#ModifyOrg",container).attr("data-url","/basedata/orgs/{id}"+data.ORGDEPT_ID);
+							$("#cancle",container).attr("data-url","/basedata/orgs/"+data.ORGDEPT_ID);
+							$("#orgCode",container).val(data.ORG_CODE);
+							$("#orgCode",container).attr("disabled","disabled");
+							$("#orgName",container).val(data.ORG_NAME);
+							$("#orgName",container).removeAttr("disabled");
+							$("#isValid",container).removeAttr("disabled");
+							$("#orgType",container).attr("data-value",data.ORG_TYPE);
+							$("#orgType",container).removeAttr("disabled");
+							$("#isValid",container).attr("data-value",data.IS_VALID);
+							$("#orgShortName",container).val(data.ORG_SHORT_NAME);
+							$("#orgShortName",container).removeAttr("disabled");
+							$("#orgDesc",container).val(data.ORG_DESC);
+							$("#orgDesc",container).removeAttr("disabled");
+												
+							if(!data.PARENT_ORG_CODE){
+								$("#parentOrgCode",container).attr("data-value",data.PARENT_ORG_CODE);
+								
+							}else{	
+								$("#parentOrgCode",container).attr("data-value",data.PARENT_ORG_CODE);
+							}
+						}
+						dmsDict.initObject($("#orgType",container));
+						dmsDict.initObject($("#parentOrgCode",container));
+						dmsDict.initObject($("#isValid",container));
+						$("#saveOrg",container).removeAttr("disabled","disabled"); 
+						$("#cancle",container).removeAttr("disabled","disabled");
+						
+					}
+				});
+			}
+		});
+		
+	/* 	//新增部门操作
+		$("#addOrg",container).on("click",function(){
+			var parentCode = selectedData.ORG_CODE;
+			alert(parentCode);
+		     dmsCommon.ajaxRestRequest({
+					
+					url : dmsCommon.getDmsPath()["manage"] + "/basedata/orgs/"+parentCode+" ",
+					type : 'GET',
+					sucessCallBack : function(data) {
+				//		Dashboard.initCharts(data);
+				
+				    $("#orgCode",container).setDmsValue(data[0].maxorg);
+	
+					}
+			 }); 
+			if(typeof(selectedData) == "undefined"){
+				
+			}else{				
+				
+				$("input",container).removeAttr("disabled");
+				$("input",container).val(""); 
+				$("#saveOrg",container).removeAttr("disabled","disabled"); 
+				$("#cancle",container).removeAttr("disabled","disabled");	
+				$("#orgDesc").val("");
+				
+ 				$("#orgCode",container).val(selectedData.ORG_CODE+"01");
+				 
+				$("#orgType",container).attr("data-existsDefault","true");
+				$("#orgType",container).removeAttr("abled");
+			    $("#parentOrgCode",container).attr("data-value",selectedData.ORG_CODE);				
+				$("#saveOrg",container).attr("data-url","/basedata/orgs/");
+				$("#saveOrg",container).attr("data-method","POST");
+				dmsDict.initObject($("#parentOrgCode",container));
+				dmsDict.initObject($("#orgType",container));
+				loadTree("departTreeCheckValid",container); 
+			    $("input",container).removeAttr("disabled");
+				$("input",container).val(""); 
+				$("#saveOrg",container).removeAttr("disabled","disabled"); 
+				$("#cancle",container).removeAttr("disabled","disabled");
+			}
+			
+		}); */
+		
+		//新增部门操作
+		$("#addOrg",container).on("click",function(){
+			var parentCode = selectedData.ORG_CODE;
+		    dmsCommon.ajaxRestRequest({
+					url : dmsCommon.getDmsPath()["manage"] + "/basedata/orgs/parentCode/"+parentCode,
+					type : 'GET',
+					sucessCallBack : function(data) {
+				//	Dashboard.initCharts(data);
+				       $("#orgCode",container).setDmsValue(data[0].maxorg);
+	
+					}
+			 }); 
+			if(typeof(selectedData) == "undefined"){
+				
+			}else{				
+				
+				
+				$("input",container).removeAttr("disabled");
+				$("input",container).val(""); 
+				$("#saveOrg",container).removeAttr("disabled","disabled"); 
+				$("#cancle",container).removeAttr("disabled","disabled");	
+				$("#orgDesc").val("");
+				
+ 				//$("#orgCode",container).val(selectedData.ORG_CODE+"01");
+ 
+				$("#orgType",container).attr("data-existsDefault","true");
+				$("#orgType",container).removeAttr("abled");
+				$("#parentOrgCode",container).attr("data-value",selectedData.ORG_CODE);				
+				$("#saveOrg",container).attr("data-url","/basedata/orgs/");
+				$("#saveOrg",container).attr("data-method","POST");
+				dmsDict.initObject($("#parentOrgCode",container)); 
+				dmsDict.initObject($("#orgType",container));
+				loadTree("departTreeCheckValid",container);
+				
+			}
+			
+		});
+		
+		//删除部门
+		$("#deleteOrg",container).on("click",function(){
+			if(typeof(selectedData) == "undefined"){
+				
+			}else{
+				
+				$("#orgType",container).removeAttr("abled");
+/* 				$("#parentOrgCode",container).attr("data-value",selectedData.ORG_CODE);
+ */				
+ 				$("#deleteOrg",container).attr("data-url","/basedata/orgs/"+selectedData.ORGDEPT_ID);
+				$("#deleteOrg",container).attr("data-method","DELETE");
+				dmsDict.initObject($("#parentOrgCode",container));
+				dmsDict.initObject($("#orgType",container));
+				loadTree("departTreeCheckValid",container);
+			}
+			
+		});		
+		
+		//更新部门操作
+		$("#ModifyOrg",container).on("click",function(){
+			if(typeof(selectedData) == "undefined"){
+				
+			}else{
+				$("input",container).removeAttr("disabled");
+				$("input",container).val(""); 
+				$("#orgDesc").val("");
+				$("#orgCode",container).attr("disabled","disabled");
+				$("#orgName").val();
+				$("#orgType",container).attr("data-existsDefault","true");
+				$("#orgType",container).removeAttr("abled");
+				
+				if(!selectedData.PARENT_ORG_CODE){
+					$("#parentOrgCode",container).attr("data-value",selectedData.ORG_CODE);
+				}else{	
+					$("#parentOrgCode",container).attr("data-value",selectedData.PARENT_ORG_CODE);
+				}
+				
+				$("#ModifyOrg",container).attr("data-url","/basedata/orgs/"+selectedData.ORGDEPT_ID);
+				$("#ModifyOrg",container).attr("data-method","POST");
+				dmsDict.initObject($("#parentOrgCode",container));
+				dmsDict.initObject($("#orgType",container));
+				dmsDict.initObject($("#orgName",container));
+				loadTree("departTreeCheckValid",container); 
+				
+			}
+			
+		});
+		
+		//点击取消按钮，回退之前保存的数据
+		 $("#cancle",container).on("click",function(){
+			if(typeof(selectedData)=="undefined"){
+				
+			}else{
+				
+				
+				$("#orgCode",container).attr("data-value",selectedData.ORG_CODE);
+	
+				$("#orgType",container).attr("data-value",selectedData.ORG_TYPE);
+				$("#orgShortName",container).attr("data-value",selectedData.ORG_SHORT_NAME);
+				$("#orgName",container).attr("data-value",selectedData.ORG_NAME);
+				$("#orgDesc",container).attr("data-value",selectedData.ORG_DESC);				
+				
+				/* if(!selectedData.PARENT_ORG_CODE){
+					//$("#parentOrgCode",container).attr("data-value",selectedData.ORG_CODE);
+				}else{	
+					$("#parentOrgCode",container).attr("data-value",selectedData.PARENT_ORG_CODE);
+				} */
+				$("#parentOrgCode",container).attr("data-value",selectedData.PARENT_ORG_CODE);
+
+				 $("#ModifyOrg",container).attr("data-url","/basedata/orgs/"+selectedData.ORGDEPT_ID);
+				$("#ModifyOrg",container).attr("data-method","POST"); 
+				
+				
+				$("#orgCode").val(selectedData.ORG_CODE);
+				$("#orgName").val(selectedData.ORG_NAME);
+				$("#orgType").val(selectedData.ORG_TYPE);
+				$("#orgShortName").val(selectedData.ORG_SHORT_NAME);
+				$("#orgDesc").val(selectedData.ORG_DESC);
+				
+				/* alert(selectedData.ORG_DESC); */ 
+				
+				dmsDict.initObject($("#parentOrgCode",container));
+				dmsDict.initObject($("#orgType",container));
+				loadTree("departTreeCheckValid",container); 
+			}
+		}); 
+		
+		
+		//点击保存按钮，执行之后刷新节点树callback
+	 	$("#saveOrg",container).on("callBack.dms",function(event,response){
+	
+		    $("#departTreeCheckValid",container).jstree(false).refresh();
+			$("#departTree",container).jstree(false).refresh();
+			
+		});
+		
+		//点击删除按钮，执行之后刷新节点树callback
+	 	$("#deleteOrg",container).on("callBack.dms",function(event,response){
+	 		
+		    $("#departTreeCheckValid",container).jstree(false).refresh();
+			$("#departTree",container).jstree(false).refresh();
+			
+		});
+		
+		//点击取消按钮，执行之后刷新树
+		$("#cancle",container).on("callBack.dms",function(event,response){
+	 		
+		    $("#departTreeCheckValid",container).jstree(false).refresh();
+			$("#departTree",container).jstree(false).refresh();
+			
+		});	
+			
+		
+		//checkIsValid
+		$("a[name='isValidTree']",container).on("click",function(event){
+			$("#departTree",container).hide();
+			$('#departTreeCheckValid').show();
+			loadTree("departTreeCheckValid",container);
+		});
+		
+		//checkAll
+		$("a[name='checkAll']",container).on("click",function(event){
+			$("#departTreeCheckValid",container).hide();
+			$("#departTree",container).show();
+			loadTree("departTree",container);
+		});
+	});
+	
+	//加载树
+	var loadTree = function(treeName,location){
+		var url = "/basedata/orgs";
+		
+		if("departTreeCheckValid" == treeName){
+			url = "/basedata/orgs/getIsValid/Orgs";
+		}
+		//加载树形结构
+		$('#'+treeName,location).initTree({
+			
+			url:dmsCommon.getDmsPath()["manage"] + url,
+			dataFunc:function(node){
+				 return{'id':node.id}
+			},
+			
+			loadedFunc: function(e,data){
+				
+				/* var inst = data.instance;  
+				 var obj = inst.get_node(e.target.firstChild.firstChild.lastChild); 
+   				 inst.select_node(obj);*/
+   			}
+		});
+	}
+</script>

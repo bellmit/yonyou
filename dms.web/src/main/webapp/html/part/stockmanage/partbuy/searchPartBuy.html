@@ -1,0 +1,470 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row" partBuy-data="true">
+					
+
+
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-3">入库单号</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+
+										
+										<input id="stockInNo" 
+											name="stockInNo" class="form-control" 
+											type="text" data-fieldName="STOCK_IN_NO"/> 
+											
+											<span class="input-group-btn">
+											<button class="btn default btn-sm" type="button" id="stockInNoFind"
+												data-url="part/stockmanage/partbuy/partBuyFindByNo.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-sitemap"></i>
+											</button>
+											<button class="btn default input-clear" id="stockInNoClear"
+												type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										    </span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group" data-tableSelect="true">
+								<label class="control-label col-xs-3">供应商代码</label>
+								<div class="col-xs-9 ">
+									<div class="input-group">
+									
+										<input type="text" class="form-control" id="customerCode" 
+											readonly="readonly" name="customerCode" data-fieldName="CUSTOMER_CODE">
+											
+										<span class="input-group-btn">
+											<button class="btn default btn-sm" type="button" disabled="disabled"
+												data-url="part/stockmanage/partbuy/selectPartCustomer.html"
+												data-toggle="modal" data-width="modal-lg" id="customerCodeBtna">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button  class="btn default input-clear" type="button" id="customerCodeBtnb" disabled="disabled">
+												<i class="fa fa-close"></i>
+											</button>
+										</span> 
+										
+										<input type="text" class="form-control" id="customerName"
+											readonly name="customerName" data-fieldName="CUSTOMER_NAME">
+
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-3 ">加价率</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="priceAddRate"
+										name="priceAddRate" data-fieldName="PRICE_ADD_RATE" readonly>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-3 ">税率</label>
+								<div class="col-xs-6">
+									<input type="text" class="form-control" id="tax"
+										name="tax" data-fieldName="TAX" readonly>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-3">入库类型</label>
+								<div class="col-xs-8">
+									<input type="hidden" class="form-control"  id="stockInType" data-fieldName="STOCK_IN_TYPE" /> 
+										<select  class="bs-select form-control required"  
+										data-excludeItems="70051002"  
+										 data-dictCode="7005" 
+										 id="inType"  >
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-3">发运单号</label>
+								<div class="col-xs-9">
+									<div class="input-group">
+
+										<input id="delvieryNo" name="delvieryNo"  readonly="readonly" 
+										class="form-control" data-fieldName="DELVIERY_NO" type="text" /> 
+										
+											<span class="input-group-btn">
+											<button class="btn default btn-sm" type="button" id="find" disabled="disabled"
+												data-url="vehicle/stockManage/stockIn/searchStockItem.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-sitemap"></i>
+											</button>
+											<button class="btn default input-clear" id="clear" disabled="disabled"
+												type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-3 ">注册码</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="orderRegeditNo"
+										name="orderRegeditNo" data-fieldName="ORDER_REGEDIT_NO" >
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-3">开单日期</label>
+								<div class="col-xs-6">
+									<div class="input-group date date-picker">
+										<input id="sheetCreateDate" name="sheetCreateDate" disabled="disabled"
+											data-fieldName="SHEET_CREATE_DATE" class="form-control"
+											type="text" /> 
+											
+											<span class="input-group-btn">
+											<button class="btn default date-set" type="button" disabled="disabled">
+												<i class="fa fa-calendar"></i>
+											</button>
+<!-- 											<button class="btn default date-reset" type="button"> -->
+<!-- 												<i class="fa fa-times"></i> -->
+<!-- 											</button> -->
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-3 ">订单编号</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id=""
+										name="" data-fieldName="" readonly>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-3 ">交货单号00</label>
+								<div class="col-xs-9">
+									<input type="text" class="form-control" id="oemOrderNo"
+										name="oemOrderNo" data-fieldName="OEM_ORDER_NO" readonly>
+								</div>
+							</div>
+						</div>
+
+
+
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-3 ">箱号</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="caseCode"
+										name="caseCode" data-fieldName="CASE_CODE" readonly>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-3 "></label>
+								<div class="col-xs-8">
+									<input  type="hidden" class="form-control" id="is_Back"
+										name="is_Back" data-fieldName="IS_BACK" readonly>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="pannel-tools">
+								<a href="javascript:;" class="collapse"> <i
+									class="fa fa-chevron-down"></i></a>
+							</div>
+						</div>
+						<div class="panel-body">
+							<div class="row" >
+								<div class="col-xs-8 ">
+									<div class="form-group">
+										<label class="control-label col-xs-1 ">备注</label>
+										<div class="col-xs-11">
+											<input id="remark" name="remark" type="text" maxlength="400"
+												class="form-control" data-fieldName="REMARK" />
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-3 ">
+									<div class="form-group">
+										<label class="control-label col-xs-3 "></label>
+										<div class="col-xs-8">
+											<input type="hidden" />
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">车辆入库单明细</div>
+					<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a id="add"
+								data-url="vehicle/stockManage/stockIn/addStockIn.html"
+								data-beforeShowEvent="true" class="btn btn-outline"
+								data-toggle="modal" data-width="modal-lg" disabled="disabled"> <i
+								class="fa fa-plus-square"></i> 新增</a>  
+							<a  id="exportTemplet"
+							    href="vehicle/stockManage/stockIn/exportPage.html"
+								class="btn btn-outline ajaxify" disabled="disabled"> 
+								<i class="fa fa-download" ></i>导出模板</a> 
+							<a  id="import"
+							   data-model="vehicle" data-method="downLoad"
+								data-toggle="confirmation" id="export" data-beforeRequest="true"
+								class="btn btn-outline " disabled="disabled">
+								<i class="fa fa-upload"></i>导入</a>
+							<a  id="returnGoods"
+							   data-model="vehicle" data-method="downLoad"
+								data-toggle="confirmation" id="export" data-beforeRequest="true"
+								class="btn btn-outline " disabled="disabled">
+								<i class="fa fa-upload"></i>退货</a>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_table"></table>
+				</div>
+			</div>
+		</div>
+
+		<!-- 设置仓库 -->
+		<div class="modal-body" right-block>
+		
+		
+			
+	<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-3">仓库</label>
+								<div class="col-xs-8">
+									<input type="hidden"  /> 
+									<select class="bs-select form-control"
+											data-url="/basedata/store/storelist"
+											data-model="part" data-labelValue="STORAGE_CODE"  data-fieldName="STORAGE_CODE"
+											data-lableDesc="STORAGE_NAME" id="storageCode">
+										</select>
+								</div>
+							</div>
+						</div>
+
+		
+				<a data-errorCallBack="true" id="setStorage" data-onclickEvent='true' class="btn blue" disabled="disabled"><i
+						class="fa fa-plus-square"></i>确定</a>
+		
+
+		</div>
+		<!-- 底部按钮 -->
+		<div class="modal-footer center-block">
+			<a data-errorCallBack="true" data-onclickEvent='true' id="create" class="btn blue" ><i
+				class="fa fa-plus-square"></i>新建</a> 
+				
+				<a id="save" data-model="vehicle"
+				data-beforeRequest="true" class="btn blue ajaxrest"
+				data-validate="true" data-onclickEvent="true" data-callBack="true"  disabled="disabled"><i
+				class="fa fa-save"></i>保存</a> 
+				
+				<a id="accounting" data-model="vehicle"
+				data-beforeRequest="true" class="btn blue ajaxrest"
+				data-validate="true" data-onclickEvent="true" data-callBack="true"  disabled="disabled"><i
+				class="fa fa-save"></i>入账</a> 
+				
+				<a id="cancel" data-onclickEvent='true' class="btn blue"  disabled="disabled"><i
+				class="fa fa-print"></i>取消</a>
+				
+				<a id="delete" data-onclickEvent='true' class="btn blue"  disabled="disabled"><i
+				class="fa fa-print"></i>作废</a>
+				
+				<a id="print" data-onclickEvent='true' class="btn blue"  disabled="disabled"><i
+				class="fa fa-print"></i>打印</a>
+				
+				<a id="export" data-onclickEvent='true' class="btn blue"  disabled="disabled"><i
+				class="fa fa-print"></i>Excel</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+	
+	$("#orderRegeditNo",container).setElementReadOnly();
+//  	$("#storageCode", container).attr("disabled","disabled");
+    $("#inType",container).attr("disabled","disabled");
+	
+	new Datatable().initPagination({
+		container:container,
+		src : "dms_table",
+// 		url : dmsCommon.getDmsPath()["part"] + "/partOrder/deliverOrders/111",
+		rowID : "STORAGE_CODE",
+		sortName : "STORAGE_CODE",
+		sortOrder : "asc",
+		checkboxHeader : true, //全选框
+		clickToSelect: false,
+		undefinedText : "",
+		autoHeight:false,
+		columns : [ 
+			//全选框-在每条记录前的勾选框
+			{  
+				checkbox : true,
+				sortable : false
+			},
+
+		    {field : "",title : "操作",operateFormat : [
+		        {type:"edit",url:"part/stockmanage/partbuy/modifyPart.html",title:"修改",openWidth:"modal-lg"},
+		    	{type : "localDel",title:"删除"}  
+		    	
+            ]}, 
+            {field : "STORAGE_NAME",inputHiddenFormat : {hiddenField:"STORAGE_CODE"},title :"仓库"},
+            {field : "STORAGE_POSITION_CODE",title : "<span style='color: blue;'>库位</span>",inputTextFormat : {}},
+            {field : "PART_NO",title : "配件代码",inputHiddenFormat : {hiddenField:"OLD_STOCK_IN_NO"}},
+            {field : "PART_NAME",title : "配件名称",inputHiddenFormat : {}},
+            {field : "IN_QUANTITY",title : "入库数量",inputHiddenFormat : {}},
+            {field : "IN_PRICE",title : "不含税单价",inputHiddenFormat : {}},
+            {field : "IN_AMOUNT",title : "不含税金额",inputHiddenFormat : {}},
+            {field : "IN_PRICE_TAXED",title : "含税单价",inputHiddenFormat : {}},
+            {field : "IN_AMOUNT_TAXED",title : "含税金额",inputHiddenFormat : {}},
+            {field : "CLAIM_PRICE",title : "DNP价格"},
+            {field : "FROM_TYPE",title : "来源方式", codeFormat : {type:"dict",codeType:"1697"}}
+		]
+	});
+	
+	
+
+	//入库单号绑定改变事件
+	$("#sheetCreateDate", container).bindChange(function(obj){
+		if($("input[name='stockInNo']").val()!=null && $("input[name='stockInNo']").val()!=''){
+			$("#dms_table",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["part"]
+				+ "/stockmanage/partbuy/stockInItem/i="+$("input[name='stockInNo']",container).val());
+			$("#dms_table", container).dmsTable().refreshTableWithForm();
+			
+			
+			$("a[id='accounting']", container).removeAttr("disabled");
+			$("a[id='cancel']", container).removeAttr("disabled");
+			$("a[id='delete']", container).removeAttr("disabled");
+			$("a[id='export']", container).removeAttr("disabled");				
+			$("#orderRegeditNo",container).removeElementReadOnly();
+
+		}
+	});
+	//$("#storageCode", container).removeAttr("disabled");
+	//入库类型变动绑定事件
+	$("#stockInType", container).bindChange(function(obj){	
+	//判断是否为手工入库
+		if($("#stockInType").val()=="70051003"){
+			$("a[id='add']", container).removeAttr("disabled");
+			$("a[id='exportTemplet']", container).removeAttr("disabled");
+			$("a[id='import']", container).removeAttr("disabled");
+// 			$("#storageCode",container).removeAttr("disabled");
+			$("a[id='setStorage']", container).removeAttr("disabled");
+	
+		}else{
+			$("a[id='add']", container).attr("disabled","disabled");
+			$("a[id='exportTemplet']", container).attr("disabled","disabled");
+			$("a[id='import']", container).attr("disabled","disabled");
+			$("a[id='setStorage']", container).attr("disabled","disabled");
+			
+		}
+		
+	});
+	
+
+	
+	
+	
+	//按键点击事件	
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		
+		//判断点击的按钮，根据不同按建的ID，执行不同的操作
+		if($(this).attr('id')=='setStorage'){
+ 		var selectRow = $("#dms_table",container).dmsTable().getSelections();
+ 		if (selectRow != null) {
+
+ 	//根据选中的记录，循环根据选择的仓库刷新，选中记录的仓库值		
+			$(selectRow).each(function(e) {
+ 				$("#dms_table",container).dmsTable().updateRowByIndex(selectRow[e].index,{
+ 					STORAGE_NAME:$("#STORAGE_CODE option:selected").text(),
+ 					STORAGE_CODE:$("#STORAGE_CODE option:selected").val()
+ 				});
+			});
+			return true;
+		} else {
+			dmsCommon.tip({
+				status : "warning",
+				msg : "请选择记录！"
+			});
+			return false;
+		}  	
+		}		
+
+		if($(this).attr('id')=='cancel'){			
+			dmsCommon.refreshPageByUrl("part/stockmanage/partbuy/searchPartBuy.html",container);		 
+			return true;		
+		}
+        
+		if($(this).attr('id')=='create'){
+			
+			$("#customerCode",container).removeAttr("readonly");
+			$("#customerCodeBtna", container).removeAttr("disabled");
+			$("#customerCodeBtnb", container).removeAttr("disabled");
+			$("#customerCodeA",container).removeAttr("disabled");
+			$("#create",container).attr("disabled","disabled");
+			$("#stockInNo",container).attr("disabled","disabled");
+			$("#stockInNoFind",container).attr("disabled","disabled");
+			$("#stockInNoClear",container).attr("disabled","disabled");
+			$("a[id='cancel']", container).removeAttr("disabled");
+			$("#customerCode",container).addClass("required");
+			$("#inType",container).removeAttr("disabled");
+// 			$("#inType",container).addClass("required");
+// 			dmsDict.initObject($("#inType",container));
+
+			
+			
+			return true;
+		}
+		
+
+ 	});
+    
+
+
+	
+});
+
+</script>

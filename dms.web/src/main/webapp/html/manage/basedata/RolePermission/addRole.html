@@ -1,0 +1,68 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">角色信息新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">角色代码</label>
+								<div class="col-xs-8">
+									<input id="roleCode" name="roleCode" class="form-control required systemCode" type="text" maxlength="8" minlength="8"/>
+								</div>
+							</div>
+						</div>
+                        <div class="col-xs-12 col-sm-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">角色名称</label>
+								<div class="col-xs-8">
+									<input id="roleName" name="roleName" class="form-control required" type="text" maxlength="20" />
+								</div>
+							</div>
+						</div>
+						
+					    <div class="col-xs-12 col-sm-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">角色说明</label>
+								<div class="col-xs-8">
+									<input id="roleDesc" name="roleDesc" class="form-control " type="text" maxlength="20" />
+								</div>
+							</div>
+						</div>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/basedata/roles" data-model="manage" data-method="POST"
+				data-callBack="true" class="btn blue"
+				data-toggle="confirmation"> <i class="fa fa-save"></i>确定
+			</a> <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+
+	
+	 $(document).one("onload.dms",function(event,container){
+	
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			$("a[data-dismiss='modal']",container).click();
+			$("#dms_table1",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+		
+		
+		
+	 });
+	
+</script>

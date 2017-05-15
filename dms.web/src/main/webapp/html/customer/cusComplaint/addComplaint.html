@@ -1,0 +1,653 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">投诉信息新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">投诉信息</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i
+							class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">投诉单号</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control dmsDisabled" id="complaintNo"  
+										name="complaintNo">
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">投诉人姓名</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control required" id="complaintName"
+										name="complaintName" maxlength="30" >
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">投诉人性别</label>
+								<div class="col-xs-8">
+									<select id="complaintGender" name="complaintGender"
+										class="bs-select form-control required" data-dictCode="1002"
+										data-value="10021001"></select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">联系方式</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control required phone" id="complaintMobile"
+										name="complaintMobile" maxlength="30">
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">投诉来源</label>
+								<div class="col-xs-8">
+									<select id="complaintOrigin" name="complaintOrigin"
+										class="bs-select form-control required" data-dictCode="1500"
+										data-value=""></select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">投诉大类</label>
+								<div class="col-xs-8">
+									<select id="complaintMainType" name="complaintMainType"
+										class="bs-select form-control required" data-dictCode="1501"
+										data-value=""></select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">投诉类型</label>
+								<div class="col-xs-8">
+									<select id="complaintType" name="complaintType"
+										class="bs-select form-control required" data-dictCode="1502"
+										data-value=""></select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">投诉时间</label>
+								<div class="col-xs-8">
+									<div class="input-group date datetime" data-defaultNow="true" >
+										<input id="complaintDate" name="complaintDate" readonly
+											class="form-control required" type="text" value="" /> 
+										<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+					                    <span class="input-group-addon"><span class="fa fa-times"></span></span>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+		
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">接待人员</label>
+								<div class="col-xs-8">
+										<select id="receptionist" name="receptionist"
+										class="bs-select form-control dmsDisabled"  
+										data-url="/basedata/employees/employees/dict"
+										data-model="manage" data-labelValue="EMPLOYEE_NO"
+										data-lableDesc="EMPLOYEE_NAME" data-value="{[userInfo.employeeNo]}"></select> 
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">被投诉员工</label>
+								<div class="col-xs-8">
+									<select id="beComplaintEmp" name="beComplaintEmp"
+										class="bs-select form-control"
+										data-url="/basedata/employees/employees/dict"
+										data-model="manage" data-labelValue="EMPLOYEE_NO"
+										data-lableDesc="EMPLOYEE_NAME"
+										data-live-search="true"></select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">被投诉部门</label>
+								<div class="col-xs-8">
+								     <div class="input-group" >
+										    <input id="orgName"  name="orgName" readonly class="form-control " type="text" />
+										    <input id="orgCode"  name="department"class="form-control" type="hidden" />
+											<span class="input-group-btn">
+												<button class="btn default btn-sm" type="button" data-url="manage/basedata/employee/selectDept.html"
+													data-toggle="modal" data-width="modal-sm" > <i class="fa fa-sitemap"></i>
+												</button>
+												<button class="btn default input-clear" type="button">
+	                                            	<i class="fa fa-close"></i>
+	                                    		</button>
+										   </span>
+									   </div>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">处理状态</label>
+								<div class="col-xs-8">
+									<select id="dealStatus" name="dealStatus"
+										class="bs-select form-control dmsDisabled " data-dictCode="1505" 
+										data-value=""></select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">优先级</label>
+								<div class="col-xs-8">
+									<select id="priority" name="priority"
+										class="bs-select form-control required" data-dictCode="1504"
+										data-value=""></select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">严重性</label>
+								<div class="col-xs-8">
+									<select id="complaintSerious" name="complaintSerious"
+										class="bs-select form-control required" data-dictCode="1503"
+										data-value=""></select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12   ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2 col-md-1 ">投诉摘要</label>
+								<div class="col-sm-10 col-md-11">
+									<input type="text" class="form-control required" id="complaintSummary"
+										name="complaintSummary" maxlength="300">
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12   ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2 col-md-1 ">投诉原因</label>
+								<div class="col-xs-8 col-sm-10 col-md-11 ">
+									<input type="text" class="form-control required" id="complaintReason"
+										name="complaintReason" maxlength="300" >
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2 col-md-1 ">解决方案</label>
+								<div class="col-xs-8 col-sm-10 col-md-11">
+								<input type="text" class="form-control " id="resolvent"
+										name="resolvent" maxlength="300" >
+									<!-- <textarea id="resolvent" name="resolvent" class="form-control"
+										rows="3" cols=""></textarea> -->
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+					</div>
+				</div>
+			</div>
+
+			<div class="tabbable-custom ">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#tab_complaintDetail"
+						data-toggle="tab">处理明细</a></li>
+
+					<li><a href="#tab_complaintCar" data-toggle="tab"> 车主车辆</a></li>
+
+					<li><a href="#tab_complaintSales" data-toggle="tab">销售订单</a></li>
+
+					<li><a href="#tab_complaintWorkorder" data-toggle="tab">工单信息</a>
+					</li>
+
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane fade in active" id="tab_complaintDetail">
+						<div class="panel panel-default table-panel">
+							<div class="panel-heading">
+								<div class="pannel-name"></div>
+								<div class="pannel-button">
+									<div class="btn-group btn-group-sm">
+										<a class="btn btn-outline" href="javascript:;"
+											data-onclickEvent="true"> <i class="fa fa-plus-square"></i>添加
+										</a>
+									</div>
+								</div>
+
+							</div>
+							<div class="panel-body">
+								<table
+									class="table table-striped table-bordered table-hover table-responsive"
+									id="complaintDetai">
+								</table>
+							</div>
+						</div>
+					</div>
+
+					<div class="tab-pane  fade " id="tab_complaintCar">
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<div class="row" data-parentTable ="ownerInfoTable,replaceList" data-tableSelect="true" data-tableSelect1="true" data-tableSelect2="true">
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">VIN号</label>
+											<div class="col-xs-8">
+												<div class="input-group">
+													<input type="text" class="form-control VIN" id="vin" name="vin"
+														disabled="disabled" data-fieldName="vin"> <span
+														class="input-group-btn" maxlength="30">
+														<button class="btn default btn-sm" type="button"
+															data-url="customer/cusComplaint/searchcarInfo.html"
+															data-toggle="modal" data-width="modal-lg">
+															<i class="fa fa-list-alt"></i>
+														</button>
+														<button class="btn default input-clear" type="button">
+	                                            			<i class="fa fa-close"></i>
+	                                    				</button>
+													</span>
+												</div>
+
+											</div>
+
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">车牌号</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control dmsDisabled license" id="license"
+													name="license" data-fieldName="license"  maxlength="30">
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">行驶里程</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control dmsDisabled" id="mileage"
+													name="mileage" data-fieldName="mileage" maxDigit="10" maxPrecision="2" >
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">车主名称</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control dmsDisabled" id="ownerName"
+													name="ownerName" data-fieldName="owner_name"
+													 maxlength="120">
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">购车日期</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker">
+													<input id="buyCarDate" name="buyCarDate"
+														readonly class="form-control dmsDisabled"  
+														type="text" value="" data-fieldName="SALES_DATE" /> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button"
+															 >
+															<i class="fa fa-calendar"></i>
+														</button>
+                                              <button class="btn default date-reset" type="button"  >
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+													</span>
+
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-12 col-md-8 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4 col-sm-2 ">车主地址</label>
+											<div class="col-xs-8 col-sm-10 ">
+												<input type="text" class="form-control dmsDisabled" id="linkAddress"
+													name="linkAddress" data-fieldName="LINK_ADDRESS"
+													  maxlength="120" >
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="tab-pane  fade " id="tab_complaintSales">
+						<div class="panel panel-default">
+
+							<div class="panel-body">
+								<div class="row" data-tableSelect1="true">
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">销售单号</label>
+											<div class="col-xs-8">
+												<div class="input-group">
+													<input type="text" class="form-control" id="soNo" disabled="disabled"
+														name="soNo" data-fieldName="SO_NO" maxlength="11"> <span class="input-group-btn">
+														<button class="btn default btn-sm" type="button"
+															data-url="customer/cusComplaint/searchComplaintSales.html"
+															data-toggle="modal" data-width="modal-lg">
+															<i class="fa fa-list-alt"></i>
+														</button>
+														<button class="btn default input-clear" type="button">
+	                                            			<i class="fa fa-close"></i>
+	                                    				</button>
+													</span>
+												</div>
+
+											</div>
+
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">开单日期</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker">
+													<input id="salesDate" name="salesDate" readonly
+														class="form-control dmsDisabled" type="text" value="" data-fieldName="SALES_DATE"  /> <span
+														class="input-group-btn" >
+														<button class="btn default date-set"   type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+                                              <button class="btn default date-reset" type="button"  >
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+													</span>
+
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">销售顾问</label>
+											<div class="col-xs-8">
+											   <select id="consultant" name="consultant"  
+													class="bs-select form-control dmsDisabled" data-fieldName="consultant"
+													data-url="/basedata/employees/10061001/employeesdict"
+													data-model="manage" data-labelValue="EMPLOYEE_NO"
+													data-lableDesc="EMPLOYEE_NAME" data-fieldName="CONSULTANT">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="hidden">
+										<div class="form-group">
+											<label class="control-label col-xs-4">潜客名称</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control dmsDisabled"   
+													id="customerName" name="customerName" data-fieldName="CUSTOMER_NAME">
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">潜客名称</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control dmsDisabled"   maxlength="120"
+													id="potentialCustomerName" data-autoSyncValue="#customerName" name="potentialCustomerName" >
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+										<div class="hidden">
+										<div class="form-group">
+											<label class="control-label col-xs-4">潜客电话</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control dmsDisabled"  
+													id="phone" name="phone" data-fieldName="PHONE">
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">潜客电话</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control dmsDisabled"   data-autoSyncValue="#phone"
+													id="potentialCustomerPhone" name="potentialCustomerPhone" maxlength="30">
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="hidden">
+										<div class="form-group">
+											<label class="control-label col-xs-4">潜客手机</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control dmsDisabled"  
+													id="mobile" name="mobile" data-fieldName="MOBILE">
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">潜客手机</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control dmsDisabled phone"   data-autoSyncValue="#mobile"
+													id="potentialCustomerMobile" name="potentialCustomerMobile" maxlength="30" >
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="tab-pane  fade " id="tab_complaintWorkorder">
+						<div class="panel panel-default">
+
+							<div class="panel-body">
+								<div class="row" data-tableSelect2="true">
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">工单号</label>
+											<div class="col-xs-8">
+												<div class="input-group">
+													<input type="text" class="form-control" id="roNo" disabled="disabled" data-fieldName="RO_NO"
+														name="roNo" maxlength="11"> <span class="input-group-btn">
+														<button class="btn default btn-sm" type="button"
+															data-url="customer/cusComplaint/searchComplaintWorkorder.html"
+															data-toggle="modal" data-width="modal-lg">
+															<i class="fa fa-list-alt"></i>
+														</button>
+														<button class="btn default input-clear" type="button">
+	                                            			<i class="fa fa-close"></i>
+	                                    				</button>
+													</span>
+												</div>
+											</div>
+
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">开单日期</label>
+											<div class="col-xs-8">
+												<div class="input-group date datetime">
+													<input id="roCreateDate" name="roCreateDate" readonly
+														class="form-control dmsDisabled" type="text" value="" data-fieldName="RO_CREATE_DATE"/> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button"  >
+															<i class="fa fa-calendar"></i>
+														</button>
+                                              <button class="btn default date-reset" type="button"  >
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+													</span>
+
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">服务顾问</label>
+											<div class="col-xs-8">
+											  <select id="serviceAdvisor" name="serviceAdvisor"  
+													class="bs-select form-control dmsDisabled" 
+													data-url="/basedata/employees/10061003/employeesdict"
+													data-model="manage" data-labelValue="EMPLOYEE_NO"
+													data-lableDesc="EMPLOYEE_NAME" data-fieldName="EMPLOYEE_NO">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">送修人</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control dmsDisabled" id="deliverer" data-fieldName="DELIVERER"  
+													name="deliverer" maxlength="120">
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">送修人电话</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control dmsDisabled" id="delivererPhone"  
+													name="delivererPhone" data-fieldName="DELIVERER_PHONE" maxlength="30">
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">送修人手机</label>
+											<div class="col-xs-8">
+												<input type="text" class="form-control dmsDisabled phone"   id="delivererMobile"  
+													name="delivererMobile" data-fieldName="DELIVERER_MOBILE" maxlength="30">
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+
+
+				</div>
+			</div>
+
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/customerComplaint" data-model="customer"
+				data-method="POST" data-callBack="true"  data-fileUploadBtn="true" class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> <a
+				data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initLocale({
+		src : "complaintDetai",
+		container:container,
+		columns : [ {title : "操作",operateFormat : [ 
+		            {type : "localDel"}]}, 
+		            {field : "DEAL_DATE",inputField:"dealDate",title : "处理时间",minWidth:60,inputDateTimeFormat : {attr:"data-dateEndDate='now' data-pickerPosition = 'top-left'",validate:{validateClass:"required"}}},
+		            {field : "DEALER",inputField:"dealer",title : "处理人   ",inputTextFormat : {validate:{validateClass:"required",validateAttr:'maxlength="30"'}}},
+		            {field : "DEAL_RESULT",inputField:"dealResult",title : "处理结果  ",inputTextFormat : {validate:{validateClass:"required",validateAttr:'maxlength="120"'}}},
+		            {field : "OEM_DEAL_NAME",inputField:"oemDealName",title : "OEM处理人 ",inputTextFormat : {validate:{validateAttr:'maxlength="30"'}}},
+		            {field : "COMPLAINTFILE",inputField:"complaintFile",title : "附件",minWidth:50,inputFileFormat : {}},
+
+		            {field : "REMARK",inputField:"remark",title : "备注",inputTextFormat : {validate:{validateAttr:'maxlength="120"'}}}
+		         ]
+	});
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		$("#complaintDetai",getElementContext()).dmsTable().appendBlankRow();
+		 var tab=$("#complaintDetai tbody");
+		 var rows=$("tr",tab).length;
+		
+		 if(rows){
+			 $("tr:eq("+(rows-1)+") td:eq(2) input[id^=dealDate]",tab).parents("div").attr("data-date-start-date","+0d");
+		 }
+	}); 
+	$("#beComplaintEmp",container).bindChange(function(obj){
+		$("#orgCode",getElementContext()).setDmsValue(dmsDict.getSelectedOptionData($("#beComplaintEmp",container)).ORG_CODE);
+		$("#orgName",getElementContext()).setDmsValue(dmsDict.getSelectedOptionData($("#beComplaintEmp",container)).ORG_NAME);
+	});
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+		if($("#complaintDetai",container).dmsTable().getTableRows()>0){
+			$("#orgName",container).addClass("required");
+			if(!$("#orgName",container).validateElement()){
+				returnResult.status = false;
+				return ;	
+			}
+		}
+		$("#orgName",container).removeClass("required");
+		returnResult.status = true;
+	});
+});		
+</script>

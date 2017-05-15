@@ -1,0 +1,369 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">意向新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+
+				<div class="panel-body" data-parentTable ="partInfoTable">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-md-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3"><span style="color:Red">*</span>意向品牌</label>
+								<div class="col-xs-8 col-md-9" >
+									<select id="intentBrand" class="bs-select form-control required"
+										name="INTENT_BRAND" data-url="/basedata/brandsdict"
+										data-model="manage" data-labelValue="BRAND_CODE"
+										data-lableDesc="BRAND_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 col-md-3" hidden="hidden">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">意向品牌</label>
+								<div class="col-xs-8 col-md-9" >
+								<input id="brandName" name="BRAND_NAME" class="form-control"  type="text" />
+								</div>
+							</div>
+						</div>
+							<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 col-md-3" hidden="hidden">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">意向车系</label>
+								<div class="col-xs-8 col-md-9" >
+								<input id="seriesName" name="SERIES_NAME" class="form-control"  type="text" />
+								</div>
+							</div>
+						</div>
+						<!-- /span -->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3"><span style="color:Red">*</span>意向车系</label>
+								<div class="col-xs-8 col-md-9">
+									<select id="intentSeries" parent="intentBrand"
+										class="bs-select form-control required" name="INTENT_SERIES"
+											data-url="/basedata/brandsdictC/{[intentBrand]}/seriessdictC"
+										data-model="manage" data-labelValue="SERIES_CODE"
+										data-lableDesc="SERIES_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 col-md-3" hidden="hidden">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">意向车型</label>
+								<div class="col-xs-8 col-md-9" >
+								<input id="modelName" name="MODEL_NAME" class="form-control"  type="text" />
+								</div>
+							</div>
+						</div>
+						<!-- /span -->
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3"><span style="color:Red">*</span>意向车型</label>
+								<div class="col-xs-8 col-md-9">
+									<select id="intentModel" parent="intentSeries"
+										class="bs-select form-control required" name="INTENT_MODEL"
+										data-url="/basedata/brandsdictC/{[intentBrand]}/seriessdictC/{[intentSeries]}/modelsdictC"
+										data-model="manage" data-labelValue="MODEL_CODE"
+										data-lableDesc="MODEL_NAME" >
+
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+							<div class="col-xs-12 col-sm-6 col-md-4 col-md-3" hidden="hidden">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">意向配置</label>
+								<div class="col-xs-8 col-md-9" >
+								<input id="configName" name="CONFIG_NAME" class="form-control"  type="text" />
+								</div>
+							</div>
+						</div>
+						<!-- /span -->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3"><span style="color:Red">*</span>意向配置</label>
+								<div class="col-xs-8 col-md-9">
+									<select id="intentConfig" parent="intentModel"
+										class="bs-select form-control  required" name="INTENT_CONFIG"
+										data-url="/basedata/brandsdictC/{[intentBrand]}/seriessdictC/{[intentSeries]}/modelsdictC/{[intentModel]}/packagesdictC"
+										data-model="manage" data-labelValue="CONFIG_CODE"
+										data-lableDesc="CONFIG_NAME">
+
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+					  <div class="col-xs-12 col-sm-6 col-md-4 col-md-3" hidden="hidden">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">意向颜色</label>
+								<div class="col-xs-8 col-md-9" >
+								<input id="colorName" name="COLOR_NAME" class="form-control"  type="text" />
+								</div>
+							</div>
+						</div>
+						<!-- /span -->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">意向颜色</label>
+								<div class="col-xs-8 col-md-9">
+									<select id="intentColor" class="bs-select form-control" name="INTENT_COLOR"
+										data-url="/basedata/colors/colorinfo/dicts" data-model="repair"
+										data-labelValue="COLOR_CODE" data-lableDesc="COLOR_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">竞争品牌</label>
+								<div class="col-xs-8 col-md-9 ">
+									<input id="competitorBrand" name="COMPETITOR_BRAND" class="form-control"  type="text" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">竞争车系</label>
+								<div class="col-xs-8 col-md-9 ">
+									<input id="competitorSeries" name="COMPETITOR_SERIES" class="form-control"  type="text" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+							<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4 col-md-3">报价日期</label>
+											<div class="col-xs-8 col-md-9 ">
+												<div class="input-group date date-picker" data-orientation="top right">
+													<input id="salesQuoteDate" name="SALES_QUOTE_DATE" readonly
+														class="form-control" type="text" value="" /> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+													</span>
+
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">报价金额</label>
+								<div class="col-xs-8 col-md-9 ">
+									<input id="quotedAmount" name="QUOTED_AMOUNT" class="form-control money"  maxDigit="30"  type="text" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">建议零售价</label>
+								<div class="col-xs-8 col-md-9 ">
+									<input id="sugRetailPrice" name="SUG_RETAIL_PRICE" class="form-control money"  maxDigit="30"  type="text" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+							<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">批售意向价</label>
+								<div class="col-xs-8 col-md-9 ">
+									<input id="wsIntentPrice" name="WS_INTENT_PRICE" class="form-control money"  maxDigit="30"  type="text" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+							<!--/span-->
+							<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">购买数量</label>
+								<div class="col-xs-8 col-md-9 ">
+									<input id="purchaseCount" name="PURCHASE_COUNT" class="form-control"    type="text" />
+								</div>
+							</div>
+						</div>
+						
+							<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-4">预计购买时间段</label>
+								<div class="col-xs-8 col-md-8">
+									<select id="intendingBuyTime" name="INTENDING_BUY_TIME"
+										class="bs-select form-control" data-dictCode="1354"
+										data-value="">
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">主要车型</label>
+								<div class="col-xs-8 col-md-9">
+									<select id="isMainModel" name="IS_MAIN_MODEL"
+										class="bs-select form-control" data-dictCode="1278"
+										data-value="">
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+					
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">下定金额</label>
+								<div class="col-xs-8 col-md-9 ">
+									<input id="depositAmount" name="DEPOSIT_AMOUNT" class="form-control money"  maxDigit="30" disabled type="text" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">官网订单号</label>
+								<div class="col-xs-8 col-md-9 ">
+									<input id="ecOrderNo" name="EC_ORDER_NO" class="form-control"   type="text" disabled/>
+								</div>
+							</div>
+						</div>
+						<!-- /span -->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">适合原因</label>
+								<div class="col-xs-8 col-md-9 ">
+									<input id="chooseReason" name="CHOOSE_REASON" class="form-control"   type="text" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+							<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">其他需求</label>
+								<div class="col-xs-8 col-md-9 ">
+									<input id="otherRequirements" name="OTHER_REQUIREMENTS" class="form-control"   type="text" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+							<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">零售金融</label>
+								<div class="col-xs-8 col-md-9 ">
+									<input id="retailFinance" name="RETAIL_FINANCE" class="form-control"   type="text" disabled/>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2 col-md-1 ">报价备注</label>
+								<div class="col-xs-8 col-sm-10 col-md-11">
+									<textarea id="quotedRemark" name="QUOTED_REMARK"
+									   class="form-control" maxlength="120"
+										rows="2" cols=""></textarea>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-toggle="confirmation" data-onclickEvent1="true" data-onclickEvent="true" data-validate="true" data-beforeRequest="true"><i
+				class="fa fa-save"></i>确定</a> <a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	//事件点击
+	var seriesName="";
+	var modelName="";
+	var configName="";
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+		var brandName=$("#intentBrand").find("option:selected").text();
+		var intentColor=$("#intentColor").find("option:selected").text();
+		$("#brandName").val(brandName);
+		$("#seriesName",container).setDmsValue(seriesName);
+		$("#modelName",container).setDmsValue(modelName);
+		if(intentColor!='请选择'){
+			$("#colorName",container).setDmsValue(intentColor);
+		}
+		$("#configName",container).setDmsValue(configName);
+		
+		var formJson = $("div[data-parentTable='partInfoTable']",container).serializeFormJson();
+		$("#intentList",getElementContext()).dmsTable().appendRow(formJson);
+		$("a[data-dismiss='modal']",container).click();
+		 $("#intentList",getElementContext()).find("input[name='intentBrand']").parent().hide();
+	    $("#intentList", getElementContext()).find("input[name='intentSeries']").parent().hide();
+	    $("#intentList", getElementContext()).find("input[name='intentModel']").parent().hide();
+	    $("#intentList", getElementContext()).find("input[name='intentColor']").parent().hide();
+	    $("#intentList", getElementContext()).find("input[name='intentConfig']").parent().hide();
+		returnResult.status = true;
+	});
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		
+		searchSeriesName($("#intentSeries",container).val());
+		searchModelName($("#intentSeries",container).val(),$("#intentModel",container).val());
+		var intentconfig=$("#intentConfig").find("option:selected").text();
+		configName =intentconfig;
+		//searchConfigName($("#intentModel",container).val(),$("#intentConfig",container).val()); 
+		
+		
+	});
+	 var searchSeriesName=function(str){
+			dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["customer"] + "/customerManage/potentialcus/search/"+str+"/SeriesName",
+				type : 'GET',
+				sucessCallBack : function(data) {
+					seriesName=data;
+				}
+			});
+			
+	 }
+	 var searchModelName=function(s,m){
+			dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["customer"] + "/customerManage/potentialcus/search/"+s+"/"+m+"/ModelName",
+				type : 'GET',
+				sucessCallBack : function(data) {
+					modelName=data;
+				}
+			});
+			
+	 }
+	 var searchConfigName=function(m,c){
+			dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["customer"] + "/customerManage/potentialcus/search/"+m+"/ConfigName/"+c,
+				type : 'GET',
+				sucessCallBack : function(data) {
+					configName=data;
+				}
+			});
+			
+	 }
+});	
+</script>

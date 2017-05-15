@@ -1,0 +1,104 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+		    <div class="modal-title">收款减免明细</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+		<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">收款明细</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+					<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" href="javascript:;"
+								data-onclickEvent="true"> <i class="fa fa-print"></i>
+								打印
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_table">
+					</table>
+				</div>
+			</div>
+		<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">减免明细</div>
+						<div class="pannel-tools">
+							<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+						</div>
+					<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" href="javascript:;"
+								data-onclickEvent="true"> <i class="fa fa-print"></i>
+								打印
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="recepits">
+					</table>
+				</div>
+			</div>
+			</div>
+		</form>
+	</div>
+<script type="text/javascript">
+    
+	$(document).one("onload.dms",function(event,container){
+		var balancePayobjId;
+		+function(){
+			var selectRow = $("#dms_table",getElementContext()).dmsTable().getFirstSelection();
+			$("div[data-tableSelect='true']",container).initHtmlContent(selectRow);
+			balancePayobjId=selectRow.BALA_PAYOBJ_ID;
+		}();
+		new Datatable().initLocale({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["repair"] + "/balance/receiveMoney/"+balancePayobjId+"/receiveMoneys",
+			rowID : "RECEIVE_MONEY_ID",
+			sortName : "RECEIVE_MONEY_ID",
+			sortOrder : "asc",
+			autoHeight:false,
+			columns : [ 
+                //{field:"STOCK_IN_NO",title:"收款单号"},
+                {field:"RECEIVE_DATE",title:"收款日期",dateFormat : {}},
+    			{field:"RECEIVE_AMOUNT",title:"收款金额",numberFormat : {decimal:2}},
+    			{field:"PAY_TYPE_CODE",title:"付费方式",codeFormat:{type:"dict",codeType:"1208"}},
+    			{field:"WRITEOFF_TAG",title:"销账标志",inputCheckBoxFormat:{type:"dict",codeType:"1013"}},
+    			{field:"EMPLOYEE_NAME",title:"经手人"},
+    			{field:"INVOICE_TAG",title:"已开票",inputCheckBoxFormat:{type:"dict",codeType:"1013"}},
+    			{field:"INVOICE_TYPE_CODE",title:"发票类型",codeFormat:{type:"dict",codeType:"1207"}},
+    			{field:"BILL_NO",title:"发票号码"},
+    			{field:"REMARK",title:"备注"},
+			]
+		});
+		new Datatable().initLocale({
+			src : "recepits",
+			container:container,
+			url : dmsCommon.getDmsPath()["repair"] + "/balance/receiveMoney/"+balancePayobjId+"/chargeDerates",
+			rowID : "DERATE_ID",
+			sortName : "DERATE_ID",
+			sortOrder : "asc",
+			autoHeight:false,
+			columns : [ 
+                {field:"DERATE_NO",title:"减免单号"},
+    			{field:"DERATE_DATE",title:"减免日期",dateFormat : {}},
+    			{field:"DERATE_AMOUNT",title:"减免金额",numberFormat : {decimal:2} },
+    			{field:"REMARK",title:"备注" },
+			]
+		});
+	});
+</script>

@@ -1,0 +1,478 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-body">	
+			<div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="pannel-name">修改入库单明细</div>
+						<div class="pannel-tools">
+							<a href="javascript:;" class="expand"> <i
+								class="fa fa-chevron-down"></i></a>
+						</div>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4"><span style="color: red;">*</span>产品代码</label>
+									<div class="col-xs-8">
+										<div class="input-group">
+											<input id="PRODUCT_CODE" name="PRODUCT_CODE" readonly="readonly"
+												class="form-control required" type="text" />
+											<div class="input-group-btn">
+												<button class="btn default btn-sm" type="button" disabled="disabled"
+													data-url="repair/order/repair/queryCar.html"
+													data-toggle="modal" 
+													data-info="license" data-width="modal-lg">
+													<i class="fa fa-search"></i>
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">VIN</label>
+									<div class="col-xs-8">
+										<input id="VIN" name="VIN" class="form-control" readonly="readonly" type="text"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4"><span style="color: red;">*</span>含税采购价</label>
+									<div class="col-xs-8">
+										<input id="PURCHASE_PRICE" name="PURCHASE_PRICE"  class="form-control required"
+											type="text"  maxlength='10'/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4"><span style="color: red;">*</span>仓库代码</label>
+									<div class="col-xs-8">
+										<select id="STORAGE_CODE" class="bs-select form-control required"
+											name="STORAGE_CODE"
+											data-url="/stockManage/safeguard/findStorage/{[dealer_code]}" 
+											data-model="vehicle" data-labelValue="STORAGE_NAME"
+											data-lableDesc="STORAGE_NAME">
+										</select>
+									</div>
+								</div>
+							</div>
+	
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">库位代码</label>
+									<div class="col-xs-8">
+										<input id="STORAGE_POSITION_CODE" name="STORAGE_POSITION_CODE" data-fieldName="STORAGE_POSITION_CODE"
+											class="form-control" type="text" />
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">发动机号</label>
+									<div class="col-xs-8">
+										<input id="ENGINE_NO" name="ENGINE_NO" class="form-control" data-fieldName="ENGINE_NO"
+											type="text" />
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">排气量</label>
+									<div class="col-xs-8">
+										<input id="EXHAUST_QUANTITY" name="EXHAUST_QUANTITY"
+											class="form-control" type="text"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">排放标准</label>
+									<div class="col-xs-8">
+										<select id="DISCHARGE_STANDARD" class="bs-select form-control" name="DISCHARGE_STANDARD"
+											data-url="/vehicleStock/stockIn/findDischargeStandard" 
+											data-model="vehicle" data-labelValue="CODE_ID" data-lableDesc="CODE_CN_DESC">
+										</select>
+									</div>
+								</div>
+							</div>
+	
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">钥匙编号</label>
+									<div class="col-xs-8">
+										<input id="KEY_NUMBER" name="KEY_NUMBER" class="form-control"
+											type="text" data-fieldName="KEY_NUMBER"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">合格证号</label>
+									<div class="col-xs-8">
+										<input id="CERTIFICATE_NUMBER" name="CERTIFICATE_NUMBER"
+											class="form-control" type="text" data-fieldName="CERTIFICATE_NUMBER"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">生产日期</label>
+									<div class="col-xs-8">
+										<div class="input-group date date-picker">
+											<input id="MANUFACTURE_DATE" name="MANUFACTURE_DATE" data-fieldName="MANUFACTURE_DATE"
+												class="form-control" type="text"/> <span
+												class="input-group-btn">
+												<button class="btn default date-set" type="button">
+													<i class="fa fa-calendar"></i>
+												</button>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+	
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">出厂日期</label>
+									<div class="col-xs-8">
+										<div class="input-group date date-picker">
+											<input id="FACTORY_DATE" name="FACTORY_DATE" data-fieldName="FACTORY_DATE"
+												class="form-control" type="text"/> <span
+												class="input-group-btn">
+												<button class="btn default date-set" type="button">
+													<i class="fa fa-calendar"></i>
+												</button>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+	
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">产地</label>
+									<div class="col-xs-8">
+										<input id="PRODUCTING_AREA" name="PRODUCTING_AREA"
+											class="form-control" type="text" />
+									</div>
+								</div>
+							</div>
+	
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">附加成本</label>
+									<div class="col-xs-8">
+										<input id="ADDITIONAL_COST" name="ADDITIONAL_COST" data-fieldName="ADDITIONAL_COST"
+											class="form-control" type="text" />
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">年款</label>
+									<div class="col-xs-8">
+										<input id="MODEL_YEAR" name="MODEL_YEAR" readonly="readonly" data-fieldName="MODEL_YEAR"
+											class="form-control" type="text" />
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">VSN</label>
+									<div class="col-xs-8">
+										<input id="VSN" name="VSN"
+											class="form-control" type="text"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">采购订单号</label>
+									<div class="col-xs-8">
+										<input id="PO_NO" name="PO_NO" data-fieldName="PO_NO"
+											class="form-control" type="text"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-6">
+								<div class="form-group">
+									<label class="control-label col-xs-2">备注</label>
+									<div class="col-xs-10">
+										<input id="REMARK" name="REMARK" class="form-control" data-fieldName="REMARK"
+											type="text" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="pannel-name">承运信息</div>
+						<div class="pannel-tools">
+							<a href="javascript:;" class="expand"> <i
+								class="fa fa-chevron-down"></i></a>
+						</div>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">发货单号</label>
+									<div class="col-xs-8">
+										<input id="SHIPPING_ORDER_NO" name="SHIPPING_ORDER_NO"
+											class="form-control" type="text" data-fieldName="SHIPPING_ORDER_NO"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">承运车牌号</label>
+									<div class="col-xs-8">
+										<input id="SHIPPER_LICENSE" name="SHIPPER_LICENSE" readonly="readonly"
+											class="form-control" type="text" data-fieldName="SHIPPER_LICENSE"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">承运商名称</label>
+									<div class="col-xs-8">
+										<input id="SHIPPER_NAME" name="SHIPPER_NAME" class="form-control" data-fieldName="SHIPPER_NAME" 
+											type="text" readonly="readonly"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">发车日期</label>
+									<div class="col-xs-8">
+										<div class="input-group date date-picker">
+											<input id="SHIPPING_DATE" name="SHIPPING_DATE" readonly data-fieldName="SHIPPING_DATE"
+												class="form-control" type="text" value="" /> <span
+												class="input-group-btn">
+												<button class="btn default date-set" type="button">
+													<i class="fa fa-calendar"></i>
+												</button>
+												<button class="btn default date-reset" type="button">
+													<i class="fa fa-times"></i>
+												</button>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">预送到日期</label>
+									<div class="col-xs-8">
+										<div class="input-group date date-picker">
+											<input id="ARRIVING_DATE" name="ARRIVING_DATE" readonly data-fieldName="ARRIVING_DATE" 
+												class="form-control" type="text" value="" /> <span
+												class="input-group-btn">
+												<button class="btn default date-set" type="button">
+													<i class="fa fa-calendar"></i>
+												</button>
+												<button class="btn default date-reset" type="button">
+													<i class="fa fa-times"></i>
+												</button>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4"><span style="color: red;">*</span>实送到日期</label>
+									<div class="col-xs-8">
+										<div class="input-group date date-picker">
+											<input id="ARRIVED_DATE" name="ARRIVED_DATE" 
+												class="form-control required" type="text" value="" /> <span
+												class="input-group-btn">
+												<button class="btn default date-set" type="button">
+													<i class="fa fa-calendar"></i>
+												</button>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">送车人姓名</label>
+									<div class="col-xs-8">
+										<input id="DELIVERYMAN_NAME" name="DELIVERYMAN_NAME" data-fieldName="DELIVERYMAN_NAME" 
+											class="form-control" type="text" readonly="readonly"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">送车人电话</label>
+									<div class="col-xs-8">
+										<input id="DELIVERYMAN_PHONE" name="DELIVERYMAN_PHONE" data-fieldName="DELIVERYMAN_PHONE" 
+											class="form-control" type="text" readonly="readonly"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">收货地址</label>
+									<div class="col-xs-8">
+										<input id="SHIPPING_ADDRESS" name="SHIPPING_ADDRESS" data-fieldName="SHIPPING_ADDRESS"
+											class="form-control" type="text" readonly="readonly"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">采购日期</label>
+									<div class="col-xs-8">
+										<div class="input-group date date-picker">
+											<input id="VS_PURCHASE_DATE" name="VS_PURCHASE_DATE" 
+												class="form-control" type="text" /> <span
+												class="input-group-btn">
+												<button class="btn default date-set" type="button">
+													<i class="fa fa-calendar"></i>
+												</button>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="pannel-name">供应商信息</div>
+						<div class="pannel-tools">
+							<a href="javascript:;" class="collapse"> <i
+								class="fa fa-chevron-down"></i></a>
+						</div>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">供应方代码</label>
+									<div class="col-xs-8">
+										<input id="VENDOR_CODE" name="VENDOR_CODE" class="form-control" data-fieldName="VENDOR_CODE" 
+											type="text" readonly="readonly"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">供应方名称</label>
+									<div class="col-xs-8">
+										<input id="VENDOR_NAME" name="VENDOR_NAME" class="form-control" data-fieldName="VENDOR_NAME" 
+											type="text" readonly="readonly"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">委托方代码</label>
+									<div class="col-xs-8">
+										<input id="CONSIGNER_CODE" name="CONSIGNER_CODE" data-fieldName="CONSIGNER_CODE" 
+											class="form-control" type="text" readonly="readonly"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">委托方名称</label>
+									<div class="col-xs-8">
+										<input id="CONSIGNER_NAME" name="CONSIGNER_NAME" data-fieldName="CONSIGNER_NAME" 
+											class="form-control" type="text" readonly="readonly"/>
+										<input type="hidden" id="IS_FINISHED" name="IS_FINISHED"/>
+										<input type="hidden" id="IS_UPLOAD" name="IS_UPLOAD"/>
+										<input type="hidden" id="HAS_CERTIFICATE" name="HAS_CERTIFICATE"/>
+										<input type="hidden" id="OEM_TAG" name="OEM_TAG"/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-onclickEvent="true" data-callBack="true" class="btn blue"><i
+				class="fa fa-save"></i>确定</a>
+			<a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+
+$(document).one("onload.dms",function(event,container){
+
+	var index = $.cookie('stockInForUpdateIndex');//下标
+	var aaa = $.cookie('stockInForUpdate');
+	var item = JSON.parse($.cookie('stockInForUpdate'));//将cookie的string转化成json
+	$(".form-horizontal",container).jsonToForm(item);//将json填充到相应的框中
+	
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event,returnResult){
+		var newInfo =  $('.form-horizontal',container).formToJson();
+		console.log(newInfo)
+		$("#dms_table",getElementContext()).dmsTable().updateRowByIndex(index,newInfo);
+		
+		//dmsCommon.tip({status:"success",msg:"修改成功！"});
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#stockInlist",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$.cookie('stockInForUpdate', '', { expires: -1 });//删除cookie
+		$.cookie('stockInForUpdateIndex', '', { expires: -1 });//删除cookie
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#stockInlist",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+}); 
+
+//去掉json格式的中括号对[]
+$.fn.formToJson = function()    
+{    
+   var obj = {};    
+   var jsonInfo = this.serializeArray();    
+   $.each(jsonInfo, function() {    
+       if (obj[this.name]) {    
+           if (!obj[this.name].push) {    
+               obj[this.name] = [obj[this.name]];    
+           }    
+           obj[this.name].push(this.value || '');    
+       } else {    
+           obj[this.name] = this.value || '';    
+       }    
+   });    
+   return obj;    
+}; 
+
+//将json数据存入form表单
+$.fn.jsonToForm = function (info){
+	//1.循环JSON数据
+	for (var key in info) { 
+		var value = info[key];
+		if(key=="STORAGE_CODE"){
+			$("#STORAGE_CODE").attr('data-value',value);
+		}else if(key=="DISCHARGE_STANDARD"){
+			$("#DISCHARGE_STANDARD").attr('data-value',value);
+		}else{
+			$("[name=" + key + "]", $(this)).val(value);
+		}
+	}
+}
+</script>

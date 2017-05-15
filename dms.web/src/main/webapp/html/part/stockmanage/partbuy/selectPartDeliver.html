@@ -1,0 +1,104 @@
+<div class="dms-search">
+<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">发运单选择</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">发运单号</label>
+								<div class="col-xs-8">
+									<input id="delivery_no" name="delivery_no"
+										class="form-control" type="text" />
+								</div>
+							</div>
+						</div>
+
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">签收状态</label>
+								<div class="col-xs-8">
+									<select class="bs-select form-control" id="delivery_status"
+										name="delivery_status" data-dictCode="1306" data-excludeItems="13061002">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2">发运时间</label>
+								<div class="col-xs-8 col-sm-10">
+									 <div class="input-group input-daterange"  data-defaultDays="7">
+			                             <input type="text" class="form-control" readonly  name="delivery_time_from">
+			                             <span class="input-group-addon">至</span>
+			                             <input type="text" class="form-control" readonly  name="delivery_time_to"> 
+			                        </div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row ">
+						<div class="col-xs-12 ">
+							<div class="query-btn">
+								<a href="javascript:;" class="btn blue"> <i
+									class="fa fa-search"></i>查询
+								</a> 
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+					<div class="pannel-name">发运单信息</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="DeliverList">
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-onclickEvent="true"><i class="fa fa-save"></i>确定</a>
+			<a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消</a>
+		</div>
+</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	 new Datatable().initPagination({
+			src : "DeliverList",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/partOrder/deliverOrders/partBuy/qryDeliver", 
+			rowID:"DELIVER_ID",
+			sortName : "DELIVER_ID",
+			sortOrder : "asc",
+			autoHeight:false,
+			columns : [ {radio:true,sortable : false},
+			            {field : "DELIVERY_NO",title : "发运单号"},
+			            {field : "DELIVERY_STATUS",title : "签收状态",codeFormat : {type : "dict",codeType : "1306"}},
+			            {field : "DELIVERY_TIME",title : "发运时间",dateFormat : {}},
+			            {field : "RECEIVABLE_CASES",title : "应收箱数",NumberFormat : {decimal : 2}},
+			            {field : "FACT_CASES",title : "实收箱数",NumberFormat : {decimal : 2}},
+			            {field : "REMARK",title : "备注"}
+			         ]
+		});
+		//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			var selectRow = $("#DeliverList",container).dmsTable().getFirstSelection();
+			$("div[data-tableSelect1='true']",getElementContext()).initHtmlContent(selectRow);
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+		});
+	});
+</script>

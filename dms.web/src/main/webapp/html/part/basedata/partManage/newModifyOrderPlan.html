@@ -1,0 +1,450 @@
+<div class="dms-edit ajaxrest" data-url="/partOrderManageDLR/getOrderPlan/{[ORDER_ID]}" data-model="part">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">配件订单修改</div>
+			
+		</div>
+		
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">订单基本信息</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+			
+	    		<div class="modal-body">
+					<div class="row">
+					
+															
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">订单号</label>
+								<div class="col-xs-8">
+								<input type="hidden" id="index" name="index" />
+								<input type="hidden" id="replacePartCode" name="replacePartCode" />
+								<input type="hidden" id="replacepartName" name="replacepartName" />
+								<input type="hidden" id="replaceOrderNum" name="replaceOrderNum" />
+								<input type="hidden" id="isChange" name="isChange" />
+								<input type="hidden" id="detailOperate" name="detailOperate" value="N"/>
+								<input id="partCode" name="partCode" class="form-control" type="hidden" />
+								<input type="hidden" id="partName" name="partName" />
+								<input id="orderNum" name="orderNum" class="form-control" type="hidden" />  
+								<input id="orderNo" name="orderNo" class="form-control" type="text"data-fieldName="ORDER_NO"  readonly/> 
+									</div>	
+								</div>
+							</div>
+					
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">订单类型</label>
+								<div class="col-xs-8">
+									<select id="orderTypeA" name="orderTypeA" class="bs-select form-control" data-dictCode="8004" data-type="oemDict" data-fieldName="ORDER_TYPE" >
+									</select>
+								</div>
+							</div>
+						</div>
+															
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">VIN</label>
+								<div class="col-xs-8">
+								
+									
+									<input id="vin"
+										name="vin" class="form-control" type="text" data-fieldName="VIN"/> 
+									</div>	
+								</div>
+							</div>
+															
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车主姓名</label>
+								<div class="col-xs-8">
+									<input id="customerName"
+										name="customerName" class="form-control" type="text" data-fieldName="CUSTOMER_NAME"/> 
+									</div>	
+								</div>
+							</div>
+					
+															
+							<div class="col-xs-12 col-sm-6 col-md-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">车牌号</label>
+									<div class="col-xs-8">
+										<input id="licenseNo"
+										name="licenseNo" class="form-control" type="text" data-fieldName="LICENSE_NO"/> 
+									</div>	
+								</div>
+							</div>
+						
+							<div class="col-xs-12 col-sm-6 col-md-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">联系电话</label>
+									<div class="col-xs-8">
+										<input id="customerPhone"
+										name="customerPhone" class="form-control" type="text" data-fieldName="CUSTOMER_PHONE"/> 
+									</div>	
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">电子编码</label>
+									<div class="col-xs-8">
+										<input id="elecCode"
+										name="elecCode" class="form-control" type="text" data-fieldName="ELEC_CODE"/> 
+									</div>	
+								</div>
+							</div>
+					
+							<div class="col-xs-12 col-sm-6 col-md-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">机械代码</label>
+									<div class="col-xs-8">
+										<input id="mechCode"
+										name="mechCode" class="form-control" type="text" data-fieldName="MECH_CODE"/> 
+									</div>	
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-4">
+								<div class="form-group">
+									<label class="control-label col-xs-7">锁芯机械码/CD机序列号</label>
+									<div class="col-xs-5">
+										<input id="keyCode"
+										name="keyCode" class="form-control" type="text" data-fieldName="KEY_CODE"/> 
+									</div>	
+								</div>
+							</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-6">是否通过应急启动</label>
+								<div class="col-xs-6">
+									<select id="isEmerg" name="isEmerg" class="bs-select form-control" data-dictCode="1004" data-type="oemDict" data-fieldName="KEY_CODE" >
+									</select>
+								</div>
+							</div>
+						</div>
+							<div class="col-xs-12 col-sm-6 col-md-4 ">
+								<div class="form-group">
+									<label class="control-label col-xs-7">是否在未授权店私自更换</label>
+									<div class="col-xs-5">
+										<select id="isRepairByself" name="isRepairByself" class="bs-select form-control" data-dictCode="1004" data-type="oemDict" data-fieldName="IS_REPAIR_BYSELF" >
+									    </select>
+									</div>	
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-4 ">
+								<div class="form-group">
+									<label class="control-label col-xs-4">备注</label>
+									<div class="col-xs-8">
+							 		<textarea class="form-control" rows="1" id="leaveWord" name="leaveWord" maxlength="750" data-fieldName="LEAVE_WORD"></textarea> 
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>	
+				
+					
+					
+					</div>
+				</div>
+
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+			<div class="pannel-name">附件信息</div>
+			<div class="pannel-button" >
+				<div class="btn-group btn-group-sm">
+					<a class="btn btn-outline" data-url="part/basedata/partManage/addFuJain.html" data-width="modal-lg"
+						data-toggle="modal"  data-saveBeforeEvent="true" data-value="7"> <i class="fa fa-plus-square"></i>添加附件
+					</a> 
+				</div>
+			</div>
+			<div class="pannel-tools">
+				<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="tableList"></table>
+		</div>
+	</div>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+			<div class="pannel-name">订货配件清单</div>
+			<div class="pannel-button" >
+				<div class="btn-group btn-group-sm">
+					<a class="btn btn-outline" data-beforeShowEvent="true" data-url="part/basedata/partManage/addOrderPartList.html" data-width="modal-lg"
+						data-toggle="modal"   > <i class="fa fa-plus-square"></i>新增
+					</a>
+					<a  class="btn btn-outline" data-url="part/basedata/partManage/partImport2.html"  data-beforeShowEvent="true" data-toggle="modal" > <i
+								class="fa fa-upload" ></i> EXCE导入
+					</a> 
+					<a  data-url="/partOrderManageDLR/getDetail" data-onclickEvent1="true" data-model="part" data-method="POST" data-callBack='true'
+					class="btn btn-outline" data-toggle="confirmation" ><i class="fa fa-save"></i>获取清单</a> 
+					<a  data-url="/partOrderManageDLR/replacePart" data-onclickEvent2="true" data-model="part" data-method="POST" data-callBack='true'
+					class="btn btn-outline" data-toggle="confirmation" ><i class="fa fa-save"></i>替换件</a> 
+			
+				</div>
+			</div>
+			<div class="pannel-tools">
+				<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dcsList"></table>
+		</div>
+	</div>
+	
+		<div class="modal-footer center-block">
+			<a data-url="/activityMaintain/activityAddSave" data-model="vehicle" data-method="POST"
+				data-callBack="true" class="btn blue" data-beforeRequest="true" 
+				data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+			</a>
+			 <a  data-goback="page" href="part/basedata/partManage/orderPlanInti.html"
+			class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+//页面加载后初始化
+$(document).one("onload.dms",function(event,container){
+	
+	 new Datatable().initPagination({
+			src : "tableList",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/partOrderManageDLR/getFuJian/{[ORDER_ID]}",
+			rowID : "ATT_ID",
+			sortName : "ATT_ID",
+			sortOrder : "asc",
+			autoHeight:false,
+			columns : [ 
+			    {field :"ATT_ID",title : "操作",operateFormat : [
+	                                         					{type : "localDel",operateIcon:'<i class="glyphicon glyphicon-remove"></i>',onBeforeEvent:function(value, row, index){},
+	                                         						onAfterEvent:function(value, row, index){$("#save",container).removeAttr('disabled');}}
+	                                         				]},
+			    {field : "ATT_NAME",title : "附件名称"}
+			  
+			    
+			]
+			
+		});
+	
+	 
+	 new Datatable().initPagination({
+			src : "dcsList",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/partOrderManageDLR/getOrderPartInfo/{[ORDER_ID]}",
+			rowID : "CHECK_ID",
+			sortName : "CHECK_ID",
+			sortOrder : "asc",
+			autoHeight:false,
+			columns : [ 
+				{field :"CHECK_ID",title : "删除",operateFormat : [
+                          					{type : "localDel",operateIcon:'<i class="glyphicon glyphicon-remove"></i>',onBeforeEvent:function(value, row, index){
+                          						var partCode = document.getElementById("partCode").value;
+                          						document.getElementById("partCode").value = partCode.replace(row.PART_CODE+",","");
+                          					},
+                          						onAfterEvent:function(value, row, index){$("#save",container).removeAttr('disabled');}}
+                          				]},
+			    {field : "PART_CODE",title : "配件代码",formatter : function(value, row, index){
+			    		document.getElementById("partCode").value += row.PART_CODE+",";
+				    	return row.PART_CODE;
+	            }},
+				{field : "PART_NAME",title : "配件名称",formatter : function(value, row, index){
+			    	document.getElementById("partName").value += row.PART_NAME+",";
+			    	return row.PART_NAME;
+	            }},
+				{field : "ORDER_NUM",title : "订货数量",inputTextFormat : {hiddenField:"ORDER_NUM"},formatter : function(value, row, index){
+			    	document.getElementById("orderNum").value += row.ORDER_NUM+",";
+			    	return row.ORDER_NUM;
+	            }},
+				{field : "IS_MJV",title : "是否S",visible : false},
+				{field : "STOCK_NUM",title : "车厂库存",formatter : function(value, row, index){
+	            	if(row.IS_MJV=='10041001'){
+	            		return row.STOCK_NUM;
+	            	}else{
+	            		return "";
+	            	}
+	            }},
+				{field : "TAX_PRICE",title : "含税单价",formatter : function(value, row, index){
+	            	if(row.IS_MJV=='10041001'){
+	            		return row.TAX_PRICE;
+	            	}else{
+	            		return "";
+	            	}
+	            }},
+				{field : "NO_TAX_PRICE",title : "不含税单价",formatter : function(value, row, index){
+	            	if(row.IS_MJV=='10041001'){
+	            		return row.NO_TAX_PRICE;
+	            	}else{
+	            		return "";
+	            	}
+	            }},
+				{field : "TAX_AMOUNT",title : "含税总额",formatter : function(value, row, index){
+	            	if(row.IS_MJV=='10041001'){
+	            		return row.TAX_AMOUNT;
+	            	}else{
+	            		return "";
+	            	}
+	            }},
+				{field : "NO_TAX_AMOUNT",title : "不含税总额",formatter : function(value, row, index){
+	            	if(row.IS_MJV=='10041001'){
+	            		return row.NO_TAX_AMOUNT;
+	            	}else{
+	            		return "";
+	            	}
+	            }},
+				{field : "IS_CHANGE",title : "是否有替换",formatter : function(value, row, index){
+	            	if(row.IS_MJV=='10041001'){
+	            		document.getElementById("isChange").value += row.IS_CHANGE+",";
+	            		return row.IS_CHANGE;
+	            	}else{
+	            		document.getElementById("isChange").value += row.IS_CHANGE+",";
+	            		return "";
+	            	}
+	            }},
+				{field : "DISCOUNT",title : "单个折扣",formatter : function(value, row, index){
+	            	if(row.IS_MJV=='10041001'){
+	            		return row.DISCOUNT;
+	            	}else{
+	            		return "";
+	            	}
+	            }},
+				{field : "UNIT",title : "单位" ,formatter : function(value, row, index){
+	            	if(row.IS_MJV=='10041001'){
+	            		return row.UNIT;
+	            	}else{
+	            		return "";
+	            	}
+	            }},
+				{field : "PACKAGE_NUM",title : "最小包装数" ,formatter : function(value, row, index){
+	            	if(row.IS_MJV=='10041001'){
+	            		return row.PACKAGE_NUM;
+	            	}else{
+	            		return "";
+	            	}
+	            }},
+				{field : "NO_TAX_SELL_PRICE",title : "不含税终端售价",formatter : function(value, row, index){
+	            	if(row.IS_MJV=='10041001'){
+	            		return row.NO_TAX_SELL_PRICE;
+	            	}else{
+	            		return "";
+	            	}
+	            }}
+	            
+			 
+			]
+			
+		});
+
+		//事件点击
+		$("a[data-onclickEvent1='true']",container).on("dms.click",function(event){
+			var partCodeLength=document.getElementById("partCode").value.length;
+			if(partCodeLength==0){
+				dmsCommon.tip({status:"warning",msg:"请新增活动导入配件!"});
+				return;
+			}
+			var orderType=document.getElementById("orderTypeA").value.trim();
+			if(""==orderType || orderType==null){
+				dmsCommon.tip({status:"warning",msg:"订单类型不能为空！"});
+				return;
+			}
+			if ("80041001" == orderType ||
+					"80041008" == orderType) {
+				var elecCode = document.getElementById("elecCode").value.trim();
+				var mechCode = document.getElementById("mechCode").value.trim();
+				var customerName = document.getElementById("customerName").value.trim();
+				var customerPhone = document.getElementById("customerPhone").value.trim();
+				var licenseNo = document.getElementById("licenseNo").value.trim();
+				var keyCode = document.getElementById("keyCode").value.trim();
+				if (""==elecCode) {
+					dmsCommon.tip({status:"warning",msg:"电子编码不能为空！"});
+					return;
+				}
+				if (""==mechCode) {
+					dmsCommon.tip({status:"warning",msg:"机械代码不能为空！"});
+					return;
+				}
+				if (""==customerName) {
+					dmsCommon.tip({status:"warning",msg:"车主姓名不能为空！"});
+					return;
+				}
+				if (""==customerPhone) {
+					dmsCommon.tip({status:"warning",msg:"联系电话不能为空！"});
+					alert("联系电话不能为空！");
+					return;			
+				}
+				if (""==licenseNo) {
+					dmsCommon.tip({status:"warning",msg:"车牌号不能为空！"});
+					return;
+				}
+				if (""==keyCode) {
+					dmsCommon.tip({status:"warning",msg:"锁芯机械码不能为空！"});
+					return;
+				}
+				
+			}
+			if ("80041001" == orderType ||
+					"80041008" == orderType ||
+						"80041006" == orderType) {
+				var vin = document.getElementById("vin").value.trim();
+				if (""==vin) {
+					dmsCommon.tip({status:"warning",msg:"vin不能为空！"});
+					return;
+				}
+			}
+			document.getElementById("detailOperate").value = "Y";
+		}) ;
+		
+		//事件点击
+		$("a[data-onclickEvent2='true']",container).on("dms.click",function(event){
+			var partCodeLength=document.getElementsByName("partCode").length;
+			if(partCodeLength==0){
+				dmsCommon.tip({status:"warning",msg:"请新增活动导入配件!"});
+				return;
+			}
+			var detailOperate = document.getElementById("detailOperate").value;
+			if ("N"==detailOperate) {
+				dmsCommon.tip({status:"warning",msg:"请点击获取清单!"});
+				return;
+			}
+			var selectRow = $("#dcsList",container).dmsTable().getSelections();
+			if(selectRow.length>0){
+				var code = "";
+				for(var i = 0 ;i<selectRow.length;i++){
+					if(code==""){
+						code = selectRow[i]["PART_CODE"];
+					}else{
+						code =code+","+selectRow[i]["PART_CODE"];
+					}
+					
+				}
+					if(code==""){
+						dmsCommon.tip({status:"warning",msg:"请选择要替换的配件!"});
+						return;
+					}
+				}
+				var mytable = document.getElementById("orderPartInfo");
+				var index = mytable.rows[i].rowIndex;
+				document.getElementById("index").value = index;
+				
+			}) ;
+		
+	
+		
+		$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+			 var orderType=document.getElementById("orderTypeA").value;
+				if(orderType==''|| orderType==null){
+					dmsCommon.tip({status:"warning",msg:"订单类型不能为空！"});
+					returnResult.status=false;//不通过
+				}else{
+					returnResult.status=true;
+				}
+				
+		});
+
+});
+</script>

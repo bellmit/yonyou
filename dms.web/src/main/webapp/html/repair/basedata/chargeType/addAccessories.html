@@ -1,0 +1,119 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">新增辅料费</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+
+					<div class="row">
+
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-6">辅料管理费类别代码</label>
+								<div class="col-xs-6">
+									<input id="manageSortCode" name="manageSortCode"
+										class="form-control required systemCode" type="text"
+										maxlength="4" data-fieldName="manage_sort_code" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-6">辅料管理费名称</label>
+								<div class="col-xs-6">
+									<input id="manageSortName" name="manageSortName" type="text"
+										class="form-control required" maxlength="60"
+										data-fieldName="manage_sort_name" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-6">工时率</label>
+								<div class="col-xs-6">
+									<input id="labourRate" name="labourRate"
+										type="text" class="form-control required decimal" max="1"
+										min="0" maxlength="4" data-fieldName="labour_rate" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-6">工时费率</label>
+								<div class="col-xs-6">
+									<input id="labourAmountRate" name="labourAmountRate"
+										type="text" class="form-control required decimal" max="1"
+										min="0" maxlength="4" data-fieldName="labour_amount_rate" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-6">维修材料费率</label>
+								<div class="col-xs-6">
+									<input id="repairPartRate" name="repairPartRate" type="text"
+										class="form-control required decimal" max="1" min="0"
+										maxlength="4" data-fieldName="repair_part_rate" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-6">附加费率</label>
+								<div class="col-xs-6">
+									<input id="addItemRate" name="addItemRate" type="text"
+										class="form-control required decimal" max="1" min="0"
+										maxlength="4" data-fieldName="add_item_rate" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-6">管理费率</label>
+								<div class="col-xs-6">
+									<input id="overheadExpensesRate" name="overheadExpensesRate" type="text"
+										class="form-control required decimal" max="1" min="0"
+										maxlength="4" data-fieldName="overhead_expenses_rate" />
+								</div>
+							</div>
+						</div>
+								<div class="col-xs-6">
+									<input id="isManaging" name="isManaging" type="hidden"
+										class="form-control" value="12781002" data-fieldName="is_managing" />
+								</div>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a data-url="/basedata/chargetype" data-model="repair"
+				data-method="POST" data-callBack="true" class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> <a
+				data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				//新增页面回调函数
+				$("a[data-callBack='true']", container).on(
+						"callBack.dms",
+						function(event, response) {
+							//关闭窗口
+							$("a[data-dismiss='modal']", container).click();
+							//刷新表格
+							$("#dms_table", getElementContext()).dmsTable()
+									.refreshTableWithForm();
+						});
+			});
+</script>

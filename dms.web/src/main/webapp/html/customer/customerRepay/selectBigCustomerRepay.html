@@ -1,0 +1,183 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">大客户报备单查询</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+				<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">报备单号</label>
+								<div class="col-xs-8">
+									<input id="wsNO" name="wsNO" data-fieldName="WS_NO" class="form-control"
+										type="text" maxlength="120" />
+								</div>
+							</div>
+						</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">客户名称</label>
+								<div class="col-xs-8">
+									<input id="customerName" name="customerName" data-fieldName="CUSTOMER_NAME" class="form-control"
+										type="text" maxlength="120" />
+								</div>
+							</div>
+						</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">客户编号</label>
+								<div class="col-xs-8">
+									<input id="customerNo" name="customerNo" data-fieldName="CUSTOMER_NO" class="form-control"
+										type="text" maxlength="120" />
+								</div>
+							</div>
+						</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系电话</label>
+								<div class="col-xs-8">
+									<input id="contactorPhone" name="contactorPhone" data-fieldName="CONTACTOR_PHONE" class="form-control"
+										type="text" maxlength="120" />
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系手机</label>
+								<div class="col-xs-8">
+									<input id="contactorMobile" name="contactorMobile" data-fieldName="CONTACTOR_MOBILE" class="form-control"
+										type="text" maxlength="120" />
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">公司名称</label>
+								<div class="col-xs-8">
+									<input id="company" name="company" data-fieldName="COMPANY" class="form-control"
+										type="text" maxlength="120" />
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">				
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">上报日期</label>
+							<div class="col-xs-8">
+								 <div class="input-group input-daterange"  >
+		                             <input type="text" class="form-control" readonly  name="beginSubmitTime" id="beginSubmitTime">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="endSubmitTime" id="endSubmitTime"> 
+		                             <span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                 </span>
+		                       
+		                        </div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">			
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">审核日期</label>
+							<div class="col-xs-8">
+								 <div class="input-group input-daterange"  >
+		                             <input type="text" class="form-control" readonly  name="beginAuditingDate" id="beginAuditingDate">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="endAuditingDate" id="endAuditingDate"> 
+		                             <span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                 </span>
+		                       
+		                        </div>
+							</div>
+						</div>
+					</div>
+									
+									
+									
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_table"></table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-onclickEvent="true"><i
+				class="fa fa-save"></i>确定</a> <a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["customer"] + "/BigCustomer/repay/bigcustomer",
+			rowID : "CUSTOMER_NO",
+			sortName : "CUSTOMER_NO",
+			sortOrder : "asc",
+			autoHeight:false,
+		
+			columns : [ 
+			{radio:true,sortable : false},      
+			{field : "WS_NO",title : "报备单号"}, 
+			{field : "WS_STATUS",title : "报备状态",codeFormat : {type:"dict",codeType:"1598"}},
+			{field : "AUDITING_DATE",title : "审核日期", dateFormat : {format:"YYYY-MM-DD HH:MM:SS"}},
+			{field : "WS_APP_TYPE",title : "政策类别",codeFormat : {type:"dict",codeType:"1597"}},
+			{field : "WS_AUDITING_REMARK",title : "审核备注"}, 
+			{field : "CUSTOMER_NO",title : "客户编号"}, 
+			{field : "CUSTOMER_NAME",title : "客户姓名"},
+			{field : "CONTACTOR_NAME",title : "联系人"},
+			{field : "PHONE",title : "联系电话"},
+			{field : "MOBILE",title : "联系手机"},
+			{field : "DLR_PRINCIPAL_PHONE",title : "负责人电话"},
+			{field : "SUBMIT_TIME",title : "上报日期", dateFormat : {format:"YYYY-MM-DD HH:MM:SS"}},
+			{field : "ZIP_CODE",title : "邮编"},
+			{field : "ADDRESS",title : "地址"},
+			{field : "COMPANY_NAME",title : "公司名称"},
+			{field : "WSTHREE_TYPE",title : "客户类别细分",codeFormat : {type:"dict",codeType:"6130"}},
+			{field : "FIRST_SUBMIT_TIME",title : "隐藏", dateFormat : {format:"YYYY-MM-DD HH:MM:SS"},visible:false}
+			          
+    			]
+		});
+	
+ 		//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+	
+			var row = $("#dms_table",container).dmsTable().getFirstSelection();
+	//		if (formatDate(new Date(),"YYYY-MM-DD").getTime()-formatDate(row["AUDITING_DATE"]).getTime()>91){
+		  if ((new Date().getTime()-row["AUDITING_DATE"])/(1000*60*60*24)>91){
+				dmsCommon.tip({status:"warning",msg:"该报备单审核通过已经超过90天，不允许再提报大客户申请!"});//总共的状态类型：info、success、error、warning
+				return false;
+			}
+			$("div[data-customerSelect='true']",getElementContext()).initHtmlContent(row);		
+			//关闭窗口		
+			
+			$("a[data-dismiss='modal']",container).click();
+		}); 
+	});
+</script>  

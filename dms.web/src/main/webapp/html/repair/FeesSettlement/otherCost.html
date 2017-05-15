@@ -1,0 +1,72 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="panel panel-default table-panel">
+						<div class="panel-heading">
+							<div class="pannel-name">其他成本</div>
+						</div>
+	<!-- 					<div class="panel-body">
+							<table
+								class="table table-striped table-bordered table-hover table-responsive"
+								id="dms_table"></table>
+						</div> -->
+						
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<div class="panel panel-default table-panel">
+										<table
+											class="table table-striped table-bordered table-hover table-responsive"
+											id="dms_table">
+										</table>
+									</div>
+								</div>
+							</div>
+					</div>
+					<div class="modal-footer center-block">
+						<a class="btn blue" data-onclickEvent="true" ><i
+							class="fa fa-save"></i>确定</a> <a data-dismiss="modal" class="btn blue">
+							<i class="fa fa-undo"></i>取消
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one( "onload.dms", function(event, container) {
+			new Datatable().initLocale({
+					src : "dms_table",
+					container : container,
+					url : dmsCommon.getDmsPath()["repair"] + "/basedata/freeSettlement/queryOtherCost", 
+					rowID : "OTHER_COST_CODE",
+					sortName : "OTHER_COST_CODE", //默认按主键升序排列
+					sortOrder : "asc",
+					autoHeight:false,
+					columns : [
+						{field : "OTHER_COST_CODE",title : "其他成本代码"},
+						{field : "OTHER_COST_NAME",title : "其他成本名称"},						
+						{field : "OTHER_COST_AMOUNT",inputField:"otherCostAmount",title : "其他成本金额", 
+						inputNumberFormat : {decimal : 2,validate:{validateClass:"decimal",validateAttr:'maxPrecision="2"'}}},
+					]
+				})
+				
+				$("a[data-onclickEvent='true']",container).on("dms.click",function(){
+					var dmsTable  = $("#dms_table",container).dmsTable().getRowDataByIndex();
+					$("#hiddenList5",getElementContext()).bootstrapTable("removeAll");
+					debugger;
+					$.each(dmsTable,function(index,obj){
+						var amount = $("input[id^='otherCostAmount']",$("tr[data-index='"+index+"']")).val();
+						obj['OTHER_COST_AMOUNT']=amount;
+						$("#hiddenList5",getElementContext()).dmsTable().appendRow(obj);
+					});
+					
+					//关闭窗口
+					$("a[data-dismiss='modal']",container).click();
+				});
+				
+
+			});
+</script>

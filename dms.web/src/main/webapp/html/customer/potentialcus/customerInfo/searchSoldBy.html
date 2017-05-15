@@ -1,0 +1,83 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">再分配</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+				
+					<!-- 	<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销售顾问</label>
+								<div class="col-xs-8">
+									<select id="isValid" name="isValid"
+										class="bs-select form-control" data-dictCode="1004"
+										data-value="10041001" data-existsDefault="false">
+									</select>
+								</div>
+							</div>
+						</div> -->
+					<div class="col-xs-12 ">
+						<div class="form-group ">
+						<label class="control-label col-xs-4"><span style="color:Red">*</span>销售顾问</label>
+							<div class="col-xs-8">
+								<select id="soldBy" name="soldBy"
+									class="bs-select form-control required"
+									data-url="/basedata/employees/-1/salesConsultant"
+									data-model="manage" data-labelValue="USER_ID" 
+									data-lableDesc="USER_NAME" data-excludeItems="{[userInfo.userId]}">
+								</select>
+						</div>
+						</div>
+					</div>
+									<!--/span-->
+							    <div class="col-xs-12" >
+							        <div class="form-group" hidden="hidden">
+							        <label class="control-label col-xs-4">隐藏</label>
+									<div class="col-xs-8">
+									<input  name="noList" id="noList" data-fieldName="NO_LIST"
+									class="form-control" type="text" max="99"/>
+									</div>
+								     </div>
+							     </div>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/customerManage/potentialcus/soldBy/noList" data-model="customer" data-method="PUT"
+				data-callBack="true" class="btn blue" 
+				data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+			</a> <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one("onload.dms",function(event,container){
+		//弹出页面打开前执行函数
+	 	 var str='';
+		var selectRow = $("#cusList",getElementContext()).dmsTable().getSelections();
+		   	$(selectRow).each(function(index){
+			   str+=selectRow[index].CUSTOMER_NO+',';
+	  		});
+	  		/* var selectIds = $("#cusList",getElementContext()).dmsTable().getSelectionIds(); */
+		   	$("#noList").val(str);
+		//新增页面的回调函数
+ 		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#cusList",getElementContext()).dmsTable().refreshTableWithForm();
+		}); 
+	});
+</script>

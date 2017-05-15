@@ -1,0 +1,75 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+				
+					
+							<div class="col-xs-12 col-sm-6  col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">项目名称</label>
+								<div class="col-xs-8">
+									<select id="ITEM_CODE"
+										class="bs-select form-control" name="ITEM_CODE"
+										data-url="/otherMaintain/getAll"
+										data-model="vehicle" data-labelValue="OTHER_FEE_CODE"
+										data-lableDesc="NAME" data-live-search="fales" data-size="5" >
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">项目描述</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="ITEM_DESC" name="ITEM_DESC"/>
+							</div>
+						</div>
+					</div>
+					
+					
+			
+					
+					
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >预授权其他费用维护</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/otherMaintain/otherMaintainSearch",
+		rowID : "ID",
+		sortName : "ID",
+		sortOrder : "asc",
+		
+		columns : [        
+				{field : "ITEM_CODE",title : "项目代码"}, 
+				{field : "OTHER_FEE_NAME",title : "项目名称"},	
+				{field : "ITEM_DESC",title : "项目描述"}
+        ]
+             });
+                      });
+</script>

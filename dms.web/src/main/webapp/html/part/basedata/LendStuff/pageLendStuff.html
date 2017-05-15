@@ -1,0 +1,142 @@
+<link rel="stylesheet" type="text/css" href="../assets/layouts/layout/css/PrintArea.css">
+<div class="dms-edit PrintArea">
+	<div class="panel panel-default panel-print">
+		<div class="panel-body">
+			<div class="print-title">
+				<div class="row h1Title">
+					<div class="col-xs-12">
+						<label >{[userInfo.dealerName]}</label>
+					</div>
+				</div>
+				<div class="row h2Title">
+					<div class="col-xs-12">
+						<label><h4>车间借料</label>
+					</div>
+				</div>
+				<div class="row print-gap">
+			
+				</div>
+				<div class="row print-singleRow">
+					<div class="col-xs-4">
+						<label class="control-label col-xs-4">工单号:</label>
+						<span  class="form-show col-xs-8 text-left" id="roNo"></span>
+					</div>
+					<div class="col-xs-4">
+						<label class="control-label col-xs-4">维修类型:</label>
+						<span class="form-show col-xs-8 text-left" id="repairTypeCode"></span>
+					</div>
+					<div class="col-xs-4">
+						<label class="control-label col-xs-4">修理日期:</label>
+						<span class="form-show col-xs-8 text-left" id="roCreateDate"></span>
+					</div>
+				</div>
+				<div class="row print-singleRow">
+					<div class="col-xs-4">
+						<label class="control-label col-xs-4">车牌号:</label>
+						<span class="form-show col-xs-8 text-left" id="license"></span>
+					</div>
+					<div class="col-xs-4">
+						<label class="control-label col-xs-4">车系:</label>
+						<span class="form-show col-xs-8 text-left" id="model"></span>
+					</div>
+					<div class="col-xs-4">
+						<label class="control-label col-xs-4">车主:</label>
+						<span class="form-show col-xs-8 text-left" id="ownerName"></span>
+					</div>
+				</div>
+			</div>
+			<div class=" print-table">
+				<div class="panel panel-default table-panel">
+					<div class="panel-body">
+						<table class="table table-striped table-bordered table-hover table-responsive"
+								id="tables">
+						</table>
+					</div>
+				</div>
+			
+			<div class="row print-gap">
+			</div>
+			<div class="row print-singleRow">
+					<div class="col-xs-6">
+						<label class="control-label col-xs-4">打印时间:</label>
+						<span class="form-show col-xs-8 text-left" id="printDate"></span>
+					</div>
+					<div class="col-xs-3">
+						<label class="control-label col-xs-4">操作员:</label>
+						<span class="form-show col-xs-8 text-left" id="ownerName">{[userInfo.userName]}</span>
+					</div>
+					<div class="col-xs-3">
+						<label class="control-label col-xs-4">金额:</label>
+						<span class="form-show col-xs-8 text-left" id="AMOUNT"></span>
+					</div>
+			</div>
+		</div>
+	</div>
+	</div>
+</div>
+<div class="print-without">
+	<a id="print" class="btn blue printfy"><i class="fa fa-print"></i>打印</a>
+    <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		var select = $("#tables",getElementContext()).dmsTable().getRowDataByIndex();
+		$("#roNo",container).html($("#roNo",getElementContext()).val());
+		$("#repairTypeCode",container).html($("#repairTypeCode option:selected",getElementContext()).text());
+		$("#roCreateDate",container).html($("#roCreateDate",getElementContext()).val());
+		$("#license",container).html($("#license",getElementContext()).val());
+		$("#model",container).html($("#model option:selected",getElementContext()).text());
+		$("#ownerName",container).html($("#ownerName",getElementContext()).val());
+		$("#printDate",container).html(new Date().Format("yyyy-MM-dd"));
+		new Datatable().initLocale({
+			src : "tables",
+			container:container,
+			rowID : "ITEM_ID",
+			sortName : "", 
+			sortOrder : "asc",
+			autoHeight : false,
+			isFormParam:true,
+			undefinedText : "",
+			isQueryFirst : false,
+			columns : [ 
+				{field : "STORAGE_CODE",title : "仓库"}, 
+				{field : "STORAGE_POSITION_CODE",title : "库位代码"},
+				{field : "PART_NO",title : "配件代码"},
+				{field : "PART_NAME",title : "配件名称"},
+			    {field : "UNIT_CODE",title : "单位"}, 
+				{field : "PART_SALES_PRICE",title : "单价"},
+				{field : "LEND_QUANTITY",title : "借出数量"}, 
+				{field : "BORROWER",title : "借用人"},
+				{field : "PART_SALES_AMOUNT",title : "金额"}
+			],
+			onClickRow : function(rows,$this){
+			}
+		});
+		function apend(){
+			var amount=0;
+			$.each(select, function (n, value) {
+				$("#tables",container).dmsTable().appendRow(value);
+			});
+			$.each(select, function (n, value) {
+				amount += value.PART_SALES_AMOUNT;
+			});
+			$("#AMOUNT",container).html(amount);
+		}
+		apend();
+});
+	Date.prototype.Format = function (fmt) { //author: wx
+	    var o = {
+	        "M+": this.getMonth() + 1, //月份 
+	        "d+": this.getDate(), //日 
+	        "h+": this.getHours(), //小时 
+	        "m+": this.getMinutes(), //分 
+	        "s+": this.getSeconds(), //秒 
+	        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+	        "S": this.getMilliseconds() //毫秒 
+	    };
+	    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+	    for (var k in o)
+	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+	    return fmt;
+	}
+</script>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="fileStore" class="com.yonyou.f4.filestore.impl.FileStoreImpl">
+        <property name="allBucketNode">
+            <list>
+                <ref bean="BucketNode1"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="BucketNode1" class="com.yonyou.f4.filestore.impl.BucketNodeImpl">
+        <property name="dataNodeList">
+            <list>
+                <ref bean="localeDataNode1"/>
+                <ref bean="localeDataNode2"/>
+            </list>
+            
+        </property>
+    </bean>
+    
+    <!--本地服务器 -->
+    <bean id="localeDataNode1" class="com.yonyou.f4.filestore.impl.LocalDataNodeImpl">
+        <property name="rootDir" value="d:/dmsFileStore/files/fs1"/>
+        <property name="writable">
+            <value type="boolean">true</value>
+        </property>
+    </bean>
+
+    <bean id="localeDataNode2" class="com.yonyou.f4.filestore.impl.LocalDataNodeImpl">
+        <property name="rootDir" value="d:/dmsFileStore/files/fs2"/>
+        <property name="writable">
+            <value type="boolean">true</value>
+        </property>
+    </bean>
+    
+<!--     <bean id="n02" class="com.yonyou.f4.filestore.impl.BucketNodeImpl"> -->
+<!--         <property name="dataNodeList"> -->
+<!--             <list> -->
+<!--                 <ref bean="d02"/> -->
+<!--                 <ref bean="d03"/> -->
+<!--             </list> -->
+<!--         </property> -->
+<!--     </bean> -->
+
+    
+
+<!--     <bean id="d03" class="com.yonyou.f4.filestore.impl.SmbDataNodeImpl" init-method="loginSmb"> -->
+<!--         <property name="ip" value="10.180.8.176"/> -->
+<!--         <property name="user" value="father"/> -->
+<!--         <property name="password" value="mother"/> -->
+<!--         <property name="rootDir" value="/tmp"/> -->
+<!--         <property name="writable"> -->
+<!--             <value type="boolean">true</value> -->
+<!--         </property> -->
+<!--     </bean> -->
+
+    <bean id="d04" class="com.yonyou.f4.filestore.impl.RedisDataNodeImpl">
+        <property name="redisConnectionFactory" ref="jedisConnectionFactory"/>
+    </bean>
+
+    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="usePool" value="true" />
+        <property name="hostName" value="127.0.0.1" />
+        <property name="port" value="32769" />
+    </bean>
+</beans>

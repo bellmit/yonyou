@@ -1,0 +1,122 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">付讫</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="form-group form-group-xs m-b-xs">
+							<label class="control-label col-xs-4">付款凭证</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control required" name="credence"
+									id="credence">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12">
+						<div class="form-group form-group-xs m-b-xs">
+							<label class="control-label col-xs-4">付讫税率</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control required" value="0.17"
+									name="payOffTax" id="payOffTax">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-xs-4">付讫日期</label>
+							<div class="col-xs-8">
+								<div class="input-group date date-picker">
+									<input id="payOffDate" name="payOffDate" readonly
+										class="form-control required" type="text" /> <span
+										class="input-group-btn">
+										<button class="btn default date-set" type="button">
+											<i class="fa fa-calendar"></i>
+										</button>
+										<button class="btn default date-reset" type="button">
+											<i class="fa fa-times"></i>
+										</button>
+									</span>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12">
+						<div class="form-group form-group-xs m-b-xs">
+							<label class="control-label col-xs-4">付讫对象</label>
+							<div class="col-xs-8 ">
+								<select id="payOffMan" name="payOffMan" data-model="part"
+									data-url="/basedata/accountPayableManage/customer"
+									class="bs-select form-control required"
+									data-labelValue="CUSTOMER_CODE" data-lableDesc="CUSTOMER_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12">
+						<div class="form-group form-group-xs m-b-xs">
+							<label class="control-label col-xs-4">付款备注</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" maxlength="300"
+									name="receiveRemark" id="receiveRemark">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer center-block">
+					<a class="btn blue" data-onclickEvent="true"><i
+						class="fa fa-save"></i>确定</a> <a data-dismiss="modal" class="btn blue">
+						<i class="fa fa-undo"></i>取消
+					</a>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			var flag = $("#tag",getElementContext()).val();
+			if(flag=='15880001'){//采购入库
+				$("#dmstable",getElementContext()).dmsTable().updateRowByIndex(0,{
+					"CREDENCE":$("#credence",container).val(),
+					"PAY_OFF_TAX":$("#payOffTax",container).val(),
+					"PAY_OFF_DATE":$("#payOffDate",container).val(),
+					"PAY_OFF_MAN":$('option:selected',$("#payOffMan",container)).text(),
+					"IS_PAYOFF":"12781001",
+					"RECEIVE_REMARK":$("#receiveRemark",container).val()
+				});
+			}else if(flag=='15880012'){//调拨入库
+				$("#tables",getElementContext()).dmsTable().updateRowByIndex(0,{
+					"CREDENCE":$("#credence",container).val(),
+					"PAY_OFF_TAX":$("#payOffTax",container).val(),
+					"PAY_OFF_DATE":$("#payOffDate",container).val(),
+					"PAY_OFF_MAN":$('option:selected',$("#payOffMan",container)).text(),
+					"IS_PAYOFF":"12781001",
+					"RECEIVE_REMARK":$("#receiveRemark",container).val()
+				});
+			}else if(flag=='15880017'){//调拨出库
+				$("#stables",getElementContext()).dmsTable().updateRowByIndex(0,{
+					"CREDENCE":$("#credence",container).val(),
+					"PAY_OFF_TAX":$("#payOffTax",container).val(),
+					"PAY_OFF_DATE":$("#payOffDate",container).val(),
+					"PAY_OFF_MAN":$('option:selected',$("#payOffMan",container)).text(),
+					"IS_PAYOFF":"12781001",
+					"RECEIVE_REMARK":$("#receiveRemark",container).val()
+				});
+			}
+			$("#ww",getElementContext()).setDmsValue(2)
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+		});
+		
+		
+		
+	});

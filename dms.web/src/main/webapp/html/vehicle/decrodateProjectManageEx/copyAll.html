@@ -1,0 +1,85 @@
+<div class="dms-edit ajaxrest" data-url="/decrodateProject/duty/dicts" data-pageInitCallBack="true"
+	data-model="vehicle" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">装潢项目编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+					
+					<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-5">原车型组</label>
+								<div class="col-xs-7">
+									<select id="srcLabourModel" class="bs-select form-control" name="srcLabourModel"
+										data-url="/decrodateProject/duty/dicts" data-model="vehicle"
+										data-labelValue="MODEL_LABOUR_CODE" data-lableDesc="MODEL_LABOUR_NAME" >
+									</select>
+								</div>
+							</div>
+						</div> 
+						
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-5">复制到车型组</label>
+								<div class="col-xs-7">
+									<select id="dstLabourModel" class="bs-select form-control" name="dstLabourModel"
+										data-url="/decrodateProject/duty/dicts" data-model="vehicle"
+										data-labelValue="MODEL_LABOUR_CODE" data-lableDesc="MODEL_LABOUR_NAME" >
+									</select>
+								</div>
+							</div>
+						</div> 
+								     
+					    <div class="col-xs-12 ">
+					    <span style="color:red">警告: 确定后 复制到车型组中相同项目代码的维修项目将被覆盖,请谨慎操作!</span>
+					    </div> 
+					
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div class="modal-footer center-block">
+			<a data-url="/decrodateProject/copyAll" data-model="vehicle" data-method="PUT"
+				data-callBack="true" class="btn blue" 
+				data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+			</a> <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one("onload.dms",function(event,container){
+		
+		//弹出页面打开前执行函数
+
+			 $("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){
+			 	 var str1='';
+			 	var str2='';
+				var selectRow = $("#dms_table",getElementContext()).dmsTable().getSelections();
+				   	$(selectRow).each(function(index){
+					   str1 =selectRow[index].MODEL_LABOUR_CODE;
+			  		});
+				   	$("#srcLabourModel",container).selectpicker('val',str1);
+			 });
+		
+		
+		//新增页面的回调函数
+ 		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		}); 
+	});
+</script>

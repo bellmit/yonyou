@@ -1,0 +1,119 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+				
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" data-tableSelect="true">
+						<div class="form-group"> 
+								<label class="control-label col-xs-4">经销商代码</label> 
+ 								<div class="col-xs-8">
+									<div class="input-group">
+									<input id="dealerCode" readonly
+										name="dealerCode" class="form-control" type="text"
+										 /> <span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="part/basedata/partManage/searchDealers3.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+					</div>
+					
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">索赔单号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control required" id="CLAIM_NO" name="CLAIM_NO">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+						<div class="form-group">
+						<label class="control-label col-xs-2"></label>
+						<div class="col-xs-8">
+							<a class="btn blue"  data-url="vehicle/claimApproveMgr/claimDeductSave.html" data-width="modal-lg"
+							data-toggle="modal"   data-beforeShowEvent="true" >
+							 <i class="fa fa-update"></i>抵扣</a>
+						</div>
+						</div>
+					</div>
+							
+				</div>
+				
+			</div>
+		</div>
+		
+		
+	</form>
+	
+	
+</div>
+<script type="text/javascript">
+
+ $(document).one("onload.dms",function(event,container){
+	 
+	 
+	 
+	 $("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+		 
+		 var dealerCode = document.getElementById("dealerCode").value;
+		 var CLAIM_NO = document.getElementById("CLAIM_NO").value;	
+		
+		 console.log(CLAIM_NO);
+		 if(dealerCode==null || dealerCode==''){
+			 dmsCommon.tip({status:"warning",msg:"经销商代码不能为空!"});
+			 returnResult.status=false;
+		 }else if(CLAIM_NO==null || CLAIM_NO==''){
+			 dmsCommon.tip({status:"warning",msg:"索赔单号不能为空!"});
+			 returnResult.status=false;
+		 }
+		 
+
+		 dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["vehicle"]
+						+ "/repairClaimCheck/repairClaimApprove1",
+				type : 'GET',
+				data : {
+					'dealerCode' : dealerCode,
+					'CLAIM_NO' : CLAIM_NO
+				},
+				async : false,
+				sucessCallBack : function(data) {
+					if(data!=null){
+						status = data.STATUS;
+						claimNo = data.CLAIM_NO;
+						console.log(claimNo);
+						if(claimNo==null || claimNo==''){
+							 dmsCommon.tip({status:"warning",msg:"没有查到数据！"});
+							 returnResult.status=false;
+						}else if(status!='40081006'){
+							dmsCommon.tip({status:"warning",msg:"只能抵扣审核通过的索赔单据!"});
+							 returnResult.status=false;
+						}else{
+							 returnResult.status=true;
+						}
+						
+					}
+				},
+				errorCallBack : function(data){
+					dmsCommon.tip({
+						status : "warning",
+						msg : data
+					});
+					returnResult.status = false;
+				}
+			});
+		 $(this).data("pageData",{dealerCode:dealerCode,claimNo:CLAIM_NO});
+	});
+});
+    
+</script>

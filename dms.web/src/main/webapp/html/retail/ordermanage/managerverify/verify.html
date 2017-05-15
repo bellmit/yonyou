@@ -1,0 +1,123 @@
+<div class="dms-add" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">审批</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">意见批注</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i
+							class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-3">
+							<div class="form-group">
+								<div class="col-xs-12">
+									<input id="auditingResult" name="auditingResult" type="radio"
+										data-dictCode="1416" data-value="14161001" />
+									<input id="soNoId" name="soNoId" class="form-control" type="hidden"  value="{[key1]}"/>
+									<div data-tableSelect="true">
+								<!-- 	<input id="auditedBy" name="auditedBy" class="form-control" type="hidden"  data-fieldName="EMPLOYEE_NO"/> -->
+									</div>
+								<input id="vehicle_finance_audit" name="vehicle_finance_audit" class="form-control" type="hidden"  data-valueUrl="/basedata/BasicParameters/1020/vehicle_finance_audit"  data-ajaxSync="true" data-valueType="parameter"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-4">
+							<div class="form-group">
+							 <div class="form-group">
+                             <label class="control-label visible-ie8 visible-ie9">审核人</label>
+                             <select id="auditedBy" name="auditedBy" class="bs-select form-control required" data-live-search="true" data-size="5" placeholder="审核人" data-url="/basedata/employees/slctFAudit/moneys" data-model="manage" data-labelValue="EMPLOYEE_NO" data-lableDesc ="{[EMPLOYEE_NO]}/{[EMPLOYEE_NAME]}/{[ROLE]}" data-existsDefault="true">
+					         </select>
+                            </div>
+							</div>
+						</div>
+						
+						
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">意见批注</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i
+							class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<div class="col-xs-12">
+									<textarea id="auditingPostil" name="auditingPostil" class="form-control"
+										rows="5" cols=""></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+		<a data-url="/ordermanage/manageVerify" data-callBack="true"
+					data-model="retail" data-method="POST" data-onclickEvent2="true"
+					class="btn blue ajaxrest"><i class="fa fa-check-square-o glyphicon-lg"></i>审核</a>
+			<!-- <a  class="btn blue" data-onclickEvent="true"> <i class="fa fa-check-square-o"></i>审核 </a> -->
+			<div class="hidden">
+				<a data-url="retail/ordermanage/managerverify/selectVerifier.html"
+					class="btn btn-outline" data-onclickEvent1="true"
+					data-toggle="modal" data-width="modal-md"> <i
+					class="fa fa-check-square-o glyphicon-lg"></i>审核
+				</a>
+				<a data-url="/ordermanage/manageVerify" data-callBack="true"
+					data-model="retail" data-method="POST" data-onclickEvent2="true"
+					class="btn blue ajaxrest"><i class="fa fa-check-square-o glyphicon-lg"></i>审核</a>
+			</div>
+			<a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-minus-square"></i>关闭
+			</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document) .one("onload.dms", function(event, container) {
+	
+	$("[name='auditingResult']",container).bindChange(function(obj){
+		var auditingResult = $("#auditingResult",container).val();//审核结果
+		if(auditingResult=='14161002'){
+			$("#auditedBy",container).setElementReadOnly();
+		}else{
+			$("#auditedBy",container).removeElementReadOnly();
+		}	
+	});
+	//绑定事件
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		    $("a[data-dismiss='modal']",container).click();
+		    $("a[data-goback='page']",getElementContext()).click();
+	});
+	//绑定事件
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		var auditingResult  = $('input[name="auditingResult"]:checked').val();
+		var financeaudit = $("#vehicle_finance_audit",container).val();
+		if(financeaudit==undefined||financeaudit==''){
+			$("a[data-onclickEvent2='true']",container).click();
+		}else{
+			if(auditingResult=="14161001"){
+				$("a[data-onclickEvent1='true']",container).click();
+			}else{
+				$("a[data-onclickEvent2='true']",container).click();
+			}
+		}
+	});
+});
+</script>

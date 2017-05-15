@@ -1,0 +1,254 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group form-group-xs m-b-xs">
+							<label class="control-label col-xs-4 ">仓库</label>
+							<div class="col-xs-8">
+								<select id="storage_code" name="storage_code"
+									class="bs-select form-control"
+									data-url="/basedata/store/accessories/Warehouses" data-model="part"
+									data-labelValue="STORAGE_CODE" data-lableDesc="STORAGE_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group" data-tableSelect="true">
+							<label class="control-label col-xs-4">客户名称</label>
+							<div class="col-xs-8 ">
+								<div class="input-group">
+									<input type="text" class="form-control" id="customerName"
+										name="customerName" data-fieldName="CUSTOMER_NAME" readonly="readonly">
+									<input type="hidden" class="form-control" id="customerId"
+										name="customerId" data-fieldName="PART_CUSTOMER_ID">
+									<span class="input-group-btn">
+										<button class="btn default btn-sm" type="button" data-url="part/stockmanage/partbuy/selectPartCustomer.html"
+											data-toggle="modal" data-width="modal-lg"> <i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+	                                            			<i class="fa fa-close"></i>
+	                                    				</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">发料日期</label>
+							<div class="col-xs-8 col-sm-10">
+								 <div class="input-group input-daterange">
+		                             <input type="text" class="form-control" readonly  name="startFrom">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="startTo"> 
+		                        </div>
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group form-group-xs m-b-xs">
+							<label class="control-label col-xs-4">客户类别</label>
+							<div class="col-xs-8 ">
+								<select id="customer_type" name="customer_type"
+									class="bs-select form-control" data-dictCode="1310">
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件名称</label>
+							<div class="col-xs-8 ">
+								<input class="form-control" id="part_name" name="part_name" 
+								type="text">
+							</div>
+						</div>
+					</div>
+									
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">结清日期</label>
+							<div class="col-xs-8 col-sm-10">
+								 <div class="input-group input-daterange">
+		                             <input type="text" class="form-control" readonly  name="cleanFrom">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="cleanTo"> 
+		                        </div>
+							</div>
+						</div>
+					</div>	
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">工单状态</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" id="ro_status"
+									name="ro_status" data-dictCode="1215">
+								</select>
+							</div>
+						</div>
+					</div>
+										
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件代码</label>
+							<div class="col-xs-8 ">
+								<input class="form-control" id="part_no" name="part_no" 
+								type="text">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">结算日期</label>
+							<div class="col-xs-8 col-sm-10">
+								 <div class="input-group input-daterange">
+		                             <input type="text" class="form-control" readonly  name="endFrom">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="endTo"> 
+		                        </div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group form-group-xs m-b-xs">
+							<label class="control-label col-xs-4">九大类</label>
+							<div class="col-xs-8 ">
+								<select id="PartMainType" name="PartMainType"
+									class="bs-select form-control" data-dictCode="1301">
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件车型组</label>
+							<div class="col-xs-8">
+								<input class="bs-select form-control" id="fit_model_code"
+									name="fit_model_code" type="text">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-2 ">备注</label>
+							<div class="col-xs-10 ">
+								<input class="form-control" id="remark" name="remark" 
+								type="text">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<div class="col-xs-12">
+		                            <input id="isCheck" name="isCheck" type="checkbox"
+										data-dictCode="1013" data-dictLabel="已出库未结清"/>
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<div class="col-xs-12">
+		                            <input id="isCheck" name="isCheck" type="checkbox"
+										data-dictCode="1013" data-dictLabel="已结清"/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<div class="col-xs-12">
+		                            <input id="isCheck" name="isCheck" type="checkbox"
+										data-dictCode="1013" data-dictLabel="已出库未结算"/>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">配件销售统计</div>
+			<div class="btn-group btn-group-sm">
+				<a data-url="/report/partSell/export" data-model="report"
+					data-method="downLoad" data-toggle="confirmation"
+					class="btn btn-outline "><i class="fa fa-download"></i>导出</a>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="groupitemList"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "groupitemList",
+			container:container,
+			rowID:"SALES_PART_ID",
+			url : dmsCommon.getDmsPath()["report"] + "/report/partSell",
+			sortName : "SALES_PART_ID",
+			sortOrder : "asc",
+			pageSize:10,
+			autoHeight:false,
+			columns : [ 
+						{field : "STORAGE_CODE",title : "仓库代码"}, 
+						{field : "STORAGE_POSITION_CODE",title : "库位代码"}, 
+						{field : "SALES_PART_NO",title : "配件销售单号"},
+						{field : "PART_NO",title : "配件代码"},
+						{field : "PART_NAME",title : "配件名称"},
+						{field : "PART_SALES_PRICE",title : "配件销售单价",numberFormat : {decimal:2}},
+						{field : "PART_QUANTITY",title : "配件数量",numberFormat : {decimal:2}},
+						{field : "PART_SALES_AMOUNT",title : "配件销售金额",numberFormat : {decimal:2}},
+						{field : "DISCOUNT",title : "折扣率",numberFormat : {decimal:2}},
+						{field : "SALES_AMOUNT",title : "配件收费金额",numberFormat : {decimal:2}},//折后销售金额
+						{field : "COST_PRICE",title : "配件成本单价",numberFormat : {decimal:2}},
+						{field : "GROSS_PROFIT",title : "毛利(不含税)",
+							formatter : function(value, row, index) {
+								var result = (row.PART_SALES_AMOUNT/1.17) - row.PART_SALES_PRICE;
+								return result.toFixed(2);
+						}},//(配件销售金额/1.17)-配件成本金额 *****************
+						{field : "CUSTOMER_NAME",title : "客户名称"},
+						{field : "RO_NO",title : "工单号"},
+						{field : "PART_MAIN_TYPE",title : "九大类",codeFormat : {type:"dict",codeType:"1301"}},
+						{field : "CREATED_BY",title : "发料人"},
+						{field : "FINISHED_DATE",title : "入账日期",dateFormat : {format:"YYYY-MM-DD"}},
+						{field : "FINISHED_DATE",title : "发料时间",dateFormat : {format:"YYYY-MM-DD"}},
+						{field : "RO_STATUS",title : "工单状态",codeFormat : {type:"dict",codeType:"1215"}},//维修工单表
+						{field : "FINISHED_DATE",title : "结算日期",dateFormat : {format:"YYYY-MM-DD"}},//***********
+						{field : "FINISHED_DATE",title : "结清日期",dateFormat : {format:"YYYY-MM-DD"}},//***********
+						{field : "REMARK",title : "备注"},
+						{field : "CREATED_BY",title : "销售顾问"}
+					]
+		});
+    });
+	
+</script>

@@ -1,0 +1,156 @@
+<div class="dms-edit ajaxrest" data-url="/basedata/partcostadjusts/{[PART_NO]}" data-model="part" >
+	<form class="form-horizontal">
+		<div class="modal-header">			
+			<div class="modal-title">配件成本价编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">仓库</label>
+								<div class="col-xs-8">
+									<input type="hidden" id="STORAGE_CODE" name="STORAGE_CODE" data-fieldName="STORAGE_CODE"/>
+									<input id="STORAGE_NAME" disabled="disabled"
+										name="STORAGE_NAME" class="form-control" type="text" 
+										data-fieldName="STORAGE_NAME"> </input>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件代码</label>
+								<div class="col-xs-8">
+									<input id="PART_NO" disabled="disabled" name="PART_NO"
+										class="form-control" type="text" data-fieldName="PART_NO" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件名称</label>
+								<div class="col-xs-8">
+									<input id="PART_NAME" disabled="disabled" name="PART_NAME"
+										class="form-control" type="text" data-fieldName="PART_NAME" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">原成本价</label>
+								<div class="col-xs-8">
+									<input id="COST_PRICE" disabled="disabled" name="COST_PRICE"
+										class="form-control" type="text" data-fieldName="COST_PRICE" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">数量</label>
+								<div class="col-xs-8">
+									<input id="STOCK_QUANTITY" disabled="disabled"
+										name="STOCK_QUANTITY" class="form-control" type="text"
+										data-fieldName="STOCK_QUANTITY" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">原成本金额</label>
+								<div class="col-xs-8">
+									<input id="COST_AMOUNT" disabled="disabled" name="COST_AMOUNT"
+										class="form-control" type="text" data-fieldName="COST_AMOUNT" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">新成本价</label>
+								<div class="col-xs-8">
+									<input id="NEW_PRICE" name="NEW_PRICE"
+										class="form-control money" maxDigit="10" maxPrecision="2"
+										type="text" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">新成本金额</label>
+								<div class="col-xs-8">
+									<input id="NEW_AMOUNT" name="NEW_AMOUNT" disabled="disabled"
+										class="form-control money" maxDigit="10" maxPrecision="2"
+										type="text" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a data-url="/basedata/partcostadjusts/aa/{[PART_NO]}/{[STORAGE_CODE]}" data-model="part" data-method="PUT" data-callBack="true"  class="btn blue " data-toggle="confirmation"><i class="fa fa-save"></i>保存</a>
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	//输入新成本价
+	$("#NEW_PRICE",container).bindChange(function(obj){
+	debugger
+		var newPrice=$("#NEW_PRICE",container).val();
+		var stockQuantity=$("#STOCK_QUANTITY",container).val();
+		var amount="";
+		//如果是0开头的不计算
+		if($("#NEW_PRICE",container).validateElement()==false){
+		 		$("#NEW_AMOUNT",container).val("");
+		 		return ;
+		}
+		if(newPrice!=""&&stockQuantity!=""){
+			var price=parseFloat(newPrice);
+			var quantity=parseFloat(stockQuantity); 
+			amount=price*quantity;
+		}
+		if(!isNaN(amount)){
+			$("#NEW_AMOUNT").val(amount.toFixed(2));
+		}
+		
+		
+	});
+	//输入新成本金额
+	$("#NEW_AMOUNT",container).bindChange(function(obj){
+		var newAmount=$("#NEW_AMOUNT",container).val();
+		var stockQuantity=$("#STOCK_QUANTITY",container).val();
+		var price="";
+		if($("#NEW_AMOUNT",container).validateElement()==false){
+		 		$("#NEW_PRICE",container).val("");
+		 		return ;
+		}
+		if(newAmount!=""&&stockQuantity!=""){
+			var amount=parseFloat(newAmount);
+			var quantity=parseFloat(stockQuantity); 
+		    price=amount/quantity;
+		}
+		if(!isNaN(price)){
+			$("#NEW_PRICE").val(price.toFixed(2));
+		}
+		
+		
+	});
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+});
+
+</script>

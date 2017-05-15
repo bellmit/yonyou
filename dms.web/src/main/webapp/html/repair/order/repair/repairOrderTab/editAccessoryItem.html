@@ -1,0 +1,82 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">修改附加项目</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+
+				<div class="panel-body">
+					<div class="row">
+					
+	 		<div class="col-xs-12">
+				<div class="form-group">
+								<label class="control-label col-xs-4">附件项目名称</label>
+								<div class="col-xs-6">
+										<select class="bs-select form-control required"
+											data-url="/accessoryItem/AccessoryItem/ailist"
+											data-model="repair" 
+											data-labelValue="ADD_ITEM_CODE"  
+											data-lableDesc="ADD_ITEM_NAME" 	
+											data-value="{[ADD_ITEM_CODE]}"										
+											id="addItemName">
+										</select>
+								</div>
+							</div>
+			</div>
+			
+			<div class="col-xs-12">
+				<div class="form-group">
+					<label class="control-label col-xs-4">附件项目代码</label>
+						<div class="col-xs-6">
+						    <input  class=" form-control " readonly="readonly"
+						    type="text" id="addItemCode" 
+						    value="{[ADD_ITEM_CODE]}"/>				
+						</div>
+				</div>
+			</div>
+
+		
+					</div>
+				</div>
+		</div>		
+</div>
+		<div class="modal-footer center-block">
+			<a data-beforeRequest="true" 
+			class="btn blue"  data-toggle="confirmation"><i class="fa fa-save"></i>确认</a>
+			 <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+	//附件项目名称值变动事件
+	$("#addItemName",container).bindChange(function(obj){	
+		$("#addItemCode",container).val($("#addItemName",container).val());	
+	})
+		
+		//新增页面回调函数
+		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+
+			var index=$("tr.selected",$("#dms_subjoinItem",getElementContext())).attr("data-index");
+
+			$("#dms_subjoinItem",getElementContext()).dmsTable().updateRowByIndex(index,
+			   {
+				ADD_ITEM_CODE:$("#addItemCode",container).val(),
+				ADD_ITEM_NAME:$("#addItemName option:selected",container).text()
+	
+                }
+			 );	
+			returnResult.status = true;
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+		});
+	
+});
+</script>

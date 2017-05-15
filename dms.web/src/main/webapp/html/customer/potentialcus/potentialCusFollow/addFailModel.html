@@ -1,0 +1,107 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">战败车型新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+		
+					<div class="col-xs-12  ">
+							<div class="form-group">
+							
+								<label class="control-label col-xs-4">战败车型</label>
+						        <input id="potentialCustomerId"  name="potentialCustomerId" data-fieldName="POTENTIAL_CUSTOMER_ID" class="form-control" type="hidden" />
+					            <input id="ailIntentLevel"      name="ailIntentLevel" data-fieldName="INTENT_LEVEL" class="form-control" type="hidden" />
+								
+								<div class="col-xs-8">
+									<select id="seriesMemual" 
+										class="bs-select form-control " name="failModel"
+										data-url="/customerManage/salesPromotion/defeatModel/{[POTENTIAL_CUSTOMER_ID]}"
+										data-model="customer" data-labelValue="DEALER_CODE"
+										data-lableDesc="FAIL_MODEL_DESC">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">战败原因</label>
+								<div class="col-xs-8">
+									<select id="drDescs" name="drDescs"
+										class="bs-select form-control required"
+									    data-url="/basedata/defeats/defeatReason/dicts"
+										data-model="customer" data-labelValue="DR_CODE"
+										data-lableDesc="DR_DESC" multiple data-live-search="true" ></select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4  ">战败原因备注</label>
+								<div class="col-xs-8 ">
+									<textarea id="drDesc" name="drDesc" maxlength="120"
+										data-fieldName="PROM_CONTENT" class="form-control" rows="2"
+										cols=""></textarea>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						
+		
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/customerManage/potentialcus/defeat" data-model="customer"
+				data-method="PUT" data-callBack="true" class="btn blue"
+				data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+			</a> <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+
+	  $("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		  $("a[data-dismiss='modal']",container).click();
+  		  $("#FollownextGrade",getParentModal(container)).setDmsValue("13101008");
+
+	   });
+		$("#drDesc",container).bindChange(function(obj){
+			if($("#drDesc",container).validateElement()){
+				$("#drDescs",container).removeClass("required");
+			}else{
+				$("#drDescs",container).addClass("required");
+			}
+		});
+		$("#drDescs",container).bindChange(function(obj){
+			if($("#drDescs",container).validateElement()){
+				$("#drDesc",container).removeClass("required");
+			}else{
+				$("#drDesc",container).addClass("required");
+			}
+		});
+
+		//立即执行
+		 +function(){
+			$("#potentialCustomerId",container).val($("#potentialCustomerId",getParentModal(container)).val());
+			$("#ailIntentLevel",container).val($("#intentLevel",getParentModal(container)).val());
+			//alert($("#potentialCustomerId",getParentModal(container)).val());
+			//动态刷新下拉框的值
+		//	dmsDict.refreshSelectByUrl($("#seriesMemual",container),{potentialCustomerId: $("#potentialCustomerId",getParentModal(container)).val()});
+		}(); 
+	});	
+
+</script>

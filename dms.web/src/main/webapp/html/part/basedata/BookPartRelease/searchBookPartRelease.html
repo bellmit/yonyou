@@ -1,0 +1,233 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-3 ">
+						<div class="form-group form-group-xs m-b-xs">
+							<label class="control-label col-xs-4 ">仓库</label>
+							<div class="col-xs-8">
+								<select id="STORAGE_CODE" name="STORAGE_CODE"
+									class="bs-select form-control" data-labelValue="STORAGE_CODE"
+									data-url="/partStocks/StockCode" data-model="part"
+									 data-lableDesc="STORAGE_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">预留单号</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input id="OBLIGATED_NO" name="obligatedNo" 
+										 class="form-control" type="text" />
+									<span class="input-group-btn">
+										<button class="btn default btn-sm" type="button"
+											button-info="OBLIGATED_NO"
+											data-url="part/basedata/BookPart/searchOblgNo.html" id="obl"
+											data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+										<input type="hidden" id="itemid" name="itemid"/>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件代码</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="PART_NO"
+									name="PART_NO">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件名称</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="PART_NAME" 
+									name="PART_NAME">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">预留日期</label>
+							<div class="col-xs-8 col-sm-10">
+								 <div class="input-group input-daterange">
+		                             <input type="text" class="form-control" readonly  name="BOOK_BEGIN_DATE">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="BOOK_END_DATE"> 
+		                        </div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">截止日期</label>
+							<div class="col-xs-8 col-sm-10">
+								 <div class="input-group input-daterange">
+		                             <input type="text" class="form-control" readonly  name="BEGIN_DATE">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="END_DATE">
+		                        </div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row ">
+						<div class="col-xs-12 ">
+							<div class="query-btn">
+								<a href="javascript:;" class="btn blue"> <i
+									class="fa fa-search"></i> 查询
+								</a> <a href="javascript:;" class="btn blue"><i
+									class="fa fa-undo"></i> 重置</a>
+							</div>
+						</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-body">
+				<span><b>预留类型</b></span>
+				<table class="table table-striped table-bordered table-hover table-responsive"
+					id="dmstable"></table>
+			</div>
+			<div class="panel-body">
+				<span><b>预留类型:工单预留</b></span>
+				<table class="table table-striped table-bordered table-hover table-responsive"
+					id="tables"></table>
+			</div>
+			<div class="panel-body">
+				<span><b>预留类型:预约预留</b></span>
+				<table class="table table-striped table-bordered table-hover table-responsive"
+					id="stables"></table>
+			</div>
+			<div class="modal-footer">
+				<a class="btn blue fa fa-save" data-beforeRequest="true" data-url="/basedata/BookPartRelease/release" 
+					data-model="part" data-method="PUT"
+					data-width="modal-lg" data-toggle="confirmation">解预留</a>
+				<a data-method="downLoad" data-toggle="confirmation" 
+					class="btn blue fa fa-download" data-url="/basedata/BookPartRelease/export/import" ></i>Excel</a> 
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dmstable",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/basedata/BookPartRelease/booking",
+			rowID : "ITEM_ID",
+			sortName : "OBLIGATED_NO", 
+			sortOrder : "asc",
+			autoHeight : false,
+			selectItemName:"itemids",
+			isFormParam:true,
+			undefinedText : "",
+			isQueryFirst : false,
+			columns : [ 
+				{checkbox:true,sortable : false},
+			    {field : "OBLIGATED_NO",title : "预留单号",inputHiddenFormat:{}}, 
+				{field : "PART_NO",title : "配件代码",inputHiddenFormat:{}},
+				{field : "PART_NAME",title : "配件名称",inputHiddenFormat:{}},
+				{field : "UNIT_CODE",title : "单位",inputHiddenFormat:{}}, 
+				{field : "STORAGE_CODE",title : "仓库",inputHiddenFormat:{}},
+				{field : "QUANTITY",title : "预留数量",inputHiddenFormat:{}}, 
+				{field : "STORAGE_POSITION_CODE",title : "库位",inputHiddenFormat:{}},
+				{field : "APPLICANT",title : "申请人",inputHiddenFormat:{}},
+				{field : "LICENSE",title : "车牌号",inputHiddenFormat:{}}, 
+				{field : "BOOKING_ORDER_NO",title : "预约单号",inputHiddenFormat:{}},
+				{field : "SHEET_NO",title : "工单号",inputHiddenFormat:{}},
+				{field : "SO_NO",title : "服务单号",inputHiddenFormat:{hiddenField:"ITEM_ID"}},
+				{field : "BOOKING_DATE",title : "预留日期",inputHiddenFormat:{},dateFormat : {format:"YYYY-MM-DD"} }
+			]
+		});
+		new Datatable().initPagination({
+			src : "tables",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/basedata/BookPartRelease/ro",
+			rowID : "ITEM_ID",
+			sortName : "OBLIGATED_NO", 
+			sortOrder : "asc",
+			autoHeight : false,
+			isFormParam:true,
+			selectItemName:"itemid",
+			undefinedText : "",
+			isQueryFirst : false,
+			columns : [ 
+				{checkbox:true,sortable : false},
+			    {field : "OBLIGATED_NO",title : "预留单号",inputHiddenFormat:{}}, 
+				{field : "PART_NO",title : "配件代码",inputHiddenFormat:{}},
+				{field : "PART_NAME",title : "配件名称",inputHiddenFormat:{}},
+				{field : "UNIT_CODE",title : "单位",inputHiddenFormat:{}}, 
+				{field : "STORAGE_CODE",title : "仓库",inputHiddenFormat:{}},
+				{field : "QUANTITY",title : "预留数量",inputHiddenFormat:{}}, 
+				{field : "STORAGE_POSITION_CODE",title : "库位",inputHiddenFormat:{}},
+				{field : "APPLICANT",title : "申请人",inputHiddenFormat:{}},
+				{field : "LICENSE",title : "车牌号",inputHiddenFormat:{}}, 
+				{field : "BOOKING_ORDER_NO",title : "预约单号",inputHiddenFormat:{}},
+				{field : "SHEET_NO",title : "工单号",inputHiddenFormat:{}},
+				{field : "SO_NO",title : "服务单号",inputHiddenFormat:{hiddenField:"ITEM_ID"}},
+				{field : "BOOKING_DATE",title : "预留日期",inputHiddenFormat:{},dateFormat : {format:"YYYY-MM-DD"} }
+			]
+		});
+		new Datatable().initPagination({
+			src : "stables",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/basedata/BookPartRelease/all",
+			rowID : "ITEM_ID",
+			sortName : "OBLIGATED_NO", 
+			sortOrder : "asc",
+			autoHeight : false,
+			selectItemName:"itemid",
+			isFormParam:true,
+			undefinedText : "",
+			isQueryFirst : false,
+			columns : [ 
+				{checkbox:true,sortable : false},
+			    {field : "OBLIGATED_NO",title : "预留单号",inputHiddenFormat:{}}, 
+				{field : "PART_NO",title : "配件代码",inputHiddenFormat:{}},
+				{field : "PART_NAME",title : "配件名称",inputHiddenFormat:{}},
+				{field : "UNIT_CODE",title : "单位",inputHiddenFormat:{}}, 
+				{field : "STORAGE_CODE",title : "仓库",inputHiddenFormat:{}},
+				{field : "QUANTITY",title : "预留数量",inputHiddenFormat:{}}, 
+				{field : "STORAGE_POSITION_CODE",title : "库位",inputHiddenFormat:{}},
+				{field : "APPLICANT",title : "申请人",inputHiddenFormat:{}},
+				{field : "LICENSE",title : "车牌号",inputHiddenFormat:{}}, 
+				{field : "BOOKING_ORDER_NO",title : "预约单号",inputHiddenFormat:{}},
+				{field : "SHEET_NO",title : "工单号",inputHiddenFormat:{}},
+				{field : "SO_NO",title : "服务单号",inputHiddenFormat:{hiddenField:"ITEM_ID"}},
+				{field : "BOOKING_DATE",title : "预留日期",inputHiddenFormat:{},dateFormat : {format:"YYYY-MM-DD"} }
+			]
+		});
+		
+		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			var selectRow1 = $("#dmstable",container).dmsTable().getSelections();
+			var selectRow2 = $("#tables",container).dmsTable().getSelections();
+			var selectRow3 = $("#stables",container).dmsTable().getSelections();
+			var itemid = "";
+			$.each(selectRow1,function(index,row){
+				itemid += row.ITEM_ID+",";
+			});
+			$.each(selectRow2,function(index,row){
+				itemid += row.ITEM_ID+",";
+			});
+			$.each(selectRow3,function(index,row){
+				itemid += row.ITEM_ID+",";
+			});
+			$("#itemid",container).val(itemid.substr(0,itemid.length-1));
+			returnResult.status = true;
+		});
+
+	});
+	
+</script>

@@ -1,0 +1,186 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">发运单号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="ORDER_REGEDIT_NO" name="ORDER_REGEDIT_NO">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">交货单编号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="DELIVERY_ORDER_NO" name="DELIVERY_ORDER_NO">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">箱号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="CASE_ID" name="CASE_ID">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-2">发运日</label>
+								<div class="col-xs-10">
+									<div class="input-group input-daterange"									
+									data-defaultDays="1" data-date-format="yyyy/mm/dd/hh/mm/ss">
+                                        
+										<input type="text" class="form-control" readonly
+											name="deliveryTimeFrom" id="deliveryTimeFrom"> <span
+											class="input-group-addon">至</span> <input type="text"
+											class="form-control" readonly name="deliveryTimeTo"
+											id="deliveryTimeTo"> <span class="input-group-btn">
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否已签收</label>
+							<div class="col-xs-8 ">
+								<select class="bs-select form-control" id="IS_SIGNED" 
+								name="IS_SIGNED" data-dictCode="1278" data-value="12781002">
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否有效</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" name="IS_VALID"
+										id="IS_VALID" data-dictCode="1278" data-value="12781001">
+									</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否FIAT</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" name="IS_FIAT"
+										id="IS_FIAT" data-dictCode="1278">
+									</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+<!-- 				<div class="pannel-name" >发运单信息</div> -->
+			</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			container:container,
+			src : "dms_table",
+			url : dmsCommon.getDmsPath()["part"] + "/partOrder/deliverOrders",
+			rowID : "ORDER_REGEDIT_NO",
+			sortName : "ORDER_REGEDIT_NO",
+			sortOrder : "asc",
+			undefinedText : "",
+			autoHeight:false,
+			columns : [ 
+			    {field : "",title : "操作",operateFormat : [
+			    	 {type:"del",url:"/partOrder/deliverOrders/cancel/{[ORDER_REGEDIT_NO]}/{[DELIVERY_TIME]}",title:"作废",model:"part",method:"PUT",operateIcon:'<i class="fa fa-minus-square glyphicon-lg"></i>',isShow:function(value, row, index){
+						   if(row.IS_SIGNED =="12781002" && row.IS_VALID =="12781001"){
+							   return true;
+                  	   }else{
+                  		   return false;
+                  	   }
+						  
+					   },callBack:function(response){
+                  	   $("#dms_table",container).dmsTable().refreshTableWithForm();
+                     }},
+			    	{type:"edit",url:"part/basedata/partorder/editPartOrderSign.html",title:"签收",openWidth:"modal-lg",isShow:function(value, row, index){
+						   if(row.DELIVERY_STATUS !="50081003" && row.IS_VALID =="12781001" && row.IS_VERIFICATION=="12781002"){
+							   return true;
+                    	   }else{
+                    		   return false;
+                    	   }      
+					   }},
+					   
+
+                       {type:"detail",url:"part/basedata/partorder/partOrderDetail.html",title:"明细",openWidth:"modal-lg"},
+                       {type:"edit",url:"part/basedata/partorder/verificationOrder.html",title:"核销",openWidth:"modal-lg",isShow:function(value, row, index){
+						   if(row.DELIVERY_STATUS == "50081003" && row.IS_VERIFICATION=="12781002"){
+							   return true;
+                    	   }else{
+                    		   return false;
+                    	   }
+						   
+					   },callBack:function(response){
+                    	   $("#dms_table",container).dmsTable().refreshTableWithForm();
+                       }},
+                ]}, 
+                {field : "ORDER_REGEDIT_NO",title : "发运单号"},
+                {field : "DELIVERY_ORDER_NO",title : "交货单编号"},
+                {field : "IS_SIGNED",title : "是否签收",codeFormat : {type:"dict",codeType:"1278"}},
+                {field : "DELIVERY_STATUS",title : "签收状态",codeFormat : {type:"dict",codeType:"5008"}},
+                {field : "IS_VERIFICATION",title : "是否核销",codeFormat : {type:"dict",codeType:"1278"}},
+                {field : "IS_VALID",title : "是否有效",codeFormat : {type:"dict",codeType:"1278"}},
+                {field : "DMS_ORDER_NO",title : "DMS订单编号"},
+                {field : "SAP_ORDER_NO",title : "SAP订单编号"},
+                {field : "TRANS_NO",title : "运单号"},
+                {field : "ARRIVED_DATE",title : "预计到店时间",dateFormat : {
+					format : "YYYY-MM-DD HH:mm:ss"
+				}},
+                {field : "STOCK_IN_NO",title : "入库单号"},
+                {field : "DELIVERY_PDC",title : "发运地址"},
+                {field : "DELIVERY_TIME",title : "发运日期",dateFormat : {
+					format : "YYYY-MM-DD HH:mm:ss"
+				}},
+                {field : "DELIVERY_COMPANY",title : "货运公司"},
+                {field : "IS_TEMPORARY_STORAGE",title : "是否临时入库"},
+                {field : "RECEIVABLE_CASES",title : "应收箱数"},
+                {field : "FACT_CASES",title : "实到箱数"},
+                {field : "CASE_ID",title : "箱号"},
+                {field : "QUANTITY",title : "箱内配件数量"},
+                {field : "REMARK",title : "备注"}
+
+
+			]
+		});
+    });
+	
+</script>

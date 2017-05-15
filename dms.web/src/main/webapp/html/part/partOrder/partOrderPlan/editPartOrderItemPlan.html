@@ -1,0 +1,282 @@
+<div  class="dms-edit ajaxrest" 
+ data-url="/partOrder/placeAnorder/{[PART_NO]}/queryDmsPartOption" data-model="part" >
+
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">参考信息</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">仓库</label>
+								<div class="col-xs-8">
+									<select id="storageCode" name="storageCode"
+										class="bs-select form-control" 
+										data-url="/partStocks/StockCode" data-model="part"
+										data-labelValue="STORAGE_CODE" data-labledesc="STORAGE_NAME"
+										tabindex="-98" data-value="{[STORAGE_CODE]}">
+
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">配件代码</label>
+								<div class="col-xs-8">
+									<input id="partNo" name="partNo" class="form-control"
+										type="text"  value="{[PART_NO]}" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">配件名称</label>
+								<div class="col-xs-8">
+									<input id="partName" name="partName" class="form-control"
+										type="text"  value="{[PART_NAME]}" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">合计</label>
+								<div class="col-xs-8">
+									<input id="totalPrices" name="totalPrices" class="form-control"
+										type="text"  value="{[TOTAL_PRICES]}" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+
+
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-6 ">账面库存</label>
+								<div class="col-xs-6">
+									<input id="MECH_CODE" name="MECH_CODE" class="form-control"
+										type="text" value={[STOCK_QUANTITY]} readonly />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-6 ">最新进货价</label>
+								<div class="col-xs-6">
+									<input id="MECH_CODE" name="MECH_CODE" class="form-control"
+										type="text" readonly value="{[LATEST_PRICE]}"/>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-6 ">借进数量</label>
+								<div class="col-xs-6">
+									<input id="MECH_CODE" name="MECH_CODE" class="form-control"
+										type="text" readonly value="{[BORROW_QUANTITY]}" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-6 ">成本单价</label>
+								<div class="col-xs-6">
+									<input id="MECH_CODE" name="MECH_CODE" class="form-control"
+										type="text" readonly value="{[COST_AMOUNT]}" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-6 ">借出数量</label>
+								<div class="col-xs-6">
+									<input id="MECH_CODE" name="MECH_CODE" class="form-control"
+										type="text" readonly value="{[LEND_QUANTITY]}" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-6 ">成本金额</label>
+								<div class="col-xs-6">
+									<input id="edtCostAmount" name="edtCostAmount"
+										class="form-control" type="text" readonly
+										value="{[COST_AMOUNT]}" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-6 ">锁定数量</label>
+								<div class="col-xs-6">
+									<input id="cxLabel12" name="cxLabel12" class="form-control"
+										type="text" readonly value="{[LOCKED_QUANTITY]}" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-6 ">替代配件</label>
+								<div class="col-xs-6">
+									<input id="edtOptionPart" name="edtOptionPart"
+										class="form-control" type="text" readonly data-fieldName="OPTION_NAME" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-6 ">可用库存</label>
+								<div class="col-xs-6">
+									<input id="edtUseable" name="edtUseable" class="form-control"
+										type="text" readonly value="{[USEABLE_STOCK]}" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-6 ">替代配件库存</label>
+								<div class="col-xs-6">
+									<input id="edtOptionPartStock" name="edtOptionPartStock"
+										class="form-control" type="text" readonly  data-fieldName="OPTION_QUANTITY"/>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-6 ">最大库存</label>
+								<div class="col-xs-6">
+									<input id="edtMaxStock" name="edtMaxStock" class="form-control"
+										type="text" readonly value="{[MAX_STOCK]}" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-6 ">最小库存</label>
+								<div class="col-xs-6">
+									<input id="edtMinStock" name="edtMinStock" class="form-control"
+										type="text" readonly value="{[MIN_STOCK]}" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6  col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-6">最新入库日期</label>
+								<div class="col-xs-6">
+									<div class="input-group date date-picker">
+										<input id="deInDate" name="deInDate" readonly
+											class="form-control" type="text" value="{[LAST_STOCK_IN]}"
+											data-fieldName="LAST_STOCK_IN" /> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+											<button class="btn default date-reset" type="button">
+												<i class="fa fa-times"></i>
+											</button>
+										</span>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-6">最新出库日期</label>
+								<div class="col-xs-6">
+									<div class="input-group date date-picker">
+										<input id="deOutDate" name="deOutDate" readonly
+											class="form-control" type="text" value="{[LAST_STOCK_OUT]}"
+											data-fieldName="LAST_STOCK_OUT" /> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+											<button class="btn default date-reset" type="button">
+												<i class="fa fa-times"></i>
+											</button>
+										</span>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_table3">
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dms_table3",
+		container:container,
+		url : dmsCommon.getDmsPath()["part"] + "/partOrder/placeAnorder/queryDetail/{[PART_NO]}/{[STORAGE_CODE]}/queryDmsPartInOutSub",
+		autoHeight:false,
+		pageSize:5,
+			columns : [  
+                {field : "YEAR",title : "年度"},
+                {field : "MONTH",title : "月度"},
+	            {field : "IN_QUANTITY",title : "出库数量"},
+	            {field : "OUT_QUANTITY",title : "入库数量"}
+			]
+		});
+	
+
+	var inputArray = $('input[type="text"],input[type="hidden"],input[type="password"],textarea',container);
+	inputArray.each(function(index,item) {
+		if($(item).val().match(/[^]*\{[\s\S]*?\}/g)){
+			$(item).setDmsValue('');
+		}
+	});
+});
+</script>

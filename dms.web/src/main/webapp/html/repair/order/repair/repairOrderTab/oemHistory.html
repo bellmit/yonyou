@@ -1,0 +1,77 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2">开单日期</label>
+								<div class="col-xs-8 col-sm-10">
+									<div class="input-group input-daterange" >
+										<input type="text" class="form-control" readonly
+											name="" id=""> <span
+											class="input-group-addon">至</span> <input type="text"
+											class="form-control" readonly name=""
+											id="">
+										 <span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                     </span>
+									</div>	 
+								</div>
+							</div>
+						</div>	
+						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+							<div class="query-btn">
+								<a href="javascript:;" class="btn blue"> <i
+									class="fa fa-search"></i>查询
+								</a> 
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_oemHistory">
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a href="javascript:;" class="btn blue"><i class="fa fa-search"></i>明细</a> 
+			<a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>返回</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_oemHistory",
+			rowID:"",
+			container:container,
+			url : dmsCommon.getDmsPath()[""] + "",
+			sortName : "", 
+			sortOrder : "asc",
+			autoHeight:false,
+			columns : [ 
+						{title : "操作",operateFormat : [
+							{type : "detail",title : "明细",url : "",openWidth : "modal-lg"}
+						]},
+			            {field : "",title : "工单号"},
+			            {field : "",title : "工单类型"},
+			            {field : "",title : "开单日期"},
+			            {field : "",title : "车牌号"},,
+			            {field : "",title : "品牌"},
+			            {field : "",title : "车系"},
+			            {field : "",title : "车型"},
+			            {field : "",title : "进厂里程"},
+			            {field : "",title : "出厂里程"}
+			         ]
+		});
+	});
+</script>

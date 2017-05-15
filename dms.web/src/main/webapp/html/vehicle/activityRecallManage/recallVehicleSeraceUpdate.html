@@ -1,0 +1,99 @@
+<div class="dms-edit ajaxrest" >
+	<form class="form-horizontal" >
+	<div class="modal-header">
+			<div class="modal-title"> 预计召回时间批量修改</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="model-body" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+					
+				
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">预计召回完成日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker" >
+										<input id="recallDate" name="recallDate" readonly
+											class="form-control required"
+											type="text" value="" /> <span class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+
+									</div>
+								</div>
+							</div>
+						</div>		
+										
+								
+						
+						<!-- 隐藏域 -->
+						<input id="vins" name="vins" type="hidden">
+								
+											
+			
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="modal-footer center-block"> 
+				<a  data-url="/recallVehicleSerace/update" data-model="vehicle" data-method="POST"
+				data-callBack="true" class="btn blue" data-beforeRequest="true"
+				data-toggle="confirmation"> <i class="fa fa-save"></i>修改
+				</a> 
+			<a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>返回
+				</a>
+		</div>
+	
+</div>
+
+</form>
+	
+</div>		
+	
+	
+	
+
+<script type="text/javascript">
+
+	$(document).one("onload.dms",function(event,container){
+	var vins = $("#vinStr",getElementContext()).val();
+	$("#vins",container).setDmsValue(vins);
+	//alert(vins);
+	
+	//批量删除的前执行函数
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+		  //alert($("#vins",container).val());
+		debugger;
+		if($("#vins",container).val()=="" || $("#vins",container).val() == null){
+			dmsCommon.tip({status:"warning",msg:"请选择父表格记录"});//总共的状态类型：info、success、error、warning
+			returnResult.status = false;			
+		}
+		
+		returnResult.status = true;
+	});
+	
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#orderList",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+	
+	
+	
+	});
+    
+</script>

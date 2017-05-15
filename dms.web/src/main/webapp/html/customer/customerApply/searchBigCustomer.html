@@ -1,0 +1,335 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">大客户报备单</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="wsNo" name="wsNo">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">客户编号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="customerNo" name="customerNo">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">					
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">上报日</label>
+							<div class="col-xs-8 col-sm-5">
+								 <div class="input-group input-daterange"  >
+		                             <input type="text" class="form-control" readonly  name="beginSubmitTime" id="beginSubmitTime">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="endSubmitTime" id="endSubmitTime"> 
+		                             <span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                 </span>
+		                       
+		                        </div>
+							</div>
+								<span style="color:Red">在7个自然日内，报备审核驳回:</span><span style="color:Red" id="status1"></span>
+						</div>
+						
+					</div>
+		
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">客户名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="customerName" name="customerName">
+							</div>
+						</div>
+					</div>
+				
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">大客户负责人</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="dlrPrincipal" name="dlrPrincipal">
+							</div>
+						</div>
+					</div>
+							<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">					
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">审核日</label>
+							<div class="col-xs-8 col-sm-5">
+								 <div class="input-group input-daterange"  >
+		                             <input type="text" class="form-control" readonly  name="beginAuditingDate" id="beginAuditingDate">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="endAuditingDate" id="endAuditingDate"> 
+		                             <span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                 </span>
+		                       
+		                        </div>
+							</div>
+							<span style="color:Red">在7个自然日内，报备审核拒绝:</span><span style="color:Red" id="status2"></span>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">联系手机</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="mobile" name="mobile">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">联系电话</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="phone" name="phone">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" hidden="hidden">
+						<div class="form-group">
+							<label class="control-label col-xs-4">跟进记录</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="status3" name="status3">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" hidden="hidden">
+						<div class="form-group">
+							<label class="control-label col-xs-4">报备数量</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="status4" name="status4">
+							</div>
+						</div>
+					</div>
+
+			
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-6">
+							<div class="form-group">
+								<label class="control-label col-xs-2">报备状态</label>
+								<div class="col-xs-5">
+									<select id="wsStatus" name="wsStatus"
+										class="bs-select form-control" data-dictCode="1598"
+										 data-fieldName="ws_Status">
+									</select>
+								</div>
+							</div>
+						</div>
+				
+					
+					<div class="panel-body" data-parentTable="dms_table" >
+						<input type="hidden" name="wssNo" data-fieldName="WS_NO"/>
+					</div>
+			
+							<!-- span -->
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" id="doSearch"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">报备单信息</div>
+				<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+					<a data-goback="page"
+						data-url="customer/customerApply/addBigCustomer.html" 
+						data-toggle="modal" data-width="modal-lg"
+						class="btn btn-outline" ><i class="fa fa-plus-square"></i>
+						新增</a>
+					  <a data-url="/BigCustomer/manage/export/excel" data-model="customer" data-method="downLoad" data-toggle="confirmation" 
+							class="btn btn-outline"
+							><i class="fa fa-download" ></i>导出 </a> 
+				<a data-url="" data-model="customer" data-callBack="true"
+					data-method="PUT"   data-beforeRequest="true" id="tt" disabled
+					class="btn btn-outline" data-toggle="confirmation"><i
+					class="fa fa-save"></i>上报
+				</a><!-- DSO0401 -->
+												 
+					</div>
+				</div>	
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+			
+		</div>
+	</div>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">大客户申购车型列表</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="invent"></table>
+		</div>
+		
+	</div>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		    url : dmsCommon.getDmsPath()["customer"] + "/BigCustomer/manage",
+			rowID : "WS_NO",
+			sortName : "WS_NO",
+			sortOrder : "desc",
+			autoHeight:false,
+			undefinedText : "",
+			columns : [     
+				
+			    {field : "CUSTOMER_NO",title : "操作",operateFormat : [
+                       {type:"edit",url:"customer/customerApply/editBigCustomer.html",openWidth:"modal-lg",isShow:function(value, row, index){
+						   if(row.WS_STATUS=="15981001" || row.WS_STATUS =="15981004"){
+							   return true;
+						   }else{
+							   return false;
+						   }      
+					  	}},
+                       {type:"detail",url:"customer/customerApply/selectHistory.html",openWidth:"modal-lg",title:"审核明细"}]			    
+			    },                  
+			    {field : "WS_NO",title : "报备单号"},
+			    {field : "WS_STATUS",title : "报备状态", codeFormat : {type:"dict",codeType:"1598"}},
+			    {field : "SUBMIT_TIME",title : "上报日期", dateFormat : {format:"YYYY-MM-DD"}},  
+                {field : "AUDITING_DATE",title : "审核日期", dateFormat : {format:"YYYY-MM-DD"}},
+                {field : "WS_APP_TYPE",title : "政策类别",  codeFormat : {type:"dict",codeType:"1597"}}, 
+                {field : "CUSTOMER_KIND",title : "客户类别", codeFormat : {type:"dict",codeType:"6120"}},
+                {field : "WSTHREE_TYPE",title : "客户类型细分", codeFormat : {type:"dict",codeType:"6130"}},
+                {field : "WS_AUDITING_REMARK",title : "审核备注"},
+                {field : "CUSTOMER_NO",title : "客户编号"},
+                {field : "CUSTOMER_NAME",title : "客户名称"},
+                {field : "CONTACTOR_NAME",title : "联系人"},
+	            {field : "PHONE",title : "联系电话"},
+	            {field : "MOBILE",title : "联系手机"},
+                {field : "DLR_PRINCIPAL_PHONE",title : "负责人电话" },
+                {field : "ZIP_CODE",title : "邮编"},
+                {field : "ADDRESS",title : "地址"},
+                {field : "FIRST_SUBMIT_TIME",title : "首次上报日期", dateFormat : {format:"YYYY-MM-DD"}}   
+			],
+			onLoadSuccess : function() {
+				CheckStatus(1);
+				CheckStatus1(1);
+			}, onClickRow(rowData, element){
+				$("#tt",container).removeAttr("disabled");
+				CheckGenJin(rowData.CUSTOMER_NO);
+				totalCarCount(rowData.WS_NO);
+				$("#tt",container).attr("data-url","/BigCustomer/manage/maintian/"+rowData.WS_NO+"");
+				 $("#invent",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["customer"] + "/BigCustomer/manage/car/"+rowData.WS_NO+"");
+		
+				}
+
+		});
+	 var CheckStatus=function(str){
+			dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["customer"] + "/BigCustomer/manage/Check/Status/"+str,
+				type : 'GET',
+				sucessCallBack : function(data) {
+					$("#status1",container).setDmsValue(data);
+				}
+			});
+			
+	 }
+	 var CheckGenJin=function(str){
+			dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["customer"] + "/BigCustomer/manage/Check/"+str+"/CheckGenJin",
+				type : 'GET',
+				sucessCallBack : function(data) {
+					$("#status3",container).setDmsValue(data);
+				}
+			});
+			
+	 }
+	 var totalCarCount=function(str){
+			dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["customer"] + "/BigCustomer/manage/total/"+str+"/totalCarCount",
+				type : 'GET',
+				sucessCallBack : function(data) {
+					$("#status4",container).setDmsValue(data);
+				}
+			});
+			
+	 }
+	 var CheckStatus1=function(str){
+			dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["customer"] + "/BigCustomer/manage/Check/Status1/"+str,
+				type : 'GET',
+				sucessCallBack : function(data) {
+					$("#status2",container).setDmsValue(data);
+				}
+			});
+			
+	 }
+		new Datatable().initPagination({
+		src : "invent",
+		container:container,
+		    //url : dmsCommon.getDmsPath()["customer"] + "/BigCustomer/manage/car",
+		    rowID : "ITEM_ID",
+			sortName : "WS_NO",
+			sortOrder : "asc",
+			autoHeight:false,
+			isQueryFirst:false,
+			columns : [     
+			
+			    {field : "",title : "操作",operateFormat : [
+                      ]
+			    
+			    },                  
+			    {field : "BRAND_CODE",title : "品牌"},
+			    {field : "SERIES_CODE",title : "车系"},
+                {field : "MODEL_CODE",title : "车型"},
+                {field : "CONFIG_CODE",title : "配置"}, 
+                {field : "COLOR_CODE",title : "颜色"},
+                {field : "PURCHASE_COUNT",title : "购买数量"}         
+			]
+
+		});
+		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			var status3=$("#status3",container).val();
+			var status4=$("#status4",container).val();
+			if(status3=='12781002'&&status4>=5){
+				dmsCommon.tip({status:"warning",msg:"该大客户两周内无跟进记录，不能上报!"});//总共的状态类型：info、success、error、warning
+				returnResult.status = false;
+				return ;
+			}
+				 returnResult.status = true;
+			
+			});
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//刷新表格
+			$("#tt",container).attr("disabled","disabled");
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+ /*    	$('#doSearch').on('click',function(obj){
+    		$('input[name="wssNo"]').val('');
+    		
+    	});
+		$("input[name='wssNo']",container).bindChange(function(obj){
+    		$("#invent",getElementContext()).dmsTable().refreshTableWithForm();
+    	}); */
+	});		
+</script>

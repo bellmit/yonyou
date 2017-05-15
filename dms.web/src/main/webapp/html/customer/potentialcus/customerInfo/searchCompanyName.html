@@ -1,0 +1,83 @@
+<div class="dms-search">
+<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">公司查询</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">公司名称</label>
+								<div class="col-xs-8">
+									<input id="companyName" name="companyName"
+										class="form-control" type="text" />
+								</div>
+							</div>
+						</div>
+
+	
+					</div>
+					<div class="row ">
+						<div class="col-xs-12 ">
+							<div class="query-btn">
+								<a href="javascript:;" class="btn blue"> <i
+									class="fa fa-search"></i>查询
+								</a> 
+								<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">公司信息</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="customerList">
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-onclickEvent="true"><i class="fa fa-save"></i>确定</a>
+			<a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消</a>
+		</div>
+</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+ 	new Datatable().initPagination({
+		src : "customerList",
+		
+		container:container,
+		url : dmsCommon.getDmsPath()["customer"] + "/customerManage/potentialcus/customer/company",
+		sortName : "CUSTOMER_NO",
+		sortOrder : "asc",
+		autoHeight:false,
+		isQueryFirst:false,
+		columns : [ 
+		            {radio:true,sortable : false},
+		            {field : "COMPANY_NAME",title : "公司名称"}
+		         ]
+	});
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		var selectRow = $("#customerList",container).dmsTable().getFirstSelection();
+	    
+		$("div[data-companySelect='true']",getElementContext()).initHtmlContent(selectRow);
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+	});
+	
+});
+</script>

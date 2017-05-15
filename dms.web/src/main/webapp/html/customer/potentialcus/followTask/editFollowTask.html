@@ -1,0 +1,123 @@
+<div class="dms-edit ajaxrest" data-url="/customerManage/trackingtask/{[TASK_ID]}" data-model="customer" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true"></button>
+			<h4 class="modal-title">跟进任务定义编辑</h4>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+			 
+			 		<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style = "color:red">*</span>活动名称</label>
+								<div class="col-xs-8">
+									<input id="taskName" name="taskName"  data-fieldName="TASK_NAME"  class="form-control required"
+										type="text"  maxlength="120" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style = "color:red">*</span>执行方式</label>
+								<div class="col-xs-8">
+									<select id="executeType" name="executeType"  data-fieldName="EXECUTE_TYPE"
+										class="bs-select form-control required" data-dictCode="1325" ></select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style = "color:red">*</span>客户级别</label>
+								<div class="col-xs-8">
+									<select id="intentLevel" name="intentLevel"  data-fieldName="INTENT_LEVEL"
+										class="bs-select form-control required" data-dictCode="1310" data-value="" data-excludeItems="13101006,13101007,13101008,13101009" ></select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style = "color:red">*</span>活动内容</label>
+								<div class="col-xs-8">
+									<input id="taskContent" name="taskContent"  data-fieldName="TASK_CONTENT"  class="form-control required"
+										type="text"  maxlength="120" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style = "color:red">*</span>间隔天数</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control required digits" id="intervalDays" min ="1"  maxlength="4"
+										name="intervalDays" data-fieldName="INTERVAL_DAYS" > 
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">大客户间隔天数</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control  digits"   id="bigCustomerIntervalDays" 
+										name="bigCustomerIntervalDays" data-fieldName="BIG_CUSTOMER_INTERVAL_DAYS" >
+								</div>
+							</div>
+						</div>
+												
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style = "color:red">*</span>持续时间</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control required digits" id="keepDays" min ="1"  maxlength="4"
+										name="keepDays" data-fieldName="KEEP_DAYS" >
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style = "color:red">*</span>联系人类型</label>
+								<div class="col-xs-8">
+									<select id="contactorType" name="contactorType"  data-fieldName="CONTACTOR_TYPE"
+										class="bs-select form-control required" data-dictCode="1330"  ></select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否有效</label>
+								<div class="col-xs-8">
+									<select id="isValid" name="isValid"  data-fieldName="IS_VALID"
+										class="bs-select form-control " data-dictCode="1278"
+										data-value="12781001" data-existsDefault="false"></select>
+								</div>
+							</div>
+						</div>
+
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/customerManage/trackingtask/{[TASK_ID]}" data-model="customer" data-method="PUT" data-callBack="true"  class="btn blue" data-toggle="confirmation" >
+			<i class="fa fa-save"></i>保存</a>
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+});
+
+</script>

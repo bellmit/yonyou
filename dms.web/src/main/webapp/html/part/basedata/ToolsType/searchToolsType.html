@@ -1,0 +1,86 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+	  <div class="panel panel-default">
+			<div class="panel-body">
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4 ">工具类别代码</label>
+					<div class="col-xs-8">
+						<input type="text" class="form-control " id="toolTypeCode" name="toolTypeCode" maxlength="4">
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">工具类别名称</label>
+					<div class="col-xs-8 ">
+						<input type="text" class="form-control" id="toolTypeName" name="toolTypeName" maxlength="20">
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+		  </div>
+		</div>
+	  </div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >工具类别列表</div>
+		<div class="pannel-button"> 
+					<div class="btn-group btn-group-sm">
+						<a class="btn btn-outline" data-width="modal-lg" data-url="part/basedata/ToolsType/addToolsType.html"
+							data-toggle="modal"> <i class="fa fa-plus-square"></i> 新增
+						</a> 
+					</div>
+				</div>
+			</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_toolsType"></table>
+		</div>
+	</div>
+</div>
+<!--     private String dealerCode;
+    private String toolTypeCode;
+    private String toolTypeName;  
+ -->
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_toolsType",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/basedata/ToolsType",
+			rowID : "TOOL_TYPE_CODE",
+			sortOrder : "asc",
+			autoHeight: false,
+			//isQueryFirst:false,
+			columns : [ 
+				  {field : "TOOL_TYPE_CODE",title : "操作",operateFormat : [
+                   {type:"edit",url:"part/basedata/ToolsType/editToolsType.html",
+					openWidth:"modal-lg",isShow:function(value, row, index){
+                	  /*  if(row.OEM_TAG=="10571001"){
+                		   return false;
+                	   }else{
+                		   return true;
+                	   } */
+						 return true;
+                   }}  ]},
+				{field : "TOOL_TYPE_CODE",title : "工具类别代码"}, 
+				{field : "TOOL_TYPE_NAME",title : "工具类别名称"}
+			]
+		});
+	});
+	
+</script>

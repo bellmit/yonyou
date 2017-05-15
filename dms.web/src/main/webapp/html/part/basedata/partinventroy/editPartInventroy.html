@@ -1,0 +1,193 @@
+<div class="dms-edit ajaxrest" data-url="/basedata/partinventories/{[PART_INVENTORY_ID]}" data-pageInitCallBack="true" data-model="part">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<input type="hidden" id="partInventoryId" name="partInventoryId"  data-fieldName="part_inventory_id">
+					<input type="hidden" id="isConfirmed" name="isConfirmed"  data-fieldName="is_confirmed">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">盘点单号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="inventoryNo" name="inventoryNo" disabled="disabled" data-fieldName="inventory_no" >
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">经手人</label>
+							<div class="col-xs-8">
+								<select id="handler" name="handler" class="bs-select form-control required" data-url="/basedata/employees/employees/dict" data-model="manage" data-labelValue="EMPLOYEE_NAME" data-lableDesc="EMPLOYEE_NAME"  data-fieldName="handler">
+								</select>
+							</div>
+						</div>
+					</div>
+				<!-- /span -->
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">盘点日期</label>
+							<div class="col-xs-8">
+								<div class="input-group date date-picker" data-date-format="YYYY-MM-DD HH:mm:ss" >
+										<input id="inventoryDate" name="inventoryDate" readonly
+											class="form-control required"
+											type="text" value=""  data-fieldName="inventory_date" /> <span class="input-group-btn">
+											<button class="btn default date-set" type="button" id="inventoryDateButton" >
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				<!-- /span -->
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">备注</label>
+							<div class="col-xs-8 col-sm-10">
+									<input type="text" class="form-control" id="remark" name="remark"  data-fieldName="remark"/>
+							</div>
+						</div>
+					</div>
+				<!-- /span -->
+				</div>
+
+		
+			<form class="form-horizontal" >
+				<div class="panel panel-default table-panel">
+						<div class="panel-heading">
+							<div class="pannel-name" >
+								配件盘点单明细
+							</div>
+							<div class="pannel-button">
+								<div class="btn-group btn-group-sm">
+								<a class="btn btn-outline" data-onclickEvent="true"> <i class="fa fa-plus-square" ></i> 添加</a>
+								<div class="hidden">	<a data-info="addPart" data-url="part/basedata/partinventroy/addPartInventroyanditemWithPartNo.html" data-width="modal-lg"
+										data-toggle="modal">
+									</a> </div>
+								</div>
+							</div>
+							<div class="row pannel-tips">
+
+								<div class="col-xs-12 col-sm-6">
+									<div class="form-group">
+										<label class="control-label col-xs-6"></label>
+										<div class="col-xs-6">
+											<input id="isNotZero" name="isNotZero" type="checkbox"
+														data-dictCode="1013" data-dictLabel="差异数量不为零">
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-6">
+									<div class="form-group">
+										<label class="control-label col-xs-4">配件查询</label>
+										<div class="col-xs-8">
+											<div class="input-group">
+												<input id="partCodesearch" name="partCodesearch" placeholder="配件代码"
+												class="form-control"
+												type="text" value="" /> <span class="input-group-btn">
+												<button class="btn default btn-sm" id="search" name="search" type="button">
+													<i class="fa fa-search"></i>
+												</button>
+												<button class="btn default input-clear" type="button">
+	                                            			<i class="fa fa-close"></i>
+	                                    				</button>
+													</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					<div class="panel-body">
+						<table class="table table-striped table-bordered table-hover table-responsive"
+							id="piiDtoList"></table>
+					</div>
+				</div>
+		</form>
+			<div class="form-actions">
+				<a data-url="/basedata/partinventories/false"  data-model="part"  data-method="PUT" data-toggle="confirmation" data-callBack="true" class="btn blue" >
+					<i class="fa fa-save"></i> 保存
+				</a> 
+				<a data-url="/basedata/partinventories/true"  data-model="part"  data-method="PUT" data-toggle="confirmation" data-callBack="true" class="btn blue" > <i
+					class="fa fa-check-square-o"></i>确认
+				</a> <a
+					data-goback="page" href="part/basedata/partinventroy/searchPartInventroy.html"
+					class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>
+				</div>
+			
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+			src : "piiDtoList",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/basedata/partinventories/{[PART_INVENTORY_ID]}/item",
+			rowID : "ITEM_ID",
+			autoHeight:false,
+			columns : [
+			    {field : "ITEM_ID",title : "操作",operateFormat : [
+			         {type:"del",url:"/basedata/partinventories/{[PART_INVENTORY_ID]}/item/{[ITEM_ID]}",model:"part",callBack:function(response){
+			        	 $("#piiDtoList",getElementContext()).dmsTable().refreshTableWithForm();
+                     },isShow:function(value, row, index){
+             			var isConfirmed=$("#isConfirmed",container).val();
+                  	   if(isConfirmed=="10041001"){
+                		   return false;
+                	   }else{
+                		   return true;
+                	   }
+                   }},
+			         {type:"edit",url:"part/basedata/partinventroy/editPartInventroyanditem.html",openWidth:"modal-lg",doubleClick:true,isShow:function(value, row, index){
+	             			var isConfirmed=$("#isConfirmed",container).val();
+	                   	   if(isConfirmed=="10041001"){
+	                 		   return false;
+	                 	   }else{
+	                 		   return true;
+	                 	   }
+	                    }}
+			       ]
+			    },
+			    {field : "STORAGE_NAME",title : "仓库名称"},
+			    {field : "STORAGE_POSITION_CODE",title : "库位"},
+			    {field : "PART_NO",title : "配件代码"},
+			    {field : "PART_NAME",title : "配件名称"},
+			    {field : "REAL_STOCK",title : "实际库存"},
+			    {field : "CHECK_QUANTITY",title : "清点数量",},
+			    {field : "PROFIT_LOSS_QUANTITY", title : "差异数量"},
+			    {field : "COST_PRICE", title : "成本单价"}
+			]
+		});
+		
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		
+			$("#piiDtoList",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+		
+		$("input[name='isNotZero']",container).bindChange(function(obj){
+			$("#partCodesearch",container).val("");
+			$("#piiDtoList",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+		$("button[name='search']",container).click(function () {
+			$("input[name='isNotZero']",container).removeAttr("checked");
+			$("#piiDtoList",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			var partInventoryId=$("#partInventoryId",container).val();
+			var isConfirmed=$("#isConfirmed",container).val();
+			if(isConfirmed=="10041001"){
+				dmsCommon.tip({status:"warning",msg:"已确认盘点单无法修改"});
+			}else{
+				var map={PART_INVENTORY_ID:partInventoryId};
+				$("a[data-info='addPart']").data("pageData",map);
+				$("a[data-info='addPart']",container).click();
+			}
+		});
+	});
+	
+</script>

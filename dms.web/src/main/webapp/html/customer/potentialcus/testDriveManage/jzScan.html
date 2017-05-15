@@ -1,0 +1,101 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" hidden="hidden">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">文件ID</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="fileId" name="fileId">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer center-block">
+					<p>
+				<object classid="clsid:15D142CD-E529-4B01-9D62-22C9A6C00E9B"	id="scaner1" name="scaner1" width="100%" height="400"	codebase="http://localhost:8080/dms.web/static/cabs/ScanOnWeb.cab#version=1,0,0,10">
+    
+                 </object>
+					<input type="button" value="扫描" id="btnScan" onclick="scan();" class="btn blue"/>
+    <input type="button" value="上传" id="btnUpload2" onclick="upload();" class="btn blue"/>
+    	<!-- <a class="btn blue" data-toggle="confirmation" data-onclickEvent1="true" data-onclickEvent="true" data-validate="true" data-beforeRequest="true"><i
+				class="fa fa-save"></i>确定</a>  -->
+				<a class="btn blue" data-onclickEvent="true"><i class="fa fa-save"></i>确定</a>
+				<a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+ 
+
+					</p>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	var id="";
+	$(document).one("onload.dms",function(event,container){
+	/* 	$("a[data-beforeRequest='true']",container).on('beforeRequest.dms',function(event,returnResult){
+			$("#shougou",getElementContext()).val(id);
+			$("a[data-dismiss='modal']",container).click();
+			returnResult.status = true;
+	    }); */
+		
+		//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			$("#jzPhoto",getElementContext()).val(id);
+			$("a[data-dismiss='modal']",container).click();
+		});
+	
+	
+	});
+	
+	
+	function scan() {
+		document.getElementById('scaner1').scan();
+	}
+
+	function upload() {
+		dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["web"] + "/upload/querysessionid",
+				type : 'GET',
+				sucessCallBack : function(data) {
+				      // alert(data.sessionid);
+				       var fileId = $("#fileId").val(); //获取
+				       var status = document.getElementById('scaner1').uploadAllAsEachJpgToServerUrl('http://localhost:8080/dms.web/web/rest/upload/uploadjpg;jsessionid='+data.sessionid+"?key=value", '123456',fileId);
+						if (null==status){
+							alert("上传失败!可能是安全框架拦截了上传请求!");
+							return ;
+						}
+						
+						//var json_obj=eval("("+status+")");
+						if(status==""){
+							alert("上传失败!");
+						}else{
+							alert("上传成功");
+
+							id=status;
+
+						}
+					/* 	if (true==json_obj.status){
+							alert("上传成功!");
+							alert(json_obj.fileId);
+						}else{
+							alert("上传失败!");
+							alert(json_obj.fileId);
+						} */
+				}
+			});
+		
+	}
+
+
+	
+function callbackfun1(data) {
+	var obj = eval('(' + data + ')');
+
+	if ('ok' == obj.savestatus) {
+		alert('success!');
+	}
+
+}
+</script>

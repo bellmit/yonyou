@@ -1,0 +1,74 @@
+<div class="dms-edit ajaxrest" data-url="/basicCode/getBasicCode/{[BASE_ID]}" data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">修改代码维护</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+					
+					<input type="hidden" id="baseId" name="baseId"  data-fieldName="BASE_ID" >
+				
+				   <div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">代码类型</label>
+							<div class="col-xs-8">
+								<select id="baseType" name="baseType" class="bs-select form-control"  data-type="oemDict"  data-dictCode="4007"  data-fieldName="BASE_TYPE"  disabled="disabled">
+								</select>
+							</div>
+						</div>
+					</div>
+					
+				<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control required"  id="baseCode" name="baseCode"  data-fieldName="BASE_CODE"/>
+							</div>
+						</div>
+					</div>
+					
+				<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">描述</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control  required"  id="baseName" name="baseName"  data-fieldName="BASE_NAME" />
+							</div>
+						</div>
+					</div>
+				
+				
+				
+				
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/basicCode/edit/{[BASE_ID]}" data-model="vehicle"
+				data-method="PUT" data-callBack='true'
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>修改</a> <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	})
+</script>
+

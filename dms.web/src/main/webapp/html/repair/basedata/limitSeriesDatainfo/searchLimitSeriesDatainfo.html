@@ -1,0 +1,134 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6  col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 "> 序号 </label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="itemId"
+									name="itemId">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6  col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">品牌名称</label>
+							<div class="col-xs-8">
+								<select id="brandCode"
+										class="bs-select form-control" name="brandCode"
+										 data-url="/basedata/brandsdict" data-model="manage"
+									data-labelValue="BRAND_CODE" data-lableDesc="BRAND_NAME">
+									</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系名称</label>
+								<div class="col-xs-8">
+									<select id="seriesCode"
+										class="bs-select form-control" name="seriesCode"
+								data-url="/basedata/brandsdict/{[brand]}/seriessdict"
+									data-model="manage" data-labelValue="SERIES_CODE"
+									data-lableDesc="SERIES_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">维修类型名称</label>
+								<div class="col-xs-8">
+									<select id="repairTypeCode" name="repairTypeCode"
+										 class="bs-select form-control" data-dictCode="1206">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件限价浮动比例(%)</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="limitPriceRate"
+									name="limitPriceRate">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否有效</label>
+								<div class="col-xs-8">
+									<select id="isValid"
+										class="bs-select form-control" name="isValid"
+										data-dictCode="1278">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否OEM下发</label>
+							<div class="col-xs-8">
+									<select id="oemTag"
+										class="bs-select form-control" name="oemTag"
+										data-dictCode="1278">
+									</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i>查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+				<div class="pannel-name" >限价车系及维修类型</div>
+			</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+ 	new Datatable().initPagination({
+		src:"dms_table",
+		undefinedText : "",
+		container:container,
+	    url : dmsCommon.getDmsPath()["repair"] + "/basedata/limitSeriesDatainfo",
+	    rowID:"ITEM_ID",
+	    sortName:"BRAND_CODE,SERIES_CODE,REPAIR_TYPE_CODE,LIMIT_PRICE_RATE",
+	    sortOrder:"asc,asc,asc,asc",
+	    autoHeight : false,
+		columns : [  
+		      {field:"ITEM_ID",title:"序号"},
+		      {field:"BRAND_CODE",title:"品牌代码"},
+		      {field:"BRAND_NAME",title:"品牌名称"},
+		      {field:"SERIES_CODE",title:"车系代码"},
+		      {field:"SERIES_NAME",title:"车系名称"},
+		      {field:"REPAIR_TYPE_CODE",title:"维修类型代码"},
+		      {field:"REPAIR_TYPE_CODE",title:"维修类型名称",codeFormat : {type:"dict",codeType:"1206"}},
+		      {field:"LIMIT_PRICE_RATE",title:"配件限价浮动比例(%)",numberFormat : {decimal:2}},
+		      {field:"IS_VALID",title:"是否有效",inputCheckBoxFormat : {type : "dict",codeType : "1057",disabled:true}},
+		      {field:"OEM_TAG",title:"是否OEM下发",inputCheckBoxFormat : {type : "dict",codeType : "1057",disabled:true}}
+		      ]
+	});
+});
+</script>

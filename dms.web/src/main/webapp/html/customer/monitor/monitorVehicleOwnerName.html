@@ -1,0 +1,172 @@
+<div class="dms-search" data-pageInitCallBack="true">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<!-- /span -->
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-3">建档日期</label>
+						<div class="col-xs-9">
+							<div class="input-group input-daterange">
+								<input type="text" class="form-control" readonly name="foundDate" id="foundDate">
+								<span class="input-group-addon">至</span> <input type="text"
+									class="form-control" readonly name="foundDate" id="foundDate"> <span
+									class="input-group-btn">
+									<button class="btn default input-clear" type="button">
+										<i class="fa fa-close"></i>
+									</button>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /span -->
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-3">车牌号</label>
+						<div class="col-xs-9">
+							<input type="text" class="form-control" id="license" name="license" />
+						</div>
+					</div>
+				</div>
+				<!--/span-->
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-3">车主</label>
+						<div class="col-xs-9">
+							<input type="text" class="form-control" id="ownerName" name="ownerName" />
+						</div>
+					</div>
+				</div>
+				<!--/span-->
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-3">操作员</label>
+						<div class="col-xs-9">
+							<select id="" name="" data-fieldName=""
+								class="bs-select form-control "
+								data-url="/basedata/employees/-1/salesConsultant"
+								data-model="manage" data-labelValue="USER_ID"
+								data-value="{[userInfo.userId]}" data-lableDesc="USER_NAME">
+							</select>
+						</div>
+					</div>
+				</div>
+				<!--/span-->
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-3">VIN</label>
+						<div class="col-xs-9">
+							<input type="hidden" id="vin2" /> <input type="text"
+								class="form-control" id="vin" name="vin" />
+						</div>
+					</div>
+				</div>
+				<!--/span-->
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">VIN位置区间</label>
+						<div class="col-xs-8">
+							<div class="input-group">
+								<input type="text" class="form-control digits" id="" name="" />
+								<span class="input-group-addon">至</span> <input type="text"
+									class="form-control digits" id="" name="" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--/span-->
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-3">是否激活</label>
+						<div class="col-xs-9">
+							<select id="isValid" class="bs-select form-control"
+								name="isValid" data-dictCode="1278">
+							</select>
+						</div>
+					</div>
+				</div>
+				<!--/span-->
+				<div class="row">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn btn-sm blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn btn-sm blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">监控车主车辆</div>
+					<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" data-url="customer/monitor/addMoitor.html" data-toggle="modal" data-width="modal-md"><i class="fa fa-plus-square"></i> 新增</a>
+							<a href="javascript:;" data-url="/customer/monitor/export" data-model="customer" data-method="downLoad" id="excel" data-toggle="confirmation" class="btn btn-outline "> <i class="fa fa-download"></i>导出</a>
+							<a id="import" href="vehicle/stockManage/stockIn/exportPage.html" data-beforeShowEvent="true"  class="btn btn-outline ajaxify"> <i class="fa fa-upload"></i>导入</a>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_monitor">
+					</table>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms", function(event, container) {
+
+		new Datatable().initPagination({
+			src : "dms_monitor",
+			rowID : "MONITOR_ID",
+			container : container,
+			url : dmsCommon.getDmsPath()["customer"] + "/customer/monitor",
+			sortName : "MONITOR_ID",
+			sortOrder : "asc",
+			checkboxHeader : true, //全选框
+			autoHeight : false,
+			undefinedText : "",
+			columns : [ 
+			{checkbox : true,sortable : false},
+			{field : "POSITION_ID",title : "操作",operateFormat : [
+			{
+				type : "edit",
+				url : "customer/monitor/editMonitor.html",
+				openWidth : "modal-lg"
+			},
+			 {type : "del",url : "/customer/monitor/{[MONITOR_ID]}",model : "customer",
+				callBack : function(response) {
+				$("#dms_monitor",getElementContext()).dmsTable().refreshTableWithForm();
+			}}
+			]
+			},
+			
+			{field : "MONITOR_ID",title : "监控ID"},
+			{field : "REPAIR_ORDER_TAG",title : "接待提醒",codeFormat : {type : "dict",codeType : "1278"}},
+			{field : "BALANCE_TAG",title : "结算提醒",codeFormat : {type : "dict",codeType : "1278"}},
+			{field : "BOOKING_TAG",title : "预约提醒",codeFormat : {type : "dict",codeType : "1278"}},
+			{field : "LICENSE",title : "车牌号"},
+			{field : "VIN",title : "VIN"},
+			{field : "ENGINE_NO",title : "发动机号"},
+			{field : "OWNER_NO",title : "车主编号"},
+			{field : "OWNER_NAME",title : "车主"},
+			{field : "MESSAGE",title : "提示信息"},
+			{field : "BEGIN_DATE",title : "开始日期",dateFormat : {format : "YYYY-MM-DD"}},
+			{field : "END_DATE",title : "结束日期",dateFormat : {format : "YYYY-MM-DD HH:mm:ss"}},
+			{field : "FOUND_DATE",title : "建档日期",dateFormat : {format : "YYYY-MM-DD HH:mm:ss"}},
+			{field : "SALES_DATE_BEGIN",title : "销售开始日期",dateFormat : {format : "YYYY-MM-DD HH:mm:ss"}},
+			{field : "SALES_DATE_END",title : "销售结束日期",dateFormat : {format : "YYYY-MM-DD HH:mm:ss"}},
+			{field : "OPERATOR",title : "操作员"},
+			{field : "IS_VALID",title : "是否有效",codeFormat : {type : "dict",codeType : "1278"}},
+			{field : "OWNER_CONSUME_AMOUNT_MIN",title : "最低消费额"},
+			{field : "OWNER_CONSUME_AMOUNT_MAX",title : "最贵消费额"}
+			],
+		});
+	});
+</script>

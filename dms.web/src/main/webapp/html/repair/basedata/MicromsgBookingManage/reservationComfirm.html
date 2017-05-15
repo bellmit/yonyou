@@ -1,0 +1,111 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">预约确认</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color: red;">*</span>预约类别</label>
+								<div class="col-xs-8">
+									<select id="type" name="BOOKING_TYPE_CODE"
+										class="bs-select form-control required"
+										data-url="/basedata/ownerWeChatBooking/findAllResType" 
+										data-model="repair" data-labelValue="BOOKING_TYPE_CODE"
+										data-lableDesc="BOOKING_TYPE_NAME" >
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color: red;">*</span>客户经理</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<select id="employee" name="SERVICE_ADVISOR"
+											class="bs-select form-control required"
+											data-url="/basedata/ownerWeChatBooking/findEmployee"
+											data-model="repair" data-labelValue="EMPLOYEE_NO" data-value="{[userInfo.employeeNo]}"
+											data-lableDesc="EMPLOYEE_NAME" >
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color: red;">*</span>预约进厂时间</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input type="hidden" id="first" name="RESERVATION_DATE" value="{[RESERVATION_DATE]}"/>
+										<input type="hidden" id="second" name="RESERVATION_PERIOD" value="{[RESERVATION_PERIOD]}"/>
+										<input id="resDate" name="inDate" 
+											 class="form-control" type="text" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/basedata/ownerWeChatBooking/btnComfirm/{[RESERVATION_ID]}" data-model="repair"
+				data-method="PUT" data-callBack="true" data-beforeRequest="true"
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>确定</a> <a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event, container) {
+		
+			$("#resDate", container).setElementReadOnly();
+			$("#resDate", container).val(msToDay(parseInt($("#first",container).val()))+" "+$("#second",container).val());
+			
+			//保存前事件
+			$('a[data-beforeRequest="true"]',container).on('beforeRequest.dms',function(event,returnResult){
+				returnResult.status = true;
+			});
+			
+			//新增页面的回调函数
+			$("a[data-callBack='true']", container).on("callBack.dms",function(event, response) {
+					//关闭窗口
+					$("a[data-dismiss='modal']", container).click();
+					//刷新表格
+					$("#dms_table", getElementContext()).dmsTable().refreshTableWithForm();
+			});
+	});
+	
+	var msToDay = function(time){
+		if(time!=null&&time!=''){
+			var date = new Date(time);
+			var month ;
+			var day ;
+			if(date.getMonth()+1<10){
+				month = "0"+(date.getMonth()+1);
+			}else{
+				month = (date.getMonth()+1);
+			}
+			if(date.getDate()<10){
+				day = "0"+(date.getDate());
+			}else{
+				day = (date.getDate());
+			}
+			
+			return date.getFullYear()+"/"+month+"/"+day;
+		}else{
+			return '';
+		}
+	}
+</script>

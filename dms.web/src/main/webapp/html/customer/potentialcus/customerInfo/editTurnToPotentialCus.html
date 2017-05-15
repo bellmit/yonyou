@@ -1,0 +1,59 @@
+<div class="dms-edit ajaxrest" data-url="/customerManage/potentialcus/{[POTENTIAL_CUSTOMER_ID]}"
+	data-model="customer">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">转潜客</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+
+				<div class="panel-body">
+					<div class="row">
+						<!--/span-->
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">意向级别</label>
+								<div class="col-xs-8">
+									<select id="intentLevel" name="intentLevel"
+										data-fieldName="INTENT_LEVEL"
+										class="bs-select form-control required" data-dictCode="1310"
+										data-value="" data-excludeItems="13101006,13101005,13101008,13101009">
+									</select>
+									<input type="text" id="potentialCustomerId" class="bs-select form-control hidden" name="potentialCustomerId" value = "" data-fieldName="POTENTIAL_CUSTOMER_ID">
+									
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/customerManage/potentialcus/changeConsult/{[POTENTIAL_CUSTOMER_ID]}"
+				data-model="customer" data-method="PUT" data-callBack="true"
+				 class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> <a
+				data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#cusList",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+});	
+</script>

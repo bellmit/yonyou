@@ -1,0 +1,154 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+	  <div class="panel panel-default">
+	     <div class="panel-body">
+			<div class="row"><!-- pull-left -->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<div class="col-xs-12">
+		                            <input id="isValid" name="isValid" type="checkbox"
+										data-dictCode="1057" data-dictLabel="包含已离职员工" data-excludeItems="10131004"/>
+							</div>
+						</div>
+					</div>			
+			</div>
+			<div class="row ">
+				<div class="col-xs-12 ">
+					<div class="query-btn hidden">
+						<a href="javascript:;" class="btn blue  " data-onclickEvent="true"> <i
+							class="fa fa-search "></i> 查询
+						</a>
+					</div>
+				</div>
+		   </div>
+		  </div>
+		</div>
+	
+	<div class="panel panel-default table-panel ">
+		<div class="panel-heading">
+			<div class="pannel-name">
+				员工信息
+			</div>
+			<div class="pannel-button" >
+					
+					<div class="btn-group btn-group-sm">
+						<a data-goback="page" href="manage/basedata/employee/addEmployee.html"
+						class="btn btn-outline ajaxify"><i class="fa fa-plus-square"></i> 新增</a>
+						<!-- 	<a href="javascript:;" class="btn btn-outline" data-url="/basedata/employees/updateIsValid" data-model="manage" data-method="PUT"
+								data-toggle="confirmation" data-callBack="true" data-beforeRequest="true"> <i
+								class="fa fa-print" ></i>离职
+							</a> -->
+						 <a href="javascript:;"
+							data-url="/basedata/employees/export/excel"
+							data-model="manage" data-method="downLoad"
+							data-toggle="confirmation" class="btn btn-outline "><i
+							class="fa fa-download"></i>导出</a>
+					
+						
+					</div>
+					
+			</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="empList"></table>
+		</div>
+	</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "empList",
+		container:container,
+		url : dmsCommon.getDmsPath()["manage"] + "/basedata/employees",
+		rowID : "EMPLOYEE_NO",
+		sortName : "CREATED_AT", 
+		sortOrder : "desc",
+		selectItemName:"employeeids",
+		autoHeight : false,
+		undefinedText : "",
+		columns : [ 
+		    {field : "EMPLOYEE_NO",title : "操作",operateFormat : [
+                  {type:"edit",url:"manage/basedata/employee/editEmployee.html",openType:"jump"},
+                  {type:"detail",url:"manage/basedata/employee/editEmployee.html",doubleClick:true,openType:"jump"}
+                   ,
+                  {type:"del",url:"/basedata/employees/{[EMPLOYEE_NO]}/updateIsValid",title:"离职",model:"manage",method:"PUT",operateIcon:'<i class="fa fa-lg fa-minus-square"></i>',callBack:function(response){
+               	   $("#empList",getElementContext()).dmsTable().refreshTableWithForm();
+                  },isShow:function(value, row, index){
+                	  if(row.IS_VALID=='12781002'){
+                		  return false;
+                	  }else{
+                		  return true;
+                	  }
+                  }}, 
+                   {type:"del",url:"/basedata/employees/{[EMPLOYEE_NO]}/changeIsValid",title:"复职",model:"manage",method:"PUT",operateIcon:'<i class="fa fa-lg fa-plus-square"></i>',callBack:function(response){
+                   	   $("#empList",getElementContext()).dmsTable().refreshTableWithForm();
+                      },isShow:function(value, row, index){
+                    	  if(row.IS_VALID=='12781001'){
+                    		  return false;
+                    	  }else{
+                    		  return true;
+                    	  }
+                      }}
+               ]
+            },  
+            {field : "EMPLOYEE_NO",title : "员工编号"},
+			{field : "EMPLOYEE_NAME",title : "员工姓名"} , 
+			{field : "GENDER",title : "性别",codeFormat : {type:"dict",codeType:"1006"}},
+			{field : "CERTIFICATE_ID",title : "身份证号"}, 
+			{field : "ORG_NAME",title : "部门名称"}, 
+			{field : "WORKGROUP_NAME",title : "班组代码"}, 
+			{field : "WORKER_TYPE_NAME",title : "工种名称"}, 
+            {field : "POSITION_NAME",title : "职务"},
+			{field : "IS_TECHNICIAN",title : "是否技师",codeFormat : {type:"dict",codeType:"1278"}},
+			{field : "TECHNICIAN_GRADE",title : "技师等级",codeFormat : {type:"dict",codeType:"1232"}},
+			{field : "IS_SERVICE_ADVISOR",title : "是否客户经理",codeFormat : {type:"dict",codeType:"1278"}},
+			{field : "IS_INSURANCE_ADVISOR",title : "续保专员",codeFormat : {type:"dict",codeType:"1278"}},
+			{field : "IS_MAINTAIN_ADVISOR",title : "定保专员",codeFormat : {type:"dict",codeType:"1278"}},
+			{field : "IS_TRACER",title : "是否跟踪员",codeFormat : {type:"dict",codeType:"1278"}},
+			{field : "PHONE",title : "电话"}, 
+			{field : "MOBILE",title : "手机"}, 
+			{field : "E_MAIL",title : "E-Mail"}, 
+			{field : "BIRTHDAY",title : "出生日期",dateFormat : {format:"YYYY-MM-DD"}}, 
+			{field : "ADDRESS",title : "地址",maxLengthFormat : {length:12}},
+			{field : "ZIP_CODE",title : "邮政编码"},
+			{field : "FOUND_DATE",title : "建档日期",dateFormat : {format:"YYYY-MM-DD"}}, 
+			{field : "ENTRY_DATE",title : "入职日期",dateFormat : {format:"YYYY-MM-DD"}}, 
+			{field : "DIMISSION_DATE",title : "离职日期",dateFormat : {format:"YYYY-MM-DD"}}, 
+			{field : "RESUME",title : "个人简历",maxLengthFormat : {length:5}} ,
+			{field : "TRAINING",title : "培训简历",maxLengthFormat : {length:5}} ,
+			{field : "LABOUR_POSITION_NAME",title : "主维修工位"},
+			{field : "IS_TEST_DRIVER",title : "是否试车员",codeFormat : {type:"dict",codeType:"1278"}},
+			{field : "IS_CHECKER",title : "是否检验员",codeFormat : {type:"dict",codeType:"1278"}},
+			{field : "IS_TAKE_PART",title : "是否可领料",codeFormat : {type:"dict",codeType:"1278"}},
+			{field : "IS_VALID",title : "是否有效",codeFormat : {type:"dict",codeType:"1278"}},
+			{field : "LABOUR_FACTOR",title : "工时系数",numberFormat : {decimal:2}},
+			{field : "IS_UPHOLSTER_ADVISOR",title : "是否装潢专员",codeFormat : {type:"dict",codeType:"1278"}},
+			{field : "IS_INSURATION_ADVISOR",title : "是否保险专员",codeFormat : {type:"dict",codeType:"1278"}},
+			{field : "DISPATCH_NAME",title : "默认调度组"},
+			{field : "DEFAULT_POSITION_NAME",title : "默认工位"},
+			{field : "IS_MAJOR_REPAIRER",title : "是否主修",codeFormat : {type:"dict",codeType:"1278"}},
+			{field : "IS_DISPATCHER",title : "是否调度员",codeFormat : {type:"dict",codeType:"1278"}}, 
+			{field : "TECH_LEVEL_NAME",title : "技师级别",codeFormat : {type:"dict",codeType:"1232"}},
+			{field : "ORDER_NAME",title : "默认工序"}, 
+			{field : "IS_UPLOAD",title : "是否上报",codeFormat : {type:"dict",codeType:"1278"}} 
+
+		]	
+	});
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+		var selectRow = $("#empList",container).dmsTable().getSelections();
+		if(!selectRow||selectRow.length>1){
+			dmsCommon.tip({status:"warning",msg:"请选择一条数据"});//总共的状态类型：info、success、error、warning
+			returnResult.status = false;
+			return ;
+		}
+		returnResult.status = true;
+	});
+	$("[name='isValid']",container).bindChange(function(obj){
+		  $("#empList",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+
+});
+	
+</script>

@@ -1,0 +1,122 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+	  <div class="panel panel-default">
+			<div class="panel-body">
+		<div class="row">
+			
+			<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+					<div class="form-group">
+						<label class="control-label col-xs-4 col-sm-2">操作日期</label>
+							<div class="col-xs-8 col-sm-10">
+								 <div class="input-group input-daterange" data-maxDays = "30" data-defaultDays="1">
+		                             <input type="text" class="form-control" readonly  name="operateDateFrom">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="operateDateTo"> 
+		                        </div>
+							</div>
+						</div>
+					</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">日志分类</label>
+					<div class="col-xs-8 ">
+							<select class="bs-select form-control" name="operateCode" data-dictCode="1206"  >     
+                 			</select>
+					</div>
+				</div>
+			</div>
+			 <div class="col-xs-12 col-sm-6 col-md-4 col-md-3 ">
+				<div class="form-group">
+						<label class="control-label col-xs-4 col-md-3">操作员</label>
+						 <div class="col-xs-8">
+							<select id="operatorCode" name="operatorCode"
+										class="bs-select form-control"
+										data-url="/monitor/operatelog/Employee/Select"
+										data-model="manage" data-labelValue="EMPLOYEE_NO" 
+										data-lableDesc="EMPLOYEE_NAME"  data-live-search="true"></select>
+								</div>
+							</div>
+						</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">操作内容</label>
+					<div class="col-xs-8 ">
+						<input type="text" class="form-control" id="operateConntent" name="operateConntent" >
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+		  </div>
+		  
+		</div>
+	  </div>
+	
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >操作日志信息</div>
+				<div class="pannel-button"> 
+					<div class="btn-group btn-group-sm">
+						<a  data-url="/monitor/operatelog/export" data-model="manage"  class="btn btn-outline" 
+							data-width="modal-lg" data-method="downLoad" data-toggle="confirmation"  id="excel">
+							 <i class="fa fa-plus-square"></i> 导出
+							  <!-- 获取当前表格里的数据导出为excel表格 -->
+							  </a>
+							  <a   class="btn btn-outline" data-width="modal-lg"  id="quit"
+							 data-toggle="confirmation"  data-beforeRequest="true">
+							 <i class="fa fa-plus-square" ></i> 退出 
+							<!-- 清空数据--相当于重新加载页面    -->
+						</a> 
+					</div>
+				</div>
+			</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+		<!-- 底部按钮 -->
+		<!-- <div class="modal-footer center-block">
+		</div> -->
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	   new Datatable().initPagination({
+			src : "dms_table",
+			url :dmsCommon.getDmsPath()["manage"] + "/monitor/operatelog",
+			rowID : "LOG_ID",
+			sortName : "LOG_ID", 
+			sortOrder : "asc",
+			isQueryFirst:false,
+			columns:[
+						{field:"OPERATE_TYPE",title:"日志分类", codeFormat : {type:"dict",codeType:"1206"} },
+						{field:"OPERATOR_NAME",title:"操作员",inputHiddenFormat:{hiddenField:"OPERATOR"}},
+						{field : "OPERATE_DATE",title : "操作时间",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}}, 
+						{field:"OPERATE_CONTENT",title:"操作内容"}
+						
+			    	  ],
+		});
+		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			 if(container.id="cancel"){
+				 //刷新表格，将修改内容还原  //将增加的都清除
+				  dmsCommon.refreshPageByUrl("manage/basedata/operateLog/searchOperateLog.html",container);
+				}
+			 returnResult.status =true;
+		});
+		
+		
+	});
+</script>
+
+

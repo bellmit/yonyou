@@ -1,0 +1,181 @@
+<div class="dms-edit ajaxrest" data-url="/complaintDisposalNo/editReturnVisitUrl/{[VISIT_ID]}" data-model="vehicle" >
+	<form class="form-horizontal" >
+		<div class="modal-header">
+			<div class="modal-title">任务基本信息 </div>
+			
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="panel-body">
+	    		<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 "> 
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系名称</label>
+								<div class="col-xs-8">
+									<input id="" readonly name="" class="form-control" type="text" data-fieldName="LINK_NAME"/> 
+									</div>	
+							</div>
+					</div> 
+					<div class="col-xs-12 col-sm-6 col-md-4 "> 
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系电话</label>
+								<div class="col-xs-8">
+									<input id="" name=""  data-fieldName="LINK_PHONE" class="form-control" type="text" readonly /> 
+									</div>	
+							</div>
+					</div> 
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">VIN</label>
+								<div class="col-xs-8">
+									<input id="" readonly="readonly" name="" data-fieldName="VIN"  class="form-control "  type="text" />
+								</div>
+							</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">反馈时间</label>
+								<div class="col-xs-8">
+								<input id="" readonly="readonly" name="" data-fieldName="BACK_DATE"  class="form-control "  type="text" />
+								</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 "> 
+							<div class="form-group">
+								<label class="control-label col-xs-4">反馈类型</label>
+								<div class="col-xs-8">
+									<input id="BACK_TYPE" name="BACK_TYPE"  data-fieldName="BACK_TYPE" class="form-control" type="text" readonly /> 
+								</div>	
+							</div>
+					</div> 
+					<div class="col-xs-12 col-sm-6 col-md-4 "> 
+						<div class="form-group">
+							<label class="control-label col-xs-4">渠道来源</label>
+								<div class="col-xs-8">
+									<select id="" name="" data-fieldName="VISIT_SOURCE"  class="bs-select form-control"   disabled data-dictCode="9202" data-type="oemDict">
+									</select>
+								</div>	
+						</div>
+					</div> 
+					
+					<div class="col-xs-12 col-sm-6 col-md-4  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">跟踪性质</label>
+								<div class="col-xs-8">
+									<select id="" name="" data-fieldName="VISIT_TYPE"  class="bs-select form-control"   disabled data-dictCode="9201" data-type="oemDict">
+									</select>
+								</div>
+							</div>
+						</div>
+					
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 "> 
+						<div class="form-group">
+							<label class="control-label col-xs-4">反馈内容</label>
+							<div class="col-xs-8">
+								<input id="" name="" data-fieldName="BACK_CONTENT"  class="form-control" type="text" readonly/>
+							</div>
+						</div>
+					</div> 
+					
+					
+					
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-header">
+			<div class="modal-title">回访结果 </div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="panel-body">
+	    		<div class="row">
+	    		
+	    			<div class="col-xs-12 col-sm-6 col-md-9"> 
+						<div class="form-group">
+							<label class="control-label col-xs-4">处理结果</label>
+								<div class="col-xs-4">
+									<select id="disposeResult" name="disposeResult" data-fieldName="DISPOSE_RESULT"  class="bs-select form-control required"    data-dictCode="9204" data-type="oemDict">
+									</select>
+								</div>	
+						</div>
+					</div> 
+					<div class="col-xs-12 col-sm-6 col-md-9 "> 
+						<div class="form-group">
+							<label class="control-label col-xs-4">跟踪人</label>
+							<div class="col-xs-4">
+								<input id="disposeName" name="disposeName"  data-fieldName="DISPOSE_NAME" class="form-control required" type="text"  /> 
+								</div>	
+							</div>
+					</div> 			
+					<div class="col-xs-12 col-sm-6 col-md-9 "> 
+						<div class="form-group">
+							<label class="control-label col-xs-4">处理结果描述</label>
+								<div class="col-xs-8">
+									<textarea id="resultContent" name="resultContent" cols="60" rows="4"  data-fieldName="RESULT_CONTENT" class="form-control"  maxlength="450" ></textarea>
+									<font color="red">&nbsp;&nbsp;(输入10个以上汉字)</font>
+								</div>	
+						</div>
+					</div> 
+					
+					
+    				
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="panel-footer">
+			<div style="text-align:center">
+				<a id ="saveBtn" data-url="/complaintDisposalNo/resultSave/1/{[VISIT_ID]}" data-model="vehicle" data-method="PUT" data-callBack='true'
+				class="btn blue" data-toggle="confirmation" data-beforeRequest="true"><i class="fa fa-save"></i>保存</a>
+				<a id ="overBtn" data-url="/complaintDisposalNo/resultSave/2/{[VISIT_ID]}" data-model="vehicle" data-method="PUT" data-callBack='true'
+				class="btn blue" data-toggle="confirmation" ><i class="fa fa-save"></i>结案</a>
+			 	<a data-dismiss="modal" class="btn blue" id="undo2"><i
+			 	class="fa fa-undo"></i>返回</a> 	
+			</div>						
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+
+$(document).one("onload.dms",function(event,container){
+	//事件点击
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+		var disposeResult = $("#disposeResult",container).val();
+		console.log("");
+		console.log(disposeResult);
+		if (disposeResult == ""){
+			dmsCommon.tip({status:"warning",msg:"请选择处理结果！"});
+			return;
+		}
+		var disposeName = document.getElementById("disposeName").value;
+		if (disposeName == ""){
+			dmsCommon.tip({status:"warning",msg:"请填写跟踪人！"});
+			returnResult.status = false;
+		}else if(disposeName.length>25){
+			dmsCommon.tip({status:"warning",msg:"填写的跟踪人字符过长！"});
+			return;
+		}
+		
+		var resultContent = document.getElementById("resultContent").value;
+		if (resultContent.length<=10){
+			dmsCommon.tip({status:"warning",msg:"处理结果描述请输入10个以上中文字符！"});
+			return;
+		}else if(resultContent.length>1000){
+			dmsCommon.tip({status:"warning",msg:"处理结果描述过长！"});
+			return;
+		}	
+		returnResult.status = true;
+
+	});
+	 $("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		 $("a[data-dismiss='modal']",container).click();
+	 });
+	
+});
+
+   
+</script>

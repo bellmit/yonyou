@@ -1,0 +1,133 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					
+					
+					
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">往来日期</label>
+							<div class="col-xs-8 ">
+								 <div class="input-group input-daterange"  data-opens="right">
+		                             <input type="text" class="form-control" readonly  name="startDate" id="startDate">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="endDate" id="endDate">
+		                             <span class="input-group-btn">
+                                         <button class="btn default input-clear" type="button">
+                                            <i class="fa fa-close"></i>
+                                        </button>
+                                      </span> 
+		                        </div>
+							</div>
+						</div>
+					</div>		
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">备注 :</div>
+			
+				 <font>1）金额全为不含税金额；2）销售凭证：TO类型取400订单号，其它订单类型取800交货单号；</font>
+			
+		</div>
+		
+	</div>
+			
+		
+	</div>
+		
+		<div class="panel panel-default table-panel">
+			<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name">信息列表 </div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							
+							<a class="btn btn-outline" href="javascript:;" data-onclickEvent="true" data-url="/partAccountManage/downloadRebateUse" data-model="part" data-method="downLoad" data-toggle="confirmation"> <i
+								class="fa fa-download " ></i> 导出
+							</a>  
+						</div>
+				</div>
+		</div>
+		
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="partList"></table>
+		</div>
+	</div>
+		
+	</div>
+		
+		
+	</form>
+	
+	
+</div>
+<script type="text/javascript">
+ $(document).one("onload.dms",function(event,container){
+	 
+	 
+	new Datatable().initPagination({
+		src : "partList",
+		container:container,
+		url : dmsCommon.getDmsPath()["part"] + "/partAccountManage/queryRebateUse",
+		rowID : "",
+		sortName : "",
+		sortOrder : "asc",
+		autoHeight:false,
+		columns : [ 
+				 {title: "往来日期", field:'ZDATE'},
+		         {title: "发票号", field:'VBELN_VF'},
+		         {title: "凭证行号", field:'POSNR_VF'},
+		         {title: "销售凭证", field:'VBELN_SO'},
+		         {title: "项目行号", field:'POSNR_SO'},
+		         {title: "配件号", field:'MATNR'},
+		         {title: "原价", field:'ORIGINAL_PRICE'},
+		         {title: "数量", field:'KWMENG'},
+		         {title: "返利消耗金额", field:'NETWR'},
+		         {title: "返利编号", field:'REBATE'}
+		       
+		]
+		
+	});
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		var startDate=document.getElementById("startDate").value;
+		var endDate=document.getElementById("endDate").value;
+		
+		if(endDate!='' && startDate==''){
+			dmsCommon.tip({status:"warning",msg:"往来日期开始时间不能为空!"});
+			return;
+		}
+		if(startDate!=''&& endDate==''){
+			dmsCommon.tip({status:"warning",msg:"往来日期结束时间不能为空！"});
+			return;
+		}
+		var d1 = new Date(startDate.replace(/-/g,"/"));
+		var d2 = new Date(endDate.replace(/-/g,"/"));    
+		var times = d2.getTime()-d1.getTime();  
+		var days = times/(24*60*60*1000);  
+		if (days>90) {
+			dmsCommon.tip({status:"warning",msg:"往来日期最长跨度不能超过三个月!"});
+			return;
+		}
+	}) ;
+});
+    
+</script>

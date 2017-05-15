@@ -1,0 +1,70 @@
+<div class="dms-edit ajaxrest" 
+	data-model="manage">
+	<!-- BEGIN FORM-->
+	<form class="form-horizontal">		
+		<div class="panel panel-default table-panel">
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="bSPDtoList">
+					</table>
+				</div>
+		</div>
+</form>
+</div>
+
+<script type="text/javascript">
+	
+	$(document).one("onload.dms",function(event,container){
+		var calcDisCountAmount=function(event,container){
+			var tab=$("#bSPDtoList tbody");//销售材料
+			var rows=$("tr",tab).length;
+			//折扣金额
+			var disCountAmount = parseFloat(0);
+			//应收金额
+			var disAmount= parseFloat(0);
+			for(var i=0;i<rows;i++){
+				var labourAmount = $("tr:eq("+i+") td:eq(9) input[id^=discountAmount]",tab).val();//折扣金额
+				var labDisAmount = $("tr:eq("+i+") td:eq(10) input[id^=salesAmount]",tab).val();//应收金额
+				console.log(labDisAmount);
+				if(labourAmount =="" || labourAmount ==undefined){
+					 labourAmount=parseFloat(0);	
+				}
+				if(labDisAmount =="" || labDisAmount ==undefined){
+					labDisAmount=parseFloat(0);	
+				}
+				disCountAmount=parseFloat(disCountAmount)+parseFloat(labourAmount);
+				disAmount=parseFloat(disAmount)+parseFloat(labDisAmount);
+			}
+			var disCountMap={DIS_COUNT_AMOUNT:disCountAmount};//折扣金额
+			$("div[data-disCounAmount='true']",getElementContext()).initHtmlContent(disCountMap,false);
+			console.log(disAmount);
+			var disMap={DIS_AMOUNT:disAmount};//应收金额
+			$("div[data-disAmount='true']",getElementContext()).initHtmlContent(disMap,false);
+			$("select[name='discountModeCode']",getElementContext()).setDmsValue("");
+		};
+		
+		
+		new Datatable().initLocale({
+			src : "bSPDtoList",
+			container:container,
+			rowID:"ADDRESS_ID",
+			url : dmsCommon.getDmsPath()["repair"] + "/balance/balanceAccounts/balanceSalesPart/{[BALANCE_ID]}",
+			sortName : "ADDRESS_ID", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+			sortOrder : "asc",
+			columns : [
+						{field : "CHARGE_PARTITION_NAME",title : "收费区分"},
+                       {field : "STORAGE_CODE",inputField:"storageCode",inputHiddenFormat : {},title : "仓库名称",inputSelectFormat : {url:"/basedata/store/accessories/Warehouses",model:"part",labelValue:"STORAGE_CODE",lableDesc:"STORAGE_NAME"}},
+                       {field : "PART_NO",inputField:"itemId",inputHiddenFormat : {hiddenField:"ITEM_ID"},title : "配件代码"}, 
+			           {field : "PART_NAME",inputField:"partName",inputHiddenFormat : {},title : "配件名称"},
+			           {field : "PART_QUANTITY",inputField:"partQuantity",inputHiddenFormat : {},title : "配件数量",numberFormat : {decimal : 2}}, 			           
+			           {field : "PART_SALES_PRICE",inputField:"partSalesPrice",inputHiddenFormat : {},title : "销售单价",numberFormat : {decimal : 2}},   
+			           {field : "PART_SALES_AMOUNT",inputField:"partSalesAmount",inputHiddenFormat : {},title : "销售金额",numberFormat : {decimal : 2}},
+			           {field : "DISCOUNT",inputField:"discount",inputNumberFormat : {decimal : 2},title : "折扣率"},  
+			           {field : "SALES_AMOUNT",inputField:"discountAmount",inputHiddenFormat : {},title : "折扣金额",numberFormat : {decimal : 2,autoValueFormat:{autoValue:"#partSalesAmount*(1-#discount)",afterEvent:calcDisCountAmount}}}, //,
+			           {field : "SALES_AMOUNT",inputField:"salesAmount",inputHiddenFormat : {},title : "应收金额",numberFormat : {decimal : 2,autoValueFormat:{autoValue:"#partSalesAmount*#discount",afterEvent:calcDisCountAmount}}},
+			         ]
+		});
+	});
+
+</script>

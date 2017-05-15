@@ -1,0 +1,528 @@
+<div class="dms-edit ajaxrest" data-url="/realOrderQuery/xiangXi/{[ORDER_ID]}"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">直销车实销明细</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel-heading">
+			<div class="pannel-name" >车辆信息</div>
+			</div>
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">VIN号</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="VIN"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销售类型</label>
+								<div class="col-xs-8">
+									<select id="sellType" name="sellType" data-fieldName="SALE_TYPE" class="bs-select form-control" data-type="oemDict" data-dictCode="2091" >
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">开票日期</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName=" INVOICE_DATE"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">交付时公里数</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="MILEAGE"></span>
+								</div>
+							</div>
+						</div>
+						<div id="hidden">
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">发动机号</label>
+									<div class="col-xs-8">
+										<span class="form-show " data-fieldName="ENGINE_NO"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">品牌</label>
+									<div class="col-xs-8">
+											<span class="form-show " data-fieldName="BRAND_NAME"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">车型</label> 
+									<div class="col-xs-8">
+											<span class="form-show " data-fieldName="GROUP_NAME"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">内饰</label>
+									<div class="col-xs-8">
+											<span class="form-show " data-fieldName="TRIM_NAME"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">CPOS</label>
+									<div class="col-xs-8">
+											<span class="form-show " data-fieldName="MODEL_CODE"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">发票附件</label>
+									<div class="col-xs-8">
+											<span class="form-show " data-fieldName="FILEURL"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">合格证号</label>
+									<div class="col-xs-8">
+											<span class="form-show " data-fieldName="QUALIFIED_NO"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">车辆用途</label>
+									<div class="col-xs-8">
+											<span class="form-show " data-fieldName="VEHICLE_USE"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">车系</label>
+									<div class="col-xs-8">
+											<span class="form-show " data-fieldName="SERIES_NAME"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">颜色</label>
+									<div class="col-xs-8">
+											<span class="form-show " data-fieldName="COLOR_NAME"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">年款</label>
+									<div class="col-xs-8">
+											<span class="form-show " data-fieldName="MODEL_YEAR"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">开票类型</label>
+									<div class="col-xs-8">
+											<span class="form-show " data-fieldName="INVOICE_TYPE"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel-heading">
+			<div class="pannel-name" >客户信息</div>
+			</div>
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商代码</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="DEALER_CODE"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">客户编号</label>
+								<div class="col-xs-8">
+								<span class="form-show " data-fieldName="CUSTOMER_NO"></span>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">客户名称</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="CUSTOMER_NAME"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">客户类型</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="CUSTOMER_TYPE"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系人</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="LINKMAN_NAME"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系人性别</label>
+								<div class="col-xs-8">
+										<span class="form-show " data-fieldName="LINKMAN_SEX"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系方式</label>
+								<div class="col-xs-8">
+										<span class="form-show " data-fieldName="LINKMAN_TEL"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系人地址</label>
+								<div class="col-xs-8">
+										<span class="form-show " data-fieldName="LINKMAN_ADDR"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">证件号码</label>
+								<div class="col-xs-8">
+										<span class="form-show " data-fieldName="ID_NO"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">银行账号</label>
+								<div class="col-xs-8">
+								<span class="form-show " data-fieldName="BANK_NO"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">证件类型</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="ID_TYPE"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">打款银行</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="PAYMENT_BANK"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">备注</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="REAMK"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+			<div class="modal-body">
+			<div class="panel-heading">
+			<div class="pannel-name" >PDI结果</div>
+			</div>
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">PDI检查日期</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="vin"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">技术报告号</label>
+								<div class="col-xs-8">
+									<select id="sellType" name="sellType" data-fieldName="SELL_TYPE" class="bs-select form-control" data-type="oemDict" data-dictCode="2091" >
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">PDI检查表</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="DELIVERY_DATE"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">PDI检查结果</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="owner_name21"></span>
+								</div>
+							</div>
+						</div>
+						<div id="hidden">
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">公里数</label>
+									<div class="col-xs-8">
+										<span class="form-show " data-fieldName="owner_name16"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+			<div class="modal-body">
+			<div class="panel-heading">
+			<div class="pannel-name" >故障描述</div>
+			</div>
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">序号</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="vin"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">描述</label>
+								<div class="col-xs-8">
+									<select id="sellType" name="sellType" data-fieldName="SELL_TYPE" class="bs-select form-control" data-type="oemDict" data-dictCode="2091" >
+									</select>
+								</div>
+							</div>
+						</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+				<div class="modal-body">
+			<div class="panel-heading">
+			<div class="pannel-name" >验收结果</div>
+			</div>
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">VIN号</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="vin"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">合格证号</label>
+								<div class="col-xs-8">
+									<select id="sellType" name="sellType" data-fieldName="SELL_TYPE" class="bs-select form-control" data-type="oemDict" data-dictCode="2091" >
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">送车人姓名</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="DELIVERY_DATE"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">承运车牌号</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="owner_name21"></span>
+								</div>
+							</div>
+						</div>
+						<div id="hidden">
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">详细地址</label>
+									<div class="col-xs-8">
+										<span class="form-show " data-fieldName="owner_name16"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">验收人</label>
+									<div class="col-xs-8">
+											<span class="form-show " data-fieldName="owner_name15"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">发动机号</label> 
+									<div class="col-xs-8">
+											<span class="form-show " data-fieldName="owner_name15"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">钥匙编号</label>
+									<div class="col-xs-8">
+											<span class="form-show " data-fieldName="owner_name15"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">送车人电话</label>
+									<div class="col-xs-8">
+											<span class="form-show " data-fieldName="registration_date"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">承运商名称</label>
+									<div class="col-xs-8">
+											<span class="form-show " data-fieldName="owner_name152"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">验收结果</label>
+									<div class="col-xs-8">
+											<span class="form-show " data-fieldName="registration_date"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">质损状态</label>
+									<div class="col-xs-8">
+											<span class="form-show " data-fieldName="registration_date"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+			<div class="modal-body">
+			<div class="panel-heading">
+			<div class="pannel-name" >车辆验收详细信息</div>
+			</div>
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">序号</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="vin"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">质损部位</label>
+								<div class="col-xs-8">
+									<select id="sellType" name="sellType" data-fieldName="SELL_TYPE" class="bs-select form-control" data-type="oemDict" data-dictCode="2091" >
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">质损程度</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="DELIVERY_DATE"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">质损性质</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="owner_name21"></span>
+								</div>
+							</div>
+						</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<div class="modal-footer center-block">
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>返回</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+})
+</script>

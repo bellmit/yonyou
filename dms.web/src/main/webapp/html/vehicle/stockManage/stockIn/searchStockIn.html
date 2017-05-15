@@ -1,0 +1,743 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row" data-seldate="true">
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">入库单号</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input type="hidden" name="vendorName" id="vendorName"/>
+										<input type="hidden" name="vins" id="vins"/>
+										<input type="hidden" name="isAllFinished" id="isAllFinished" data-fieldName="IS_ALL_FINISHED"/> <input type="hidden"
+											name="" id="" /> <input id="seNo" readonly="readonly" name="seNo"
+											class="form-control" data-fieldName="SE_NO" type="text" /> 
+										<span class="input-group-btn">
+											<button class="btn default btn-sm" type="button" id="find"
+												data-url="vehicle/stockManage/stockIn/searchStockItem.html" data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-sitemap"></i>
+											</button>
+											<button class="btn default input-clear" id="clear"
+												type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-6"><span style="color: red;">*</span>入库业务类型</label>
+								<div class="col-xs-8 col-sm-5 col-md-5 col-lg-5">
+									<input type="hidden" data-fieldName="STOCK_IN_TYPE" id="stockin"/>
+									<select id="inType" name="inType"  data-excludeItems="13071001,13071003,13071004,13071006"
+										class="bs-select form-control required" data-dictCode="1307">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">开单人员</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="sheetCreatedBy" readonly
+										data-fieldName="SHEET_CREATED_BY" name="createBy" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">开单日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker">
+										<input id="sheetCreatedDate" name="createDate" readonly
+											data-fieldName="SHEET_CREATE_DATE" class="form-control"
+											type="text" /> <span class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+											<button class="btn default date-reset" type="button">
+												<i class="fa fa-times"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row" data-seldate="true">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<div class="form-group">
+								<label class="control-label col-xs-1">备注</label>
+								<div class="col-xs-11">
+									<input id="remark" name="remark" readonly data-fieldName="REMARK"
+											class="form-control" type="text" maxlength="400"/>
+									<input type="hidden" value="add" id="type" name="type"/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">车辆入库单明细</div>
+					<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a id="add" data-url="vehicle/stockManage/stockIn/addStockIn.html" data-beforeShowEvent="true" class="btn btn-outline" data-toggle="modal"
+								data-width="modal-lg"> <i class="fa fa-plus-square"></i> 新增
+							</a> 
+							<a id="update" data-url="vehicle/stockManage/stockIn/editStockIn.html" data-beforeShowEvent="true" class="btn btn-outline" data-toggle="modal"
+								data-width="modal-lg"> <i class="fa fa-plus-square"></i> 修改
+							</a> 
+							<a id="enter" data-callBack="true" data-model="vehicle" data-toggle="confirmation"  data-beforeRequest="true" class="btn btn-outline">
+								<i class="fa fa-plus-square"></i> 入库
+							</a> 
+							<a id="batch" class="btn btn-outline" data-toggle="modal" data-beforeShowEvent="true"
+								data-url="vehicle/stockManage/stockIn/batchInspection.html"
+								data-width="modal-sm"> <i class="fa fa-plus-square"></i> 批量验收
+							</a> 
+							<a id="print" class="btn btn-outline" data-toggle="modal" data-beforeShowEvent="true" 
+								data-url="vehicle/stockManage/stockIn/editStockInPrint.html" 
+								data-width="modal-lg"> <i class="fa fa-plus-square"></i> 打印
+							</a> 
+							<a id="import" href="vehicle/stockManage/stockIn/exportPage.html" data-beforeShowEvent="true"  class="btn btn-outline ajaxify"> <i
+								class="fa fa-upload"></i>导入
+							</a>
+							<a data-model="vehicle" data-method="downLoad" data-url="/vehicleStock/stockIn/export/excel/exportStockInModel" 
+								class="btn btn-outline ajaxrest"><i class="fa fa-download"></i>导入模板
+							</a>
+							<a data-model="vehicle"
+								data-method="downLoad" data-toggle="confirmation" id="export" data-beforeRequest="true" 
+								class="btn btn-outline "><i class="fa fa-download"></i>导出
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_table"></table>
+				</div>
+			</div>
+		</div>
+		<!-- 底部按钮 -->
+		<div class="modal-footer center-block">
+				<a data-errorCallBack="true" id="create" class="btn blue" ><i class="fa fa-plus-square"></i>新建</a>
+				
+				
+				<a id="save" data-model="vehicle" data-beforeRequest="true" class="btn blue ajaxrest"
+				data-validate="true" data-onclickEvent="true" data-callBack="true"><i class="fa fa-save"></i>保存</a> 
+				
+				
+				<a id="exit" class="btn blue"><i class="fa fa-print"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event, container){
+		$("#add", container).setElementReadOnly();
+		$("#update", container).setElementReadOnly();
+		$("#enter", container).setElementReadOnly();
+		$("#batch", container).setElementReadOnly();
+		$("#export", container).setElementReadOnly();
+		$("#save", container).attr('disabled','disabled');
+		$("#sheetCreatedDate", container).setElementReadOnly();
+		/* debugger
+		if($.cookie('callBackForExport')!=null){
+			var no = $.cookie('callBackForExport');//获取导入的seno
+			if(no!=null){
+				$("#dms_table",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["vehicle"]
+					+ "/vehicleStock/stockIn/showList/sNo:"+no);
+				$("#dms_table", getElementContext()).dmsTable().refreshTableWithForm();
+				$("#create",container).attr('disabled','disabled');
+				$("#save",container).attr('disabled','disabled');
+				$("#add", container).removeElementReadOnly();
+				$("#export", container).removeElementReadOnly();
+			}
+		} */
+		
+		var items ;
+		
+		var index = dmsCommon.getSystemParamInfo("8016","8016");//前台开关查询
+		if(index=='12781001'){//表示列表中需要显示颜色
+			items = itemsB;
+		}else{
+			items = itemsA;
+		}
+		
+		new Datatable().initLocale({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"]
+			+ "/vehicleStock/stockIn/showList/sNo:",
+			rowID : "VIN",
+			selectItemName:"VIN",
+			autoHeight : false,
+			isQueryFirst : false,
+			//checkboxHeader : true, //全选框
+			columns : items,
+			undefinedText : "",
+			onLoadSuccess : function (row){
+				if(row!=null){
+					$("#update", container).removeElementReadOnly();
+					var index = parseInt(row.length)-1;//获取最后一列的下标
+					$("#vendorName",container).val(row[index].VENDOR_NAME);
+				}
+			},
+			onClickRow : function(row,$element){
+				
+			}
+		});
+		
+		//入库单号绑定改变事件
+		$("#sheetCreatedBy", container).bindChange(function(obj){
+			if($("input[name='seNo']").val()!=null&&$("input[name='seNo']").val()!=''){
+				$("#dms_table",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["vehicle"]
+					+ "/vehicleStock/stockIn/showList/sNo:"+$("input[name='seNo']",container).val()+":"+$("#stockin",container).val()+":"+$("#sheetCreatedBy",container).val());
+				$("#dms_table", getElementContext()).dmsTable().refreshTableWithForm();
+				$("#create",container).attr('disabled','disabled');
+				$("#save",container).attr('disabled','disabled');
+				$("#add", container).removeElementReadOnly();
+				$("#export", container).removeElementReadOnly();
+				$("#enter", container).removeElementReadOnly();
+				$("#batch", container).removeElementReadOnly();
+			}else{
+				$("#create",container).removeAttr('disabled');
+			}
+		});
+		
+		//取消按钮
+		$("#clear", container).click(function(){
+			 dmsCommon.refreshPageByUrl("vehicle/stockManage/stockIn/searchStockIn.html",container);
+		});
+		$("#exit", container).click(function(){
+			 dmsCommon.refreshPageByUrl("vehicle/stockManage/stockIn/searchStockIn.html",container);
+		});
+		
+		//新建按钮
+		$("#create", container).click(function(){
+			$("#add", container).removeElementReadOnly();
+			$("#remark",container).removeAttr("readonly");
+			$(this).attr('disabled','disabled');
+			//$("#save", container).removeAttr('disabled');
+			$("#sheetCreatedBy",container).val("{[userInfo.userName]}");
+			$("#sheetCreatedDate",container).val(new Date().Format("yyyy-MM-dd"));
+		});
+		
+		//单击表格行数据触发事件
+		$("#dms_table tbody",container).on('click','tr',function(){
+			var all = $("#dms_table",container).dmsTable().getRowDataByIndex();
+			var index = $(this).attr('data-index');
+			$.cookie('stockInForUpdate', JSON.stringify(all[index]));
+			$.cookie('stockInForUpdateIndex', index); 
+		});
+		
+		//打印,批量入库,保存或导出前事件
+		$('a[data-beforeRequest="true"]',container).on('beforeRequest.dms',function(event,returnResult){
+			if($(this).attr('id')=='export'){
+				if($("#seNo",container).val()==null||$("#seNo",container).val()==""){
+					dmsCommon.tip({status:"warning",msg:"请选择入库单！"});
+					returnResult.status = false;
+				}else{
+					$(this).attr("data-url","/vehicleStock/stockIn/export/excel/"+$("#seNo",container).val());
+					returnResult.status = true;
+				}
+			}else if($(this).attr('id')=='save'){
+				if($(this).attr('disabled')!='disabled'){
+					var selectRow = $("#dms_table",container).dmsTable().getSelections();
+
+					if(selectRow!=null){
+						if($("#seNo",container).val()==""||$("#seNo",container).val()==null){
+							//新增
+							$(this).attr("data-method","POST");
+							$(this).attr("data-url","/vehicleStock/stockIn/addStockIn");
+						}else{
+							//修改
+							$(this).attr("data-method","PUT");
+							$(this).attr("data-url","/vehicleStock/stockIn/editStockIn");
+						}
+						$("#save", container).attr('disabled','disabled');
+						returnResult.status = true;
+					}else{
+						dmsCommon.tip({status:"warning",msg:"请选择需要保存的列！"});
+						returnResult.status=false;
+					}
+				}
+			}else if($(this).attr('id')=='enter'){//批量入库
+				if($(this).attr('disabled')!='disabled'){
+					var aaa = '';//入库时VIN
+					var bbb = $("#seNo",container).val();//入库时SE_NO
+					var selectRow = $("#dms_table",container).dmsTable().getSelections();
+					for(var i = 0; i<selectRow.length; i++){
+						if(i!=selectRow.length-1){
+							aaa += selectRow[i].VIN + ',';
+						}else{
+							aaa += selectRow[i].VIN;
+						}
+					}
+
+					var checkFinish = false;//判断是否入账
+					var checkResult = false;//判断验收结果
+					var checkPDI = true;//PDI检验
+					var vins = "";//用来存选择的vin号
+					if(selectRow!=null){
+						$.each(selectRow,function(index,row){
+							if(row.IS_FINISHED!='12781002'){//表示已经入账
+								checkFinish = true;
+							}
+							if(row.INSPECTION_RESULT!='13351002'){//表示验收未通过
+								checkResult = true;
+							}
+							vins += row.VIN+",";//存储VIN号用','分割
+						});
+						if(checkFinish){//判断是否入账
+							dmsCommon.tip({status:"warning",msg:"已经入账的车不能再次入库！"});
+						}
+						if(checkResult){//判断验收结果
+							dmsCommon.tip({status:"warning",msg:"验收结果为验收已通过的才能入库！"});
+						}
+						if(!checkFinish&&!checkResult){
+							//PDI校验
+							/* dmsCommon.ajaxRestRequest({
+								url : dmsCommon.getDmsPath()["vehicle"] + "/vehicleStock/stockIn/checkPDI/"+aaa+"/"+bbb,
+								type : 'GET',
+								sucessCallBack : function(data) {
+									debugger
+									if(data!=""){
+										var ddd = data.split(',');
+										if(ddd.length==0){
+											dmsCommon.tip({status:"warning",msg:"请对["+ddd+"]进行PDI校验！"});
+											returnResult.status=false;
+										}else{
+											var ccc = '';//需要PDI校验的VIN号
+											for(var k = 0; k<ddd.length; k++){
+												if(ddd[k]!=""){
+													if(k!=ddd.length-1){
+														ccc += ddd[k]+',';
+													}else{
+														ccc += ddd[k];
+													}
+												}
+											}
+											dmsCommon.tip({status:"warning",msg:"请对["+ccc+"]进行PDI校验！"});
+											returnResult.status=false;
+										}
+									}else{
+										$(this).attr("data-method","POST");
+										$(this).attr("data-url","/vehicleStock/stockIn/btnStockIn/"+$("input[name='seNo']").val()+"/"+$("#sheetCreatedBy").val()+"/"+vins);
+										returnResult.status=true;
+									}
+								}
+							});  */
+							if(checkPDI){
+								
+							}
+							$(this).attr("data-method","POST");
+							$(this).attr("data-url","/vehicleStock/stockIn/btnStockIn/"+$("input[name='seNo']").val()+"/"+$("#sheetCreatedBy").val()+"/"+vins);
+							returnResult.status=true;
+						}else{
+							returnResult.status=false;
+						}
+					}else{
+						dmsCommon.tip({status:"warning",msg:"请选择需要入库的列！"});
+						returnResult.status=false;
+					}
+				}
+			}else if($(this).attr('id')=='import'){//导入
+			}else{
+				if($(this).attr('disabled')!='disabled'){
+					var selectRow = $("#dms_table",container).dmsTable().getSelections();
+					var checkFinish = false;//判断是否入账
+					var vins = "";//用来存选择的vin号
+					if(selectRow!=null){
+						$.each(selectRow,function(index,row){
+							if(row.IS_FINISHED!='12781001'){//表示未入账
+								checkFinish = true;
+							}
+							vins += row.VIN+",";//存储VIN号用','分割
+						});
+						if(checkFinish){//判断是否入账
+							dmsCommon.tip({status:"warning",msg:"未入账的车不能执行打印操作！"});
+						}
+						if(!checkFinish&&!checkResult){
+							returnResult.status = true;
+						}else{
+							returnResult.status=false;
+						}
+					}else{
+						dmsCommon.tip({status:"warning",msg:"请选择需要打印的列！"});
+						returnResult.status=false;
+					}
+				}
+			}
+		});
+		
+		//保存的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			if($(this).attr('id')=='save'){
+				$("input[name='seNo']").val(response.seNo);
+			}
+			$("#save").attr('disabled','disabled');
+			$("#enter", container).removeElementReadOnly();
+			$("#batch", container).removeElementReadOnly();
+			$("#dms_table",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["vehicle"]
+				+ "/vehicleStock/stockIn/showList/sNo:"+$("input[name='seNo']",container).val()+":"+$("#stockin",container).val()+":"+$("#sheetCreatedBy",container).val());
+			$("#dms_table",container).dmsTable().refreshTableWithForm();
+		});
+		
+		//打印,批量验收,新增,修改等
+		$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+			var ids = $(this).attr('id');
+			if(ids=='batch'){
+				var text = $("#seNo",container).val();
+				if(text==""){
+					dmsCommon.tip({status:"warning",msg:"请选择需要验收的单号！"});
+					returnResult.status=false;
+				} else{
+					var selectRow = $("#dms_table",container).dmsTable().getSelections();
+					if(selectRow!=null){
+						var flag = true;
+						$.each(selectRow,function(idx, obj){
+							if(obj.IS_FINISHED=='12781001'){//表示入账
+								flag = false;
+							}
+						});
+						if(flag){
+							returnResult.status=true;
+						}else{
+							dmsCommon.tip({status:"warning",msg:"存在已入账的列！"});
+							returnResult.status=false;
+						}
+					}else{
+						dmsCommon.tip({status:"warning",msg:"请选择需要验收的列！"});
+						returnResult.status=false;
+					}
+				}
+			}else if(ids=='add'){
+				if($('#inType',container).val()!=null&&$('#inType',container).val()!=''){
+					returnResult.status=true;
+				}else{
+					dmsCommon.tip({status:"warning",msg:"请选择入库业务类型！"});
+					returnResult.status=false;
+				}
+			}else if(ids=='update'){//修改操作
+				var selectRow = $("#dms_table",container).dmsTable().getSelections();
+				if(selectRow.length>1){
+					dmsCommon.tip({status:"warning",msg:"只能选择一行修改！"});
+					returnResult.status=false;
+				}else{
+					if(selectRow[0].IS_FINISHED=='12781001'){
+						dmsCommon.tip({status:"warning",msg:"已入账不允许修改！"});
+						returnResult.status=false;
+					}else{
+						//日期转换
+						selectRow[0].MANUFACTURE_DATE = msToDay(selectRow[0].MANUFACTURE_DATE);
+						selectRow[0].FACTORY_DATE = msToDay(selectRow[0].FACTORY_DATE);
+						selectRow[0].SHIPPING_DATE = msToDay(selectRow[0].SHIPPING_DATE);
+						selectRow[0].ARRIVING_DATE = msToDay(selectRow[0].ARRIVING_DATE);
+						selectRow[0].ARRIVED_DATE = msToDay(selectRow[0].ARRIVED_DATE);
+						selectRow[0].VS_PURCHASE_DATE = msToDay(selectRow[0].VS_PURCHASE_DATE);
+                        $.cookie('stockInForUpdate', JSON.stringify(selectRow[0]),{ path: '../searchStockIn.html'});
+						$.cookie('stockInForUpdateIndex', selectRow[0].index,{ path: '../searchStockIn.html'});
+						$("#save",container).removeAttr('disabled');
+						returnResult.status=true;
+					}
+				}
+			}else if(ids=='print'){//打印
+				var text = $("#seNo",container).val();
+				var selectRow = $("#dms_table",container).dmsTable().getSelections();
+				var vins = "";
+				if(text==""||selectRow==null){
+					dmsCommon.tip({status:"warning",msg:"请选择需要打印的列！"});
+					returnResult.status=false;
+				} else{
+					var flag = true;
+					$.each(selectRow,function(index,row){
+						if(row.IS_FINISHED=='12781002'){//表示未入账
+							flag = false;
+						}else{
+							vins += row.VIN+",";
+						}
+					});
+					if(!flag){
+						dmsCommon.tip({status:"warning",msg:"未入账的项不能打印！"});
+						returnResult.status=false;
+					}else{
+						vins = vins.substring(0,vins.length-1);
+						$("#vins",container).val(vins);
+						returnResult.status=true;
+					}
+				}
+			}else{//导入
+				if($("#inType",container).val()!=13071002){//只有新车采购入库才能导入
+					dmsCommon.tip({status:"warning",msg:"只有新车采购入库才能导入！"});
+					returnResult.status=false;
+				}else{
+					returnResult.status=true;
+				}
+			}
+		}); 
+		
+	});
+	
+	//不带颜色代码
+	var itemsA = [   {checkbox : true,sortable : false
+		}, {title : "操作",operateFormat : [ 
+			/* {type:"del",url:"/vehicleStock/stockIn/btnStockIn/{[sNo]}/{[inType]}/{[createdBy]}",title:"入库",model:"vehicle",method:"POST",operateIcon:'<i class="glyphicon glyphicon-ok"></i>',onClick:function(){
+					alert(11);
+                  },isShow:function(value,row,index){
+                	  if(row.IS_FINISHED=='12781001'||row.INSPECTION_RESULT=='13351001'){
+                		  return false;
+                	  }else{
+                		  return true;
+                	  }
+                  }
+			},   */
+			/* {type:"del",url:"/vehicleStock/stockIn/btnStockIn/{[sNo]}/{[createdBy]}/{[VIN]}",title:"入库",model:"vehicle",method:"POST",operateIcon:'<i class="glyphicon glyphicon-ok"></i>',callBack:function(response){
+				dmsCommon.tip({status:"success",msg:"入库成功！"});
+				$("#dms_table",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["vehicle"]
+					+ "/vehicleStock/stockIn/showList/sNo:"+$("input[name='seNo']").val()+":"+$("#stockin").val()+":"+$("#sheetCreatedBy").val());
+				$("#dms_table").dmsTable().refreshTableWithForm();
+                  },isShow:function(value,row,index){
+                	  if(row.IS_FINISHED=='12781001'||row.INSPECTION_RESULT!='13351002'){
+                		  return false;
+                	  }else{
+                		  return true;
+                	  }
+                  }
+			}, */
+			{type:"edit",url:"vehicle/stockManage/stockIn/btnInspection.html",openWidth:"modal-lg",title:"验收",operateIcon:'<i class="glyphicon glyphicon-file"></i>',isShow:function(value, row, index){
+            	   if($('#seNo').val()==null||$('#seNo').val()==''){
+            		   return false;
+            	   }else if(row.SE_NO==null||row.SE_NO==""){
+            		   return false;
+            	   }else{
+            		   if(row.IS_FINISHED!='12781002'&&row.INSPECTION_RESULT!='13351001'){
+            			   return false;
+            		   }else{
+	            		   return true;
+            		   }
+            	   }
+            }},{type : "localDel",operateIcon:'<i class="glyphicon glyphicon-remove"></i>',onBeforeEvent:function(value, row, index){
+            	/* dmsCommon.ajaxRestRequest({
+					url : dmsCommon.getDmsPath()["vehicle"] + "/vehicleStock/stockIn/delDetails/"+row.sNo+"/"+row.VIN,
+					type : 'DELETE',
+					sucessCallBack : function(data) {
+					}
+				}); */
+				$("#save").removeAttr('disabled');
+				$("#export").removeElementReadOnly();
+				$("#enter").removeElementReadOnly();
+				$("#batch").removeElementReadOnly();
+			},onAfterEvent:function(value, row, index){
+				$("#save").removeAttr('disabled');
+            },isShow:function(value, row, index){
+            	   if(row.IS_FINISHED=='12781001'){
+            		   return false;
+            	   }else{
+            		   return true;
+            	   } 
+            }
+            }]}, 
+            {field : "sNo",title : "a",visible : false},
+            {field : "createdBy",title : "d",visible : false},
+            {field : "IS_FINISHED",inputField:"is_finished",title : "是否入账",codeFormat : {type:"dict",codeType:"1278"},inputHiddenFormat : {}},
+		    //{field : "IS_UPLOAD",inputField:"is_upload",inputHiddenFormat : {hiddenField:"IS_UPLOAD"},title : "是否上报",codeFormat : {type:"dict",codeType:"1278"}},
+			{field : "INSPECTION_RESULT",inputField:"inspection_result",inputHiddenFormat : {hiddenField:"INSPECTION_RESULT"},title : "验收结果",codeFormat : {type:"dict",codeType:"1335"}},
+			{field : "VIN",inputField:"vin",title : "VIN",inputHiddenFormat : {hiddenField:"VIN"}},
+			{field : "PRODUCT_CODE",inputField:"product_code",inputHiddenFormat : {hiddenField:"PRODUCT_CODE"},title : "产品代码"},
+			{field : "STORAGE_CODE",inputField:"storage_code",inputHiddenFormat : {hiddenField:"STORAGE_CODE"},title : "仓库代码"},
+			{field : "STORAGE_POSITION_CODE",inputField:"storage_position_code",inputHiddenFormat : {hiddenField:"STORAGE_POSITION_CODE"},title : "库位代码"},
+			{field : "ENGINE_NO",inputField:"engine_no",inputHiddenFormat : {hiddenField:"ENGINE_NO"},title : "发动机号"},
+			{field : "KEY_NUMBER",inputField:"key_number",inputHiddenFormat : {hiddenField:"KEY_NUMBER"},title : "钥匙编号"},
+			{field : "PO_NO",inputField:"po_no",inputHiddenFormat : {hiddenField:"PO_NO"},title : "采购订单编号"},
+			{field : "PURCHASE_PRICE",inputField:"purchase_price",inputHiddenFormat : {hiddenField:"PURCHASE_PRICE"},title : "采购价格",numberFormat : {decimal:2}},
+			{field : "VS_PURCHASE_DATE",inputField:"vs_purchase_date",inputHiddenFormat : {hiddenField:"VS_PURCHASE_DATE"},title : "采购日期",dateFormat : {format:"YYYY-MM-DD"}},
+			{field : "ADDITIONAL_COST",inputField:"additional_cost",inputHiddenFormat : {hiddenField:"ADDITIONAL_COST"},title : "附加成本",numberFormat : {decimal:2}},
+			{field : "DELIVERYMAN_NAME",inputField:"deliveryman_name",inputHiddenFormat : {hiddenField:"DELIVERYMAN_NAME"},title : "送车人姓名"},
+			{field : "DELIVERYMAN_PHONE",inputField:"deliveryman_phone",inputHiddenFormat : {hiddenField:"DELIVERYMAN_PHONE"},title : "送车人电话"},
+			{field : "SHIPPER_NAME",inputField:"shipper_name",inputHiddenFormat : {hiddenField:"SHIPPER_NAME"},title : "承运商名称"},
+			{field : "SHIPPER_LICENSE",inputField:"shipper_license",inputHiddenFormat : {hiddenField:"SHIPPER_LICENSE"},title : "承运车牌号"},
+			{field : "SHIPPING_ADDRESS",inputField:"shipping_address",inputHiddenFormat : {hiddenField:"SHIPPING_ADDRESS"},title : "收货地址"},
+			{field : "SHIPPING_ORDER_NO",inputField:"shipping_order_no",inputHiddenFormat : {hiddenField:"SHIPPING_ORDER_NO"},title : "发货单号"},
+			{field : "VENDOR_CODE",inputField:"vendor_code",inputHiddenFormat : {hiddenField:"VENDOR_CODE"},title : "供应单位代码"},
+			{field : "VENDOR_NAME",inputField:"vendor_name",inputHiddenFormat : {hiddenField:"VENDOR_NAME"},title : "供应单位名称"},
+			{field : "INSPECTOR",inputField:"inspector",inputHiddenFormat : {hiddenField:"INSPECTOR"},title : "验收人员"},
+			{field : "MAR_STATUS",inputField:"mar_status",inputHiddenFormat : {hiddenField:"MAR_STATUS"},title : "质损状态",codeFormat : {type:"dict",codeType:"1306"}},
+			{field : "CONSIGNER_CODE",inputField:"consigner_code",inputHiddenFormat : {hiddenField:"CONSIGNER_CODE"},title : "委托单位代码"},
+			{field : "CONSIGNER_NAME",inputField:"consigner_name",inputHiddenFormat : {hiddenField:"CONSIGNER_NAME"},title : "委托单位名称"},
+			{field : "CERTIFICATE_NUMBER",inputField:"certificate_number",inputHiddenFormat : {hiddenField:"CERTIFICATE_NUMBER"},title : "合格证号"},
+			{field : "HAS_CERTIFICATE",inputField:"has_certificate",inputHiddenFormat : {hiddenField:"HAS_CERTIFICATE"},title : "是否有合格证",codeFormat : {type:"dict",codeType:"1278"}},
+			{field : "MANUFACTURE_DATE",inputField:"manufacture_date",inputHiddenFormat : {hiddenField:"MANUFACTURE_DATE"},title : "生产日期",dateFormat : {format:"YYYY-MM-DD"}},
+			{field : "SHIPPING_DATE",inputField:"shipping_date",inputHiddenFormat : {hiddenField:"SHIPPING_DATE"},title : "发车日期",dateFormat : {format:"YYYY-MM-DD"}},
+			{field : "FACTORY_DATE",inputField:"factory_date",inputHiddenFormat : {hiddenField:"FACTORY_DATE"},title : "出厂日期",dateFormat : {format:"YYYY-MM-DD"}},
+			{field : "INSPECTION_DATE",inputField:"inspection_date",inputHiddenFormat : {hiddenField:"INSPECTION_DATE"},title : "验收日期",dateFormat : {format:"YYYY-MM-DD"}},
+			//{field : "SUBMIT_TIME",inputField:"submit_time",inputHiddenFormat : {hiddenField:"SUBMIT_TIME"},title : "上报日期",dateFormat : {format:"YYYY-MM-DD"}},
+			{field : "ARRIVING_DATE",inputField:"arriving_date",inputHiddenFormat : {hiddenField:"ARRIVING_DATE"},title : "预计送到日期",dateFormat : {format:"YYYY-MM-DD"}},
+			{field : "FINISHED_DATE",inputField:"finished_date",inputHiddenFormat : {hiddenField:"FINISHED_DATE"},title : "入账日期",dateFormat : {format:"YYYY-MM-DD"}},
+			{field : "SE_NO",inputField:"se_no",inputHiddenFormat : {hiddenField:"SE_NO"},title : "入库单编号"},
+			{field : "OEM_TAG",inputField:"oem_tag",inputHiddenFormat : {hiddenField:"OEM_TAG"},title : "OEM标志",codeFormat : {type:"dict",codeType:"1278"}},
+			{field : "ARRIVED_DATE",inputField:"arrived_date",inputHiddenFormat : {hiddenField:"ARRIVED_DATE"},title : "实际送到日期",dateFormat : {format:"YYYY-MM-DD"}},
+			{field : "REMARK",inputField:"remark",inputHiddenFormat : {hiddenField:"REMARK"},title : "备注"},
+			{field : "PRODUCTING_AREA",inputField:"producting_area",inputHiddenFormat : {hiddenField:"PRODUCTING_AREA"},title : "产地"},
+			{field : "EXHAUST_QUANTITY",inputField:"exhaust_quantity",inputHiddenFormat : {hiddenField:"EXHAUST_QUANTITY"},title : "排气量"},
+			{field : "VSN",inputField:"vsn",inputHiddenFormat : {hiddenField:"VSN"},title : "VSN"},
+			{field : "DISCHARGE_STANDARD",inputField:"discharge_standard",inputHiddenFormat : {hiddenField:"DISCHARGE_STANDARD"},title : "排放标准",codeFormat : {type:"dict",codeType:"3010"}},
+			{field : "MODEL_YEAR",inputHiddenFormat : {hiddenField:"MODEL_YEAR"},title : "年款"},
+            {field : "inType",inputField:"inType",inputHiddenFormat : {hiddenField:"inType"},title : "入库业务类型",codeFormat : {type:"dict",codeType:"1307"}},
+            {field : "ASD",title : " "}
+	];
+	
+	//带颜色代码
+	var itemsB = [ {checkbox : true,sortable : false
+		}, {title : "操作",operateFormat : [ 
+			/* {type:"del",url:"vehicle/stockManage/stockIn/addStockIn.html",openWidth:"modal-lg",title:"修改",onClick:function(){
+					 alert(111);
+				 },isShow:function(value, row, index){
+					   if(row.INSPECTION_RESULT=='13351001'){
+			      		   return false;
+			      	   }else{
+			      		   return true;
+			      	   }
+			      }
+				},  */
+			/* {type:"del",url:"/vehicleStock/stockIn/btnStockIn/{[sNo]}/{[inType]}/{[createdBy]}/{[VIN]}",title:"入库",model:"vehicle",method:"POST",operateIcon:'<i class="glyphicon glyphicon-ok"></i>',callBack:function(response){
+				dmsCommon.tip({status:"success",msg:"入库成功！"});
+				$("#dms_table",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["vehicle"]
+				+ "/vehicleStock/stockIn/showList/sNo:"+$("input[name='seNo']").val()+":"+$("#stockin").val()+":"+$("#sheetCreatedBy").val());
+				$("#dms_table").dmsTable().refreshTableWithForm();
+                  },isShow:function(value,row,index){
+                	  if(row.IS_FINISHED=='12781001'||row.INSPECTION_RESULT=='13351001'||$("input[name='seNo']",container).val()==''){
+                		  return false;
+                	  }else{
+                		  return true;
+                	  }
+                  }
+			}, */
+			{type:"edit",url:"vehicle/stockManage/stockIn/btnInspection.html",openWidth:"modal-lg",title:"验收",operateIcon:'<i class="glyphicon glyphicon-file"></i>',isShow:function(value, row, index){
+				 if($('#seNo').val()==null||$('#seNo').val()==''){
+          		   return false;
+          	   }else{
+          		   if(row.IS_FINISHED!='12781002'&&row.INSPECTION_RESULT!='13351001'){
+          			   return false;
+          		   }else{
+	            		   return true;
+          		   }
+          	   }
+            }},{type : "localDel",operateIcon:'<i class="glyphicon glyphicon-remove"></i>',onBeforeEvent:function(value, row, index){
+            	/* dmsCommon.ajaxRestRequest({
+					url : dmsCommon.getDmsPath()["vehicle"] + "/vehicleStock/stockIn/delDetails/"+row.sNo+"/"+row.VIN,
+					type : 'DELETE',
+					sucessCallBack : function(data) {
+					}
+				}); */
+				$("#save").removeAttr('disabled');
+				$("#export").removeElementReadOnly();
+				$("#enter").removeElementReadOnly();
+				$("#batch").removeElementReadOnly();
+			},onAfterEvent:function(value, row, index){
+            	
+            },isShow:function(value, row, index){
+            	   if(row.INSPECTION_RESULT=='13351002'){
+            		   return false;
+            	   }else{
+            		   return true;
+            	   } 
+            }
+            }]}, 
+            {field : "sNo",title : "a",visible : false},
+            {field : "inType",inputField:"inType",inputHiddenFormat : {hiddenField:"inType"},title : "ads",visible : false},
+            {field : "createdBy",title : "d",visible : false},
+            {field : "IS_FINISHED",inputField:"is_finished",title : "是否入账",codeFormat : {type:"dict",codeType:"1278"},inputHiddenFormat : {hiddenField:"IS_FINISHED"}},
+		    //{field : "IS_UPLOAD",inputField:"is_upload",inputHiddenFormat : {hiddenField:"IS_UPLOAD"},title : "是否上报",codeFormat : {type:"dict",codeType:"1278"}},
+			{field : "INSPECTION_RESULT",inputField:"inspection_result",inputHiddenFormat : {hiddenField:"INSPECTION_RESULT"},title : "验收结果",codeFormat : {type:"dict",codeType:"1335"}},
+			{field : "VIN",inputField:"vin",title : "VIN",inputHiddenFormat : {hiddenField:"VIN"}},
+			{field : "PRODUCT_CODE",inputField:"product_code",inputHiddenFormat : {hiddenField:"PRODUCT_CODE"},title : "产品代码"},
+			{field : "COLOR_CODE",inputField:"color_code",inputHiddenFormat : {hiddenField:"COLOR_CODE"},visible : false},
+			{field : "COLOR_NAME",inputField:"color_name",inputHiddenFormat : {hiddenField:"COLOR_NAME"},title : "颜色代码"},
+			{field : "STORAGE_CODE",inputField:"storage_code",inputHiddenFormat : {hiddenField:"STORAGE_CODE"},visible : false},
+			{field : "STORAGE_NAME",inputField:"STORAGE_NAME",inputHiddenFormat : {hiddenField:"STORAGE_NAME"},title : "仓库代码"},
+			{field : "STORAGE_POSITION_CODE",inputField:"storage_position_code",inputHiddenFormat : {hiddenField:"STORAGE_POSITION_CODE"},title : "库位代码"},
+			{field : "ENGINE_NO",inputField:"engine_no",inputHiddenFormat : {hiddenField:"ENGINE_NO"},title : "发动机号"},
+			{field : "KEY_NUMBER",inputField:"key_number",inputHiddenFormat : {hiddenField:"KEY_NUMBER"},title : "钥匙编号"},
+			{field : "PO_NO",inputField:"po_no",inputHiddenFormat : {hiddenField:"PO_NO"},title : "采购订单编号"},
+			{field : "PURCHASE_PRICE",inputField:"purchase_price",inputHiddenFormat : {hiddenField:"PURCHASE_PRICE"},title : "采购价格"},
+			{field : "VS_PURCHASE_DATE",inputField:"vs_purchase_date",inputHiddenFormat : {hiddenField:"VS_PURCHASE_DATE"},title : "采购日期",dateFormat : {format:"YYYY-MM-DD"}},
+			{field : "ADDITIONAL_COST",inputField:"additional_cost",inputHiddenFormat : {hiddenField:"ADDITIONAL_COST"},title : "附加成本"},
+			{field : "DELIVERYMAN_NAME",inputField:"deliveryman_name",inputHiddenFormat : {hiddenField:"DELIVERYMAN_NAME"},title : "送车人姓名"},
+			{field : "DELIVERYMAN_PHONE",inputField:"deliveryman_phone",inputHiddenFormat : {hiddenField:"DELIVERYMAN_PHONE"},title : "送车人电话"},
+			{field : "SHIPPER_NAME",inputField:"shipper_name",inputHiddenFormat : {hiddenField:"SHIPPER_NAME"},title : "承运商名称"},
+			{field : "SHIPPER_LICENSE",inputField:"shipper_license",inputHiddenFormat : {hiddenField:"SHIPPER_LICENSE"},title : "承运车牌号"},
+			{field : "SHIPPING_ADDRESS",inputField:"shipping_address",inputHiddenFormat : {hiddenField:"SHIPPING_ADDRESS"},title : "收货地址"},
+			{field : "SHIPPING_ORDER_NO",inputField:"shipping_order_no",inputHiddenFormat : {hiddenField:"SHIPPING_ORDER_NO"},title : "发货单号"},
+			{field : "VENDOR_CODE",inputField:"vendor_code",inputHiddenFormat : {hiddenField:"VENDOR_CODE"},title : "供应单位代码"},
+			{field : "VENDOR_NAME",inputField:"vendor_name",inputHiddenFormat : {hiddenField:"VENDOR_NAME"},title : "供应单位名称"},
+			{field : "INSPECTOR",inputField:"inspector",inputHiddenFormat : {hiddenField:"INSPECTOR"},title : "验收人员"},
+			{field : "MAR_STATUS",inputField:"mar_status",inputHiddenFormat : {hiddenField:"MAR_STATUS"},title : "质损状态",codeFormat : {type:"dict",codeType:"1306"}},
+			{field : "CONSIGNER_CODE",inputField:"consigner_code",inputHiddenFormat : {hiddenField:"CONSIGNER_CODE"},title : "委托单位代码"},
+			{field : "CONSIGNER_NAME",inputField:"consigner_name",inputHiddenFormat : {hiddenField:"CONSIGNER_NAME"},title : "委托单位名称"},
+			{field : "CERTIFICATE_NUMBER",inputField:"certificate_number",inputHiddenFormat : {hiddenField:"CERTIFICATE_NUMBER"},title : "合格证号"},
+			{field : "HAS_CERTIFICATE",inputField:"has_certificate",inputHiddenFormat : {hiddenField:"HAS_CERTIFICATE"},title : "是否有合格证",codeFormat : {type:"dict",codeType:"1278"}},
+			{field : "MANUFACTURE_DATE",inputField:"manufacture_date",inputHiddenFormat : {hiddenField:"MANUFACTURE_DATE"},title : "生产日期",dateFormat : {format:"YYYY-MM-DD"}},
+			{field : "SHIPPING_DATE",inputField:"shipping_date",inputHiddenFormat : {hiddenField:"SHIPPING_DATE"},title : "发车日期",dateFormat : {format:"YYYY-MM-DD"}},
+			{field : "FACTORY_DATE",inputField:"factory_date",inputHiddenFormat : {hiddenField:"FACTORY_DATE"},title : "出厂日期",dateFormat : {format:"YYYY-MM-DD"}},
+			{field : "INSPECTION_DATE",inputField:"inspection_date",inputHiddenFormat : {hiddenField:"INSPECTION_DATE"},title : "验收日期",dateFormat : {format:"YYYY-MM-DD"}},
+			//{field : "SUBMIT_TIME",inputField:"submit_time",inputHiddenFormat : {hiddenField:"SUBMIT_TIME"},title : "上报日期",dateFormat : {format:"YYYY-MM-DD"}},
+			{field : "ARRIVING_DATE",inputField:"arriving_date",inputHiddenFormat : {hiddenField:"ARRIVING_DATE"},title : "预计送到日期",dateFormat : {format:"YYYY-MM-DD"}},
+			{field : "FINISHED_DATE",inputField:"finished_date",inputHiddenFormat : {hiddenField:"FINISHED_DATE"},title : "入账日期",dateFormat : {format:"YYYY-MM-DD"}},
+			{field : "SE_NO",inputField:"se_no",inputHiddenFormat : {hiddenField:"SE_NO"},title : "入库单编号"},
+			{field : "OEM_TAG",inputField:"oem_tag",inputHiddenFormat : {hiddenField:"OEM_TAG"},title : "OEM标志",codeFormat : {type:"dict",codeType:"1278"}},
+			{field : "ARRIVED_DATE",inputField:"arrived_date",inputHiddenFormat : {hiddenField:"ARRIVED_DATE"},title : "实际送到日期",dateFormat : {format:"YYYY-MM-DD"}},
+			{field : "REMARK",inputField:"remark",inputHiddenFormat : {hiddenField:"REMARK"},title : "备注"},
+			{field : "PRODUCTING_AREA",inputField:"producting_area",inputHiddenFormat : {hiddenField:"PRODUCTING_AREA"},title : "产地"},
+			{field : "EXHAUST_QUANTITY",inputField:"exhaust_quantity",inputHiddenFormat : {hiddenField:"EXHAUST_QUANTITY"},title : "排气量"},
+			{field : "VSN",inputField:"vsn",inputHiddenFormat : {hiddenField:"VSN"},title : "VSN"},
+			{field : "DISCHARGE_STANDARD",inputField:"discharge_standard",inputHiddenFormat : {hiddenField:"DISCHARGE_STANDARD"},title : "排放标准",codeFormat : {type:"dict",codeType:"3010"}},
+            {field : "inType",inputField:"inType",inputHiddenFormat : {hiddenField:"inType"},title : "入库业务类型",codeFormat : {type:"dict",codeType:"1307"}},
+            {field : "MODEL_YEAR",inputField:"model_year",inputHiddenFormat : {hiddenField:"MODEL_YEAR"},title : "年款"},
+            {field : "ASD",title : " "}
+            
+	];
+	
+	Date.prototype.Format = function (fmt) { //author: wx
+	    var o = {
+	        "M+": this.getMonth() + 1, //月份 
+	        "d+": this.getDate(), //日 
+	        "h+": this.getHours(), //小时 
+	        "m+": this.getMinutes(), //分 
+	        "s+": this.getSeconds(), //秒 
+	        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+	        "S": this.getMilliseconds() //毫秒 
+	    };
+	    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+	    for (var k in o)
+	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+	    return fmt;
+	}
+	
+	var msToDay = function(time){
+		if(time!=null&&time!=''){
+			var date = new Date(time);
+			var month ;
+			var day ;
+			if(date.getMonth()+1<10){
+				month = "0"+(date.getMonth()+1);
+			}else{
+				month = (date.getMonth()+1);
+			}
+			if(date.getDate()<10){
+				day = "0"+(date.getDate());
+			}else{
+				day = (date.getDate());
+			}
+			
+			return date.getFullYear()+"-"+month+"-"+day;
+		}else{
+			return '';
+		}
+	}
+</script>

@@ -1,0 +1,62 @@
+<div class="dms-search">
+
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >索赔自动审核规则管理</div>
+	
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/autohCheckRule/autohCheckRuleSearch",
+		rowID : "AUTO_ID",
+		sortName : "AUTO_ID",
+		sortOrder : "asc",
+		
+		columns : [ 
+			   	    {field : "AUTO_ID",title : "操作",operateFormat : [
+			   	    {type:"edit",url:"vehicle/afterSales/authorizeMgr/editAutohCheckRuleQuery.html",openWidth:"modal-md",doubleClick:true},
+			   	    {type:"del",title:"启动", url:"/autohCheckRule/qidong/{[AUTO_ID]}",model:"vehicle",callBack:function(response){
+	            	   $("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	               }, isShow:function(value, row, index){
+            		 if(row.STATUS=="停止"){
+            		 return true;
+            		}else{
+            		  return  false;
+            		   }                  	
+            		 }
+			   	    
+			   	    },
+	               
+	                {type:"del",title:"停止",url:"/autohCheckRule/tingzhi/{[AUTO_ID]}",model:"vehicle",callBack:function(response){
+	            	   $("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	               },isShow:function(value, row, index){
+	            		 if(row.STATUS=="启动"){
+		            		 return true;
+		            		}else{
+		            		  return  false;
+		            		   }                  	
+		            		 }
+	                
+	                
+	                } 
+		   	    ]
+		   	  },               
+	                {field : "REMARK",title : "规则名称"}, 
+	                {field : "AUTO_TYPE",title : "规则类型", codeFormat : {type:"oemDict",codeType:"4024"}},
+	                {field : "LEVEL_DESC",title : "需要授权顺序"},
+	                {field : "STATUS",title : "状态"}
+        ]
+             });
+                      });
+</script> 

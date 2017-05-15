@@ -1,0 +1,164 @@
+<div class="dms-edit ajaxrest" data-url="/questionnaire/{[QUESTION_CODE]}/updateQuestion" data-model="customer" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">修改</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">问题编号</label>
+							<div class="col-xs-8">
+								<input id="questionCode"   name="questionCode" disabled = "disabled"
+								 class="form-control" type="text" data-fieldName="QUESTION_CODE"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">问题类型</label>
+								<div class="col-xs-8">
+									<select id="questionType" name="questionType" 
+										class="bs-select form-control" data-dictCode="1132"
+										data-fieldName="QUESTION_TYPE">
+									</select>
+								</div>
+							</div>
+					</div>
+				
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">问题名称</label>
+							<div class="col-xs-8">
+								<input id="questionName"   name="questionName" class="form-control" type="text" data-fieldName="QUESTION_NAME"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">问题内容</label>
+							<div class="col-xs-8">
+								<input id="questionContent" name="questionContent" class="form-control" type="text" data-fieldName="QUESTION_CONTENT"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">问题说明</label>
+							<div class="col-xs-8">
+								<input id="questionDesc" name="questionDesc" class="form-control" type="text" data-fieldName="QUESTION_DESC"/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否启用</label>
+								<div class="col-xs-8">
+									<select id="isValid" name="isValid"  data-existsDefault = "false"
+										class="bs-select form-control" data-dictCode="1278"
+										data-fieldName="IS_VALID">
+									</select>
+								</div>
+							</div>
+					</div>		
+					
+
+					
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">统计报表</label>
+								<div class="col-xs-8">
+									<select id="isStatReport" name="isStatReport"  data-existsDefault = "false"
+										class="bs-select form-control" data-dictCode="1278"
+										data-fieldName="IS_STAT_REPORT">
+									</select>
+								</div>
+							</div>
+					</div>		
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">必填项</label>
+								<div class="col-xs-8">
+									<select id="isMustFilled" name="isMustFilled"  data-existsDefault = "false"
+										class="bs-select form-control" data-dictCode="1278"
+										data-fieldName="IS_MUST_FILLED">
+									</select>
+								</div>
+							</div>
+					</div>	
+					
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group" hidden = "hidden">
+								<label class="control-label col-xs-4">是否启用</label>
+								<div class="col-xs-8">
+									<select id="isValids" name="isValids"   disabled = "disabled"
+										class="bs-select form-control" data-dictCode="1278"
+										data-fieldName="IS_VALID">
+									</select>
+								</div>
+							</div>
+					</div>												
+								
+				
+				</div>
+			</div>
+			<div class="modal-footer">
+				<a data-url="/questionnaire/updateQuestion" data-model="customer" data-method="PUT" data-callBack="true"  class="btn blue"  data-toggle="confirmation"><i class="fa fa-save"></i>保存</a>
+				<a data-dismiss="modal" class="btn blue" ><i
+				class="fa fa-undo"></i>取消</a>
+			</div>
+		</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+/* 	var index = $("#IS_VALID",container).val();
+	alert(index);
+	if(index==10571001){
+	//	$("#questionName",container).attr('readonly','readonly');
+	}else{
+	//	$("#questionName",container).removeAttr('readonly');
+		$("#questionName",container).attr('readonly','readonly');
+	} */
+	
+	$("#isValids",container).bindChange(function(){	
+     	if($("#isValids",container).val() == '12781001'){     	
+    		
+    		 $("#questionType",container).attr("disabled","disable");
+    		 $("#questionName",container).attr("disabled","disable");
+    		 $("#questionContent",container).attr("disabled","disable");
+    		 $("#questionDesc",container).attr("disabled","disable");
+    		 $("#isStatReport",container).attr("disabled","disable");
+    		 $("#isMustFilled",container).attr("disabled","disable");    		
+		}else if($("#isValids",container).val() == '12781002'){			
+   		 
+		 $("#questionType",container).removeAttr("disabled");
+		 $("#questionName",container).removeAttr("disabled");
+		 $("#questionContent",container).removeAttr("disabled");
+		 $("#questionDesc",container).removeAttr("disabled");
+		 $("#isStatReport",container).removeAttr("disabled");
+		 $("#isMustFilled",container).removeAttr("disabled");
+
+		}
+	});
+
+	//新增页面回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#questions",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+}); 
+</script>

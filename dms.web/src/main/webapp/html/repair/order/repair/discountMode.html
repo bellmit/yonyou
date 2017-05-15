@@ -1,0 +1,87 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header"></div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">请输入相应的上级帐号密码<br>进行优惠模式的授权</div>
+				</div>
+				<div class="modal-body">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label class="control-label col-xs-4">公司代码</label>
+										<div class="col-xs-8">
+											<input id="dealerCode" name="dealerCode" class="form-control"
+												type="text" disabled="disabled" />
+										</div>
+									</div>
+								</div>
+
+
+
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label class="control-label col-xs-4">用户名</label>
+										<div class="col-xs-8">
+											<input type="text" name="username" id="username"
+												class="form-control" value="{[userInfo.userCode]}"
+												maxlength="20" tabindex="1">
+										</div>
+									</div>
+								</div>
+
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label class="control-label col-xs-4">密&#160;码</label>
+										<div class="col-xs-8">
+											<input type="password" class="form-control required"
+												maxlength="20" name="password" id="password">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="modal-footer">
+										<a data-url="/basedata/queryByLinsence/conferDiscountMode" data-model="repair" data-method="GET"
+											data-callBack="true" class="btn blue" data-beforeRequest="true"
+											data-toggle="confirmation"><i class="fa fa-save"></i>确定</a>
+											<a data-dismiss="modal" class="btn blue"><i
+												class="fa fa-undo"></i>取消</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				//新增页面的回调函数
+				$("a[data-callBack='true']", container).on("callBack.dms",
+						function(event, response) {
+							//为了这个三包校验重新走一次保存按钮
+							$("#checkFlag",getElementContext()).setDmsValue("reset");
+							$("#save", getElementContext()).click();
+							//关闭窗口
+							$("a[data-dismiss='modal']", container).click();
+
+						});
+				
+				$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+					var flag = $("#3BaoFlag",getElementContext()).val();
+					if(!isStringNull(flag)&&flag=="3bao"){//三包授权
+						$(this).attr("data-method","POST");
+						$(this).attr("data-url","/order/repair/check3BaoAccredit");
+					}
+					$("#3BaoFlag",getElementContext()).setDmsValue("");
+					returnResult.status = true;
+				});
+			});
+</script>

@@ -1,0 +1,173 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">保险公司代码</label>
+								<div class="col-xs-8">
+									<input type="text" class="bs-select form-control"  id="insuranceCompanyCode" name="insuranceCompanyCode" />
+								</div>
+							</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">保险公司名称</label>
+								<div class="col-xs-8">
+									<input type="text" class="bs-select form-control"  id="insuranceCompanyName" name="insuranceCompanyName" />
+								</div>
+							</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">状态</label>
+							<div class="col-xs-8">
+								<select id="releaseStatus" name="releaseStatus" 
+									class="bs-select form-control" data-dictCode="9220" data-type="oemDict" >
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">活动编号</label>
+								<div class="col-xs-8">
+									<input type="text" class="bs-select form-control"  id="activityNo" name="activityNo" />
+								</div>
+							</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">活动名称</label>
+								<div class="col-xs-8">
+									<input type="text" class="bs-select form-control"  id="activityName" name="activityName" />
+								</div>
+							</div>
+					</div>
+					</div>
+					<div class="row ">
+						<div class="col-xs-12 ">
+							<div class="query-btn">
+								<a href="javascript:;" class="btn blue"> <i
+									class="fa fa-search"></i> 查询
+								</a> 
+								<a href="javascript:;" class="btn blue"><i
+									class="fa fa-undo"></i> 重置
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >信息列表</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" data-url="vehicle/insurance/insurancemanage/insurancePolicyManageAdd.html" data-width="modal-lg"data-toggle="modal"> 
+							<i class="fa fa-plus-square"></i> 新增</a>
+							<a href="javascript:;" data-url="/InsurancePolicyManage/Download" data-model="vehicle" data-method="downLoad" data-toggle="confirmation"
+								class="btn btn-outline " ><i class="fa fa-download"></i>下载</a>								
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="orderList"></table>
+		</div>
+	</div>
+</div>		
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "orderList",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/InsurancePolicyManage/Query",
+		rowID : "",
+		sortName : "", 
+		sortOrder : "",
+		columns : [ 
+			 {field : "ID",title : "操作",operateFormat : [
+          	   	    {type:"edit",title:"修改",url:"vehicle/insurance/insurancemanage/insurancePolicyManageUpdate.html",doubleClick:false,
+	          	   	   isShow:function(value, row, index){
+	             		  if(row.RELEASE_STATUS=="92201001"){
+	             			  return true;
+	             		  }else{
+	             			  return false;
+	             		  }
+	            	  	}
+          	   	    },
+          	        {type:"del",title:"删除",url:"/InsurancePolicyManage/updatIsDel/{[ID]}",model:"vehicle",doubleClick:false,
+	          	   	   	isShow:function(value, row, index){
+		             		  if(row.RELEASE_STATUS=="92201001"){
+		             			  return true;
+		             		  }else{
+		             			  return false;
+		             		  }
+		            	  	},
+		            	  	callBack:function(response){
+		                   	   $("#orderList",getElementContext()).dmsTable().refreshTableWithForm();
+		                      }
+          	        	},
+                     {type:"edit",title:"发布",url:"/InsurancePolicyManage/sendActInfo/{[ID]}",model:"vehicle",doubleClick:false,
+   	          	   	   	isShow:function(value, row, index){
+   		             		  if(row.RELEASE_STATUS=="92201001"){
+   		             			  return true;
+   		             		  }else{
+   		             			  return false;
+   		             		  }
+   		            	 },
+          	        	callBack:function(response){
+                  	   		$("#orderList",getElementContext()).dmsTable().refreshTableWithForm();
+                     	}
+                     },
+                     {type:"del",title:"终止",url:"/InsurancePolicyManage/sendActInfo/{[ID]}",model:"vehicle",doubleClick:false,
+ 	          	   	   	isShow:function(value, row, index){
+ 		             		  if(row.RELEASE_STATUS=="92201002"){
+ 		             			  return true;
+ 		             		  }else{
+ 		             			  return false;
+ 		             		  }
+ 		            	  	},
+ 		            	  	callBack:function(response){
+ 		                   	   $("#orderList",getElementContext()).dmsTable().refreshTableWithForm();
+ 		                      }
+           	        	},
+                    {type:"detail",title:"明细",url:"vehicle/insurance/insurancemanage/insurancePolicyManageDetailed.html",openWidth:"modal-lg",doubleClick:false,
+                    	 isShow:function(value, row, index){
+   	             		  if(row.RELEASE_STATUS=="92201003"||row.RELEASE_STATUS=="92201002"){
+   	             			  return true;
+   	             		  }else{
+   	             			  return false;
+   	             		  }
+   	            	  	}	 
+                    }
+                         
+          	   	    ]
+          	  }, 
+            {field : "INSURANCE_COMPANY_CODE",title : "保险公司代码"},
+		    {field : "INSURANCE_COMPANY_NAME",title : "保险公司名称"},
+		    {field : "ACTIVITY_CODE",title : "活动编号"},
+		    {field : "ACTIVITY_NAME",title : "活动名称"},
+		    {field : "ACTIVITY_START_DATE",title : "活动开始日期"},
+		    {field : "ACTIVITY_END_DATE",title : "活动结束日期"},
+		    {field : "ACTIVITY_ISSUE_NUMBER",title : "活动发放卡券数量上限"},
+		    {field : "RELEASE_STATUS",title : "状态",codeFormat : {type:"oemDict",codeType:"9220"}},
+		    {field : "RELEASE_DATE",title : "下发时间"}
+		],
+		onLoadSuccess : function() {
+			$("#orderList",container).dmsTable().bootstrapTable('resetView');
+		}
+	});
+	      	
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+//			console.log("into callBack");
+	
+	});
+	
+});
+	
+</script>	

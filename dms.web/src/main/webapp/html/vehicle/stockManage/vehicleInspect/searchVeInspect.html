@@ -1,0 +1,183 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">业务类型</label>
+							<div class="col-xs-8">
+								<select id="vbTyp" name="vbTyp"
+									class="bs-select form-control " data-dictCode="1317"
+									data-value="13171001">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">业务单号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="bussinessNo"
+									name="bussinessNo">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">单据日期</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" data-maxDays="30">
+									<input type="text" class="form-control" readonly
+										name="bussiness_stardate" id="bussiness_stardate"> <span
+										class="input-group-addon">至</span> <input type="text"
+										class="form-control" readonly name="bussiness_endate"
+										id="bussiness_endate"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-2">验收结果</label>
+							<div class="col-xs-10">
+								<input id="inspectionStatus" name="inspectionStatus"
+									type="checkbox" data-dictCode="1039" data-value="10391001,10391003" data-allFlag="false" />
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">质损状态</label>
+							<div class="col-xs-8">
+
+								<select id="marType" name="marType"
+									class="bs-select form-control " data-dictCode="1040" data-value="">
+								</select>
+
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">VIN</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="vin" name="vin">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name">车辆验收</div>
+				<div class="pannel-button">
+					<div class="btn-group btn-group-sm">
+
+						<a data-url="vehicle/stockManage/vehicleInspect/selVehicleInspection.html"
+							data-beforeShowEvent="true" class="btn btn-outline"
+							data-toggle="modal" data-width="modal-sm"> <i
+							class="fa fa-plus-square"></i> 批量验收
+						</a> <a href="javascript:;"
+							data-url="/stockManage/vehicleInspect/export/excel"
+							data-model="vehicle" data-method="downLoad"
+							data-toggle="confirmation" class="btn btn-outline "><i
+							class="fa fa-upload"></i>Excel导出</a>
+
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="veInspectList"></table>
+			</div>
+
+
+		</div>
+	</form>
+
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "veInspectList",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/stockManage/vehicleInspect",
+		rowID : "VEHICLE_INSPECT_ID",
+		selectItemName:"VEHICLE_INSPECT_ID",
+		sortName : "BUSSINESS_DATE,VB_TYPE,VIN", 
+		sortOrder : "asc",
+		columns : [ 
+		           {checkbox:true,sortable : false},
+		           {field : "ENTRY_ID",title : "操作",inputField:"userId",inputHiddenFormat : {}, operateFormat : [
+                   {type:"edit",url:"vehicle/stockManage/vehicleInspect/VehicleInspection.html" ,isShow:function(value, row, index){
+                	   if(row.INSPECT_STATUS=='10391002'){
+                		   return false;
+                	   }else{
+                		   return true;
+                	   }
+                   } ,openType:"jump",title:"验收",operateIcon:'<i class="fa fa-lg fa-y-combinator-square"></i>'},
+                   {type:"detail",openType:"jump",url:"vehicle/stockManage/vehicleInspect/VehicleInspection.html",openWidth:"modal-lg"}
+               ]
+            },  
+		    {field : "VB_TYPE",title : "业务类型",codeFormat : {type:"dict",codeType:"1317"}},
+		    {field : "BUSSINESS_NO",title : "业务单号"},
+			{field : "BUSSINESS_DATE",title : "单据日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+			{field : "VIN",title : "VIN"},
+			{field : "INSPECT_STATUS",title : "验收状态",codeFormat : {type:"dict",codeType:"1039"}},
+			{field : "EMPLOYEE_NAME",title : "验收人员"},
+			{field : "MAR_STATUS",title : "质损状态",codeFormat : {type:"dict",codeType:"1040"}},
+			{field : "IS_IN_OUT_STOCK",title : "是否入库",codeFormat : {type:"dict",codeType:"1004"}},
+			{field : "PRODUCT_CODE",title : "产品代码"},
+			{field : "PRODUCT_NAME",title : "产品名称"},
+			{field : "ENGINE_NO",title : "发动机号"}
+
+		]
+	});
+	//弹出页面打开前执行函数
+	$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+		var selectRow = $("#veInspectList",container).dmsTable().getSelections();
+		var falg=true;
+		if(!selectRow){
+			dmsCommon.tip({status:"warning",msg:"请选择数据!"});
+			falg=false;
+			return ;
+		}
+		$(selectRow).each(function(e){
+			 if(selectRow[e].INSPECT_STATUS=='10391002'){
+				 dmsCommon.tip({status:"warning",msg:"已验收完成不能重复验收"});
+				 falg=false;
+  				 return false; 
+			 }
+		});
+		if(!falg){
+			returnResult.status = false;
+			return ;
+		}
+		returnResult.status = true;
+	});
+});
+</script>

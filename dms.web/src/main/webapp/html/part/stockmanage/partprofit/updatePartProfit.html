@@ -1,0 +1,248 @@
+<div class="dms-edit ajaxrest"
+	data-url="/basedata/reportPayOff/findById/{[PROFIT_NO]}"
+	data-model="part" data-pageInitCallBack="true">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">报溢单号</label>
+							<div class="col-xs-8">
+								<input id="profitNo" name="profitNo" class="form-control" data-fieldName="PROFIT_NO"
+									type="text" readonly="readonly"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" data-tableSelect="true">
+						<div class="form-group">
+							<label class="control-label col-xs-4">盘点单号</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input type="text" class="form-control" id="inventoryNo1" readonly="readonly"
+										name="inventoryNo1" data-fieldName="INVENTORY_NO" /> 
+										<input type="hidden" class="form-control" id="inventoryNo"
+										name="inventoryNo" data-fieldName="INVENTORY_NO" /> <span
+										class="input-group-btn">
+										<button class="btn default btn-sm" type="button" id="inventoryselect" data-url="part/stockmanage/partprofit/selectInventroy.html"
+											data-toggle="modal" data-width="modal-lg" data-beforeShowEvent="true">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button" id="clear">
+	                                            			<i class="fa fa-close"></i>
+	                                    				</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+		
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">开单日期</label>
+							<div class="col-xs-8">
+								<div class="input-group date date-picker"
+									data-defaultToday="true">
+									<input id="orderDate" name="orderDate" readonly
+										class="form-control required" type="text"
+										data-fieldName="PROFIT_DATE" /> <span class="input-group-btn">
+										<button class="btn default date-set" type="button">
+											<i class="fa fa-calendar"></i>
+										</button>
+										<button class="btn default date-reset" type="button">
+											<i class="fa fa-times"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">经手人</label>
+							<div class="col-xs-8">
+								<input id="handler" name="handler" class="form-control" data-fieldName="USER_NAME"
+										type="text" readonly="readonly"/>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+			<div class="pannel-name">配件报溢明细</div>
+				<div class="pannel-button">
+					<div class="btn-group btn-group-sm">
+						<a id="add" class="btn btn-outline" data-beforeShowEvent="true"
+							data-url="part/stockmanage/partprofit/profitPartSlct.html"
+							data-toggle="modal" data-width="modal-lg"><i
+							class="fa fa-plus-square"></i>添加 </a>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<table class="table table-striped table-bordered table-hover table-responsive"
+					id="partProfitItemList">
+				</table>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<div class="col-xs-12 ">
+				<div class="query-btn">
+					<a id="save" data-url="/basedata/reportPayOff/btnSave" data-model="part" data-beforeRequest="true"
+						data-callBack="true" data-method="POST" class="btn blue ajaxrest"><i class="fa fa-save"></i>保存 </a> 
+					<a id="finish" disabled="disabled" data-errorCallBack="true" data-beforeRequest="true"
+						data-toggle="confirmation" data-callBack="true" class="btn blue"> <i
+						class="fa fa-save"></i> 入账
+					</a> <a id="back" data-goback="page" data-beforeRequest="true"
+						href="part/stockmanage/partprofit/searchPartProfit.html"
+						class="btn blue ajaxify"><i class="fa fa-reply"></i>取消</a>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+	var index = dmsCommon.getSystemParamInfo("8016","8016");//显示或隐藏进货批号
+	if(index == 12781001){//显示
+		item = view1;
+	}else{
+		item = view2;
+	}
+	new Datatable().initLocale({
+		src : "partProfitItemList",
+		rowID:"ITEM_ID",
+		container:container,
+		url : dmsCommon.getDmsPath()["part"] + "/basedata/reportPayOff/findItemByPartProfit/{[PROFIT_NO]}",
+		//parentChangeElement:"#inventoryNo",
+		mergeTotal:{
+			megerCellNumber:8,
+		},
+		columns : item,
+		onClickRow : function(rows,$this){
+			var index = parseInt($this.find("td:eq(0)").html())-1;//下标
+			var item = rows;//json数据
+			$.cookie('partProfitForUpdate', JSON.stringify(item),{ path: '../addPartProfit.html'});
+			$.cookie('partProfitUpdateIndex', index,{ path: '../addPartProfit.html'});
+		}
+	});
+	
+		 //绑定事件
+		 $("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			 	/* $("a[data-onclickEvent='true']",container).data("pageData",response);
+			    $("a[data-onclickEvent='true']",container).click(); */
+		 });
+		 
+		//取消按钮
+		$("#clear", container).click(function(){
+			dmsCommon.ajaxRestRequest({
+				url:dmsCommon.getDmsPath()["part"] +"/basedata/reportPayOff/updateUnLocker/"+$("#profitNo",container).val(),
+				type:"POST",
+				sucessCallBack : function(data) {
+					if(data==""){
+						 dmsCommon.refreshPageByUrl("part/stockmanage/partprofit/searchPartProfit.html",container);
+					}else{
+						dmsCommon.tip({status:"warning",msg:"此单号["+$("#profitNo",container).val()+"].解锁失败!"});
+					}
+				}
+			});
+		});
+		
+		//入账前校验
+		$('a[data-beforeRequest="true"]',container).on('beforeRequest.dms',function(event,returnResult){
+			var id = $(this).attr("id");
+			if(id=='finish'){
+				var item = $("#partProfitItemList",container).dmsTable().getRowDataByIndex();
+				$.each(item,function(i,j){
+					if(j[IS_BACK]!='12781001'||j[PROFIT_QUANTITY]==0.00){// 非追溯配件或 报损数量为0
+					}else{
+						// 不允许出现非整数型的数量
+						var param = j[PROFIT_QUANTITY].split('.');
+						if(param.length>1){// 不是整数
+							 dmsCommon.tip({status:"warning",msg:"配件:"+j[PART_NAME]+"为追溯配件，数量必须为整数！"});
+							 returnResult.status = false;
+						}
+					}
+				});
+				returnResult.status = true;
+			}else if(id=='save'){
+				var item = $("#partProfitItemList",container).dmsTable().getRowDataByIndex();
+				if(item.length>0){
+					returnResult.status = true;
+				}else{
+					dmsCommon.tip({status:"warning",msg:"请添加数据到列表！"});
+					returnResult.status = false;
+				}
+			}else if(id=='back'){
+				dmsCommon.ajaxRestRequest({
+					url:dmsCommon.getDmsPath()["part"] +"/basedata/reportPayOff/updateUnLocker/"+$("#profitNo",container).val(),
+					type:"POST",
+					sucessCallBack : function(data) {
+						if(data==""){
+							returnResult.status = true;
+						}else{
+							dmsCommon.tip({status:"warning",msg:"此单号["+$("#profitNo",container).val()+"].解锁失败!"});
+							returnResult.status = false;
+						}
+					}
+				});
+			}	
+		});
+		 
+		//触发点击事件
+			$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+				var id = $(this).attr('id');
+				if(id=='edit'){
+					
+				}else{
+ 					returnResult.status = true;
+				}
+			});
+		//触发点击事件
+			$("button[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+			/* 	var row=$("#partProfitItemList",getElementContext()).dmsTable().getRowDataByIndex(0);
+				if(row){
+					if(row["fromtype"]=="13051002"){
+						dmsCommon.tip({status:"warning",msg:"已手工添加配件，不能通过盘点单添加配件"});
+						returnResult.status = false;
+						return;
+					}
+				} */
+				returnResult.status = true;
+			});
+	});
+	
+	var view1 = [ {
+		title :"操作",operateFormat : [ {type : "localDel",onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){
+		}},{type:"edit",title:'修改',url:"part/stockmanage/partprofit/editPartProfit.html",openWidth:"modal-lg"} ]}, 
+        {field : "STORAGE_NAME",title : "仓库",inputHiddenFormat : {hiddenField:"STORAGE_CODE"}},
+        {field : "STORAGE_POSITION_CODE",title : "库位代码",inputHiddenFormat : {}},
+        {field : "PART_NO",title : "配件代码",inputHiddenFormat : {}},
+        {field : "PART_NAME",title : "配件名称",inputHiddenFormat : {}},
+        {field : "UNIT_NAME",title : "计量单位",inputHiddenFormat : {hiddenField:"UNIT_CODE"}},
+        {field : "PROFIT_QUANTITY",title : "报溢数量",inputHiddenFormat : {},numberFormat : {decimal : 2}},
+        {field : "PROFIT_PRICE",title : "报溢单价",inputHiddenFormat : {},numberFormat : {decimal : 4}},
+        {field : "PROFIT_AMOUNT",title : "盘盈金额 ",inputHiddenFormat : {hiddenField:"PROFIT_AMOUNT"},numberFormat : {decimal : 2}},,
+        {field : "PART_BATCH_NO",title : "进货批号",inputHiddenFormat : {}},
+        {field : "PROFIT_AMOUNT2",title : "盘盈金额2",numberFormat : {decimal : 2},visible:false}
+     ];
+	
+	var view2 = [ {
+		title :"操作",operateFormat : [{type : "localDel",onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){
+		}},{type:"edit",title:'修改',url:"part/stockmanage/partprofit/editPartProfit.html",openWidth:"modal-lg"}]}, 
+        {field : "STORAGE_NAME",title : "仓库",inputHiddenFormat : {hiddenField:"STORAGE_CODE"}},
+        {field : "STORAGE_POSITION_CODE",title : "库位代码",inputHiddenFormat : {}},
+        {field : "PART_NO",title : "配件代码",inputHiddenFormat : {}},
+        {field : "PART_NAME",title : "配件名称",inputHiddenFormat : {}},
+        {field : "UNIT_NAME",title : "计量单位",inputHiddenFormat : {hiddenField:"UNIT_CODE"}},
+        {field : "PROFIT_QUANTITY",title : "报溢数量",inputHiddenFormat : {},numberFormat : {decimal : 2}},
+        {field : "PROFIT_PRICE",title : "报溢单价",inputHiddenFormat : {},numberFormat : {decimal : 4}},
+        {field : "PROFIT_AMOUNT",title : "盘盈金额 ",inputHiddenFormat : {},numberFormat : {decimal : 2}},
+        {field : "PROFIT_AMOUNT2",title : "盘盈金额2",numberFormat : {decimal : 2},visible:false}
+     ];
+</script>

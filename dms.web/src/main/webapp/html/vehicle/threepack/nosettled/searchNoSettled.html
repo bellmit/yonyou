@@ -1,0 +1,211 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="modal-title">超48小时未结算 </div>
+			<div class="panel-body">
+				<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">VIN</label>
+								<div class="col-xs-8">
+									<input type="text"  
+										id="vin" class="form-control"
+										name="vin" data-fieldName="VIN">
+								</div>
+							</div>
+						</div>
+				
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">牌照号</label>
+								<div class="col-xs-8">
+									<input type="text"  
+										id="licenseNo" class="form-control"
+										name="licenseNo" data-fieldName="LICENSE_NO">
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车主姓名</label>
+								<div class="col-xs-8">
+									<input type="text"  
+										id="ctmName"class="form-control"
+										name="ctmName" data-fieldName="CTM_NAME">
+								</div>
+							</div>
+						</div>
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">工单号</label>
+								<div class="col-xs-8">
+									<input type="text"  
+										id="roNo" class="form-control"
+										name="roNo" data-fieldName="RO_NO">
+								</div>
+							</div>
+						</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车型</label>
+								<div class="col-xs-8">
+									<input type="text"  
+										id="modelName" class="form-control"
+										name="modelName" data-fieldName="MODEL_NAME">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 "
+						data-tableSelect="true">
+						<div class="form-group">
+							<label class="control-label col-xs-4">经销商代码</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input id="dealerCode" readonly name="dealerCode"
+										class="form-control" type="text" data-fieldName="DEALER_CODE" />
+									<span class="input-group-btn">
+										<button class="btn default btn-sm" type="button"
+											data-url="manage/basedata/dealers/searchAfterDealers.html"
+											data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">购车时间</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" 
+									data-opens="right">
+									<input type="text" class="form-control" readonly
+										name="startdate"> <span class="input-group-addon">-</span>
+									<input type="text" class="form-control" readonly
+										name="enddate"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">超48小时未结算</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+					<a href="javascript:;" data-url="/nosettled/export/excel"
+								data-model="vehicle" data-method="downLoad" data-toggle="confirmation" ><i
+								class="fa fa-download"></i>下载</a>
+								<a href="javascript:;" data-url="/nosettled/export/excelno"
+								data-model="vehicle" data-method="downLoad" data-toggle="confirmation" ><i
+								class="fa fa-download"></i>未结算原因下载</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+
+	$(document)
+			.one(
+					"onload.dms",
+					function(event, container) {
+						new Datatable()
+								.initPagination({
+									src : "dms_table",
+									container : container,
+									url : dmsCommon.getDmsPath()["vehicle"]
+											+ "/nosettled",
+									rowID : "REPAIR_ID",
+									sortName : "REPAIR_ID",
+									sortOrder : "desc",
+									columns : [
+											{
+												field : "REPAIR_ID",
+												title : "操作",
+												operateFormat : [ {
+													type : "detail", title:"历史预警明细",
+													url : "vehicle/threepack/nosettled/searchHis.html",
+													openType:"jump"
+							                       },
+							                       {type:"detail",title:"预警明细",url:"vehicle/threepack/nosettled/noSettledMX.html",openType:"jump"},
+							           
+													{type:"detail", title:"未结算原因", url:"vehicle/threepack/nosettled/searchReson.html",openWidth:"modal-lg",isShow:function(value, row, index){
+								                    	   if(row.REASON==null){
+								                    		   return false;
+								                    	   }else{
+								                    		   return  true;
+								                    	   }                  	
+								                       }}
+								                   
+							                       ]
+											}, {
+												field : "RO_NO",
+												title : "工单号"
+											}, {
+												field : "ORDER_TYPE",
+												title : "工单类型"
+													,codeFormat : {type:"oemDict",codeType:"4004"}	
+											}, {
+												field : "PURCHASE_DATE",
+												title : "购车日期",
+											}, {
+												field : "DEALER_SHORTNAME",
+												title : "经销商简称"
+											}, {
+												field : "DEALER_CODE",
+												title : "经销商代码",
+											}, {
+												field : "VIN",
+												title : "VIN"
+											}, {
+												field : "LICENSE_NO",
+												title : "牌照号"
+											}, {
+												field : "CTM_NAME",
+												title : "车主"
+											}, {
+												field : "COLOR",
+												title : "预警级别"
+											}, {
+												field : "DEAYHOUR",
+												title : "维修占用累计时间（天）"
+											}, {
+												field : "RO_COLOR",
+												title : "工单延迟预警颜色"
+											}, {
+												field : "REASON",
+												title : "未结算原因"
+											}]
+								});
+					});
+</script>

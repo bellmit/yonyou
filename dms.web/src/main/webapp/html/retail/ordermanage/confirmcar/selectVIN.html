@@ -1,0 +1,190 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">VIN选择</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"><i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 hidden">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">产品代码</label>
+								<div class="col-xs-8">
+									<input id="productCode" name="productCode" class="form-control" type="text" value="{[]}"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">VIN号</label>
+								<div class="col-xs-8">
+									<input id="vin" name="vin" class="form-control" type="text" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">仓库</label>
+								<div class="col-xs-8">
+									<select id="storageCode" name="storageCode" class="bs-select form-control"
+										data-url="/basedata/store/vehicleWarehouse/checks" data-model="manage"
+										data-labelValue="STORAGE_CODE" data-lableDesc="STORAGE_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">库存状态</label>
+								<div class="col-xs-8">
+									<select class="bs-select form-control" id="ownStockStatus" 
+										name="ownStockStatus" data-dictCode="1413" data-excludeItems="14131003" >
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">品牌</label>
+							<div class="col-xs-8">
+								<select id="brandCodeSelect" class="bs-select form-control" name="brand"
+									data-url="/basedata/brandsdict" data-model="manage"
+									data-labelValue="BRAND_CODE" data-lableDesc="BRAND_NAME"
+									 data-fieldName="BRAND_CODE">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车系</label>
+							<div class="col-xs-8">
+								<select id="seriesCodeSelect" parent="brandCodeSelect"
+									class="bs-select form-control" name="series"
+									data-url="/basedata/brandsdictC/{[brandCodeSelect]}/seriessdictC"
+									data-model="manage" data-labelValue="SERIES_CODE" data-fieldName="SERIES_CODE"
+									data-lableDesc="SERIES_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车型</label>
+							<div class="col-xs-8">
+								<select id="modelCodeSelect" parent="seriesCodeSelect"
+									class="bs-select form-control" name="model"
+									data-url="/basedata/brandsdictC/{[brandCodeSelect]}/seriessdictC/{[seriesCodeSelect]}/modelsdictC"
+									data-model="manage" data-labelValue="MODEL_CODE" data-fieldName="MODEL_CODE"
+									data-lableDesc="MODEL_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配置</label>
+							<div class="col-xs-8">
+								<select id="confi" parent="modelCodeSelect" class="bs-select form-control" name="confi"
+									data-url="/basedata/brandsdictC/{[brandCodeSelect]}/seriessdictC/{[seriesCodeSelect]}/modelsdictC/{[modelCodeSelect]}/packagesdictC"
+									data-model="manage" data-labelValue="CONFIG_CODE"
+									data-lableDesc="CONFIG_NAME"  data-fieldName="CONFIG_CODE">
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 hidden">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配车状态</label>
+								<div class="col-xs-8">
+									<select id="dispatched" name="dispatched" class="bs-select form-control"
+										data-dictCode="1414" data-value="14141001">
+									</select>
+								</div>
+							</div>
+					</div>
+
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i>查询
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >车辆库存信息</div>
+			</div>
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="stockList">
+				</table>
+			</div>
+		</div>
+</div>
+<div class="modal-footer center-block">
+	<a class="btn blue" data-onclickEvent="true"><i class="fa fa-save"></i>确定</a>
+	<a data-dismiss="modal" class="btn blue"> <i
+		class="fa fa-undo"></i>取消
+	</a>
+</div>
+</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		$("#productCode",container).setDmsValue($("#productCode",getElementContext()).val());
+	 	new Datatable().initPagination({
+			src : "stockList",
+			rowID:"VS_STOCK_ID",
+			container:container,
+		 	url : dmsCommon.getDmsPath()["vehicle"] + "/basedata/vsstock/vin/items",
+			sortName : "VS_STOCK_ID", 
+			sortOrder : "asc",
+			pageSize:5,
+			autoHeight:false,
+			columns : [ 
+			            {radio:true},
+			            {field : "VIN",title : "VIN"},
+			            {field : "STORAGE_NAME",title : "仓库名称"},
+			            {field : "BRAND_NAME",title : "品牌"},
+			            {field : "SERIES_NAME",title : "车系"},
+			            {field : "MODEL_NAME",title : "车型"},
+			            {field : "CONFIG_NAME",title : "配置"},
+			            {field : "COLOR_NAME",title : "颜色"},
+			            {field : "PRODUCT_CODE",title : "产品代码"},
+			            {field : "PRODUCT_NAME",title : "产品名称"},
+			            {field : "OWN_STOCK_STATUS",title : "库存状态",codeFormat : {type:"dict",codeType:"1413"}},
+			            {field : "FIRST_STOCK_IN_DATE",title : "首次入库日期",dateFormat : {format:"YYYY-MM-DD"}}
+			         ]
+		});
+	 	
+	 	//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event,container){
+			var selectRow = $("#stockList",container).dmsTable().getFirstSelection();
+			$("div[data-tableSelect1='true']",getElementContext()).initHtmlContent(selectRow);
+			$("div[data-tableSelect2='true']",getElementContext()).initHtmlContent(selectRow);
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+		});
+	});
+
+</script>

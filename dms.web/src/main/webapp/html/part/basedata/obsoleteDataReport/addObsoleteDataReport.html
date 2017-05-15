@@ -1,0 +1,123 @@
+<div class="dms-edit ajaxrest" data-url="/basedata/obsoleteDataReport/queryContacts" data-model="manage">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">呆滞品上报</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4" for="name">联系人</label>
+								<div class="col-xs-8">
+									<input id="contacts" name="contacts" class="form-control required"
+										type="text"  data-fieldName="CONTACTS" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4" for="name">联系人电话</label>
+								<div class="col-xs-8">
+									<input id="phone" name="phone" class="form-control "
+										type="text"  data-fieldName="PHONE"/>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4" for="name">联系人地址</label>
+								<div class="col-xs-8">
+									<input id="address" name="address" class="form-control "
+										type="text"  data-fieldName="ADDRESS"/>
+								</div>
+							</div>
+						</div>
+
+				<div class="panel-body hidden">
+					<table class="table table-striped table-bordered table-hover table-responsive "
+				id="addressList"></table>
+				</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<a data-url="/basedata/obsoleteDataReport" data-model="manage"
+					data-method="POST" data-callBack="true" class="btn blue"
+					data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> <a
+					data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one("onload.dms",function(event, container) {
+		new Datatable().initPagination({
+			src : "addressList",
+			container:container,
+			rowID:"PART_NO",
+			sortName : "PART_NO", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+			sortOrder : "asc",
+			columns : [ 
+						{field : "STORAGE_CODE_NAME",title : "仓库",inputField:"storageCodeName",inputHiddenFormat:{}}, 
+						{field : "STORAGE_CODE",title : "仓库代码",inputField:"storageCode",inputHiddenFormat:{}}, 
+					    {field : "STORAGE_POSITION_CODE",title : "库位代码",inputField:"storagePositionCode",inputHiddenFormat:{}}, 
+					    {field : "PART_NO",title : "配件代码",inputField:"partNo",inputHiddenFormat:{}}, 
+					    {field : "PART_NAME",title : "配件名称",inputField:"partName",inputHiddenFormat:{}}, 
+					    {field : "STOCK_QUANTITY",title : "账面库存",inputField:"stockQuantity",inputHiddenFormat:{}},  
+						{field : "USEABLE_STOCK",title : "可用库存",inputField:"useableStock",inputHiddenFormat:{}}, 
+						{field : "COST_PRICE",title : "成本单价",inputField:"costPrice",inputHiddenFormat:{}}, 
+						{field : "SALES_PRICE",title : "销售单价",inputField:"salesPrice",inputHiddenFormat:{}}, 
+						{field : "COST_AMOUNT",title : "成本金额",inputField:"costAmount",inputHiddenFormat:{}}, 
+						{field : "UNIT_CODE",title : "计量单位",inputField:"unitCode",inputHiddenFormat:{}}, 
+			            {field : "REPORTED_NUMBER",title : "上报数量",inputField:"reportedPrice",inputHiddenFormat:{}},
+			            {field : "REPORTED_PRICE",title : "上报单价",inputField:"reportedNumber",inputHiddenFormat:{}},
+			            {field : "REPORTED_TOTAL",title : "上报金额",inputField:"reportedTotal",inputHiddenFormat:{}},
+			            {field : "CONTACTS",title : "联系人"},
+			            {field : "PHONE",title : "联系电话"},
+			            {field : "ADDRESS",title : "联系地址"}
+			         ]
+		});
+		
+		var selectRow = $("#addressList", getElementContext()).dmsTable().getSelections();
+		for(var i = 0 ;i<selectRow.length;i++){
+			storageCodeName = selectRow[i]["STORAGE_CODE_NAME"];
+			storageCode = selectRow[i]["STORAGE_CODE"];
+			storagePositionCode = selectRow[i]["STORAGE_POSITION_CODE"];
+			partNo = selectRow[i]["PART_NO"];
+			partName = selectRow[i]["PART_NAME"];
+			stockQuantity = selectRow[i]["STOCK_QUANTITY"];
+			useableStock = selectRow[i]["USEABLE_STOCK"];
+			costPrice = selectRow[i]["COST_PRICE"];
+			salesPrice = selectRow[i]["SALES_PRICE"];
+			costAmount = selectRow[i]["COST_AMOUNT"];
+			unitCode = selectRow[i]["UNIT_CODE"];
+			index = selectRow[i]["index"];
+			reportedPrice = $("#reportedPrice"+index,getElementContext()).val();
+			reportedNumber = $("#reportedNumber"+index,getElementContext()).val();
+			reportedTotal = $("#reportedTotal"+index,getElementContext()).val();
+			
+			var map={STORAGE_CODE_NAME:storageCodeName,STORAGE_CODE:storageCode,STORAGE_POSITION_CODE:storagePositionCode,PART_NO:partNo,PART_NAME:partName,STOCK_QUANTITY:stockQuantity,USEABLE_STOCK:useableStock,COST_PRICE:costPrice,SALES_PRICE:salesPrice,COST_AMOUNT:costAmount,UNIT_CODE:unitCode,REPORTED_NUMBER:reportedNumber,REPORTED_PRICE:reportedPrice,REPORTED_TOTAL:reportedTotal};
+			$("#addressList",container).dmsTable().appendRow(map);
+		}
+		
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			debugger;
+			$("a[data-dismiss='modal']",container).click();
+			$("#addressList",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	
+	
+	});
+</script>

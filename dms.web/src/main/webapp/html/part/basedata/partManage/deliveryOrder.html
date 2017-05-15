@@ -1,0 +1,130 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">交货单编号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="deliverNo" name="deliverNo">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 " data-tableSelect="true">
+						<div class="form-group"> 
+								<label class="control-label col-xs-4">经销商</label> 
+ 								<div class="col-xs-8">
+									<div class="input-group">
+									<input id="dealerCode" readonly
+										name="dealerCode" class="form-control" type="text"
+										 /> <span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="part/basedata/partManage/searchDealers3.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+					</div>	
+					
+					
+					<div class="col-xs-12 col-sm-6 col-md-4  ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">DMS订单号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="dmsOrderNo" name="dmsOrderNo">
+							</div>
+						</div>
+					</div>
+					
+					
+					
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">交货单创建日期</label>
+							<div class="col-xs-8 ">
+								 <div class="input-group input-daterange"  data-opens="right">
+		                             <input type="text" class="form-control" readonly  name="startDate">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="endDate">
+		                             <span class="input-group-btn">
+                                         <button class="btn default input-clear" type="button">
+                                            <i class="fa fa-close"></i>
+                                        </button>
+                                      </span> 
+		                        </div>
+							</div>
+						</div>
+					</div>		
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">信息列表 </div>
+			
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="partList"></table>
+		</div>
+	</div>
+	</form>
+	
+	
+</div>
+<script type="text/javascript">
+ $(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "partList",
+		container:container,
+		url : dmsCommon.getDmsPath()["part"] + "/partDeliverManage/checkOrderInfo",
+		rowID : "DELIVER_DATE",
+		sortName : "DELIVER_DATE",
+		sortOrder : "desc",
+		autoHeight:false,
+		columns : [ 
+		    //{checkbox:true,sortable : false}, 
+		   
+		    {field :"DELIVER_ID",title : "操作",operateFormat : [
+		                                                       {type:"edit",url:"part/basedata/partManage/deliveryOrderUpdate.html",openType:"jump",doubleClick:false}
+		                                                      ]
+		    },
+		    {title: "经销商代码", field:'DEALER_CODE'},
+			{title: "经销商名称", field:'DEALER_SHORTNAME'},
+			{title: "交货单编号", field:'DELIVER_NO'},
+			{title: "DMS订单号", field:'DMS_ORDER_NO'},
+			{title: "交货单创建日期", field: 'DELIVER_DATE'},
+			{title: "交货单更新日期", field: 'UPDATE_DATE'},
+			{title: "订单类型", field: 'ORDER_TYPE',codeFormat : {type:"oemDict",codeType:"8004"}},
+			{title: "接货数量", field: 'PLAN_NUM'}
+		   
+		]
+		
+	});
+	
+});
+    
+</script>

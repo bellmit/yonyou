@@ -1,0 +1,143 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">问卷新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body" data-parentTable="partInfoTable">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">问卷编号</label>
+								<div class="col-xs-8 ">
+									<input id="questionnaireCode" name="questionnaireCode"
+										class="form-control required systemCode" type="text"
+										maxlength="6" minlength="6" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">问卷类型</label>
+								<div class="col-xs-8 ">
+									<select id="questionnairetype" name="questionnairetype"
+										class="bs-select form-control " data-dictCode="1131"
+										data-value=""></select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">问卷名称</label>
+								<div class="col-xs-8 ">
+									<input id="questionnaireName" name="questionnaireName" 
+										class="form-control required " type="text" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">活动编号</label>
+								<div class="col-xs-8 ">
+									<input id="activityCode" name="activityCode" maxlength="15" 
+										class="form-control " type="text" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">启用</label>
+								<div class="col-xs-8 ">
+									<select id="isValid" name="isValid"
+										class="bs-select form-control " data-dictCode="1278"
+										data-value="12781002"></select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">意向车系</label>
+								<div class="col-xs-8">
+									<select id="seriesCode" class="bs-select form-control"
+										name="seriesCode" data-url="/basedata/selectSeries"
+										data-model="manage" data-labelValue="SERIES_CODE"
+										data-lableDesc="SERIES_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">OEM下发</label>
+								<div class="col-xs-8 ">
+									<select id="downTag" name="downTag" disabled = "disabled"
+										class="bs-select form-control " data-dictCode="1278"
+										data-value="12781002"></select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否售后问卷</label>
+								<div class="col-xs-8 ">
+									<select id="isServiceQuestionnaire"
+										name="isServiceQuestionnaire"
+										class="bs-select form-control " data-dictCode="1278"
+										data-value="12781002"></select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">客户流失回访</label>
+								<div class="col-xs-8 ">
+									<select id="isLossVehicleQuestionnaire"
+										name="isLossVehicleQuestionnaire"
+										class="bs-select form-control " data-dictCode="1278"
+										data-value="12781002"></select>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="modal-footer">
+					<a data-url="/questionnaire/saveQuestionnaire" data-model="customer"
+						data-method="PUT" data-callBack="true" class="btn blue"
+						data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> <a
+						data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+				</div>
+
+			</div>
+		</div>
+
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+		 $("#answerGroupNo",container).val($("#ANSWER_GROUP_NO",getElementContext()).val());
+		//新增页面回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#questionnairesList",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	
+});	
+</script>

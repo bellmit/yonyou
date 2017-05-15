@@ -1,0 +1,112 @@
+<div class="dms-edit ajaxrest" data-url="/basedata/partinventories/{[PART_INVENTORY_ID]}/item/{[ITEM_ID]}"
+	data-model="manage">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">配件明细编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件代码</label>
+								<div class="col-xs-8">
+									<input  class="form-control" type="text" data-fieldName="part_no" disabled="disabled" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件名称</label>
+								<div class="col-xs-8">
+										<input class="form-control" type="text" data-fieldName="part_name" disabled="disabled"/>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">仓库代码</label>
+								<div class="col-xs-8">
+									<select disabled="disabled"
+										class="bs-select form-control"
+										data-url="/basedata/store/accessories/Warehouses" data-model="part"
+										data-labelValue="STORAGE_CODE" data-lableDesc="STORAGE_NAME" data-fieldName="storage_code">
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">库位</label>
+								<div class="col-xs-8">
+										<input class="form-control" type="text" data-fieldName="storage_position_code" disabled="disabled"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">实际库存</label>
+								<div class="col-xs-8">
+										<input id="realStock" class="form-control" type="text" data-fieldName="real_stock" disabled="disabled"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">清点数量</label>
+								<div class="col-xs-8">
+										<input id="checkQuantity" name="checkQuantity" class="form-control required decimal" maxDigit="10" maxPrecision="4" type="text" data-fieldName="check_quantity"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">差异数量</label>
+								<div class="col-xs-8">
+										<input class="form-control" type="text" data-fieldName="profit_loss_quantity" data-autoValue="#checkQuantity - #realStock" data-autoValueDigits="2" disabled="disabled"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">成本单价</label>
+								<div class="col-xs-8">
+										<input class="form-control" type="text" data-fieldName="cost_price" disabled="disabled"/>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/basedata/partinventories/{[PART_INVENTORY_ID]}/item/{[ITEM_ID]}" data-model="part"
+				data-method="PUT" data-callBack='true'
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>确定</a> <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			$("a[data-dismiss='modal']",container).click();
+			$("#piiDtoList",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	})
+</script>

@@ -1,0 +1,73 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">开单日期</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" data-maxDays="30"
+									data-defaultDays="30">
+									<input type="text" class="form-control" readonly
+										name="roCreate_startdate"> <span
+										class="input-group-addon">至</span> <input type="text"
+										class="form-control" readonly name="roCreate_enddate">
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">收费区分</label>
+								<div class="col-xs-8 ">
+							    
+									<select id="chargePartitionCodeShow" name="chargePartitionCodeShow"
+										class="bs-select form-control" data-dictCode="1214"
+										 >
+									</select>
+								</div>
+							</div>
+						</div>
+						
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">维修技师</label>
+							<div class="col-xs-8">
+								<select id="consultant" name="consultant"
+									data-fieldName="DCRC_ADVISOR" class="bs-select form-control"
+									data-url="/basedata/employees/employees/dict?ROLE=10061004"
+									data-model="manage" data-labelValue="EMPLOYEE_NO"
+									data-lableDesc="EMPLOYEE_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn btn-sm blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn btn-sm blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="tabbable-custom ">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#tab_DayStatistics" data-toggle="tab">按天统计</a></li>
+			<li><a href="#tab_MonthStatistics" data-toggle="tab">按月统计</a></li>
+		</ul>
+		<div class="tab-content">
+				<div class="tab-pane fade in active" id="tab_DayStatistics" data-url="report/repairReport/technicianRepair/searchDayRepair.html">
+				</div>
+			<div class="tab-pane fade in active" id="tab_MonthStatistics" data-url="report/repairReport/technicianRepair/searchMonthRepair.html">
+			</div>
+		</div>
+	</div>
+</div>

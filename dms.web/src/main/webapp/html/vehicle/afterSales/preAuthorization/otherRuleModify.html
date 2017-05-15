@@ -1,0 +1,56 @@
+<div class="dms-edit ajaxrest" data-url="/ttWrForeotheritemsRule/getForeotheritemsRuleById/{[RULE_ID]}" data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">预授权其他费用规则维护</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+					 <div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">其他费用代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control"  id="otheritemCode" name="otheritemCode"  data-fieldName="OTHER_FEE_NAME"  readonly="readonly"/>
+							</div>
+						</div>
+					</div>
+					 <div class="col-xs-12 ">
+							<input id="authLevel" name="authLevel"  type="checkbox"
+								data-allFlag="false"   data-url="/ttWrForeotheritemsRule/getLevel" data-model="vehicle"
+								data-alwaysRefresh="true"  data-fieldName="AUTH_LEVEL" 
+								data-labelValue="LEVEL_CODE" data-lableDesc="LEVEL_NAME"
+								data-check="range" />
+						</div>
+				
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/ttWrForeotheritemsRule/modify/{[RULE_ID]}" data-model="vehicle"
+				data-method="PUT" data-callBack='true'
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>修改</a> <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	})
+</script>
+

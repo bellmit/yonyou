@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="
+          http://www.springframework.org/schema/beans 
+          http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/aop
+          http://www.springframework.org/schema/aop/spring-aop.xsd
+          http://www.springframework.org/schema/tx
+          http://www.springframework.org/schema/tx/spring-tx.xsd
+          http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context.xsd
+          http://www.springframework.org/schema/data/jpa
+          http://www.springframework.org/schema/data/jpa/spring-jpa.xsd 
+          http://www.springframework.org/schema/jee      
+          http://www.springframework.org/schema/jee/spring-jee.xsd
+          http://www.springframework.org/schema/util
+          http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<beans profile="source,test">
+		<import resource="classpath*:applicationContext_function.xml" />
+		<import resource="classpath*:applicationContext_resource.xml" />
+		<import resource="classpath*:filestore.xml" />
+		<context:component-scan base-package="com.yonyou.dms.framework.**" />
+		
+	<bean id="fileStoreService" class="com.yonyou.dms.framework.service.impl.FileStoreServiceImpl">
+	</bean>
+	<!-- DE服务Bean -->
+<!-- 		<bean id="deService" class="com.yonyou.f4.de.DEServiceImpl"> -->
+<!-- 			<property name="channels"> -->
+<!-- 				<list> -->
+<!-- 					<bean class="com.yonyou.f4.de.channels.InfoxChannelImpl"/> -->
+<!-- 				</list> -->
+<!-- 			</property> -->
+<!-- 			<property name="converter">  -->
+<!-- 				<bean class="com.yonyou.f4.de.converter.DEXmlConverter" /> -->
+<!-- 			</property> -->
+<!-- 			<property name="executer"> -->
+<!-- 				<bean class="com.yonyou.f4.de.executer.DEDefaultExecuter" > -->
+<!-- 					<property name="pkgPrefix"> -->
+<!-- 						<set> -->
+<!-- 							<value>com.yonyou.dcs.de</value> -->
+<!-- 						</set> -->
+<!-- 					</property> -->
+<!-- 				</bean> -->
+<!-- 			</property> -->
+<!-- 			<property name="redisConnectionFactory" ref="jedisFactory"/>optional -->
+<!-- 			<property name="taskOn"> -->
+<!-- 				<value>true</value> -->
+<!-- 			</property> -->
+<!-- 			<property name="syncMsgPersist"> -->
+<!-- 				<value>true</value> -->
+<!-- 			</property> -->
+<!-- 			<property name="bucketId" value="BucketNode1"/> -->
+<!-- 			<property name="collectorId" value="deCollector"/> -->
+<!-- 			<property name="corePoolSize" value="5"/> -->
+<!-- 			<property name="maxPoolSize" value="10"/> -->
+<!-- 			<property name="sndTaskSize" value="3"/> -->
+<!-- 			<property name="sndFailRetry" value="5"/> -->
+<!-- 			<property name="sndLoadNum" value="10"/> Number of records per tenant when load from DB -->
+<!-- 			<property name="sndLock" value="10"/> minutes -->
+<!-- 			<property name="excTaskSize" value="3"/> -->
+<!-- 			<property name="excFailRetry" value="5"/> -->
+<!-- 			<property name="excLoadNum" value="10"/> Number of records per tenant when load from DB -->
+<!-- 			<property name="excLock" value="5"/> minutes -->
+<!-- 			<property name="rcvTaskize" value="3"/> -->
+<!-- 			<property name="rcvFailRetry" value="5"/> -->
+<!-- 			<property name="movTaskSize" value="3"/> -->
+<!-- 			<property name="keepDays" value="1"/> Days after which successful message will be moved to history -->
+<!-- 		</bean> -->
+		
+<!-- 		 <bean id="balancer" class="com.yonyou.f4.common.balancer.impl.BalancerImpl" init-method="init" destroy-method="destroy"> -->
+<!-- 		    <property name="heartbeat" value="60"/> -->
+<!-- 		    <property name="collectors"> -->
+<!-- 			    <set> -->
+<!-- 				    <bean id="deCollector" class="com.yonyou.f4.de.DECollector"> -->
+<!-- 					    <property name="dbService" ref="DBService"/> -->
+<!-- 				    </bean> -->
+<!-- 			    </set> -->
+<!-- 		    </property> -->
+<!-- 		  </bean>	 -->
+		
+		
+	</beans>
+	
+	
+	
+
+</beans>

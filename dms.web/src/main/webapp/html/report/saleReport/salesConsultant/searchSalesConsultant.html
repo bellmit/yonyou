@@ -1,0 +1,97 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+				
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">日期</label>
+							<div class="col-xs-8 col-sm-10">
+								 <div class="input-group input-daterange" data-defaultCurrMonth="true">
+		                             <input type="text" class="form-control" readonly  name="startdate" id="start_date">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="enddate" id="end_date"> 
+		                             
+		                        </div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn btn-sm blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn btn-sm blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">销售顾问业绩报表</div>
+				<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+				<a href="javascript:;" data-url="/stockManage/SalesConsultant/excel" data-model="report" data-method="downLoad" data-toggle="confirmation"
+								class="btn btn-outline " ><i class="fa fa-download"></i>导出</a>
+				</div>
+		   </div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dms_table",
+		rowID:"DEALER_CODE",
+		container:container,
+	    url : dmsCommon.getDmsPath()["report"] + "/stockManage/SalesConsultant",
+		sortName : "DEALER_CODE", 
+		sortOrder : "asc",
+		undefinedText : "",
+/* 		mergeTotal:{
+			megerCellNumber:4,
+			megerCellName:"合计"
+		}, */
+		columns : [ 
+                    {field : "USER_NAME",title : "销售顾问"},
+		            {field : "NOT_FINISH_ORDER_COUNT",title : "剩余订单"},
+		            {field : "ADD_ORDER_COUNT",title : "新增订单"},
+		            {field : "FINISHED_ORDER_COUNT",title : "交车数量"},
+		            {field : "VEHICLE_COST_AMOUNT",title : "销售车辆总成本",numberFormat : {decimal:2}},
+		            {field : "VEHICLE_PRICE",title : "车辆销售总额",numberFormat : {decimal:2}},
+		            {field : "VEHICLE_GAIN_AMOUNT",title : "车辆销售利润",numberFormat : {decimal:2}},
+		            {field : "INSURANCE_AMOUNT",title : "保险利润",numberFormat : {decimal:2}},
+		            {field : "PART_SALES_AMOUNT",title : "装潢金额",numberFormat : {decimal:2}},
+		            {field : "PART_GAIN_AMOUNT",title : "装潢利润",numberFormat : {decimal:2}},
+		            {field : "PART_COST_AMOUNT",title : "装潢成本",numberFormat : {decimal:2}},
+		            {field : "GARNITURE_SALES_AMOUNT",title : "精品金额",numberFormat : {decimal:2}},
+		            {field : "GARNITURE_GAIN_AMOUNT",title : "精品利润",numberFormat : {decimal:2}},
+		            {field : "GARNITURE_COST_AMOUNT",title : "精品成本",numberFormat : {decimal:2}},
+		            {field : "CREDIT_AMOUNT",title : "信贷利润",numberFormat : {decimal:2}},
+		            {field : "TAX_AMOUNT",title : "购税利润",numberFormat : {decimal:2}},
+		            {field : "LICENSE_AMOUNT",title : "上牌利润",numberFormat : {decimal:2}}
+		         ] ,
+					onLoadSuccess : function() {
+						var rownu = $("#dms_table",container).dmsTable().getTableRows();
+						if(rownu<=0){
+							$("a[data-method='downLoad']",container).attr("disabled","true");
+						}else{
+							$("a[data-method='downLoad']",container).removeAttr("disabled");
+						}
+					} 
+	});
+});		
+</script>

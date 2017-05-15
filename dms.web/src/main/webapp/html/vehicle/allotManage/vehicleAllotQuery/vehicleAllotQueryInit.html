@@ -1,0 +1,152 @@
+<div class="dms-search">
+ <form class="form-horizontal">
+   	<div class="panel panel-default">
+   	   <div class="panel-body">
+   	   		<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">审批通过日期</label>
+							<div class="col-xs-8">
+								 <div class="input-group input-daterange" data-opens="right">
+		                             <input type="text" class="form-control" readonly  name="beginDate">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="endDate">
+		                             <span class="input-group-btn">
+                                         <button class="btn default input-clear" type="button">
+                                            <i class="fa fa-close"></i>
+                                        </button>
+                                      </span> 
+		                        </div>
+							</div>
+						</div>
+					</div>
+						
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">审批状态</label>
+							<div class="col-xs-8">
+								<select id="checkStatus" name="checkStatus" class="bs-select form-control"
+									data-type="oemDict" data-dictCode="2020">
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+								<label class="control-label col-xs-4">调出经销商</label>
+								<div class="col-xs-8">
+								     <div class="input-group">
+										    <input id="outDealerCode" readonly name="outDealerCode"class="form-control" type="text" />
+											<span class="input-group-btn">
+												<button class="btn default btn-sm" type="button" data-url="vehicle/allotManage/vehicleAllotApprove/searchOutDealers.html"
+													data-toggle="modal" data-width="modal-lg"> <i class="fa fa-list-alt"></i>
+												</button>
+												<button class="btn default input-clear" type="button">
+	                                            	<i class="fa fa-close"></i>
+	                                    		</button>
+										   </span>
+									   </div>
+								</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+								<label class="control-label col-xs-4">调入经销商</label>
+								<div class="col-xs-8">
+								     <div class="input-group">
+										    <input id="inDealerCode" readonly name="inDealerCode"class="form-control " type="text" />
+											<span class="input-group-btn">
+												<button class="btn default btn-sm" type="button" data-url="vehicle/allotManage/vehicleAllotApprove/searchInDealers.html"
+													data-toggle="modal" data-width="modal-lg"> <i class="fa fa-list-alt"></i>
+												</button>
+												<button class="btn default input-clear" type="button">
+	                                            	<i class="fa fa-close"></i>
+	                                    		</button>
+										   </span>
+									   </div>
+								</div>
+						</div>
+					</div> 	
+					
+				    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			           <div class="form-group">
+			               <label class="control-label col-xs-4 ">VIN</label>
+			               <div class="col-xs-8">
+			                   <!-- <input type="text"  class="form-control" id="vin" name="vin"> -->
+			                   <textarea class="form-control" rows="2" cols="30" id="vin" name="vin"></textarea>
+			               </div>
+			           </div>
+			      </div>	   			
+   	   		</div>
+			<div class="row ">
+			    <div class="col-xs-12 " >
+			      <div class="query-btn">
+			                  <a href="javascript:;" class="btn blue" > <i class="fa fa-search"></i>查询</a>
+			                  <a href="javascript:;" class="btn blue"><i class="fa fa-undo"></i>重置</a>
+			      </div>
+			    </div>
+			</div>
+   	   </div>
+   	</div>
+   	<div class="panel  panel-default table-panel">
+   		<div class="panel-heading">
+   			<div class="pannel-name" >车辆调拨查询信息</div>
+	   	   	<div class="pannel-button" >
+			 <div class="btn-group btn-group-sm">
+		          <a href="javascript:;" data-url="/vehicleAllotMange/query/export/excel"
+					data-model="vehicle" data-method="downLoad" data-toggle="confirmation" class="btn btn-outline "><i
+						class="fa fa-download"></i>下载</a>
+			 </div>
+		   </div>
+	   </div>
+	   <div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="vehicleAllotApproveList"></table>
+	   </div>
+	</div>
+ </form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+ 	new Datatable().initPagination({
+		src:"vehicleAllotApproveList",
+		container:container,
+	    url : dmsCommon.getDmsPath()["vehicle"] + "/vehicleAllotMange/query",
+	    rowID:"TRANSFER_ID",
+	    sortName:"APPLY_DATE",
+	    sortOrder:"DESC",
+		columns : [ 
+			  {field : "TRANSFER_ID",title : "操作",operateFormat : [
+			         {type:"detail",url:"vehicle/allotManage/vehicleAllotQuery/queryDetail.html",openType:"jump",doubleClick:false}
+			         ]
+			  },
+		      {field:"VIN",title:"VIN"},
+		      {field:"SERIES_NAME",title:"车系"},
+		      {field:"MODEL_NAME",title:"车型"},
+		      {field:"GROUP_NAME",title:"车款"},
+		      {field:"COLOR_NAME",title:"颜色"},
+		      
+		      {field:"OUT_BIG_AREA",title:"调出大区"},
+		      {field:"OUT_SMALL_AREA",title:"调出小区"},
+		      {field:"OUT_DEALER_CODE",title:"调出经销商代码"},
+		      {field:"OUT_DEALER_NAME",title:"调出经销商名称"},
+		      {field:"OUT_SMALL_CHK_DATE",title:"小区审核日期",dateFormat:{format:"YYYY-MM-DD"}},
+		      {field:"OUT_BIG_CHK_DATE",title:"大区审核日期",dateFormat:{format:"YYYY-MM-DD"}},
+		      
+		      {field:"IN_BIG_AREA",title:"调入大区"},
+		      {field:"IN_SMALL_AREA",title:"调入小区"},
+		      {field:"IN_DEALER_CODE",title:"调入经销商代码"},
+		      {field:"IN_DEALER_NAME",title:"调入经销商名称"},
+		      {field:"IN_SMALL_CHK_DATE",title:"小区审核日期",dateFormat:{format:"YYYY-MM-DD"}},
+		      {field:"IN_BIG_CHK_DATE",title:"大区审核日期",dateFormat:{format:"YYYY-MM-DD"}},
+		      
+		      {field:"APPLY_DATE",title:"申请日期",dateFormat:{format:"YYYY-MM-DD"}},
+		      {field:"CHECK_STATUS",title:"审批状态",codeFormat : {type:"oemDict",codeType:"2020"}},
+		      {field:"THROUGH_DATE",title:"审批通过日期",dateFormat:{format:"YYYY-MM-DD"}}
+		      ]
+	});
+ 	
+ 	
+});
+</script>

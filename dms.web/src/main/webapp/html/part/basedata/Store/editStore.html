@@ -1,0 +1,151 @@
+<div class="dms-edit ajaxrest" data-url="/basedata/store/findByStorageCode/{[STORAGE_CODE]}" data-model="part" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+			<div class="modal-title">仓库信息编辑</div>
+		</div>
+		<div class="modal-body">
+    		<div class="panel panel-default">
+				<div class="panel-body">
+		            <div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">仓库代码</label>
+						<div class="col-xs-8">
+							<input id="storage_code" name="storage_code" class="form-control required" maxlength="4" type="text" data-fieldName="storage_code" disabled="disabled"/>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">仓库名称</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control required" maxlength="30" id="storage_name" name="storage_name"   data-fieldName="storage_name"/>
+					    </div>
+					</div>
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">仓库类型</label>
+						<div class="col-xs-8">
+							<select  id="storage_type" name="storage_type" class="bs-select form-control" data-dictCode="7004" data-fieldName="storage_type" disabled="disabled">
+							</select>
+					    </div>
+					</div>
+				</div>
+				
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">订货周期</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control number decimal digits" maxlength="3" id="lead_time" name="lead_time" data-fieldName="lead_time"/>
+					    </div>
+					</div>
+				</div>
+
+<!-- 				<div class="col-xs-12 col-sm-6 col-md-4"> -->
+<!-- 					<div class="form-group"> -->
+<!-- 						<label class="control-label col-xs-4">是否允许负库存</label> -->
+<!-- 						<div class="col-xs-8"> -->
+<!-- 							<select  id="is_negative" name="is_negative" class="bs-select form-control" data-dictCode="1057" data-value="" data-fieldName="is_negative" > -->
+<!-- 							</select> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+				
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">是否允许负库存</label>
+						<div class="col-xs-8">
+							<input type="checkbox"  id="is_negative" name="is_negative" data-dictCode="1057" data-value="" data-fieldName="is_negative" >
+						
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-6">车间发料仓库标志</label>
+						<div class="col-xs-6">
+							<input type="checkbox"  id="workshop_tag" name="workshop_tag" data-dictCode="1057" data-value="" data-fieldName="workshop_tag" >
+						
+						</div>
+					</div>
+				</div>
+				
+<!-- 				<div class="col-xs-12 col-sm-6 col-md-4"> -->
+<!-- 					<div class="form-group"> -->
+<!-- 						<label class="control-label col-xs-4">是否OEM</label> -->
+<!-- 						<div class="col-xs-8"> -->
+<!-- 							<select  id="oem_tag" name="oem_tag"  class="bs-select form-control" data-dictCode="1057"   -->
+<!-- 							data-fieldName="oem_tag" data-existsDefault="false" disabled="disabled"> -->
+<!-- 							</select> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+				
+								<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">是否OEM</label>
+						<div class="col-xs-8">
+							<input type="checkbox"  id="oem_tag" name="oem_tag"  data-dictCode="1057"  
+							data-fieldName="oem_tag" data-existsDefault="false" disabled="disabled">
+							
+						</div>
+					</div>
+				</div>
+				
+				
+				
+			</div>
+		</div>
+	</div>
+</div>
+		<div class="modal-footer center-block">
+			<a data-url="/basedata/store/modifyBycode/{[STORAGE_CODE]}" data-model="part" data-method="PUT"
+				data-callBack="true" class="btn blue" data-onclickEvent="true"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> 
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+	
+	
+	
+	
+	$("select[id='storage_type']",container).bindChange(function(obj){
+	 var selectValue=$("select[id='storage_type']",container).val();
+		if(selectValue !='70041003'){
+			$("input[id='storage_name']",container).attr("disabled","disabled");
+		}
+    });
+	
+// 	$("select[id^=is_negative]",container).bindChange(function(obj){
+// 		 var selectValue=$("select[id^=is_negative]",container).val();
+// 			if(selectValue =='10041001'){
+// 				$("select[id^=is_negative]",container).attr("disabled","true");
+// 			}else{
+// 				$("select[id^=is_negative]",container).removeAttr("disabled");
+// 			}
+// 	});
+	
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_store",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+	
+});
+</script>

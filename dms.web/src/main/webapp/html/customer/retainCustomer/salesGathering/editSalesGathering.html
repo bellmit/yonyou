@@ -1,0 +1,246 @@
+<div class="dms-edit ajaxrest" data-url="/customerManage/salesGathering/edit/{[RECEIVE_NO]}" data-model="customer" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">收款登记</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+							
+							<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">收款单号</label>
+								<div class="col-xs-8">
+									<input id="receiveNo" name="receiveNo" class="form-control "   readonly  data-fieldName="RECEIVE_NO" 
+										type="text"  maxlength="120" />
+								</div>
+							</div>
+						</div>
+						
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">收款金额</label>
+								<div class="col-xs-8">
+									<input id="receiveAmount" name="receiveAmount" class="form-control money"   readonly
+									data-fieldName="RECEIVE_AMOUNT"  maxDigit="30"  type="text"  />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">付款方式</label>
+								<div class="col-xs-8">	
+									<select id="payTypeCode" name="payTypeCode"  data-fieldName="PAY_TYPE_CODE"  disabled = "disabled" 
+										class="bs-select form-control"
+										data-url="/customerManage/salesGathering/-1/qryPayTypeCode"
+										data-model="manage" data-labelValue="PAY_TYPE_CODE" 
+										data-lableDesc="PAY_TYPE_NAME" >
+									</select>	
+								</div>
+							</div>
+						</div>		
+							
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">票据号码</label>
+								<div class="col-xs-8">
+									<input id="billNo" name="billNo" class="form-control "  data-fieldName="BILL_NO"  readonly
+										type="text"  maxlength="120" />
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">收款日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date datetime" data-defaultNow="true">
+										<input id="receiveDate" name="receiveDate" readonly data-fieldName="RECEIVE_DATE"  disabled = "disabled" 
+											class="form-control" type="text" value="" />
+								<span class="input-group-addon"><button type="button" disabled="disabled"
+										class="btn btn-xs fa fa-calendar" style="font-size:14px;font-weight:10px;" >
+										</button></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">收款类型</label>
+								<div class="col-xs-8">
+									<select id="gatheringType" name="gatheringType"  data-fieldName="GATHERING_TYPE"  disabled = "disabled" 
+										class="bs-select form-control " data-dictCode="1316" ></select>
+								</div>
+							</div>
+						</div>							
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">付款人</label>
+								<div class="col-xs-8">
+									<input id="transactor" name="transactor" class="form-control "   data-fieldName="TRANSACTOR"  readonly
+										type="text"  maxlength="120" />
+								</div>
+							</div>
+						</div>
+				 <div class="col-xs-12 col-sm-6 col-md-4 ">
+					<div class="form-group">
+						<label class="control-label col-xs-4">登记人</label>
+						<div class="col-xs-8">
+							 <select id="recorder" name="recorder" disabled = "disabled" 
+									class="bs-select form-control"
+									data-url="/basedata/employees/-1/salesConsultant"
+									data-model="manage" data-labelValue="USER_ID"
+									data-value="{[userInfo.userId]}" data-lableDesc="USER_NAME">
+								</select>
+						</div>
+					</div>
+				</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">可用储值</label>
+								<div class="col-xs-8">
+									<input id="storeBalance" name="storeBalance" class="form-control "  readonly data-fieldName="" 
+										type="text"  maxlength="120" />
+								</div>
+							</div>
+						</div>					
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">本次使用储值</label>
+								<div class="col-xs-8">
+									<input id="useStore" name="useStore" class="form-control "  value="0" readonly data-fieldName="" 
+										type="text"  maxlength="120" />
+								</div>
+							</div>
+						</div>							
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销账标志</label>
+								<div class="col-xs-8">
+									<select id="writeoffTag" name="writeoffTag"  data-value = "12781001" data-fieldName="WRITEOFF_TAG" 
+										class="bs-select form-control  required" data-dictCode="1278" ></select>
+								</div>
+							</div>
+						</div>		
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销账人</label>
+								<div class="col-xs-8">
+									 <select id="writeoffBy" name="writeoffBy"  
+											class="bs-select form-control" data-fieldName="WRITEOFF_BY" 
+											data-url="/basedata/employees/-1/salesConsultant"
+											data-model="manage" data-labelValue="USER_ID"
+											data-lableDesc="USER_NAME">
+										</select>
+								</div>
+							</div>
+						</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销账日期</label>
+								<div class="col-xs-8" >
+									<div class="input-group date datetime" data-defaultNow="true">
+										<input id="writeoffDate" name="writeoffDate"   data-fieldName="WRITEOFF_DATE" 
+											class="form-control " type="text" value="" />
+											<span class="input-group-addon"><button type="button" disabled="disabled"
+										class="btn btn-xs fa fa-calendar" style="font-size:14px;font-weight:10px;" >
+										</button></span>
+									<!-- 	<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+					                    <span class="input-group-addon"><span class="fa fa-times"></span></span> -->
+									</div>
+								</div>
+							</div>
+						</div>					
+
+						<div class="col-xs-8 col-sm-8 col-md-8">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2 ">备注</label>
+								<div class="col-xs-8 col-sm-10">
+									<textarea id="remark" name="remark" data-fieldName="REMARK" class="form-control "  
+									 rows="2" maxlength="200" cols=""></textarea>
+								</div>
+							</div>
+						</div>		
+						
+						<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+							<div class="form-group" hidden="hidden">
+								<label class="control-label col-xs-4">隐藏</label>
+								<div class="col-xs-8"> 
+									<input type="text" class="form-control "  id = "customerNo" name='customerNo'  data-fieldName="CUSTOMER_NO" >
+								</div>
+							</div>
+						</div>	
+
+	 				</div>
+   				</div>
+			</div>		
+		</div>
+		<div class="modal-footer ">
+				<a data-url="/customerManage/salesGathering/{[CUSTOMER_NO]}"" data-model="customer" data-method="PUT"
+					data-callBack="true" class="btn blue"
+					data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+				</a> <a data-dismiss="modal" class="btn blue"><i
+					class="fa fa-undo"></i>取消</a>
+			</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_show",getElementContext()).dmsTable().refreshTableWithForm();
+		$("#dms_amount",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	Date.prototype.Format = function (fmt) { //author: meizz 
+	    var o = {
+	        "M+": this.getMonth() + 1, //月份 
+	        "d+": this.getDate(), //日 
+	        "h+": this.getHours(), //小时 
+	        "m+": this.getMinutes(), //分 
+	        "s+": this.getSeconds(), //秒 
+	        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+	        "S": this.getMilliseconds() //毫秒 
+	    };
+	    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+	    for (var k in o)
+	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+	    return fmt;
+	}
+	$("#writeoffTag",container).bindChange(function(obj){
+	 	if($("#writeoffTag",container).val() != '12781001'){
+	 		 $("#writeoffBy",container).attr("disabled","disabled");
+	 		 $("#writeoffDate",container).attr("disabled","disabled");
+			 $("#writeoffDate",container).val("");
+			 $("#writeoffBy",container).selectpicker('val',"-1");
+			 
+		}else if($("#writeoffTag",container).val() == '12781001'){
+			 $("#writeoffBy",container).removeAttr("disabled");
+			 $("#writeoffDate",container).removeAttr("disabled");
+			 $("#writeoffDate",container).val(new Date().Format("yyyy-MM-dd"));
+			 $("#writeoffBy",container).selectpicker('val',"{[userInfo.userId]}");
+			 
+		}
+	});	
+
+
+	$("#customerNo",container).setDmsValue($("#no",getElementContext()).val());
+
+});
+
+
+</script>

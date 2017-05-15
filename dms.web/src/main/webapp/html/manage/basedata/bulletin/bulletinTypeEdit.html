@@ -1,0 +1,123 @@
+<div class="dms-edit ajaxrest" data-url="/bulletin/bulletinType/editType/{[TYPE_ID]}" data-model="manage" data-pageInitCallBack="true">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">通告类别修改</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">通告类别资料</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<input type="hidden" name="typeId" data-fieldName="typeId">
+					<input type="hidden" name="userIds" id="userIds">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2">通告类别</label>
+								<div class="col-xs-8" >
+									  <input class="form-control required" type="text" id="typename" name="typename" data-fieldName="typename"/>
+								</div>
+							</div>
+						</div>	
+								
+						
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2 ">状态</label>
+								<div class="col-xs-8">
+					                 <select class="bs-select form-control required" id="status" name="status" data-fieldName="status"
+					                 data-url="/bulletin/bulletinType/selectStatus"
+					                  data-model="manage" data-lableDesc ="value" data-labelValue="code" data-value="1" data-existsDefault="false" >
+					                 </select>
+								</div>
+							</div>
+						</div>							
+										
+					</div>					
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">发布人员列表</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+			      <div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<!-- <a class="btn btn-outline" href="javascript:;"
+								data-onclickEvent="true"> <i class="fa fa-plus-square"></i>添加
+							</a> -->
+						<a class="btn btn-outline" data-url="manage/basedata/bulletin/searchUser.html" data-width="modal-md"
+							data-toggle="modal"> <i class="fa fa-plus-square"></i> 新增
+						</a> 
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="userList">
+					</table>
+				</div>
+				
+			</div>
+		</div>
+		<div class="modal-footer">
+			<div class="modal-footer center-block">
+				<a data-url="/bulletin/bulletinType" data-model="manage" data-method="PUT" data-beforeRequest="true"
+				 data-callBack="true"  class="btn blue "data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+				</a> 
+				<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initLocale({
+		src : "userList",
+		container:container,
+		url : dmsCommon.getDmsPath()["manage"] + "/bulletin/bulletinType/editUser/{[TYPE_ID]}",
+		columns : [ {field : "USER_ID",title : "操作",operateFormat : [
+					{type : "localDel"}]},
+		            /* {type:"del",url:"/bulletin/bulletinType/{[USER_ID]}/{[TYPE_ID]}",model:"manage",callBack:function(response){
+                    	   $("#userList",container).dmsTable().refreshTableWithForm();
+                       }} ]},*/
+		            //{field : "USER_ID",inputField:"userId",title : "USER_ID",minWidth:0,inputTextFormat : {validate:{validateAttr:' disabled'}}},
+		            {field : "ACNT",inputField:"acnt",title : "用户名"},
+		            {field : "NAME",inputField:"name",title : "姓名"},
+		         ]
+	}); 
+	
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+		var userIds = "";
+		var rownum = $("#userList",container).dmsTable().getTableRows();
+		if(rownum > 0){				
+			var rows = $("#userList",getElementContext()).dmsTable().getRowDataByIndex();
+			for(var i = 0 ; i < rows.length; i++){
+				userIds += rows[i].USER_ID + ",";
+			}
+			userIds = userIds.substring(0,userIds.length-1);
+		}
+		$("#userIds",container).setDmsValue(userIds);
+		returnResult.status = true;
+	});
+	
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+});
+
+</script>

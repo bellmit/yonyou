@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="CbmServiceImplService" targetNamespace="http://webService.cbm.norteksoft.com/" xmlns:ns1="http://cxf.apache.org/bindings/xformat" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://webService.cbm.norteksoft.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema elementFormDefault="unqualified" targetNamespace="http://webService.cbm.norteksoft.com/" version="1.0" xmlns:tns="http://webService.cbm.norteksoft.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="cgcslCancelOrder" type="tns:cgcslCancelOrder" />
+<xs:element name="cgcslCancelOrderResponse" type="tns:cgcslCancelOrderResponse" />
+<xs:complexType name="cgcslCancelOrder">
+<xs:sequence>
+<xs:element minOccurs="0" name="string" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="cgcslCancelOrderResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="cgcslCancelOrderResponse">
+    <wsdl:part element="tns:cgcslCancelOrderResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cgcslCancelOrder">
+    <wsdl:part element="tns:cgcslCancelOrder" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="CbmService">
+    <wsdl:operation name="cgcslCancelOrder">
+      <wsdl:input message="tns:cgcslCancelOrder" name="cgcslCancelOrder">
+    </wsdl:input>
+      <wsdl:output message="tns:cgcslCancelOrderResponse" name="cgcslCancelOrderResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CbmServiceImplServiceSoapBinding" type="tns:CbmService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="cgcslCancelOrder">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="cgcslCancelOrder">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="cgcslCancelOrderResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CbmServiceImplService">
+    <wsdl:port binding="tns:CbmServiceImplServiceSoapBinding" name="CbmServiceImplPort">
+      <soap:address location="http://218.240.5.150:8888/cbm/services/cbm" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

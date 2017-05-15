@@ -1,0 +1,129 @@
+<div class="dms-search">
+			<form class="form-horizontal" >
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="row ">
+				     <div class="col-xs-12 col-sm-6 col-md-4 ">
+						     <div class="form-group">
+							<label class="control-label col-xs-4 ">客户编号</label>
+							<div class="col-xs-8"> 
+								<input type="text" class="form-control" id="customerNo" name="customerNo" >
+							</div>
+						</div>
+					</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">客户名称</label>
+							<div class="col-xs-8"> 
+								<input type="text" class="form-control" id="customerName" name="customerName" >
+							</div>
+						</div>
+					</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">证件号码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="cardId" name="cardId" >
+							</div>
+						</div>
+					</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">联系人</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="contactName" name="contactName" >
+							</div>
+						</div>
+					</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">联系方式</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="contactNo" name="contactNo">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">联系地址</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="contactAddress" name="contactAddress" >
+							</div>
+						</div>
+					</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="col-xs-12 ">
+								<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a>
+								<a href="javascript:;" class="btn blue" data-url="/realOrderQuery/download"
+								data-model="vehicle" data-method="downLoad"
+								data-toggle="confirmation" class="btn btn-outline "> <i
+								class="fa fa-download"></i> 导入
+							</a>
+								<a href="javascript:;" class="btn blue" data-url="/directCustomer/download"
+								data-model="vehicle" data-method="downLoad"
+								data-toggle="confirmation" class="btn btn-outline "> <i
+								class="fa fa-download"></i> 导出
+							</a>
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >直销客户管理</div>
+							<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" data-url="vehicle/vehicleDirectOrderManage/AddDirectSellCustomer.html" data-width="modal-md"data-toggle="modal"> 
+							<i class="fa fa-plus-square"></i> 新增
+							</a> 
+						</div>
+						
+						
+						
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/directCustomer/directCustomerSearch", 
+			rowID : "CREATE_DATE",
+			sortName : "CREATE_DATE",
+			sortOrder : "asc",
+			columns : [ 
+			    	    {field : "DIRECT_ID",title : "操作",operateFormat : [
+			    	        {type:"detail",url:"vehicle/vehicleDirectOrderManage/realOrderDetailQuery.html",openWidth:"modal-md",doubleClick:true},
+			    	        {type:"edit",url:"vehicle/vehicleDirectOrderManage/editSellCustomer.html",openWidth:"modal-md",doubleClick:true},
+			    	        {type:"del",url:"/directCustomer/{[DIRECT_ID]}",model:"vehicle",callBack:function(response){
+		                    	   $("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		                       }}
+			    	           ]
+			    	            },     
+				{field : "BIG_CUSTOMER_CODE",title : "大客户编码"}, 
+				{field : "BIG_CUSTOMER_TYPE",title : "大客户名称"},
+				{field : "CUSTOMER_NO",title : "直销客户编码"}, 
+				{field : "CUSTOMER_NAME",title : "客户名称"},
+				{field : "LINKMAN_ADDR",title : "联系地址"}, 
+				{field : "LINKMAN_NAME",title : "联系人"},
+				{field : "LINKMAN_TEL",title : "联系方式"}, 
+				{field : "ID_TYPE",title : "证件类型", codeFormat : {type:"oemDict",codeType:"2030"}},
+				{field : "ID_NO",title : "证件编号"}
+			]
+		});
+	});
+</script>

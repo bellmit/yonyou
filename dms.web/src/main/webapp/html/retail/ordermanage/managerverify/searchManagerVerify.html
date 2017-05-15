@@ -1,0 +1,195 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">业务类型</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" id="businessType"
+									name="businessType" data-dictCode="1300" data-excludeItems="13001002,13001003">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">订单编号</label>
+							<div class="col-xs-8">
+								<input id="soNo" name="soNo" class="form-control" type="text" />
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">客户名称</label>
+							<div class="col-xs-8">
+								<input id="customerName" name="customerName"
+									class="form-control" type="text" />
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">VIN号</label>
+							<div class="col-xs-8">
+								<input id="vin" name="vin" class="form-control" type="text" />
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">官网订单编号</label>
+							<div class="col-xs-8">
+								<input id="ecOrderNo" name="ecOrderNo" class="form-control" type="text" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i>查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i>重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">订单列表</div>
+			<!-- <div class="hidden"> -->
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+				<!-- 	<a class="btn btn-outline" id="up" disabled
+						data-url="customer/potentialcus/visitReception/addCusRecord.html"
+						data-toggle="modal" data-width="modal-lg" data-beforeShowEvent="true"> <i
+						class="fa fa-plus-square"></i> 上报
+					</a> -->
+					<a class="btn btn-outline" id="audit" disabled
+						data-url="retail/ordermanage/managerverify/manageAudit.html"
+						data-toggle="modal" data-width="modal-md" data-beforeShowEvent="true"> <i
+						class="fa fa-plus-square"></i> 审核
+					</a>
+					<a class="btn btn-outline" id="upAudit" disabled
+						data-url="retail/ordermanage/managerverify/commitAudit.html"
+						data-toggle="modal" data-width="modal-md" data-beforeShowEvent="true"> <i
+						class="fa fa-plus-square"></i> 提交审核
+					</a>
+					<a class="btn btn-outline" id="auditHis" disabled
+						data-url="retail/ordermanage/managerverify/searchAuditDetail.html"
+						data-toggle="modal" data-width="modal-lg" data-beforeShowEvent="true"> <i
+						class="fa fa-plus-square"></i> 审核记录
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["retail"] + "/ordermanage/manageVerify",
+			rowID : "SO_NO",
+			sortName : "SO_NO",
+			sortOrder : "desc",
+			checkboxHeader:true,
+			selectItemName:"SO_NO",
+			autoHeight:false,
+			undefinedText : "",
+			columns : [ 
+				
+			    {field : "SO_NO",title : "操作",operateFormat : [
+				       {type:"detail",url:"retail/ordermanage/managerverify/detailSalesOrder.html",title:"订单详细",openType:"jump",operateIcon:'<i class="fa fa-edit glyphicon-lg"></i>',
+				    	   isShow:function(value, row, index){
+							   if(row.BUSINESS_TYPE=="13001001"){
+										   return true;
+			                    	   }else{
+			                    		   return false;
+			                    	   }      
+								   }},
+						{type:"edit",url:"retail/ordermanage/managerverify/editSellBack.html",title:"订单详细",openType:"jump",operateIcon:'<i class="fa fa-edit glyphicon-lg"></i>',
+							    	   isShow:function(value, row, index){
+										   if(row.BUSINESS_TYPE=="13001005"){
+													   return true;
+						                    	   }else{
+						                    		   return false;
+						                    	   }      
+						}},		   
+                       {type:"detail",url:"customer/potentialcus/potentialCusFollow/editCusInfo.html",openWidth:"modal-lg",title:"客户详细",operateIcon:'<i class="fa fa-lg fa-user-plus"></i>'}
+                   ]
+                }, 
+                {field:"BUSINESS_TYPE",title:"业务类型",codeFormat : {type:"dict",codeType:"1300"}},
+                {field:"SO_NO",title:"订单编号"},
+                {field:"APPLY_NO",title:"调拨申请单号",visible:false},
+                {field:"SHEET_CREATE_DATE",title:"开单日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+                {field:"SOLD_BY",title:"销售顾问",minWidth:10,inputSelectFormat : {url:"/basedata/employees/-1/salesConsultant",model:"manage",labelValue:"USER_ID",lableDesc:"USER_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"},visible:false},
+                {field:"USER_NAME",title:"销售顾问"},
+                {field:"CUSTOMER_NO",title:"客户编号"},
+                {field:"CUSTOMER_NAME",title:"客户名称"},
+                {field:"VIN",title:"VIN"},
+    			{field:"VEHICLE_PRICE",title:"车辆价格",numberFormat : {decimal:2}},
+    			{field:"BRAND_NAME",title:"品牌"},
+    			{field:"SERIES_NAME",title:"车系"},
+    			{field:"MODEL_NAME",title:"车型"},
+    			{field:"BRAND_CODE",title:"品牌",inputSelectFormat : {url:"/basedata/brandsdict",model:"manage",labelValue:"BRAND_CODE",lableDesc:"BRAND_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"},visible:false},
+    			{field:"SERIES_CODE",title:"车系",inputSelectFormat : {url:"/basedata/selectSeries",model:"manage",labelValue:"SERIES_CODE",lableDesc:"SERIES_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"},visible:false},
+    			{field:"MODEL_CODE",title:"车型",inputSelectFormat : {url:"/basedata/intentionModel",model:"manage",labelValue:"MODEL_CODE",lableDesc:"MODEL_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"},visible:false},
+    			{field:"AUDITED_BY",title:"经理审核人",minWidth:10,inputSelectFormat : {url:"/basedata/employees/-1/salesConsultant",model:"manage",labelValue:"USER_ID",lableDesc:"USER_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"},visible:false},
+    			{field:"IS_ACCOUNTANT_AUDITING",title:"隐藏",visible:false},
+    			{field:"VER",title:"隐藏",visible:false},
+    			{field:"SO_STATUS",title:"隐藏",visible:false},
+    			{field:"IS_SPEEDINESS",title:"隐藏",visible:false},
+    			{field:"CONFIG_NAME",title:"配置"},
+    			{field:"CONFIG_CODE",title:"配置",visible:false},
+    			{field:"COLOR_NAME",title:"颜色"},
+    			{field:"COLOR_CODE",title:"颜色",visible:false},
+    			{field:"CUSTOMER_TYPE",title : "客户类型",codeFormat : {type:"dict",codeType:"1018"}},
+    			{field:"CONTACTOR_NAME",title:"联系人"},
+    			{field:"MOBILE",title:"手机"},
+    			{field:"CONTRACT_NO",title:"合约编号"},
+    			{field:"CONTRACT_DATE",title:"签约日期",dateFormat : {format:"YYYY-MM-DD"}},
+    			{field:"CT_CODE",title:"证件类型",codeFormat : {type:"dict",codeType:"1239"}},
+     			{field:"CERTIFICATE_NO",title:"证件号码"},
+    			{field:"OTHER_AMOUNT",title:"其他金额",numberFormat : {decimal:2}},
+    			{field:"OTHER_AMOUNT_OBJECT",title:"其他金额对象"},
+    			{field:"OTHER_PAY_OFF",title:"其他金额是否已付",codeFormat : {type:"dict",codeType:"1278"}},
+    			{field:"ESC_ORDER_NO",title : "官网订单编号"},
+    			{field:"ESC_ORDER_STATUS",title : "官网订单状态",codeFormat : {type:"dict",codeType:"1619"}},
+                {field:"ESC_TYPE",title : "官网客户类型",codeFormat : {type:"dict",codeType:"1618"}},
+    			{field:"DELIVERY_MODE_ELEC",title:"官网交车方式",codeFormat : {type:"dict",codeType:"1600"}},
+    			{field:"REMARK",title:"备注"},
+    			{radio:true,sortable : true}
+    			], onClickRow(rowData, element){
+					 $("#up",container).removeAttr("disabled");
+					 $("#audit",container).removeAttr("disabled");
+					 $("#upAudit",container).removeAttr("disabled");
+					 $("#auditHis",container).removeAttr("disabled");
+				}
+		});
+		//弹出页面打开前执行函数
+		$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+			var selectRow = $("#dms_table",container).dmsTable().getSelections();
+			if(!selectRow){
+				dmsCommon.tip({status:"warning",msg:"请单击选择表格数据"});
+				returnResult.status = false;
+				return ;
+			}
+			returnResult.status = true;
+		});
+	});
+</script>      

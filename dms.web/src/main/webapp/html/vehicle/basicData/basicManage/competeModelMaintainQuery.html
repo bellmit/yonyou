@@ -1,0 +1,67 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">选择级别</label>
+							<div class="col-xs-8">
+								<select id="status" name="status" class="bs-select form-control" data-type="oemDict" data-dictCode="2035" data-value="20351001" >
+								</select>
+							</div>
+						</div>
+					</div>			
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i class="fa fa-search"></i> 查询 </a> 
+							<a href="javascript:;" class="btn blue"><i class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >竞品品牌维护</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" data-url="vehicle/basicData/basicManage/addCompeteModelMaintainBrand.html" data-width="modal-lg"
+								data-toggle="modal"> <i class="fa fa-plus-square"></i> 新增 </a> 
+							<a href="javascript:;" data-url="/competeModelMaintain/sent" data-model="vehicle" data-method="PUT" data-toggle="confirmation"
+								class="btn btn-outline " ><i class="fa fa-download"></i>下发</a>
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/competeModelMaintain",
+			rowID : "BRAND_NAME",
+			sortName : "BRAND_ID",
+			sortOrder : "asc",
+			isQueryFirst : false,
+			columns : [ 
+			    {field : "BRAND_ID",title : "操作",operateFormat : [
+                      {type:"edit",url:"vehicle/basicData/basicManage/editcompeteModelMaintainBrand.html",openWidth:"modal-lg",doubleClick:true}
+					  ]
+				},   
+			    {field : "BRAND_NAME"	,title : "品牌代码"},
+				{field : "REMARK"		,title : "品牌名称"}, 
+				{field : "STATUS"		,title : "状态",codeFormat : {type:"oemDict",codeType:"1001"}}
+			]
+
+		});
+	});
+</script>

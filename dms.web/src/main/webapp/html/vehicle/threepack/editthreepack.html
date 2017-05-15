@@ -1,0 +1,80 @@
+<div class="dms-edit ajaxrest" data-url="/minclass/{[ID]}" data-model="vehicle" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">三包小类信息修改</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+								<div class="row">
+					<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">项目编码</label>
+							<div class="col-xs-8">
+									<input type="text"  readonly="readonly"
+										id="itemNo" class="form-control " 
+										name="itemNo" data-fieldName="ITEM_NO">
+							</div>
+						</div>
+					</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">项目名称</label>
+								<div class="col-xs-8">
+									<input type="text"  readonly
+										id="itemName" class="form-control " 
+										name="itemName" data-fieldName="ITEM_NAME">
+								</div>
+							</div>
+						</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">小类代码</label>
+								<div class="col-xs-8">
+									<input type="text"  
+										id="minclassNo" class="form-control"
+										name="minclassNo" data-fieldName="MINCLASS_NO">
+								</div>
+							</div>
+						</div>
+							<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">小类名称</label>
+								<div class="col-xs-8">
+									<input type="text"  
+										id="minclassName" class="form-control"
+										name="minclassName" data-fieldName="MINCLASS_NAME">
+								</div>
+							</div>
+						</div>
+				</div>
+				</div>
+			</div>
+		
+		<div class="modal-footer center-block">
+			<a data-url="/minclass/{[ID]}" data-model="vehicle" data-method="PUT"
+				data-callBack="true" class="btn blue"
+				data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+			</a> <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one("onload.dms",function(event,container){
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	});
+</script>

@@ -1,0 +1,79 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">预先拣料明细</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-xs-12 col-md-12 col-lg-12">
+					<div class="panel panel-default table-panel">
+						<div class="panel-body">
+							<table class="table table-striped table-bordered table-hover table-responsive"
+								id="dms_tabl"></table>
+						</div>
+					</div>
+				</div> 					
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/basedata/preGatherStuff/export/imports" data-model="part" data-method="downLoad" data-toggle="confirmation"
+						class="btn blue "><i class="fa fa-download"/>Excel</a>
+			<a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>关闭</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	var selectRow = $("#dms_table",getElementContext()).dmsTable().getSelections();
+	var rono = selectRow[0]['RO_NO']
+	new Datatable().initPagination({
+			src : "dms_tabl",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/basedata/preGatherStuff/"+rono,
+			rowID : "",
+			sortName : "",
+			clickToSelect: false,
+			sortOrder : "asc",
+			autoHeight:false,
+			undefinedText : "",
+			columns : [
+				{field : "BATCH_NO",title : "操作",operateFormat : [
+                    {type:"edit",url:"part/basedata/partstock/editPartStock.html",openWidth:"modal-lg",doubleClick:true}
+                ]},
+                {field:"BATCH_NO",title:"流水号",inputHiddenFormat:{}},
+    			{field:"STORAGE_CODE",title:"仓库",inputHiddenFormat:{}},
+    			{field:"STORAGE_POSITION_CODE",title:"库位",inputHiddenFormat:{}},
+    			{field:"PART_NO",title:"配件代码",inputHiddenFormat:{}},
+    			{field:"PART_NAME",title:"配件名称",inputHiddenFormat:{}},
+    			{field:"UNIT_CODE",title:"单位",inputHiddenFormat:{}},
+    			{field:"PART_QUANTITY",title:"配件数量",inputHiddenFormat:{}},
+    			{field:"PART_SALES_PRICE",title:"配件销售单价",inputHiddenFormat:{}},
+    			{field:"PART_SALES_AMOUNT",title:"配件销售金额",inputHiddenFormat:{}},
+    			{field:"PRE_CHECK",title:"是否预拣",inputSelectFormat : {type : "dict",codeType : "1278"}},
+    			{field:"RECEIVER",title:"领料人",inputHiddenFormat:{}}
+			]
+		});
+	
+		
+	
+		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			debugger
+			var selectRow = $("#dms_table",container).dmsTable().getSelections();
+			var shortid = "";
+			$.each(selectRow,function(index,row){
+				shortid += row.SHORT_ID+","+$("#IS_URGENT"+row.index).val()+","+$("#CLOSE_STATUS"+row.index).val()+";";
+			});
+			$("#shortid",container).val(shortid);
+			returnResult.status = true;	
+		});	
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			$("#dms_table",container).dmsTable().refreshTableWithForm();
+		});
+	});
+	
+</script>

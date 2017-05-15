@@ -1,0 +1,193 @@
+<div class="dms-edit">
+	<div class="modal-header">
+		<div class="modal-title">项目派工</div>
+		<div class="modal-close">
+			<a data-dismiss="modal" class="btn btn-lg"> <i
+				class="fa fa-remove"></i></a>
+		</div>
+	</div>
+	<div class="modal-body">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="pannel-name">项目派工</div>
+				<div class="pannel-button">
+					<a data-url="repair/order/repair/allOrderWorkEdit.html"
+						class="btn btn-outline" data-toggle="modal" data-width="modal-lg">
+						<i class="fa fa-edit"></i> 整单派工
+					</a> 
+					<a data-url="repair/order/repair/orderWorkEdit.html" data-beforeShowEvent='true'
+						class="btn btn-outline" data-toggle="modal" data-width="modal-lg">
+						<i class="fa fa-edit"></i> 选择派工
+					<a id="deleteSelectDispatch" name="deleteSelectDispatch"  data-model="repair" data-method="DELETE" data-url=""
+					    data-toggle="confirmation" data-callBack="true" class="btn btn-outline"  data-beforeRequest="true">
+						<i class="fa fa-minus-square"></i>删除派工
+					</a>
+				</div>
+		
+			<!-- panel-heading end -->
+				<div class="panel panel-default table-panel">
+							<div class="panel-heading">
+								<div class="pannel-name">维修项目</div>
+								<div class="pannel-button">
+								</div>
+							</div>
+							<div class="panel-body">
+								<table
+									class="table table-striped table-bordered table-hover table-responsive"
+									id="dms_tablepartitem"></table>
+								</div>
+				</div>
+				<div class="panel panel-default table-panel">
+							<div class="panel-heading">
+								<div class="pannel-name">维修项目派工明细</div>
+								<div class="pannel-button">
+									<div class="btn-group btn-group-sm">
+									<a class="btn btn-outline"
+											data-url="repair/order/repair/repairOrder/subentryAssignEdit.html"
+											data-toggle="modal" data-width="modal-lg" ><i
+											class="fa fa-plus-square"></i> 新增</a>
+									</div>
+								</div>
+							</div>
+							<div class="panel-body">
+								<table
+									class="table table-striped table-bordered table-hover table-responsive"
+									id="dms_tableitem"></table>
+							</div>
+				</div>
+			<!-- panel-body end -->
+		</div>
+		<!-- table-panel end -->
+	</div>
+	<!-- modal-body end -->
+
+	</div>
+	
+	<div class="modal-footer center-block">
+		<a data-url="/repairDispatcing/repair/setOrderDispatchDetail" data-model="repair" data-method="PUT" data-beforeRequest='true'
+			data-callBack="true" class="btn blue"
+			data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> 
+			<a data-dismiss="modal" class="btn btn-sm blue"><i class="fa fa-undo"></i>取消</a>
+	</div>
+</div>
+
+<script type="text/javascript">
+	
+	$(document).one("onload.dms",function(event,container){
+			new Datatable().initPagination({
+				src : "dms_tablepartitem",
+				container:container,
+				rowID:"LABOUR_CODE",
+				sortName : "LABOUR_CODE", 
+				sortOrder : "asc",
+				pageSize:5,
+				autoHeight:false,
+				url : dmsCommon.getDmsPath()[""] + "",
+				columns : [ 
+		
+				            {field:"TROUBLE_DESC",title:"故障描述"},
+				            {field:"TROUBLE_CAUSE",title:"故障原因"},
+				            {field:"LABOUR_CODE",title:"维修项目代码"},
+				            {field:"LABOUR_NAME",title:"维修项目名称"},
+				            {field:"LOCAL_LABOUR_CODE",title:"行管项目代码"},
+				            {field:"LOCAL_LABOUR_NAME",title:"行管项目名称"},
+				            {field:"LABOUR_AMOUNT",title:"工时费"},
+				            {field:"ASSIGN_LABOUR_HOUR",title:"派工工时" },
+				            {field:"TECHNICIAN",title:"技师"},
+				            {field:"NEEDLESS_REPAIR",title:"是否不修" },
+				            {field:"ASSIGN_TAG",title:"已派工"}, ],
+				
+			});
+			
+		
+			new Datatable().initPagination({
+				src : "dms_tableitem",
+				container:container,
+				rowID:"ASSIGN_TIME",
+				sortName : "ASSIGN_TIME", 
+				sortOrder : "asc",
+				pageSize:5,
+				autoHeight:false,
+				url : dmsCommon.getDmsPath()[""] + "",
+				columns : [ 
+					    {field : "TECHNICIAN",title : "操作",operateFormat : [
+	            			]
+	        	   		 }, 
+				            {field:"TECHNICIAN",title:"技师"},
+				            {field:"LABOUR_POSITION_CODE",title:"工位"},
+				            {field:"ASSIGN_LABOUR_HOUR",title:"分项工时"},
+				            {field:"ASSIGN_TIME",title:"派工时间"},
+				            {field:"ITEM_START_TIME",title:"开工时间"},
+				            {field:"ESTIMATE_END_TIME",title:"预计完工时间"},
+				            {field:"ITEM_END_TIME",title:"完工时间"},
+				            {field:"CHECKER",title:"检验人" },
+				            ],
+							
+			});
+		
+		
+		});
+		
+	//获取选中的工单
+		/* 	var workerOrderId;
+		+function(){
+			workerOrderId = $("#DispatchWorkOrderTable",getElementContext()).dmsTable().getFirstSelection().RO_ID;
+// 			$("#deleteAllDispatch",container).attr("data-url","/repairDispatcing/repair/"+workerOrderId+"/deleteAllDispatchDetail");
+// 			$("#deleteSelectDispatch",container).attr("data-url","/repairDispatcing/repair/"+workerOrderId+"/deleteAllDispatchDetail");
+		}();
+
+		//保存
+		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			var tab=$("#repairOrderDispatchTable tbody");
+			var rows=$("tr",tab).length;
+			for(var i=0;i<rows;i++){
+			//	var startTime=$("#repairOrderDispatchTable",getElementContext()).dmsTable().getRowDataByIndex(i).ITEM_START_TIME;
+				var startTime=$("tr:eq("+i+") td:eq(7)",tab).text();	
+				var endTime=$("tr:eq("+i+") td:eq(10) input[id^=ITEM_END_TIME]",tab).val();
+			
+				var start=new Date(startTime.replace("-", "/").replace("-", "/")); 
+				var end=new Date(endTime.replace("-", "/").replace("-", "/")); 
+				if(start>end){
+					dmsCommon.tip({status:"warning",msg:"完工时间不能小于开工时间"});
+					returnResult.status = false;
+					return;
+				}
+			}
+			$("#repairOrderDispatchTable",getElementContext()).dmsTable().refreshTableWithForm();
+			returnResult.status = true;
+		});
+		
+		//选择删除
+		$("a[name='deleteSelectDispatch']",container).on("beforeRequest.dms",function(event,returnResult){
+			var labourIds = $("#repairProForDispatch",container).dmsTable().getSelectionIds();
+			if(!labourIds){
+				dmsCommon.tip({status:"warning",msg:"请选择维修项目"});
+				returnResult.status = false;
+				return;
+			}
+
+			if(labourIds.indexOf(",")!=-1){
+				var labourIdsArr =  labourIds.split(",");
+				labourIds = labourIdsArr.join("-");
+			}
+			$(this).attr("data-url","/repairDispatcing/repair/"+labourIds+"/deleteSelectDispatchDetail");
+			returnResult.status = true;
+		});	$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+			var selectRow = $("#repairProForDispatch",container).dmsTable().getFirstSelection();
+			if(!selectRow){
+				dmsCommon.tip({status:"warning",msg:"请选择维修项目"});
+				returnResult.status = false;
+				return ;
+			}
+			returnResult.status = true;
+		});
+		
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			$("#DispatchWorkOrderTable",getElementContext()).dmsTable().refreshTableWithForm();
+			$("#repairOrderDispatchTable",getElementContext()).dmsTable().refreshTableWithForm();
+			$("#repairProForDispatch",container).dmsTable().refreshTableWithForm();
+			
+		}); 
+	});*/
+
+</script>

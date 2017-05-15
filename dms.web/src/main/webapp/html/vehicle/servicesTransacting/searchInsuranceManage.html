@@ -1,0 +1,79 @@
+<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<a class="btn btn-outline"
+				data-url="vehicle/servicesTransacting/searchInsProposal.html"
+				data-toggle="modal" data-width="modal-lg" data-beforeShowEvent='true'><i
+				class="fa fa-plus-square"></i>添加 </a>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="insurancManage">
+			</table>
+		</div>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+	new Datatable().initPagination({
+		src : "insurancManage",
+		container:container,
+		rowID:"ITEM_ID",
+		parentTable:"vehicleList",
+		url : dmsCommon.getDmsPath()["vehicle"] + "/ordermanage/servicesTransacting/{[VIN]}/insurance",
+		sortName : "INSURANCE_TYPE_CODE", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+		sortOrder : "asc",
+		pageSize:5,
+		columns : [
+				{title : "操作",operateFormat : [ {type : "localDel",onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){
+					if(row.ITEM_ID != null){
+						dmsCommon.tip({status:"warning",msg:"当前数据不可删除"});//总共的状态类型：info、success、error、warning
+						returnResult.status = false;
+        	        }
+				}}]}, 
+			    {field : "INSURANCE_TYPE_CODE",inputField:"insuranceTypeCode", title : "险种",inputSelectFormat : {url:"/ordermanage/servicesTransacting/selectInsurance",model:"vehicle",labelValue:"INSURANCE_TYPE_CODE",lableDesc:"INSURANCE_TYPE_NAME"}}, 
+	            {field : "INSURATION_CODE",inputField:"insurationCode", title : "保险公司",inputSelectFormat : {url:"/ordermanage/servicesTransacting/selectiInsuration",model:"vehicle",labelValue:"INSURATION_CODE",lableDesc:"INSURATION_NAME"}},
+	            {field : "INSURANCE_BEGIN_DATE",inputField:"insuranceBeginDate", title : "保险开始日期",inputDateFormat : {}},	
+	            {field : "INSURANCE_END_DATE",inputField:"insuranceEndDate", title : "保险结束日期",inputDateFormat : {}},
+	            {field : "INSURANCE_BILL_NO",inputField:"insuranceBillNo", title : "保单号",inputNumberFormat : {}},
+	            {field : "RE_INSURE",inputField:"reInsure", title : "是否续保",inputSelectFormat : { type : "dict", codeType : "1278" ,defaultValue:"12781002",validate:{validateClass:"required"}}},
+	            {field : "ACTUAL_EXPENDING",inputField:"actualExpending", title : "实际费用",inputNumberFormat : {decimal : 2,validate:{validateClass:"digits",validateAttr:'maxDigit="8"'}}},
+	            {field : "COMPLETED_BY",inputField:"completedBy", title : "专员",inputSelectFormat : {url:"/basedata/employees/-1/salesConsultant",model:"manage",labelValue:"USER_ID",lableDesc:"USER_NAME"}},
+	            {field : "COMPLETED_DATE",inputField:"completedDate2", title : "完工日期",inputDateFormat : {}},
+	            {field : "INSURANCE_INTRO_MAN",inputField:"insuranceIntroMan", title : "保险介绍人",inputTextFormat : {}},
+	            //{field : "RECORD_DATE",inputField:"recordDate", title : "登记日期",inputDateFormat : {}},
+	            {field : "RECORDER",inputField:"recorder", title : "登记人",inputSelectFormat : {url:"/basedata/employees/-1/salesConsultant",model:"manage",defaultValue:"{[userInfo.userId]}",validate:{validateClass:"required"},labelValue:"USER_ID",lableDesc:"USER_NAME"}},
+	            {field : "IS_INSURE_REMIND",inputField:"isInsureRemind", title : "是否续保提醒",inputSelectFormat : { type : "dict", codeType : "1278" ,defaultValue:"12781002",validate:{validateClass:"required"}}},
+	            {field : "INSURANCE_BUY_DATE",inputField:"insuranceBuyDate", title : "投保日期",inputDateFormat : {}},
+	            {field : "IS_SELF_COMPANY_INSURANCE",inputField:"isSelfCompanyInsurance", title : "是否本公司投保",inputSelectFormat : { type : "dict", codeType : "1278" ,defaultValue:"12781002",validate:{validateClass:"required"}}},
+	            {field : "REMARK",inputField:"remark", title : "备注",inputTextFormat : {}},
+	            {field : "ITEM_ID",inputField:"itemId", title : "",inputTextFormat : {validate:{validateClass:"hidden"}}}
+	            
+		       ]
+	});
+	
+	/* $("a[id='insurancManage']",getElementContext()).on("dms.click",function(event){
+		$("#insurancManage",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["vehicle"] + "/ordermanage/servicesTransacting/"+$("#VIN").val()+"/insurance");
+	 });
+	 $("a[id='OrderService']",getElementContext()).click();
+		$("#VIN").bindChange(function(obj){
+	    $("#insurancManage",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["vehicle"] + "/ordermanage/servicesTransacting/"+$("#VIN").val()+"/insurance");
+	}); */
+		
+	//触发点击事件
+	$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+		var vin = $("#VIN").val();
+		if(vin==""){
+			dmsCommon.tip({status:"warning",msg:"请单击选择父表格数据"});//总共的状态类型：info、success、error、warning
+			returnResult.status = false;
+		}else{
+			/* var parentTableRow = $("#vehicleList",getElementContext()).dmsTable().getParentTabelRow();
+			//设置页面初始化值
+			$(this).data("pageData",parentTableRow); */
+	
+			returnResult.status = true;
+		}
+	});	
+	
+});	
+</script>

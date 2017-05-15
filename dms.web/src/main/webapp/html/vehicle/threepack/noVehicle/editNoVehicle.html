@@ -1,0 +1,113 @@
+<div class="dms-edit ajaxrest" data-url="/noVehicle/{[ID]}" data-model="vehicle" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">非三包车辆信息修改</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="modal-body">
+					
+					
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">VIN</label>
+								<div class="col-xs-8">
+									<input type="text" id="vin" name="vin" readonly 	class="form-control " data-fieldName="VIN">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车牌号</label>
+								<div class="col-xs-8">
+									<input type="text" id="licenseNo" name="licenseNo" readonly
+										class="form-control "	data-fieldName="LICENSE_NO">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车主姓名</label>
+								<div class="col-xs-8">
+									<input type="text" id="ctmName" name="ctmName" readonly
+										class="form-control "	data-fieldName="CTM_NAME">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">电话</label>
+								<div class="col-xs-8">
+									<input type="text" id="mainPhone" name="mainPhone" readonly
+									class="form-control "	data-fieldName="MAIN_PHONE">
+								</div>
+							</div>
+						</div>
+												<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">购车日期</label>
+								<div class="col-xs-8 ">
+									<input type="text" id="purchaseDate" name="purchaseDate" readonly
+									class="form-control "	data-fieldName="PURCHASE_DATE">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车型</label>
+								<div class="col-xs-8">
+									<input type="text" id="modelName" name="modelName"  readonly
+									class="form-control "	data-fieldName="MODEL_NAME">
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">备注</label>
+									<div class="col-xs-8">
+										<textarea id="remark" name="remark"
+											data-fieldName="REMARK">
+											</textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/noVehicle/{[ID]}" data-model="vehicle" data-method="PUT"
+				data-callBack="true" class="btn blue" data-toggle="confirmation">
+				<i class="fa fa-save"></i>保存
+			</a> <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				//新增页面的回调函数
+				$("a[data-callBack='true']", container).on(
+						"callBack.dms",
+						function(event, response) {
+							//关闭窗口
+							$("a[data-dismiss='modal']", container).click();
+							//刷新表格
+							$("#dms_table", getElementContext()).dmsTable()
+									.refreshTableWithForm();
+						});
+			});
+</script>

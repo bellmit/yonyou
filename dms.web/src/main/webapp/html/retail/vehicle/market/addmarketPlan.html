@@ -1,0 +1,344 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">活动计划编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="tabbable-retail ">
+				<div class="tab-content">
+					<div class="tab-pane fade in active" id="tab_basreceive">
+						<div class="panel-body" data-tableRetailSelect="true">
+							<div class="row">
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">活动编号</label>
+										<div class="col-xs-6">
+											<!--/span-->
+											<div class="input-group">
+												<input type="text" class="form-control " id="campaignCode"
+													disabled="disabled" name="campaignCode"
+													data-fieldName="CAMPAIGN_CODE" /> <input type="hidden"
+													class="form-control" id="campaignCode" name="campaignCode"
+													data-fieldName="CAMPAIGN_CODE" /> <span
+													class="input-group-btn">
+												</span>
+											</div>											
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6"><span
+											style="color: red;">*</span>市场活动名称</label>
+										<div class="col-xs-6">
+											<input type="text" class="form-control required"
+												id="campaignName" name="campaignName">
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">申请时间</label>
+										<div class="col-xs-6">
+											<div class="input-group input-daterange" data-defaultDays="7">
+												<input type="text" class="form-control" readonly
+													name="applyDate" id="applyDate"><span
+													class="input-group-btn">
+													<button class="btn default input-clear" type="button">
+														<i class="fa fa-close"></i>
+													</button>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<!-- <div class="col-xs-12 col-sm-6 col-md-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6"><span
+											style="color: red;">*</span>申请人</label>
+										<div class="col-xs-6">
+											<select id="applicant" name="applicant"
+												class="bs-select form-control" data-model="manage"
+												data-value="{[userInfo.userId]}" data-url="/basedata/employees/-1/salesConsultant"
+												data-labelValue="APPLICANT" data-lableDesc="APPLICANT">
+											</select>
+										</div>
+									</div>
+								</div> -->
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6"><span
+											style="color: red;">*</span>申请人</label>
+										<div class="col-xs-6">
+											<select id="applicant" name="applicant" data-fieldName="APPLICANT"
+												class="bs-select form-control "
+												data-url="/basedata/employees/-1/salesConsultant"
+												data-model="manage" data-labelValue="USER_ID"
+												data-value="{[userInfo.userId]}" data-lableDesc="USER_NAME">
+											</select>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6"><span
+											style="color: red;">*</span>市场活动发起方式</label>
+										<div class="col-xs-6">
+											<select id="campaignPerformType" name="campaignPerformType"	
+												class="bs-select form-control required" data-dictCode="1299" data-excludeItems = "12991003">
+											</select>
+										</div>
+									</div>
+								</div>
+								<!-- /span -->
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label class="control-label col-xs-2">地点</label>
+										<div class="col-xs-10">
+											<input type="text" class="form-control" id="spot" name="spot">
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label class="control-label col-xs-2">目标客户</label>
+										<div class="col-xs-10">
+											<input type="text" class="form-control" id="targetCustomer"
+												name="targetCustomer">
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">活动预算</label>
+										<div class="col-xs-6">
+											<input type="text" class="form-control number" id="campaignBudget"
+												name="campaignBudget">
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-4">
+
+									<div class="form-group">
+										<label class="control-label col-xs-6"><span
+											style="color: red;">*</span>开始日期</label>
+										<div class="col-xs-6">
+											<div class="input-group date date-picker"
+												data-defaultDays="7">
+												<input type="text" class="form-control required" readonly
+													data-fieldName="BEGIN_DATE" name="beginDate" data-defaultDays="7"
+													id="startBegin" value=""> <span
+													class="input-group-btn">
+													<button class="btn default input-clear" type="button">
+														<i class="fa fa-close"></i>
+													</button>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- /span -->
+								<div class="col-xs-12 col-sm-6 col-md-4">
+
+									<div class="form-group">
+										<label class="control-label col-xs-6"><span
+											style="color: red;">*</span>结束日期</label>
+										<div class="col-xs-6">
+											<div class="input-group date date-picker">
+												<input type="text" class="form-control required" readonly
+													name="endDate" id="endDate" value="" data-defaultDays="7"
+													data-fieldName="END_DATE"> <span
+													class="input-group-btn">
+													<button class="btn default input-clear" type="button">
+														<i class="fa fa-close"></i>
+													</button>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">当前审批人</label>
+										<div class="col-xs-6">
+											<div>
+												<input class="form-control" id="curAuditor"
+													name="curAuditor" type="text" data-fieldName="CUR_AUDITOR" 
+													disabled="disabled">
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">当前审批状态</label>
+										<div class="col-xs-6">
+											<select id="curAuditingStatus" name="curAuditingStatus" data-value="13621001" disabled="disabled" 
+												class="bs-select form-control" data-dictCode="1362" data-excludeItems = "13621007,13621008,13621009,13621010">
+											</select>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label class="control-label col-xs-4 col-sm-2 col-md-2">其他说明</label>
+										<div class="col-xs-8 col-sm-10 col-md-10">
+											<textarea id="memo" name="memo" data-fieldName="MEMO"
+												class="form-control" rows="3" cols=""></textarea>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label class="control-label col-xs-2">参考网址</label>
+										<div class="col-xs-10">
+											<input type="text" class="form-control" id="refWebLink"
+												name="refWebLink" data-fieldName="REF_WEB_LINK">
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">联系负责人</label>
+										<div class="col-xs-6">
+											<input type="text" class="form-control" id="principalName"
+												name="principalName" data-fieldName="PRINCIPAL_NAME">
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">负责人联系电话</label>
+										<div class="col-xs-6">
+											<input type="text" class="form-control phone" id="principalPhone"
+												maxlength="11" name="principalPhone" data-fieldName="PRINCIPAL_PHONE">
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">负责人电子邮件</label>
+										<div class="col-xs-6">
+											<input type="text" class="form-control email" id="principalEmail"
+												name="principalEmail" data-fieldName="PRINCIPAL_EMAIL">
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">材料分发联系人</label>
+										<div class="col-xs-6">
+											<input type="text" class="form-control" id="distributerName"
+												name="distributerName" data-fieldName="DISTRIBUTER_NAME">
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">分发人联系电话</label>
+										<div class="col-xs-6">
+											<input type="text" class="form-control phone" id="distributerPhone"
+												maxlength="11" name="distributerPhone" data-fieldName="DISTRIBUTER_PHONE">
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">分发人电子邮件</label>
+										<div class="col-xs-6">
+											<input type="text" class="form-control email" id="distributeEmail"
+												name="distributerEmail" data-fieldName="DISTRIBUTER_EMAIL">
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 col-md-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">目标展厅客流量</label>
+										<div class="col-xs-6">
+											<input type="text" class="form-control number" maxlength="8" id="targetTraffic"
+												name="targetTraffic"  data-fieldName="TARGET_TRAFFIC">
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-6 col-md-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">目标展厅新增订单数</label>
+										<div class="col-xs-6">
+											<input type="text" class="form-control number" maxlength="8" id="targetNewOrders"
+												name="targetNewOrders" data-fieldName="TARGET_NEW_ORDERS">
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-6 col-md-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">目标新增潜在客户</label>
+										<div class="col-xs-6">
+											<input type="text" class="form-control number" maxlength="8"
+												id="targetNewCustomers" name="targetNewCustomers" data-fieldName="TARGET_NEW_CUSTOMERS">
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-6 col-md-4">
+									<div class="form-group">
+										<label class="control-label col-xs-6">目标新增车辆数</label>
+										<div class="col-xs-6">
+											<input type="text" class="form-control number" maxlength="8" id="targetNewVehicles"
+												name="targetNewVehicles" data-fieldName="TARGET_NEW_VEHICLES">
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/markting/marktingPlan/plan" data-model="retail"
+				data-method="POST" data-callBack="true" class="btn blue"
+				data-toggle="confirmation"> <i class="fa fa-save "></i>保存
+			</a> <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				//新增页面回调函数
+				$("a[data-callBack='true']", container).on(
+						"callBack.dms",
+						function(event, response) {
+							//关闭窗口
+							$("a[data-dismiss='modal']", container).click();
+							//刷新表格
+							$("#campaign_plan", getElementContext()).dmsTable()
+									.refreshTableWithForm();
+						});
+			});
+</script>

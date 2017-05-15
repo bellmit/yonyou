@@ -1,0 +1,175 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">角色信息新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">角色类别</label>
+								<div class="col-xs-8">
+									<select id="roleType" name="roleType" class="bs-select form-control required" data-type="oemDict" data-dictCode="1002" data-value="10021001" data-existsDefault="false" >
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">角色代码</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control required" id="roleName" name="roleName">
+								</div>
+							</div>
+						</div>		
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-lg-3">角色名称</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control required" id="roleDesc" name="roleDesc">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">状态</label>
+								<div class="col-xs-8">
+									<input type="hidden" id="nowTree" name="nowTree" />
+									<select id="roleStatus" name="roleStatus" class="bs-select form-control required" data-type="oemDict" data-dictCode="1001" data-value="10011001" data-existsDefault="false"  >
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+					<div class="pannel-name" >功能列表</div>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="panel-body " style="border: solid 1px #DDDDDD; height: 350px; overflow-y: scroll; overflow-x: hidden">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12">
+								<div id="using_json_2"></div>
+								<div id="using_json_3" class="hidden"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<div class="form-actions">
+				<a id="saveRole" data-model="web" data-method="POST"
+					data-url="/role" data-callBack="true"
+					class="btn blue" data-beforeRequest="true" data-toggle="confirmation"><i
+					class="fa fa-save"></i> 保存 </a> 
+					<a data-dismiss="modal" class="btn blue"><i
+					class="fa fa-undo"></i>取消</a>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+  var listTree=new Object();
+  
+  var roleId = "";
+  roleId = "roleType="+$("#roleType",container).val()+"&roleId=-1";
+  //初始化属性结构
+  dmsCommon.ajaxRestRequest({
+		url : dmsCommon.getDmsPath()["web"] + "/role/menuData",
+		type : 'GET',
+		data :roleId,
+		sucessCallBack : function(data) {
+			listTree.treejson=data.treejson;
+			$('#using_json_2',container).jstree({
+				'core' : {'data' : data.treejson },
+				'types' : { "default" : {"icon" : "fa fa-folder icon-state-warning icon-lg"},  
+		                    "file" : {"icon" : "fa fa-file icon-state-warning icon-lg"}  
+		                  }, 
+				'checkbox' : { 'keep_selected_style' : true, 
+					        'whole_node':false,
+					        'tie_selection':false }, 
+				plugins : ["checkbox" , "changed","types","wholerow"]
+				});
+		}
+   }); 
+  
+	//绑定onchange 事件
+	$("[name='roleType']",container).bindChange(function(obj){
+		if(obj.value==10021002){
+			 $("#using_json_2",container).addClass("hidden");
+			 $("#using_json_3",container).removeClass("hidden");
+			//初始化属性结构
+			  roleId = "roleType="+$("#roleType",container).val()+"&roleId=-1";
+			  dmsCommon.ajaxRestRequest({
+					url : dmsCommon.getDmsPath()["web"] + "/role/menuData",
+					type : 'GET',
+					data :roleId,
+					sucessCallBack : function(data) {
+						listTree.treejson=data.treejson;
+						$('#using_json_3',container).jstree({
+							'core' : {'data' : data.treejson },
+							'types' : { "default" : {"icon" : "fa fa-folder icon-state-warning icon-lg"},  
+					                    "file" : {"icon" : "fa fa-file icon-state-warning icon-lg"}  
+					                  }, 
+							'checkbox' : { 'keep_selected_style' : true, 
+								        'whole_node':false,
+								        'tie_selection':false }, 
+							plugins : ["checkbox" , "changed","types","wholerow"]
+							});
+					}
+			   }); 
+		}else{
+			 $("#using_json_2",container).removeClass("hidden");
+			 $("#using_json_3",container).addClass("hidden");
+		}			
+	});
+	
+	//保存前获取选中菜单
+	$("a[data-beforeRequest='true']",getElementContext()).on("beforeRequest.dms",function(event,returnResult){
+		// 进行ajax 请求
+		var flag = true;
+		dmsCommon.ajaxRestRequest({
+			url : dmsCommon.getDmsPath()["web"] + "/role/checkRole/"+$("#roleName",container).val(),
+			type : 'GET',
+			async:false,
+			sucessCallBack : function(data) {
+				if(data.STATUS==2){
+					dmsCommon.tip({status:"warning",msg:"该角色已存在，请重新输入！"});
+					flag = false;
+				}else{
+					var type = $("#roleType",container).val();
+					var nodes;
+					if(type==10021001){
+						//获取选中的树checkbox
+					     nodes=$("#using_json_2").jstree("get_checked");
+					}else{
+						//获取选中的树checkbox
+					     nodes=$("#using_json_3").jstree("get_checked");
+					}
+					 listTree.treejson=nodes;
+					 $("#nowTree",container).setDmsValue(listTree.treejson);
+				}
+			}
+		});
+		 returnResult.status = flag; //定义返回值
+	});
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+});
+</script>

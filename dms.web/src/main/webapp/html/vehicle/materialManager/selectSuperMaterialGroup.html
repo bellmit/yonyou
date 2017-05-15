@@ -1,0 +1,145 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+				<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">物料组代码</label>
+							<div class="col-xs-8">
+								<input type="hidden" class="form-control" id="type" name="type" value="2">
+								<input type="text" class="form-control" id="groupCode" name="groupCode">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">物料组名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="groupName" name="groupName">
+							</div>
+						</div>
+					</div>		
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >物料组信息</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+	<div class="modal-footer center-block">
+			 <a class="btn blue" data-onclickEvent="true"><i class="fa fa-save hidden"></i>确定</a> 
+				<a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/materialGroupMaintain/select/materialGroupWin",
+			rowID : "PARENT_GROUP_ID",
+			sortName : "GROUP_LEVEL",
+			sortOrder : "asc",
+			autoHeight:false,
+			isQueryFirst:true,
+			pageSize:5,
+			columns : [ 
+				{radio:true,sortable : false},
+			    {field : "PARENT_GROUP_ID",title : "",visible :false}, 
+			    {field : "PARENT_GROUP_CODE",title : "物料组代码"}, 
+				{field : "GROUP_NAME",title : "物料组名称"}, 
+				{field : "GROUP_LEVEL",title : "物料组级别"}, 
+				{field : "MODEL_YEAR",title : "年款"}, 
+				{field : "STATUS",title : "状态" ,codeFormat : {type:"oemDict",codeType:"1001"}}
+			]
+		});
+		//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			var selectRow = $("#dms_table",container).dmsTable().getFirstSelection();
+				if(selectRow.GROUP_LEVEL==1){
+					$("#LV2",getElementContext()).removeClass("hidden");
+					$("#LV3_1",getElementContext()).addClass("hidden");$("#wxEngine",getElementContext()).setDmsValue("");
+					$("#LV3_2",getElementContext()).addClass("hidden");$("#oileType",getElementContext()).setDmsValue("");
+					$("#LV3_3",getElementContext()).addClass("hidden");$("#ifForec",getElementContext()).setDmsValue("");
+					$("#LV3_4",getElementContext()).addClass("hidden");$("#isEc",getElementContext()).setDmsValue("");
+					$("#LV4_1",getElementContext()).addClass("hidden");$("#modelYear",getElementContext()).setDmsValue("");
+					$("#LV4_2",getElementContext()).addClass("hidden");$("#standardOption",getElementContext()).setDmsValue("");
+					$("#LV4_3",getElementContext()).addClass("hidden");$("#factoryOptions",getElementContext()).setDmsValue("");
+					$("#LV4_4",getElementContext()).addClass("hidden");$("#localOption",getElementContext()).setDmsValue("");
+					$("#LV4_5",getElementContext()).addClass("hidden");$("#pcModleCode",getElementContext()).setDmsValue("");
+					$("#LV4_6",getElementContext()).addClass("hidden");$("#specialSerieCode",getElementContext()).setDmsValue("");
+					$("#LV4_7",getElementContext()).addClass("hidden");$("#lowCposCode",getElementContext()).setDmsValue("");
+					$("#LV4_8",getElementContext()).addClass("hidden");$("#modelName",getElementContext()).setDmsValue("");
+					$("#LV4_9",getElementContext()).addClass("hidden");$("#pcModle",getElementContext()).setDmsValue("");
+					$("#LV4_10",getElementContext()).addClass("hidden");$("#gear",getElementContext()).setDmsValue("");
+					$("#LV4_11",getElementContext()).addClass("hidden");$("#engine",getElementContext()).setDmsValue("");
+					$("#LV4_12",getElementContext()).addClass("hidden");$("#transmission",getElementContext()).setDmsValue("");
+					$("#LV4_13",getElementContext()).addClass("hidden");$("#engineDesc",getElementContext()).setDmsValue("");
+					$("#LV4_14",getElementContext()).addClass("hidden");$("#transmissionDesc",getElementContext()).setDmsValue("");
+				}else if(selectRow.GROUP_LEVEL==2){
+					$("#LV2",getElementContext()).addClass("hidden");$("#groupType",getElementContext()).setDmsValue("");
+					$("#LV3_1",getElementContext()).removeClass("hidden");
+					$("#LV3_2",getElementContext()).removeClass("hidden");
+					$("#LV3_3",getElementContext()).removeClass("hidden");
+					$("#LV3_4",getElementContext()).removeClass("hidden");
+					$("#LV4_1",getElementContext()).addClass("hidden");$("#modelYear",getElementContext()).setDmsValue("");
+					$("#LV4_2",getElementContext()).addClass("hidden");$("#standardOption",getElementContext()).setDmsValue("");
+					$("#LV4_3",getElementContext()).addClass("hidden");$("#factoryOptions",getElementContext()).setDmsValue("");
+					$("#LV4_4",getElementContext()).addClass("hidden");$("#localOption",getElementContext()).setDmsValue("");
+					$("#LV4_5",getElementContext()).addClass("hidden");$("#pcModleCode",getElementContext()).setDmsValue("");
+					$("#LV4_6",getElementContext()).addClass("hidden");$("#specialSerieCode",getElementContext()).setDmsValue("");
+					$("#LV4_7",getElementContext()).addClass("hidden");$("#lowCposCode",getElementContext()).setDmsValue("");
+					$("#LV4_8",getElementContext()).addClass("hidden");$("#modelName",getElementContext()).setDmsValue("");
+					$("#LV4_9",getElementContext()).addClass("hidden");$("#pcModle",getElementContext()).setDmsValue("");
+					$("#LV4_10",getElementContext()).addClass("hidden");$("#gear",getElementContext()).setDmsValue("");
+					$("#LV4_11",getElementContext()).addClass("hidden");$("#engine",getElementContext()).setDmsValue("");
+					$("#LV4_12",getElementContext()).addClass("hidden");$("#transmission",getElementContext()).setDmsValue("");
+					$("#LV4_13",getElementContext()).addClass("hidden");$("#engineDesc",getElementContext()).setDmsValue("");
+					$("#LV4_14",getElementContext()).addClass("hidden");$("#transmissionDesc",getElementContext()).setDmsValue("");
+				}else{
+					$("#LV2",getElementContext()).addClass("hidden");$("#groupType",getElementContext()).setDmsValue("");
+					$("#LV3_1",getElementContext()).addClass("hidden");$("#wxEngine",getElementContext()).setDmsValue("");
+					$("#LV3_2",getElementContext()).addClass("hidden");$("#oileType",getElementContext()).setDmsValue("");
+					$("#LV3_3",getElementContext()).addClass("hidden");$("#ifForec",getElementContext()).setDmsValue("");
+					$("#LV3_4",getElementContext()).addClass("hidden");$("#isEc",getElementContext()).setDmsValue("");
+					$("#LV4_1",getElementContext()).removeClass("hidden");
+					$("#LV4_2",getElementContext()).removeClass("hidden");
+					$("#LV4_3",getElementContext()).removeClass("hidden");
+					$("#LV4_4",getElementContext()).removeClass("hidden");
+					$("#LV4_5",getElementContext()).removeClass("hidden");
+					$("#LV4_6",getElementContext()).removeClass("hidden");
+					$("#LV4_7",getElementContext()).removeClass("hidden");
+					$("#LV4_8",getElementContext()).removeClass("hidden");
+					$("#LV4_9",getElementContext()).removeClass("hidden");
+					$("#LV4_10",getElementContext()).removeClass("hidden");
+					$("#LV4_11",getElementContext()).removeClass("hidden");
+					$("#LV4_12",getElementContext()).removeClass("hidden");
+					$("#LV4_13",getElementContext()).removeClass("hidden");
+					$("#LV4_14",getElementContext()).removeClass("hidden");
+				}
+			
+			$("div[data-tableSelect='true']",getElementContext()).initHtmlContent(selectRow);
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+		}); 
+	});
+</script>

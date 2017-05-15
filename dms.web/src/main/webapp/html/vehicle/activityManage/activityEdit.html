@@ -1,0 +1,284 @@
+<div class="dms-edit ajaxrest" data-url="/activityMaintain/{[ACTIVITY_ID]}"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">服务活动编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+
+						<div class="col-xs-12 col-sm-6 col-md-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">活动系统编号：</label>
+								<div class="col-xs-8">
+									<input id="activityCode" name="activityCode" data-fieldName="ACTIVITY_CODE" readonly class="form-control required systemCode"  maxlength="5" type="text" />
+									<input id="activityId" name="activityId" data-fieldName="ACTIVITY_ID"   type="hidden" />
+								</div>
+							</div>
+						</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">活动名称：</label>
+								<div class="col-xs-8">
+									<input id="activityName" name="activityName" data-fieldName="ACTIVITY_NAME"  class="form-control required "  type="text" />
+								</div>
+							</div>
+						</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">活动编号：</label>
+								<div class="col-xs-8">
+									<input id="globalActivityCode" name="globalActivityCode" data-fieldName="GLOBAL_ACTIVITY_CODE"  class="form-control required systemCode"  type="text" />
+								</div>
+							</div>
+						</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">活动主题：</label>
+								<div class="col-xs-8">
+									<input id="activityTitle" name="activityTitle" data-fieldName="ACTIVITY_TITLE"  class="form-control required "  type="text" />
+								</div>
+							</div>
+						</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">活动类别:</label>
+								<div class="col-xs-8">
+									<select id="activityType" name="activityType" data-fieldName="ACTIVITY_TYPE" class="bs-select form-control required" data-type="oemDict" data-dictCode="4015"   >
+									</select>
+								</div>
+							</div>
+						</div>
+					
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-6"> 
+							<div class="form-group">
+								<label class="control-label col-xs-4">索赔类型:</label>
+								<div class="col-xs-8">
+									<select id="claimType" name="claimType" data-fieldName="CLAIM_TYPE" class="bs-select form-control required" data-type="oemDict" data-dictCode="4030"   >
+									</select>	
+									</div>	
+							</div>
+						</div> 
+						
+						<div class="col-xs-12 col-sm-6  col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">开始日期：</label>
+								<div class="col-xs-8">
+									<div class="input-group date  date-picker">
+										<input id="startDate" name="startDate" 
+											class="form-control" type="text" value=""  data-fieldName="START_DATE" />		
+												<span  class="input-group-btn">
+											<button class="btn default date-set" type="button" >
+												<i class="fa fa-calendar"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6  col-md-6">							
+							<div class="form-group">
+								<label class="control-label col-xs-4">结束日期：</label>
+								<div class="col-xs-8">
+									<div class="input-group date  date-picker">
+										<input id="endDate" name="endDate" 
+											class="form-control" type="text" value=""  data-fieldName="END_DATE" />		
+												<span  class="input-group-btn">
+											<button class="btn default date-set" type="button" >
+												<i class="fa fa-calendar"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>						
+						
+
+						<div class="col-xs-12 col-sm-6 col-md-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">工时费用：</label>
+								<div class="col-xs-8">
+									<input id="labourFee" name="labourFee" data-fieldName="LABOUR_FEE"  class="form-control"  type="text" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6  col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">上传活动总结日期：</label>
+								<div class="col-xs-8">
+									<div class="input-group date  date-picker">
+										<input id="summClosedate" name="summClosedate" 
+											class="form-control" type="text" value=""  data-fieldName="SUMM_CLOSEDATE" />		
+												<span  class="input-group-btn">
+											<button class="btn default date-set" type="button" >
+												<i class="fa fa-calendar"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>	
+				
+						<div class="col-xs-12 col-sm-6 col-md-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件费用：</label>
+								<div class="col-xs-8">
+									<input id="partFee" name="partFee" data-fieldName="PART_FEE"  class="form-control " type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否固定费用:</label>
+								<div class="col-xs-8">
+									<select id="isFee" name="isFee" data-fieldName="IS_FEE" class="bs-select form-control required" data-type="oemDict" data-dictCode="1004"   >
+									</select>
+									<!-- <input id="isFee" name="isFee" data-fieldName="IS_FEE"  class="form-control" type="text" /> -->
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">其他费用：</label>
+								<div class="col-xs-8">
+									<input id="otherFee" name="otherFee" data-fieldName="OTHER_FEE"  class="form-control" type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否可多次：</label>
+								<div class="col-xs-8">
+									<select id="isMulti" name="isMulti" data-fieldName="IS_MULTI" class="bs-select form-control required" data-type="oemDict" data-dictCode="1004"   >
+									</select>
+									<!-- <input id="isMulti" name="isMulti" data-fieldName="IS_MULTI"  class="form-control" type="text"  /> -->
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">活动选择方式:</label>
+								<div class="col-xs-8">
+									<select id="chooseWay" name="chooseWay" data-fieldName="CHOOSE_WAY" class="bs-select form-control required" data-type="oemDict" data-dictCode="4031"   >
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">附件下载:</label>
+								<div class="col-xs-8">
+									<input id="importData" name="importData" data-fieldName=""  class="form-control"type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">解决方案说明：</label>
+								<div class="col-xs-8">
+									<input id="explans" name="explans" data-fieldName="EXPLANS"  class="form-control" type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">索赔申请指导：</label>
+								<div class="col-xs-8">
+									<input id="guide" name="guide" data-fieldName="GUIDE"  class="form-control "  type="text" />
+								</div>
+							</div>
+						</div>
+	
+																	
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/activityMaintain/activityModifySave" data-model="vehicle"
+				data-method="PUT" data-callBack='true'
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>修改</a> <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-url="vehicle/activityManage/activityEditVehicle.html" data-width="modal-lg"
+								data-toggle="modal"> <i class="fa fa-edit"></i> 车型
+			</a> 
+			<a class="btn blue" data-url="vehicle/activityManage/activityEditAge.html" data-width="modal-lg"
+								data-toggle="modal"> <i class="fa fa-edit"></i> 车龄
+			</a>
+			<a class="btn blue" data-url="vehicle/activityManage/activityRangeInit.html" data-width="modal-lg"
+								data-toggle="modal"> <i class="fa fa-edit"></i> 活动项目
+			</a>
+			<a class="btn blue" data-url="vehicle/activityManage/activityEditVINImport.html" data-width="modal-lg"
+								data-toggle="modal"> <i class="fa fa-upload"></i> 活动VIN导入
+			</a> 
+			<a href="javascript:;" 
+				data-url="/activityMaintain/downloadTemple/activityManagerTemplate" 
+				data-model="vehicle" data-method="downLoad"
+				class="btn blue ajaxrest" data-validate = "false">
+				<i class="fa fa-download"></i> 下载VIN模板</a>
+		</div>		
+<div class="panel panel-default table-panel">
+<!-- 			<div class="panel-heading">
+				<div class="pannel-name" >功能列表</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm"> 
+							<a class="btn btn-outline" data-url="vehicle/activityManage/activityEditVehicle.html" data-width="modal-lg"
+								data-toggle="modal"> <i class="fa fa-plus-square"></i> 车型
+							</a> 
+							<a class="btn btn-outline" data-url="demo/addUser2.html" data-width="modal-lg"
+								data-toggle="modal"> <i class="fa fa-plus-square"></i> 车龄
+							</a> 
+							<a class="btn btn-outline" data-url="demo/addUser2.html" data-width="modal-lg"
+								data-toggle="modal"> <i class="fa fa-plus-square"></i> 活动项目
+							</a> 			
+							<a href="demo/importUser.html" class="btn btn-outline ajaxify"> <i
+								class="fa fa-upload"></i>活动VIN导入
+							</a>
+						
+						   <a href="javascript:;" data-url="" data-model="web" data-method="downLoad"
+								class="btn btn-outline ajaxrest" data-validate = "false"><i class="fa fa-plus-square"></i> 下载VIN模板</a>								
+						</div>
+				</div>
+		</div>	 -->	
+	</div>	
+		
+		
+	</form>
+		
+
+	
+	
+	
+	
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+ 		
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+		
+	})
+</script>

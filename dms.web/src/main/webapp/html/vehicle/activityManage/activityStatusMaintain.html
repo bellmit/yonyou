@@ -1,0 +1,142 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+				
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">活动系统编号</label>
+							<div class="col-xs-8">
+									<input type="text" class="form-control" id="activityCode" name="activityCode">
+
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-5 ">责任经销商简称</label>
+							<div class="col-xs-7">	
+									<input type="text" class="form-control" id="dealerName" name="dealerName">
+							</div>
+						</div>
+					</div>	
+	
+						
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">VIN</label>
+							<div class="col-xs-8">
+								<!-- <div class="input-group"> -->
+									<input type="text" class="form-control" id="vin" name="vin">
+									<!-- <span class="input-group-btn"> -->
+	                                         <!-- <button class="btn default input-clear" type="button"> -->
+	                                            <!-- <i class="fa fa-close"></i> -->
+	                                        <!-- </button> -->
+	                                 <!-- </span> -->
+                                 <!-- </div> -->
+							</div>
+						</div>
+					</div>
+					
+									
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车辆状态</label>
+							<div class="col-xs-8">
+								<select id="vehicleStatus" name="vehicleStatus" class="bs-select form-control" data-type="oemDict" data-dictCode="4033"   >
+								</select>
+							</div>
+						</div>
+					</div>						
+
+										
+					
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >信息列表</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+						<!-- 	<a class="btn btn-outline" data-url="vehicle/activityManage/activityAdd.html" data-width="modal-lg" 
+								data-toggle="modal"> <i class="fa fa-plus-square"></i> 新增
+							</a>  -->
+
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="orderList"></table>
+		</div>
+	</div>
+	
+</div>
+<script type="text/javascript">
+
+    $(document).one("onload.dms",function(event,container){
+    	new Datatable().initPagination({
+			src : "orderList",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/activityStatusMaintain/statusQuery",
+			rowID : "ACTIVITY_ID",
+			//detailView : true, //当需要显示明细时，打开此开关，否则不需要写
+			sortName : "", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+			sortOrder : "",
+			isQueryFirst:false,
+			//当需要开启显示明细时才实现，否则不实现
+			detailFormatter : function(index, row, element) {
+				return row.NAME;
+			},
+			columns : [ 
+			    {field : "ACTIVITY_ID",title : "操作",inputField:"activityId", operateFormat : [                     
+                       {type:"detail",url:"vehicle/activityManage/activityStatusMaintainDetail.html",openWidth:"modal-lg",isShow:function(value, row, index){
+                     		   return true;                   	
+                       }}//打开方式默认弹出:open
+                        
+                       
+                   ]
+                },  
+			    {field : "ACTIVITY_CODE",title : "活动系统编号"},
+			    {field : "VIN",title : "VIN"},
+			    {field : "LICENSE_NO",title : "车牌号"},
+			    {field : "CTM_NAME",title : "客户名称"},
+			    {field : "START_DATE",title : "活动开始时间"},
+			    {field : "END_DATE",title : "活动结束时间"},
+			    {field : "NAME",title : "联系人"},
+			    {field : "DEALER_NAME",title : "责任经销商简称"},
+			    {field : "EXECUTE_DEALER_NAME",title : "执行经销商简称"},
+			    {field : "VEHICLE_STATUS",title : "车辆状态",codeFormat : {type:"oemDict",codeType:"4033"}}
+				
+			],
+			onLoadSuccess : function() {
+				$("#orderList",container).dmsTable().bootstrapTable('resetView');
+			}
+		});
+    	      	
+    	//绑定查询按钮回调
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+// 			console.log("into callBack");
+		});
+    	
+    });
+		
+
+
+</script>

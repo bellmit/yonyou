@@ -1,0 +1,203 @@
+<div class="dms-edit ajaxrest" data-url="/salesb/{[REPORT_ID]}/{[VIN]}" data-pageInitCallBack="true" data-model="retail">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title" id="title">零售金融贴息修改</div>
+			<div class="modal-title hidden " id="title2">零售金融贴息提报</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">VIN号</label>
+								<div class="col-xs-8">
+									<input type="text"  readonly="readonly"
+										id="VIN" class="form-control required" name="VIN" data-fieldName="VIN" >
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-7">零售上报经销商代码</label>
+								<div class="col-xs-5">
+									<input type="text"  readonly
+										id="dealerCode" class="form-control required"
+										name="dealerCode" data-fieldName="DEALER_CODE">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4" data-tableSelect="true">
+							<div class="form-group">
+								<label class="control-label col-xs-7">申请贴息经销商代码</label>
+								<div class="col-xs-5">
+									<div class="input-group">
+										<input id="discountDealerCode" readonly name="discountDealerCode"
+											class="form-control required" type="text" data-fieldName="DISCOUNT_DEALER_CODE" />
+										<span class="input-group-btn">
+											<button class="btn default btn-sm" type="button"
+												data-url="manage/basedata/dealers/searchDealers2.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">客户名称</label>
+								<div class="col-xs-8">
+									<input type="text"  id="ctmName"
+										name="ctmName" class="form-control required" data-fieldName="CTM_NAME">
+
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">银行名称</label>
+								<div class="col-xs-8">
+									<select class="bs-select form-control required " id="bank" name="bank"
+								data-url="/salesb/Charge/bank" data-model="retail" data-fieldName="BANK_ID"
+								data-lableDesc="BANK_NAME"  data-labelValue="ID">
+								</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">净车价</label>
+								<div class="col-xs-8">
+									<input type="text"  id="netPrice"
+										name="netPrice" class="form-control required" data-fieldName="NET_PRICE">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">申请时间</label>
+								<div class="col-xs-8">
+									<div class="input-group date  date-picker">
+										<input id="applyDate" name="applyDate" class="form-control required "
+											type="text" value="" data-fieldName="APPLY_DATE" /> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">银行放款时间</label>
+								<div class="col-xs-8">
+									<div class="input-group date  date-picker">
+										<input id="dealDate" name="dealDate" class="form-control required"
+											type="text" value="" data-fieldName="DEAL_DATE" /> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">贷款金额</label>
+								<div class="col-xs-8">
+									<input type="text"  id="dealAmount"
+										name="dealAmount" class="form-control required" data-fieldName="DEAL_AMOUNT">
+
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">分期期数</label>
+								<div class="col-xs-8">
+									<select id="installMentNum" name="installMentNum" class="bs-select form-control required" data-fieldName="INSTALL_MENT_NUM"
+										data-type="oemDict" data-dictCode="3387">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">商户手续费</label>
+								<div class="col-xs-8">
+									<input type="text"  id="merchantFees"
+										name="merchantFees" class="form-control required" data-fieldName="MERCHANT_FEES"
+										>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">商户手续费率</label>
+								<div class="col-xs-3">
+									<input type="text" 
+										class="form-control required" id="merchantFeesRate" data-fieldName="MERCHANT_FEES_RATE"
+										name="merchantFeesRate" >
+								</div>%
+							</div>
+						</div>
+						<input type="hidden"  id="isEdit" name="isEdit" class="form-control" data-fieldName="IS_EDIT" >
+						<input type="hidden"  id="reportId" name="reportId" class="form-control" data-fieldName="REPORT_ID" >
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block" id = "butten">
+			<a data-url="/salesb/edit" data-model="retail" data-method="PUT"
+				data-callBack="true" class="btn blue" data-toggle="confirmation">
+				<i class="fa fa-save"></i>保存 </a>
+			 <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+		<div class="modal-footer center-block hidden" id = butten2>
+			<a data-url="/salesb/edit" data-model="retail" data-method="PUT"
+				data-callBack="true" class="btn blue" data-toggle="confirmation">
+				<i class="fa fa-save"></i>上报</a>
+			 <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one("onload.dms",function(event, container) {
+		
+		$("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){
+			var isEdit = $("#isEdit",container).val();
+			if(isEdit == 0){
+				$("#title2",container).removeClass("hidden");
+				$("#title",container).addClass("hidden");
+				$("#butten2",container).removeClass("hidden");
+				$("#butten",container).addClass("hidden");
+			}
+		});
+		
+		//新增页面的回调函数
+		$("a[data-callBack='true']", container).on("callBack.dms",function(event, response) {
+			//关闭窗口
+			$("a[data-dismiss='modal']", container).click();
+			//刷新表格
+			$("#dms_table", getElementContext()).dmsTable().refreshTableWithForm();
+		});
+		
+	});
+	
+</script>

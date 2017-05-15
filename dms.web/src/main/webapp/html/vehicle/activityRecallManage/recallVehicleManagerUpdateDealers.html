@@ -1,0 +1,98 @@
+<div class="dms-edit ajaxrest" data-url="/recallVehicleManage/recallVehicle/updateDealersSave" data-model="vehicle" >
+	<form class="form-horizontal" >
+	<div class="modal-header">
+			<div class="modal-title"> 责任经销商批量修改</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="model-body" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+					
+				
+					
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" data-tableSelect="true">
+						<div class="form-group">
+								<label class="control-label col-xs-4">经销商代码</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+									<input id="dealerCode4" readonly
+										name="dealerCode" class="form-control" type="text"
+										data-fieldName="dealer_code" /> <span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="manage/basedata/dealers/searchAfterDealers4.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>						
+								
+						
+						<!-- 隐藏域 -->
+						<input id="ids" name="ids" type="hidden">
+								
+											
+			
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="modal-footer center-block"> 
+				<a  data-url="/recallVehicleManage/recallVehicle/updateDealersSave" data-model="vehicle" data-method="POST"
+				data-callBack="true" class="btn blue" data-beforeRequest="true"
+				data-toggle="confirmation"> <i class="fa fa-save"></i>修改
+				</a> 
+			<a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>返回
+				</a>
+		</div>
+	
+</div>
+
+</form>
+	
+</div>		
+	
+	
+	
+
+<script type="text/javascript">
+
+	$(document).one("onload.dms",function(event,container){
+	var ids = $("#idStr",getElementContext()).val();
+	$("#ids",container).setDmsValue(ids);
+	//alert(ids);
+	
+	//批量删除的前执行函数
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+		  
+		debugger;
+		if($("#ids",container).val()==""){
+			dmsCommon.tip({status:"warning",msg:"请选择表格记录"});//总共的状态类型：info、success、error、warning
+			returnResult.status = false;			
+		}
+		
+		returnResult.status = true;
+	});
+	
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#orderList",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+	});
+    
+</script>

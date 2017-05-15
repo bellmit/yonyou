@@ -1,0 +1,85 @@
+<div class="dms-edit ajaxrest"  data-url="/paymentMaintenance/getPayment/{[DEALER_ID]}"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">修改经销商付款方式</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+									<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2">大区</label>
+								<div class="col-xs-8">
+								<input id="ORG_DESC2" name="ORG_DESC2" class="form-control required"  type="text" data-fieldName="ORG_DESC2"  readonly="readonly"/>
+								</div>
+							</div>
+						</div>
+		
+					<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2">小区</label>
+								<div class="col-xs-8">
+										<input id="ORG_DESC3" name="ORG_DESC3" class="form-control required"  type="text" data-fieldName="ORG_DESC3"   readonly="readonly"/>
+								</div>
+							</div>
+						</div>
+						
+					<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2">经销商代码</label>
+								<div class="col-xs-8">
+										<input id="DEALER_CODE" name="DEALER_CODE" class="form-control required"  type="text" data-fieldName="DEALER_CODE"   readonly="readonly"/>
+								</div>
+							</div>
+						</div>
+						
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-xs-2 ">经销商名称</label>
+							<div class="col-xs-8">
+							<input id="dealerId" name="dealerId" class="form-control required"  type="hidden" data-fieldName="dealer_id"  />
+							<input id="DEALER_NAME" name="DEALER_NAME" class="form-control required"  type="text" data-fieldName="DEALER_NAME"   readonly="readonly"/>
+							</div>
+						</div>
+					</div>
+				   <div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2">付款方式</label>
+								<div class="col-xs-8">
+									<input id="paymentType" name="paymentType"  type="checkbox" class="required" minlength = "2"
+									data-type="oemDict" data-dictCode="9018" data-fieldName="PAYMENT_TYPE"  data-allFlag="false" />
+								</div>
+							</div>
+						</div>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/paymentMaintenance/modify/{[PAYMENT_ID]}" data-model="vehicle"
+				data-method="PUT" data-callBack='true'
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>修改</a> <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>返回</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	})
+</script>

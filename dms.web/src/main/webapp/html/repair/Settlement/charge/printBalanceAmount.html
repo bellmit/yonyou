@@ -1,0 +1,414 @@
+<link rel="stylesheet" type="text/css" href="../assets/layouts/layout/css/PrintArea.css">
+<div class="dms-edit PrintArea ajaxrest" data-url="/balance/balanceAccounts/{[BALANCE_ID]}/print" data-pageInitCallBack="true"
+	data-model="repair">
+	<div class="panel panel-default panel-print">
+		<div class="panel-body">
+			<div class="print-title">
+				<div class="row">
+					<div class="col-xs-1">
+						<div class="col-xs-12">
+							<img src="../assets/layouts/layout/img/print_logo.png"></img>
+						</div>
+					</div>
+					<div class="col-xs-11">
+						<div class="row h1Title" >
+							<div class="col-xs-12">
+								<label id="dealerName">{[userInfo.dealerName]}</label>
+							</div>
+						</div>
+						<div class="row h2Title">
+							<div class="col-xs-12">
+								<label>维修结算单</label>
+							</div>
+						</div>
+					</div>
+				</div>	
+				<div class="row print-dealer">
+					<div class="col-xs-12 ">
+						<div class="col-xs-12 "><label> 地址:<span>{[systemParam.1031.Print_address]}</span></label></div>
+					</div>
+					<div class="col-xs-12 ">
+						<div class="col-xs-3 "><label>邮编:<span>{[systemParam.1031.Print_zipCode]}</span></label></div>
+						<div class="col-xs-3 "><label>电话:<span>{[systemParam.1031.Print_phone]}</span></label></div>
+						<div class="col-xs-3 "><label>传真:<span>{[systemParam.1031.Print_fax]}</span></label></div>
+						<div class="col-xs-3 "></div>
+					</div>
+				</div>
+				<div class="row print-gap">
+			
+				</div>
+				<div class="row print-singleRow">
+					<div class="col-xs-12 ">
+						<label>结算单号:<span  class="form-show" data-fieldName="BALANCE_NO"></span></label>
+						<label>结算日期:<span class="form-show " data-fieldName="BALANCE_TIME" data-date-format="YYYY-MM-DD"></span></label>
+					</div>
+				</div>
+			</div>
+			<div class="print-main">
+				<div class="row">
+					<div class="col-xs-4">
+						<div class="form-group">
+							<label class="control-label col-xs-6" >工单号</label>
+							<div class="col-xs-6">
+								<span class="form-show" data-fieldName="RO_NO"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-4" >
+						<div class="form-group">
+							<label class="control-label col-xs-6">车主</label>
+							<div class="col-xs-6" >
+								<span class="form-show " data-fieldName="OWNER_NAME"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<div class="form-group">
+							<label class="control-label col-xs-6" >车主电话</label>
+							<div class="col-xs-6">
+								<span class="form-show " data-fieldName="PHONE"></span>
+							</div>
+						</div>
+					</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-4">
+						<div class="form-group">
+							<label class="control-label col-xs-6">车牌号</label>
+							<div class="col-xs-6">
+								<span class="form-show " data-fieldName="LICENSE"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<div class="form-group">
+							<label class="control-label col-xs-6" >送修人</label>
+							<div class="col-xs-6" >
+								<span class="form-show " data-fieldName="DELIVERER"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-4" data-tableSelect="true">
+						<div class="form-group">
+							<label class="control-label col-xs-6">送修人电话</label>
+							<div class="col-xs-6">
+								<span class="form-show " data-fieldName="DELIVERER_PHONE"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-4">
+						<div class="form-group">
+							<label class="control-label col-xs-6">车型</label>
+							<div class="col-xs-6">
+								<span class="form-show " data-fieldName="MODEL_NAME" ></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<div class="form-group">
+							<label class="control-label col-xs-6" >VIN</label>
+							<div class="col-xs-6" >
+								<span class="form-show " data-fieldName="VIN"></span>
+								<input type="hidden" id="vin" name="vin"data-fieldName="VIN">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<div class="form-group">
+							<label class="control-label col-xs-6" >出厂里程（KM）</label>
+							<div class="col-xs-6">
+								<span class="form-show " data-fieldName="OUT_MILEAGE"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12" >
+						<div class="form-group">
+							<label class="control-label col-xs-2" >备注</label>
+							<div class="col-xs-10">
+								<span class="form-show " data-fieldName="REMARK"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class=" print-table">
+				<div class="panel panel-default table-panel">
+					<div class="panel-heading">
+							<div class="pannel-name">维修项目结算</div>
+					</div>
+					<div class="panel-body">
+						<table
+								class="table table-striped table-bordered table-hover table-responsive"
+								id="bLDtoList">
+						</table>
+					</div>
+				</div>
+				<div class="panel panel-default table-panel">
+					<div class="panel-heading">
+							<div class="pannel-name">维修材料结算</div>
+					</div>
+					<div class="panel-body">
+						<table
+								class="table table-striped table-bordered table-hover table-responsive"
+								id="bRPDtoList">
+						</table>
+					</div>
+				</div>
+				<div class="panel panel-default table-panel">
+					<div class="panel-heading">
+							<div class="pannel-name">配件销售结算</div>
+					</div>
+					<div class="panel-body">
+						<table
+								class="table table-striped table-bordered table-hover table-responsive"
+								id="bSPDtoList">
+						</table>
+					</div>
+				</div>
+				<div class="panel panel-default table-panel">
+					<div class="panel-heading">
+							<div class="pannel-name">附加项目结算</div>
+					</div>
+					<div class="panel-body">
+						<table
+								class="table table-striped table-bordered table-hover table-responsive"
+								id="bAIDtoList">
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="row print-gap">
+			
+			</div>
+
+			<div class="print-foot">
+
+				<div class="row margin-top-5">
+					<div class="col-xs-4">
+						<div class="form-group">
+							<label class="control-label col-xs-5" >总金额:</label>
+							<div class="col-xs-7" >
+								<span class="col-xs-12 form-show " data-fieldName="AMOUNT"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<div class="form-group">
+							<label class="control-label col-xs-5" >折扣金额:</label>
+							<div class="col-xs-7" >
+								<span class="col-xs-12 form-show " data-fieldName="DIS_COUNT_AMOUNT"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<div class="form-group">
+							<label class="control-label col-xs-5" >去零金额:</label>
+							<div class="col-xs-7" >
+								<span class="col-xs-12 form-show " data-fieldName="SUB_OBB_AMOUNT"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<div class="form-group">
+							<label class="control-label col-xs-5" >应收金额:</label>
+							<div class="col-xs-7" >
+								<span class="col-xs-12 form-show " data-fieldName="RECEIVE_AMOUNT"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-4" data-info="DX">
+						<div class="form-group">
+							<label class="control-label col-xs-5" >人民币大写:</label>
+							<div class="col-xs-7" >
+								<span class="col-xs-12" data-fieldName="RECEIVE_AMOUNT" data-chinese-numeral="true"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			<div class="row print-gap">
+			
+			</div>		
+			<div class="row print-remark">
+				<div class="row hidden" id="suggest_advise">
+					<div class="col-xs-12">
+						<div class="col-xs-12"><label class="control-label col-xs-12" >维修建议</label></div>
+					</div>
+					<div class="col-xs-12" data-info="suggest">
+						<div class="col-xs-12"><span  class="form-show" data-fieldName="LABOUR_SUGGEST"></span></div>
+						<div class="col-xs-12"><span  class="form-show" data-fieldName="PART_SUGGEST"></span></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="col-xs-12"><label class="control-label col-xs-12" >质量保证书：</label></div>
+					</div>
+					<div class="col-xs-12">
+						<div class="col-xs-12"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{[systemParam.1033.Print_Remarks]}</span></div>
+					</div>
+					<div class="col-xs-12">
+						<div class="col-xs-12"><label class="control-label" >温馨提示：</label><span>&nbsp;{[systemParam.1033.Print_prompt]}</span></div>
+					</div>
+				</div>
+			</div>
+			<div class="row print-gap">
+			
+			</div>	
+				<div class="row">
+					<div class="col-xs-6 " >
+						<div class="form-group">
+							<label class="control-label col-xs-4" >服务顾问签名:</label>
+							<div class="col-xs-8" >
+								<span class="form-show print-groove"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6" >
+						<div class="form-group">
+							<label class="control-label col-xs-4" >客户签名:</label>
+							<div class="col-xs-8" >
+								<span class="form-show print-groove"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="print-without">
+	<a id="print" class="btn blue printfy"><i class="fa fa-print"></i>打印</a>
+	<a data-info="editOrder" href="repair/order/repair/editRepairOrder.html" class="btn blue ajaxify" data-beforeShowEvent="true"><i class="fa fa-reply"></i>返回</a>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+    $("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){
+		if("{[systemParam.1032.Print_repairsAdvise]}"=="10131001"){
+			$("#suggest_advise",container).removeClass("hidden");
+		}
+		var vin=$("#vin",container).val();
+		var suggestAdviseLabour="建议项目:";
+		var suggestAdvisePart="建议材料:";
+		console.log(vin);
+    	dmsCommon.ajaxRestRequest({
+    		url : dmsCommon.getDmsPath()["repair"] + "/order/suggests/"+vin+"/suggestLabours",
+			type : 'GET',
+			async: false,
+			sucessCallBack : function(modelData) {
+				for(var i=0;i<modelData.length;i++){
+					suggestAdviseLabour=suggestAdviseLabour+modelData[i].labourName+";";
+				}
+				
+			}
+		});
+    	dmsCommon.ajaxRestRequest({
+    		url : dmsCommon.getDmsPath()["repair"] + "/order/suggests/"+vin+"/sugParts",
+			type : 'GET',
+			async: false,
+			sucessCallBack : function(modelData) {
+				for(var i=0;i<modelData.length;i++){
+					suggestAdvisePart=suggestAdvisePart+modelData[i].part_name+";";
+				}
+				
+			}
+		});
+    	var map={LABOUR_SUGGEST:suggestAdviseLabour,PART_SUGGEST:suggestAdvisePart};
+    	console.log(map);
+		$("div[data-info='suggest']",getElementContext()).initHtmlContent(map,false);
+	  });
+    new Datatable().initLocale({
+		src : "bLDtoList",
+		container:container,
+		rowID:"BALANCE_LABOUR_ID",
+		url : dmsCommon.getDmsPath()["repair"] + "/balance/balanceAccounts/balanceLabour/{[BALANCE_ID]}",
+		mergeTotal:{
+			megerCellNumber:4
+		},
+		columns : [ 
+		            {field : "LABOUR_CODE",inputField:"labourCode",inputHiddenFormat : {},title : "维修项目代码"}, 
+		            {field : "LABOUR_NAME",inputField:"labourName",inputHiddenFormat : {},title : "维修项目名称"}, 
+		            {field : "STD_LABOUR_HOUR",inputField:"assignLabourHour",inputHiddenFormat : {},title : "标准工时"}, 
+		            {field : "LABOUR_PRICE",inputField:"labourPrice",inputHiddenFormat : {},title : "工时单价"}, 
+		            {field : "LABOUR_AMOUNT",inputField:"labourAmount",inputHiddenFormat : {},title : "金额"}, 
+		            {field : "DIS_COUNT_AMOUNT",title : "折扣金额",inputField:"zkAmountZ",inputHiddenFormat : {}},
+		            {field : "AFTER_DISCOUNT_AMOUNT",inputField:"afterDiscountAmount",inputHiddenFormat : {},title : "应收金额"},
+         ]
+	});
+	new Datatable().initLocale({
+		src : "bRPDtoList",
+		container:container,
+		rowID:"BALANCE_REPAIR_PART_ID",
+		url : dmsCommon.getDmsPath()["repair"] + "/balance/balanceAccounts/balanceRepairPart/{[BALANCE_ID]}",
+		mergeTotal:{
+			megerCellNumber:4,
+			megerCellName:"合计"
+		},
+		columns : [ 
+		            {field : "PART_NO",inputField:"partNo",inputHiddenFormat : {},title : "配件代码"}, 
+		            {field : "PART_NAME",inputField:"partName",inputHiddenFormat : {},title : "配件名称"}, 
+		            {field : "PART_SALES_PRICE",inputField:"partSalesPrice",inputHiddenFormat : {},title : "发料单价"}, 
+		            {field : "PART_QUANTITY",inputField:"partQuantity",inputHiddenFormat : {},title : "数量"}, 
+		            {field : "PART_SALES_AMOUNT",inputField:"partSalesAmount",inputHiddenFormat : {},title : "发料金额"}, 
+		            {field : "DIS_COUNT_AMOUNT",title : "折扣金额",inputField:"zkAmountZ",inputHiddenFormat : {}},
+		            {field : "AFTER_DISCOUNT_AMOUNT",inputField:"afterDiscountAmount",inputHiddenFormat : {},title : "应收金额"}
+		         ],
+					onLoadSuccess : function() {
+				         if($("#bRPDtoList",container).dmsTable().getTableRows()<1){
+		          			$("#bRPDtoList",container).closest(".table-panel").addClass("hidden");
+		          		};
+					}
+	});
+	new Datatable().initLocale({
+		src : "bSPDtoList",
+		container:container,
+		rowID:"BALANCE_SALES_PART_ID",
+		url : dmsCommon.getDmsPath()["repair"] + "/balance/balanceAccounts/balanceSalesPart/{[BALANCE_ID]}",
+		mergeTotal:{
+			megerCellNumber:4,
+			megerCellName:"合计"
+		},
+		columns : [
+					{field : "PART_NO",title : "配件代码"}, 
+		           {field : "PART_NAME",title : "配件名称"},
+		           {field : "PART_QUANTITY",title : "配件数量",numberFormat : {decimal : 2}}, 			           
+		           {field : "PART_SALES_PRICE",title : "销售单价",numberFormat : {decimal : 2}},   
+		           {field : "PART_SALES_AMOUNT",title : "销售金额",numberFormat : {decimal : 2}},
+		           {field : "SALES_AMOUNT",title : "折扣金额",numberFormat : {decimal : 2}},
+		           {field : "SALES_AMOUNT",title : "应收金额",numberFormat : {decimal : 2}},
+		         ],onLoadSuccess : function() {
+			           if($("#bSPDtoList",container).dmsTable().getTableRows()<1){
+			           	$("#bSPDtoList",container).closest(".table-panel").addClass("hidden");
+			           };
+					}
+	});
+	new Datatable().initLocale({
+		src : "bAIDtoList",
+		container:container,
+		rowID:"BALANCE_ADD_ITEM_ID",
+		url : dmsCommon.getDmsPath()["repair"] + "/balance/balanceAccounts/balanceAddItem/{[BALANCE_ID]}",
+		mergeTotal:{
+			megerCellNumber:2,
+			megerCellName:"合计"
+		},
+		columns : [ 
+			           {field : "ADD_ITEM_CODE",title : "附加项目代码"},
+			           {field : "ADD_ITEM_NAME",title : "附加项目名称"}, 
+			           {field : "ADD_ITEM_AMOUNT",title : "附加项目费"},
+			           {field : "DIS_COUNT_AMOUNT",title : "折扣金额"}, 
+			           {field : "RECEIVABLE_AMOUNT",title : "应收金额"},  			           
+			        ],onLoadSuccess : function() {
+				         if($("#bAIDtoList",container).dmsTable().getTableRows()<1){
+			          			$("#bAIDtoList",container).closest(".table-panel").addClass("hidden");
+			        		};
+					}
+	});
+	$("a[data-info='editOrder']",container).on("beforeShow.dms",function(event,result){
+		var roId="{[ro_id]}";
+		var map={ro_id:roId};
+		$(this).data("pageData",map);
+	});
+});
+</script>

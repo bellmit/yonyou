@@ -1,0 +1,250 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="modal-title">旧件审核</div>
+			<div class="panel-body">
+				<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"
+						data-tableSelect="true">
+						<div class="form-group">
+							<label class="control-label col-xs-4">经销商代码</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input id="dealerCode" readonly name="dealerCode"
+										class="form-control" type="text" data-fieldName="DEALER_CODE" />
+									<span class="input-group-btn">
+										<button class="btn default btn-sm" type="button"
+											data-url="manage/basedata/dealers/searchAfterDealers.html"
+											data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">承运商</label>
+								<div class="col-xs-8">
+									<input type="text"  
+										id="carriage" class="form-control" 
+										name="carriage" >
+								</div>
+							</div>
+						</div>
+					
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">回运单号</label>
+							<div class="col-xs-8">
+								<input type="text"  
+										id="returnBillNo" class="form-control" 
+										name="returnBillNo" >
+							</div>
+						</div>
+					</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">旧件状态</label>
+							<div class="col-xs-8">
+									<select id="oldpartStatus" name="oldpartStatus" class="bs-select form-control"
+									data-type="oemDict" data-existsDefault="false" data-dictCode="9112" data-value="91121003"  data-excludeItems="91121001,91121002">
+									</select>
+							</div>
+						</div>
+					</div>
+			
+						
+							</div>
+
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">发运日期</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" 
+									data-opens="right">
+									<input type="text" class="form-control" readonly
+										name="startdate"> <span class="input-group-addon">-</span>
+									<input type="text" class="form-control" readonly
+										name="enddate"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">清点日期</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" 
+									data-opens="right">
+									<input type="text" class="form-control" readonly
+										name="billBeginDate"> <span class="input-group-addon">-</span>
+									<input type="text" class="form-control" readonly
+										name="billEndDate"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					</div>
+					<div class="row ">
+								<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">返还地</label>
+								<div class="col-xs-8">
+									<select class="bs-select form-control" id="returnaddrCode" name="returnaddrCode"
+									data-url="/count/returnaddr" data-model="vehicle" 
+									data-lableDesc="RETURNADDR_NAME" data-labelValue="RETURNADDR_CODE">
+								</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+		<div class="pannel-name">旧件审核信息</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+
+	$(document)
+			.one(
+					"onload.dms",
+					function(event, container) {
+						new Datatable()
+								.initPagination({
+									src : "dms_table",
+									container : container,
+									url : dmsCommon.getDmsPath()["vehicle"]
+											+ "/approve",
+									rowID : "OLDPART_ID",
+									sortName : "",
+									sortOrder : "",
+									columns : [
+									           {
+												field : "OLDPART_ID",
+												title : "操作",
+												operateFormat : [ {
+													type : "edit",
+													url : "vehicle/oldpart/approve/approveSH.html",
+													openType : "jump",
+													doubleClick:false
+												} ]
+											}, {
+												field : "DEALER_CODE",
+												title : "经销商代码"
+											}, {
+												field : "DEALER_NAME",
+												title : "经销商名称"
+											}, {
+												field : "RETURN_BILL_NO",
+												title : "回运单号"
+											}, {
+												field : "OLDPART_ORDER",
+												title : "旧件序号"
+											}, {
+												field : "BALANCE_NO",
+												title : "结算单号",
+											}, {
+												field : "REPAIR_NO",
+												title : "工单号"
+											}, {
+												field : "CLAIM_NUMBER",
+												title : "索赔单号"
+											}, {
+												field : "VIN",
+												title : "VIN码"
+											}, {
+												field : "OLDPART_NO",
+												title : "旧件代码"
+											}, {
+												field : "OLDPART_NAME",
+												title : "旧件名称"
+											}, {
+												field : "PART_FEE",
+												title : "含税索赔价",
+											}, {
+												field : "BRAND_CODE",
+												title : "品牌"
+											}, {
+												field : "SERIES_NAME",
+												title : "车系"
+											}, {
+												field : "MODEL_NAME",
+												title : "车型"
+											}, {
+												field : "OLDPART_TYPE",
+												title : "旧件类型"
+													,codeFormat : {type:"oemDict",codeType:"9111"}
+											}, {
+												field : "RETURN_BILL_TYPE",
+												title : "回运类型"
+													,codeFormat : {type:"oemDict",codeType:"9113"}
+											}, {
+												field : "CLAIM_APPLY_DATE",
+												title : "索赔申请日期"
+											}, {
+												field : "CLAIM_AUDIT_DATE",
+												title : "索赔申请通过日期",
+											}, {
+												field : "MSV",
+												title : "MSV码"
+											}, {
+												field : "PURCHASE_DATE",
+												title : "购车日期"
+											}, {
+												field : "REPAIR_DATE",
+												title : "维修日期"
+											}, {
+												field : "REPAIR_TYPE",
+												title : "维修类型"
+													,codeFormat : {type:"oemDict",codeType:"4100"}
+											}, {
+												field : "OUT_MILEAGE",
+												title : "行驶里程"
+											}, {
+												field : "REPAIR_REMARK",
+												title : "维修备注"
+											}, {
+												field : "OLDPART_STATUS",
+												title : "旧件状态"
+													,codeFormat : {type:"oemDict",codeType:"9112"}
+											}, {
+												field : "RECEIVE_DATE",
+												title : "清点日期"
+											}],
+								});
+					});
+</script>

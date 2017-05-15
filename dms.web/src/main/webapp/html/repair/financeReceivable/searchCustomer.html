@@ -1,0 +1,119 @@
+<div class="dms-search">
+<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">客户选择</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">客户代码</label>
+							<div class="col-xs-8">
+								<input id="license" name="license" class="form-control"
+									type="text" data-fieldName="LICENSE"/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">客户名称</label>
+							<div class="col-xs-8">
+								<input id="vin" name="vin" class="form-control"
+									type="text" />
+							</div>
+						</div>
+					</div>
+					
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">OEM下发</label>
+							<div class="col-xs-8">
+								<input id="ownerName" name="ownerName" class="form-control"
+									type="text" />
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">客户类别</label>
+							<div class="col-xs-8">
+								<input id="ownerName" name="ownerName" class="form-control"
+									type="text" />
+							</div>
+						</div>
+					</div>
+					
+					</div>
+					<div class="row ">
+					<div class="col-xs-12">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+			
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">客户信息</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="customerList">
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-onclickEvent="true" data-callBack="true"><i class="fa fa-save"></i>确定</a>
+			<a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消</a>
+		</div>
+</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+	 	new Datatable().initPagination({
+			src : "customerList",
+			rowID:"VIN",
+			container:container,
+			url : dmsCommon.getDmsPath()["customer"] + "/customerManage/vehicle/queryRepairCar/selectInfo",
+			sortName : "VIN", 
+			sortOrder : "asc",
+			autoHeight:false,
+			columns : [ 
+			            {radio :  true},
+			            {field : "LICENSE",title : "客户代码"},
+			            {field : "VIN",title : "客户名称"},
+			            {field : "ENGINE_NO",title : "客户拼音"},
+			            {field : "OWNER_NAME",title : "客户类别"},
+			            {field : "BRAND_NAME",title : "加价率"},
+			            {field : "SERIES_NAME",title : "订货周期"},
+						{field : "MODEL_NAME",title : "OEM标志"},
+						{field : "CONSULTANT",title : "经销商"},
+			         ],
+		}); 
+		 $("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			var selectRow = $("#customerList",container).dmsTable().getFirstSelection();
+			$("div[data-tableSelect='true']",getElementContext()).initHtmlContent(selectRow);
+			$("#vin",getElementContext()).attr("disabled","disabled");
+			$("a[data-dismiss='modal']",container).click();
+			
+		}); 
+	}); 
+
+   
+</script>

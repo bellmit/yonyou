@@ -1,0 +1,141 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="modal-title">维护方案审核</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商代码</label>
+								<div class="col-xs-8">
+									<input type="text"  
+										id="dealerCode"  class="form-control"
+										name="dealerCode" data-fieldName="dealer_code">
+								</div>
+							</div>
+						</div>
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商名称</label>
+								<div class="col-xs-8">
+									<input type="text"  
+										id="dealerName"  class="form-control"
+										name="dealerName" data-fieldName="dealer_name">
+								</div>
+							</div>
+						</div>
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">VIN</label>
+								<div class="col-xs-8">
+									<input type="text"  
+										id="vin"  class="form-control"
+										name="vin" data-fieldName="vin">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车牌号</label>
+								<div class="col-xs-8">
+									<input type="text"  
+										id="plateNo"  class="form-control"
+										name="plateNo" data-fieldName="plate_no">
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">提报时间</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" 
+									data-opens="right">
+									<input type="text" class="form-control" readonly
+										name="startdate"> <span class="input-group-addon">-</span>
+									<input type="text" class="form-control" readonly
+										name="enddate"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+
+	$(document)
+			.one(
+					"onload.dms",
+					function(event, container) {
+						new Datatable()
+								.initPagination({
+									src : "dms_table",
+									container : container,
+									url : dmsCommon.getDmsPath()["vehicle"]
+											+ "/repairAudit",
+									rowID : "ID",
+									sortName : "ID",
+									sortOrder : "desc",
+									columns : [
+									       	{
+												field : "ID",
+												title : "操作",
+												operateFormat : [ 
+												 {type:"edit",title:"审核",url:"vehicle/threepack/repair/repairAuditSH.html",openType:"jump"}]
+											},  {
+												field : "RO_NO",
+												title : "维修工单号"
+											}, {
+												field : "DEALER_CODE",
+												title : "经销商代码"
+											}, {
+												field : "DEALER_NAME",
+												title : "经销商名称"
+											}, {
+												field : "VIN",
+												title : "VIN",
+											}, {
+												field : "PLATE_NO",
+												title : "车牌号"
+											}, {
+												field : "MODEL",
+												title : "车型"
+											}, {
+												field : "AUDIT_STATUS",
+												title : "状态", codeFormat : {type:"oemDict",codeType:"4043"}
+											}, {
+												field : "SUBMIT_DATE",
+												title : "申请日期"
+											}, {
+												field : "AUDIT_PERSON",
+												title : "审核人"
+											}]
+
+								});
+					});
+</script>

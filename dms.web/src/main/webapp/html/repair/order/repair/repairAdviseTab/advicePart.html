@@ -1,0 +1,102 @@
+<div class="dms-search">
+
+<input id="delPID" name="delPID" class="form-control " type="hidden"/>
+
+	<div class="panel panel-default table-panel">
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="advice_part">
+			</table>
+		</div>
+	</div>
+	
+	<div class="modal-footer center-block">
+	<a data-url="repair/order/repair/repairAdviseTab/addAdPart.html" 
+				data-width="modal-lg" data-toggle="modal" class="btn blue"><i
+					class="fa fa-undo"></i> 新增</a>
+	<a data-url="/repair/advice/addSavePart" data-model="repair" data-method="POST" 
+	data-callBack="true"   id="addSave"
+	class="btn blue "  data-toggle="confirmation" disabled="disabled" ><i class="fa fa-save"></i>保存</a>
+	<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+
+    </div>
+</div>
+<script type="text/javascript">
+
+    var myArray=[];
+    var i=0;
+    
+        
+	$(document).one("onload.dms", function(event, container) {
+		new Datatable().initPagination({
+			src : "advice_part",
+			container : container,
+ 			url : dmsCommon.getDmsPath()["repair"] + "/repair/advice/queryPart/vin"+$("#vin",getElementContext()).val(),
+			rowID : "SUGGEST_MAINTAIN_PART_ID",
+			sortName : "PART_NO", //默认按代码升序排列
+			sortOrder : "asc",
+// 			isQueryFirst:false,
+			undefinedText : "",
+			autoHeight : false,
+			columns : [
+
+			{
+				field : "",
+				title : "操作",
+				operateFormat : [ {type : "localDel",title:"删除",onBeforeEvent:function(value, row, index){
+					if(row.rowKey!="A"){
+					row.rowKey="D";
+					myArray[i]=row.SUGGEST_MAINTAIN_PART_ID;
+					$("#delPID").val(myArray);
+					 i++;
+					}
+					$("a[id='addSave']",container).removeAttr("disabled");
+				 }
+				}]
+			},
+			{field : "PART_NO",title : "配件代码",inputHiddenFormat:
+			{hiddenFieldName:"PART_NO,rowKey",hiddenField:"PART_NO,rowKey"}},
+			{field : "PART_NAME",inputTextFormat : {},title : "<span style='color: blue;'>配件名称</span>"},
+			{field : "SUGGEST_DATE",title : "建议日期",dateFormat : {  format : "YYYY-MM-DD"},inputHiddenFormat:{dateFormat : {  format : "YYYY-MM-DD"}}},
+			{field : "SALES_PRICE",title : "销售价",
+			inputHiddenFormat:{numberFormat : {validate:{validateClass:"decimal",validateAttr:'maxPrecision="2"'}}}
+			},
+			{field : "QUANTITY",title : "数量",
+			inputHiddenFormat:{defaultValue:1,numberFormat : { validate:{validateClass:"decimal",validateAttr:'maxPrecision="2"'}}} 
+			},
+			{field : "AMOUNT",title : "金额",inputHiddenFormat:{}},
+			{field : "REASON",inputSelectFormat : {type : "dict",codeType : "1251",validate:{validateClass:"required"}},
+				title : "<span style='color: blue;'>原因</span>"},
+			{field : "VIN",title : "VIN",inputHiddenFormat:{defaultValue:$("#vin",getElementContext()).val()}},
+			{field : "RO_NO",title : "工单号",inputHiddenFormat:{defaultValue:$("#roNo",getElementContext()).val()}},
+			{field : "REMARK",inputTextFormat : {},title : "<span style='color: blue;'>备注</span>"}
+               ]
+		});
+		
+		
+		//新增记录保存后，触发操作，将新增记录的rowKey修改为""
+		$("a[data-callBack='true']", container).on("callBack.dms",function(event, response) {    			
+			var formJson =$("#advice_part",container).dmsTable().getRowDataByIndex();			
+			if (formJson) {
+				$(formJson).each(function(e) {
+                   if(formJson[e].rowKey=="A"){
+                	   $("input[id='rowKey"+e+"']",container).val('')               	   
+                   }
+				
+				});
+			}
+			
+			 myArray=[];
+			 i=0;
+			  $("#advice_part",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()['repair']
+	            +"/repair/advice/queryPart/vin"+$("#vin",getElementContext()).val());//通过url刷新表格
+				$("#advice_part",container).dmsTable().refreshTableWithForm();
+			$("a[id='addSave']",container).attr("disabled","disabled");
+			
+		});
+
+		
+		
+	});
+</script>

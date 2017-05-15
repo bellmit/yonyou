@@ -1,0 +1,55 @@
+<div class="dms-edit ajaxrest" data-url="/basedata/labours/{[LABOUR_PRICE_CODE]}" data-model="repair" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">工时单价编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+			    <div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">工时单价代码</label>
+								<div class="col-xs-8">
+									<input id="labourPriceCode" name="labourPriceCode" class="form-control" type="text" value="" readonly="readonly" data-fieldName="labour_price_code"/>
+								</div>
+							</div>
+						</div>
+		
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">工时单价</label>
+								<div class="col-xs-8">
+									<input id="labourPrice" name="labourPrice" type="text"
+										class="form-control required decimal" maxlength="9" maxDigit="6" maxPrecision="2" data-fieldName="labour_price"/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/basedata/labours/{[LABOUR_PRICE_CODE]}" data-model="repair" data-method="PUT"
+				 data-callBack='true' class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> 
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			
+			$("a[data-dismiss='modal']",container).click();
+			
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	});
+</script>

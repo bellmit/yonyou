@@ -1,0 +1,1075 @@
+<link rel="stylesheet" type="text/css" 
+	href="../assets/layouts/layout/css/PrintArea.css">
+<div class="dms-edit PrintArea ajaxrest" data-url="/ordermanage/salesSynthesis/PotentialCus/{[CUSTOMER_NO]}"  data-model="retail" data-pageInitCallBack="true">
+	<div class="panel panel-default panel-print"> 
+		<div class="panel-body">
+			<div class="print-title">
+				<div class="row h1Title">
+					<div class="col-xs-12">
+						<label>{[userInfo.dealerName]}</label>
+					</div>
+				</div>
+				<div class="row h2Title">
+					<div class="col-xs-12">
+						<label>客户信息管理卡</label>
+					</div>
+				</div>
+			</div>
+			<div>
+				 	<!-- <div id="line" style="border:1px solid #040008; width:14%;margin-left:1%">合同号:</div> -->
+				 	<table width="100%" height="95%" border="1px">
+				 	  <tr style="margin-left:5% ;">
+				 	  	<td border="0px">
+				 	  	<div  ></div>
+				 	  	</td>
+				 	  	<td colspan="4" height="17" >合同号:</td>
+			 	  	  </tr>
+					  <tr>
+					    <td width="1%" rowspan="10" height="60%"><div align="center">客户信息</div></td>
+					    <td width="136" height="17"><div align="center">*姓名</div></td>
+					    <td colspan="3"><div align="center">
+					    	<span data-fieldName="CUSTOMER_NAME" class="form-show"  ></span>
+					    </div></td>
+					    <td width="10%" colspan="1"><div align="center">出生日期</div></td>
+					    <td colspan="2"><div align="center">
+					    	<span  data-fieldName="BIRTHDAY" data-date-format="YYYY-MM-DD" class="form-show"  ></span>
+					    </div></td>
+					    <td width="10%" colspan="2"><div align="center">性别</div></td>
+					    <td colspan="4"><div align="center">
+					    	<!--  <span class="form-show" id="gender" ></span>
+								<select  class="form-show hidden dmsDisabled" id="selectGender" data-dictCode="1006"   data-fieldName="GENDER"  data-existsDefault = "false"></select> -->
+					   
+					   		<input id="isCheckCheckBox" name="isCheckCheckBox" type="checkbox" data-fieldName="GENDER"
+										data-dictCode="1006"/>
+					    </div></td>
+					    <td width="130"><div align="center">婚姻状况</div></td>
+					    <td width="259"><div align="center">
+					    
+					    	
+					    	<input id="isCheckCheckBox" name="isCheckCheckBox" type="checkbox" data-fieldName="OWNER_MARRIAGE"
+										data-dictCode="1119"/>
+					    	</div></td>
+					  </tr>
+					  <tr>
+					    <td height="17"><div align="center">地址</div></td>
+					    <td colspan="6"><div align="center">
+					    	<span  data-fieldName="ADDRESS" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="2"><div align="center">*上牌地址</div></td>
+					    <td colspan="6"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					  </tr>
+					  <tr>
+					    <td height="17"><div align="center">*电话1</div></td>
+					    <td colspan="3"><div align="center">
+					    	<span  data-fieldName="CONTACTOR_PHONE" class="form-show"  ></span>
+					    </div></td>
+					    <td width="5%"><div align="center">电话2</div></td>
+					    <td colspan="2"><div align="center">
+					    	<span  data-fieldName="CONTACTOR_MOBILE" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="2"><div align="center">传真</div></td>
+					    <td colspan="4"><div align="center">
+					    	<span  data-fieldName="FAX" class="form-show"  ></span>
+					    </div></td>
+					    <td><div align="center">E-mail</div></td>
+					    <td><div align="center">
+					    	<span  data-fieldName="E_MAIL" class="form-show"  ></span>
+					    </div></td>
+					  </tr>
+					  <tr>
+					    <td height="17"><div align="center">单位名称</div></td>
+					    <td colspan="4"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td width="10%" colspan="2"><div align="center">*单位性质</div></td>
+					    <td colspan="8"><div align="center">
+					    	<input id="isCheckCheckBox" name="isCheckCheckBox" type="checkbox"
+										data-dictCode="7654"/>
+					    </div></td>
+					  </tr>
+					  <tr>
+					    <td height="17"><div align="center">职务</div></td>
+					    <td colspan="4"><div align="center">
+					    	<span  data-fieldName="VOCATION_TYPE" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="2"><div align="center">*兴趣爱好</div></td>
+					    <td colspan="6"><div align="center">
+					    	<span  data-fieldName="HOBBY" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="1"><div align="center">适合洽谈时间</div></td>
+					    <td colspan="1"><div align="center">
+					    	<span  data-fieldName="BEST_CONTACT_TIME" class="form-show"  ></span>
+					    </div></td>
+					  </tr>
+					  <tr>
+					    <td height="17"><div align="center">*洽谈方式</div></td>
+					    <td colspan="12"><div align="center">
+								<input id="isCheckCheckBox" name="isCheckCheckBox" type="checkbox" 
+										data-dictCode="7653"/>
+					    </div></td>
+					    <td><div align="center">适合洽谈地点</div></td>
+					    <td><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					  </tr>
+					  <tr>
+					    <td height="17"><div align="center">公司名称</div></td>
+					    <td colspan="6"><div align="center">
+							<span  data-fieldName="COMPANY_NAME" class="form-show"  ></span>					    
+					    </div></td>
+					    <td colspan="2"><div align="center">行业</div></td>
+					    <td colspan="4"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="1"><div align="center">法人</div></td>
+					    <td colspan="1"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					  </tr>
+					  <tr>
+					    <td height="17"><div align="center">地址</div></td>
+					    <td colspan="6"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="2"><div align="center">电话</div></td>
+					    <td colspan="4"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="1"><div align="center">传真</div></td>
+					    <td colspan="1"><div align="center">
+					    	<span  data-fieldName="FAX" class="form-show"  ></span>
+					    </div></td>
+					  </tr>
+					  <tr>
+					    <td height="17"><div align="center">联系人</div></td>
+					    <td colspan="3"><div align="center">
+					    	<span  data-fieldName="CONTACTOR_NAME" class="form-show"  ></span>
+					    </div></td>
+					    <td><div align="center">职务</div></td>
+					    <td colspan="2"><div align="center">
+					    	<span  data-fieldName="POSITION" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="2"><div align="center">电话</div></td>
+					    <td colspan="4"><div align="center">
+					    	<span  data-fieldName="PHONE" class="form-show"  ></span>
+					    </div></td>
+					    <td><div align="center">E-mail</div></td>
+					    <td><div align="center">
+					    	<span  data-fieldName="MAIL" class="form-show"  ></span>
+					    </div></td>
+					  </tr>
+					  <tr>
+					    <td height="17"><div align="center">意向车型排量</div></td>
+					    <td colspan="3"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="1"><div align="center">*预算</div></td>
+					    <td colspan="2"><div align="center">
+					    	<span  data-fieldName="BUDGET_AMOUNT" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="2"><div align="center">目的</div></td>
+					    <td colspan="6"><div align="center">
+					    	<input id="isCheckCheckBox" name="isCheckCheckBox" type="checkbox"
+										data-dictCode="7652"/>
+					    </div></td>
+					  </tr>
+					  <tr>
+					    <td width="1%" rowspan="10" height="30%"><div align="center">客户意向</div></td>
+					    <td height="17"><div align="center">*购车侧重点</div></td>
+					    <td colspan="14"><div align="center">
+					    	<input id="isCheckCheckBox" name="isCheckCheckBox" type="checkbox"
+										data-dictCode="7651"/>
+					    </div></td>
+					  </tr>
+					  <tr>
+					    <td height="17"><div align="center">*来店理由</div></td>
+					    <td colspan="12"><div align="center">
+					    	<input id="isCheckCheckBox" name="isCheckCheckBox" type="checkbox" 
+										data-dictCode="7655"/>
+					    </div></td>
+					    <td><div align="center">介绍人</div></td>
+					    <td><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					  </tr>
+					  <tr>
+					    <td height="17"><div align="center">文化背景</div></td>
+					    <td colspan="6"><div align="center">
+					    	<span  data-fieldName="EDUCATION_LEVEL" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="2"><div align="center">性格特征</div></td>
+					    <td colspan="6"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					  </tr>
+					  <tr>
+					    <td height="51" rowspan="3"><div align="center">*意向车型</div></td>
+					    <td height="17" colspan="2"><div align="center">车型型号</div></td>
+					    <td colspan="4"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="3" rowspan="3"><div align="center">家庭主要成员</div></td>
+					    <td colspan="3" rowspan="3"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td rowspan="3"><div align="center">家庭经济情况</div></td>
+					    <td colspan="4" rowspan="3"><div align="center">
+					    	<span  data-fieldName="FAMILY_INCOME" class="form-show"  ></span>
+					    </div></td>
+					  </tr>
+					  <tr>
+					    <td height="17" colspan="2"><div align="center">颜色</div></td>
+					    <td colspan="4"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					  </tr>
+					  <tr>
+					    <td height="17" colspan="6"><div align="center">
+					    	<input id="isCheckCheckBox" name="isCheckCheckBox" type="checkbox"
+										data-dictCode="7656"/>
+					    </div></td>
+					  </tr>
+					  <tr>
+					    <td height="34" rowspan="2"><div align="center">*使用车型</div></td>
+					    <td height="17" colspan="3"><div align="center">车型</div></td>
+					    <td><div align="center">牌照号</div></td>
+					    <td colspan="2"><div align="center">车况</div></td>
+					    <td colspan="2"><div align="center">车色</div></td>
+					    <td colspan="4"><div align="center">出厂时间</div></td>
+					    <td><div align="center">行驶里程</div></td>
+					    <td><div align="center">评估价格</div></td>
+					  </tr>
+					  <tr>
+					    <td height="17" colspan="3"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="2"><div align="center">
+					    	<span  data-fieldName="LICENSE" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="2"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="4"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td><div align="center">
+					    	<span  data-fieldName="MILEAGE" class="form-show"  ></span>
+					    </div></td>
+					    <td><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					  </tr>
+					  <tr>
+					    <td height="17"><div align="center">*竞争车型1</div></td>
+					    <td colspan="2"><div align="center">*车型</div></td>
+					    <td colspan="2"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="2"><div align="center">经销商</div></td>
+					    <td colspan="2"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td width="195" colspan="1"><div align="center">竞争车型2</div></td>
+					    <td width="60"><div align="center">车型</div></td>
+					    <td colspan="2"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td><div align="center">经销商</div></td>
+					    <td><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					  </tr>
+					  <tr>
+					    <td height="17"><div align="center">支付方式</div></td>
+					    <td colspan="6"><div align="center">
+					    	<input id="isCheckCheckBox" name="isCheckCheckBox" type="checkbox" 
+										data-dictCode="7657"/>
+					    </div></td>
+					    <td colspan="2"><div align="center">交车时间</div></td>
+					    <td><div align="center">
+					    	<span  data-fieldName="CONFIRMED_DATE" data-date-format="YYYY-MM-DD" class="form-show"  ></span>
+					    </div></td>
+					    <td width="100"><div align="center">车型</div></td>
+					    <td colspan="2"><div align="center">
+					    	<span  data-fieldName="MODEL_NAME" class="form-show"  ></span>
+					    </div></td>
+					    <td><div align="center">车色</div></td>
+					    <td><div align="center">
+					    	<span  data-fieldName="COLOR_NAME" class="form-show"  ></span>
+					    </div></td>
+					  </tr>
+					  <tr>
+					    <td width="1%" rowspan="10" height="30%"><div align="center">车辆信息</div></td>
+					    <td height="17"><div align="center">金融机构</div></td>
+					    <td colspan="3"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td><div align="center">期数</div></td>
+					    <td colspan="2"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="2"><div align="center">上牌时间</div></td>
+					    <td><div align="center">
+					    	<span  data-fieldName="LICENSE_DATE" data-date-format="YYYY-MM-DD" class="form-show"  ></span>
+					    </div></td>
+					    <td><div align="center">车牌号</div></td>
+					    <td colspan="2"><div align="center">
+					    	<span  data-fieldName="LICENSE" class="form-show"  ></span>
+					    </div></td>
+					    <td><div align="center">车型号</div></td>
+					    <td><div align="center">
+					    	<span  data-fieldName="MODEL_NAME" class="form-show"  ></span>
+					    </div></td>
+					  </tr>
+					  <tr>
+					    <td height="17"><div align="center">分期到期日</div></td>
+					    <td colspan="3"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日
+					    </div></td>
+					    <td><div align="center">首付率</div></td>
+					    <td colspan="2"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>%
+					    </div></td>
+					    <td colspan="2"><div align="center">预计交车日</div></td>
+					    <td colspan="6"><div align="center">
+					    	<span  data-fieldName="DELIVERING_DATE" data-date-format="YYYY-MM-DD" class="form-show date date-picker"  ></span>
+					    </div></td>
+					  </tr>
+					  <tr>
+					    <td height="17"><div align="center">保有车型</div></td>
+					    <td width="116"><div align="center">使用者</div></td>
+					    <td colspan="3"><div align="center">使用目的</div></td>
+					    <td colspan="2"><div align="center">使用月数</div></td>
+					    <td colspan="2"><div align="center">投保日</div></td>
+					    <td rowspan="2"><div align="center">保险到期日</div></td>
+					    <td rowspan="2"><div align="center">保单号</div></td>
+					    <td colspan="3"><div align="center">
+					    	<span  data-fieldName="INSURANCE_BILL_NO" class="form-show"  ></span>
+					    </div></td>
+					    <td><div align="center">
+					    	<input id="isCheckCheckBox" name="isCheckCheckBox" type="checkbox"
+										data-dictCode="7659"/>
+					    </div></td>
+					  </tr>
+					  <tr>
+					    <td height="17"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="3"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="2"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="2"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="3"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td><div align="center">
+					    	<input id="isCheckCheckBox" name="isCheckCheckBox" type="checkbox"
+										data-dictCode="7660"/>
+					    </div></td>
+					  </tr>
+					  <tr>
+					    <td height="17"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="3"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="2"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="2" rowspan="2"><div align="center">保险公司名称</div></td>
+					    <td colspan="5" rowspan="2"><div align="center">
+					    	<span  data-fieldName="INSURATION_CODE" class="form-show"  ></span>
+					    </div></td>
+					    <td><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					  </tr>
+					  <tr>
+					    <td height="17"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="3"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="2"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					  </tr>
+					  <tr>
+					    <td height="17"><div align="center">介绍日期</div></td>
+					    <td colspan="5"><div align="center">介绍业务</div></td>
+					    <td colspan="3"><div align="center">姓名</div></td>
+					    <td><div align="center">电话号码</div></td>
+					    <td colspan="2"><div align="center">成否</div></td>
+					    <td width="87"><div align="center">车型</div></td>
+					    <td rowspan="4"><div align="center">其他</div></td>
+					    <td rowspan="4"><div align="center"></div></td>
+					  </tr>
+					  <tr>
+					    <td height="20"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="5"><div align="center">
+					    	<input id="isCheckCheckBox" name="isCheckCheckBox" type="checkbox"
+										data-dictCode="7658"/>
+					    </div></td>
+					    <td colspan="3"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="2"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					  </tr>
+					  <tr>
+					    <td height="17"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="5"><div align="center">
+					    	<input id="isCheckCheckBox" name="isCheckCheckBox" type="checkbox"
+										data-dictCode="7658"/>
+					    </div></td>
+					    <td colspan="3"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="2"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					  </tr>
+					  <tr>
+					    <td height="17"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="5"><div align="center">
+					    	<input id="isCheckCheckBox" name="isCheckCheckBox" type="checkbox"
+										data-dictCode="7658"/>
+					    </div></td>
+					    <td colspan="3"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td colspan="2"><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					    <td><div align="center">
+					    	<span  data-fieldName="" class="form-show"  ></span>
+					    </div></td>
+					  </tr>
+					</table><br />
+					<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本卡需要一直填写内容，包括成交后客户车辆的使用，甚至二次购车或三次购车以及朋友介绍购车。</div>
+						<br />
+					<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;前面带*的初次接待需填写内容，其余内容慢慢补充。</div>	
+					<br />
+			</div>	
+			
+			<div class="print-title" >
+				
+				<div class="row h2Title">
+					<div class="col-xs-12">
+						<label>客户资源管理卡</label>
+					</div>
+				</div>
+			</div>
+			<div >
+				<table width="100%" height="95%" border="1">
+					  <tr>
+					    <td width="100" height="149" rowspan="6"><div align="center">保有车辆交车领照后规定以及访问记录</div></td>
+					    <td width="48" rowspan="3"><div align="center">年</div></td>
+					    <td width="41"><div align="center">月份</div></td>
+					    <td colspan="2"><div align="center">01</div></td>
+					    <td colspan="2"><div align="center">02</div></td>
+					    <td colspan="2"><div align="center">03</div></td>
+					    <td colspan="2"><div align="center">04</div></td>
+					    <td colspan="2"><div align="center">05</div></td>
+					    <td colspan="2"><div align="center">06</div></td>
+					    <td colspan="2"><div align="center">07</div></td>
+					    <td colspan="2"><div align="center">08</div></td>
+					    <td colspan="2"><div align="center">09</div></td>
+					    <td colspan="2"><div align="center">10</div></td>
+					    <td colspan="2"><div align="center">11</div></td>
+					    <td colspan="2"><div align="center">12</div></td>
+					    <td width="48" rowspan="3"><div align="center">年</div></td>
+					   <td width="41"><div align="center">月份</div></td>
+					   <td colspan="2"><div align="center">01</div></td>
+					    <td colspan="2"><div align="center">02</div></td>
+					    <td colspan="2"><div align="center">03</div></td>
+					    <td colspan="2"><div align="center">04</div></td>
+					    <td colspan="2"><div align="center">05</div></td>
+					    <td colspan="2"><div align="center">06</div></td>
+					    <td colspan="2"><div align="center">07</div></td>
+					  	<td colspan="2"><div align="center">08</div></td>
+					    <td colspan="2"><div align="center">09</div></td>
+					    <td colspan="2"><div align="center">10</div></td>
+					    <td colspan="2"><div align="center">11</div></td>
+					    <td colspan="2"><div align="center">12</div></td>
+					  </tr>
+					  <tr>
+					    <td><div align="center">预计</div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td><div align="center">预计</div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					  </tr>
+					  <tr>
+					    <td><div align="center">实际</div></td>
+					    <td><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td><div align="center">实际</div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					  </tr>
+					  <tr>
+					    <td width="48" rowspan="3"><div align="center">年</div></td>
+					   <td width="41"><div align="center">月份</div></td>
+					    <td><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="48" rowspan="3"><div align="center">年</div></td>
+					   <td width="41"><div align="center">月份</div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					  </tr>
+					  <tr>
+					    <td><div align="center">预计</div></td>
+					    <td><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td><div align="center">预计</div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					  </tr>
+					  <tr>
+					    <td><div align="center">实际</div></td>
+					    <td><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td><div align="center">实际</div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					    <td width="18"><div align="center"></div></td>
+					  </tr>
+					  <tr>
+					    <td height="30" width="60" rowspan="2"><div align="center">下次预定访问</div></td>
+					    <td height="-2" colspan="4"><div align="center">实际访问</div></td>
+					    <td height="-3" colspan="3" rowspan="2"><div align="center">有望确度</div></td>
+					    <td height="-3" colspan="14" rowspan="2"><div align="center">经过情形</div></td>
+					    <td height="-3" colspan="3" rowspan="2"><div align="center">审核</div></td>
+					    <td height="-3" colspan="3" rowspan="2"><div align="center">下次预定访问</div></td>
+					    <td height="-2" colspan="5"><div align="center">实际访问</div></td>
+					    <td height="-3" colspan="3" rowspan="2"><div align="center">有望确度</div></td>
+					    <td height="-3" colspan="14" rowspan="2"><div align="center">经过情形</div></td>
+					    <td height="-3" colspan="3" rowspan="2"><div align="center">审核</div></td>
+					  </tr>
+					  <tr>
+					    <td height="-3"><div align="center">年</div></td>
+					    <td height="-3"><div align="center">月</div></td>
+					    <td height="-3" colspan="2"><div align="center">日</div></td>
+					    <td height="-3"><div align="center">年</div></td>
+					    <td height="-3" colspan="2"><div align="center">月</div></td>
+					    <td height="-3" colspan="2"><div align="center">日</div></td>
+					  </tr>
+					  <tr>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="-1"><div align="center"></div></td>
+					    <td height="-1"><div align="center"></div></td>
+					    <td height="-1" colspan="2"><div align="center"></div></td>
+					    <td height="-1" colspan="3"><div align="center"></div></td>
+					    <td height="-1" colspan="14"><div align="center"></div></td>
+					    <td height="-1" colspan="3"><div align="center"></div></td>
+					    <td height="-1" colspan="3"><div align="center"></div></td>
+					    <td height="-1"><div align="center"></div></td>
+					    <td height="-1" colspan="2"><div align="center"></div></td>
+					    <td height="-1" colspan="2"><div align="center"></div></td>
+					    <td height="-1" colspan="3"><div align="center"></div></td>
+					    <td height="-1" colspan="14"><div align="center"></div></td>
+					    <td height="-1" colspan="3"><div align="center"></div></td>
+					  </tr>
+					  <tr>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="0"><div align="center"></div></td>
+					    <td height="0"><div align="center"></div></td>
+					    <td height="0" colspan="2"><div align="center"></div></td>
+					    <td height="0" colspan="3"><div align="center"></div></td>
+					    <td height="0" colspan="14"><div align="center"></div></td>
+					    <td height="0" colspan="3"><div align="center"></div></td>
+					    <td height="0" colspan="3"><div align="center"></div></td>
+					    <td height="0"><div align="center"></div></td>
+					    <td height="0" colspan="2"><div align="center"></div></td>
+					    <td height="0" colspan="2"><div align="center"></div></td>
+					    <td height="0" colspan="3"><div align="center"></div></td>
+					    <td height="0" colspan="14"><div align="center"></div></td>
+					    <td height="0" colspan="3"><div align="center"></div></td>
+					  </tr>
+					  <tr>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="2"><div align="center"></div></td>
+					    <td height="2"><div align="center"></div></td>
+					    <td height="2" colspan="2"><div align="center"></div></td>
+					    <td height="2" colspan="3"><div align="center"></div></td>
+					    <td height="2" colspan="14"><div align="center"></div></td>
+					    <td height="2" colspan="3"><div align="center"></div></td>
+					    <td height="2" colspan="3"><div align="center"></div></td>
+					    <td height="2"><div align="center"></div></td>
+					    <td height="2" colspan="2"><div align="center"></div></td>
+					    <td height="2" colspan="2"><div align="center"></div></td>
+					    <td height="2" colspan="3"><div align="center"></div></td>
+					    <td height="2" colspan="14"><div align="center"></div></td>
+					    <td height="2" colspan="3"><div align="center"></div></td>
+					  </tr>
+					  <tr>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="5"><div align="center"></div></td>
+					    <td height="5"><div align="center"></div></td>
+					    <td height="5" colspan="2"><div align="center"></div></td>
+					    <td height="5" colspan="3"><div align="center"></div></td>
+					    <td height="5" colspan="14"><div align="center"></div></td>
+					    <td height="5" colspan="3"><div align="center"></div></td>
+					    <td height="5" colspan="3"><div align="center"></div></td>
+					    <td height="5"><div align="center"></div></td>
+					    <td height="5" colspan="2"><div align="center"></div></td>
+					    <td height="5" colspan="2"><div align="center"></div></td>
+					    <td height="5" colspan="3"><div align="center"></div></td>
+					    <td height="5" colspan="14"><div align="center"></div></td>
+					    <td height="5" colspan="3"><div align="center"></div></td>
+					  </tr>
+					  <tr>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="14"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="14"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					  </tr>
+					  <tr>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="14"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="14"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					  </tr>
+					  <tr>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="14"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="14"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					  </tr>
+					  <tr>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="14"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="14"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					  </tr>
+					  <tr>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="14"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="14"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					  </tr>
+					  <tr>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="14"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="14"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					  </tr>
+					  <tr>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="14"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="14"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					  </tr>
+					  <tr>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="14"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="14"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					  </tr>
+					  <tr>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="14"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="14"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					  </tr>
+					  <tr>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="14"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="2"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					    <td height="30" colspan="14"><div align="center"></div></td>
+					    <td height="30" colspan="3"><div align="center"></div></td>
+					  </tr>
+					</table>
+			
+			
+			</div>
+			
+		</div>
+	</div>
+</div>
+<div class="print-without">
+	<a id="print" class="btn blue printfy"><i class="fa fa-print"></i>打印</a>
+	<a data-info="editOrder"
+		href="retail/ordermanage/salessynthesis/searchSalesSynthesis.html"
+		class="btn blue ajaxify" data-beforeShowEvent="true"><i
+		class="fa fa-reply"></i>返回</a>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms", function(event, container) {
+		 $("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){
+			 $("#gender",container).setDmsValue($('option:selected',$("#selectGender",container)).text());
+			 $("#contactType",container).setDmsValue($('option:selected',$("#selectContactType",container)).text());
+			 debugger;
+			 console.log("---------------"+$('option:selected',$("#selectGender",container)));
+		 });
+		
+	
+		
+	});
+</script>

@@ -1,0 +1,139 @@
+<div class="dms-search" >
+  <form class="form-horizontal">
+		<div class="panel-heading">
+			<div class="pannel-name">派工编辑</div>
+			<div class="pannel-button">
+			</div>
+		</div>
+		<div class="modal-body">
+		<div class="panel panel-default">
+		<div class="panel-body" data-parentTable ="partInfoTable">
+		<div class="row" >
+	
+		<div class="col-xs-12 col-sm-6 ">
+			<div class="form-group">
+				<label class="control-label col-xs-4">派工技师</label>
+				<div class="col-xs-8">
+					<select id="technicianName" class="bs-select form-control required" 
+						name="technicianName" data-url="/basedata/appendProject/appendProject/dicts"
+						data-model="repair" data-labelValue="ADD_ITEM_CODE" data-existsDefault = "false"
+						data-fieldName="ADD_ITEM_NAME" data-lableDesc="ADD_ITEM_NAME"
+						data-alwaysRefresh="true">
+					</select>
+					<input type="text" class="form-control" id="techniciancode" name="techniciancode"  disable='disable'>
+					<button class="btn default btn-sm " type="button" id="technician"
+							data-url="repair/order/repair/repairOrder/selectEmployee.html"
+							data-toggle="modal" data-width="modal-lg"> 
+							<i class="fa fa-list-alt"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+			<div class="col-xs-12 col-sm-6 ">
+			<div class="form-group">
+				<label class="control-label col-xs-4">派工工位</label>
+				<div class="col-xs-8">
+					<select id="repairPosition" name="repairPosition"  parent="techniciancode"
+										class="bs-select form-control"
+										data-url="/basedata/employees/-1/salesConsultant"
+										data-model="manage" data-labelValue="USER_ID"
+										data-lableDesc="USER_NAME">
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 ">
+			<div class="form-group">
+				<label class="control-label col-xs-4">工种名称</label>
+				<div class="col-xs-8">
+					<select id="workType" class="bs-select form-control required"   parent="techniciancode"
+						name="workType" data-url="/basedata/appendProject/appendProject/dicts"
+						data-model="repair" data-labelValue="ADD_ITEM_CODE" data-existsDefault = "false"
+						data-fieldName="ADD_ITEM_NAME" data-lableDesc="ADD_ITEM_NAME"
+						data-alwaysRefresh="true">
+				</select>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 ">
+			<div class="form-group">
+				<label class="control-label col-xs-4">分项工时</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control" id="labourHour" name="labourHour" value='0.00'>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 ">
+			<div class="form-group">
+				<label class="control-label col-xs-4">工时系数</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control"  disabled="disabled"  id="workHour" name="workHour" value='0.00'  parent="techniciancode">
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 ">
+			<div class="form-group">
+				<label class="control-label col-xs-4">开工时间</label>
+				<div class="col-xs-8">
+					<div class="input-group date datetime " data-defaultNow = "true">
+								<input id="startDate" name="startDate" readonly
+									class="form-control "
+									type="text" value="" />
+								 <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+			                    <span class="input-group-addon"><span class="fa fa-times"></span></span>
+					</div>
+				</div>
+			</div>
+		</div>	
+		
+		<div class="col-xs-12 col-sm-6 ">
+			<div class="form-group">
+				<label class="control-label col-xs-4">预计完成时间</label>
+				<div class="col-xs-8">
+					<div class="input-group date datetime " data-defaultNow = "true">
+								<input id="endDate" name="endDate" readonly
+									class="form-control "
+									type="text" value="" />
+								 <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+			                    <span class="input-group-addon"><span class="fa fa-times"></span></span>
+					</div>
+				</div>
+			</div>
+		</div>	
+		</div>	
+		
+		</div>
+		</div>
+		</div>
+		<div class="modal-footer">
+			 <a  id="save" data-onclickEvent="true" 
+				data-callBack="true" class="btn blue"><i
+				class="fa fa-save"></i>确定</a>
+			<a data-dismiss="modal" class="btn blue">
+			<i class="fa fa-undo"></i>取消
+				</a>
+		</div>
+		</div>	
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event,container){
+		var jsonTr={};
+		jsonTr["TECHNICIAN"]=$("#technicianName").val();
+		jsonTr["ADD_ITEM_NAME"]=$("#technicianCode").val();
+		jsonTr["LABOUR_POSITION_CODE"]=$("#repairPosition").val();
+		jsonTr["ADD_ITEM_NAME"]=$("#workType").val();	
+		
+		jsonTr["ASSIGN_LABOUR_HOUR"]=$("#labourHour").val();
+		jsonTr["ADD_ITEM_NAME"]=$("#workHour").val();
+	
+		jsonTr["ITEM_START_TIME"]=$("#startDate").val();
+		jsonTr["ESTIMATE_END_TIME"]=$("#endDate").val();
+	
+		$("#dms_tableitem",getElementContext()).dmsTable().appendRow(jsonTr);
+		$("a[data-dismiss='modal']",container).click();
+	});
+});	
+</script>

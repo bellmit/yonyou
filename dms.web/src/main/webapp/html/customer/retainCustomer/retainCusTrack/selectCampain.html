@@ -1,0 +1,63 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">市场活动查询</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default table-panel">
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="cus_table"></table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			   <a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>关闭
+			</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "cus_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["customer"] + "/customerManage/retainCusTracking/campaign",
+			rowID : "CAMPAIGN_CODE",
+			sortName : "CAMPAIGN_CODE",
+			sortOrder : "asc",
+			autoHeight:false,	
+			undefinedText : "",
+			columns : [ 			  
+			{field : "CAMPAIGN_CODE",title : "市场活动编号"}, 
+			{field : "CAMPAIGN_NAME",title : "市场活动名称"}, 
+			{field : "SERIES_CODE",title : "车系"}, 
+			{field : "APPLY_DATE",title : "申请时间",dateFormat : {format:"YYYY-MM-DD"}}, 
+			{field : "TARGET_CUSTOMER",title : "目标客户"}, 
+			{field : "SPOT",title : "地点"}, 
+			{field : "BEGIN_DATE",title : "开始日期",dateFormat : {format:"YYYY-MM-DD"}},
+			{field : "END_DATE",title : "结束日期",dateFormat : {format:"YYYY-MM-DD"}}, 
+		    {field : "CAMPAIGN_BUDGET",title : "活动预算"}, 
+			{field : "CAMPAIGN_PERFORM_TYPE",title : "市场活动发起方式", codeFormat : {type:"dict",codeType:"1299"}}, 
+			{field : "APPLICANT",title : "申请人"}, 
+			{field : "MEMO",title : "其他说明"}, 
+			{field : "CUR_AUDITING_STATUS",title : "当前审批状态" , codeFormat : {type:"dict",codeType:"1362"}},
+		    {field : "CUR_AUDITOR",title : "当前审批人"}
+    			]
+		});
+		
+		//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			
+			//关闭窗口		
+			
+			$("a[data-dismiss='modal']",container).click();
+		});
+	});
+</script>  

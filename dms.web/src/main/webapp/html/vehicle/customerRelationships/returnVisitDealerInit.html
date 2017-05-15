@@ -1,0 +1,221 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">客户姓名:</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="linkName" name="linkName" >
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">客户电话:</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="linkPhone" name="linkPhone" >
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">跟踪状态</label>
+								<div class="col-xs-8">
+									<select  class="bs-select form-control" id="visitType" name="visitType" 
+									 data-dictCode="9203" data-type="oemDict">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">跟踪性质</label>
+								<div class="col-xs-8">
+									<select  class="bs-select form-control" id="visitStatus" name="visitStatus" 
+									 data-dictCode="9201" data-type="oemDict">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">渠道来源</label>
+								<div class="col-xs-8">
+									<select  class="bs-select form-control" id="visitSource" name="visitSource"  
+									 data-dictCode="9202" data-type="oemDict">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">处理结果</label>
+								<div class="col-xs-8">
+									<select  class="bs-select form-control" id="disposeResult" name="disposeResult" 
+									 data-dictCode="9204" data-type="oemDict">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车辆VIN码</label>
+							<div class="col-xs-8">
+							 <textarea class="form-control" rows="1" id="vin" name="vin"></textarea> 
+							<font color="red">(请至少输入后8位VIN码)</font>
+							</div>
+						</div>
+					</div>
+						
+						
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+								<div class="form-group">
+							<label class="control-label col-xs-4 ">反馈时间</label>
+							<div class="col-xs-8 ">
+								 <div class="input-group input-daterange"  data-opens="right">
+		                             <input type="text" class="form-control" readonly  name="bacakDateStart" id="bacakDateStart">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="bacakDateEnd" id="bacakDateEnd">
+		                             <span class="input-group-btn">
+                                         <button class="btn default input-clear" type="button">
+                                            <i class="fa fa-close"></i>
+                                        </button>
+                                      </span> 
+		                        </div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+								<div class="form-group">
+							<label class="control-label col-xs-4 ">处理时间</label>
+							<div class="col-xs-8 ">
+								 <div class="input-group input-daterange"  data-opens="right">
+		                             <input type="text" class="form-control" readonly  name="disposeDateStart" id="disposeDateStart">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="disposeDateEnd" id="disposeDateEnd">
+		                             <span class="input-group-btn">
+                                         <button class="btn default input-clear" type="button">
+                                            <i class="fa fa-close"></i>
+                                        </button>
+                                      </span> 
+		                        </div>
+							</div>
+						</div>
+					</div>		
+					
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<div class="panel panel-default table-panel">
+			<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+			<div class="pannel-name">信息列表 </div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" href="javascript:;"  data-url="/complaintDisposalNo/excelExport/1" data-model="vehicle" data-method="downLoad" data-toggle="confirmation"> <i
+								class="fa fa-download " ></i> 下载
+							</a>  
+						</div>
+				</div>
+		</div>
+			
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="partList"></table>
+		</div>
+	</div>
+		
+	</div>
+	</form>
+	
+	
+</div>
+<script type="text/javascript">
+ $(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "partList",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/complaintDisposalNo/returnVisitDealerQuery",
+		rowID : "CREATE_DATE",
+		sortName : "CREATE_DATE",
+		sortOrder : "desc",
+		columns : [ 
+		           {field :"VISIT_ID",title : "操作",operateFormat : [
+		                                                       {type:"edit",title:"跟踪处理",url:"vehicle/customerRelationships/returnVisitEdit2.html",openWidth:"modal-lg",doubleClick:false,
+			                                                    	  isShow:function(value, row, index){
+			                                                    		  if(row.VISIT_STATUS=="92031001"){
+			                                                    			  return true;
+			                                                    		  }else{
+			                                                    			  return false;
+			                                                    		  }
+			                                                   	  		}
+			                                                     	 },
+			                                                     	 {type:"detail",url:"vehicle/customerRelationships/returnVisitEdit.html",openWidth:"modal-lg",doubleClick:false,
+				                                                    	  isShow:function(value, row, index){
+				                                                    		
+				                                                    		  if(row.VISIT_STATUS=="92031002"){
+				                                                    			  return true;
+				                                                    		  }else{
+				                                                    			  return false;
+				                                                    		  }
+				                                                   	  		}
+				                                                     	 }
+		                                                      ]
+		    		},
+                    {title: "导入日期", 	field: 'CREATE_DATE'},
+   	   				{title: "大区",		field: 'ORG_NAME'},
+   	   				{title: "小区",		field: 'ORG_NAME_SMALL'},
+   	   				{title: "经销商代码",	field: 'DEALER_CODE'},
+   	   				{title: "经销商简称",		field: 'DEALER_SHORTNAME'},
+   	   				{title: "联系人名称",		field: 'LINK_NAME'},
+   	   				{title: "联系人电话",	field: 'LINK_PHONE'},
+   	   				{title: "VIN",		field: 'VIN'},
+   	   				{title: "反馈时间",		field: 'BACK_DATE'},
+   	   				{title: "反馈类型",		field: 'BACK_TYPE'},
+   	   				{title: "反馈内容",	field: 'BACK_CONTENT'},
+   	   				{title: "跟踪性质",		field: 'VISIT_TYPE',codeFormat : {type:"oemDict",codeType:"9201"}},
+   	   				{title: "渠道来源",		field: 'VISIT_SOURCE',codeFormat : {type:"oemDict",codeType:"9202"}},
+   	   				{title: "跟踪状态",	field: 'VISIT_STATUS',codeFormat : {type:"oemDict",codeType:"9203"}},
+   	   				{title: "跟踪人",	field: 'DISPOSE_NAME'},
+   	   				{title: "处理时间",	field: 'DISPOSE_DATE'},
+   	   				{title: "处理结果",	field: 'DISPOSE_RESULT',codeFormat : {type:"oemDict",codeType:"9204"}},
+   	   				{title: "处理结果描述",	field: 'RESULT_CONTENT'}
+
+		]
+		
+	});
+	
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		console.log("88");
+		var vin = document.getElementById("vin").value;
+		if (vin != "" && vin.length<8) {
+			dmsCommon.tip({status:"warning",msg:"【车辆VIN码】请至少输入后8位！"});
+			return;
+		}
+	});
+	
+});
+    
+</script>

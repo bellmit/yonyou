@@ -1,0 +1,290 @@
+<div class="dms-add">
+<form class="form-horizontal">
+       
+		<div class="modal-header">
+			<div class="modal-title">收款信息</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row" data-tableSelect="true">
+					 <input type="hidden" name="balaPayobjId" id="balaPayobjId" data-fieldName="BALA_PAYOBJ_ID">
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">收款对象代码</label>
+								<div class="col-xs-8">
+									<input id="paymentObjectCode" name="paymentObjectCode" data-fieldName="OWNER_NO" class="form-control" disabled="disabled"
+									type="text" />
+								</div>
+							</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">收款对象名称</label>
+							<div class="col-xs-8">
+								<input id="paymentObjectName" name="paymentObjectName" data-fieldName="DELIVERER" class="form-control" disabled="disabled"
+									type="text" />
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">经手人</label>
+							<div class="col-xs-8">
+								<select id="handler" name="handler" class="bs-select form-control" data-url="/basedata/employees/employees/dict" data-model="manage" data-labelValue="EMPLOYEE_NO" data-lableDesc="EMPLOYEE_NAME" data-value="{[userInfo.employeeNo]}" >
+							    </select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">收款日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date datetime" data-defaultNow="true">
+										<input id="receiveDate" name="receiveDate" readonly
+											class="form-control" type="text" value="" />
+										<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+					                    <span class="input-group-addon"><span class="fa fa-times"></span></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">客户付款方式</label>
+							<div class="col-xs-8">
+								<select id="payTypeCode" data-existsDefault="false" name="payTypeCode" class="bs-select form-control required" data-dictCode="1208" data-value="12081001">
+							    </select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-2">&nbsp;&nbsp;&nbsp;已销帐</label>
+								<div class="col-xs-1">
+								<input id="writeoffTag" name="writeoffTag" type="checkbox" data-dictLabel=""  data-dictCode="1013"  data-value="10131001" />
+								</div>
+								<label class="control-label col-xs-3">&nbsp;收款金额&nbsp;&nbsp;</label>
+								<div class="col-xs-6">
+								<input id="receiveAmount" name="receiveAmount" class="form-control required moneyMinus" data-fieldName="RECEIVABLE_AMOUNT" type="text"/>
+								</div>
+							</div>
+					</div>
+					<!-- /span -->	
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-2">&nbsp;&nbsp;&nbsp;已开票</label>
+								<div class="col-xs-1">
+								<input id="invoiceTag" name="invoiceTag" type="checkbox" data-dictLabel=""  data-dictCode="1013" />
+								</div>
+								<label class="control-label col-xs-3">&nbsp;发票号码&nbsp;&nbsp;</label>
+							
+								<div class="col-xs-6">
+								<input id="billNo" name="billNo" class="form-control"
+									type="text" />
+								</div>
+							</div>
+					</div>
+					<!-- /span -->
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">支票号码</label>
+								<div class="col-xs-8">
+								<input id="checkNo" name="checkNo" class="form-control" disabled="disabled"
+									type="text" />
+								</div>
+							</div>
+					</div>
+					<!-- /span -->
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">发票类型</label>
+							<div class="col-xs-8">
+								<select id="invoiceTypeCode" name="invoiceTypeCode" class="bs-select form-control" data-dictCode="1207" data-value="12071001">
+							    </select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-12 col-md-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2 col-md-1">备注</label>
+								<div class="col-xs-8 col-sm-10 col-md-11" >
+								<input id="remark" name="remark" class="form-control"
+									type="text" />
+								</div>
+							</div>
+					</div>
+					<!-- /span -->
+					</div>
+					<div class="row">
+						<div class="col-xs-12 ">
+							<div class="query-btn " style="text-align:center;margin:0 auto;">
+								<a data-url="/balance/receiveMoney" data-model="repair"
+									data-method="POST" data-callBack="true"
+									class="btn blue" data-toggle="confirmation"><i
+									class="fa fa-save"></i>确定
+								</a>
+								<a data-dismiss="modal"
+									class="btn blue"> <i
+									class="fa fa-undo"></i>取消
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	
+			<div class="tabbable-custom ">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#tab_settlementDetail"data-toggle="tab">结算信息</a></li>
+					<li><a href="#tab_gatheringDetail" data-toggle="tab"> 收款记录</a></li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane fade in active" id="tab_settlementDetail">
+						<div class="panel panel-default table-panel">
+							<div class="panel-heading">
+								<div class="pannel-name"></div>
+								<div class="pannel-button">
+									<div class="btn-group btn-group-sm">
+										<a class="btn btn-outline" href="javascript:;"
+											data-onclickEvent="true"> <i class="fa fa-print"></i>打印数据
+										</a>
+									</div>
+								</div>
+
+							</div>
+							<div class="panel-body">
+								<table
+									class="table table-striped table-bordered table-hover table-responsive"
+									id="settlementDetail">
+								</table>
+							</div>
+						</div>
+					</div>
+
+                    <div class="tab-pane fade" id="tab_gatheringDetail">
+						<div class="panel panel-default table-panel">
+							<div class="panel-heading">
+								<div class="pannel-name"></div>
+								<div class="pannel-button">
+									<div class="btn-group btn-group-sm">
+										<a class="btn btn-outline" href="javascript:;"
+											data-onclickEvent="true"> <i class="fa fa-print"></i>打印
+										</a>
+									</div>
+								</div>
+
+							</div>
+							<div class="panel-body">
+								<table
+									class="table table-striped table-bordered table-hover table-responsive"
+									id="gatheringDetail">
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</form>		
+</div>
+<script type="text/javascript">
+	
+
+	$(document).one("onload.dms",function(event,container){
+		var balancePayobjId;//initLocale
+		var receiveAmount=0;
+		var index=1;
+		+function(){
+			var selectRow = $("#bPODtoList",getElementContext()).dmsTable().getFirstSelection();
+			var balanceId = $("#balanceId",getElementContext()).val()
+			index=selectRow.index;
+			$("div[data-tableSelect='true']",container).initHtmlContent(selectRow);
+			balancePayobjId=selectRow.BALA_PAYOBJ_ID;
+			receiveAmount=parseFloat(selectRow.NOT_RECEIVED_AMOUNT).toFixed(2);
+			$("#receiveAmount",container).val(receiveAmount);
+		}();
+	 	new Datatable().initLocale({
+			src : "settlementDetail",
+			rowID:"BALA_PAYOBJ_ID",
+			container:container,
+			url : dmsCommon.getDmsPath()["repair"] + "/balance/balanceAccounts/"+balancePayobjId+"/balancePayobj",
+			autoHeight:false,
+			columns : [ 
+			            {field : "BALANCE_NO",title : "结算单号"},
+			            {field : "LICENSE",title: "车牌号"},
+			            {field : "RECEIVABLE_AMOUNT",title : "应收账款",numberFormat : {decimal:2}},
+			            {field : "RECEIVED_AMOUNT",title : "已收账款",numberFormat : {decimal:2}},
+			            {field : "DERATE_AMOUNT",title : "已免账款",numberFormat : {decimal:2}},
+			            {field : "NOT_RECEIVED_AMOUNT",title : "未收账款",numberFormat : {decimal:2}},
+			           /*  {field : "",title : "收款金额",numberFormat : {decimal:2}}, */
+			            {field : "PAY_OFF",title : "是否结清",codeFormat : {type : "dict",codeType : "1004"}},
+			            {field : "INVOICE_TAG",title : "已开票",inputCheckBoxFormat:{type:"dict",codeType:"1013"}}
+			            /* {field : "",title : "业务单号"},
+			            {field : "",title : "业务类型"} */
+			         ]
+			
+		});
+
+	 	 new Datatable().initLocale({
+			src : "gatheringDetail",
+			rowID:"RECEIVE_MONEY_ID",
+			container:container,
+			url : dmsCommon.getDmsPath()["repair"] + "/balance/receiveMoney/"+balancePayobjId+"/receiveMoneys",
+			autoHeight:false,
+			columns : [ 
+			            //{field : "",title : "收款单号"},
+			            {field : "RECEIVE_DATE",title : "收款日期",dateFormat:{}},
+			            {field : "RECEIVE_AMOUNT",title : "收款金额",numberFormat : {decimal:2}},
+			            {field : "PAY_TYPE_CODE",title : "付款方式",codeFormat:{type:"dict",codeType:"1208"}},
+			            {field : "WRITEOFF_TAG",title : "销账标志",inputCheckBoxFormat:{type:"dict",codeType:"1013"}},
+			            {field : "EMPLOYEE_NAME",title : "经手人"},
+			            {field : "INVOICE_TAG",title : "已开票",inputCheckBoxFormat:{type:"dict",codeType:"1013"}},
+			            {field : "INVOICE_TYPE_CODE",title : "发票类型",codeFormat:{type:"dict",codeType:"1207"}},
+			            {field : "BILL_NO",title : "发票号码"},
+			            {field : "REMARK",title : "备注"}
+			         ]
+			
+		}); 
+	 	
+	 	$("#payTypeCode",container).bindChange(function(obj){
+	 		 var payTypeCode=$("#payTypeCode",container).val();
+		     //支票
+		     if("12081003"==payTypeCode){
+		    	 $("#checkNo",container).removeAttr("disabled");
+		     }else{
+		    	 $("#checkNo",container).attr("disabled",true);
+		     }
+		     if("12081001"==payTypeCode){
+		        dmsDict.initObject($("input[name='writeoffTag']",container));
+		     }else{
+		    	
+		    	 $("input[name='writeoffTag']",container).removeAttr("checked");
+		     }
+		});
+	 	
+	 	
+	 	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+	 		var result= receiveAmount-parseFloat($("#receiveAmount",getElementContext()).val());
+	 		$("#bPODtoList",getElementContext()).dmsTable().updateRowByIndex(index,{NOT_RECEIVED_AMOUNT:result});
+	 		var tab=$("#bPODtoList tbody tr:eq(0) td:eq(6)");
+			$("input[type='text']",tab).attr("type","hidden");
+			tab.val("<span>"+result.toFixed(2)+"</span>");
+			
+			var tab2=$("#bPODtoList tbody tr:eq(0) td:eq(7)");
+			$("input[type='text']",tab).attr("type","hidden");
+			tab2.val("<span>"+result.toFixed(2)+"</span>");
+			
+			var disMap={DIS_AMOUNT:result.toFixed(2)};//应收金额
+			$("div[data-disAmount='true']",getElementContext()).initHtmlContent(disMap,false);
+			$("a[data-dismiss='modal']",container).click();
+		});
+	});
+</script>

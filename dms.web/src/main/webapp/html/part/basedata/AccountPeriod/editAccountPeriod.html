@@ -1,0 +1,129 @@
+<div class="dms-edit ajaxrest" data-url="/basedata/AccountPeriod/{[B_YEAR]}/{[PERIODS]}" data-model="part" data-method="GET">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+			<div class="modal-title">修改会计周期信息</div>
+		</div>
+		
+		<div class="modal-body">
+    		<div class="panel panel-default">
+				<div class="panel-body">
+		            <div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">年度</label>
+						<div class="col-xs-8">
+							<input id="bYear" name="bYear" class="form-control " 
+							type="text" data-fieldName="B_YEAR" disabled="disabled"/>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">周期</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control  "  id="periods" 
+							name="periods"   data-fieldName="PERIODS" disabled="disabled"/>
+					    </div>
+					</div>
+				</div>
+				
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">开始日期</label>
+						<div class="col-xs-8">
+								<div class="input-group date ">
+									<input id="beginDate" name="beginDate" readonly class="form-control" 
+									type="text" value="" data-fieldName="BEGIN_DATE" disabled="disabled"/> 
+								</div>
+							</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">结束日期</label>
+						<div class="col-xs-8">
+								<div class="input-group date date-picker" >
+									<input id="endDate" name="endDate"  data-defaultTody="false"  data-date-end-date="+0d" 
+									readonly class="form-control"  type="text" value="" data-fieldName="END_DATE" /> 
+										<span class="input-group-btn">
+										<button class="btn default date-set" type="button">
+											<i class="fa fa-calendar"  >
+											</i>
+										</button>
+                                          <!-- <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>  -->
+									</span>
+								</div>
+							</div>
+					</div>
+				</div>
+				
+			<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">下周期结束日期:</label>
+						<div class="col-xs-8">
+								<div class="input-group date "   >
+		                          <input  id="nextEndDate"  class="form-control" 
+									type="text" value="" data-fieldName="nextEndDate"   disabled="disabled"/> 
+		                        </div>		
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">是否已执行</label>
+						<div class="col-xs-8">
+							<input type="checkbox"  id="isExecuted" name="isExecuted"  data-dictCode="1057"  
+						class="form-control" 	data-fieldName="IS_EXECUTED" disabled="disabled">
+						</div>
+					</div>
+				</div>
+			
+			</div>
+		</div>
+	</div>
+</div>
+		
+		<div class="modal-footer center-block">
+			<a data-url="/basedata/AccountPeriod/{[B_YEAR]}/{[PERIODS]}" data-model="part" data-method="PUT"
+				data-callBack="true" class="btn blue"  data-beforeRequest="true"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> 
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	//在请求之前判断一下设置的值是否合适
+	//事件点击
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			 //console.log(1);
+			var endDate=$("#endDate").val();
+			var nextEndDate=$("#nextEndDate").val();
+			var end= Date.parse(endDate);
+			var next= Date.parse(nextEndDate);
+			var day=(next-end)/(24*60*60*1000);
+			if(day<=2){
+				//总共的状态类型：info、success、error、warning
+					dmsCommon.tip({status:"error",msg:"结束日期至少比下周期结束日期早两天！"});
+					returnResult.status =false;
+					return ;
+			}
+			returnResult.status =true;
+		}); 
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_accountPeriod",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+});
+</script>

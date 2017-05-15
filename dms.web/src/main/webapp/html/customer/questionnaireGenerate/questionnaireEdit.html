@@ -1,0 +1,100 @@
+<div class="dms-edit ajaxrest"
+	data-url="/questionnaire/{[QUESTION_CODE]}/searchAnswerGroup"
+	data-model="customer">
+	<form class="form-horizontal">
+
+		<div class="modal-header">
+			<div class="modal-title">建立关联</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+
+			<div class="col-xs-12" hidden = "hidden">
+				<div class="form-group">
+					<label class="control-label col-xs-4">questionnaireCode</label>
+					<div class="col-xs-8">
+						<input id="questionnaireCode" name="questionnaireCode"
+							class="form-control " type="text" value="{[QUESTIONNAIRE_CODE]}" />
+					</div>
+				</div>
+			</div>
+
+			<div class="col-xs-12" hidden = "hidden">
+				<div class="form-group">
+					<label class="control-label col-xs-4">questionCode</label>
+					<div class="col-xs-8">
+						<input id=questionCode name="questionCode" class="form-control "
+							type="text" />
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="panel panel-default table-panel">
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="answerAAA">
+					</table>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<a data-url="/questionnaire/initTraceQuestion" data-model="customer" data-method="PUT"
+					data-onclickEvent='true' data-callBack="true" class="btn blue"
+					data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> <a
+					data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+<script type="text/javascript">
+ 	$(document).one("onload.dms",function(event,container){
+ 		
+ 		
+		new Datatable().initPagination({
+			src : "answerAAA",
+			container:container,
+			url : dmsCommon.getDmsPath()["customer"] + "/questionnaire/editQuestions",
+			rowID : "QUESTION_CODE",
+			sortName : "QUESTION_CODE",
+			sortOrder : "asc",
+			autoHeight : false,
+			columns : [
+				{checkbox:true,sortable : true},
+				{field : "QUESTION_CODE",title : "问题编号"},
+				{field : "QUESTION_TYPE",title : "问题类型"}, 
+				{field : "QUESTION_NAME",title : "问题名称"}, 
+				{field : "QUESTION_CONTENT",title : "问题内容"}, 
+				{field : "QUESTION_DESC",title : "问题说明"}, 			
+				{field : "DOWN_TAG",title : "OEM下发",codeFormat : {type:"dict",codeType:"1278"}},  
+				]
+		});
+		
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event,container){
+			var selectRow = $("#answerAAA",container).dmsTable().getSelections();
+			var questionCode = "";
+			$(selectRow).each(function(e){
+
+				questionCode +=selectRow[e].QUESTION_CODE+";";	
+				
+				$("#questionCode",container).val(questionCode);
+			});
+			
+			
+		  });
+		
+		//新增页面回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#questionnairesList",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	});
+</script>  

@@ -1,0 +1,224 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="modal-header">
+				<div class="modal-title">服务活动项目</div>
+				<div class="modal-close">
+					<a data-dismiss="modal" class="btn btn-lg">
+					<i class="fa fa-remove"></i></a>
+				</div>
+			</div>
+			<div class="panel-body">
+						
+						<div class="col-xs-12 col-sm-6 col-md-6 ">
+							<div class="form-group">
+								<!-- <label class="control-label col-xs-4">活动系统编号：</label> -->
+								<div class="col-xs-8">
+									<!-- <input id="activityCode" name="activityCode" data-fieldName="ACTIVITY_CODE"  class="form-control required systemCode" maxlength="30" type="text" /> -->
+									<input id="activityId1" name="activityId1"   class="form-control required "  type="hidden" />
+								</div>
+							</div>
+						</div>
+			
+				<div class="row ">				
+					<div class="col-xs-12 ">
+<!-- 						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div> -->
+					</div>
+				</div>
+			
+			
+			
+			
+				
+			<div class="row ">	
+				<div class="panel panel-default table-panel">
+					<div class="panel-heading">
+						<div class="pannel-name"> 活动工时</div>
+							<div class="pannel-button">
+								<div class="btn-group btn-group-sm">
+									<a class="btn btn-outline" data-url="vehicle/activityManage/activityRangeInitLabour.html" data-width="modal-lg"
+										data-toggle="modal"> <i class="fa fa-plus-square"></i> 新增
+									</a> 
+								</div>
+						 </div>
+					</div>
+					<div class="panel-body">
+						<table class="table table-striped table-bordered table-hover table-responsive"
+							id="labourTableList"></table>
+						</div>
+					</div>				
+			</div>
+			
+			<div class="row ">	
+				<div class="panel panel-default table-panel">
+					<div class="panel-heading">
+						<div class="pannel-name"> 活动配件</div>
+							<div class="pannel-button">
+								<div class="btn-group btn-group-sm">
+									<a class="btn btn-outline" data-url="vehicle/activityManage/activityRangeInitPart.html" data-width="modal-lg"
+										data-toggle="modal"> <i class="fa fa-plus-square"></i> 新增
+									</a> 
+								</div>
+						 </div>
+					</div>
+					<div class="panel-body">
+						<table class="table table-striped table-bordered table-hover table-responsive"
+							id="partTableList"></table>
+						</div>
+					</div>				
+			</div>
+			
+			<div class="row ">	
+				<div class="panel panel-default table-panel">
+					<div class="panel-heading">
+						<div class="pannel-name"> 其他活动项目</div>
+							<div class="pannel-button">
+								<div class="btn-group btn-group-sm">
+									<a class="btn btn-outline" data-url="vehicle/activityManage/activityRangeInitOther.html" data-width="modal-lg"
+										data-toggle="modal"> <i class="fa fa-plus-square"></i> 新增
+									</a> 
+								</div>
+						 </div>
+					</div>
+					<div class="panel-body">
+						<table class="table table-striped table-bordered table-hover table-responsive"
+							id="otherTableList"></table>
+						</div>
+					</div>				
+			</div>						
+				
+			</div>
+		</div>
+	
+	<div class="modal-footer center-block">
+			<a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	
+	
+
+	
+	
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		var activityId = $("#activityId",getElementContext()).val();
+		$("#activityId1",container).val(activityId); 
+		//alert(activityId);
+		//工时
+		new Datatable().initPagination({
+			src : "labourTableList",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/activityMaintain/editRange/labourList",
+			rowID : "DETAIL_ID",
+			sortName : "",
+			sortOrder : "",
+			//isQueryFirst:false,
+			autoHeight:false,
+			columns : [ 
+			    {field : "DETAIL_ID",title : "操作",operateFormat : [
+                       {type:"del",url:"/activityMaintain/labourDelete/{[DETAIL_ID]}",model:"vehicle",callBack:function(response){
+                    	   $("#labourTableList",container).dmsTable().refreshTableWithForm();
+                       },isShow:function(value, row, index){
+                    		   return true;             	   
+                       }}
+                   ]
+                },  
+			    //{field : "CODE_ID",title : "ID"}, 
+				{field : "LABOUR_CODE",title : "工时编码"}, 
+				{field : "LABOUR_NAME",title : "工时名称"},
+				{field : "DISCOUNT",title : "折扣"},
+				{field : "LABOUR_NUM",title : "工时数"}
+
+			], 
+			onLoadSuccess : function() {
+				$("#labourTableList",container).dmsTable().bootstrapTable('resetView');
+			}
+
+		});
+		//配件
+		new Datatable().initPagination({
+			src : "partTableList",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/activityMaintain/editRange/partList",
+			rowID : "DETAIL_ID",
+			sortName : "",
+			sortOrder : "",
+			//isQueryFirst:false,
+			autoHeight:false,
+			columns : [ 
+			    {field : "DETAIL_ID",title : "操作",operateFormat : [
+                       {type:"del",url:"/activityMaintain/partDelete/{[DETAIL_ID]}",model:"vehicle",callBack:function(response){
+                    	   $("#partTableList",container).dmsTable().refreshTableWithForm();
+                       },isShow:function(value, row, index){
+                    		   return true;             	   
+                       }}
+                   ]
+                },  
+			    //{field : "CODE_ID",title : "ID"}, 
+					{title: "配件代码", field: 'PART_CODE'},
+					{title: "配件名称", field: 'PART_NAME'},
+					{title: "MSRP", field: 'MSRP'},
+					{title: "DNP", field: 'DNP'},
+					{title: "折扣", field: 'DISCOUNT'},
+					{title: "配件数量", field: 'PART_AMOUNT'}
+					
+
+			], 
+			onLoadSuccess : function() {
+				$("#partTableList",container).dmsTable().bootstrapTable('resetView');
+			}
+
+		});
+		//其他
+		new Datatable().initPagination({
+			src : "otherTableList",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/activityMaintain/editRange/otherList",
+			rowID : "OTHER_REL_ID",
+			sortName : "",
+			sortOrder : "",
+			//isQueryFirst:false,
+			autoHeight:false,
+			columns : [ 
+			    {field : "OTHER_REL_ID",title : "操作",operateFormat : [
+                       {type:"del",url:"/activityMaintain/otherDelete/{[OTHER_REL_ID]}",model:"vehicle",callBack:function(response){
+                    	   $("#otherTableList",container).dmsTable().refreshTableWithForm();
+                       },isShow:function(value, row, index){
+                    		   return true;             	   
+                       }}
+                   ]
+                },  
+			    //{field : "CODE_ID",title : "ID"}, 
+				{field : "OTHER_FEE_CODE",title : "项目代码" },
+				{field : "OTHER_FEE_NAME",title : "项目名称" },
+				{field : "AMOUNT",title : "金额" }
+
+			], 
+			onLoadSuccess : function() {
+				$("#otherTableList",container).dmsTable().bootstrapTable('resetView');
+			}
+
+		});
+		
+		//绑定查询按钮回调
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+ 		//	console.log("into callBack");
+		});
+		
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//刷新表格
+			$("#tableList",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+		
+	});
+</script>

@@ -1,0 +1,693 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">出库单据编号</label>
+							<div class="col-xs-8 ">
+								<div class="input-group">
+									<input type="text" class="form-control" id="soNo"
+										disabled="disabled" name="soNo" data-fieldName="SO_NO" /> <input
+										type="hidden" class="form-control" id="soNoId" name="soNoId"
+										data-fieldName="SO_NO_ID" /> <span class="input-group-btn">
+										<button class="btn default btn-sm" type="button"
+											data-url="vehicle/basedata/stockOut/selectVehicle.html"
+											data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">出库业务类型</label>
+							<div class="col-xs-8">
+								<select id="deliveryType" name="deliveryType"
+									class="bs-select form-control" data-dictCode="1318"
+									data-value="13181001">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">开单日期</label>
+							<div class="col-xs-8">
+								<div class="input-group input-daterange" data-maxDays="30">
+									<input type="text" class="form-control" readonly
+										name="deliveryDateFrom" id="deliveryDateFrom"> <span
+										class="input-group-addon">至</span> <input type="text"
+										class="form-control" readonly name="deliveryDateTo"
+										id="deliveryDateTo"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">VIN</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="vin" name="vin">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name">车辆明细</div>
+				<div class="pannel-button">
+					<a class="btn btn-outline"
+						data-url="vehicle/basedata/stockOut/addStockOut.html"
+						data-toggle="modal" data-width="modal-lg"> <i
+						class="fa fa-plus-square"></i> 新增
+					</a> <a id="out" data-url="/basedata/stockouts/outbounds"
+						data-beforeRequest="true" data-beforeShowEvent="true"
+						data-method="PUT" data-model="vehicle" data-toggle="confirmation"
+						data-callBack="true" class="btn btn-outline"> <i
+						class="fa fa-plus-square"></i> 出库
+					</a>
+					 <a id="out" data-url="/basedata/stockouts/outbounds"
+						data-beforeRequest="true" data-beforeShowEvent="true"
+						data-method="PUT" data-model="vehicle" data-toggle="confirmation"
+						data-callBack="true" class="btn btn-outline"> <i
+						class="fa fa-plus-square"></i> 删除
+					</a>
+					 <a id="out" data-url="/basedata/stockouts/outbounds"
+						data-beforeRequest="true" data-beforeShowEvent="true"
+						data-method="PUT" data-model="vehicle" data-toggle="confirmation"
+						data-callBack="true" class="btn btn-outline"> <i
+						class="fa fa-plus-square"></i> 保存
+					</a>
+					 <a id="out" data-url="/basedata/stockouts/outbounds"
+						data-beforeRequest="true" data-beforeShowEvent="true"
+						data-method="PUT" data-model="vehicle" data-toggle="confirmation"
+						data-callBack="true" class="btn btn-outline"> <i
+						class="fa fa-plus-square"></i> 打印出库单
+					</a>
+				</div>
+			</div>
+			<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="stockoutlist">
+			</table>
+		</div>
+		</div>
+		
+</div>
+
+<div class="panel panel-default">
+	<div class="panel-body">
+		<div class="panel-heading">
+			<div class="pannel-name">保有客户信息</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="panel-heading">
+					<div class="pannel-name">个人/公司信息</div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">客户类型</label>
+							<div class="col-xs-8">
+								<select id="deliveryType" name="deliveryType"
+									class="bs-select form-control" data-dictCode="1318"
+									data-value="13181001">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">客户名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="soNo" name="soNo">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">性别</label>
+							<div class="col-xs-8">
+								<select id="deliveryType" name="deliveryType"
+									class="bs-select form-control" data-dictCode="1318"
+									data-value="13181001">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">出生日期</label>
+							<div class="col-xs-8">
+								<div class="input-group date date-picker"
+									data-date-end-date="+0d" data-orientation="top right">
+									<input id="invoiceDate" name="invoiceDate" readonly
+										class="form-control" type="text" value="" /> <span
+										class="input-group-btn">
+										<button class="btn default date-set" type="button">
+											<i class="fa fa-calendar"></i>
+										</button>
+										<button class="btn default date-reset" type="button">
+											<i class="fa fa-times"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">证件类型</label>
+							<div class="col-xs-8">
+								<select id="deliveryType" name="deliveryType"
+									class="bs-select form-control" data-dictCode="1318"
+									data-value="13181001">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">证件号码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="vin" name="vin">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">省份</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control dmsDisabled" id="province"
+									name="province" data-type="region" data-fieldName="province"></select>
+							</div>
+						</div>
+					</div>
+					<!-- span -->
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">城市</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control dmsDisabled"
+									parent="province"
+									class="bs-select form-control dmsDisabled required" name="city"
+									id="city" data-fieldName="city"></select>
+							</div>
+						</div>
+					</div>
+					<!-- span -->
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">区县</label>
+							<div class="col-xs-8">
+								<select parent="city" id="county"
+									class="bs-select form-control dmsDisabled" name="county"
+									data-fieldName="county"></select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">邮编</label>
+							<div class="col-xs-8">
+								<select parent="city" id="county"
+									class="bs-select form-control dmsDisabled" name="county"
+									data-fieldName="county"></select>
+							</div>
+						</div>
+					</div>
+
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">地址</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="vin" name="vin">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">联系方式</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="vin" name="vin">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">联系电话</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="vin" name="vin">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">联系手机</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="vin" name="vin">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">传真</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="vin" name="vin">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">E-MAIL</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="vin" name="vin">
+							</div>
+						</div>
+					</div>
+
+					<!--/span-->
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="panel-heading">
+					<div class="pannel-name">家庭状况信息</div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">婚姻状况</label>
+							<div class="col-xs-8">
+								<select id="deliveryType" name="deliveryType"
+									class="bs-select form-control" data-dictCode="1318"
+									data-value="13181001">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">职务名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="soNo" name="soNo">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">年龄段</label>
+							<div class="col-xs-8">
+								<select id="deliveryType" name="deliveryType"
+									class="bs-select form-control" data-dictCode="1318"
+									data-value="13181001">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">教育水平</label>
+							<div class="col-xs-8">
+								<select id="deliveryType" name="deliveryType"
+									class="bs-select form-control" data-dictCode="1318"
+									data-value="13181001">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">行业大类</label>
+							<div class="col-xs-8">
+								<select id="deliveryType" name="deliveryType"
+									class="bs-select form-control" data-dictCode="1318"
+									data-value="13181001">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">行业小类</label>
+							<div class="col-xs-8">
+								<select id="deliveryType" name="deliveryType"
+									class="bs-select form-control" data-dictCode="1318"
+									data-value="13181001">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">职业</label>
+							<div class="col-xs-8">
+								<select id="deliveryType" name="deliveryType"
+									class="bs-select form-control" data-dictCode="1318"
+									data-value="13181001">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">家庭月收入</label>
+							<div class="col-xs-8">
+								<select id="deliveryType" name="deliveryType"
+									class="bs-select form-control" data-dictCode="1318"
+									data-value="13181001">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">爱好</label>
+							<div class="col-xs-8">
+								<select id="deliveryType" name="deliveryType"
+									class="bs-select form-control" data-dictCode="1318"
+									data-value="13181001">
+								</select>
+							</div>
+						</div>
+					</div>
+
+
+
+					<!--/span-->
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="panel-heading">
+					<div class="pannel-name">客户来源信息</div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">来源信息</label>
+							<div class="col-xs-8">
+								<select id="deliveryType" name="deliveryType"
+									class="bs-select form-control" data-dictCode="1318"
+									data-value="13181001">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">购车目的</label>
+							<div class="col-xs-8">
+								<select id="deliveryType" name="deliveryType"
+									class="bs-select form-control" data-dictCode="1318"
+									data-value="13181001">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">购车因素</label>
+							<div class="col-xs-8">
+								<select id="deliveryType" name="deliveryType"
+									class="bs-select form-control" data-dictCode="1318"
+									data-value="13181001">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">销售顾问</label>
+							<div class="col-xs-8">
+								<select id="deliveryType" name="deliveryType"
+									class="bs-select form-control" data-dictCode="1318"
+									data-value="13181001">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">采购人</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="soNo" name="soNo">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">采购人电话</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="soNo" name="soNo">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">采购人手机</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="soNo" name="soNo">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2 col-md-1">备注</label>
+							<div class="col-xs-8 col-sm-10 col-md-11">
+								<textarea id="remark" name="remark" class="form-control"
+									rows="2" cols=""></textarea>
+							</div>
+						</div>
+					</div>
+
+
+
+
+					<!--/span-->
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="panel-heading">
+					<div class="pannel-name">车辆信息</div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车型</label>
+							<div class="col-xs-8">
+								<select id="deliveryType" name="deliveryType"
+									class="bs-select form-control" data-dictCode="1318"
+									data-value="13181001">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配置</label>
+							<div class="col-xs-8">
+								<select id="deliveryType" name="deliveryType"
+									class="bs-select form-control" data-dictCode="1318"
+									data-value="13181001">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">颜色</label>
+							<div class="col-xs-8">
+								<select id="deliveryType" name="deliveryType"
+									class="bs-select form-control" data-dictCode="1318"
+									data-value="13181001">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">销售顾问</label>
+							<div class="col-xs-8">
+								<select id="deliveryType" name="deliveryType"
+									class="bs-select form-control" data-dictCode="1318"
+									data-value="13181001">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">VIN</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="soNo" name="soNo">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车牌号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="soNo" name="soNo">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">上牌日期</label>
+							<div class="col-xs-8">
+								<div class="input-group date date-picker"
+									data-date-end-date="+0d" data-orientation="top right">
+									<input id="invoiceDate" name="invoiceDate" readonly
+										class="form-control" type="text" value="" /> <span
+										class="input-group-btn">
+										<button class="btn default date-set" type="button">
+											<i class="fa fa-calendar"></i>
+										</button>
+										<button class="btn default date-reset" type="button">
+											<i class="fa fa-times"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">开票日期</label>
+							<div class="col-xs-8">
+								<div class="input-group date date-picker"
+									data-date-end-date="+0d" data-orientation="top right">
+									<input id="invoiceDate" name="invoiceDate" readonly
+										class="form-control" type="text" value="" /> <span
+										class="input-group-btn">
+										<button class="btn default date-set" type="button">
+											<i class="fa fa-calendar"></i>
+										</button>
+										<button class="btn default date-reset" type="button">
+											<i class="fa fa-times"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">销售里程</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="soNo" name="soNo">
+							</div>
+						</div>
+					</div>
+
+
+
+
+					<!--/span-->
+				</div>
+			</div>
+		</div>
+
+	</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms", function(event, container) {
+		new Datatable().initPagination({
+			src : "stockoutlist",
+			container:container,
+			url : dmsCommon.getDmsPath()["customer"] + "/customerManage/potentialcus", ///basedata
+			
+			
+			selectItemName:"deliveryId",
+			checkboxHeader:true,
+			autoHeight:false,
+			columns : [ 
+				{checkbox:true},
+	            {field : "VIN",title : "VIN"}, 
+				{field : "VIN",title : "是否入账"}, 
+				{field : "SO_NO",title : "产品代码"}, 
+				{field : "",title : "是否入账"}, 
+				{field : "CUSTOMER_NAME",title : "仓库代码"}, 
+				{field : "PRODUCT_NAME",title : "库位"}, 
+				{field : "PRODUCT_CODE",title : "采购价格"}, 
+				{field : "STORAGE_NAME",title : "附加成本"}, 
+				{field : "CUSTOMER_NO",title : "库存状态"}, 
+				{field : "CUSTOMER_NAME",title : "配车状态"}, 
+				{field : "PRODUCT_NAME",title : "车辆价格"}, 
+				{field : "PRODUCT_CODE",title : "销售订单编号"}, 
+				{field : "STORAGE_NAME",title : "质损状态"}, 
+				{field : "CUSTOMER_NO",title : "是否二手车"}, 
+				{field : "CUSTOMER_NAME",title : "是否VIP预留"}, 
+				{field : "PRODUCT_NAME",title : "是否试乘试驾车"}, 
+				{field : "PRODUCT_CODE",title : "是否受托代交车"}, 
+				{field : "STORAGE_NAME",title : "是否促销车"}, 
+				{field : "CUSTOMER_NAME",title : "是否采购退回"}, 
+				{field : "PRODUCT_NAME",title : "是否调价"}, 
+				{field : "PRODUCT_CODE",title : "调价原因"}, 
+				{field : "STORAGE_NAME",title : "原销售指导价"},
+				{field : "STORAGE_POSITION_CODE",title : "销售指导价"}, 
+				{field : "SHEET_CREATE_DATE",title : "备注"}
+				]
+			}); 
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			$("#stockoutlist",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			var selectIds = $("#stockoutlist",getElementContext()).dmsTable().getSelectionIds();
+			if(!selectIds){
+				dmsCommon.tip({status:"warning",msg:"请选择数据"});
+				returnResult.status = false;
+				return ;
+			}else{
+				returnResult.status = true; 
+			}
+		});
+		//已出库状态下出库按钮不能点击 
+		$("[name='isDelivery']",container).bindChange(function(obj){
+			var isChecked = $(obj).val();
+			if(isChecked=="14151002"){
+				$("#out",container).attr("disabled","disabled");
+			}else{
+				$("#out",container).removeAttr("disabled");
+			}
+	        
+		});
+	});
+</script>

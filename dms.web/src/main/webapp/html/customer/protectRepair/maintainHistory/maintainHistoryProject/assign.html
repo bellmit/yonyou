@@ -1,0 +1,80 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">派工情况</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">项目名称</label>
+								<div class="col-xs-8">
+									<input id="labourName" name="labourName" class="form-control"
+										type="text" data-fieldName="LABOUR_NAME"/>
+									<input id="roNo" type="hidden" name="roNo"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">派工工时</label>
+								<div class="col-xs-8">
+									<input id="" name="" class="form-control"
+										type="text" data-fieldName=""/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">检查结果</label>
+								<div class="col-xs-8">
+									<input id="" name="" class="form-control"
+										type="text" data-fieldName=""/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_assign">
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+	 	new Datatable().initPagination({
+			src : "dms_assign",
+			rowID:"",
+			container:container,
+			undefinedText : "",
+			url : dmsCommon.getDmsPath()["customer"] + "/customer/solicitude/maintainHistory/maintainHistoryProject/{[RO_NO]}/assign",
+			sortName : "TECHNICIAN", 
+			sortOrder : "asc",
+			autoHeight:false,
+			columns : [ 
+			            {field : "TECHNICIAN",title : "责任技师"},
+			            {field : "LABOUR_POSITION_CODE",title : "工位"},
+			            {field : "WORKER_TYPE_CODE",title : "工种"},
+			            {field : "ASSIGN_LABOUR_HOUR",title : "派工工时",numberFormat : {decimal:2}},
+			            {field : "ITEM_START_TIME",title : "开工时间",dateFormat : {format : "YYYY-MM-DD HH:mm:ss"}},
+			            {field : "ITEM_END_TIME",title : "完工时间",dateFormat : {format : "YYYY-MM-DD HH:mm:ss"}}
+			         ]
+		});
+	});
+</script>

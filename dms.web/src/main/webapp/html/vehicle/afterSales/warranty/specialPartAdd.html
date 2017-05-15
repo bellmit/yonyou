@@ -1,0 +1,101 @@
+<div class="dms-add" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">特殊零部件新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">零部件编号</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control required"  id="ptCode" name="ptCode" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">零部件名称</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control required"  id="ptName" name="ptName" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否可修改</label>
+								<div class="col-xs-8">
+									<select id="isCanMod" name="isCanMod" class="bs-select form-control required" data-type="oemDict" data-dictCode="1004" >
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">保修价格</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control required money" id="wrPrice" name="wrPrice" maxDigit="8"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">MVS</label>
+								<div class="col-xs-8">
+									<select id="mvs"
+										class="bs-select form-control required" name="mvs"
+										data-url="/specialPart/getMVS"
+										data-model="vehicle" data-labelValue="MVS"
+										data-lableDesc="MVS">
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/specialPart/add" data-model="vehicle" data-method="POST"
+				data-callBack="true" class="btn blue" data-toggle="confirmation">
+				<i class="fa fa-save"></i>保存
+			</a> <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+	
+	$(document).one("onload.dms",function(event, container) {
+		
+		//新增页面的回调函数
+		$("a[data-callBack='true']", container).on(	"callBack.dms",	function(event, response) {
+			//关闭窗口
+			$("a[data-dismiss='modal']", container).click();
+			//刷新表格
+			$("#orderList", getElementContext()).dmsTable().refreshTableWithForm();	
+		});
+		
+		//绑定onchange 事件
+		$("[name='isCanMod']",container).bindChange(function(obj){
+			var isCanMod = $(obj).val();
+			if(isCanMod=="10041001"){
+				$("#wrPrice",container).attr("readonly","readonly");
+				$("#wrPrice",container).setDmsValue("*");
+				$("#wrPrice",container).removeClass("money");
+			}else{
+				$("#wrPrice",container).removeAttr("readonly");
+				$("#wrPrice",container).addClass("money");
+				$("#wrPrice",container).setDmsValue("");
+			}
+		});
+	});
+	
+</script>

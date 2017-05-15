@@ -1,0 +1,70 @@
+<div class="dms-edit ajaxrest"
+	data-url="/LendAndReturn/findByVin/{[SL_NO]}/{[VIN]}" data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">选择归还人</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">借出归还信息</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">借出归还编号</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" readonly="readonly" name="slNo" data-fieldName="SL_NO">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">VIN</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" readonly="readonly" name="vin" data-fieldName="VIN">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">归还人</label>
+								<div class="col-xs-8">
+									<select id="returnedBy" class="bs-select form-control required" 
+										name="returnedBy" data-url="/transferRepository/findAllEmp" data-model="vehicle"
+										data-labelValue="EMPLOYEE_NAME" data-lableDesc="EMPLOYEE_NAME" data-value="{[userInfo.employeeName]}">
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/LendAndReturn/btnReturn" data-model="vehicle"
+				data-method="PUT" data-callBack="true" class="btn blue ajaxrest" data-validate="true"
+				><i class="fa fa-save"></i>保存</a> <a
+				data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("a[data-dismiss='modal']",container).click();
+		$("#dms_show",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+});
+</script>

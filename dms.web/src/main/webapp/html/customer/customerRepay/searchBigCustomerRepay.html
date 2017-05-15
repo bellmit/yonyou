@@ -1,0 +1,555 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">报备单号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="wsNo" name="wsNo">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">客户编号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="customerNo" name="customerNo">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">					
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">上报日</label>
+							<div class="col-xs-3 col-sm-5">
+								 <div class="input-group input-daterange"  >
+		                             <input type="text" class="form-control" readonly  name="beginSubmitTime" id="beginSubmitTime">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="endSubmitTime" id="endSubmitTime"> 
+		                             <span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                 </span>
+		                        </div>
+							</div>
+							<span style="color:Red">在7个自然日内，申请审核驳回:</span><span style="color:Red" id="status1"></span>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">客户名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="customerName" name="customerName">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+		
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">申请状态</label>
+							<div class="col-xs-8">
+							<select id="soStatus" name="soStatus"
+										class="bs-select form-control" data-dictCode="1610"
+										 data-fieldName="SO_STATUS">
+							</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">					
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">审核日</label>
+							<div class="col-xs-3 col-sm-5">
+								 <div class="input-group input-daterange"  >
+		                             <input type="text" class="form-control" readonly  name="beginAuditingDate" id="beginAuditingDate">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="endAuditingDate" id="endAuditingDate"> 
+		                             <span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                 </span>
+		                       
+		                        </div>
+							</div>
+							<span style="color:Red">在7个自然日内，申请审核拒绝:</span><span style="color:Red" id="status2"></span>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">联系手机</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="mobile" name="mobile">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">联系电话</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="phone" name="phone">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" hidden="hidden">
+						<div class="form-group">
+							<label class="control-label col-xs-4">15971001</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="upload1" name="upload1">
+							</div>
+						</div>
+					</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" hidden="hidden">
+						<div class="form-group">
+							<label class="control-label col-xs-4">15971002</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="upload2" name="upload2">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" hidden="hidden">
+						<div class="form-group">
+							<label class="control-label col-xs-4">15971003</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="upload3" name="upload3">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" hidden="hidden">
+						<div class="form-group">
+							<label class="control-label col-xs-4">明细验证1</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="detailVin1" name="detailVin1">
+							</div>
+						</div>
+					</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" hidden="hidden">
+						<div class="form-group">
+							<label class="control-label col-xs-4">明细验证2</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="detailVin2" name="detailVin2">
+							</div>
+						</div>
+					</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" hidden="hidden">
+						<div class="form-group">
+							<label class="control-label col-xs-4">明细验证3</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="detailVin3" name="detailVin3">
+							</div>
+						</div>
+					</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" hidden="hidden">
+						<div class="form-group">
+							<label class="control-label col-xs-4">明细验证4</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="detailVin4" name="detailVin4">
+							</div>
+						</div>
+					</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" hidden="hidden">
+						<div class="form-group">
+							<label class="control-label col-xs-4">明细验证5</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="detailVin5" name="detailVin5">
+							</div>
+						</div>
+					</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" hidden="hidden">
+						<div class="form-group">
+							<label class="control-label col-xs-4">明细验证6</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="detailVin6" name="detailVin6">
+							</div>
+						</div>
+					</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" hidden="hidden">
+						<div class="form-group">
+							<label class="control-label col-xs-4">明细验证7</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="detailVin7" name="detailVin7">
+							</div>
+						</div>
+					</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" hidden="hidden">
+						<div class="form-group">
+							<label class="control-label col-xs-4">明细验证8</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="detailVin8" name="detailVin8">
+							</div>
+						</div>
+					</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" hidden="hidden">
+						<div class="form-group">
+							<label class="control-label col-xs-4">明细验证9</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="detailVin9" name="detailVin9">
+							</div>
+						</div>
+					</div>
+					<div class="panel-body" data-parentTable="dms_table" >
+						<input type="hidden" name="wssNo" data-fieldName="WS_NO"/>
+					</div>
+			
+							<!-- span -->
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" id="doSearch"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">报备信息</div>
+				<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+					<a data-goback="page"
+						data-url="customer/customerRepay/addBigCustomerRepay.html" 
+						data-toggle="modal" data-width="modal-lg"
+						class="btn btn-outline" ><i class="fa fa-plus-square"></i>
+						新增</a>
+					  <a data-url="/BigCustomer/manage/export/excel" data-model="customer" data-method="downLoad" data-toggle="confirmation" 
+							class="btn btn-outline"
+							><i class="fa fa-download" ></i>导出 </a> 
+				<a data-url="" data-model="customer" data-callBack="true"
+					data-method="PUT"   data-beforeRequest="true" id="tt" disabled
+					class="btn btn-outline" data-toggle="confirmation"><i
+					class="fa fa-save"></i>上报1
+				</a>
+												 
+					</div>
+				</div>	
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+			
+		</div>
+	</div>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">销售信息列表</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="invent"></table>
+		</div>
+		
+	</div>
+	系统转拒绝的大客户申请单如果需要重新提报，请线下申请激活!
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		    url : dmsCommon.getDmsPath()["customer"] + "/BigCustomer/repay",
+			rowID : "WS_NO",
+			sortName : "WS_NO",
+			sortOrder : "desc",
+			autoHeight:false,
+			undefinedText : "",
+			columns : [     
+			    {field : "CUSTOMER_NO",title : "操作",operateFormat : [
+                    /*    {type:"edit",url:"customer/customerRepay/editBigCustomerRepay.html",openWidth:"modal-lg"}, */
+                       {type:"edit",url:"customer/customerRepay/editBigCustomerRepay.html",openWidth:"modal-lg",isShow:function(value, row, index){
+    					   if(row.SO_STATUS=="16101001"|| row.SO_STATUS=="16101004"){
+    						   return true;
+                    	   }else{
+                    		   return true;
+                    	   }      
+    				   }},
+                       {type:"detail",url:"customer/customerApply/selectHistory.html",openWidth:"modal-lg",title:"审核明细"}]			    
+			    },                  
+			    
+			    {field : "WS_NO",title : "报备单号"},
+			    {field : "SO_STATUS",title : "申请状态", codeFormat : {type:"dict",codeType:"1610"}},
+			    {field : "SUBMIT_DATE",title : "上报时间"},
+                {field : "AUDIT_DATE",title : "审核时间"},
+                {field : "WS_APP_TYPE",title : "政策类别", codeFormat : {type:"dict",codeType:"1597"}}, 
+                {field : "WS_EMPLOYEE_TYPE",title : "客户类别", codeFormat : {type:"dict",codeType:"6120"}},
+                {field : "WSTHREE_TYPE",title : "客户类型细分", codeFormat : {type:"dict",codeType:"6130"}},
+                {field : "REMARK",title : "备注"},
+                {field : "CUSTOMER_NO",title : "客户编号"},
+                {field : "CUSTOMER_NAME",title : "客户名称"},
+                {field : "CONTACTOR_NAME",title : "联系人"},
+                {field : "FAX",title : "传真"},
+	            {field : "PHONE",title : "联系电话"},
+	            {field : "MOBILE",title : "联系手机"},
+	            {field : "POSITON_NAME",title : "职位"},
+	            {field : "AMOUNT",title : "成交数量"},
+	            {field : "FILE_ID_A",title : "A",visible:false},
+	            {field : "FILE_ID_B",title : "B",visible:false},
+	            {field : "FILE_ID_C",title : "C",visible:false},
+	            {field : "FILE_ID_D",title : "D",visible:false},
+                {field : "AUDIT_REMARK",title : "审核备注"}
+ 
+			],onLoadSuccess : function() {
+				CheckStatus(1);
+				CheckStatus1(1);
+			}, onClickRow(rowData, element){
+				 $("#invent",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["customer"] + "/BigCustomer/repay/sales/"+rowData.WS_NO+"");
+				 
+				 $("#tt",container).removeAttr("disabled");
+				 $("#tt",container).attr("data-url","/BigCustomer/repay/upLoad/DSO0402/"+rowData.WS_NO+"");
+				 if(rowData.WS_APP_TYPE=='15971001'){
+					 if(rowData.FILE_ID_A==''||rowData.FILE_ID_A==null||rowData.FILE_ID_A==0||rowData.FILE_ID_A==undefined
+							 ||rowData.FILE_ID_B==''||rowData.FILE_ID_B==null||rowData.FILE_ID_B==0||rowData.FILE_ID_B==undefined
+							 ||rowData.FILE_ID_D==''||rowData.FILE_ID_D==null||rowData.FILE_ID_D==0||rowData.FILE_ID_D==undefined){
+						 $("#upload1",container).setDmsValue("1");
+					 }else{
+						 $("#upload1",container).setDmsValue("0");
+					 }
+				 }else if(rowData.WS_APP_TYPE=='15971002'){
+					 if(rowData.FILE_ID_A==''||rowData.FILE_ID_A==null||rowData.FILE_ID_A==0||rowData.FILE_ID_A==undefined
+							 ||rowData.FILE_ID_B==''||rowData.FILE_ID_B==null||rowData.FILE_ID_B==0||rowData.FILE_ID_B==undefined
+							 ||rowData.FILE_ID_C==''||rowData.FILE_ID_C==null||rowData.FILE_ID_C==0||rowData.FILE_ID_C==undefined){
+						 $("#upload2",container).setDmsValue("1");
+					 }else{
+						 $("#upload2",container).setDmsValue("0");
+					 }
+				 }else if(rowData.WS_APP_TYPE=='15971003'){
+					 if(rowData.FILE_ID_A==''||rowData.FILE_ID_A==null||rowData.FILE_ID_A==0||rowData.FILE_ID_A==undefined){
+						 $("#upload3",container).setDmsValue("1");
+					 }else{
+						 $("#upload3",container).setDmsValue("0");
+					 }
+				 }
+				 $("#detailVin1",container).setDmsValue("1");
+				 $("#detailVin2",container).setDmsValue("1");
+				 $("#detailVin3",container).setDmsValue("1");
+				 $("#detailVin4",container).setDmsValue("1");
+				 $("#detailVin5",container).setDmsValue("1");
+				 $("#detailVin6",container).setDmsValue("1");
+				 $("#detailVin7",container).setDmsValue("1");
+				 $("#detailVin8",container).setDmsValue("1");
+				 $("#detailVin9",container).setDmsValue("1");
+				 CheckDateDetail(rowData.WS_NO,rowData.WS_APP_TYPE,rowData.WS_EMPLOYEE_TYPE); 
+				}
+
+		});
+	 var CheckDateDetail=function(str,type1,type2){
+			dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["customer"] + "/BigCustomer/repay/upLoadCheck/"+str+"/CheckDateDetail",
+				type : 'GET',
+				sucessCallBack : function(data) {
+					for(var i=0;i<data.length;i++){
+						var item=data[i];
+						if(data[i].FILE_CARD_ID==''||data[i].FILE_CARD_ID==null||data[i].FILE_CARD_ID==0||data[i].FILE_CARD_ID==undefined){
+							$("#detailVin1",container).setDmsValue(data[i].VIN);
+						}
+						if(type1=='15971003'){
+							if(data[i].FILE_SFZ_ID==''||data[i].FILE_SFZ_ID==null||data[i].FILE_SFZ_ID==0||data[i].FILE_SFZ_ID==undefined){
+								$("#detailVin2",container).setDmsValue(data[i].VIN);
+							}
+							if(type2!='61201011'){
+								if((data[i].FILE_SB_ID==''||data[i].FILE_SB_ID==null||data[i].FILE_SB_ID==0||data[i].FILE_SB_ID==undefined)&&
+										(data[i].FILE_SB1_ID==''||data[i].FILE_SB1_ID==null||data[i].FILE_SB1_ID==0||data[i].FILE_SB1_ID==undefined)){
+									$("#detailVin3",container).setDmsValue(data[i].VIN);
+								}
+							}
+							if(type2=='61201010'){
+								if(data[i].FILE_G_ID==''||data[i].FILE_G_ID==null||data[i].FILE_G_ID==0||data[i].FILE_G_ID==undefined){
+									$("#detailVin4",container).setDmsValue(data[i].VIN);
+								}
+							}
+							if(type2=='61201011'){
+								if(data[i].FILE_H_ID==''||data[i].FILE_H_ID==null||data[i].FILE_H_ID==0||data[i].FILE_H_ID==undefined){
+									$("#detailVin5",container).setDmsValue(data[i].VIN);
+								}
+								if(data[i].FILE_H2_ID==''||data[i].FILE_H2_ID==null||data[i].FILE_H2_ID==0||data[i].FILE_H2_ID==undefined){
+									$("#detailVin6",container).setDmsValue(data[i].VIN);
+								}
+								if(data[i].FILE_H3_ID==''||data[i].FILE_H3_ID==null||data[i].FILE_H3_ID==0||data[i].FILE_H3_ID==undefined){
+									$("#detailVin7",container).setDmsValue(data[i].VIN);
+								}
+								if(data[i].FILE_H4_ID==''||data[i].FILE_H4_ID==null||data[i].FILE_H4_ID==0||data[i].FILE_H4_ID==undefined){
+									$("#detailVin8",container).setDmsValue(data[i].VIN);
+								}
+								if(data[i].FILE_I_ID==''||data[i].FILE_I_ID==null||data[i].FILE_I_ID==0||data[i].FILE_I_ID==undefined){
+									$("#detailVin9",container).setDmsValue(data[i].VIN);
+								}
+							}
+						}
+					}
+					
+				}
+			});
+			
+	 }
+		new Datatable().initPagination({
+		src : "invent",
+		container:container,
+		    //url : dmsCommon.getDmsPath()["customer"] + "/BigCustomer/repay/sales",
+		    rowID : "ITEM_ID",
+			sortName : "WS_NO",
+			sortOrder : "asc",
+			autoHeight:false,
+			isQueryFirst:false,
+			undefinedText : "",
+			columns : [     
+			
+			    {field : "",title : "操作",operateFormat : [
+                      ]
+			    
+			    },
+			    {field : "SO_NO",title : "销售单号"},
+			    {field : "BRAND_CODE",title : "品牌"},
+			    {field : "SERIES_CODE",title : "车系"},
+                {field : "MODEL_CODE",title : "车型"},
+                {field : "CONFIG_CODE",title : "配置"}, 
+                {field : "VIN",title : "VIN"},
+                {field : "VEHICLE_PRICE",title : "车辆价格"}, 
+			    {field : "FILE_INVOICE_ID",title : "发票附件ID"},
+			    {field : "FILE_INVOICE_URL",title : "发票URL"},
+			    {field : "FILE_CARD_ID",title : "行驶证附件ID"},
+                {field : "FILE_CARD_URL",title : "行驶证附件URL"},
+                {field : "FILE_SFZ_ID",title : "客户身份证附件ID"}, 
+                {field : "FILE_SFZ_URL",title : "客户身份证附件URL"},
+                {field : "FILE_SB_ID",title : "社保缴纳凭证附件1ID"},     
+			    {field : "FILE_SB_URL",title : "社保缴纳凭证附件1URL"},
+			    {field : "FILE_G_ID",title : "员工在职证明ID"},
+			    {field : "FILE_G_URL",title : "员工在职证明URL"},
+                {field : "FILE_H_ID",title : "公务员专用销售合同1ID"},
+                {field : "FILE_H_URL",title : "公务员专用销售合同1URL"}, 
+                {field : "FILE_I_ID",title : "公务员工作证附件ID"},
+                {field : "FILE_I_URL",title : "公务员工作证附件URL"},  
+                {field : "FILE_SB1_ID",title : "社保缴纳凭证附件2ID"},     
+			    {field : "FILE_SB1_URL",title : "社保缴纳凭证附件2URL"},
+                {field : "FILE_H2_ID",title : "公务员专用销售合同2ID"},
+                {field : "FILE_H2_URL",title : "公务员专用销售合同2URL"}, 
+                {field : "FILE_H3_ID",title : "公务员专用销售合同3ID"},
+                {field : "FILE_H3_URL",title : "公务员专用销售合同3URL"}, 
+                {field : "FILE_H4_ID",title : "公务员专用销售合同4ID"},
+                {field : "FILE_H4_URL",title : "公务员专用销售合同4URL"}
+			 
+			]
+		});
+		 var CheckStatus=function(str){
+				dmsCommon.ajaxRestRequest({
+					url : dmsCommon.getDmsPath()["customer"] + "/BigCustomer/repay/Check1/and/Status/"+str,
+					type : 'GET',
+					sucessCallBack : function(data) {
+						$("#status1",container).setDmsValue(data);
+					}
+				});
+				
+		 }
+		 var CheckStatus1=function(str){
+				dmsCommon.ajaxRestRequest({
+					url : dmsCommon.getDmsPath()["customer"] + "/BigCustomer/repay/Check1/and/Status1/"+str,
+					type : 'GET',
+					sucessCallBack : function(data) {
+						$("#status2",container).setDmsValue(data);
+					}
+				});
+				
+		 }
+			$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+				//刷新表格
+				$("#tt",container).attr("disabled","disabled");
+				$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+			});
+		 $("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+				var upload1=$("#upload1",container).val();
+				var upload2=$("#upload2",container).val();
+				var upload3=$("#upload3",container).val();
+				var detailVin1=$("#detailVin1",container).val();
+				var detailVin2=$("#detailVin2",container).val();
+				var detailVin3=$("#detailVin3",container).val();
+				var detailVin4=$("#detailVin4",container).val();
+				var detailVin5=$("#detailVin5",container).val();
+				var detailVin6=$("#detailVin6",container).val();
+				var detailVin7=$("#detailVin7",container).val();
+				var detailVin8=$("#detailVin8",container).val();
+				var detailVin9=$("#detailVin9",container).val();
+		 		if(upload1=='1'){
+					dmsCommon.tip({status:"warning",msg:"集团销售扫描材料不全，请核对修改后再上报！"});//总共的状态类型：info、success、error、warning
+					returnResult.status = false;
+					return ;
+				}
+				if(upload2=='1'){
+					dmsCommon.tip({status:"warning",msg:"影响力人物个人销售扫描材料不全，请核对修改后再上报！"});//总共的状态类型：info、success、error、warning
+					returnResult.status = false;
+					return ;
+				}
+				if(upload3=='1'){
+					dmsCommon.tip({status:"warning",msg:"大客户团购销售扫描材料不全，请核对修改后再上报！"});//总共的状态类型：info、success、error、warning
+					returnResult.status = false;
+					return ;
+				} 
+			if(detailVin1!='1'){
+					dmsCommon.tip({status:"warning",msg:"请扫描"+detailVin1+"车辆的行驶证！"});//总共的状态类型：info、success、error、warning
+					returnResult.status = false;
+					return ;
+				} 
+				if(detailVin2!='1'){
+					dmsCommon.tip({status:"warning",msg:"请扫描"+detailVin2+"车辆的客户身份证！"});//总共的状态类型：info、success、error、warning
+					returnResult.status = false;
+					return ;
+				}
+				if(detailVin3!='1'){
+					dmsCommon.tip({status:"warning",msg:"请扫描"+detailVin3+"车辆的客户社保缴纳凭证！"});//总共的状态类型：info、success、error、warning
+					returnResult.status = false;
+					return ;
+				}
+				if(detailVin4!='1'){
+					dmsCommon.tip({status:"warning",msg:"请扫描"+detailVin4+"车辆的员工在职证明！"});//总共的状态类型：info、success、error、warning
+					returnResult.status = false;
+					return ;
+				}
+				if(detailVin5!='1'){
+					dmsCommon.tip({status:"warning",msg:"请扫描"+detailVin5+"车辆的公务员专用销售合同！"});//总共的状态类型：info、success、error、warning
+					returnResult.status = false;
+					return ;
+				}
+				if(detailVin6!='1'){
+					dmsCommon.tip({status:"warning",msg:"请扫描"+detailVin6+"车辆的公务员专用销售合同！"});//总共的状态类型：info、success、error、warning
+					returnResult.status = false;
+					return ;
+				}
+				if(detailVin7!='1'){
+					dmsCommon.tip({status:"warning",msg:"请扫描"+detailVin7+"车辆的公务员专用销售合同！"});//总共的状态类型：info、success、error、warning
+					returnResult.status = false;
+					return ;
+				}
+				if(detailVin8!='1'){
+					dmsCommon.tip({status:"warning",msg:"请扫描"+detailVin8+"车辆的公务员专用销售合同！"});//总共的状态类型：info、success、error、warning
+					returnResult.status = false;
+					return ;
+				}
+				if(detailVin9!='1'){
+					dmsCommon.tip({status:"warning",msg:"请扫描"+detailVin9+"车辆的公务员工作证明！"});//总共的状态类型：info、success、error、warning
+					returnResult.status = false;
+					return ;
+				}
+			 returnResult.status = true;
+		    
+		 });
+/*     	$('#doSearch').on('click',function(obj){
+    		$('input[name="wssNo"]').val('');
+    		
+    	});
+		$("input[name='wssNo']",container).bindChange(function(obj){
+    		$("#invent",getElementContext()).dmsTable().refreshTableWithForm();
+    	}); */
+	});		
+</script>

@@ -1,0 +1,84 @@
+<div class="dms-edit ajaxrest" data-url="/basedata/payType/{[PAY_TYPE_CODE]}" data-model="manage" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">付款方式编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">付款方式代码</label>
+						<div class="col-xs-8">
+							<input id="payTypeCode" name="payTypeCode" readonly="readonly" maxlength="4" class="form-control required" type="text" data-fieldName="pay_type_code"/>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">付款方式名称</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control required" maxlength="30" id="payTypeName" name="payTypeName" data-fieldName="pay_type_name"/>
+					    </div>
+					</div>
+				</div>				
+
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">是否自动销账</label>
+						<div class="col-xs-8">
+							<select  id="writeoffTag" name="writeoffTag" class="form-control required" data-dictCode="1278" data-fieldName="WRITEOFF_TAG">
+							</select>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">是否系统保留</label>
+						<div class="col-xs-8">
+							<select  id="isReserved" name="isReserved" disabled="disabled" class="form-control required" data-dictCode="1278" data-fieldName="IS_RESERVED">
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">是否参与积分</label>
+						<div class="col-xs-8">
+							<select  id="isIntegral" name="isIntegral" class="form-control required" data-dictCode="1278" data-value="12781001" data-fieldName="IS_INTEGRAL" >
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+		<div class="modal-footer">
+			<a data-url="/basedata/payType/{[PAY_TYPE_CODE]}" data-model="manage" data-method="PUT" data-callBack="true"  class="btn blue"  data-toggle="confirmation"><i class="fa fa-save"></i>保存</a>
+			<a data-dismiss="modal" class="btn blue" ><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+
+	$(document).one("onload.dms",function(event,container){
+		//新增页面回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	}); 
+</script>

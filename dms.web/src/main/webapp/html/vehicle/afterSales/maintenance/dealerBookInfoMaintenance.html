@@ -1,0 +1,76 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+				<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">预约专员名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="name" name="name"/>
+							</div>
+						</div>
+					</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">手机号码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="telephone" name="telephone"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >微信预约专员维护</div>
+	                      <div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" data-url="vehicle/afterSales/maintenance/addDealerBookInfoMaintenance.html" data-width="modal-md"data-toggle="modal"> 
+							<i class="fa fa-plus-square"></i> 新增
+							</a> 
+						  </div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/dealerBookInfoMaintenance/dealerMaintenanceSearch",
+		rowID : "ID",
+		sortName : "ID",
+		sortOrder : "desc",
+		
+	columns : [   
+	           {field : "ID",title : "操作",operateFormat : [
+	           {type:"edit",url:"vehicle/afterSales/maintenance/editDealerBookInfoMaintenance.html",openWidth:"modal-md",doubleClick:true},
+	           {type:"del",url:"/dealerBookInfoMaintenance/{[ID]}",model:"vehicle",callBack:function(response){
+	            $("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	              }}
+	                  ]
+	                     },             
+	        {field : "NAME",title : "预约专员姓名"},
+	        {field : "TELEPHONE",title : "手机号码"}
+        ]
+             });
+                      });
+</script>

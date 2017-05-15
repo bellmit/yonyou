@@ -1,0 +1,115 @@
+<div class="dms-edit ajaxrest" data-url="/basedata/params/findConversionRate/{[MODEL_ID]}" data-model="manage">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">修改配额转换率下限</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<input type="hidden" name="materialGroupId" data-fieldName="MODEL_ID">
+					<input type="hidden" name="paraType" value="90151006" >
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2">品牌：</label>
+								<div class="col-xs-8" >
+									  <input class="form-control dmsDisabled" type="text" id="brandName" name="brandName" data-fieldName="BRAND_NAME"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系代码：</label>
+								<div class="col-xs-8" >
+									  <input class="form-control dmsDisabled" type="text" id="seriesCode" name="seriesCode" data-fieldName="SERIES_CODE"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系名称：</label>
+								<div class="col-xs-8" >
+									  <input class="form-control dmsDisabled" type="text" id="seriesName" name="seriesName" data-fieldName="SERIES_NAME"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">CPOS：</label>
+								<div class="col-xs-8" >
+									  <input class="form-control dmsDisabled" type="text" id="seriesCode" name="seriesCode" data-fieldName="MODEL_CODE"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">CPOS描述：</label>
+								<div class="col-xs-8" >
+									  <input class="form-control dmsDisabled" type="text" id="seriesName" name="seriesName" data-fieldName="MODEL_NAME"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">转化率下限：</label>
+								<div class="col-xs-8" >
+									<span class="col-xs-11">
+										<input class="form-control required" type="text" id="transLowerRate" name="transLowerRate" data-fieldName="TRANS_LOWER_RATE" min="0" max="100" maxPrecision="2"/>
+									</span>
+									<span class="col-xs-1">%</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">转化率上限：</label>
+								<div class="col-xs-8" >
+									<span class="col-xs-11">
+										<input class="form-control required" type="text" id="transUpperRate" name="transUpperRate" data-fieldName="TRANS_UPPER_RATE" min="0" max="100" maxPrecision="2"/>
+									</span>
+									<span class="col-xs-1">%</span>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2">备注：</label>
+								<div class="col-xs-8" >
+									  <textarea rows="2" cols="" class="form-control" id="remark" name="remark" data-fieldName="REMARK" ></textarea>
+								</div>
+							</div>
+						</div>																				
+										
+					</div>					
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<div class="modal-footer center-block">
+				<a data-url="/basedata/params/editForecastProportion" data-model="manage" data-method="PUT"
+				 data-callBack="true"  class="btn blue "data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+				</a> 
+				<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#table4",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+});
+
+</script>

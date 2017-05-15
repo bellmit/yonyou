@@ -1,0 +1,61 @@
+<div class="dms-search" >
+  <form class="form-horizontal">
+		<div class="panel-heading">
+			<div class="pannel-name">预约附加项目</div>
+			<div class="pannel-button">
+			</div>
+		</div>
+		<div class="modal-body">
+		<div class="panel panel-default">
+		<div class="panel-body" data-parentTable ="partInfoTable">
+		<div class="row" >
+		<div class="col-xs-12 col-sm-6 ">
+			<div class="form-group">
+				<label class="control-label col-xs-4">附加项目名称</label>
+				<div class="col-xs-8">
+					<select id="addItemCode" class="bs-select form-control required" 
+						name="addItemCode" data-url="/basedata/appendProject/appendProject/dicts"
+						data-model="repair" data-labelValue="ADD_ITEM_CODE" data-existsDefault = "false"
+						data-fieldName="ADD_ITEM_NAME" data-lableDesc="ADD_ITEM_NAME"
+						data-alwaysRefresh="true">
+				</select>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 ">
+			<div class="form-group">
+				<label class="control-label col-xs-4">备注</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control" id="remark" name="remark">
+				</div>
+			</div>
+		</div>	
+		</div>	
+		
+		</div>
+		</div>
+		</div>
+		<div class="modal-footer">
+			 <a  id="save" data-onclickEvent="true" 
+				data-callBack="true" class="btn blue"><i
+				class="fa fa-save"></i>确定</a>
+			<a data-dismiss="modal" class="btn blue">
+			<i class="fa fa-undo"></i>取消
+				</a>
+		</div>
+		</div>	
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event,container){
+		var jsonTr={};
+		jsonTr["ADD_ITEM_CODE"]=$("#addItemCode").val();
+		jsonTr["ADD_ITEM_NAME"]=$("#addItemCode option:selected").html();
+		jsonTr["REMARK"]=	$("#remark").val();
+		$("#dms_tableitem",getElementContext()).dmsTable().appendRow(jsonTr);
+		$("a[data-dismiss='modal']",container).click();
+	});
+});	
+</script>

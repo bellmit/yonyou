@@ -1,0 +1,161 @@
+
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+		<div class="modal-title"> GCS保单上传</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="panel panel-default table-panel">
+						<div class="panel-heading">
+							<div class="pannel-name">1.点击模板按钮下载上传文件模板</div>
+							<a href="javascript:;" data-url="/gcsbd/export/GcsTemplate"
+								data-model="vehicle" data-method="downLoad"
+								class="btn btn-outline ajaxrest" data-validate="false"><i
+								class="fa fa-download"></i>模板</a>
+
+						</div>
+					</div>
+				</div>
+				<div class="row ">
+						<div class="panel panel-default table-panel">
+						<div class="panel-heading">
+							<div class="pannel-name">2.点"选择"按钮,确认导入Excel文件的格式</div>
+							
+                             	<input type="file" class="importData" id="fileupload" name="file">
+                            
+                         </div>
+						</div>
+					</div>
+					<div class="row ">
+					<div class="panel panel-default table-panel">
+						<div class="panel-heading">
+					<div class="pannel-name">3.文件选择后,点"确定"按钮,完成上传操作</div>
+						<a href="javascript:;" class="btn blue" data-url="/gcsbd/import"
+						data-model="vehicle" data-callBack="true" data-errorCallBack="true"
+						data-toggle="confirmation" data-method="importData"> <i
+						class="fa fa-upload">确定</i>
+					</a> 
+					</div>
+					</div>
+					
+					</div>
+								<div class="row ">
+				<div class="panel panel-default table-panel margin-top-5"
+				id="errorInfoPanpel">
+				<div class="panel-heading">
+					<div class="pannel-name">错误信息列表</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="errorList">
+					</table>
+				</div>
+			</div>
+			</div>
+			<div class="row">
+				<div class="panel panel-default table-panel margin-top-5"
+				id="yearPlanPanpel">
+				<div class="panel-heading">
+					<div class="pannel-name">导入确认</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="year_plan_table" >
+					</table>
+				</div>
+				<div class="form-actions">
+						<a href="javascript:;" class="btn blue" data-url="/gcsbd/checkImportGcs"
+						data-model="vehicle" data-callBack="true" data-errorCallBack="true"
+						data-toggle="confirmation" data-method="POST"> <i
+						class="fa fa-upload">确定</i>
+					</a>
+				</div>
+			</div>
+			</div>
+				</div>
+				</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initLocale({
+		src : "errorList",
+		container:container,
+		columns : [ 
+		            {field : "rowNO",title : "行号"},
+		            {field : "errorMsg",title : "错误原因"}
+		         ]
+	});
+	//创建表格
+	new Datatable().initLocale({
+		src : "year_plan_table",
+		container : container,
+		columns : [ {
+			field : "DEALER_CODE",
+			title : "经销商代码"
+		}, {
+			field : "DEALER_NAME",
+			title : "经销商名称"
+		}, {
+			field : "REPAIR_NO",
+			title : "保修单号"
+		}, {
+			field : "VIN",
+			title : "VIN"
+		}, {
+			field : "PAYMENT_DATE",
+			title : "审核时间"
+		}, {
+			field : "PART_CODE",
+			title : "配件代码"
+		}, {
+			field : "PART_NAME",
+			title : "配件名称"
+		}, {
+			field : "PRICE",
+			title : "单价"
+		}, {
+			field : "PART_COUNT",
+			title : "数量"
+		}, {
+			field : "SUBTOTAL",
+			title : "小计"
+		}]
+	});
+
+	$("#errorInfoPanpel", container).hide();
+	$("#yearPlanPanpel", container).hide();
+
+	//当导入临时表成功后的回调
+	$("a[data-callBack='true']", container).on(
+			"callBack.dms",
+			function(event, response) {
+				$("a[data-goback='page']", container).click();
+				dmsCommon.ajaxRestRequest({
+					src : "year_plan_table",
+					container : container,
+					url : dmsCommon.getDmsPath()["vehicle"]
+							+ "/gcsbd/oemgcs",
+					type : 'GET',
+					sucessCallBack : function(data) {
+						//显示
+						$("#yearPlanPanpel", container).show();
+						$("#year_plan_table", container).dmsTable()
+								.refreshLocalData(data);
+					}
+				});
+			});
+
+
+	//当错误的情况下的回调
+	$("a[data-errorCallBack='true']",container).on("errorCallBack.dms",function(event,response){
+		//显示
+		$("#errorInfoPanpel",container).show();
+		$("#errorList",getElementContext()).dmsTable().refreshLocalData(response);
+	});
+	
+
+});
+</script>

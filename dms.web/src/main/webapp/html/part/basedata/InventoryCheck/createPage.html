@@ -1,0 +1,260 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">新建配件盘点单</div>
+		</div>
+		<div class="modal-body">
+		
+					<div class="row horizationDiv">
+				<div class="panel panel-default table-panel col-md-4">
+					<div class="panel-heading">
+						<div class="pannel-name">盘点单选择</div>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+								<div class="form-group">
+									<label class="control-label col-xs-4">是否盘点确认</label>
+									<div class="col-xs-8">
+									<input type="hidden" id="inventoryNo" name="inventoryNo"/>
+										<select id="IS_CONFIRMED" name="IS_CONFIRMED" data-value='12781002' data-existsdefault='false'
+											class="bs-select form-control" data-dictCode="1278" data-excludeItems="">
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+								<div class="query-btn">
+									<a href="javascript:;" class="btn blue"> <i
+										class="fa fa-search"></i> 查询</a>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group">
+								<label class="control-label">&nbsp;&nbsp;本次生成盘点的材料不包含一下选中的盘点单内的材料</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-md-12 col-lg-12">
+								<div class="panel panel-default table-panel">
+									<div class="panel-heading">
+										<div class="pannel-name">盘点单单信息</div>
+									</div>
+									<div class="panel-body">
+										<table class="table table-striped table-bordered table-hover table-responsive"
+											id="dms_order"></table>
+									</div>
+								</div>
+							</div> 					
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default table-panel col-md-8">
+					<div class="panel-heading">
+						<div class="pannel-name">选择盘点仓库</div>
+					</div>
+					<div class="panel-body">
+						<table class="table table-striped table-bordered table-hover table-responsive"
+									id="dms_search"></table>
+					</div>
+
+
+				</div>
+			</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="pannel-name">操作条件</div>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">排序方式</label>
+									<div class="col-xs-8">
+										<select id="sortBy" name="sortBy"
+											class="bs-select form-control"
+											data-url="" data-model="part">
+											<option value="">请选择</option>
+											<option value="1">仓库+库位</option>
+											<option value="2">仓库+配件代码</option>
+											<option value="3">仓库+配件名称</option>
+											<option value="4">仓库+车型</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">库存情况</label>
+									<div class="col-xs-8">
+										<select id="amount" name="amount"
+											class="bs-select form-control" data-dictCode="1408" data-excludeItems="">
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">配件车型组集</label>
+									<div class="col-xs-8">
+										<select id="group" class="bs-select form-control"
+											name="group"
+											data-url="/basedata/partInfos/querypartGroupCodes"
+											data-model="part" data-labelValue="PART_MODEL_GROUP_CODE" 
+											data-lableDesc="PART_MODEL_GROUP_NAME">
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">停用</label>
+									<div class="col-xs-8">
+										<select id="stop" name="stop"
+											class="bs-select form-control" data-dictCode="1278" data-excludeItems="">
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-8 col-lg-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4 col-sm-2">出库日</label>
+									<div class="col-xs-8 col-sm-10">
+										<div class="input-group input-daterange" data-date-format="yyyy/mm/dd/hh/mm/ss">
+											
+											<input type="text" class="form-control" readonly
+												name="outBegin" id="outBegin"> <span
+												class="input-group-addon">至</span> <input type="text"
+												class="form-control" readonly name="outEnd"
+												id="outEnd">
+												 <span class="input-group-btn">
+				                                        <button class="btn default input-clear" type="button">
+				                                           <i class="fa fa-close"></i>
+				                                       </button>
+				                                 </span>
+											</div>	 
+									
+									</div>
+								</div>
+							</div>	
+							<div class="col-xs-12 col-sm-12 col-md-8 col-lg-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4 col-sm-2">入库日</label>
+									<div class="col-xs-8 col-sm-10">
+										<div class="input-group input-daterange" data-date-format="yyyy/mm/dd/hh/mm/ss">
+											
+											<input type="text" class="form-control" readonly
+												name="inBegin" id="inBegin"> <span
+												class="input-group-addon">至</span> <input type="text"
+												class="form-control" readonly name="inEnd"
+												id="inEnd">
+												 <span class="input-group-btn">
+			                                         <button class="btn default input-clear" type="button">
+			                                            <i class="fa fa-close"></i>
+			                                        </button>
+			                                  </span>
+											</div>	 
+									
+									</div>
+								</div>
+							</div>	
+							<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+								<div class="form-group">
+									<label class="control-label col-xs-8">每张盘点单配件个数</label>
+									<div class="col-xs-4">
+										<input type="text" value="1000" class="form-control" name="count" id="count">
+										<input type="hidden" id="remark" name="remark"/> 
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+					<div class="row">
+						<a data-url="/basedata/inventoryCheck/saveBlankInventoryNo" data-model="part"
+							data-method="POST" data-callBack="true" class="btn blue ajaxrest"><i
+							class="fa fa-save"></i>生成空盘点单号</a> 
+						<a data-url="/basedata/inventoryCheck/addNewInventoryNo" data-model="part"
+							data-method="POST" data-callBack="true" data-beforeRequest="true" 
+							class="btn blue" data-toggle="confirmation"><i
+							class="fa fa-save"></i>确定</a> 
+						<a data-goback="page"
+							href="part/basedata/InventoryCheck/mainPage.html"
+							class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>
+					</div>
+				</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	//盘点单列表
+	new Datatable().initPagination({
+		src : "dms_order",
+		container:container,
+		rowID:"INVENTORY_NO",
+		url : dmsCommon.getDmsPath()["part"] + "/basedata/inventoryCheck", 
+		sortOrder : "asc",
+		pageSize : 5,
+		autoHeight:false,
+		columns : [ 
+			{checkbox : true,sortable : false},
+            {field : "INVENTORY_NO",title : "盘点单号",inputHiddenFormat : {}}
+         ]
+	});
+	
+	//仓库列表
+	new Datatable().initLocale({
+		src : "dms_search",
+		container:container,
+		rowID:"STORAGE_CODE",
+		url : dmsCommon.getDmsPath()["part"] + "/basedata/inventoryCheck/findStorageCode", 
+		sortOrder : "asc",
+		height:300,
+		columns : [ 
+			{checkbox : true,sortable : false},
+			{field : "STORAGE_CODE",title : "仓库代码",inputHiddenFormat : {}},
+            {field : "STORAGE_NAME",title : "仓库名称",inputHiddenFormat : {}},
+            {field : "BEGIN",title : "库位从",inputTextFormat : {}},
+            {field : "END",title : "库位到",inputTextFormat : {}}
+         ]
+	});
+	
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+		debugger
+		 var rows = $("#dms_order",container).dmsTable().getSelections();
+		 var nos = "";
+		 $.each(rows,function(index,i){
+			 nos+="'"+i.INVENTORY_NO+"',";
+		 });
+		 $("#inventoryNo",container).val(nos.substr(0,nos.length-1));
+		 var remark = "";
+		 if($("#sortBy option:selected").html()!="请选择"&&$("#sortBy option:selected").html()!=null){
+			 remark += "排序方式:"+$("#sortBy option:selected").html()+";";
+		 }
+		 if($("#amount option:selected").html()!="请选择"&&$("#amount option:selected").html()!=null){
+			 remark += "库存情况:"+$("#amount option:selected").html()+";";
+		 }
+		 if($("#group option:selected").html()!="请选择"&&$("#group option:selected").html()!=null){
+			 remark += "配件车型组集:"+$("#group option:selected").html()+";";
+		 }
+		 if($("#stop option:selected").html()!="请选择"&&$("#stop option:selected").html()!=null){
+			 remark += "停用:"+$("#stop option:selected").html()+";";
+		 }
+		 if($("#count").val()!=""&&$("#count").val()!=null){
+			 remark += "每张盘点单配件个数:"+$("#count").val()+";";
+		 }
+		 $("#remark",container).val(remark);
+		returnResult.status = true;
+	});
+	
+	//回调函数
+	$("a[data-callBack='true']", container).on("callBack.dms",function(event, response) {
+		$("#INVENTORY_NO",getParentModal(container)).val(response);
+		dmsCommon.refreshPageByUrl("part/basedata/InventoryCheck/thirdPage.html",container);
+		$("a[data-dismiss='modal']",container).click();
+	});
+});
+</script>

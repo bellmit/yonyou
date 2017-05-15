@@ -1,0 +1,170 @@
+<div class="dms-edit ajaxrest" data-url="/inventoryManage/{[VEHICLE_ID]}"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">车辆变更日志</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row ">
+				<input id="vehicle_id" name="vehicle_id" hidden="true" data-fieldName="VEHICLE_ID">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">VIN号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="vin" name="vin" disabled="true" data-fieldName="VIN">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">发动机号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="engine_no" name="engine_no" disabled="true" data-fieldName="ENGINE_NO">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">备注</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="remark" name="remark" disabled="true" data-fieldName="REMARK">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">所属品牌</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="brandName" name="brandName" disabled="true" data-fieldName="BRAND_NAME">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">所属车系</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="seriesName" name="seriesName" disabled="true" data-fieldName="SERIES_NAME">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">所属车型</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="modelName" name="modelName" disabled="true" data-fieldName="MODEL_NAME">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">颜色</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="colorName" name="colorName" disabled="true" data-fieldName="COLOR_NAME">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">内饰</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="trimName" name="trimName" disabled="true" data-fieldName="TRIM_NAME">
+							</div>
+						</div>
+					</div>
+			     
+				</div>
+				</div>
+			</div>
+		</div>
+	<!-- <a data-goback="page"  href="vehicle/orderresourcemanagement/stockResourceSubmit.html"
+		  class="btn blue ajaxify"><i class="fa fa-reply"></i>返回
+		</a> -->
+		<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name" >车辆变更日志</div>
+					<a href="javascript:;" data-url="/inventoryManage/downloadDe/{[vehicle_id]}"
+					data-model="vehicle" data-method="downLoad"
+					data-toggle="confirmation" class="btn btn-outline "><i
+					class="fa fa-download"></i>下载</a>
+			</div>
+			<div class="panel-body">
+				<table class="form-group  table table-striped table-bordered table-hover table-responsive"
+					id="dms_table"></table>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one(
+		"onload.dms",
+		function(event, container) {
+			new Datatable().initPagination({
+				src : "dms_table",
+				container : container,
+				 url : dmsCommon.getDmsPath()["vehicle"]
+						+ "/inventoryManage/oemVehicleVinDetailQuery/{[vehicle_id]}", 
+				rowID : "oemvehicle",
+				detailView : true, //当需要显示明细时，打开此开关，否则不需要写
+				//sortName : "USER_NAME,AGE", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+				//sortOrder : "asc,desc",
+				isQueryFirst : true,
+				pageSize : 5,
+				isQueryFirst:false,
+				//当需要开启显示明细时才实现，否则不实现
+				/* detailFormatter : function(index, row, element) {
+					return row.NAME;
+				}, */
+				columns : [
+				  {
+					field : "VIN",
+					title : "VIN"
+				}, {
+					field : "CHANGE_DATE",
+					title : "变更类型"
+					}
+				, {
+					field : "CHANGE_CODE",
+					title : "变更时间"
+				}, {
+					field : "CHANGE_DESC",
+					title : "变更描述"
+				}, {
+					field : "RESOURCE",
+					title : "资源范围"
+				}, {
+					field : "NAME",
+					title : "操作人"
+				}, {
+					field : "CREATE_DATE",
+					title : "操作时间"
+				}]
+
+			});
+				//事件点击
+				$("a[data-onclickEvent='true']", container).on(
+						"dms.click",
+						function(event) {
+							//debugger
+							/* var selectRow = $("#dms_table", container)
+									.dmsTable().getFirstSelection();
+
+							$("div[data-tableSelect='true']",
+									getElementContext()).initHtmlContent(
+									selectRow);
+							//关闭窗口
+							$("a[data-dismiss='modal']", container).click(); */
+						});
+
+			});
+</script>

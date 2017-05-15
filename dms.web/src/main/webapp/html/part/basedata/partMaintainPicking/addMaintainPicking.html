@@ -1,0 +1,515 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+				<div class="col-xs-10 col-sm-6 col-md-2 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">仓库</label>
+							<div class="col-xs-8">
+								<select id="storageCode" name="storageCode"
+										class="bs-select form-control"
+										data-url="/basedata/store/storelist" data-model="part"
+										data-labelValue="STORAGE_CODE" data-lableDesc="STORAGE_NAME">
+									</select>
+									<input type="hidden" id="loginName" value="{[userInfo.userName]}"/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-10 col-sm-6 col-md-2 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">品牌</label>
+							<div class="col-xs-8">
+								<select id="brand" class="bs-select form-control" name="brand"
+									data-url="/basedata/brandsdict" data-model="manage" data-fieldName="BRAND_CODE"
+									data-labelValue="BRAND_CODE" data-lableDesc="BRAND_NAME"
+									>
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-10 col-sm-6 col-md-2 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">配件代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="partNo" name="partNo">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-10 col-sm-6 col-md-2 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">拼音</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="spellCode" name="spellCode">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-10 col-sm-6 col-md-2 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="partName" name="partName">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-10 col-sm-6 col-md-2 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件类别</label>
+								<div class="col-xs-8">
+									<select id="partGroupCode" name="partGroupCode"
+										data-ajaxSync="true" class="bs-select form-control"
+										data-fieldName="PART_GROUP_CODE" data-dictCode="1136">
+									</select>
+								</div>
+							</div>
+						</div>
+					
+					<div class="col-xs-10 col-sm-6 col-md-2 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">库位</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="storagePositionCode" name="storagePositionCode">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-10 col-sm-6 col-md-2 ">
+						<div class="form-group">
+							<label class="control-label col-xs-3">配件车型组</label>
+							<div class="col-xs-8 col-md-8">
+								<select id="partModelGroupCodeSet" name="partModelGroupCodeSet" data-ajaxSync="true"
+									class="bs-select form-control" data-url="/basedata/partInfos/querypartGroupCodes"
+									data-model="part" data-labelValue="PART_MODEL_GROUP_CODE"
+									data-lableDesc="PART_MODEL_GROUP_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-10 col-sm-6 col-md-2 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 "></label>
+								<div class="col-xs-8">
+										<input id="isCheck" name="isCheck" type="checkbox"
+										data-dictCode="1057" data-dictLabel="库存大于零" data-autoValueDigits="2"/>
+								</div>
+							</div>
+						</div>
+					
+					<div class="col-xs-10 col-sm-6 col-md-2 ">
+										<div class="form-group">
+											<div class="col-xs-12">
+												<input type="checkbox" name="isSalePriceBigger"
+													id="isSalePriceBigger" data-dictCode="1057"
+													data-dictLabel="售价大于零(最多查询记录500条)" />
+											</div>
+										</div>
+									</div>
+					
+					<div class="col-xs-10 col-sm-6 col-md-2 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">备注</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="remark" name="remark">
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a  data-url="/basedata/ttRepairOrder/queryPartInfo" id="btnSearch"  class="btn  blue" data-toggle="confirmation"
+								data-model="repair" data-method="get"> <i
+								class="fa fa-search"></i> 查询</a>
+							 <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 替换件</a>
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 原配件</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name" >维修领料</div>
+		</div>
+		<div style="border: solid 1px #DDDDDD; height: 150px; overflow-y: scroll; overflow-x: hidden">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+				<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">仓库</label>
+							<div class="col-xs-8">
+								<select id="storageCode2" name="storageCode2"
+										class="bs-select form-control" disabled="disabled"
+										data-url="/basedata/store/storelist" data-model="part"
+										data-labelValue="STORAGE_CODE" data-lableDesc="STORAGE_NAME">
+									</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">配件代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="partNo2" name="partNo2">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="partName2" name="partName2">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">领料人</label>
+							<div class="col-xs-8 ">
+								<select id="receiver" name="receiver" data-url="/basedata/employees/-1/salesConsultant"
+								data-model="manage" data-labelValue="USER_ID" data-value="{[userInfo.USER_ID]}"
+								data-lableDesc="USER_NAME" class="bs-select form-control" data-live-search="true">
+							  </select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">维修项目</label>
+							<div class="col-xs-8 ">
+								<select id="labourCode" name="labourCode"
+										class="bs-select form-control">
+									</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">价格类型</label>
+							<div class="col-xs-8">
+								<select id="priceType" name="priceType"
+										class="bs-select form-control" data-excludeItems="12361008,12361009" data-dictCode="1236" data-value="13111001">
+									</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">价格系数</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control decimal" id="priceRate"
+										name="priceRate" max="1" value="1" maxDigit="1"
+										maxPrecision="2" maxlength="4">
+								</div>
+							</div>
+						</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件销售单价</label>
+								<div class="col-xs-8">
+								    <input id="partSalesPrice" name="partSalesPrice" class="form-control decimal" 
+										type="text" data-fieldName="PART_SALES_PRICE" maxDigit="8"
+										maxPrecision="2" data-autoValueDigits="2"/>
+								</div>
+							</div>
+					    </div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件数量</label>
+							<div class="col-xs-8">
+								<input id="partQuantity" name="partQuantity" type="text"
+									class="form-control decimal" maxDigit="6" maxPrecision="2"/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件销售金额</label>
+								<div class="col-xs-8 ">
+									<input id="partSalesAmount" name="partSalesAmount" disabled data-autoValueDigits="2" class="form-control money"  maxDigit="30" type="text" />
+								</div>
+							</div>
+						</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4>
+							<div class="form-group">
+								<label class="control-label col-xs-4">收费区分</label>
+								<div class="col-xs-8 ">
+									<select id="chargePartitionCode" name="chargePartitionCode" data-info="charge"
+											class="bs-select form-control" data-url="/basedata/ChargeCO/Charge/dictexs"
+											data-model="retail" data-labelValue="CHARGE_PARTITION_CODE"
+											data-lableDesc="CHARGE_PARTITION_NAME" data-ajaxSync = "true">
+										</select>
+								</div>
+							</div>
+						</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<div class="col-xs-12">
+												<input type="checkbox" name="isMainPart"
+													id="isMainPart" data-dictCode="1278"
+													data-dictLabel="主要配件" />
+											</div>
+										</div>
+									</div>
+				</div>
+			</div>
+		</div>
+	<div class="panel panel-default table-panel">
+		<div class="panel-body"  style="border: solid 1px #DDDDDD; height: 150px; overflow-y: scroll; overflow-x: hidden">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table2"></table>
+		</div>
+	</div>
+	<div class="modal-footer center-block">
+			 <a data-onclickEvent="true" id="sureBtn" class="btn blue"
+				><i class="fa fa-save"></i>确定</a>
+				<a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消</a>
+				<a class="btn blue" id="showDetailBtn" data-url="part/basedata/partMaintainPicking/showPartStockDetail.html"
+				data-toggle="modal" data-width="modal-lg" data-beforeShowEvent="true"><i class="fa fa-save hidden"></i>库存明细</a>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["repair"] + "/basedata/ttRepairOrder/queryPartInfo",
+			rowID : "PART_NO,STORAGE_CODE,PART_BATCH_NO",
+			isFormParam:true,
+			isQueryFirst:true,
+			autoHeight : false,
+			onDblClickRow:function(rowData,trElement){
+				rowdata=rowData;
+				var partNo = rowData.PART_NO;
+				var storageCode = rowData.STORAGE_CODE;
+	            $("#storageCode2",container).setDmsValue(rowData.STORAGE_CODE);
+	            $("#partNo2",container).val(rowData.PART_NO);
+	            $("#partName2",container).val(rowData.PART_NAME);
+	            $("#priceType",container).setDmsValue("12361002");  //修改下拉框的值 
+	            $("#priceType",container).removeAttr("disabled");
+	            $("#priceRate",container).val("1");
+	            $("#partSalesPrice",container).val(rowData.SALES_PRICE);            
+	            $("#partQuantity",container).val("1");            
+	            $("#partSalesAmount",container).val(rowData.SALES_PRICE*1);
+                $("#dms_table2",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()['repair']+"/basedata/ttRepairOrder/queryPartStock/"+partNo+"/"+storageCode);//通过url刷新表格
+				$("#dms_table2", container).dmsTable().refreshTableWithForm();
+			},
+			columns : [ 
+				{radio:true,sortable : false},
+			    {field : "STORAGE_CODE",title : "仓库"}, 
+				{field : "STORAGE_POSITION_CODE",title : "库位"}, 
+				{field : "PART_NO",title : "配件代码"}, 
+				{field : "PART_NAME",title : "配件名称"},
+				{field : "PART_MODEL_GROUP_CODE",title : "车型组集"},
+				{field : "SALES_PRICE",title : "销售价"},
+				{field : "COST_PRICE",title : "成本价"},
+				{field : "STOCK_QUANTITY",title : "账面库存"},
+				{field : "BORROW_QUANTITY",title : "借进数量"},
+				{field : "LEND_QUANTITY",title : "借出数量"},
+				{field : "REMARK",title : "备注",inputHiddenFormat : {
+					hiddenFieldName : "remark,costPrice,costAmount,unitCode,useableQuantity,storageName",
+					hiddenField : "REMARK,COST_PRICE,COST_AMOUNT,UNIT_CODE,USEABLE_QUANTITY,STORAGE_NAME"
+				}}
+			],onLoadSuccess:function(){
+				//收费区分值变动绑定事件
+				$("#chargePartitionCode", container).bindChange(function(obj){
+					var cpType=$("#chargePartitionCode", container).val();
+					
+					switch(cpType)
+					{
+					case "M":	 //保险
+						$("#priceType").setDmsValue("12361007");  //修改下来框的值 
+						$("#priceType",container).removeAttr("disabled");
+					  break;
+					case "S":     //索赔价
+						$("#priceType").setDmsValue("12361003");  //修改下来框的值 
+						$("#priceType",container).attr("disabled","disabled");
+					  break;
+					default:
+						$("#priceType").setDmsValue("12361002");  //修改下来框的值 
+					    $("#priceType",container).removeAttr("disabled");
+					}
+				
+				});
+				
+				//值变动绑定事件
+				$("#priceRate,#partSalesPrice,#partQuantity", container).bindChange(function(obj){
+					
+					//根据变动计算金额
+					$("#partSalesAmount").val((parseFloat($("#partSalesPrice").val())
+							 *parseFloat($("#priceRate").val())
+							 *parseFloat($("#partQuantity").val())).toFixed(2));
+				
+				});
+				
+				//价格类型变动绑定事件
+				$("#priceType", container).bindChange(function(obj){		
+					var type=$("#priceType").val();		
+					switch(type)
+					{
+					case "12361001":	 //成本价
+						$("#partSalesPrice").val(rowdata.COST_PRICE);
+					  break;
+					case "12361002":     //销售价
+						$("#partSalesPrice").val(rowdata.SALES_PRICE);
+					  break;
+					case "12361003":	//索赔价
+						$("#partSalesPrice").val(rowdata.CLAIM_PRICE);
+					  break;	
+					case "12361004":	//网点价
+						$("#partSalesPrice").val(rowdata.NODE_PRICE);
+					  break;	
+					case "12361005":	//最新进货价
+						$("#partSalesPrice").val(rowdata.LATEST_PRICE);
+					  break;	
+					case "12361006":	//含税成本价
+						$("#partSalesPrice").val(rowdata.NET_COST_PRICE);
+					  break;
+					case "12361007":	//保险价
+						$("#partSalesPrice").val(rowdata.INSURANCE_PRICE);
+					  break;
+					default:
+						$("#partSalesPrice").val("0");
+					}
+						
+					$("#priceRate").val("1");
+					if($("#partSalesPrice").val()==""){
+						$("#partSalesPrice").val("0");
+					}
+					
+					//根据变动计算金额
+					$("#partSalesAmount").val((parseFloat($("#partSalesPrice").val())
+							 *parseFloat($("#priceRate").val())
+							 *parseFloat($("#partQuantity").val())).toFixed(2));
+				
+			 	});
+			}
+		});
+		new Datatable().initPagination({
+			src : "dms_table2",
+			container:container,
+			url : dmsCommon.getDmsPath()["repair"] + "/basedata/ttRepairOrder/queryPartStock",
+			rowID : "PART_NO,STORAGE_CODE",
+			isFormParam:true,
+			isQueryFirst:false,
+			autoHeight : false,
+			columns : [ 
+			    {field : "SALES_PRICE",title : "销售价"}, 
+				{field : "CLAIM_PRICE",title : "索赔价"}, 
+				{field : "INSURANCE_PRICE",title : "保险价"}, 
+				{field : "MIN_LIMIT_PRICE",title : "最低销售限价"},
+				{field : "LIMIT_PRICE",title : "销售限价"},
+				{field : "max_Stock",title : "最大库存"},
+				{field : "min_stock",title : "最小库存"},
+				{field : "STOCK_QUANTITY",title : "账面库存"},
+				{field : "USEABLE_STOCK",title : "可用库存"},
+				{field : "BORROW_QUANTITY",title : "借进数量"},
+				{field : "LEND_QUANTITY",title : "借出数量"},
+				{field : "LOCKED_QUANTITY",title : "锁定量"},
+				{field : "OPTION_NO",title : "替代配件"},
+				{field : "",title : "替代件库存"},
+				{field : "PART_GROUP_CODE",title : "配件类别"},
+				{field : "UNIT",title : "单位"},
+				{field : "PART_MODEL_GROUP_CODE_SET",title : "配件车型组集"}
+			]
+		}); 
+		
+		//新增页面回调函数
+		$("a[data-onclickEvent='true']", container).on("dms.click",function(event, response) {
+					if(this.id == 'sureBtn'){
+						var receiver = $("#receiver",container).val();
+						if(!$.trim(receiver)){
+							dmsCommon.tip({status:"warning",msg:"请选择领料人！"});
+							return false;
+						}
+						//获取第一个表格选中的一行
+						var selectMasterRow = $("#dms_table",container).dmsTable().getFirstSelection();
+						var row = $("#dms_table2",container).dmsTable().getRowDataByIndex();
+						if(selectMasterRow){
+							var jsonTr = {};
+							jsonTr['1'] = true;
+							if (row.length >= 1){
+								jsonTr['USEABLE_STOCK'] = row[0].USEABLE_STOCK;
+							}
+							jsonTr['UPDATE_STATUS'] = 'A';
+							jsonTr['IS_FINISHED']='12781002';
+							jsonTr['STORAGE_CODE']=selectMasterRow['STORAGE_CODE'];
+							jsonTr['STORAGE_NAME']=selectMasterRow['STORAGE_NAME'];
+							jsonTr['STORAGE_POSITION_CODE'] = selectMasterRow['STORAGE_POSITION_CODE'];
+							jsonTr['PART_NO']=selectMasterRow['PART_NO'];
+							jsonTr['PART_NAME']=selectMasterRow['PART_NAME'];
+							jsonTr['PART_QUANTITY']=selectMasterRow['PART_QUANTITY'];
+							jsonTr['USEABLE_STOCK']=selectMasterRow['USEABLE_STOCK'];
+							jsonTr['PART_SALES_PRICE']=selectMasterRow['PART_SALES_PRICE'];
+							jsonTr['PART_SALES_AMOUNT']=selectMasterRow['PART_SALES_AMOUNT'];
+							jsonTr['CHARGE_PARTITION_CODE']=selectMasterRow['CHARGE_PARTITION_CODE'];
+							jsonTr['SENDER']=$("#loginName",container).val();
+							jsonTr['RECEIVER']=$("#receiver",container).val();
+							jsonTr['DISCOUNT']= '1';
+							jsonTr['PART_QUANTITY'] = $("#partQuantity",container).val();
+							jsonTr['UNIT_CODE']= selectMasterRow['UNIT_CODE'];
+							jsonTr['PART_COST_PRICE']=selectMasterRow['COST_PRICE'];
+							jsonTr['PART_COST_AMOUNT']=selectMasterRow['COST_AMOUNT'];
+							jsonTr['USEABLE_QUANTITY']=selectMasterRow['USEABLE_QUANTITY'];
+							//jsonTr['ADD_RATE']=selectMasterRow['ADD_RATE'];
+							$("#maintainPickingTbl",getElementContext()).dmsTable().appendRow(jsonTr,true);
+						}else{
+							dmsCommon.tip({status:"warning",msg:"请选择配件！"});
+							return;
+						}
+						
+						//关闭窗口
+						$("a[data-dismiss='modal']", container).click();
+					}else if(this.id == 'showDetailBtn'){
+						
+					}
+				});
+		
+		//弹出窗体前事件
+		$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+			if(event.target.id=='showDetailBtn'){
+				var selectPartRow = $("#dms_table",container).dmsTable().getFirstSelection();
+				if(selectPartRow){
+					$(this).data("pageData",{
+						PART_NO:$("#partNo2").val(),
+						STORAGE_CODE:$("#storageCode2").val()
+					});
+					returnResult.status = true;
+				}else{
+					dmsCommon.tip({status:"warning",msg:"请选择一条工单配件信息！"});//总共的状态类型：info、success、error、warning
+					returnResult.status = false;
+				}
+				returnResult.status = true;
+			}
+		});
+	});
+</script>

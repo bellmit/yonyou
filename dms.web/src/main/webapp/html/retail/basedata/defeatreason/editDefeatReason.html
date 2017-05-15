@@ -1,0 +1,61 @@
+<div class="dms-edit ajaxrest" data-url="/basedata/defeats/{[DEFEAT_REASON_ID]}" data-model="retail" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">战败原因信息编辑</div>
+				<div class="modal-close">
+					<a data-dismiss="modal" class="btn btn-lg">
+					<i class="fa fa-remove"></i></a>
+				</div>
+			</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">战败原因代码</label>
+							<div class="col-xs-8">
+								<input id="drCode" name="drCode" disabled="disabled" class="form-control" type="text" data-fieldName="dr_code"/>
+						</div>
+					</div>
+				</div>
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-xs-4">战败原因描述</label>
+						<div class="col-xs-8">
+							<input id="drDesc" name="drDesc" class="form-control required" maxlength="30" type="text" data-fieldName="dr_desc" />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<div class="form-group">
+							<label class="control-label col-xs-4">是否有效</label>
+						<div class="col-xs-8">
+						   <select id="isValid" name="isValid" class="bs-select form-control" data-dictCode="1004" data-fieldName="is_valid" data-existsDefault="false">
+							</select>
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+	</div>
+</div>
+		<div class="modal-footer">
+			<a data-url="/basedata/defeats/{[DEFEAT_REASON_ID]}" data-model="retail" data-method="PUT" data-callBack="true"  class="btn blue"  data-toggle="confirmation"><i class="fa fa-save"></i>保存</a>
+			<a data-dismiss="modal" class="btn blue" ><i
+			class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		//新增页面回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	}); 
+</script>

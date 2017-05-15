@@ -1,0 +1,142 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="modal-title">接口收发信息查询</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">接口名称</label>
+							<div class="col-xs-8">
+								<input id="bizType" name="bizType" data-fieldName="BIZ_TYPE"
+									class="bs-select form-control" type="text" />
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">收发类型</label>
+							<div class="col-xs-8">
+								<select id="msgType" name="msgType" data-fieldName="MSG_TYPE"
+									data-fieldName="MSG_TYPE" class="bs-select form-control"
+									data-type="oemDict">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">是否完成</label>
+							<div class="col-xs-8">
+								<select id="process" name="process" data-fieldName="PROCESS"
+									class="bs-select form-control" data-type="oemDict">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">创建时间</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" data-maxDays="30"
+									data-opens="right">
+									<input type="text" class="form-control" readonly
+										name="beginDateTB"> <span class="input-group-addon">-</span>
+									<input type="text" class="form-control" readonly
+										name="endDateTB"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">接口收发信息</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+					<a class="btn btn-outline" data-url="/inter/delete/{id}"
+						data-toggle="modal"> <i class="fa fa-remove"></i> 删除
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				new Datatable().initPagination({
+					src : "dms_table",
+					container : container,
+					url : dmsCommon.getDmsPath()["web"] + "/inter",
+					rowID : "MSG_ID",
+					sortName : "CREATE_DATE",
+					sortOrder : "desc",
+					columns : [
+
+							{
+								field : "MSG_ID",
+								title : "操作",
+								operateFormat : [ {
+									type : "del",
+									url : "/inter/delete/{[MSG_ID]}",
+									model : "web",
+									callBack : function(response) {
+										$("#dms_table", getElementContext())
+												.dmsTable()
+												.refreshTableWithForm();
+									}
+								} ]
+							}, {
+								field : "MSG_FROM",
+								title : "发送单位代码"
+							}, {
+								field : "MSG_TO",
+								title : "接收单位代码"
+							}, {
+								field : "BIZ_TYPE",
+								title : "接口名称",
+							}, {
+								field : "MSG_TYPE",
+								title : "收发类型"
+							}, {
+								field : "PROCESS",
+								title : "是否完成"
+							}, {
+								field : "CREATE_DATE",
+								title : "创建时间"
+							}, {
+								field : "TRY_TIMES",
+								title : "尝试收发次数"
+							}, {
+								field : "LAST_TRY_TIME",
+								title : "上次尝试收发时间"
+
+							} ]
+				});
+			});
+</script>

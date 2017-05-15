@@ -1,0 +1,98 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel-heading">
+			<div class="pannel-name">投诉历史</div>
+		</div>
+		<div class="panel-body">
+			<input type="hidden" class="form-control" id="vin" name="vin">
+			<input type="hidden" class="form-control" id="ownerNo" name="ownerNo">
+			<!-- <input type="hidden" class="form-control" id="complaintNo" name="complaintNo"> -->
+			<input type="hidden" class="form-control" id="license" name="license">
+			<table
+				class="table table-striped table-bordered table-hover
+				table-responsive"
+				id="dms_table">
+			</table>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				
+				var vins = $("#vin2", getElementContext()).val();
+				$("#vin", container).val(vins);
+				/* alert(vins); */
+				var ownerNos = $("#ownerNo2", getElementContext()).val();
+				$("#ownerNo", container).val(ownerNos); 
+				/* alert(ownerNos); */
+				var licenses= $("#license2", getElementContext()).val();
+				$("#license", container).val(licenses);
+				/* alert(licenses); */
+				
+				new Datatable().initPagination({
+					src : "dms_table",
+					rowID : "COMPLAINT_NO",
+					container : container,
+					url : dmsCommon.getDmsPath()["customer"] + "/customer/solicitude/complaint",
+					sortName : "COMPLAINT_NO",
+					sortOrder : "asc",
+					autoHeight : false,
+					undefinedText : "",
+					columns : [
+					{title : "操作",operateFormat : [
+			            {type:"detail",title:'投诉明细',url:"customer/solicitude/complainHistory/complainHistoryDetail.html",openType:"jump"}
+			            ]},
+		            {
+						field : "DEALER_SHORTNAME",
+						title : "经销商简称"
+					}, {
+						field : "COMPLAINT_NO",
+						title : "投诉编号"
+					}, {
+						field : "COMPLAINT_TYPE",
+						title : "投诉类型",
+						codeFormat : {
+							type : "dict",
+							codeType : "1124"
+						}
+					}, {
+						field : "COMPLAINT_NAME",
+						title : "投诉人姓名"
+					}, {
+						field : "COMPLAINT_END_DATE",
+						title : "投诉日期",
+						dateFormat : {
+							format : "YYYY-MM-DD"
+						}
+					}, {
+						field : "COMPLAINT_PHONE",
+						title : "投诉人电话"
+					}, {
+						field : "CLOSE_STATUS",
+						title : "结案状态",
+						codeFormat : {
+							type : "dict",
+							codeType : "1120"
+						}
+					}, {
+						field : "CLOSE_DATE",
+						title : "结案日期",
+						dateFormat : {
+							format : "YYYY-MM-DD"
+						}
+					}, {
+						field : "COMPLAINT_ORIGIN",
+						title : "投诉来源",
+						codeFormat : {
+							type : "dict",
+							codeType : "1121"
+						}
+					} ]
+				});
+			});
+</script>

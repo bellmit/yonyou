@@ -1,0 +1,70 @@
+<div class="dms-edit ajaxrest" data-url="/basedata/modelgroups/{[MODEL_GROUP_ID]}" data-model="repair" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">车型组信息编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">维修车型分组代码</label>
+							<div class="col-xs-8">
+								<input id="modelLabourCode" name="modelLabourCode" disabled="disabled" class="form-control" type="text" data-fieldName="model_labour_code"/>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 ">
+					<div class="form-group">
+						<label class="control-label col-xs-4">维修车型分组名称</label>
+						<div class="col-xs-8">
+							<input id="modelLabourName" name="modelLabourName" class="form-control required" maxlength="40" type="text" data-fieldName="model_labour_name"/>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 ">
+					<div class="form-group">
+						<label class="control-label col-xs-4">是否OEM</label>
+						<div class="col-xs-8">
+							<select  id="oemTag" name="oemTag" disabled="disabled" class="bs-select form-control" data-dictCode="1004" data-fieldName="oem_tag" data-existsDefault="false">
+							</select>						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 ">
+					<div class="form-group">
+						<label class="control-label col-xs-4">是否有效</label>
+						<div class="col-xs-8">
+							<select  id="isValid" name="isValid"  class="bs-select form-control" data-dictCode="1004" data-fieldName="is_valid" data-existsDefault="false">
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+		<div class="modal-footer">
+			<a data-url="/basedata/modelgroups/{[MODEL_GROUP_ID]}" data-model="repair" data-method="PUT" data-callBack="true"  class="btn blue"  data-toggle="confirmation"><i class="fa fa-save"></i>保存</a>
+			<a data-dismiss="modal" class="btn blue" ><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+
+	$(document).one("onload.dms",function(event,container){
+		//新增页面回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	}); 
+</script>

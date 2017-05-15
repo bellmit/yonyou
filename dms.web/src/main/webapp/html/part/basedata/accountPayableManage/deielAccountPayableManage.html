@@ -1,0 +1,75 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">明细</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-body" id="a">
+				<table class="table table-striped table-bordered table-hover table-responsive"
+					id="dmstables"></table>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-model="part" data-method="downLoad" data-toggle="confirmation" id="excel" class="btn blue "><i class="fa fa-download"/>EXCEL</a>
+			<a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		var selectRow1 =  $("#dmstable",getElementContext()).dmsTable().getSelections();
+		var selectRow2 =  $("#tables",getElementContext()).dmsTable().getSelections();
+		var selectRow3 =  $("#stables",getElementContext()).dmsTable().getSelections();
+		var tag = $("#tag",getElementContext()).val();
+		new Datatable().initPagination({
+			src : "dmstables",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "",
+			rowID : "ITEM_ID",
+			sortName : "", 
+			sortOrder : "asc",
+			autoHeight : false,
+			selectItemName:"",
+			isFormParam:true,
+			undefinedText : "",
+			isQueryFirst : false,
+			onDblClickRow:function(rowData,trElement){
+			},
+			columns : [ 
+				{redio:true,sortable : false},
+			    {field : "STORAGE_CODE",title : "仓库",inputHiddenFormat:{}}, 
+				{field : "STORAGE_POSITION_CODE",title : "库位",inputHiddenFormat:{}},
+				{field : "PART_NO",title : "配件代码",inputHiddenFormat:{}},
+				{field : "PART_NAME",title : "配件名称",inputHiddenFormat:{}}, 
+				{field : "UNIT_CODE",title : "计量单位",inputHiddenFormat:{}},
+				{field : "IN_QUANTITY",title : "入库数量",inputHiddenFormat:{}}, 
+				{field : "IN_PRICE",title : "不含税单价",numberFormat : {decimal:2}},
+				{field : "IN_AMOUNT",title : "不含税金额",inputHiddenFormat:{},numberFormat : {decimal:2}},
+				{field : "IN_PRICE_TAXED",title : "含税单价",inputHiddenFormat:{},numberFormat : {decimal:2}}, 
+				{field : "IN_AMOUNT_TAXED",title : "含税金额",inputHiddenFormat:{},numberFormat : {decimal:2}}
+			],onLoadSuccess:function(row){
+				if(tag=="15880001"){
+					$("#excel").attr("data-url","/basedata/accountPayableManage/coustomerExport/"+selectRow1[0].STOCK_IN_NO+"/"+tag)
+				}else if(tag=="15880012"){
+					$("#excel").attr("data-url","/basedata/accountPayableManage/coustomerExport/"+selectRow2[0].STOCK_IN_NO+"/"+tag)
+				}else if(tag=="15880017"){
+					$("#excel").attr("data-url","/basedata/accountPayableManage/coustomerExport/"+selectRow3[0].STOCK_IN_NO+"/"+tag)
+				}
+			}
+		});
+		if(tag=="15880001"){
+			$("#dmstables",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()['part']+"/basedata/accountPayableManage/detail/"+selectRow1[0].STOCK_IN_NO+"/"+tag);
+		}else if(tag=="15880012"){
+			$("#dmstables",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()['part']+"/basedata/accountPayableManage/detail/"+selectRow2[0].STOCK_IN_NO+"/"+tag);
+		}else if(tag=="15880017"){
+			$("#dmstables",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()['part']+"/basedata/accountPayableManage/detail/"+selectRow3[0].STOCK_IN_NO+"/"+tag);
+		}
+
+	});
+	
+</script>

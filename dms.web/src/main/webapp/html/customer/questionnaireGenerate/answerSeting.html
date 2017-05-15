@@ -1,0 +1,75 @@
+<div class="panel panel-default ">
+	<div class="panel-heading">
+		<div class="pannel-name">答案</div>
+		<div class="col-xs-12 col-sm-6 col-md-4  hidden">
+			<div class="form-group">
+				<label class="control-label col-xs-4">问题组编号hidden</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control" id="ANSWER_GROUP_NO" name="ANSWER_GROUP_NO">
+				</div>
+			</div>
+		</div>
+		<div class="btn-group btn-group-sm">
+			<a class="btn btn-outline" data-url="customer/questionnaireGenerate/addAnswersA.html"
+				data-toggle="modal" data-width="modal-lg"><i class="fa fa-plus-square"></i>添加 </a>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive" id="answer"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document)
+			.one(
+					"onload.dms",
+					function(event, container) {
+						new Datatable()
+								.initPagination({
+									src : "answer",
+									container : container,
+									rowID : "ANSWER_NO",
+									url : dmsCommon.getDmsPath()["customer"]
+											+ "/questionnaire/{[ANSWER_GROUP_NO]}/seachAnswer",
+									sortOrder : "asc",
+									autoHeight : false,
+									columns : [
+											{
+												field : "ANSWER_GROUP_NO",
+												title : "修改",
+												operateFormat : [ {
+													type : "edit",
+													url : "customer/questionnaireGenerate/editAnswer.html",
+													openWidth : "modal-lg",
+													isShow : function(value,
+															row, index) {
+														if (row.DOWN_TAG == '12781001') {
+															return false;
+														} else {
+															return true;
+														}
+													}
+												} ]
+
+											},{
+												field : "ANSWER_NO",
+												title : "答案编号"
+											}, {
+												field : "ANSWER",
+												title : "答案组内容"
+											}, {
+												field : "ANSWER_DESC",
+												title : "答案说明"
+											}, 
+											{field:"IS_VALID",title:"启用",codeFormat:{type:"dict",codeType:"1278"}},
+											{field:"DOWN_TAG",title:"OEM下发",codeFormat:{type:"dict",codeType:"1278"}},
+											]
+								});
+
+						$("#ANSWER_GROUP_NO").bindChange(function(obj) {
+											$("#answer", container).dmsTable().refreshUrl(
+															dmsCommon.getDmsPath()["customer"]+ "/questionnaire/"+ $("#ANSWER_GROUP_NO").val()+ "/seachAnswer");
+											$("#ANSWER_GROUP_NO", container).val($("#ANSWER_GROUP_NO").val());
+										});
+
+					});
+</script>

@@ -1,0 +1,93 @@
+<link rel="stylesheet" type="text/css" href="../assets/layouts/layout/css/PrintArea.css">
+<div class="dms-edit PrintArea ajaxrest" data-url="/basedata/partinventories/{[PART_INVENTORY_ID]}/print" data-model="part">
+	<div class="panel panel-default panel-print">
+		<div class="panel-body">
+			<div class="print-title">
+				<div class="row h1Title">
+					<div class="col-xs-12">
+						<label >{[userInfo.dealerName]}</label>
+					</div>
+				</div>
+				<div class="row h2Title">
+					<div class="col-xs-12">
+						<label>配件盘点单</label>
+					</div>
+				</div>
+				<div class="row print-gap">
+			
+				</div>
+				<div class="row print-singleRow">
+					<div class="col-xs-12 ">
+						<label>盘点单号:<span  class="form-show" data-fieldName="inventory_no"></span></label>
+						<label>盘点时间:<span class="form-show " data-fieldName="inventory_date" data-date-format="YYYY-MM-DD"></span></label>
+					</div>
+				</div>
+			</div>
+			<div class=" print-table">
+				<div class="panel panel-default table-panel">
+					<div class="panel-heading">
+							<div class="pannel-name">配件信息</div>
+					</div>
+					<div class="panel-body">
+						<table
+								class="table table-striped table-bordered table-hover table-responsive"
+								id="piiDtoList">
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="row print-gap">
+			
+			</div>
+			<div class="print-foot">
+				<div class="row margin-top-5">
+					<div class="col-xs-4">
+						<div class="form-group">
+							<label class="control-label col-xs-5" >打印时间:</label>
+							<div class="col-xs-7" >
+								<span class="form-show " data-fieldName="PRINT_RO_TIME" data-date-format="YYYY-MM-DD HH:mm"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<div class="form-group">
+							<label class="control-label col-xs-5" >经手人:</label>
+							<div class="col-xs-7" >
+								<span class="col-xs-12 form-show " data-fieldName="handler"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="print-without">
+	<a id="print" class="btn blue printfy"><i class="fa fa-print"></i>打印</a>
+	<a data-info="editOrder" href="part/basedata/partinventroy/searchPartInventroy.html" class="btn blue ajaxify" data-beforeShowEvent="true"><i class="fa fa-reply"></i>返回</a>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initLocale({
+			src : "piiDtoList",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/basedata/partinventories/{[PART_INVENTORY_ID]}/item/print",
+			rowID : "ITEM_ID",
+			mergeTotal:{
+				megerCellNumber:6,
+			},
+			columns : [
+			    {field : "STORAGE_NAME", title : "仓库名称"},
+			    {field : "STORAGE_POSITION_CODE",title : "库位"},
+			    {field : "PART_NO",title : "配件代码"},
+			    {field : "PART_NAME", title : "配件名称"},
+			    {field : "REAL_STOCK",title : "当前库存"},
+			    {field : "CHECK_QUANTITY",title : "清点数量"},
+			    {field : "PROFIT_LOSS_QUANTITY",title : "盈亏数量"},
+			    {field : "PROFIT_LOSS_AMOUNT", title : "盈亏金额"}
+			]
+		});
+
+	});
+	
+</script>

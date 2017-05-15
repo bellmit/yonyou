@@ -1,0 +1,169 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="panel-heading">
+				<div class="pannel-name">服务活动</div>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-md-12 col-lg-12">
+						<div class="panel panel-default table-panel">
+							<div class="panel-heading">
+							</div>
+							<div class="panel-body">
+								<table class="table table-striped table-bordered table-hover table-responsive"
+									id="dms_table"></table>
+							</div>
+						</div>
+					</div> 	
+					<div class="col-xs-12 col-md-12 col-lg-12">
+					<div class="col-xs-12 col-md-12 col-lg-6">
+						<div class="panel panel-default table-panel">
+							<div class="panel-heading">
+							</div>
+							<div class="panel-body">
+								<table class="table table-striped table-bordered table-hover table-responsive"
+									id="dms_repair"></table>
+							</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-md-12 col-lg-6">
+						<div class="panel panel-default table-panel">
+							<div class="panel-heading">
+							</div>
+							<div class="panel-body">
+								<table class="table table-striped table-bordered table-hover table-responsive"
+									id="dms_activity"></table>
+							</div>
+							</div>
+						</div>
+					</div> 				
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms", function(event, container) {
+		
+		new Datatable().initPagination({
+			src : "dms_table",
+			rowID : "",
+			container : container,
+// 			url : dmsCommon.getDmsPath()["repair"] + "",
+			sortName : "",//按照哪个字段来排序，在工具类里面有写sort
+			sortOrder : "asc",//排序方式
+			autoHeight : false,//自动高度
+			undefinedText : "",
+			columns : [ {
+				field : "IS_EXIST",
+				title : "存在"
+			}, {
+				field : "ACTIVITY_CODE",
+				title : "活动编号"
+			}, {
+				field : "ACTIVITY_NAME",
+				title : "活动名称"//tm_owner
+			}, {
+				field : "ACTIVITY_TYPE",
+				title : "活动类型",codeFormat:{type:"dict",codeType:"1184"}
+			}, {
+				field : "ACTIVITY_PROPERTY",
+				title : "活动性质",codeFormat:{type:"dict",codeType:"1196"}
+			}, {
+				field : "BEGIN_DATE",
+				title : "开始日期",
+				dateFormat : {
+					format : "YYYY-MM-DD"
+				}
+			}, {
+				field : "END_DATE",
+				title : "结束日期",
+				dateFormat : {
+					format : "YYYY-MM-DD"
+				}
+			}, {
+				field : "ACTIVITY_AMOUNT",
+				title : "活动总金额"
+			}]
+		});
+
+		new Datatable().initPagination({
+			src : "dms_repair",
+			rowID : "",
+			container : container,
+// 			url : dmsCommon.getDmsPath()["repair"] + "",
+			sortName : "",//按照哪个字段来排序，在工具类里面有写sort
+			sortOrder : "asc",//排序方式
+			autoHeight : false,//自动高度
+			undefinedText : "",
+			columns : [ {
+				field : "ACTIVITY_CODE",
+				title : "活动编号"
+			}, {
+				field : "LABOUR_CODE",
+				title : "维修项目代码"
+			}, {
+				field : "LABOUR_NAME",
+				title : "维修项目名称"
+			}, {
+				field : "LABOUR_AMOUNT",
+				title : "工时费"
+			}, {
+				field : "ASSIGN_LABOUR_HOUR",
+				title : "派工工时"
+			}, {
+				field : "CHARGE_PARTITION_CODE",
+				title : "收费区分"
+			}, {
+				field : "DISCOUNT",
+				title : "折扣率"
+			}]
+		});
+		
+		new Datatable().initPagination({
+			src : "dms_activity",
+			rowID : "",
+			container : container,
+// 			url : dmsCommon.getDmsPath()["repair"] + "",
+			sortName : "",//按照哪个字段来排序，在工具类里面有写sort
+			sortOrder : "asc",//排序方式
+			autoHeight : false,//自动高度
+			undefinedText : "",
+			columns : [ {
+				field : "ACTIVITY_CODE",
+				title : "活动编号"
+			}, {
+				field : "LABOUR_CODE",
+				title : "维修项目代码"
+			}, {
+				field : "STORAGE_CODE",
+				title : "仓库代码"
+			}, {
+				field : "PART_NO",
+				title : "配件代码"
+			}, {
+				field : "PART_NAME",
+				title : "配件名称"
+			}, {
+				field : "PART_QUANTITY",
+				title : "<span style='color: blue;'>配件数量</span>",inputTextFormat:{}
+			}, {
+				field : "PART_SALES_PRICE",
+				title : "<span style='color: blue;'>配件销售单价</span>",inputTextFormat:{}
+			}, {
+				field : "PART_COST_PRICE",
+				title : "<span style='color: blue;'>配件成本单价</span>",inputTextFormat:{}
+			}, {
+				field : "CHARGE_PARTITION_CODE",
+				title : "<span style='color: blue;'>收费区分</span>",inputTextFormat:{}
+			}]
+		});
+	});
+</script>

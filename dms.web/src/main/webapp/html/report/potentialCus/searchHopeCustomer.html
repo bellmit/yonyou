@@ -1,0 +1,148 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">日期</label>
+							<div class="col-xs-8">
+								<div class="input-group date month-picker"
+									data-defaultToday="true" data-date-end-date="+0d">
+									<input id="startdate" name="startdate" readonly
+										class="form-control" type="text" value="" /> <span
+										class="input-group-btn">
+										<button class="btn default date-set" type="button">
+											<i class="fa fa-calendar"></i>
+										</button>
+									</span>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group form-group-xs m-b-xs">
+							<label class="control-label col-xs-4">销售顾问</label>
+							<div class="col-xs-8">
+								<select id="soldBy" name="soldBy"
+									class="bs-select form-control"
+									data-url="/basedata/employees/-1/salesConsultant"
+									data-model="manage" data-labelValue="USER_ID" data-ajaxSync = "true" data-value="{[userInfo.userId]}"
+									data-lableDesc="USER_NAME" >
+								</select>
+							</div>
+						</div>
+					</div>
+						
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true">
+								<i class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置 </a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name">有望客户跟踪进度</div>
+				<a id="printHope"  data-onclickEvent1='true' class="btn btn-outline " > <i
+				   class="fa fa-print"></i>打印</a>
+				
+			</div>
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="balanceList"></table>
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "balanceList",
+		container:container,
+		url : dmsCommon.getDmsPath()["report"] + "/hopeCustomer/queryHopeCustomer",
+		rowID : "CUSTOMER_NO",
+		selectItemName:"balanceId", 
+		autoHeight : false,
+		undefinedText : "",
+		columns : [  
+		    {field : "CUSTOMER_NAME",title : "客户姓名"},
+			{field : "CUS_SOURCE",title : "客户来源",codeFormat : {type:"dict",codeType:"1311"}}, 
+			{field : "CONTACTOR_PHONE",title : "联系电话"},
+			{field : "INTENT_MODEL",title : "车型"}, 
+            {field : "INTENT_COLOR",title : "车色"},
+			{field : "LAST_NEXT_GRADE",title : "前月确认度",codeFormat : {type:"dict",codeType:"1310"}}, 
+			{field : "INIT_LEVEL",title : "初始级别",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C1",title : "1",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C2",title : "2",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C3",title : "3",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C4",title : "4",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C5",title : "5",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C6",title : "6",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C7",title : "7",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C8",title : "8",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C9",title : "9",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C10",title : "10",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C11",title : "11",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C12",title : "12",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C13",title : "13",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C14",title : "14",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C15",title : "15",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C16",title : "16",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C17",title : "17",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C18",title : "18",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C19",title : "19",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C20",title : "20",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C21",title : "21",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C22",title : "22",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C23",title : "23",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C24",title : "24",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C25",title : "25",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C26",title : "26",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C27",title : "27",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C28",title : "28",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C29",title : "29",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C30",title : "30",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "C31",title : "31",codeFormat : {type:"dict",codeType:"1310"}},
+			{field : "REMARK",title : "备注"}
+		],
+		onLoadSuccess : function() {
+			var rownu = $("#balanceList",container).dmsTable().getTableRows();
+			if(rownu<=0){
+				$("#printHope",container).attr("disabled","true");
+			}else{
+				$("#printHope",container).removeAttr("disabled");
+			}
+		}
+	});
+	
+	 //绑定onchange 事件
+	$("a[data-onclickEvent1='true']",container).on("dms.click",function(obj){
+		 var startdate=$("#startdate",container).val();
+		 var soldBy=$("#soldBy",container).val();
+		 
+		 if(startdate!=null){
+				$(container).data("pageData",{
+					SOLD_BY:soldBy,
+					START_DATE:startdate});
+				//console.log($(this).data("pageData"));
+			}
+         dmsCommon.refreshPageByUrl("report/potentialCus/printHopeCustomer.html",container);  
+	    // changeFormal(obj); 
+		}); 
+	
+	
+	
+	
+	
+});	
+</script>

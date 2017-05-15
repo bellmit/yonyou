@@ -1,0 +1,82 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">竣工</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+					<div data-tableVINSelect="true" data-tableProductSelect="true">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					      <div class="form-group">
+								<label class="control-label col-xs-4">派工技师</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input type="hidden" name='seNo' value='{[SE_NO]}' /> 
+										<input id="employeeName" name="employeeName" onMouseMove="this.title=this.value" disabled
+											class="form-control" type="text" data-fieldName="EMPLOYEE_NAME"/> 
+										<span class="input-group-btn">
+											<button class="btn default btn-sm" type="button"
+												data-url="vehicle/upholsterWorker/selectTechnician.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-sitemap"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+					  </div>
+					  
+					  <div class="col-xs-12 col-sm-6 col-md-4  col-lg-3">
+						  <div class="form-group">
+							  <div class="col-xs-8 ">
+								  <input id="employeeNo" name="employeeNo" data-fieldName="EMPLOYEE_NO" disabled
+										class="form-control" type="text" />
+							  </div>
+						  </div>
+					 </div>
+									<!--/span-->
+							 
+					
+					</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/stockManage/UpholsterWorker/finalChecker/{[SO_NO]}" data-model="vehicle" data-method="PUT"
+				 class="btn blue"  data-callBack="true"
+				data-toggle="confirmation"> <i class="fa fa-save"></i>竣工
+			</a> 
+			
+			<a data-dismiss="modal" class="btn blue"><i
+							class="fa fa-undo"></i>取消</a>
+		</div>
+		
+	
+	</form>
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+   $(document).one("onload.dms",function(event,container){
+		  //新增页面的回调函数===刷新父页面，关闭本页面
+			$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+				$("a[data-dismiss='modal']",container).click();
+			    //刷新表格
+			    $("#veInspectList",getElementContext()).dmsTable().refreshTableWithForm();
+		
+			});
+	});  
+	
+	
+</script>

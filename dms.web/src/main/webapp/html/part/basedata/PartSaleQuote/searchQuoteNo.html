@@ -1,0 +1,136 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+				<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">销售报价单号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="quoteNo" name="quoteNo">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">是否完成</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control"
+										name="isFinished" data-dictCode="1278">
+									</select>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" id = "searchBtn" data-onclickEvent="true"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name" >配件报价单选择</div>
+		</div>
+		<div class="panel-body"  style="border: solid 1px #DDDDDD; height: 350px; overflow-y: scroll; overflow-x: hidden">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+	<div class="modal-footer center-block">
+			 <a class="btn blue" data-onclickEvent="true" id = "sureBtn"><i class="fa fa-save hidden"></i>确定</a> 
+				<a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		var fatherQuoteNo = $("#quoteNo", getElementContext()).val();
+		$("#quoteNo", container).val(fatherQuoteNo);
+		new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/basedata/ttSalesQuote/SearchSalesQuote",
+			rowID : "SALES_QUOTE_NO",
+			isFormParam:true,
+			onDblClickRow:function(rowData,trElement){
+				if(rowData.LOCK_USER != ''){
+					dmsCommon.tip({status:"warning",msg:"单据"+rowData.SALES_QUOTE_NO + "已经被" + rowData.LOCK_USER + "锁定!"});//总共的状态类型：info、success、error、warning
+					return false;
+				}
+				var quoteNo = rowData.SALES_QUOTE_NO;
+				var customerName = rowData.CUSTOMER_NAME;
+				var salesQuoteDate = rowData.SALES_QUOTE_DATE;
+				$("#quoteNo", getElementContext()).val(quoteNo);
+				$("#customer", getElementContext()).val(customerName);
+				$("#quoteDate", getElementContext()).val(salesQuoteDate);
+				$("#dms_table",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()['part']+"/basedata/ttSalesQuote/queryPartStockItem");//通过url刷新表格
+				$("#dms_table", getElementContext()).dmsTable().refreshTableWithForm();
+			},
+			columns : [ 
+				{radio:true,sortable : false},
+			    {field : "SALES_QUOTE_NO",title : "销售报价单号"}, 
+				{field : "CUSTOMER_NAME",title : "客户名称"}, 
+				{field : "SALES_QUOTE_DATE",title : "报价日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}}, 
+				{field : "HANDLER",title : "经手人"},
+				{field : "LOCK_USER",title : "锁定人"},
+				{field : "IS_FINISHED",title : "是否完成",codeFormat : {type:"dict",codeType:"1278"}}
+			]
+		});
+		//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			if(this.id == 'sureBtn'){
+				var selectRow = $("#dms_table",container).dmsTable().getSelections();
+				if(selectRow){
+					if(selectRow[0]["LOCK_USER"] != ''){
+						dmsCommon.tip({status:"warning",msg:"单据"+selectRow[0]["SALES_QUOTE_NO"] + "已经被" + selectRow[0]["LOCK_USER"] + "锁定!"});//总共的状态类型：info、success、error、warning
+						return false;
+					}
+					var SALES_QUOTE_NO = selectRow[0]["SALES_QUOTE_NO"];
+					//判断是否锁住（1如果锁住给出提示，2如果没有锁住，先update表，然后跳到父页面）
+					dmsCommon.ajaxRestRequest({
+							  url:dmsCommon.getDmsPath()['part']+"/basedata/ttSalesQuote/checkLockSalesQuote/"+SALES_QUOTE_NO,
+							  type: "GET",
+							  sucessCallBack : function(lockUser) {
+								  if(lockUser == '0'){
+									  dmsCommon.tip({status:"warning",msg:"单据编号为空！"});
+										return false;
+								  }
+									if(lockUser != '1'){
+										dmsCommon.tip({status:"warning",msg:"单据"+selectRow[0]["SALES_QUOTE_NO"]+"已经被"+lockUser+"锁定！"});
+										return false;
+									}else if(lockUser == '1'){
+										$("a[data-dismiss='modal']",container).click();
+										var quoteNo = selectRow[0]["SALES_QUOTE_NO"];
+										var customerName = selectRow[0]["CUSTOMER_NAME"];
+										var salesQuoteDate = selectRow[0]["SALES_QUOTE_DATE"];
+										var isFinished = selectRow[0]["IS_FINISHED"];
+										$("#quoteNo", getElementContext()).val(quoteNo);
+										$("#customer", getElementContext()).val(customerName);
+										$("#quoteDate", getElementContext()).val(salesQuoteDate);
+										$("#isFinished", getElementContext()).val(isFinished);
+										$("#updateStatus", getElementContext()).val("U");
+										$("#dms_table",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()['part']+"/basedata/ttSalesQuote/queryPartStockItem");//通过url刷新表格
+										$("#dms_table", getElementContext()).dmsTable().refreshTableWithForm();
+									}
+							}
+						  });
+				}else{
+					dmsCommon.tip({status:"warning",msg:"请选择一条报价单信息！"});//总共的状态类型：info、success、error、warning
+					return false;
+				}
+			}
+		});
+		
+	});
+</script>

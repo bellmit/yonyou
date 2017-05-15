@@ -1,0 +1,102 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+				
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">经销商代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="DEALER_CODE" name="DEALER_CODE">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">经销商名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="DEALER_NAME" name="DEALER_NAME">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">结算单号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="BALANCE_NO" name="BALANCE_NO">
+							</div>
+						</div>
+					</div>
+					
+					
+					
+							
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">信息列表 </div>
+			
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="partList"></table>
+		</div>
+	</div>
+		
+		
+	</form>
+	
+	
+</div>
+<script type="text/javascript">
+
+ $(document).one("onload.dms",function(event,container){
+	
+			new Datatable().initPagination({
+				src : "partList",
+				container:container,
+				url : dmsCommon.getDmsPath()["vehicle"] + "/claimBillOemQuery/claimBillQueryDLR",
+				rowID : "BALANCE_ID",
+				sortName : "BALANCE_ID",
+				sortOrder : "asc",
+				autoHeight:false,
+				isQueryFirst:false,
+				columns : [ 
+				           {field :"BALANCE_ID",title : "操作",operateFormat : [
+					                                                    {type:"detail",url:"vehicle/claimApproveMgr/claimBillOemDetailDealerPage.html",openType:"jump",doubleClick:false }
+				                                                      ]
+				    },
+		            {title: "结算单号",field: 'BALANCE_NO'},
+					{title: "经销商代码",field: 'DEALER_CODE'},
+					{title: "经销商简称",field: 'DEALER_NAME'},
+					{title: "申请单数",field: 'CLAIMNO_NUM'},
+					{title: "工时金额",field: 'LABOUR_FEE'},
+					{title: "配件总金额",field: 'PART_FEE'},
+					{title: "其他费用",field: 'OTHER_FEE'},
+					{title: "索赔申请金额",field: 'CLAIM_APPLY_FEE'},
+					{title: "税额",field: 'TAX_FEE'},
+					{title: "抵扣",field: 'DEDUCT_FEE'},
+					{title: "总金额",field: 'BALANCE_FEE'}
+				]
+		});
+	 
+	
+});
+    
+</script>

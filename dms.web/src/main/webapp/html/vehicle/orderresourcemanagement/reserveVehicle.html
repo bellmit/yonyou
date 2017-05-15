@@ -1,0 +1,261 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">车辆现货预定</div>
+		</div>
+	  
+		
+		
+		
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="pannel-name"></div>
+					<div class="col-xs-8">
+						<div class="input-group">
+							本月 :<span data-fieldName="SERIES_NAME"> </span> 批售目标 ：<span
+							id="hasnum"	data-fieldName="HASNUM"></span> 已确认订单 ：<span
+							id="total"		data-fieldName="TOTAL"></span>
+
+						</div>
+					</div>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+
+						<div class="col-xs-12 col-sm-6 col-md-4" hidden="true">
+							<div class="form-group">
+								<label class="control-label col-xs-4">COMMON_ID</label>
+								<div class="col-xs-8">
+									<input id="common_id" name="common_id" class="form-control "
+										maxlength="30" type="text" data-fieldName="COMMON_ID" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4" style="display: none">
+							<div class="form-group">
+								<label class="control-label col-xs-4">orderType</label>
+								<div class="col-xs-8">
+									<input id="orderType" name="orderType" class="form-control "
+										maxlength="30" type="text" data-fieldName="ORDER_TYPE" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">VIN号</label>
+								<div class="col-xs-8">
+									<input id="vin" name="vin" class="form-control dmsDisabled"
+										maxlength="30" type="text" data-fieldName="vin" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌</label>
+								<div class="col-xs-8">
+									<input id="brandName" name="brandName"
+										class="form-control dmsDisabled" maxlength="30" type="text"
+										data-fieldName="BRAND_CODE" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系</label>
+								<div class="col-xs-8">
+									<input id="seriesName" name="seriesName"
+										class="form-control dmsDisabled" maxlength="30" type="text"
+										data-fieldName="SERIES_NAME" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车款</label>
+								<div class="col-xs-8">
+									<input id="groupName" name="groupName"
+										class="form-control dmsDisabled" maxlength="30" type="text"
+										data-fieldName="GROUP_NAME" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">年款</label>
+								<div class="col-xs-8">
+									<input id="modelYear" name="modelYear"
+										class="form-control dmsDisabled" maxlength="30" type="text"
+										data-fieldName="MODEL_YEAR" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">颜色</label>
+								<div class="col-xs-8">
+									<input id="color" name="color" class="form-control dmsDisabled"
+										maxlength="30" type="text" data-fieldName="COLOR_NAME" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">内饰</label>
+								<div class="col-xs-8">
+									<input id="trimname" name="trimname"
+										class="form-control dmsDisabled" maxlength="30" type="text"
+										data-fieldName="TRIM_NAME" />
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="pannel-name">订单付款信息</div>
+
+				</div>
+				<div class="modal-body">
+					<div class="row">
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+							<label class="control-label col-xs-6"style="margin-left:-20px">收货方经销商代码：</label>
+								<div class="col-xs-4">
+									<input id="dealer_code" name="dealer_code"
+										class="form-control dmsDisabled" maxlength="30" type="text"
+										data-fieldName="DEALER_CODE" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">收货地址：</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control required" id="address"
+										name="address" data-fieldName="ADDRESS" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12">
+							<label class="control-label  col-xs-2" style="margin-left:-50px">订单付款方式：</label>
+							<div class="col-xs-10">
+								<input id="orderTypePay" name="orderTypePay" type="radio"
+									data-type="oemDict" data-dictCode="2027" data-value="20271001" />
+
+							</div>
+						</div>
+						<div class="form-group col-xs-12 col-xs-6">
+							<div class="form-group col-sm-6">
+								<label class="control-label col-sm-3" >是否使用红票：</label>
+								<div class="col-sm-3" id="radio">
+									<input id="isTicket" name="isTicket" type="radio"
+										data-type="oemDict" data-dictCode="1004" data-value="10041001" />
+								</div>
+							</div>
+							<div class="form-group col-sm-6" style="display: none" id="other">
+								<label class="control-label col-sm-3" style="margin-left:-180px">红票号码：</label>
+								<div class="col-sm-3">
+									<input type="text" id="ticketNo" class="form-control required"
+										name="ticketNo">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 ">
+							<div class="form-group col-xs-4">
+								<label class="control-label col-xs-4"  style="margin-left:-30px">订单备注：</label>
+								<div class="col-xs-8">
+									<textarea rows="2" cols="32" id="remark" name="remark"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+</form>
+<div class="modal-footer">
+
+	<a data-url="/stockResource/stockResourceSubmit" data-model="vehicle"
+		data-method="PUT" data-callBack="true" class="btn blue"
+		data-toggle="confirmation"> <i class="fa fa-save"></i>预定
+	</a> <a data-goback="page"
+		href="vehicle/orderresourcemanagement/stockResourceSubmit.html"
+		class="btn blue ajaxify"><i class="fa fa-reply"></i>返回 </a>
+</div>
+</div>
+
+
+
+
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one("onload.dms",function(event, container) {
+		
+		
+		dmsCommon.ajaxRestRequest({
+			url : dmsCommon.getDmsPath()["vehicle"] + "/stockResource/findBandResource/{[COMMON_ID]}",
+			type : 'GET',
+			sucessCallBack : function(data) {
+				
+				$("#address",getElementContext()).setDmsValue(data.ADDRESS);
+				$("#brandName",getElementContext()).setDmsValue(data.BRAND_CODE);
+				$("#color",getElementContext()).setDmsValue(data.COLOR_NAME);
+				$("#dealer_code",getElementContext()).setDmsValue(data.DEALER_CODE);
+				$("#groupName",getElementContext()).setDmsValue(data.GROUP_NAME);
+				$("#modelYear",getElementContext()).setDmsValue(data.MODEL_YEAR);
+				$("#seriesName",getElementContext()).setDmsValue(data.SERIES_NAME);
+				$("#vin",getElementContext()).setDmsValue(data.VIN);
+		//	var v=	$("#vin").val();
+		//	alert(v);
+			//	$("#vin1",getElementContext()).setDmsValue(v);
+				
+				$("#trimname",getElementContext()).setDmsValue(data.TRIM_NAME);
+				$("#hasnum",getElementContext()).setDmsValue(data.HASNUM);
+				$("#total",getElementContext()).setDmsValue(data.TOTAL);
+				$("#common_id",getElementContext()).setDmsValue(data.COMMON_ID);
+			}
+		}); 
+						//新增页面的回调函数
+						$("a[data-callBack='true']", container).on("callBack.dms",function(event, response) {
+					dmsCommon.refreshPageByUrl("vehicle/orderresourcemanagement/stockResourceSubmit.html",container);
+										});
+
+						$("[name='radio']", container).bindChange(
+								function(obj) {
+									//console.log("into callBack");
+
+									$("#ishongpiao").css("display:");
+								});
+
+						//绑定onchange 事件
+						$("[name='isTicket']", container)
+								.bindChange(
+										function(obj) {
+											var isRebate = "";
+											var radio = $('#radio input');
+											for (var i = 0; i < radio.length; i++) {
+												if (radio[i].checked == true) {
+													isRebate = radio[i].value;
+													if (isRebate == 10041001) {
+														document
+																.getElementById('other').style.display = "";
+													} else {
+														document
+																.getElementById('other').style.display = "none";
+													}
+												}
+											}
+
+										});
+
+					});
+</script>

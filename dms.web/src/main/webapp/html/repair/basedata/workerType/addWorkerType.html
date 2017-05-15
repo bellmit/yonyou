@@ -1,0 +1,72 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">工种信息新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-xs-4">工种代码</label>
+							<div class="col-xs-8">
+								<input id="workerTypeCode" name="workerTypeCode" class="form-control required systemCode" maxlength="4" minlength="4" type="text" />
+							</div>
+						</div>
+					</div>
+	
+					
+	
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-xs-4">工种名称</label>
+							<div class="col-xs-8">
+								<input id="workerTypeName" name="workerTypeName" class="form-control required" maxlength="30" type="text" />
+							</div>
+						</div>
+					</div>
+	
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-xs-4">工种类别</label>
+							<div class="col-xs-8">
+								<select id="workerType" name="workerType" class="bs-select form-control required" data-dictCode="1200"  >
+								</select>
+							</div>
+						</div>
+					</div>
+	
+					<!-- <div class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否有效</label>
+							<div class="col-xs-8">
+							   <select id="isValid" data-existsDefault="false" name="isValid" class="bs-select form-control" data-dictCode="1004" data-value="10041001" >
+								</select>
+							</div>
+						</div>
+					</div>	 -->			
+				</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a data-url="/basedata/workerTypes" data-model="repair" data-method="POST" data-callBack="true"  class="btn blue" data-toggle="confirmation"><i class="fa fa-save"></i>保存</a>
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+
+$(document).one("onload.dms",function(event,container){
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("a[data-dismiss='modal']",container).click();
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+});
+</script>

@@ -1,0 +1,151 @@
+<div class="dms-add" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">问卷修改</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body" data-parentTable ="partInfoTable">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">问题内容</label>
+								<div class="col-xs-8 col-md-9 ">
+									<input id="questionContent" name="QUESTION_CONTENT" 
+									class="form-control" type="text" value="{[QUESTION_CONTENT]}" />
+								</div>
+							</div>
+						</div>	
+						<div class="col-xs-12 col-sm-6 col-md-4" hidden>
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">答案</label>
+								<div class="col-xs-8 col-md-9 ">
+									<input id="answerAll" name="ANSWER_ALL" 
+									class="form-control" type="text" value="{[ANSWER_ALL]}" />
+								</div>
+							</div>
+						</div>
+
+						
+					   <div class="col-xs-12 col-sm-6 col-md-4" hidden>
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">修改参数</label>
+								<div class="col-xs-8 col-md-9 ">
+									<input id="rowindex" name="rowindex" class="form-control"  
+									type="text" value="{[rowindex]}"/>
+								</div>
+							</div>
+						</div>	
+						<div class="col-xs-12 col-sm-6 col-md-4" hidden>
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">问题类型</label>
+								<div class="col-xs-8 col-md-9 ">
+									<input id="questionType" name="QUESTION_TYPE" class="form-control"  
+									type="text" value="{[QUESTION_TYPE]}"/>
+								</div>
+							</div>
+						</div>	
+						<div class="col-xs-12 col-sm-6 col-md-4 " id = "danxuan">
+							<div class="form-group">
+								<label class="control-label col-xs-4">答案</label>
+								<div class="col-xs-8">
+									<select id="dynamicSelect" name="dynamicSelect" 
+										class="bs-select form-control "
+										data-url="" data-model="manage"
+										data-labelValue="QUESTIONNAIRE_CODE" data-lableDesc="QUESTIONNAIRE_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4" id = "tankong" >
+							<div class="form-group" >
+								<label class="control-label col-xs-4 col-md-3">答案</label>
+								<div class="col-xs-8 col-md-9 ">
+									<input id="answer" name="answer" class="form-control"  
+									type="text" value="{[ANSWER]}"/>
+								</div>
+							</div>
+						</div>	
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">备注</label>
+								<div class="col-xs-8 col-md-9 ">
+									<input id="remark" name="REMARK" 
+									class="form-control" type="text" value="{[REMARK]}" />
+								</div>
+							</div>
+						</div>	
+															
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-onclickEvent="true" data-validate="true" data-beforeRequest="true"  data-toggle="confirmation"><i
+				class="fa fa-save"></i>确定</a> <a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+
+	var answer = $("#answerAll",container).val();
+	var answerName = answer.split(",");
+	//动态刷新下拉框的值
+	var selectData = new Array();
+	for(var i = 0;i<answerName.length;i++){		
+		selectData.push({id:i,name:answerName[i]});
+	}
+	dmsDict.refreshSelectByData($( "#dynamicSelect" ,container),selectData,"id","name");
+	var questionType = $("#questionType",container).val();
+	
+	if(questionType==11321002){
+		$("#tankong",container).hide();
+		$("#danxuan",container).show();
+	}else if(questionType==11321001){
+		$("#tankong",container).show();
+		$("#danxuan",container).hide();
+	}
+
+
+	//事件点击
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+		var questionContent = $("#questionContent",container).val();
+		var answerAll = $("#answerAll",container).val();
+		var remark = $("#remark",container).val();
+		var rowindex=$("#rowindex",container).val();
+		var questionnaireCode = $("#dynamicSelect option:selected").html();
+		//alert(questionnaireCode);
+		var answer = $("#answer",container).val();
+		//alert(answer);
+		var questionType = $("#questionType",container).val();
+		var answer = "";
+		if(rowindex!=null&&rowindex!=undefined&&rowindex!=""){
+			if(questionType==11321002){
+				answer = $("#dynamicSelect option:selected").html();
+			}else{
+				answer = $("#answer",container).val();
+			}
+			/* alert(answer); */
+			$("#dms_table2",getElementContext()).dmsTable().updateRowByIndex(rowindex,{
+				QUESTION_CONTENT:questionContent,
+				ANSWER_ALL:answerAll,
+				REMARK:remark,	
+				ANSWER:answer
+				});		
+		}
+		$("a[data-dismiss='modal']",container).click();
+		returnResult.status = true;
+	});
+
+});	
+</script>

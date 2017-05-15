@@ -1,0 +1,101 @@
+<div class="dms-edit ajaxrest"
+	data-url="/basedata/seriess/{[SERIES_CODE]}/{[BRAND_CODE]}" data-model="manage">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">车系信息编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌名称</label>
+								<div class="col-xs-8">
+									<input type="hidden" name="brandId" data-fieldName="brand_code">
+									<select disabled id="brandCode" name="brandName"
+										class="bs-select form-control" data-url="/basedata/brandsdict"
+										data-model="manage" data-labelValue="BRAND_CODE"
+										data-lableDesc="BRAND_NAME" data-fieldName="brand_code">
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系代码</label>
+								<div class="col-xs-8">
+									<input type="hidden" name="seriesCode"
+										data-fieldName="series_code"> <input id="seriesCode"
+										name="seriesCode" type="text" class="form-control"
+										data-fieldName="series_code" disabled />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系名称</label>
+								<div class="col-xs-8">
+									<input id="seriesName" name="seriesName" type="text" readonly="readonly"
+										class="form-control" data-fieldName="series_name"
+										maxlength="60" />
+								</div>
+							</div>
+						</div>
+
+
+						<div class="col-xs-12  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否OEM</label>
+								<div class="col-xs-8">
+									<input type="hidden" name="OemTag" data-fieldName="oem_tag">
+									<select id="OemTag" name="OemTag"
+										class="bs-select form-control" data-dictCode="1278"
+										data-fieldName="oem_tag" disabled>
+
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否有效</label>
+								<div class="col-xs-8">
+									<select id="isValid" name="isValid"
+										class="bs-select form-control" data-dictCode="1278"
+										data-fieldName="is_valid" data-existsDefault="true">
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/basedata/seriess/{[SERIES_CODE]}/{[BRAND_CODE]}" data-model="manage"
+				data-method="PUT" data-callBack="true" class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> <a
+				data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){	
+		$("a[data-dismiss='modal']",container).click();
+		$("#dms_table2",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+});
+</script>

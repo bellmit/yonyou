@@ -1,0 +1,284 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">库存车辆查询</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"><i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-4" id="brandC">
+						<div class="form-group">
+							<label class="control-label col-xs-4">品牌</label>
+							<div class="col-xs-8">
+								<select id="brandCode" class="form-control" name="brandCode"
+									data-url="/basedata/brandsdict" data-model="manage"
+									data-labelValue="BRAND_CODE" data-lableDesc="BRAND_NAME"
+									>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4" id="seriesC">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车系</label>
+							<div class="col-xs-8">
+								<select id="seriesCode" parent="brandCode"
+									class="bs-select form-control" name="seriesCode"
+									data-url="/basedata/brandsdictC/{[brandCode]}/seriessdictC"
+									data-model="manage" data-labelValue="SERIES_CODE" data-fieldName="SERIES_CODE"
+									data-lableDesc="SERIES_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4" id="modelC">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车型</label>
+							<div class="col-xs-8">
+								<select id="modelCode" parent="seriesCode"
+									class="bs-select form-control" name="modelCode"
+									data-url="/basedata/brandsdictC/{[brandCode]}/seriessdictC/{[seriesCode]}/modelsdictC"
+									data-model="manage" data-labelValue="MODEL_CODE" data-fieldName="MODEL_CODE"
+									data-lableDesc="MODEL_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4" id="configC">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配置</label>
+							<div class="col-xs-8">
+								<select id="configCode" parent="modelCode" class="bs-select form-control" name="configCode"
+									data-url="/basedata/brandsdictC/{[brandCode]}/seriessdictC/{[seriesCode]}/modelsdictC/{[modelCode]}/packagesdictC"
+									data-model="manage" data-labelValue="CONFIG_CODE"
+									data-lableDesc="CONFIG_NAME"  data-fieldName="CONFIG_CODE">
+								</select>
+							</div>
+						</div>
+					</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">VIN</label>
+								<div class="col-xs-8">
+								    <input type="hidden" name='productCodeHid' id="productCodeHid">
+									<input id="vin" name="vin" class="form-control" type="text" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4" hidden="hidden">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">WS_NO</label>
+								<div class="col-xs-8">
+								    <input type="hidden" name='productCodeHid' id="productCodeHid">
+									<input id="wsNo1" name="wsNo1" class="form-control" type="text" />
+								</div>
+							</div>
+						</div>
+							<div class="col-xs-12 col-sm-6 col-md-4" hidden="hidden">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">WS_NO</label>
+								<div class="col-xs-8">
+									<input id="brand1" name="brand1" class="form-control" type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4" hidden="hidden">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">WS_NO</label>
+								<div class="col-xs-8">
+									<input id="userName" name="userName" class="form-control"  value="{[userInfo.userId]}" type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" hidden="hidden">
+						<div class="form-group">
+							<label class="control-label col-xs-4">当前日期</label>
+							<div class="col-xs-8">
+								<div class="input-group date date-picker" data-defaultToday="true">
+									<input id="nowDate" name="nowDate" readonly
+										class="form-control" type="text" />
+										<span class="input-group-btn">
+										<button class="btn default date-set" type="button" disabled>
+											<i class="fa fa-calendar"></i>
+										</button>
+										<button class="btn default date-reset" type="button" disabled>
+											<i class="fa fa-times"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+						<div class="col-xs-12 col-sm-6 col-md-4" hidden="hidden">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">WS_NO</label>
+								<div class="col-xs-8">
+									<input id="series1" name="series1" class="form-control" type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4" hidden="hidden">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">WS_NO</label>
+								<div class="col-xs-8">
+									<input id="model1" name="model1" class="form-control" type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4" hidden="hidden">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">WS_NO</label>
+								<div class="col-xs-8">
+									<input id="config1" name="config1" class="form-control" type="text" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">仓库</label>
+								<div class="col-xs-8">
+									<select id="storageCode" name="storageCode" class="bs-select form-control"
+										data-url="/stockManage/safeguard/findStorage/{[dealer_code]}" data-model="vehicle"
+										data-labelValue="STORAGE_CODE" data-lableDesc="STORAGE_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否改装车</label>
+								<div class="col-xs-8">
+									<select class="bs-select form-control" id="isRefittingCar" 
+										name="isRefittingCar" data-dictCode="1278">
+									</select>
+								</div>
+							</div>
+						</div>
+
+				
+
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i>查询
+							</a>
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >车辆库存信息</div>
+			</div>
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="stockList">
+				</table>
+			</div>
+		</div>
+</div>
+<div class="modal-footer center-block">
+	<a class="btn blue" data-onclickEvent="true"><i class="fa fa-save"></i>确定</a>
+	<a data-dismiss="modal" class="btn blue"> <i
+		class="fa fa-undo"></i>取消
+	</a>
+</div>
+</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+        var brand=$("#brand",getElementContext()).val();
+        var series=$("#series",getElementContext()).val();
+        var model=$("#model",getElementContext()).val();
+        var config=$("#config",getElementContext()).val();
+        if(brand!=null&&brand!=''&&brand!=0&&brand!=undefined){
+        	 $("#brandC",container).attr("hidden","hidden");
+        	 $("#seriesC",container).attr("hidden","hidden");
+        	 $("#modelC",container).attr("hidden","hidden");
+        	 $("#configC",container).attr("hidden","hidden");
+        	 $("#brand1").val(brand);
+        	 $("#series1").val(series);
+        	 $("#model1").val(model);
+        	 $("#config1").val(config);
+        	 
+        }else{
+        	 $("#brandC",container).removeAttr("hidden");
+        	 $("#seriesC",container).removeAttr("hidden");
+        	 $("#modelC",container).removeAttr("hidden");
+        	 $("#configC",container).removeAttr("hidden");
+        };
+		
+
+	 	new Datatable().initPagination({
+			src : "stockList",
+			rowID:"VIN",
+			container:container,
+		 	url : dmsCommon.getDmsPath()["retail"] + "/ordermanage/salesOrders/query/matchVehicle",
+			sortName : "VIN", 
+			sortOrder : "asc",
+			pageSize:7,
+			undefinedText : "",
+			autoHeight:false,
+			isQueryFirst:true,
+			columns : [ 
+			            {radio:true},
+			            {field : "VIN",title : "VIN"},
+			            {field : "COLOR_CODE",title : "颜色",minWidth:15,inputSelectFormat : {url:"/basedata/colors/colorinfo/dicts",model:"repair",labelValue:"COLOR_CODE",lableDesc:"COLOR_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"}},
+			            {field : "ENGINE_NO",title : "发动机号"},
+			            {field : "BRAND_CODE",title : "品牌",visible:false},
+			            {field : "SERIES_CODE",title : "车系",visible:false},
+			            {field : "MODEL_CODE",title : "车型",visible:false},
+			            {field : "CONFIG_CODE",title : "配置",visible:false},
+			            {field : "PURCHASE_PRICE",title : "采购价格",numberFormat : {decimal:2}},
+			            {field : "VEHICLE_PRICE",title : "经销商指导价格",numberFormat : {decimal:2}},
+			            {field : "DIRECTIVE_PRICE",title : "经销商指导价格",visible : false},
+			            {field : "WHOLESALE_DIRECTIVE_PRICE",title : "批售指导价格",numberFormat : {decimal:2}},
+			            {field : "STORAGE_CODE",title : "仓库",inputSelectFormat : {url:"/stockManage/safeguard/findStorage/1",model:"vehicle",labelValue:"STORAGE_CODE",lableDesc:"STORAGE_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"}},
+			            {field : "IS_SECONDHAND",title : "是否二手车",codeFormat : {type:"dict",codeType:"1278"}},
+			            {field : "IS_TEST_DRIVE_CAR",title : "是否试乘试驾车",codeFormat : {type:"dict",codeType:"1278"}},
+			            {field : "IS_VIP",title : "是否VIP预留",codeFormat : {type:"dict",codeType:"1278"}},
+			            {field : "IS_PROMOTION",title : "是否促销车",codeFormat : {type:"dict",codeType:"1278"}},
+			            {field : "MAR_STATUS",title : "质损状态",codeFormat : {type:"dict",codeType:"1306"}},
+			            {field : "IS_CONSIGNED",title : "是否委托交车",codeFormat : {type:"dict",codeType:"1278"}},
+			            {field : "STOCK_STATUS",title : "库存状态",codeFormat : {type:"dict",codeType:"1304"}},
+			            {field : "HAS_CERTIFICATE",title : "是否有合格证",codeFormat : {type:"dict",codeType:"1278"}},
+			            {field : "STORAGE_POSITION_CODE",title : "库位"},
+			            {field : "MANUFACTURE_DATE",title : "生产日期",dateFormat : {format:"YYYY-MM-DD"}},
+			            {field : "IS_REFITTING_CAR",title : "是否改装车",codeFormat : {type:"dict",codeType:"1278"}},
+			            {field : "SQZT",title : "是否售前装潢",codeFormat : {type:"dict",codeType:"1278"}},
+			            {field : "REMARK",title : "备注",codeFormat : {type:"dict",codeType:"1278"}},
+			            {field : "LATEST_STOCK_IN_DATE",title : "最后一次入库日期",dateFormat : {format:"YYYY-MM-DD"}},
+			            {field : "IS_ON_PASSAGE_CAR",title : "车辆是否在途",codeFormat : {type:"dict",codeType:"1278"}}
+			            
+			         ]
+		});
+	 	
+	 	//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			var selectRow = $("#stockList",container).dmsTable().getFirstSelection();
+			$("div[data-tableVINSelect='true']",getElementContext()).initHtmlContent(selectRow);
+			$("#dispatchedBy",getElementContext()).setDmsValue($("#userName",container).val());
+			$("#dispatchedDate",getElementContext()).setDmsValue($("#nowDate",container).val());
+			/* $("div[data-tableSelect2='true']",getElementContext()).initHtmlContent(selectRow); */
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+		});
+	});
+
+</script>

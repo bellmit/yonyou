@@ -1,0 +1,195 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+	   
+		<div class="modal-header">
+			<div class="modal-title">减免</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row" data-tableSelect="true">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">收费对象代码</label>
+								<div class="col-xs-8">
+								     <input type="hidden" name="balaPayobjId" id="balaPayobjId" data-fieldName="BALA_PAYOBJ_ID">
+									<input id="" readonly name="" class="form-control"
+										type="text"  data-fieldName="PAYMENT_OBJECT_CODE"/>
+										
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">收费对象名称</label>
+								<div class="col-xs-8">
+									<input id="" readonly name="" class="form-control"
+										type="text"  data-fieldName="PAYMENT_OBJECT_NAME"/>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经手人</label>
+								<div class="col-xs-8">
+									<select id="handler" name="handler" class="form-control bs-select"
+										 data-url="/basedata/employees/employees/dict" data-model="manage" data-labelValue="EMPLOYEE_NO" data-lableDesc="EMPLOYEE_NAME">
+										</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">结算单号</label>
+								<div class="col-xs-8">
+									<input id="" name="" readonly class="form-control"
+										type="text"  data-fieldName="BALANCE_NO" />
+								</div>
+							</div>
+						</div>
+
+						<!-- <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车牌号</label>
+								<div class="col-xs-8">
+									<input id="" name="" readonly class="form-control"
+										type="text"  data-fieldName="LICENSE" />
+								</div>
+							</div>
+						</div> -->
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否结清</label>
+								<div class="col-xs-8">
+									<select id="partMainType" name="partMainType"
+										class="bs-select form-control" data-dictCode="1223"
+										 data-fieldName="PAY_OFF">
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">应收账款</label>
+								<div class="col-xs-8">
+									<input id="" name="" readonly class="form-control" type="text"
+										 data-fieldName="RECEIVABLE_AMOUNT"/>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">已收账款</label>
+								<div class="col-xs-8">
+									<input id="" name="" readonly class="form-control"
+										type="text"  data-fieldName="RECEIVED_AMOUNT"/>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">已免账款</label>
+								<div class="col-xs-8">
+									<input id="" name=""
+										class="form-control" readonly type="text" value="11"
+										data-fieldName="DERATE_AMOUNT"/>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">未收账款</label>
+								<div class="col-xs-8">
+									<input id="notReceivedAmount" name="notReceivedAmount" readonly
+										class="form-control" type="text" value="100"
+										data-fieldName="NOT_RECEIVED_AMOUNT" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">减免时间</label>
+								<div class="col-xs-8">
+									<div class="input-group date datetime" data-defaultNow="true">
+										<input id="derateDate" name="derateDate" readonly
+											class="form-control" type="text" value="" />
+										<span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+					                    <span class="input-group-addon"><span class="fa fa-times"></span></span>
+									</div>
+								</div>
+						</div>
+					</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">减免金额</label>
+								<div class="col-xs-8">
+									<input id="derateAmount" name="derateAmount" class="form-control  required money" type="text"
+										 />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">减免审核人</label>
+								<div class="col-xs-8">
+									<select id="derateRatifier" name="derateRatifier"
+										class="bs-select form-control required" data-url="/basedata/employees/employees/dict" data-model="manage" data-labelValue="EMPLOYEE_NO" data-lableDesc="EMPLOYEE_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-12 col-md-8">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2 ">备注</label>
+							<div class="col-xs-8 col-sm-10">
+								<input  id="remark" name="remark" type="text"  class="form-control"/>
+							</div>
+					    </div>
+				    </div> 
+			</div>
+		</div>
+	</div>
+</div>
+		<div class="modal-footer center-block">
+			<a data-url="/balance/receiveMoney/chargeDerate" data-model="repair"
+				data-method="POST" data-callBack="true"
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>确定
+			</a>
+			<a data-dismiss="modal"
+				class="btn blue"> <i
+				class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+//页面加载后初始化
+$(document).one("onload.dms",function(event,container){
+	+function(){
+		var selectRow = $("#dms_table",getElementContext()).dmsTable().getFirstSelection();
+		$("div[data-tableSelect='true']",container).initHtmlContent(selectRow);
+	}();
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+});
+</script>

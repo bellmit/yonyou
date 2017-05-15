@@ -1,0 +1,109 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title"></div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"><i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >审批记录</div>
+			</div>
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="stockList">
+				</table>
+			</div>
+		</div>
+	<div class="panel panel-default">
+	<div class="panel-heading">
+					<div class="pannel-name">处理意见</div>
+
+				</div>
+				<div class="panel-body">
+					<div class="row" data-tableSelect="true">
+					  <div class="col-xs-12 ">
+							<div class="form-group">
+								
+								<div class="col-xs-12 ">
+									<textarea id="remark" name="REMARK"
+									   class="form-control" maxlength="120"
+										rows="2" cols=""></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+		</div>
+	
+	</div>
+	<div class="panel panel-default">
+	<div class="panel-heading">
+					<div class="pannel-name">意见批注</div>
+
+				</div>
+				<div class="panel-body">
+					<div class="row" data-tableSelect="true">
+					  <div class="col-xs-12 ">
+							<div class="form-group">
+								
+								<div class="col-xs-12 ">
+									<textarea id="remark" name="REMARK"
+									   class="form-control" maxlength="120"
+										rows="2" cols=""></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+		</div>
+	
+	</div>
+		</div>
+
+<div class="modal-footer center-block">
+	<a data-dismiss="modal" class="btn blue"> <i
+		class="fa fa-undo"></i>关闭
+	</a>
+</div>
+</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		$("#productCode",container).setDmsValue($("#productCode",getElementContext()).val());
+	 	new Datatable().initPagination({
+			src : "stockList",
+			rowID:"VS_STOCK_ID",
+			container:container,
+		 	url : dmsCommon.getDmsPath()["vehicle1"] + "/basedata/vsstock/vin/items",
+			sortName : "VS_STOCK_ID", 
+			sortOrder : "asc",
+			pageSize:5,
+			autoHeight:false,
+			columns : [ 
+			            {radio:true},
+			            {field : "VIN",title : "订单编号"},
+			            {field : "STORAGE_NAME",title : "提交审核人"},
+			            {field : "BRAND_NAME",title : "提交日期"},
+			            {field : "SERIES_NAME",title : "审核时间"},
+			            {field : "MODEL_NAME",title : "审核结果"},
+			            {field : "CONFIG_NAME",title : "审核人"},
+			            {field : "COLOR_NAME",title : "审核类型"}
+			       
+			         ]
+		});
+	 	
+	 	//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event,container){
+			var selectRow = $("#stockList",container).dmsTable().getFirstSelection();
+			$("div[data-tableSelect1='true']",getElementContext()).initHtmlContent(selectRow);
+			$("div[data-tableSelect2='true']",getElementContext()).initHtmlContent(selectRow);
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+		});
+	});
+
+</script>

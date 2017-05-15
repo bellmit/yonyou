@@ -1,0 +1,93 @@
+<div class="dms-edit ajaxrest" data-url="/partOrder/deliverOrders/sign/{[ORDER_REGEDIT_NO]}/{[DELIVERY_TIME]}" data-model="part">
+	<form class="form-horizontal" >
+	<div class="modal-header">
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+			<div class="modal-title">签收货运单</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">发运单</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="orderRegeditNo" name="orderRegeditNo" data-fieldName="ORDER_REGEDIT_NO" disabled="disabled">
+							</div>
+						</div>
+					</div> 
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">货运公司</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="deliveryCompany" name="deliveryCompany" data-fieldName="DELIVERY_COMPANY" disabled="disabled">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">应收箱数</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="receivableCases" name="receivableCases" data-fieldName="RECEIVABLE_CASES"  disabled="disabled">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">实收箱数</label>
+							<div class="col-xs-8">
+								<input type="text"  class="form-control required integer" id="factCases" name="factCases"   data-fieldName="FACT_CASES" >
+							</div>
+						</div>
+					</div>
+				<div class="col-xs-12">
+					<div class="form-group">
+						<label class="control-label col-xs-4 col-sm-2 col-md-1 ">发运地址</label>
+						<div class="col-xs-8 col-sm-10 col-md-11">
+							<input  id="deliveryPdc" name="deliveryPdc" type="text"  class="form-control" data-fieldName="DELIVERY_PDC" disabled="disabled"/>
+						</div>
+					</div>
+				</div> 
+				
+				</div>
+			</div>
+
+
+<!-- 				<div class="panel panel-default table-panel"> -->
+<!-- 					<div class="panel-heading"> -->
+<!-- 						<div class="pannel-name">货运单签收明细</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="panel-body"> -->
+<!-- 						<table class="table table-striped table-bordered table-hover table-responsive" -->
+<!-- 								id="partordersignitemlist"></table> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+						
+		<div class="modal-footer">
+			<a data-url="/partOrder/deliverOrders/sign/{[ORDER_REGEDIT_NO]}/{[DELIVERY_TIME]}" data-model="part" data-method="PUT" data-callBack="true" 
+			 class="btn blue"  data-toggle="confirmation"><i class="fa fa-save"></i>确定</a>
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+			</div>
+	   </div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				//新增页面回调函数
+				$("a[data-callBack='true']", container).on(
+						"callBack.dms",
+						function(event, response) {
+							//关闭窗口
+							$("a[data-dismiss='modal']", container).click();
+							//刷新表格
+							$("#dms_table", getElementContext()).dmsTable()
+									.refreshTableWithForm();
+						});
+			});
+</script>

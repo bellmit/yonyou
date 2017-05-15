@@ -1,0 +1,332 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系</label>
+								<div class="col-xs-8">
+									<select id="groupId"
+										class="bs-select form-control" name="groupId"
+										data-url="/resourceAllotAudit/seriesInit"
+										data-model="vehicle" data-labelValue="SERIES_ID"
+										data-lableDesc="SERIES_NAME" data-size="5" >
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">大区</label>
+								<div class="col-xs-8">
+									<select id="parOrgId"
+										class="bs-select form-control" name="parOrgId"
+										data-url="/resourceAllotAudit/areaInit"
+										data-model="vehicle" data-labelValue="ORG_ID"
+										data-lableDesc="ORG_NAME" data-size="5" >
+									</select>
+									
+								</div>
+							</div>
+						</div>
+					
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">审核日期</label>
+								<div class="col-xs-8">
+									<select id="allotDate"
+										class="bs-select form-control required" name="allotDate"
+										data-url="/resourceAllotAudit/allotDateInit"
+										data-model="vehicle" data-labelValue="ALLOT_DATE"
+										data-lableDesc="ALLOTDATE" data-size="5" data-existsDefault="false">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" id="searchTest" name="searchTest" disableRequest="false"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+							<a href="javascript:;" data-url="/resourceAllotAudit/allotDateInit" 
+							data-model="vehicle" data-method="downLoad" data-toggle="confirmation"
+								class="btn blue" ><i class="fa fa-download"></i>下载</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >资源分配信息</div>
+		</div>
+		<div class="tabbable-custom ">
+			<ul class="nav nav-tabs" id="tab">
+			</ul>
+			<div class="tab-content" id="tables">
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		var heads = [];
+		var head = [];
+		var column = [];
+		var gHashmap = null;
+		var totalList = null;
+		var sList = null;
+		var gList = null;
+		var cList = null;
+		var cList2 = null;
+		var xqList = null;
+		var dlrList = null;
+		var gapList = null;
+		var gList = null;
+		var result = null;
+		var gList_30 = null;
+		var cList_30 = null;
+		var cList2_30 = null;
+		var grand30 = null;
+		var cList_big_30 = null;
+		var cList_big = null;
+		var dqList = null;
+		var auditType = null;
+		
+		//初始化表格
+		var initTable = function(headerData,columnData,tableName){
+			new Datatable().initLocale({
+				src : tableName,
+				container:container,
+					isQueryFirst: true,
+					checkboxHeader:true,
+					isShowLineNumber:false,
+					autoHeight : true,
+					tablHeader:   headerData,   
+					columns : columnData
+				});
+		};
+		//设置表头追加
+		var setTableHead = function(tableName,seriesName){
+			var head = [];
+			head.push({ field : "DEALER_NAME",title : "经销商/区域",valign:"middle",align:"center",colspan: 1,  rowspan: 2,inputField:"DEALER_NAME",inputHiddenFormat : {}});
+			head.push({ field : "SALE_AMOUNT",title : "批售目标",valign:"middle",align:"center",colspan: 1,  rowspan: 2,inputField:"SALE_AMOUNT",inputHiddenFormat : {}});
+			head.push({ field : "NUM1",title : "月初结转",valign:"middle",align:"center",colspan: 1,  rowspan: 2,inputField:"NUM1",inputHiddenFormat : {}});
+			head.push({ title: "全国池", valign:"middle",align:"center", colspan: 2,  rowspan: 1});
+			head.push({ title: "区域池", valign:"middle",align:"center", colspan: 2,  rowspan: 1});
+			head.push({ field : "NUM4",title : "指派资源",valign:"middle",align:"center",colspan: 1,  rowspan: 2,inputField:"NUM4",inputHiddenFormat : {}});
+			head.push({ field : "NUM5",title : "期货订单<br/><br/>(一次开票)",valign:"middle",align:"center",colspan: 1,  rowspan: 2,inputField:"NUM5",inputHiddenFormat : {}});
+			head.push({ field : "GAP",title : "当前GAP",valign:"middle",align:"center",colspan: 1,  rowspan: 2,inputField:"GAP",inputHiddenFormat : {}});
+			head.push({ field : "ALLOT_NUM",title : "当前分配",valign:"middle",align:"center",colspan: 1,  rowspan: 2,inputField:"ALLOT_NUM",inputHiddenFormat : {}});
+			head.push({ field : "ALLOT_MONTH_NUM",title : "本月分配",valign:"middle",align:"center",colspan: 1,  rowspan: 2,inputField:"ALLOT_MONTH_NUM",inputHiddenFormat : {}});
+			head.push({ field : "RATE",title : "资源满足率<br/><br/>(分配资源/批售目标)",valign:"middle",align:"center",colspan: 1,  rowspan: 2,inputField:"RATE",inputHiddenFormat : {}});
+			// 车款 
+// 			var groups = [];
+			for (var j = 0; j < gList.length; j++) {
+				var gMap = gList[j];
+				if (gMap["SERIES_ID"] == tableName) {
+					head.push({ title: gMap["GROUP_NAME"], valign:"middle",align:"center",colspan: gMap["colorNum"],rowspan: 1,inputField:"RATE",inputHiddenFormat : {}});
+// 					rightTr.push("<th rowspan=1 colspan=" + gMap["colorNum"] + " title='标准配置：" + gMap["STANDARD_OPTION"] + "&#10;其他配置：" + gMap["FACTORY_OPTIONS"] + "&#10;本地配置：" + gMap["LOCAL_OPTION"] + "&#10;年款：" + gMap["MODEL_YEAR"] + "'>&nbsp;" + gMap["GROUP_NAME"] + "&nbsp;</th>");
+// 					groups.push(gMap["GROUP_ID"]);
+				}
+			}
+			// 大切诺基3.0需要单独处理
+			for (var j = 0; j < gList_30.length; j++) {
+				
+				var gMap = gList_30[j];
+				if (gMap["SERIES_NAME"] == seriesName) {
+					head.push({ title: gMap["GROUP_NAME"], valign:"middle",align:"center",colspan: gMap["colorNum"],rowspan: 1,inputField:"RATE",inputHiddenFormat : {}});
+// 					rightTr.push("<th rowspan=1 colspan=" + gMap["colorNum"] + " title='标准配置：" + gMap["STANDARD_OPTION"] + "&#10;其他配置：" + gMap["FACTORY_OPTIONS"] + "&#10;本地配置：" + gMap["LOCAL_OPTION"] + "&#10;年款：" + gMap["MODEL_YEAR"] + "'>&nbsp;" + gMap["GROUP_NAME"] + "&nbsp;</th>");
+// 					groups.push(gMap["GROUP_ID"]);
+				}
+			}
+// 			if (gList_30.length > 0) {
+// 				if (gList_30[0]["SERIES_ID"] == grand30) {
+// 					gHashmap.put(gList_30[0]["SERIES_ID"], groups);
+// 				}
+// 			}
+// 			gHashmap.put(tableName, groups);
+			return head;
+		};
+		//设置列追加
+		var setColumn = function(tableName,seriesName){
+			var column = [];
+			column.push({field : "NUM2",title : "已定",inputField:"NUM2",inputHiddenFormat : {}});
+			column.push({field : "NUM22",title : "未定",inputField:"NUM22",inputHiddenFormat : {}});
+			column.push({field : "NUM3",title : "已定",inputField:"NUM3",inputHiddenFormat : {}});
+			column.push({field : "NUM33",title : "未定",inputField:"NUM33",inputHiddenFormat : {}});
+			// 颜色
+			var coArray = [];
+			var coNum = 0;
+			var colorNum = 0;
+			for (var j = 0; j < gList.length; j++) {
+				
+				var gMap = gList[j];
+				if (gMap["SERIES_ID"] == tableName) {
+					
+					for (var k = 0; k < cList.length; k++) {
+						
+						var cMap = cList[k];
+						if (cMap["SERIES_TOTAL"] == "TOTAL" && 
+							cMap["SERIES_ID"] == gMap["SERIES_ID"] &&	
+							cMap["GROUP_ID"] == gMap["GROUP_ID"] && 
+							cMap["GROUP_NAME"] == gMap["GROUP_NAME"]) {
+							column.push({field : gMap["GROUP_ID"] + "_" +cMap["GROUP_NAME"]+"_"+ cMap["COLOR_NAME"],title : cMap["COLOR_NAME"],inputField: gMap["GROUP_ID"]+ "_" +cMap["GROUP_NAME"]+"_"+ cMap["COLOR_NAME"],inputHiddenFormat : {}});
+// 							rightTr.push("<th rowspan=1 colspan=1 align='center'>&nbsp;" + cMap["COLOR_NAME"] + "&nbsp;</th>");
+							coArray[coNum] = cMap["GROUP_ID"] + "_" +cMap["GROUP_NAME"]+"_"+ cMap["COLOR_NAME"];
+							coNum += 1;
+							colorNum += 1;
+						}
+					}
+				}
+			}
+			
+			// 大切诺基3.0需要单独处理
+			for (var j = 0; j < gList_30.length; j++) {
+				
+				var gMap = gList_30[j];			
+				if (gMap["SERIES_NAME"] == seriesName) {
+					
+					for (var k = 0; k < cList_30.length; k++) {
+						
+						var cMap = cList_30[k];
+						if (cMap["SERIES_TOTAL"] == "TOTAL" && 
+							cMap["SERIES_NAME"] == gMap["SERIES_NAME"] &&
+							cMap["GROUP_ID"] == gMap["GROUP_ID"] && 
+							cMap["GROUP_NAME"] == gMap["GROUP_NAME"]) {
+							column.push({field :  gMap["GROUP_ID"] + "_" +cMap["GROUP_NAME"]+"_"+ cMap["COLOR_NAME"],title : cMap["COLOR_NAME"],inputField: gMap["GROUP_ID"]+ "_" +cMap["GROUP_NAME"]+"_"+ cMap["COLOR_NAME"],inputHiddenFormat : {}});
+// 							rightTr.push("<th rowspan=1 colspan=1 align='center'>&nbsp;" + cMap["COLOR_NAME"] + "&nbsp;</th>");
+							colorNum += 1;
+						}
+					}
+				}
+			}
+			heads = coArray;
+			return column;
+		};
+		
+		//每次点击查询触发条件
+		$("#searchTest",container).on("click",function(event){
+			
+			var span = 10;
+			dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["vehicle"] + "/resourceAllotAudit/audit/search?groupId="
+						+$("#groupId",container).val()+"&parOrgId="+$("#parOrgId",container).val()+"&allotDate="+$("#allotDate",container).val(),
+				type : 'GET',
+				sucessCallBack : function(data) {
+					 totalList = data.totalList;
+					 sList = data.sList;
+					 gList = data.gList;
+					 cList = data.cList;
+					 cList2 = data.cList2;
+					 xqList = data.xqList;
+					 dlrList = data.dlrList;
+					 gapList = data.gapList;
+					 gList = data.gList;
+					 result = data.list;
+					 gList_30 = data.gList_30;
+					 cList_30 = data.cList_30;
+					 cList2_30 = data.cList2_30;
+					 grand30 = data.grand30;
+					 cList_big_30 = data.cList_big_30;
+					 cList_big = data.cList_big;
+					 dqList = data.dqList;
+					 auditType = data.auditType;
+					if(result.length<=0){
+						dmsCommon.tip({status:"warning",msg:"没有满足条件的数据！"});
+						$("#searchTest",container).removeAttr("disabled");
+						return false;
+					}
+					
+					//动态生成tab页及表格
+					for (var i = 0; i < sList.length; i++) {
+						var tempList = null;
+						var sMap = sList[i];
+						var tableName = sMap["SERIES_ID"];
+						var seriesName = sMap["SERIES_NAME"];
+						
+						head = setTableHead(tableName,seriesName);
+						column = setColumn(tableName);
+						if(i==0){//第一个tab页自动选中效果
+							//动态Tab页
+							$("#tab",container).empty();
+							$("#tab",container).append("<li class='active'><a href='#tab_"+tableName+"' data-toggle='tab'>"+seriesName+"</a></li>");
+							//动态表格	
+							$("#tables",container).empty();
+							$("#tables",container).append("<div class='tab-pane fade in active' id='tab_"+tableName+"'><div class='panel-body'>"+
+									"<table class='table table-striped table-bordered table-hover table-responsive' id='"+tableName+"'></table></div></div>");
+							//根据当前车系数据生成动态表头
+							initTable(head,column,tableName);
+						}else{
+							//动态Tab页
+							$("#tab",container).append("<li><a href='#tab_"+tableName+"' data-toggle='tab'>"+seriesName+"</a></li>");
+							//动态表格
+							$("#tables",container).append("<div class='tab-pane fade' id='tab_"+tableName+"'><div class='panel-body'>"+
+									"<table class='table table-striped table-bordered table-hover table-responsive' id='"+tableName+"'></table></div></div>");
+							initTable(head,column,tableName);
+						}
+// 						alert(heads[0]);
+						//循环将表数据刷新进对应的车系表格
+						for (var x = 0; x < dqList.length; x++) {
+	    	
+							var dqMap = dqList[x];
+							if (dqMap["SERIES_ID"] == tableName) {
+								for (var j = 0; j < xqList.length; j++) {
+									var xqMap = xqList[j];
+									if (xqMap["SERIES_ID"] == dqMap["SERIES_ID"] && xqMap["ORG_ID2"] == dqMap["ORG_ID2"]) {
+										for (var k = 0; k < dlrList.length; k++) {
+											var dlrMap = dlrList[k];
+											if (dlrMap["ORG_ID2"] == xqMap["ORG_ID2"] &&
+												dlrMap["ORG_NAME"] == xqMap["ORG_NAME"] &&
+												dlrMap["SERIES_ID"] == xqMap["SERIES_ID"]) {
+												for (var m = 0; m < gapList.length; m++) {
+													var gapMap = gapList[m];
+													if (gapMap["ORG_ID2"] == dlrMap["ORG_ID2"] &&
+														gapMap["ORG_NAME"] == dlrMap["ORG_NAME"] &&
+														gapMap["GROUP_ID"] == dlrMap["SERIES_ID"] &&
+														gapMap["DEALER_NAME"] == dlrMap["DEALER_NAME"]) {
+														//定义table字段
+														var dms_table = gapMap;
+														
+														if (heads) {
+															for (var b = 0; b < heads.length; b++) {
+																var temp_heads = heads[b];
+																var str = 0;
+																for (var n = 0; n < result.length; n++) {
+																	
+																	var rMap = result[n];
+																	if (rMap["SERIES_ID"] == gapMap["GROUP_ID"] &&
+																		rMap["DEALER_NAME"] == gapMap["DEALER_NAME"] &&
+																		rMap["GROUP_ID"] == temp_heads.split("_")[0] &&
+																		rMap["GROUP_NAME"] == temp_heads.split("_")[1] &&
+																		rMap["COLOR_NAME"] == temp_heads.split("_")[2]) {
+																		str = rMap["NUM"];
+																	}
+																}
+																dms_table[temp_heads] = str;
+															}
+														}
+														$("#"+tableName,container).dmsTable().appendRow(dms_table);
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+						heads.splice(0,heads.length);
+					}
+				}
+			});
+		});
+	});
+</script>

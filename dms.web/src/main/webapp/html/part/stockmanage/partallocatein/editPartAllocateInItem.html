@@ -1,0 +1,205 @@
+<!-- <div class="dms-edit ajaxrest" data-url="/stockmanage/allocateInOders/findPartForAddC/{[STORAGE_CODE]}/{[PART_NO]}"
+data-model="part" >  -->
+ <div class="dms-edit">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+			<div class="modal-title">调拨入库编辑</div>
+		</div>
+		<div class="modal-body">
+    		<div class="panel panel-default">
+				<div class="panel-body">
+		      <div class="row">
+		     	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">仓库代码</label>
+						<div class="col-xs-8">
+							<select class="bs-select form-control" id="storageCode"name="storageCode" data-fieldName="STORAGE_CODE"
+			data-value="{[STORAGE_CODE]}"		data-url="/stockmanage/allocateInOders/Storage/Select" data-model="part"     disabled="disabled"
+								data-lableDesc="STORAGE_NAME" data-labelValue="STORAGE_CODE" data-live-search="true">
+									</select>
+									  <!-- <input type="text" class="form-control " id="storagePositionCode"  value="{[STORAGE_POSITION_CODE]}"
+						name="storagePositionCode"  maxlength="60"    readonly > -->
+						</div>
+					</div>
+				</div>
+				
+			 	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4  hidden">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">库位</label>
+								<div class="col-xs-8">
+									<input id="storagePositionCode" name="storagePositionCode" 
+									value="{[STORAGE_POSITION_CODE]}" class="form-control" type="text" />
+								</div>
+							</div>
+						</div> 
+						
+		     	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">配件代码</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control  required" id="partNo"  value="{[PART_NO]}"
+						name="partNo"  maxlength="60" readonly ><!--  -->
+						</div>
+					</div>
+				</div>
+				
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">配件名称</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control  required" id="partName" value="{[PART_NAME]}"
+						name="partName"  maxlength="60"   readonly> <!--   -->
+						</div>
+					</div>
+				</div>
+						
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">入库数量</label>
+								<div class="col-xs-8">
+									<input id="inQuantity" name="IN_QUANTITY" class="form-control  decimal required" 
+									value='{[IN_QUANTITY]}' maxDigit="7" maxPrecision="4" type="text" readonly/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+							<div class="form-group">
+								<label class="control-label col-xs-7">入库不含税单价</label>
+								<div class="col-xs-5">
+									<input type="text" class="form-control decimal"   maxDigit="8" maxPrecision="4"
+									value='{[IN_PRICE]}'  id="inPrice" name="inPrice" data-fieldName="COST_PRICE">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+							<div class="form-group">
+								<label class="control-label col-xs-7">入库不含税金额</label>
+								<div class="col-xs-5">
+									<input type="text" class="form-control decimal required"  id="inAmount"
+									value='{[IN_AMOUNT]}' 	name="inAmount" data-autoValue="#inQuantity * #inPrice" data-autoValueDigits="2">
+								</div>
+							</div>
+						</div>
+			
+		</div>
+		</div>
+		</div>
+		<div class="panel panel-default table-panel">
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_table_edit"></table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+		<a class="btn blue hidden" data-width="modal-lg"  data-url="part/stockmanage/partallocatein/addPartStorage.html"  data-width="modal-lg" 
+							 id="add2" data-toggle="modal"> <i class="fa fa-plus-square"></i> 新增
+						</a> 
+			<a   class="btn blue  "    data-onclickEvent="true"  id="add">
+				<i class="fa fa-save" ></i>确定</a>
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+
+function isEmptyObject(obj) {
+	  for (var key in obj) {
+	    return false;
+	  }
+	  return true;
+	}
+ $(document).one("onload.dms",function(event,container){
+	  if($("#isNetTransfer",getElementContext()).val()==12781002
+			  &&$("#isIdleAllocation",getElementContext()).val()==12781002){
+		  $("#partName",container).removeAttr("readonly");
+		  $("#inQuantity",container).removeAttr("readonly");
+	   }else{
+		   $("#storageCode",container).removeAttr("disabled");
+	   }
+	/*  $("select[id='storageCode']",container).bindChange(function(obj){
+			 console.log($('#storageCode option:selected',container).val()+"/"+$("#partNo",container).val());
+			  dmsCommon.ajaxRestRequest({
+					url : dmsCommon.getDmsPath()["part"] + "/stockmanage/allocateInOders/"
+					+$("#storageCode",container).val()+"/"+$("#partNo",container).val(),
+					type : 'GET',sucessCallBack : function(data) { 
+							if(isEmptyObject(data)){ 
+								alert("该仓库没有改配件！");
+							}else{//成功
+								alert("成功！");
+			 				}
+						}
+					});  
+			});  */
+	  
+	 new Datatable().initPagination({
+			src : "dms_table_edit",
+			url :dmsCommon.getDmsPath()["part"] + "/stockmanage/allocateInOders/findPartForAddC/{[STORAGE_CODE]}/{[PART_NO]}",
+			//rowID : "BUY_NO",
+			//sortName : "BUY_NO", 
+			//sortOrder : "asc",
+			autoHeight: false,
+			//isQueryFirst:false,
+			columns:[
+				  {field : "SALES_PRICE",title : "销售价",numberFormat : {decimal : 2}},
+		            {field : "CLAIM_PRICE",title : "索赔价",numberFormat : {decimal : 2}},
+		            {field : "INSURANCE_PRICE",title : "保险价",numberFormat : {decimal : 2}},
+		            {field : "MIN_LIMIT_PRICE",title : "最低销售限价",numberFormat : {decimal : 2}},
+		            {field : "LIMIT_PRICE",title : "销售限价",numberFormat : {decimal : 2}},
+		            {field : "MAX_STOCK",title : "最大库存",numberFormat : {decimal : 2}},
+		            {field : "MIN_STOCK",title : "最小库存",numberFormat : {decimal : 2}},
+		            {field : "STOCK_QUANTITY",title : "账面库存",numberFormat : {decimal : 2}},
+		            {field : "USEABLE_STOCK",title : "可用库存",numberFormat : {decimal : 2}},
+		            {field : "BORROW_QUANTITY",title : "借进数量",numberFormat : {decimal : 2}},
+		            {field : "LEND_QUANTITY",title : "借出数量",numberFormat : {decimal : 2}},
+		            {field : "LOCKED_QUANTITY",title : "锁定量",numberFormat : {decimal : 2}},
+		            {field : "OPTION_NO",title : "替代配件"},
+		            {field : "OPTION_STOCK",title : "替代件库存",numberFormat : {decimal : 2}},
+		            {field : "PART_GROUP_CODE",title : "配件类别",codeFormat : {type:"dict",codeType:"1136"}},
+		            {field : "UNIT_CODE",title : "单位"},
+		          //  {field : "PART_BATCH_NO",title : "配件批次"},
+		            {field : "PART_MODEL_GROUP_CODE_SET",title : "配件车型组集",numberFormat : {decimal : 2}}
+			    	  ],onLoadSuccess : function() {
+						}
+		});
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+					  $("#save",getElementContext()).removeAttr("disabled");//激活保存按钮
+					   $("#enterRecord",getElementContext()).attr("disabled","disabled");//关闭入账按钮
+					   $("#obsolete",getElementContext()).attr("disabled","disabled");//关闭作废按钮
+					//关闭窗口
+					 $("a[data-dismiss='modal']",container).click();
+						//将新增的数据追加到查询页面的表格中
+					var index=$("tr.selected",getElementContext()).attr("data-index");//获取选中行号
+					var storagePosition=$('#storagePositionCode',container).val();
+					  if(storagePosition=="{[STORAGE_POSITION_CODE]}"){
+						   $('#storagePositionCode',container).val("");
+					   }
+				   $("#dms_part_allocate_in",getElementContext()).dmsTable().updateRowByIndex(index,{
+					   STORAGE_CODE:$('#storageCode option:selected',container).val(),
+					   STORAGE_POSITION_CODE:$('#storagePositionCode',container).val(),
+					   STORAGE_NAME:$('#storageCode option:selected',container).text(),
+					   PART_NAME:$('#partName',container).val(),
+					   IN_QUANTITY:$('#inQuantity',container).val(),
+					   IN_AMOUNT:$('#inAmount',container).val(),
+						/*  if($("#allocateInNo",getElementContext()).val()==""){
+					 
+						   FLAG:"A";
+					   }else{
+						   FLAG:"X";
+					   },  */
+					   FLAG:"X",
+					   //如果是网内调拨或者是呆滞调拨只能修改单价
+					   IN_PRICE:$('#inPrice',container).val()
+					}); 
+		});
+	});
+</script>
+
+
+

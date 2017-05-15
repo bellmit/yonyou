@@ -1,0 +1,107 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">盘点单信息</div>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">盘点单号</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" id="INVENTORY_NO" name="INVENTORY_NO">
+							<input type="hidden" id="userId" name="userId" value="{[loginInfo.userId]}"/>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4 col-sm-2">盘点日期</label>
+						<div class="col-xs-8 col-sm-10">
+							<div class="input-group input-daterange">
+								<input type="text" class="form-control" readonly
+									name="begin"> <span class="input-group-addon">至</span>
+								<input type="text" class="form-control" readonly
+									name="end">
+									<span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                  </span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row ">
+				<div class="col-xs-12 ">
+					<div class="query-btn">
+						<a href="javascript:;" class="btn blue"> <i
+							class="fa fa-search"></i> 查询
+						</a> <a href="javascript:;" class="btn blue"><i
+							class="fa fa-undo"></i> 重置</a>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-md-12 col-lg-12">
+					<div class="panel panel-default table-panel">
+						<div class="panel-heading">
+							<div class="pannel-name">盘点单信息</div>
+							<div class="pannel-button">
+								<div class="btn-group btn-group-sm">
+									<a data-goback="page" href="part/basedata/InventoryCheck/createPage.html"
+									class="btn btn-outline ajaxify"><i class="fa fa-plus-square"></i> 新增</a>
+								</div>
+							</div>
+						</div>
+						<div class="panel-body">
+							<table class="table table-striped table-bordered table-hover table-responsive"
+								id="dms_table"></table>
+						</div>
+					</div>
+				</div> 					
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+    		src : "dms_table",
+   		    url : dmsCommon.getDmsPath()["part"] + "/basedata/inventoryCheck",
+   			rowID : "INVENTORY_NO",
+   			sortName : "INVENTORY_NO",
+   			sortOrder : "desc",
+   			autoHeight:false,
+   			undefinedText : "",
+   			columns : [
+   				{title : "操作",operateFormat : [
+	                    {type:"edit",url:"part/basedata/InventoryCheck/secondPage.html",openWidth:"modal-lg",title:"明细编辑",operateIcon:'<i class="glyphicon glyphicon-file"></i>',doubleClick:true,isShow:function(value, row, index){
+							   if(row.LOCK_USERU==""||row.LOCK_USERU==null||row.LOCK_USERU==$("#userId",container).val()){
+								   return true;
+	                 	   }else{
+	                 		   return false;
+	                 	   }      
+						   }},
+	                	{type:"del",url:"",model:"part",callBack:function(response){
+	                 	   $("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	                    },isShow:function(value, row, index){
+	                 	   if(row.LOCK_USERU==""||row.LOCK_USERU==null||row.LOCK_USERU==$("#userId",container).val()){
+								return true;
+	                 	   }else{
+	                 		    return false;
+	                 	   }       
+						}}]}, 
+   	            {field : "INVENTORY_NO",title : "盘点单编号"},
+   	            {field : "INVENTORY_DATE",title : "盘点日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+                {field : "HANDLER",title : "经手人"},
+   	            {field : "HANDLER",title : "操作员"},
+                {field : "REMARK",title : "备注"},
+   	            {field : "LOCK_USER",title : "锁定人"},
+   	         	{field : "LOCK_USERU",title : "锁定人1",visible:false}
+   			]
+
+   		});
+	});
+</script>

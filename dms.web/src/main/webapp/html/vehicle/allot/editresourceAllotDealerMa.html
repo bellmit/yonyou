@@ -1,0 +1,90 @@
+<div class="dms-edit ajaxrest" data-url="/allotDealerMaintenance/{[DEALER_ID]}" data-model="vehicle" >
+	<form class="form-horizontal">
+	<div class="modal-header">
+			<div class="modal-title">资源分配经销商维护修改</div>
+			
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+					<input type="hidden" id="dealerId" name="dealerId" data-fieldName="DEALER_ID">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">经销商名简称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="dealerShortNmae" name="dealerShortNmae" disabled="disabled" data-fieldName="DEALER_SHORTNAME">
+							</div>
+						</div>
+					</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+								<label class="control-label col-xs-4">港口优先级(天津)</label>
+							<div class="col-xs-8">
+							
+								<select id="portLevelTJ" name="portLevelTJ" class="bs-select form-control "
+									 data-type="oemDict" data-dictCode="1393" data-excludeItems="13931003,13931004"
+									data-fieldName="TJ_PORT_LEVEL"></select>
+									
+									
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">港口优先级(上海)</label>
+							<div class="col-xs-8">
+								<select id="portLevelSH" name="portLevelSH"
+									class="bs-select form-control" data-type="oemDict"
+									data-dictCode="1393" data-excludeItems="13931001,13931002" data-fieldName="SH_PORT_LEVEL"></select>
+
+							</div>
+						</div>
+					</div>
+			       </div>
+		</div>
+	</div>
+</div>
+			<div class="modal-footer">
+				<a data-url="/allotDealerMaintenance/editAllotDealer" data-model="vehicle" data-method="PUT" data-callBack="true"  class="btn blue"  data-toggle="confirmation"><i class="fa fa-save"></i>保存</a>
+				<a data-goback="page"  href="vehicle/allot/resourceAllotDealerMaintenance.html"
+			class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>
+
+			</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		
+
+    	//绑定onchange 事件
+		$("#portLevelTJ",container).bindChange(function(obj){
+			var s=obj.value;
+			if(s==13931001){
+				$("#portLevelSH",container).setDmsValue("13931004");
+			}
+			if(s==13931002){
+				$("#portLevelSH",container).setDmsValue("13931003");
+			}
+		
+			
+		});
+    	//绑定onchange 事件
+		$("#portLevelSH",container).bindChange(function(obj){
+			var s1=obj.value;
+			if(s1==13931004){
+				$("#portLevelTJ",container).setDmsValue("13931001");
+			}
+			if(s1==13931003){
+				$("#portLevelTJ",container).setDmsValue("13931002");
+			}
+		
+			
+		});
+		
+
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			dmsCommon.refreshPageByUrl("vehicle/allot/resourceAllotDealerMaintenance.html",container);
+		}); 
+	}); 
+</script>

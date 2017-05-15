@@ -1,0 +1,230 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-3">VIN</label>
+							<div class="col-xs-9">
+								<input type="text" class="form-control" id="vin"
+									name="vin">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-3">客户名称</label>
+							<div class="col-xs-9">
+								<input type="text" class="form-control" id="customerName"
+									name="customerName">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">开单日</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange">
+									<input type="text" class="form-control" readonly
+										name="beginCreate" id="beginCreate" value="" data-fieldName="BEGIN_DATE"> <span
+										class="input-group-addon">至</span> <input type="text"
+										class="form-control" readonly name="endCreate" id="endCreate"
+										value=""> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-3">销售顾问</label>
+							<div class="col-xs-9">
+								<select id="soldBy" name="soldBy"
+									class="bs-select form-control" data-ajaxSync="true"
+									data-url="/basedata/employees/-1/salesConsultant" data-value="{[userInfo.userId]}"
+									data-model="manage" data-labelValue="USER_ID" 
+									data-lableDesc="USER_NAME" >
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-3"></label>
+							<div class="col-xs-9">
+								<input type="hidden" class="form-control" id="SO_NO"
+									name="SO_NO">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-3"></label>
+							<div class="col-xs-9">
+								<input type="hidden" class="form-control" id="VIN"
+									name="VIN">
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-xs-12 ">
+							<div class="query-btn">
+								<a href="javascript:;" class="btn btn-sm blue" > <i
+											class="fa fa-search"></i> 查询
+								</a> 
+								<a
+									data-dismiss="modal" class="btn blue"><i
+									class="fa fa-undo"></i>重置</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name">车辆列表</div>
+			</div>
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="vehicleList">
+					
+				</table>
+			</div>
+		</div>
+		
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name">服务项目</div>
+			</div>
+			<div class="panel-body">
+				<div class="tabbable-custom ">
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#tbService" data-toggle="tab"
+							id="OrderService" data-beforeShowEvent="true">订单服务项目</a></li>
+						<li><a href="#tbInsurance" data-toggle="tab"
+							id="InsuranceManage" data-beforeShowEvent="true">保险办理结果</a></li>
+						<li><a href="#tbTax" data-toggle="tab"
+							id="TaxManage" data-beforeShowEvent="true">税费办理结果</a></li>
+						<li><a href="#tbNumberPlate" data-toggle="tab"
+							id="LicenseManage" data-beforeShowEvent="true">牌照办理结果</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane fade in active" id="tbService"
+							data-url="vehicle\servicesTransacting\searchOrderService.html">
+						</div>
+						<div class="tab-pane fade in active" id="tbInsurance"
+							data-url="vehicle\servicesTransacting\searchInsuranceManage.html">
+						</div>
+						<div class="tab-pane fade in active" id="tbTax"
+							data-url="vehicle\servicesTransacting\searchTaxManage.html">
+						</div>
+						<div class="tab-pane fade in active" id="tbNumberPlate"
+							data-url="vehicle\servicesTransacting\searchLicenseManage.html">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div class="modal-footer center-block">
+				 <!-- <a data-url="/ordermanage/servicesTransacting/{[SO_NO]}/{[VIN]}" data-model="vehicle"
+					data-method="POST" data-callBack="true" data-beforeRequest="true"
+					class="btn blue" id="saveBtn" name="saveBtn" data-onclickEvent='true'
+					data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+				</a>  -->
+				
+				<a data-url="" data-model="vehicle" data-method="POST" data-callBack="true" data-beforeRequest="true" id="saveBtn" 
+				    class="btn blue"  data-toggle="confirmation"><i class="fa fa-save"></i>保存</a>
+		</div>
+	
+	</form>
+	
+	
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "vehicleList",
+		container:container,
+		    url : dmsCommon.getDmsPath()["vehicle"] + "/ordermanage/servicesTransacting",
+			rowID : "ITEM_ID",
+			sortName : "SO_NO",
+			sortOrder : "desc",
+			checkboxHeader:true,
+			autoHeight : false,
+			undefinedText : "",
+			columns : [ 
+				{radio:true,sortable : false},
+				{field : "ITEM_ID",title : "操作",operateFormat : [
+                    {type:"detail",url:"vehicle/servicesTransacting/editCusInfo.html",openWidth:"modal-lg",title:"客户详细",operateIcon:'<i class="fa fa-lg fa-user-plus"></i>',isShow:function(value, row, index){
+	                    	return true;
+                    }},  
+                    {type:"detail",url:"vehicle/servicesTransacting/searchAuditDetail.html",openWidth:"modal-lg",title:"审核记录",isShow:function(value, row, index){
+                    		return true;
+                    }},
+                    {type:"detail",url:"vehicle/servicesTransacting/searchLoanManage.html",openWidth:"modal-lg",title:"贷款办理结果",isShow:function(value, row, index){
+                		return true;
+                    }}
+                  ]
+                }, 
+                {field : "BUSINESS_TYPE",title : "业务类型",codeFormat : {type:"dict",codeType:"1300"}},
+                {field : "SO_NO",title : "销售订单编号"},
+                {field : "SHEET_CREATE_DATE",title : "开单日期",dateFormat : {format:"YYYY-MM-DD"}},
+                {field : "USER_NAME",title : "销售顾问"},
+                {field : "CUSTOMER_NAME",title : "客户名称"},
+                {field : "VIN",title : "VIN"},
+                {field : "MODEL_NAME",title : "车型"},               
+                {field : "CONFIG_NAME",title : "配置"},
+                {field : "COLOR_NAME",title : "颜色"},
+                {field : "ORDER_SUM",title : "订单总额",numberFormat : {decimal:2}},
+                {field : "CUSTOMER_NO",title : "客户编号"},
+                {field : "CUSTOMER_TYPE",title : "客户类型",codeFormat : {type:"dict",codeType:"1018"}},
+                {field : "CONTACTOR_NAME",title : "联系人"},
+                {field : "PHONE",title : "电话"},
+                {field : "CONTRACT_NO",title : "合约编号"},
+                {field : "CONTRACT_DATE",title : "签约日期",dateFormat : {format:"YYYY-MM-DD"}},
+                {field : "CT_CODE",title : "证件类型",codeFormat : {type:"dict",codeType:"1239"}},
+                {field : "CERTIFICATE_NO",title : "证件号码"}
+			],
+			//当出现选择操作的按钮时，响应事件
+			onCheck:function(row){
+				$("#SO_NO").setDmsValue(row.SO_NO);
+				$("#VIN").setDmsValue(row.VIN);
+			}
+		});
+	
+		$("a[id='OrderService']", container).click();
+		$("a[id='InsuranceManage']", container).click();
+		$("a[id='TaxManage']", container).click();
+		$("a[id='LicenseManage']", container).click();
+		$("a[id='OrderService']", container).click();
+		
+		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			var soNo = $("#SO_NO").val();
+			var vin = $("#VIN").val();
+			if(soNo == "" && vin == ""){
+				dmsCommon.tip({status:"warning",msg:"请选中需要保存的数据"});//总共的状态类型：info、success、error、warning
+				returnResult.status = false;
+			}else{
+				$("#saveBtn",container).attr("data-url","/ordermanage/servicesTransacting/"+soNo+"/"+vin);
+				returnResult.status = true;
+			}
+		});
+		
+	
+	});
+</script>

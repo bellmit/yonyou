@@ -1,0 +1,437 @@
+<div class="dms-edit ajaxrest"
+	data-url="/ordermanage/settleOrders/{[SO_NO]}/AND/{[RECEIVE_NO]}"
+	data-model="retail" data-pageInitCallBack="true">
+<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">收款编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body" data-parentTable ="partInfoTable">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">收款单号</label>
+								<div class="col-xs-8 col-md-9">
+									<input id="receiveNo" name="receiveNo" class="form-control"
+										type="text" disabled="disabled" data-fieldName="RECEIVE_NO"/> 
+								</div>
+							</div>
+						</div>
+<!-- 						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">付款方式</label>
+								<div class="col-xs-8 col-md-9">
+									<select id="payTypeCode" name="payTypeCode" 
+										class="bs-select form-control" disabled="disabled"
+										data-url="/customerManage/salesGathering/-1/qryPayTypeCode"
+										data-model="manage" data-labelValue="PAY_TYPE_CODE" 
+										data-lableDesc="PAY_TYPE_NAME" >
+									</select>	
+								</div>
+							</div>
+						</div> -->
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">付款方式</label>
+								<div class="col-xs-8 col-md-9">
+									<input id="payTypeCode" name="payTypeCode"
+										class="form-control" type="text" data-fieldName="PAY_TYPE_NAME" disabled="disabled"/>
+								</div>
+							</div>
+						</div>
+						
+						
+						
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 "><span style="color:Red">*</span>收款金额</label>
+								<div class="col-xs-8 ">
+									<input id="receiveAmount" name="receiveAmount" disabled="disabled" class="form-control required" type="text" data-fieldName="RECEIVE_AMOUNT"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">票据号码</label>
+								<div class="col-xs-8 col-md-9">
+									<input id="billNo" name="billNo"
+										class="form-control" type="text" data-fieldName="BILL_NO" disabled="disabled"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3"><span style="color:Red">*</span>收款类型</label>
+								<div class="col-xs-8 col-md-9">
+									<select class="bs-select form-control required" id="gatheringType"
+									name="gatheringType" data-dictCode="1425" data-fieldName="GATHERING_TYPE" disabled="disabled">
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:Red">*</span>收款日期</label>
+								<div class="col-xs-8 ">
+									<div class="input-group date date-picker"  data-defaultToday = "true" data-orientation="top right">
+										<input id="receiveDate" name="receiveDate" readonly
+											class="form-control required required" type="text" data-fieldName="RECEIVE_DATE" /> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3"><span style="color:Red">*</span>付款人</label>
+								<div class="col-xs-8 col-md-9">
+									<input id="transactor" name="transactor"
+										class="form-control required" type="text" data-fieldName="TRANSACTOR" disabled="disabled"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">可用储值</label>
+								<div class="col-xs-8 col-md-9">
+									<input id="orderReceivableSumt" name="orderReceivableSumt" disabled="disabled"
+										class="form-control" type="text" maxlength="30" data-fieldName="ORDER_RECEIVABLE_SUMT" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">本次使用储值</label>
+								<div class="col-xs-8 ">
+									<input id="useStore" name="useStore" disabled="disabled"
+										class="form-control" type="text" maxlength="30" data-fieldName="USE_STORE" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">登记人</label>
+								<div class="col-xs-8 col-md-9">
+									<input disabled="disabled"
+										class="form-control" type="text" maxlength="30" value="{[userInfo.userName]}" id="recorder" name="recorder"/>
+								<input  disabled="disabled"
+										class="form-control" type="hidden" maxlength="30" value="{[userInfo.employeeNo]}"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">是否销账</label>
+								<div class="col-xs-8 col-md-9">
+									<select class="form-control" id="writeoffTag" data-fieldName="WRITEOFF_TAG"
+									name="writeoffTag" data-dictCode="1278" data-value="12781002"  >
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销账人</label>
+								<div class="col-xs-8">
+									 <select id="writeoffBy" name="writeoffBy" 
+											class="bs-select form-control" disabled="disabled"
+											data-url="/basedata/employees/-1/salesConsultant"
+											data-model="manage" data-labelValue="USER_ID"
+											 data-lableDesc="USER_NAME">
+										</select>
+								</div>
+							</div>
+						</div>
+						
+					<!-- 	<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">销账人</label>
+								<div class="col-xs-8 col-md-9">
+									<input id="writeoffBy" name="writeoffBy"
+									class="form-control" type="text"  data-fieldName="WRITEOFF_BY"  disabled/>
+								</div>
+							</div>
+						</div> -->
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">销账日期</label>
+								<div class="col-xs-8 col-md-9">
+									<div class="input-group date date-picker" data-orientation="top right"
+										data-defaultToday="true">
+										<input id="writeoffDate" name="writeoffDate" readonly
+											class="form-control" type="text"
+											data-fieldName="WRITEOFF_DATE" /> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button" disabled>
+												<i class="fa fa-calendar"></i>
+											</button>
+											<button class="btn default date-reset" type="button" disabled>
+												<i class="fa fa-times"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2 col-md-1">备注</label>
+								<div class="col-xs-8 col-sm-10 col-md-11">
+									<textarea id="remark" name="remark" class="form-control"
+										rows="3" cols="" data-fieldName="REMARK"></textarea>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-8 col-md-9">
+									<input id="customerNo" name="customerNo" 
+										class="form-control hidden" type="text" maxlength="30" data-fieldName="CUSTOMER_NO" />
+						</div>
+						<div class="col-xs-8 col-md-9" hidden="hidden">
+						<label class="control-label col-xs-4 col-md-3">订单已收</label>
+									<input id="orderPayedAmount" name="orderPayedAmount" 
+										class="form-control" type="text" maxlength="30"/>
+						</div>
+						<div class="col-xs-8 col-md-9" hidden="hidden">
+						<label class="control-label col-xs-4 col-md-3">订单应收</label>
+									<input id="orderReceivableSum" name="orderReceivableSum" 
+										class="form-control" type="text" maxlength="30" />
+						</div>
+						<div class="col-xs-8 col-md-9" hidden="hidden">
+						<label class="control-label col-xs-4 col-md-3">代办应收</label>
+									<input id="conReceivableSum" name="conReceivableSum" 
+										class="form-control" type="text" maxlength="30" />
+						</div>
+						<div class="col-xs-8 col-md-9" hidden="hidden">
+						<label class="control-label col-xs-4 col-md-3">代办已收</label>
+									<input id="conPayedAmount" name="conPayedAmount" 
+										class="form-control" type="text" maxlength="30"/>
+						 </div>
+						 <div class="col-xs-8 col-md-9" hidden="hidden">
+						<label class="control-label col-xs-4 col-md-3">代办支出金额</label>
+									<input id="conPayedSum" name="conPayedSum" 
+										class="form-control" type="text" maxlength="30"/>
+						 </div>
+						  <div class="col-xs-8 col-md-9" hidden="hidden">
+						<label class="control-label col-xs-4 col-md-3">未销帐总金额</label>
+									<input id="unWriteoffSum" name="unWriteoffSum" 
+										class="form-control" type="text" maxlength="30"/>
+						 </div>
+						 <div class="col-xs-8 col-md-9" hidden="hidden">
+						<label class="control-label col-xs-4 col-md-3">已收款总金额</label>
+									<input id="gatheredSum" name="gatheredSum" 
+										class="form-control" type="text" maxlength="30"/>
+						 </div>
+						 
+						  <div class="col-xs-8 col-md-9" hidden="hidden">
+						<label class="control-label col-xs-4 col-md-3">订单支出金额</label>
+									<input id="orderPayedSum" name="orderPayedSum" 
+										class="form-control" type="text" maxlength="30"/>
+						 </div>
+						 <div class="col-xs-8 col-md-9" hidden="hidden">
+						<label class="control-label col-xs-4 col-md-3">使用可用余额</label>
+									<input id="usableAmount" name="usableAmount" 
+										class="form-control" type="text" maxlength="30"/>
+						 </div>
+						 <div class="col-xs-8 col-md-9" hidden="hidden">
+						<label class="control-label col-xs-4 col-md-3">欠款总额</label>
+									<input id="arragementSum" name="arragementSum" 
+										class="form-control" type="text" maxlength="30"/>
+						 </div>
+								<div class="col-xs-8 col-md-9" hidden="hidden">
+									<input id="soNo1" name="soNo1"
+										class="form-control" type="text" maxlength="30" data-fieldName="SO_NO" />
+								</div>
+								<div class="col-xs-8 col-md-9">
+									<input id="fbiaoz" name="fbiaoz" 
+										class="form-control hidden" type="text" maxlength="30"  />
+								</div>
+								<div class="col-xs-8 col-md-9">
+									<input id="fdorderReturnPrice" name="fdorderReturnPrice" 
+										class="form-control hidden" type="text" maxlength="30"  />
+								</div>
+								<div class="col-xs-8 col-md-9">
+									<input id="fdweiyuePrice" name="fdweiyuePrice" 
+										class="form-control hidden" type="text" maxlength="30" />
+								</div>
+								<div class="col-xs-8 col-md-9">
+									<input id="isbalance" name="isbalance"
+										class="form-control hidden" type="text" maxlength="30" data-value="12781001" />
+								</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+				<a data-url="" data-model="retail" data-callBack="true"
+					data-method="POST"   data-beforeRequest="true" id="tt"
+					class="btn blue" data-toggle="confirmation"><i
+					class="fa fa-save"></i>保存
+				</a>
+				
+				<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消
+				</a>
+			</div>
+</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+
+	var selectRow = $("#dmssales_table",getElementContext()).dmsTable().getFirstSelection();
+	var businessType=selectRow.BUSINESS_TYPE;
+	var fdorderReturnPrice=$("#fytprice",getElementContext()).val();
+	var fdweiyuePrice=$("#fwyjprice",getElementContext()).val();
+	var FUsableAmount=$("#UsableAmount",getElementContext()).val();
+	var FOrderArrearageAmount=$("#PayAmount",getElementContext()).val();
+	var FReceiveSum=$("#receiveSum",getElementContext()).val();
+	var arragementSum = $("#ArragementSum",getElementContext()).val();
+	var paySum = $("#paySum",getElementContext()).val();
+	var orderPayedAmount = $("#orderPayedAmount",getElementContext()).val();
+	var calcOrderArrearageAmount = $("#calcOrderArrearageAmount",getElementContext()).val();
+	var IsModify = false;
+	var IsBooking = false;
+	 $("#customerNo",container).setDmsValue(selectRow.CUSTOMER_NO);
+	 $("#soNo1",container).setDmsValue(selectRow.SO_NO);
+	 $("#fdorderReturnPrice",container).setDmsValue(fdorderReturnPrice);
+	 $("#fdweiyuePrice",container).setDmsValue(fdweiyuePrice);
+	 $("#transactor",container).setDmsValue(selectRow.CUSTOMER_NAME);
+	 $("#receiveAmount",container).setDmsValue($("#PayAmount",getElementContext()).val());
+	 $("#orderPayedAmount",container).setDmsValue($("#orderPayedAmount",getElementContext()).val());
+	 $("#orderReceivableSum",container).setDmsValue($("#orderReceivableSum",getElementContext()).val());
+	 $("#conReceivableSum",container).setDmsValue($("#conReceivableSum",getElementContext()).val());
+	 $("#conPayedAmount",container).setDmsValue($("#conPayedAmount",getElementContext()).val());
+	 $("#conPayedSum",container).setDmsValue($("#conPayedSum",getElementContext()).val());
+	 $("#unWriteoffSum",container).setDmsValue($("#unWriteoffSum",getElementContext()).val());
+	 $("#gatheredSum",container).setDmsValue($("#gatheredSum",getElementContext()).val());
+	 $("#usableAmount",container).setDmsValue($("#userMoney",getElementContext()).val());
+	 $("#orderPayedSum",container).setDmsValue($("#orderPayedSum",getElementContext()).val());
+	 $("#arragementSum",container).setDmsValue($("#ArragementSum",getElementContext()).val());
+	var FRealAmount =  $("#PayAmount",getElementContext()).val();
+
+	
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+	$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	var writeoffTag=$("#writeoffTag",container).val();
+	var receiveAmount=$("#receiveAmount",container).val();	
+	if (!isStringNull(response)){
+		$("#unWriteoffSum",getElementContext()).val(response.UN_WRITEOFF_SUM);
+		$("#gatheredSum",getElementContext()).val(response.GATHERED_SUM);
+		$("#orderPayedSum",getElementContext()).val(response.ORDER_PAYED_SUM);
+		$("#calcUsableAmount",getElementContext()).val(response.USABLE_AMOUNT);
+	};
+	$("#receiveAmount",getElementContext()).val(receiveAmount);	
+	if(writeoffTag==12781001){
+		if(arragementSum>=0){
+			if(arragementSum<=parseFloat(receiveAmount)){
+				$("#payOff",getElementContext()).selectpicker('val','12781001');
+				$("#ArragementSum",getElementContext).setDmsValue(0);
+				$("#paySum",getElementContext).setDmsValue(parseFloat(paySum)+parseFloat(arragementSum));
+				$("#calcOrderArrearageAmount",getElementContext).setDmsValue(0);
+				$("#orderPayedAmount",getElementContext).setDmsValue(parseFloat(orderPayedAmount)+parseFloat(arragementSum));
+			}else{
+				$("#ArragementSum",getElementContext).setDmsValue(arragementSum-receiveAmount);
+				$("#paySum",getElementContext).setDmsValue(parseFloat(paySum)+parseFloat(receiveAmount));
+				$("#calcOrderArrearageAmount",getElementContext).setDmsValue(calcOrderArrearageAmount-receiveAmount);
+				$("#orderPayedAmount",getElementContext).setDmsValue(parseFloat(orderPayedAmount)+parseFloat(receiveAmount));
+			}
+			
+			$("a[data-info='saveBeforeUrl']",getElementContext()).click();
+		}
+		
+	} 
+	var Tag=$("#soNo1",container).val();
+	$("a[data-dismiss='modal']",container).click();	
+	$("#dms_table",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["retail"] + "/ordermanage/settleOrders/"+Tag+"/sum");
+	$("#dmssales_table",getElementContext()).dmsTable().refreshTableWithForm();
+	dmsCommon.refreshPageByUrl("retail/ordermanage/settlecollection/searchSettleCollection.html",container);  
+	}); 
+	 $("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){
+		 var writeoff=$("#writeoffTag",container).val();
+		 if(writeoff==12781002){
+			 $("#writeoffDate",container).removeAttr("disabled");
+			 $("#writeoffBy",container).removeAttr("disabled");
+			 $("#writeoffTag",container).removeAttr("disabled");
+		 }
+	 });
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+	
+	returnResult.status = true;
+	$("#tt",container).attr("data-url","/ordermanage/settleOrders/maintian");
+			var formJson = $(
+					"div[data-parentTable='dms_table']",
+					container).serializeFormJson();
+		
+			
+		//	formJson['PERSON_NAME']=formJson.CUSTOMER_NAME
+		
+		});
+	//绑定onchange 事件
+
+	$("#writeoffTag",container).bindChange(function(obj){
+	 	if($("#writeoffTag",container).val() == '12781002'){
+	 		 $("#writeoffBy",container).attr("disabled","disabled");
+	 		 $("#writeoffDate",container).attr("disabled","disabled");
+	 		 
+			 dmsDict.refreshSelectByUrl($("#writeoffBy",container),{brand: ""});	
+			 dmsDict.refreshSelectByUrl($("#writeoffDate",container),{brand: ""});	
+			 $("#writeoffDate",container).val("");
+			 $("#writeoffBy",container).selectpicker('val',"-1");
+
+			 
+		}else if($("#writeoffTag",container).val() == '12781001'){
+			 $("#writeoffBy",container).removeAttr("disabled");
+			 $("#writeoffDate",container).removeAttr("disabled");
+			 /* $("#writeoffDate",container).val(new Date().Format("yyyy-MM-dd hh:mm:ss")); */
+			 
+			 dmsDict.refreshSelectByUrl($("#writeoffBy",container),{brand: ""});	
+			 dmsDict.refreshSelectByUrl($("#writeoffDate",container),{brand: ""});	
+			 $("#writeoffBy",container).selectpicker('val',"{[userInfo.userId]}");
+			/*  $("#writeoffDate",container).val(new Date().Format("yyyy-MM-dd")); */
+			 $("#writeoffDate",container).setDmsValue(moment().format("YYYY-MM-DD"));
+		}
+	});	
+	//事件点击
+	/* $("a[data-onclickEvent='true']",container).on("dms.onConfirm",function(event,returnResult){
+
+		var receivableSum = $("#ORDER_PAYED_AMOUNT",getElementContext()).val();	
+		var receiveAmount = $("#receiveAmount",container).val();//收款金额 
+		var arrearageAmount = $("#arrearageAmount",getElementContext()).val();//应收金额
+		if(parseFloat(receiveAmount*1)>parseFloat(arrearageAmount*1)){
+			dmsCommon.tip({status:"warning",msg:"收款金额不能大于欠款金额！"});
+			returnResult.status = false;
+			return ;
+		}
+	}); */
+	//为‘’加0
+	var addzero = function(obj){
+		if(obj==null||obj==''){
+			obj=parseFloat(0);
+		}
+		return obj;
+	};
+});
+
+
+</script>

@@ -1,0 +1,407 @@
+<div class="dms-edit ajaxrest" data-url="/basedata/roles/{[ROLE_ID]}"
+	data-model="manage" data-pageInitCallBack="true">
+	<form class="form-horizontal">
+		<div class="panel panel-default ">
+			<div class="panel-heading">
+				<div class="pannel-name">角色权限编辑</div>		
+			</div>
+			<div class="row">
+			<!-- 隐藏一个刷新链接 -->
+					<input type="hidden" id="roleId" name="roleId"
+					data-fieldName="role_id" />
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">角色代码</label>
+						<div class="col-xs-5">
+							<input type="text" class="form-control" id="roleCode"
+								name="roleCode" data-fieldName="role_code" disabled>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">角色名称</label>
+						<div class="col-xs-5 ">
+							<input type="text" class="form-control" id="roleName"
+								name="roleName" data-fieldName="role_name" disabled>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">角色说明</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="roleDesc"
+									name="roleDesc" data-fieldName="ROLE_DESC" disabled>
+							</div>
+						</div>
+					</div>
+
+
+			</div>
+
+
+
+
+			<!-- ----------------------------------- -->
+			<div data-info="refesh">
+				<!--  -->
+				<div class="panel-heading col-xs-4">
+					<div class="pannel-name ">菜单权限</div>
+
+				</div>
+				<!--  -->
+				<div class="panel-heading col-xs-4">
+					<div class="pannel-name ">客户信息操作权限</div>
+					<div class="pannel-button"></div>
+				</div>
+				<!--  -->
+				<div class="panel-heading col-xs-4">
+					<div class="pannel-name ">个人参数配置</div>
+
+				</div>
+				<!--  -->
+
+				<div class="panel-body col-xs-4 "
+					style="border: solid 1px #DDDDDD; height: 400px; overflow-y: scroll; overflow-x: hidden">
+
+					<div id="using_json_2"></div>
+					<div id="using_json_3"></div>
+
+				</div>
+				<div class="panel-body col-xs-4 "
+					style="border: solid 1px #DDDDDD; height: 400px; overflow-y: scroll; overflow-x: hidden">
+
+					<div class="col-xs-12 ">
+						<label></label>
+					</div>
+
+					<!-- <label class="control-label col-xs-4">checkBox-URL</label> -->
+					<div class="col-xs-8" id="roleMenuRangeDiv">
+						<input id="roleMenuRange" name="roleMenuRange" type="checkbox"
+							data-allFlag="false" data-displayStyle="vertical" data-url=""
+							 data-model="manage" data-alwaysRefresh="true"
+							data-labelValue="MENU_RANGE_ID" data-lableDesc="CODE_CN_DESC"
+							data-dictLabel="操作权限" data-check="range" />
+					</div>
+
+					<div class="col-xs-12 ">
+						<label></label>
+					</div>
+					<div class="col-xs-12 ">
+						<label></label>
+					</div>
+					<div class="col-xs-8 " id="roleMenuActionDiv">
+						<input id="roleMenuAction" name="roleMenuAction" type="checkbox"
+							data-allFlag="false" data-displayStyle="vertical" data-url=""
+							data-model="manage" data-labelValue="MENU_CURING_ID" data-alwaysRefresh="true"
+							data-lableDesc="ACTION_NAME" data-dictLabel="操作按钮" />
+					</div>
+				</div>
+				<!-- 第四列 -->
+				<div class="panel-body col-xs-4 "
+					style="border: solid 1px #DDDDDD; height: 400px; overflow-y: scroll; overflow-x: hidden"
+					data-tableSelect="true">
+					<div class="col-xs-12 ">
+						<label></label>
+					</div>
+		
+
+					<div id="tree_2" class="tree-demo"> </div>
+
+					<input type="hidden" id="nowRole" name="nowRole" /> <input
+						type="hidden" id="nowTree" name="nowTree" /> <input
+						type="hidden" id="treeMenuAction" name="treeMenuAction" /> <input
+						type="hidden" id="treeMenuRange" name="treeMenuRange" />
+				       <input type="hidden" id="tree_2date" name="treeCtrlCode" />
+
+				</div>
+
+			</div>
+		</div>
+		<div class="form-actions">
+			<a data-url="/basedata/roles/permission/{[role_id]}" data-model="manage"
+				data-method="PUT" data-callBack="true" class="btn btn-sm blue"
+				data-beforeRequest="true" data-toggle="confirmation"> <i
+				class="fa fa-save"></i>保存
+			</a> <a data-goback="page"
+				href="manage/basedata/RolePermission/rolePermission.html"
+				class="btn btn-sm blue ajaxify"><i class="fa fa-reply"></i>返回</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+    $("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){
+		
+    	 var selectCode;
+		 var listtreeMenuAction=[];
+		 var listtreeMenuRange=[];
+		 var menuIdBefore;
+		 var menuId;
+    	 $("#roleMenuActionDiv",container).hide();
+	     $("#roleMenuRangeDiv",container).hide();
+    	 var roleid=$("#roleId").val();
+	     $("#nowRole").val(roleid);
+
+		 dmsCommon.ajaxRestRequest({
+			url : dmsCommon.getDmsPath()["manage"]
+					+ "/basedata/roles/roleData/"+roleid,
+			type : 'GET',			
+			sucessCallBack : function(data) {
+				$("div[data-tableSelect='true']",getElementContext()).initHtmlContent(data.checkbox);
+				listtreeMenuAction=data.treeMenuAction;
+				listtreeMenuRange=data.treeMenuRange;///
+				console.log("listtreeMenuAction"+listtreeMenuAction);
+				$('#using_json_2',container).jstree({
+					'core' : {
+						'data' : data.treejson
+					},
+
+				   'types' : {  
+	                    "default" : {  
+	                        "icon" : "fa fa-folder icon-state-warning icon-lg"  
+	                    },  
+	                    "file" : {  
+	                        "icon" : "fa fa-file icon-state-warning icon-lg"  
+	                     }  
+	                }, 
+				  'checkbox' : {  
+				        'keep_selected_style' : true,  
+				        'whole_node':false,
+				        'tie_selection':false  
+				    }, 
+				       
+					plugins : ["checkbox" , "changed","types","wholerow"]
+				});
+				
+				$('#tree_2',container).jstree({
+					'core' : {
+						'data' : data.treeRoleCtrl
+					},
+
+				   'types' : {  
+	                    "default" : {  
+	                        "icon" : "fa fa-folder icon-state-warning icon-lg"  
+	                    },  
+	                    "file" : {  
+	                        "icon" : "fa fa-file icon-state-warning icon-lg"  
+	                     }  
+	                }, 
+				  'checkbox' : {  
+				        'keep_selected_style' : true,  
+				        'whole_node':false,
+				        'tie_selection':false  
+				    }, 
+				       
+					plugins : ["checkbox" , "changed","types","wholerow"]
+				});
+			}
+		}); 
+		 
+		//事件点击		
+			
+			$('#using_json_2',container).on("changed.jstree", function (e, data) { 
+				var ron = JSON.stringify( data.changed.selected);
+				var ronArray = ron.split(",");
+				for(var i=0;i<ronArray.length;i++){
+				}
+			    var changeDate= data.changed.selected;
+				});
+			
+			 $('#using_json_2',container).bind("activate_node.jstree", function (obj, e) {
+			    // 获取当前节点
+			    var currentNode = e.node;
+			    });
+			 
+		    $('#using_json_2',container).bind("check_node.jstree", function (obj, e) {
+				var nodes=$("#using_json_2").jstree("get_checked");
+			    selectCode=nodes;
+				$("#nowTree").val(selectCode);
+			    // 处理代码
+			    // 获取当前节点
+			    var currentNode = e.node;
+			   });
+			
+			 $('#using_json_2',container).bind('click.jstree', function(event) {
+			    var treeMenuActionMap;
+			    var treeMenuRangeMap;///
+		        var eventNodeName = event.target.nodeName;
+		        menuId=JSON.stringify($(event.target).parents('li').attr('id'));
+		        menuId = menuId.replace(new RegExp("\"",'gm'),"");
+		      
+		        //获取选择的roleMenuAction 的值
+		       var obj=document.getElementsByName('roleMenuAction'); 
+		      //huoqu选中的checkbox
+		       var chickId=''; 
+		       for(var i=0; i<obj.length; i++){ 
+		        if(obj[i].checked) {
+		        	if(chickId==''){
+		        		chickId+=obj[i].value;
+		        	}else{
+		        		chickId+=','+obj[i].value; //如果选中，将value添加到变量s中 
+		        	}
+		        }
+		      } 
+		       //获取选择的roleRange 的值
+		       var objRange=document.getElementsByName('roleMenuRange');
+		       //huoqu选中的checkbox
+		       var chickIdRange=''; 
+		       for(var i=0; i<objRange.length; i++){ 
+		        if(objRange[i].checked) {
+		        	if(chickIdRange==''){
+		        		chickIdRange+=objRange[i].value;
+		        	}else{
+		        		chickIdRange+=','+objRange[i].value; //如果选中，将value添加到变量s中 
+		        	}
+		        }
+		      } 
+		   
+		       //if(menuIdBefore!=null&&chickId!=''){
+		      treeMenuActionMap=menuIdBefore+"-"+chickId;
+		      // }
+		     // if(menuIdBefore!=null&&chickIdRange!=''){
+		      treeMenuRangeMap=menuIdBefore+"-"+chickIdRange;
+		     // }
+		       if(chickId!=''){
+		    	   var s5=  $.jstree.reference("#using_json_2").is_parent(menuIdBefore);
+		    	   if(s5==false){
+		    		   listtreeMenuAction=$.grep(listtreeMenuAction,function(value){	
+		    				return value.indexOf(menuIdBefore)==-1;
+		    			});
+		    		   listtreeMenuAction.push(treeMenuActionMap);
+		    	   } 
+		       }
+		       if(chickIdRange!=''){
+		    	   var s5=  $.jstree.reference("#using_json_2").is_parent(menuIdBefore);
+		    	   if(s5==false){
+		    		   listtreeMenuRange=$.grep(listtreeMenuRange,function(value){	
+		    				return value.indexOf(menuIdBefore)==-1;
+		    			});
+		    		   listtreeMenuRange.push(treeMenuRangeMap);
+		    	   } 
+		       }
+		       
+		       $("#treeMenuAction").val(listtreeMenuAction.join(";")); 
+		        var s3=  $.jstree.reference("#using_json_2").is_parent(menuId);
+			    if(s3==true){
+			    	 $("#roleMenuActionDiv",container).hide();
+				     $("#roleMenuRangeDiv",container).hide();
+			    	//不是子节点   
+			    }else{
+			    	//是子节点
+			    	var ischecked= $.jstree.reference("#using_json_2").is_checked(menuId);
+			    	if(ischecked==true){
+			    		//是子节点 checkbox是被选中
+			    	 var s4=  $.jstree.reference("#using_json_2").is_selected(menuId);
+			    	 if(s4==true){
+			    		//是子节点 checkbox是被选中，是被选中
+			    		//判断之前选的有没有，有的话去input里面找 没有的话去数据库查
+			    		 var huancun=$.grep(listtreeMenuAction,function(value){
+		    				return value.indexOf(menuId)!=-1;
+		    			});
+			    		 var huancunRange=$.grep(listtreeMenuRange,function(value){
+			    			return value.indexOf(menuId)!=-1;
+			    		});///
+			 		    var roleMenuActionObj = $("input[type='checkbox'][name^='roleMenuAction']:first",container);
+			 	        var roleMenuRangeObj = $("input[type='checkbox'][name^='roleMenuRange']:first",container);
+			 	        roleMenuActionObj.attr("data-url","/basedata/roles/roleMenuAction/"+menuId);
+			 	        roleMenuRangeObj.attr("data-url","/basedata/roles/roleMenuRange/"+menuId);
+			 	       	roleMenuActionObj.attr("data-value",huancun.join("").split("-")[1]);
+			 	        roleMenuRangeObj.attr("data-value",huancunRange.join("").split("-")[1]);///
+			 	        $("#roleMenuActionDiv",container).show();
+			 	       	$("#roleMenuRangeDiv",container).show();
+			 	        dmsDict.initObject(roleMenuActionObj); 
+			 	        dmsDict.initObject(roleMenuRangeObj);  
+			    	 }
+			    	 else{
+			    		 $("#roleMenuActionDiv",container).hide();
+			    	     $("#roleMenuRangeDiv",container).hide(); 
+			    		//是子节点 checkbox是被选中，没被选中
+			    	 }
+			    	}
+			    	else{
+			    		 $("#roleMenuActionDiv",container).hide();
+			    	     $("#roleMenuRangeDiv",container).hide();
+			    		//是子节点 checkbox没有被选中
+			    	} 	
+			    }   
+			    menuIdBefore=menuId;
+		    });
+		  	
+		    	    
+		
+		   $("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			   var obj=document.getElementsByName('roleMenuAction'); 
+		    	 //huoqu选中的checkbox
+		    	 var chickId=''; 
+		    	 for(var i=0; i<obj.length; i++){ 
+		    	     if(obj[i].checked) {
+		    	       if(chickId==''){
+		    	       	chickId+=obj[i].value;
+		    	        }else{
+		    	        chickId+=','+obj[i].value; //如果选中，将value添加到变量s中 
+		    	        }
+		    	      }
+		    	   }  
+		    	 var objRange=document.getElementsByName('roleMenuRange'); ///
+			     //huoqu选中的checkbox
+			     var chickIdRange=''; 
+			     for(var i=0; i<objRange.length; i++){ 
+			    	  if(objRange[i].checked) {
+			    	    if(chickIdRange==''){
+			    	        chickIdRange+=objRange[i].value;
+			    	       }else{
+			    	   	chickIdRange+=','+objRange[i].value; //如果选中，将value添加到变量s中 
+			    	       }
+			    	    }
+			       }
+    
+		    	 var treeMenuActionMap;
+		    	 var treeMenuRangeMap;
+		    	 if(menuId!=null&&chickId!=''){
+		    	    treeMenuActionMap=menuId+"-"+chickId;
+		    	    }
+		    	 if(menuId!=null&&chickIdRange!=''){
+		    	    treeMenuRangeMap=menuId+"-"+chickIdRange; 
+		    	    }
+		    	 var childListtreeMenuAction=$("#treeMenuAction").val();
+		    	    if(childListtreeMenuAction!=null){
+		    	    	var childListtreeMenuActions=[];
+				    	childListtreeMenuActions=childListtreeMenuAction.split(";");
+				    	listtreeMenuAction=childListtreeMenuActions;    	
+		    	    }
+		        if(menuId!=null){
+		         if(listtreeMenuAction!=null&&listtreeMenuAction!=''){
+		        	 listtreeMenuAction=$.grep(listtreeMenuAction,function(value){
+			 				return value.indexOf(menuId)==-1;
+			 		});	
+		        	}
+		        
+		         if(listtreeMenuRange!=null&&listtreeMenuRange!=''){
+		        	 listtreeMenuRange=$.grep(listtreeMenuRange,function(value){	
+				 			return value.indexOf(menuId)==-1;
+				 	});
+		         }	 
+		    	}
+		    	 listtreeMenuAction.push(treeMenuActionMap);
+		    	 listtreeMenuRange.push(treeMenuRangeMap);
+		    	 $("#treeMenuAction").val(listtreeMenuAction.join(";"));
+		    	 $("#treeMenuRange").val(listtreeMenuRange.join(";"));
+		    	 var nodes=$("#using_json_2").jstree("get_checked");
+		 		 selectCode=nodes;
+		 		 $("#nowTree").val(selectCode);
+		 		 $("#tree_2date").val($("#tree_2").jstree("get_checked"));
+		 		
+		 		 returnResult.status = true; //定义返回值
+			}); 
+		 
+    });
+  
+    $("a[data-callBack='true']",container).on("callBack.dms",function(event,response){	
+    	dmsCommon.refreshPageByUrl("manage/basedata/RolePermission/editRolePermission.html",container);
+	}); 
+	
+});
+</script>

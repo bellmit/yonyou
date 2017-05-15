@@ -1,0 +1,72 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">参与活动车辆明细</div>
+			<div class="btn-group btn-group-sm">
+				<a data-url="/market/hasActivityVehicleQuery/queryDetailexport" data-model="repair" data-method="downLoad" data-toggle="confirmation"
+						class="btn btn-outline "><i class="fa fa-download"/>Excel</a>
+			</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default table-panel">
+				<div class="panel-body">
+					<table class="table table-striped table-bordered table-hover table-responsive" id="tables"></table>
+				</div>
+				<div class="modal-footer">
+					<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i> 返回</a>
+				</div>
+			</div>
+		</div>
+		<input type="hidden" id="activityCode" name="activityCode"/>
+		<input type="hidden" id="activityName" name="activityName"/>
+		<input type="hidden" id="isActivityStatus" name="isActivityStatus"/>
+		<input type="hidden" id="endDateFrom" name="endDateFrom"/>
+		<input type="hidden" id="endDateTo" name="endDateTo"/>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		$("#activityCode",container).val($("#activityCode",getElementContext()).val());
+		$("#activityName",container).val($("#activityName",getElementContext()).val());
+		$("#isActivityStatus",container).val($("#isActivityStatus",getElementContext()).val());
+		$("input[name=endDateFrom]",container).val($("input[name=endDateFrom]",getElementContext()).val());
+		$("input[name=endDateTo]",container).val($("input[name=endDateTo]",getElementContext()).val());
+		new Datatable().initPagination({
+			src : "tables",
+			container:container,
+			url : dmsCommon.getDmsPath()["repair"] + "/market/hasActivityVehicleQuery/queryDetail",
+			rowID : "",
+			sortName : "", 
+			sortOrder : "asc",
+			autoHeight : false,
+			isFormParam:true,
+			undefinedText : "",
+			columns : [ 
+				{radio:true,sortable : false},
+				{field : "",title : "操作",operateFormat : [
+					   {type:"detail",url:"retail/vehicle/market/HasActivityVehicleQuery/detailVIN.html",openWidth:"modal-lg",doubleClick:true}
+				]},
+				{field : "OWNER_NO",title : "车主编号"}, 
+				{field : "LICENSE",title : "车牌号"},
+				{field : "VIN",title : "VIN"},
+				{field : "ENGINE_NO",title : "发动机"},
+			    {field : "BRAND",title : "品牌"}, 
+				{field : "SERIES",title : "车系"},
+				{field : "MODEL",title : "车型"}, 
+				{field : "KEY_NUMBER",title : "钥匙号"},
+				{field : "DELIVERER",title : "送修人"},
+				{field : "DELIVERER_MOBILE",title : "送修人手机"},
+				{field : "DELIVERER_PHONE",title : "送修人电话"},
+				{field : "CONSULTANT",title : "销售顾问"},
+				{field : "CREATED_BY",title : "创建人"},
+				{field : "FOUND_DATE",title : "建档日期",dateFormat : {format:"YYYY-MM-DD"}},
+				{field : "RO_CREATE_DATE",title : "参加活动日期",dateFormat : {format:"YYYY-MM-DD"}}
+			]
+		});
+	});
+	
+</script>

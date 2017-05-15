@@ -1,0 +1,114 @@
+<div class="dms-edit ajaxrest" data-url="/basedata/partABCD" data-model="part">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">批量修改配件属性</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group form-group-xs m-b-xs">
+								<label class="control-label col-xs-6 ">A贡献了大约</label>
+								<div class="col-xs-4">
+									<input id="PROPERTY_A_RATE" name="PROPERTY_A_RATE" type="text" class="form-control"
+									value="60%">
+									</input>
+								</div>
+								<label class="control-label col-xs-2 ">销售额</label>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group form-group-xs m-b-xs">
+								<label class="control-label col-xs-6 " >B贡献了大约</label>
+								<div class="col-xs-4 ">
+									<input id="PROPERTY_B_RATE" name="PROPERTY_B_RATE" type="text" class="form-control"
+									value="20%">
+									</input>
+								</div>
+								<label class="control-label col-xs-2 ">销售额</label>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group form-group-xs m-b-xs">
+								<label class="control-label col-xs-6 " >C贡献了大约</label>
+								<div class="col-xs-4">
+									<input id="PROPERTY_C_RATE" name="PROPERTY_C_RATE" type="text" class="form-control"
+									value="15%">
+									</input>
+								</div>
+								<label class="control-label col-xs-2 ">销售额</label>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group form-group-xs m-b-xs">
+								<label class="control-label col-xs-6 " >D贡献了大约</label>
+								<div class="col-xs-4">
+									<input id="PROPERTY_D_RATE" name="PROPERTY_D_RATE" type="text" class="form-control"
+									value="5%">
+									</input>
+								</div>
+								<label class="control-label col-xs-2 " >销售额</label>
+							</div>
+						</div>
+						<span style="color:#F00"><b>注:批量更新配件属性时会将所有配件属性按照规则进行更新,执行时间会比较长.</b></span>
+					</div>
+					<input type="hidden" id="LAST_MONTH" name="LAST_MONTH" data-fieldName="LAST_MONTH">
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/basedata/partABCD/update" data-model="part"
+				data-method="PUT" data-callBack="true"
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>保存
+			</a>
+			<a data-dismiss="modal"
+				class="btn blue"> <i
+				class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+//页面加载后初始化
+$(document).one("onload.dms",function(event,container){
+	$("#PROPERTY_A_RATE",container).focus(function(){
+		$("#PROPERTY_A_RATE",container).val("60");
+	});
+	$("#PROPERTY_A_RATE",container).blur(function(){
+		$("#PROPERTY_A_RATE",container).val($("#PROPERTY_A_RATE",container).val()+"%");
+	});
+	$("#PROPERTY_B_RATE",container).focus(function(){
+		$("#PROPERTY_B_RATE",container).val("20");
+	});
+	$("#PROPERTY_B_RATE",container).blur(function(){
+		$("#PROPERTY_B_RATE",container).val($("#PROPERTY_B_RATE",container).val()+"%");
+	});
+	$("#PROPERTY_C_RATE",container).focus(function(){
+		$("#PROPERTY_C_RATE",container).val("15");
+	});
+	$("#PROPERTY_C_RATE",container).blur(function(){
+		$("#PROPERTY_C_RATE",container).val($("#PROPERTY_C_RATE",container).val()+"%");
+	});
+	$("#PROPERTY_D_RATE",container).focus(function(){
+		$("#PROPERTY_D_RATE",container).val("5");
+	});
+	$("#PROPERTY_D_RATE",container).blur(function(){
+		$("#PROPERTY_D_RATE",container).val($("#PROPERTY_D_RATE",container).val()+"%");
+	});
+	$("#LAST_MONTH",getElementContext()).val();
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+});
+</script>

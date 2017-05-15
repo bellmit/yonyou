@@ -1,0 +1,67 @@
+<div class="dms-edit ajaxrest" data-url="/basedata/labourgroups/{[SUB_GROUP_CODE]}/subgroupsinfo" data-model="repair" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">二级分类息编辑</div>
+				<div class="modal-close">
+					<a data-dismiss="modal" class="btn btn-lg">
+					<i class="fa fa-remove"></i></a>
+				</div>
+			</div>
+			<div class="modal-body">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="form-group">
+									<label class="control-label col-xs-4">主分类代码</label>
+								<div class="col-xs-8">
+									<input id="mainGroupCode" maxlength="4" name="mainGroupCode" readonly="readonly" class="form-control" type="text" data-fieldName="MAIN_GROUP_CODE"/>
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-xs-4">主分类名称</label>
+						<div class="col-xs-8">
+							<input id="mainGroupName" maxlength="30" name="mainGroupName" disabled="disabled" class="form-control" type="text" data-fieldName="MAIN_GROUP_NAME"/>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">二级分类代码</label>
+							<div class="col-xs-8">
+								<input id="subGroupCode" maxlength="4" name="subGroupCode" class="form-control required" disabled="disabled" type="text" data-fieldName="SUB_GROUP_CODE"/>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<div class="form-group">
+						<label class="control-label col-xs-4">二级分类名称</label>
+						<div class="col-xs-8">
+							<input id="subGroupName" maxlength="30" name="subGroupName" class="form-control required" maxlength="30" type="text" data-fieldName="SUB_GROUP_NAME"/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+		<div class="modal-footer">
+			<a data-url="/basedata/labourgroups/{[SUB_GROUP_CODE]}/subgroups" data-model="repair" data-method="PUT" data-callBack="true"  class="btn blue"  data-toggle="confirmation"><i class="fa fa-save"></i>保存</a>
+			<a data-dismiss="modal" class="btn blue" ><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		//新增页面回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#subgroups",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	}); 
+</script>

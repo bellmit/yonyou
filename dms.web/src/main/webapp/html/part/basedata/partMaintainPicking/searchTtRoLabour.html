@@ -1,0 +1,56 @@
+<div class="dms-search">
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">维修项目明细</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-responsive" id="roLabourTable"></table>
+		</div>
+		<div class="modal-footer center-block">
+				<a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>返回
+			</a>
+	</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		var roNo = $("#roNo", getElementContext()).val();
+		new Datatable().initPagination({
+			src : "roLabourTable",
+			container:container,
+			url : dmsCommon.getDmsPath()["repair"] + "/basedata/ttRepairOrder/searchTtRoLabour/"+roNo,
+			rowID : "ITEM_ID",
+			autoHeight : false,
+			isQueryFirst : true,
+			columns : [ 
+			    {field : "MANAGE_SORT_CODE",title : "收费类别"}, 
+				{field : "CHARGE_PARTITION_CODE",title : "收费区分"},
+				{field : "LABOUR_CODE",title : "维修项目代码"}, 
+				{field : "LABOUR_NAME",title : "维修项目名称"},
+				{field : "LABOUR_PRICE",title : "工时单价"}, 
+				{field : "STD_LABOUR_HOUR",title : "标准工时"},
+				{field : "LABOUR_AMOUNT",title : "工时费"}, 
+				{field : "ASSIGN_LABOUR_HOUR",title : "派工工时"},
+				{field : "",title : "优惠金额"}, 
+				{field : "DISCOUNT",title : "折扣率"},
+				{field : "",title : "实收金额"},
+				{field : "WORKER_TYPE_CODE",title : "工种"},
+				{field : "TECHNICIAN",title : "技师"}, 
+				{field : "ASSIGN_TAG",title : "派工标志"},
+				{field : "CONSIGN_EXTERIOR",title : "是否委外"}, 
+				{field : "NEEDLESS_REPAIR",title : "是否不修"},
+				{field : "PRE_CHECK",title : "是否预检"},
+				{field : "INTER_RETURN",title : "是否内返"},
+				{field : "ACTIVITY_CODE",title : "活动编号"}, 
+				{field : "APP_NAME",title : "故障描述"},
+				{field : "REASON",title : "故障原因"}, 
+				{field : "REMARK",title : "备注"}
+			] 
+		});
+		
+		
+	});
+	
+</script>

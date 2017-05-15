@@ -1,0 +1,121 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">用户信息新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"  for="name" >姓名</label>
+								<div class="col-xs-8">
+									<input id="name" name="name" class="form-control " minlength="5" maxlength="20"  type="text" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">性别</label>
+								<div class="col-xs-8">
+									<select id="sex" name="sex" class="bs-select form-control "
+										data-type="oemDict" data-dictCode="1003"  >
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">用户名</label>
+								<div class="col-xs-8">
+									<input id="username" name="username" type="text"
+										class="form-control" />
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/forecastImport/addMaterialIds" data-model="manage" data-method="POST"
+				data-callBack="true" class="btn blue" data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+			</a> 
+			<a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+
+	//页面加载后初始化
+	 $(document).one("onload.dms",function(event,container){
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#userList",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+		
+		//绑定验证保存按钮  
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+		});
+		
+		//动态修改校验规则
+		$("a[data-onclickEvent1='true']",container).on("dms.click",function(event){
+			//删除规则
+			$("#name",container).removeClass("required");
+			$("#name",container).removeAttr("minlength");
+			$("#name",container).removeAttr("maxlength");
+			//新增规则
+			$("#name",container).attr("maxlength",10);
+			$("#name",container).addClass("required");
+		});
+		
+		//页面元素校验&动态刷新下拉框的值
+		$("a[data-onclickEvent2='true']",container).on("dms.click",function(event){
+			//执行校验
+			var result = $("#name",container).validateElement();
+			//动态刷新下拉框的值
+			dmsDict.refreshSelectByUrl($("#seriesMemual",container),{brand: "11"});
+			
+			//动态刷新下拉框的值
+			var selectData = new Array();
+			selectData.push({id:"1",name:"张三"});
+			selectData.push({id:"2",name:"李四"});
+			selectData.push({id:"3",name:"王五"});
+			selectData.push({id:"5",name:"马自达"});
+			dmsDict.refreshSelectByData($( "#dynamicSelect" ,container),selectData,"id","name");
+			
+			
+			//拿到下拉框的值及显示名称
+			//console.log("value:"+$("#dynamicSelect" ,container).val());
+			//console.log("name:"+dmsDict.getSelectedOptionData($("#dynamicSelect",container)).name);
+			
+		});
+		//页面元素校验&动态刷新下拉框的值
+		$("a[data-onclickEvent3='true']",container).on("dms.click",function(event){
+			console.log("value:"+dmsCommon.getSystemParamInfo("1017","basicom_zipcode"));
+			
+		});
+		//触发回调
+		$("#paramUrl",container).on("callBack.dms",function(event,value){
+			console.log(value);
+		})
+
+	 });
+	
+</script>

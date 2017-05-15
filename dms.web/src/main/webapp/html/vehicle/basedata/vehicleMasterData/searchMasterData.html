@@ -1,0 +1,775 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+					  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">产品代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="productCodes" name="productCode"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">产品名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="productNames" name="productName"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">产品状态</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" id="productStatus" name="productStatus" data-dictCode="1308">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">品牌</label>
+							<div class="col-xs-8">
+								<select id="brands" class="bs-select form-control" data-ajaxSync = "true" name="brandName"
+									data-url="/basedata/brandsdict" data-model="manage" 
+									data-labelValue="BRAND_CODE" data-lableDesc="BRAND_NAME"
+									data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车系</label>
+							<div class="col-xs-8">
+								<select id="seriess" 
+									class="bs-select form-control" data-ajaxSync = "true" name="seriesName"
+									data-url="/basedata/selectSeries"
+									data-model="manage" data-labelValue="SERIES_CODE"
+									data-lableDesc="SERIES_NAME" data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车型</label>
+							<div class="col-xs-8">
+								<select id="models" 
+									class="bs-select form-control" data-ajaxSync = "true" name="modelName"
+									data-url="/basedata/selectModel"
+									data-model="manage" data-labelValue="MODEL_CODE"
+									data-lableDesc="MODEL_NAME" data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配置</label>
+							<div class="col-xs-8">
+								<select id="configCodes"  class="bs-select form-control" 
+									name="configName" data-ajaxSync = "true"
+									data-url="/basedata/selectConfig"
+									data-model="manage" data-labelValue="CONFIG_CODE"
+									data-lableDesc="CONFIG_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">颜色</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" id="colors" 
+									data-fieldName="COLOR" name="color" data-ajaxSync = "true"
+									data-url="/basedata/colors/colorinfo/dicts" data-model="repair"
+									data-labelValue="COLOR_CODE" data-lableDesc="COLOR_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否有效</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" id="isValids" name="isValid"
+									 data-dictCode="1278" data-value="12781001">
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row ">
+						<div class="col-xs-12 ">
+							<div class="query-btn">
+								<a href="javascript:;" class="btn blue"> <i
+									class="fa fa-search"></i>查询
+								</a>  <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+	
+	
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">车辆主数据列表</div>
+					<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+
+						 <a data-url="/basedata/vehicleMasterDatas/export/excel" data-model="vehicle"
+							data-method="downLoad" data-toggle="confirmation"
+							class="btn btn-outline "><i class="fa fa-upload"></i>导出</a>
+						</div>
+				   </div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_table"></table>
+				</div>
+			</div>
+		</div>
+	</form>
+	
+	<form class="form-horizontal">
+		<div class="modal-body" >
+			<div class="panel panel-default">
+                <div class="panel-heading">
+								<div class="pannel-name">基本信息</div>
+								<div class="pannel-tools">
+									<a href="javascript:;" class="expand"> <i
+										class="fa fa-chevron-down"></i></a>
+								</div>
+			    </div>
+				<div class="panel-body" data-parentTable ="dms_table" id="parent">
+					<div class="row" data-familySelect="true">
+					     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">产品代码</label>
+								<div class="col-xs-8">
+									<input id="productCode" name="productCode" type="text"
+										disabled="disabled"  class="form-control"
+										data-fieldName="PRODUCT_CODE" />
+								</div>
+							</div>
+						</div>
+						 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">产品名称</label>
+								<div class="col-xs-8">
+									<input id="productName" name="productName" type="text" disabled="disabled"
+										class="form-control " data-fieldName="PRODUCT_NAME" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">产品状态</label>
+								<div class="col-xs-8">
+									<select id="productStatuss" name="productStatus"  disabled="disabled"
+										class=" form-control " data-dictCode="1308"
+										data-fieldName="PRODUCT_STATUS">
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">产品类别</label>
+								<div class="col-xs-8">
+									<select id="productType" name="productType"  disabled="disabled"
+										class=" form-control " data-dictCode="1038"
+										data-fieldName="PRODUCT_TYPE">
+									</select>
+								</div>
+							</div>
+						</div>
+						 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌</label>
+								<div class="col-xs-8">
+									<select id="brand" class="form-control "  name="brandCode"
+									data-url="/basedata/brandsdict" data-model="manage"   disabled="disabled"
+									data-labelValue="BRAND_CODE" data-lableDesc="BRAND_NAME" data-fieldName="BRAND_CODE"
+									data-alwaysRefresh="true">
+									</select>
+								</div>
+							</div>
+						</div> 
+						
+						<!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌</label>
+								<div class="col-xs-8">
+									<select id="brand" class="bs-select form-control" name="brandCode"  data-alwaysRefresh="true"
+										data-url="/basedata/brandsdict" data-model="manage" data-fieldName="BRAND_CODE"
+										data-labelValue="BRAND_CODE" data-lableDesc="BRAND_NAME"
+										>
+									</select>
+								</div>
+							</div>
+						</div>
+						 -->
+					 	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系</label>
+								<div class="col-xs-8">
+									<select id="series" 
+										class=" form-control "  name="seriesCode" parent="brand" disabled="disabled"
+										data-url="/basedata/brandsdict/{[brand]}/seriessdict" 
+										data-model="manage" data-labelValue="SERIES_CODE" data-fieldName="SERIES_CODE"
+										data-lableDesc="SERIES_NAME" data-alwaysRefresh="true">
+									</select>
+								</div>
+							</div>
+						</div> 
+						
+						<!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系</label>
+								<div class="col-xs-8">
+									<select id="series" parent="brand"
+										class="bs-select form-control" name="seriesCode"
+										data-url="/basedata/brandsdictC/{[brand]}/seriessdictC" data-alwaysRefresh="true"
+										data-model="manage" data-labelValue="SERIES_CODE" data-fieldName="SERIES_CODE"
+										data-lableDesc="SERIES_NAME" >
+									</select>
+								</div>
+							</div>
+						</div>
+ -->
+
+					 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车型</label>
+							<div class="col-xs-8">
+								<select id="model" 
+									class=" form-control " name="modelCode" parent="series"  disabled="disabled"
+									data-url="/basedata/brandsdict/{[brand]}/seriessdict/{[series]}/modelsdict"
+									data-model="manage" data-labelValue="MODEL_CODE" data-fieldName="MODEL_CODE"
+									data-lableDesc="MODEL_NAME" data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div>	 
+					
+					<!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车型</label>
+							<div class="col-xs-8">
+								<select id="model" parent="series"
+									class="bs-select form-control" name="modelCode" data-alwaysRefresh="true"
+									data-url="/basedata/brandsdictC/{[brand]}/seriessdictC/{[series]}/modelsdictC"
+									data-model="manage" data-labelValue="MODEL_CODE" data-fieldName="MODEL_CODE"
+									data-lableDesc="MODEL_NAME" >
+								</select>
+							</div>
+						</div>
+					</div> -->
+							
+					 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配置</label>
+							<div class="col-xs-8">
+								<select id="configCode"  class=" form-control " 
+									name="configCode" parent="model"  disabled="disabled"
+									data-url="/basedata/brandsdict/{[brand]}/seriessdict/{[series]}/modelsdict/{[model]}/packagesdict"
+									data-model="manage" data-labelValue="CONFIG_CODE" data-fieldName="CONFIG_CODE" 
+									data-lableDesc="CONFIG_NAME" data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div> 
+					
+					<!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配置</label>
+							<div class="col-xs-8">
+								<select id="configCode" parent="model" class="bs-select form-control" name="configCode"
+									data-url="/basedata/brandsdictC/{[brand]}/seriessdictC/{[series]}/modelsdictC/{[model]}/packagesdictC"
+									data-model="manage" data-labelValue="CONFIG_CODE" data-alwaysRefresh="true"
+									data-lableDesc="CONFIG_NAME"  data-fieldName="CONFIG_CODE">
+								</select>
+							</div>
+						</div>
+					</div> -->
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">颜色</label>
+							<div class="col-xs-8">
+								<select class=" form-control" id="color" 
+									 name="color"  disabled="disabled"
+									data-url="/basedata/colors/colorinfo/dicts" data-model="repair" data-fieldName="COLOR_CODE"
+									data-labelValue="COLOR_CODE" data-lableDesc="COLOR_NAME" data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div>					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">上市日期</label>
+								<div class="col-xs-8" >
+									<div class="input-group date date-picker" data-date-end-date="+0d" data-orientation="top right">
+										<input id="enterDate" name="enterDate"  disabled="disabled"
+											class="form-control" type="text" data-fieldName="ENTER_DATE" />
+										<span class="input-group-btn">
+											<button class="btn default date-set" type="button" id="entDate" disabled="disabled">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button" id="entDates" disabled="disabled">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>				
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">退市日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker" data-date-end-date="+0d" data-orientation="top right">
+										<input id="exeuntDate" name="exeuntDate"  disabled="disabled"
+											class="form-control" type="text" data-fieldName="EXEUNT_DATE" />
+										<span class="input-group-btn">
+											<button class="btn default date-set" type="button" id="exetDate" disabled="disabled">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button" id="exetDates" disabled="disabled">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>				
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车厂指导价</label>
+								<div class="col-xs-8">
+									<input id="oemDirectivePrice" name="oemDirectivePrice" disabled="disabled"
+										type="text" maxlength="10" class="form-control number"
+										data-fieldName="OEM_DIRECTIVE_PRICE" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否有效</label>
+								<div class="col-xs-8">
+									<select id="isValid" class=" form-control" name="isValid"
+										data-dictCode="1278"  disabled="disabled"
+										data-fieldName="IS_VALID" >
+									</select>
+								</div>
+							</div>
+						</div>	
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销售指导价</label>
+								<div class="col-xs-8">
+									<input id="directivePrice" name="directivePrice" maxlength="10" type="text" disabled="disabled"
+										class="form-control number" data-fieldName="VEHICLE_PRICE" />
+								</div>
+							</div>
+						</div>	
+					
+							
+					
+						
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2 col-md-1 ">备注</label>
+								<div class="col-xs-8 col-sm-10 col-md-11">
+									<input id="remark" name="remark" type="text" maxlength="400" disabled="disabled"
+										class="form-control" data-fieldName="REMARK" />
+								</div>
+							</div>
+						</div>
+						 											
+									
+									
+
+					</div>
+				</div>
+				<div class="modal-footer center-block">
+			
+					<a data-url="/basedata/vehicleMasterDatas/master" disabled="disabled"
+						data-model="vehicle" data-method="PUT" id="back" data-beforeRequest="true" data-callBack="true"  data-validate="true"  class="btn blue"  data-toggle="confirmation"><i class="fa fa-save"></i>保存</a>
+					 <a data-dismiss="modal" data-onclickEvent="true" class="btn blue" id="backs"><i class="fa fa-undo"></i>取消</a>
+				</div>
+				
+			</div>
+		
+			
+		
+			
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			    url : dmsCommon.getDmsPath()["vehicle"] + "/basedata/vehicleMasterDatas",
+				rowID : "PRODUCT_CODE",
+				sortName : "PRODUCT_CODE",
+				sortOrder : "PRODUCT_CODE",
+				sortOrder : "asc",
+				selectItemName:"userIds",
+				//checkboxHeader:true, 
+				autoHeight : false,
+				undefinedText : "",
+				columns : [ 
+	              
+	                {field : "PRODUCT_CODE",title : "产品代码"},
+	                {field : "PRODUCT_NAME",title : "产品名称"},
+	                {field : "BRAND_NAME",title : "品牌",inputHiddenFormat : {hiddenField:"BRAND_CODE"}},
+	                {field : "SERIES_NAME",title : "车系",inputHiddenFormat : {hiddenField:"SERIES_CODE"}},
+	                {field : "MODEL_NAME",title : "车型",inputHiddenFormat : {hiddenField:"MODEL_CODE"}},
+	                {field : "CONFIG_NAME",title : "配置",inputHiddenFormat : {hiddenField:"CONFIG_CODE"}},
+	                {field : "COLOR_NAME",title : "颜色",inputHiddenFormat : {hiddenField:"COLOR_CODE"}},
+	                {field : "PRODUCT_STATUS",title : "产品状态",codeFormat : {type:"dict",codeType:"1308"}},
+	                {field : "VEHICLE_PRICE",title : "销售指导价",numberFormat : {decimal:2}},
+	                {field : "OEM_DIRECTIVE_PRICE",title : "车厂指导价",numberFormat : {decimal:2}},
+	                {field : "WHOLESALE_DIRECTIVE_PRICE",title : "批售指导价",numberFormat : {decimal:2}},
+	                {field : "IS_VALID",title : "是否有效",codeFormat : {type:"dict",codeType:"1278"}},
+	                {field : "OEM_TAG",title : "是否OEM",codeFormat : {type:"dict",codeType:"1278"}},
+	                {field : "ENTER_DATE",title : "上市日期 ",dateFormat : {format:"YYYY-MM-DD"}},
+	                {field : "EXEUNT_DATE",title : "退市日期",dateFormat : {format:"YYYY-MM-DD"}},
+	                {field : "PRODUCT_TYPE",title : "产品类别",codeFormat : {type:"dict",codeType:"1038"}},
+	                {field : "REMARK",title : "备注"},
+	                {field : "YEAR_MODEL",title : "年款"},
+	                {field : "EXHAUST_QUANTITY",title : "发动机排量"},
+	                {field : "OIL_TYPE",title : "燃油类型",codeFormat : {type:"dict",codeType:"5055"}},
+	                {field : "IS_MUST_PDI",title : "是否必须PDI",codeFormat : {type:"dict",codeType:"1278"}},
+	                {radio:true}
+				],
+				onLoadSuccess : function() {
+					var rownu = $("#dms_table",container).dmsTable().getTableRows();
+					if(rownu<=0){
+						$("a[data-method='downLoad']",container).attr("disabled","true");
+					}else{
+						$("a[data-method='downLoad']",container).removeAttr("disabled");
+					}
+				},onCheck:function(row){
+					var selectRow = $("#dms_table",container).dmsTable().getFirstSelection();
+				 	
+					 if(selectRow.OEM_TAG=='12781001'){
+						 $("#directivePrice",container).removeAttr("disabled");
+						$("#back",container).removeAttr("disabled","disabled");
+						$("#productName",container).attr("disabled","disabled");
+						$("#productStatuss",container).attr("disabled","disabled");
+						$("#productStatuss",container).removeClass("required");
+						$("#productType",container).attr("disabled","disabled");
+						$("#productType",container).removeClass("required");
+						$("#brand",container).attr("disabled","disabled");
+						$("#brand",container).removeClass("required");
+						$("#series",container).attr("disabled","disabled");
+						$("#series",container).removeClass("required");
+						$("#model",container).attr("disabled","disabled");
+						$("#model",container).removeClass("required");
+						$("#configCode",container).attr("disabled","disabled");
+						$("#configCode",container).removeClass("required");
+						$("#color",container).attr("disabled","disabled");
+						$("#enterDate",container).attr("disabled","disabled");
+						$("#exeuntDate",container).attr("disabled","disabled");
+						$("#oemDirectivePrice",container).attr("disabled","disabled");
+						$("#isValid",container).attr("disabled","disabled");
+						$("#remark",container).attr("disabled","disabled");
+						$("#entDate",container).attr("disabled","disabled");
+						$("#exetDate",container).attr("disabled","disabled");
+						$("#entDates",container).attr("disabled","disabled");
+						$("#exetDates",container).attr("disabled","disabled");
+					
+						} else if(selectRow.OEM_TAG=='12781002'){
+							$("#back",container).removeAttr("disabled","disabled");
+							$("#directivePrice",container).removeAttr("disabled");
+							$("#productName",container).removeAttr("disabled");
+							$("#productStatuss",container).removeAttr("disabled");
+							$("#productStatuss",container).addClass("required");
+							$("#productType",container).removeAttr("disabled");
+							$("#productType",container).addClass("required");
+							$("#brand",container).removeAttr("disabled");
+							$("#brand",container).addClass("required");
+							$("#series",container).removeAttr("disabled");
+							$("#series",container).addClass("required");
+							$("#model",container).removeAttr("disabled");
+							$("#model",container).addClass("required");
+							$("#configCode",container).removeAttr("disabled");
+							$("#configCode",container).addClass("required");
+							$("#color",container).removeAttr("disabled");
+							$("#enterDate",container).removeAttr("disabled");
+							$("#exeuntDate",container).removeAttr("disabled");
+							$("#oemDirectivePrice",container).removeAttr("disabled");
+							$("#isValid",container).removeAttr("disabled");
+							$("#remark",container).removeAttr("disabled");
+							$("#entDate",container).removeAttr("disabled");
+							$("#exetDate",container).removeAttr("disabled");
+							$("#entDates",container).removeAttr("disabled");
+							$("#exetDates",container).removeAttr("disabled");
+					
+							 
+					}  
+					
+					if (!isStringNull(selectRow.PRODUCT_NAME)){
+						$("#productName",container).setDmsValue(selectRow.PRODUCT_NAME);
+					}else{
+						$("#productName",container).setDmsValue(0);
+					}
+					if (!isStringNull(selectRow.PRODUCT_CODE)){
+						$("#productCode",container).setDmsValue(selectRow.PRODUCT_CODE);
+					}else{
+						$("#productCode",container).setDmsValue(0);
+					}
+					if (!isStringNull(selectRow.PRODUCT_STATUS)){
+						$("#productStatuss",container).setDmsValue(selectRow.PRODUCT_STATUS);
+					}else{
+						$("#productStatuss",container).setDmsValue(0);
+					}
+					if (!isStringNull(selectRow.PRODUCT_TYPE)){
+						$("#productType",container).setDmsValue(selectRow.PRODUCT_TYPE);
+					}else{
+						$("#productType",container).setDmsValue(0);
+					}
+					
+					if (!isStringNull(selectRow.BRAND_CODE)){
+						$("#brand",container).setDmsValue(selectRow.BRAND_CODE);
+					}else{
+						$("#brand",container).setDmsValue(0);
+					}
+					
+					if (!isStringNull(selectRow.SERIES_CODE)){
+						//$("#series",container).selectpicker('val',selectRow.SERIES_CODE);
+						$("#series",container).attr('data-value',selectRow.SERIES_CODE);
+						//$("#dealStatus", container).selectpicker('val','15051003');	
+					}else{
+						$("#series",container).setDmsValue(0);
+					}
+					if (!isStringNull(selectRow.MODEL_CODE)){
+						//$("#model",container).setDmsValue(selectRow.MODEL_CODE);
+						$("#model",container).attr('data-value',selectRow.MODEL_CODE);
+					}else{
+						$("#model",container).setDmsValue(0);
+					}
+					if (!isStringNull(selectRow.CONFIG_CODE)){
+						//$("#configCode",container).setDmsValue(selectRow.CONFIG_CODE);
+						$("#configCode",container).attr('data-value',selectRow.CONFIG_CODE);
+					}else{
+						$("#configCode",container).setDmsValue(0);
+					}
+					if (!isStringNull(selectRow.COLOR_CODE)){
+						$("#color",container).setDmsValue(selectRow.COLOR_CODE);
+					}else{
+						$("#color",container).setDmsValue(0);
+					}
+					if (!isStringNull(selectRow.ENTER_DATE)){
+						$("#enterDate",container).setDmsValue(selectRow.ENTER_DATE);
+					}else{
+						$("#enterDate",container).setDmsValue("");
+					}
+					if (!isStringNull(selectRow.EXEUNT_DATE)){
+						$("#exeuntDate",container).setDmsValue(selectRow.EXEUNT_DATE);
+					}else{
+						$("#exeuntDate",container).setDmsValue("");
+					}
+					if (!isStringNull(selectRow.OEM_DIRECTIVE_PRICE)){
+						$("#oemDirectivePrice",container).setDmsValue(selectRow.OEM_DIRECTIVE_PRICE);
+					}else{
+						$("#oemDirectivePrice",container).setDmsValue(0);
+					}
+					if (!isStringNull(selectRow.IS_VALID)){
+						$("#isValid",container).setDmsValue(selectRow.IS_VALID);
+					}else{
+						$("#isValid",container).setDmsValue(0);
+					}
+					if (!isStringNull(selectRow.VEHICLE_PRICE)){
+						$("#directivePrice",container).setDmsValue(selectRow.VEHICLE_PRICE);
+					}else{
+						$("#directivePrice",container).setDmsValue(0);
+					}
+					if (!isStringNull(selectRow.REMARK)){
+						$("#remark",container).setDmsValue(selectRow.REMARK);
+					}else{
+						$("#remark",container).setDmsValue(0);
+					}
+				}
+		
+		/* , onClickRow(rowData, element){
+					 if(rowData.OEM_TAG=='12781001'){
+						 $("#directivePrice",container).removeAttr("disabled");
+						$("#back",container).removeAttr("disabled","disabled");
+						$("#productName",container).attr("disabled","disabled");
+						$("#productStatuss",container).attr("disabled","disabled");
+						$("#productStatuss",container).removeClass("required");
+						$("#productType",container).attr("disabled","disabled");
+						$("#productType",container).removeClass("required");
+						$("#brand",container).attr("disabled","disabled");
+						$("#brand",container).removeClass("required");
+						$("#series",container).attr("disabled","disabled");
+						$("#series",container).removeClass("required");
+						$("#model",container).attr("disabled","disabled");
+						$("#model",container).removeClass("required");
+						$("#configCode",container).attr("disabled","disabled");
+						$("#configCode",container).removeClass("required");
+						$("#color",container).attr("disabled","disabled");
+						$("#enterDate",container).attr("disabled","disabled");
+						$("#exeuntDate",container).attr("disabled","disabled");
+						$("#oemDirectivePrice",container).attr("disabled","disabled");
+						$("#isValid",container).attr("disabled","disabled");
+						$("#remark",container).attr("disabled","disabled");
+						$("#entDate",container).attr("disabled","disabled");
+						$("#exetDate",container).attr("disabled","disabled");
+						$("#entDates",container).attr("disabled","disabled");
+						$("#exetDates",container).attr("disabled","disabled");
+					
+						} else if(rowData.OEM_TAG=='12781002'){
+							$("#back",container).removeAttr("disabled","disabled");
+							$("#directivePrice",container).removeAttr("disabled");
+							$("#productName",container).removeAttr("disabled");
+							$("#productStatuss",container).removeAttr("disabled");
+							$("#productStatuss",container).addClass("required");
+							$("#productType",container).removeAttr("disabled");
+							$("#productType",container).addClass("required");
+							$("#brand",container).removeAttr("disabled");
+							$("#brand",container).addClass("required");
+							$("#series",container).removeAttr("disabled");
+							$("#series",container).addClass("required");
+							$("#model",container).removeAttr("disabled");
+							$("#model",container).addClass("required");
+							$("#configCode",container).removeAttr("disabled");
+							$("#configCode",container).addClass("required");
+							$("#color",container).removeAttr("disabled");
+							$("#enterDate",container).removeAttr("disabled");
+							$("#exeuntDate",container).removeAttr("disabled");
+							$("#oemDirectivePrice",container).removeAttr("disabled");
+							$("#isValid",container).removeAttr("disabled");
+							$("#remark",container).removeAttr("disabled");
+							$("#entDate",container).removeAttr("disabled");
+							$("#exetDate",container).removeAttr("disabled");
+							$("#entDates",container).removeAttr("disabled");
+							$("#exetDates",container).removeAttr("disabled");
+					
+							 
+					}  
+					
+					
+				} */
+			});
+		
+		/* //当产品状态选择退市自动带出退市时间 
+	 	 $("#productStatuss",container).bindChange(function(obj){
+			var selectValue=$("#productStatuss",container).val();
+			alert(selectValue);
+			if(selectValue=="13081002"){
+				
+				$("#exeuntDate",container).setDmsValue(moment().format("YYYY-MM-DD"));
+			}else{
+				$("#exeuntDate",container).setDmsValue("");
+			}
+		}); 
+
+		 $("#exeuntDate",container).bindChange(function(obj){
+			var selectValue=$("#exeuntDate",container).val();
+			if(selectValue=="" || selectValue==undefined ){
+				$("#productStatuss",container).setDmsValue("13081001");
+			}else{
+				$("#productStatuss",container).setDmsValue("13081002");
+			}
+		});  */
+		
+		
+		//事件点击
+		$("a[data-onclickEvent='true']", container).on("dms.click",
+				function(event) {
+			
+					dmsCommon.refreshPageByUrl("vehicle/basedata/vehicleMasterData/searchMasterData.html",container);
+				});
+	
+		$("a[data-beforeRequest='true']",container).on('beforeRequest.dms',function(event,returnResult){
+			var productStatuss=$("#productStatuss",container).val();
+			var exeuntDate=$("#exeuntDate",container).val();
+			var enterDate=$("#enterDate",container).val();
+			var falg=true;
+			if(productStatuss=="13081002"  &&  exeuntDate==""||exeuntDate==undefined){
+				//alert("退市日期不能为空");
+				dmsCommon.tip({status:"warning",msg:"退市日期不能为空"});
+				falg=false;
+				return ;
+			}
+			
+			if(productStatuss=="13081002"&& exeuntDate<enterDate){
+					dmsCommon.tip({status:"warning",msg:"退市日期不能小于上市日期"});
+					falg=false;
+					return ;
+				
+			}
+			
+			
+			if(!falg){
+				returnResult.status = false;
+				return ;
+			}
+			returnResult.status = true;
+        });
+		
+		//新增页面的回调函数
+	 	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			
+				//关闭窗口
+				//$("a[data-dismiss='modal']",container).click();
+				dmsCommon.refreshPageByUrl("vehicle/basedata/vehicleMasterData/searchMasterData.html",container);
+				//刷新表格
+				//$("#dms_table",container).dmsTable().refreshTableWithForm();
+			
+		}); 
+		 $("#productStatuss",container).bindChange(function(obj){
+				var selectValue=$("#productStatuss",container).val();
+				 if(selectValue=="13081002"){
+				    $("#exeuntDate",container).setDmsValue(moment().format("YYYY-MM-DD"));
+					$("#exeuntDate",container).attr("disabled",false);
+					$("#exetDate",container).attr("disabled",false);
+					$("#exetDates",container).attr("disabled",false);
+				} 
+				if(selectValue=="13081001"){
+					$("#exeuntDate",container).setDmsValue("");
+					$("#exeuntDate",container).attr("disabled",true);
+					$("#exetDate",container).attr("disabled",true);
+					$("#exetDates",container).attr("disabled",true);
+				}
+			}); 
+ 	 /* 	$("#exeuntDate",container).bindChange(function(obj){
+			 var selectValues=$("#exeuntDate",container).val();
+				 if(selectValues=="" || selectValues==undefined ){
+					$("#productStatuss",container).setDmsValue("13081002");
+					$("#exeuntDate",container).attr("disabled",false);
+				} 
+				 if(isStringNull($("#exeuntDate",container).val())){
+					$("#productStatuss",container).setDmsValue("13081001");
+					$("#exeuntDate",container).attr("disabled",false);
+				} 
+			});  */
+			 
+
+		 
+	});
+</script>  

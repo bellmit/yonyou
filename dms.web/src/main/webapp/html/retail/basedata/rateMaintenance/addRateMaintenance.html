@@ -1,0 +1,148 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">贴息利率信息新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌</label>
+								<div class="col-xs-8">
+									<select id="brandId"
+										class="bs-select form-control" name="brandGroupcode"
+										data-url="/basedata/material/brand/2"
+										data-model="manage" data-labelValue="BRAND_ID"
+										data-lableDesc="BRAND_NAME">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系</label>
+								<div class="col-xs-8">
+									<select id="seriesId" parent="brandId"
+										class="bs-select form-control" name="seriesGroupcode"
+										data-url="/basedata/material/series/2/{[brandId]}"
+										data-model="manage" data-labelValue="SERIES_ID"
+										data-lableDesc="SERIES_NAME">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车款</label>
+								<div class="col-xs-8">
+									<select id="groupId" parent="seriesId"
+										class="bs-select form-control" name="styleGroupcode"
+										data-url="/basedata/material/group/2/{[seriesId]}"
+										data-model="manage" data-labelValue="GROUP_ID"
+										data-lableDesc="GROUP_NAME" >
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">贷款银行</label>
+								<div class="col-xs-8">
+									<select class="bs-select form-control required" id="bankName"
+										name="codeId" data-url="/salesb/Charge/bank"
+										data-model="retail" data-lableDesc="BANK_NAME"
+										data-labelValue="ID">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">分期期数</label>
+								<div class="col-xs-8">
+									<select id="installmentNumber" name="installmentNumber" class="bs-select form-control"data-type="oemDict" data-dictCode="3387">
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-5">首付比例区间</label>
+								<div class="col-xs-3">
+									<input id="dpmS" name="dpmS"
+										class="form-control money required" type="text" value=""
+										datatype="0,is_null,10" />
+								</div>
+								<label class="control-label">%</label>
+								<div class="col-xs-3">
+									<input id="dpmE" name="dpmE"
+										class="form-control money required" type="text" value=""
+										datatype="0,is_null,10" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-5">贴息利率</label>
+							<div class="col-xs-3">
+								<input type="text" class="form-control money required" id="rate"
+									name="rate">
+							</div>
+							<label class="control-label">%</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-3">有效日期</label>
+						<div class="col-xs-9">
+							<div class="input-group input-daterange" data-opens="right">
+								<input type="text" class="form-control required" readonly
+									name="effectiveDateS"> <span class="input-group-addon">-</span>
+								<input type="text" class="form-control required" readonly
+									name="effectiveDateE"> <span class="input-group-btn">
+									<button class="btn default input-clear" type="button">
+										<i class="fa fa-close"></i>
+									</button>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal-footer center-block">
+			<a data-url="/tateMain/add" data-model="retail" data-method="POST"
+				data-callBack="true" class="btn blue" data-toggle="confirmation">
+				<i class="fa fa-save"></i>新增
+			</a> <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one("onload.dms",function(event,container){
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	});
+</script>

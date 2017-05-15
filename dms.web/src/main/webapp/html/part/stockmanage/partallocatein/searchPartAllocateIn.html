@@ -1,0 +1,420 @@
+<div class ="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-body">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+				
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">调拨入库单号</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										  <input id="allocateInNo" readonly  name="allocateInNo" maxlength="15" 
+											class="form-control" data-fieldName="ALLOCATE_IN_NO" type="text" /> 
+										<span class="input-group-btn">
+											<button class="btn default btn-sm" type="button" id="find1"  
+												data-url="part/stockmanage/partallocatein/searchPartAllocateItem.html" data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-sitemap"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+				
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">网内调拨单</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										  <input id="netAllocateNo" readonly  name="netAllocateNo"
+											class="form-control" data-fieldName="ALLOCATE_OUT_NO" type="text" /> 
+										<span class="input-group-btn">
+											<button class="btn default btn-sm" type="button" id="find2" disabled="disabled" 
+												data-url="part/stockmanage/partallocatein/searchPartAllocateOnlineItem.html" data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-sitemap"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">供应商代码</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										  <input id="customerCode" readonly  name="customerCode" maxlength="12" 
+											class="form-control" data-fieldName="CUSTOMER_CODE" type="text" /> 
+										<span class="input-group-btn">
+											<button class="btn default btn-sm" type="button" id="find3" disabled="disabled" 
+												data-url="part/stockmanage/partallocatein/searchCustomeer.html" data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-sitemap"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">是否呆滞调拨</label>
+						<div class="col-xs-8">
+							<select id="isIdleAllocation" name="isIdleAllocation" class="bs-select form-control" 
+							 data-fieldName="IS_IDLE_ALLOCATION"  data-dictCode="1278" disabled="disabled" >
+							</select>
+						</div>
+					</div>
+				</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			 	  		<div class="form-group">  
+								<label class="control-label col-xs-4">入库日期</label>
+									<div class="col-xs-8">
+										<div class="input-group date date-picker"  id="datepicker" data-defaulttoday="true">
+											<input id="stockInDate" name="stockInDate"  readonly
+									data-fieldName="STOCK_IN_DATE"  class="form-control required" type="text" value=""/>
+												 <span class="input-group-btn">
+												<button class="btn default date-set" type="button">
+													<i class="fa fa-calendar"></i>
+												</button>
+											</span>
+										</div>
+									</div>
+								</div>
+						</div> 
+					
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">入库凭证</label>
+					<div class="col-xs-8 ">
+						<input type="text" class="form-control" id="stockInVoucher" name="stockInVoucher" 
+						data-fieldName="STOCK_IN_VOUCHER"  maxlength="12" readonly>
+					</div>
+				</div>
+			</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">供应商名称</label>
+					<div class="col-xs-8 ">
+						<input type="text" class="form-control" id="customerName" name="customerName" 
+						data-fieldName="CUSTOMER_NAME"  maxlength="120" readonly>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-6">分厂调拨出库单号</label>
+								<div class="col-xs-6">
+									<div class="input-group">
+										  <input id="allocateOutNo" readonly  name="allocateOutNo"
+											class="form-control" data-fieldName="ALLOCATE_OUT_NO" type="text" /> 
+										<span class="input-group-btn">
+											<button class="btn default btn-sm" type="button" id="find4" disabled="disabled" 
+												data-url="part/stockmanage/partallocatein/searchBranchFactoryAllocateItem.html" data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-sitemap"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+									<div class="form-group">
+										<label class="control-label col-xs-4 col-sm-2">备注</label>
+										<div class="col-xs-8 col-sm-10">
+											<input type="text" class="form-control" id="remark" name="remark" value="" 
+											data-fieldName="REMARK" maxlength="400">
+										</div>
+									</div>
+								</div>
+			
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">是否网内调拨</label>
+						<div class="col-xs-8">
+							<select id="isNetTransfer" name="isNetTransfer" class="bs-select form-control" 
+							  data-fieldName="IS_NET_TRANSFER"  data-dictCode="1278" disabled="disabled" >
+							</select>
+						</div>
+					</div>
+				</div>
+				
+				</div>
+			</div>
+		</div>
+	<!-- 隐藏域 -->
+		 <input  id="items" name="items"   class="form-control  "  type="hidden" readonly/> <!-- type="hidden"  -->
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name" >调拨入库信息</div>
+		<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+						<a class="btn btn-outline" data-width="modal-lg" data-url="part/stockmanage/partallocatein/addPartAllocateInItem.html"
+							disabled="disabled"  id="add" data-toggle="modal"> <i class="fa fa-plus-square"></i> 新增
+						</a> 
+							<a class="btn blue hidden" data-width="modal-lg"  data-url="part/stockmanage/partallocatein/searchfailedPart.html"  data-width="modal-lg" 
+							 id="add2" data-toggle="modal"> <i class="fa fa-plus-square"></i> 新增
+						</a> 
+						</div>
+					</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_part_allocate_in"></table>
+		</div>
+	</div>
+</div>
+<!-- 底部按钮 -->
+		<div class="modal-footer center-block">
+			<!-- 	<a data-errorCallBack="true" id="create" class="btn blue"  ><i class="fa fa-plus-square"></i>新建</a> -->
+				<a class="btn blue"    id="create" data-toggle="confirmation"  data-beforeRequest="true">
+					 <i class="fa fa-plus-square" ></i> 新建</a> 
+					 
+				<a id="save" data-model="part" data-beforeRequest="true" class="btn blue ajaxrest" disabled="disabled" 
+				data-validate="true" data-onclickEvent="true" data-callBack="true"><i class="fa fa-save"></i>保存</a> 
+				
+				<!-- 	<a id="enterRecord" data-model="repair" data-beforeRequest="true" class="btn blue ajaxrest"disabled="disabled" 
+				data-validate="true" data-onclickEvent="true" data-callBack="true"><i class="fa fa-save"></i>入账</a> 
+				 -->
+				<a id="enterRecord" data-model="part"  data-beforeRequest="true"
+					class="btn blue " disabled="disabled"  data-toggle="confirmation"  data-callBack="true"
+						><i class="fa fa-plus-square"></i>入账</a> 
+						
+				<a class="btn blue"  disabled="disabled"  id="cancel" data-toggle="confirmation" 
+				 data-beforeRequest="true"> <i class="fa fa-undo" ></i> 取消</a> 
+				 
+					<a id="obsolete" data-model="part" data-beforeRequest="true" class="btn blue ajaxrest" disabled="disabled" 
+				data-validate="true" data-onclickEvent="true" data-callBack="true"><i class="fa fa-save"></i>作废</a> 
+				
+				<a id="print" data-model="part" data-beforeRequest="true" class="btn blue ajaxrest" disabled="disabled" 
+				data-validate="true" data-onclickEvent="true" data-callBack="true"><i class="fa fa-print"></i>打印</a> 
+				
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+function isEmptyObject(obj) {
+	  for (var key in obj) {
+	    return false;
+	  }
+	  return true;
+	}
+	$(document).one("onload.dms",function(event,container){
+		var items=[];
+		$("#stockInDate", container).setElementReadOnly();
+		new Datatable().initPagination({
+			src : "dms_part_allocate_in",
+			container:container,
+			autoHeight: false,
+			uniqueDataName:"PART_NO,STORAGE_CODE",
+			columns : [ 
+			    {title : "操作",operateFormat : [
+                       {type:"edit",openWidth:"modal-lg",url:"part/stockmanage/partallocatein/editPartAllocateInItem.html",
+							doubleClick:true,isShow:function(value, row, index){
+								var rows=$("#dms_part_allocate_in",container).dmsTable().getRowDataByIndex();//获取表格里的所有
+								$(rows).each(function(index){
+									if(rows[index].FLAG=="A"){
+									}else{
+										if($("#allocateInNo",container).val()==""){
+											rows[index].FLAG="A";
+										}else{
+											rows[index].FLAG="S";
+										}
+									}
+								});
+								  if($("#print",container).attr("disabled")==undefined){
+									   //入账后不可被删除
+									   return false;
+								   }
+                    	   return true;
+					   },onBeforeEvent:function(value, row, index,obje){
+							$(obje).data("pageData",row);
+						 }},
+					   {type : "localDel",title:"本地删除",isShow:function(value, row, index){
+						   
+						   if($("#isNetTransfer",container).val()==12781001||$("#isIdleAllocation",container).val()==12781001){
+							   //网内调拨和呆滞调拨的配件不可被删除，只能被修改
+							   return false;
+						   }
+						   if($("#print",container).attr("disabled")==undefined){
+							   //入账后不可被删除
+							   return false;
+						   }
+							return true;
+						},onBeforeEvent:function(value, row, index){
+						//	alert(row.ITEM_ID);
+							$("#save",container).removeAttr("disabled");//激活保存按钮
+						//	console.log(items);
+						//	console.log(items.length);
+							if(items.length==0){
+								items[0]=row.ITEM_ID;
+							}
+							items[items.length]=row.ITEM_ID;
+						//	console.log(items);
+							//$("#dms_part_allocate_in",container).dmsTable().deleteRowByIndex(index);
+						},onAfterEvent:function(value, row, index){
+							//alert(items);
+							$("#items",container).val(items);
+						}
+						 } ]},
+            {field:"STORAGE_NAME",title:"仓库",
+            	   inputHiddenFormat:{hiddenFieldName:"storageCode,itemId,flag,partBatchNo",hiddenField:"STORAGE_CODE,ITEM_ID,FLAG,PART_BATCH_NO"}}, 
+    			{field:"STORAGE_POSITION_CODE",inputField:"storagePositionCode",title:"库位",inputHiddenFormat:{}},
+    			{field:"PART_NO",inputField:"partNo",title:"配件代码",inputHiddenFormat:{}},
+    			{field:"PART_NAME",inputField:"partName",title:"配件名称",
+						inputHiddenFormat:{hiddenField:"PART_NAME"}},
+    			{field:"UNIT_NAME",inputField:"unitCode",title:"计量单位",inputHiddenFormat:{hiddenField:"UNIT_CODE"}},
+    			{field:"IN_QUANTITY",inputField:"inQuantity",title:"入库数量",
+						inputHiddenFormat:{hiddenField:"IN_QUANTITY"},numberFormat : {decimal:2}},
+    			{field:"IN_PRICE",inputField:"inPrice",title:"入库不含税单价", 
+						inputHiddenFormat : {hiddenField:"IN_PRICE"},numberFormat : {decimal:4}},
+    			{field:"IN_AMOUNT",inputField:"inAmount",title:"入库不含税金额",
+						 inputHiddenFormat : {hiddenField:"IN_AMOUNT"},numberFormat : {decimal:2}}
+					/*   {field:"FLAG",title:"标志",inputField:"flag",inputHiddenFormat:{hiddenField:"FLAG"}} */
+			],onLoadSuccess : function() {
+				if($("#allocateInNo",container).val()==""){//若没有调拨单号，则为新增，item_id为默认值N
+					var rows=$("#dms_part_allocate_in",container).dmsTable().getRowDataByIndex();//获取表格里的所有
+				//	遍历每一行数据：
+					$(rows).each(function(index){
+						rows[index].ITEM_ID="N";
+						alert(rows[index].ITEM_ID+":"+rows[index].FLAG);
+					});
+				}
+				
+				//alert($("#allocateInNo",container).val());
+			},	onClickRow:function(row,$this){
+			}
+		});
+		//通过值改变事件刷新表格1
+	  $("input[id='allocateInNo']",container).bindChange(function(obj){
+			   $("#dms_part_allocate_in",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["part"]
+			   + "/stockmanage/allocateInOders/Items/"+$("#allocateInNo",container).val());
+			   $("#dms_part_allocate_in",container).dmsTable().refreshTableWithForm();
+			}); 
+		//通过值改变事件刷新表格2
+		 $("input[id='netAllocateNo']",container).bindChange(function(obj){
+			   $("#dms_part_allocate_in",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["part"]
+			   + "/stockmanage/allocateInOders/AllocateOutNetItem/"+$("#netAllocateNo",container).val());
+			   $("#dms_part_allocate_in",container).dmsTable().refreshTableWithForm();
+			});
+		//成功回调函数
+				$("a[data-callBack='true']", container).on("callBack.dms",function(event, response) {
+					 if($(this).attr('id')=="save"){
+						 $("#save",container).attr("disabled","disabled");//关闭新建按钮
+					//	 alert(response);//检测返回值
+						 $("#allocateInNo",container).setDmsValue(response);
+				//	alert(items);
+							items=[];
+							$("#items",container).val("");
+					 }
+					if($(this).attr('id')=="obsolete"){
+						
+						dmsCommon.refreshPageByUrl("part/stockmanage/partallocatein/searchPartAllocateIn.html",container);//刷新页面
+					 }
+					if($(this).attr('id')=="enterRecord"){
+						$("#enterRecord",container).attr("disabled","disabled");//关闭入账按钮
+						$("#add",container).attr("disabled","disabled");//关闭新增按钮
+						$("#obsolete",container).attr("disabled","disabled");//关闭作废按钮
+						$("#print",container).removeAttr("disabled");//打开打印按钮
+						//刷新表格
+						$("#dms_part_allocate_in",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["part"]
+						   + "/stockmanage/allocateInOders/Items/"+$("#allocateInNo",container).val());
+						   $("#dms_part_allocate_in",container).dmsTable().refreshTableWithForm();
+						
+						//dmsCommon.refreshPageByUrl("part/stockmanage/partallocatein/searchPartAllocateIn.html",container);//刷新页面
+					 }
+				});
+		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			 if($(this).attr('id')=="cancel"){
+				//刷新表格，重新加载页面
+				  dmsCommon.refreshPageByUrl("part/stockmanage/partallocatein/searchPartAllocateIn.html",container);
+				}
+			 if($(this).attr('id')=="save"){
+				 
+				 var customerCode=$("#customerCode",container).val();
+				//console.log(customerCode);
+			 if(customerCode==""){
+						//总共的状态类型：info、success、error、warning
+							dmsCommon.tip({status:"error",msg:"供应商代码不能为空！"});
+					} else{
+						$(this).attr("data-method","POST");
+						$(this).attr("data-url","/stockmanage/allocateInOders/save");   
+						$("#save",container).attr("disabled","disabled");//关闭保存按钮
+						 $("#enterRecord",container).removeAttr("disabled");
+						 $("#obsolete",container).removeAttr("disabled");
+					}
+				}
+				 if($(this).attr('id')=="obsolete"){
+					// alert($("#customerCode",container).val()+":"+$("#allocateInNo",container).val());
+					 $(this).attr("data-method","DELETE");
+						$(this).attr("data-url","/stockmanage/allocateInOders/delete/" 
+								+$("#customerCode",container).val()+"/"+$("#allocateInNo",container).val());   
+				}
+			 if($(this).attr('id')=="create"){
+				 $("#create",container).attr("disabled","disabled");//关闭新建按钮
+				 $("#find1",container).attr("disabled","disabled");//关闭购入单号查询按钮
+				 $("#buyNo",container).attr("readonly","readonly");
+				 //打开查询经销商页面的按钮
+					$("#stockInDate", container).removeElementReadOnly();//打开日历功能
+				 $("#find2",container).removeAttr("disabled");
+				 $("#find3",container).removeAttr("disabled");
+				 //打开 新增 和保存、取消按钮
+				  $("#find4",container).removeAttr("disabled");
+				 $("#add",container).removeAttr("disabled");
+				 $("#cancel",container).removeAttr("disabled");
+				 $("#save",container).removeAttr("disabled");
+				$("#isIdleAllocation",container).selectpicker('val',12781002);
+				}
+				 if($(this).attr('id')=="enterRecord"){//isIdleAllocation
+					 var myDate = new Date();    
+				//	 myDate.toLocaleDateString()；//可以获取当前日期
+					myDate.toLocaleTimeString();    // 可以获取当前时间
+				//	 alert($("#allocateInNo",container).val()+":"+$("#isIdleAllocation",container).val()+":"+myDate);
+		//逐行判断配件和仓库是搭配，不搭配则弹出新增页面
+					//获取表格里所有行的数据：
+					var rows=$("#dms_part_allocate_in",container).dmsTable().getRowDataByIndex();//获取表格里的所有
+					//遍历每一行数据：
+					//var flag = false;
+					var failedIndex=[];
+					$(rows).each(function(index){
+						//alert(rows[index].STORAGE_CODE+":"+rows[index].PART_NO);
+						dmsCommon.ajaxRestRequest({
+							url : dmsCommon.getDmsPath()["part"] + "/stockmanage/allocateInOders/"
+							+rows[index].STORAGE_CODE+"/"+rows[index].PART_NO,
+							type : 'GET',sucessCallBack : function(data) { 
+									if(isEmptyObject(data)){ 
+										//总共的状态类型：info、success、error、warning
+										//dmsCommon.tip({status:"error",msg:"失败！"});
+										failedIndex[index]=index;
+										 //将此页面的值带到第三个页面
+									}else{//成功
+										 dmsCommon.tip({status:"info",msg:"成功！"});
+										 flag = true;
+					 				}
+									var row=[];
+									for(var i=0;i<failedIndex.length;i++){
+										row[i]=rows[i];
+									}
+									$("#add2").data("pageData",row);
+									if(failedIndex.length>0){
+										 $("a[id=add2]",container).click();
+									}
+								}
+							}); 
+					});
+					/* if(failedIndex.length<=0){
+					} */
+					$(this).attr("data-method","POST");
+					$(this).attr("data-url","/stockmanage/allocateInOders/enterRecord/"+$("#allocateInNo",container).val()+"/"
+							+$("#isIdleAllocation",container).val());   
+				} 
+			 returnResult.status =true;
+		});
+		
+	});
+</script>       

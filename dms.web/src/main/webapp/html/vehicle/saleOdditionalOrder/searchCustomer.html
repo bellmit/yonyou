@@ -1,0 +1,252 @@
+<div class="dms-search">
+<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">选择客户</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">客户编号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="customerNo"
+									name="customerNo">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">客户名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="customerName" name="customerName">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+						
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">客户类型</label>
+							<div class="col-xs-8">
+								<select id="customerType" name="customerType"
+									class="bs-select form-control" data-dictCode="1018"
+									data-value="">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">联系电话</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="contactorPhone" name="contactorPhone">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">意向级别</label>
+							<div class="col-xs-8">
+								<select id="intentLevel" name="intentLevel" data-fieldName="INTENT_LEVEL"
+													class="bs-select form-control" data-dictCode="1310"
+													data-value="" >
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">联系手机</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="contactorMobile" name="contactorMobile">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">主要车型</label>
+							<div class="col-xs-8">
+								<select id="isMainModel" name="isMainModel" class="bs-select form-control" data-dictCode="1278">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">客户分类</label>
+							<div class="col-xs-8">
+								<select id="tag" name="tag" class="bs-select form-control" data-ajaxSync = "true"  data-existsDefault="false">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">VIN</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" disabled="disabled" id="vin" name="vin">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">车牌号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" disabled="disabled" id="license" name="license">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+
+	
+					</div>
+					<div class="row ">
+						<div class="col-xs-12 ">
+							<div class="query-btn">
+								<a href="javascript:;" class="btn blue"> <i
+									class="fa fa-search"></i>查询
+								</a> 
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="dsa" class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">客户信息</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="customerList">
+					</table>
+				</div>
+			</div>
+			<div id="asd" class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">客户信息</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="customerList2">
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-onclickEvent="true"><i class="fa fa-save"></i>确定</a>
+			<a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消</a>
+		</div>
+</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){	
+	
+ 	new Datatable().initPagination({
+		src : "customerList",		
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/ordermanage/salesOdditionalOrder/customer",
+		sortName : "CUSTOMER_NO",
+		sortOrder : "asc",
+		pageSize:7,
+		autoHeight:false,
+		isQueryFirst:false,
+		columns : [ 
+		            {radio:true,sortable : false},
+		            {field : "CUSTOMER_NO",title : "客户编号"},
+					{field : "CUSTOMER_NAME",title : "客户名称"}, 
+					{field : "CUSTOMER_TYPE",title : "客户类型",codeFormat : {type:"dict",codeType:"1018"}},
+					{field : "CONTACTOR_PHONE",title : "联系人电话"},
+					{field : "CONTACTOR_MOBILE",title : "联系人手机"},
+					{field : "INTENT_LEVEL",title : "意向级别",codeFormat : {type:"dict",codeType:"1310"}},
+					{field : "CUS_SOURCE",title : "客户来源",codeFormat : {type:"dict",codeType:"1311"}},
+					{field : "CT_CODE",title : "证件类型",codeFormat : {type:"dict",codeType:"1239"}},
+					{field : "CERTIFICATE_NO",title : "证件号码"},
+		            {field : "BRAND_NAME",title : "意向品牌"},
+	    			{field : "SERIES_NAME",title:"意向车系"},
+	    			{field : "MODEL_NAME",title:"意向车型"},
+	    			{field : "CONFIG_NAME",title:"意向配置"},
+	    			{field : "COLOR_NAME",title:"意向颜色"},		        
+		            {field : "MEDIA_TYPE",title : "信息渠道",inputField:"mediaType",codeFormat : {type:"dict",codeType:"1298"}},
+		            {field : "MEDIA_DETAIL",title : "渠道细分"}
+		         ]
+	});
+ 	new Datatable().initPagination({
+		src : "customerList2",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/ordermanage/salesOdditionalOrder/customer",
+		sortName : "CUSTOMER_NO",
+		sortOrder : "asc",
+		pageSize:7,
+		autoHeight:false,
+		isQueryFirst:false,
+		columns : [ 
+		            {radio:true,sortable : false},
+		            {field : "CUSTOMER_NO",title : "客户编号"},
+					{field : "CUSTOMER_NAME",title : "客户名称"}, 
+					{field : "CUSTOMER_TYPE",title : "客户类型",codeFormat : {type:"dict",codeType:"1190"}},
+					{field : "CONTACTOR_PHONE",title : "联系人电话"},
+					{field : "CONTACTOR_MOBILE",title : "联系人手机"},
+					{field : "CT_CODE",title : "证件类型",codeFormat : {type:"dict",codeType:"1239"}},
+					{field : "CERTIFICATE_NO",title : "证件号码"},
+	    			{field : "VIN",title:"VIN"},
+	    			{field : "LICENSE",title:"车牌号码"}
+		            
+		         ]
+	});
+ 	
+ 	$("#asd").hide();
+ 	//绑定onchange 事件
+	$("#tag",container).bindChange(function(obj){
+		var tag = $("#tag",container).val();
+		if(tag == '1'){//潜在客户
+			$("#asd").hide();
+			$("#dsa").show();
+			$("#isMainModel",container).removeAttr("disabled","disabled");
+			$("#vin",container).attr("disabled","disabled");
+			$("#license",container).attr("disabled","disabled");
+			$("#intentLevel",container).removeAttr("disabled","disabled");
+		}else{//售后客户
+			$("#dsa").hide();
+			$("#asd").show();
+			$("#isMainModel",container).attr("disabled","disabled");
+			$("#vin",container).removeAttr("disabled","disabled");
+			$("#license",container).removeAttr("disabled","disabled");
+			$("#intentLevel",container).attr("disabled","disabled");
+			$("#intentLevel",container).selectpicker('val','');
+		}
+		
+	}); 	
+ 	
+ 	//动态刷新下拉框的值
+	var selectData = new Array();
+	selectData.push({id:"1",name:"潜在客户"});
+	selectData.push({id:"2",name:"售后客户"});
+	dmsDict.refreshSelectByData($( "#tag" ,container),selectData,"id","name"); 	
+ 	
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		var tag = $("#tag",container).val();
+		if(tag == '1'){
+			var selectRow = $("#customerList",container).dmsTable().getFirstSelection();
+			$("div[data-tableCustomerSelect='true']",getElementContext()).initHtmlContent(selectRow);
+		}else{
+			var selectRow = $("#customerList2",container).dmsTable().getFirstSelection();
+			$("div[data-tableCustomerSelect='true']",getElementContext()).initHtmlContent(selectRow);
+		}
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+	});
+	
+});
+</script>

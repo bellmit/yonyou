@@ -1,0 +1,116 @@
+<div class="dms-add"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">新增索赔基本参数设定</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+	
+								<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">工时代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control"  id="labourCode" name="labourCode" />
+							</div>
+						</div>
+					</div>
+					
+				<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">工时名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control"  id="labourName" name="labourName" />
+							</div>
+						</div>
+					</div>
+					
+				<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">技能类别</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control"  id="skillCategory" name="skillCategory" />
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">原料补贴</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control"  id="rawSubsidy" name="rawSubsidy" />
+							</div>
+						</div>
+					</div>
+					
+				<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">维修类型</label>
+							<div class="col-xs-8">
+								<select id="type" name="type" class="bs-select form-control"  data-type="oemDict"  data-dictCode="3337" >
+								</select>
+							</div>
+						</div>
+					</div>
+					
+				<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">索赔工时数</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control"  id="labourNum" name="labourNum" />
+							</div>
+						</div>
+					</div>
+				<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">类型</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control"  id="labourType" name="labourType" />
+							</div>
+						</div>
+					</div>
+					
+				<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系选择：</label>
+								<div class="col-xs-8">
+									<input id="groupCode"  type="checkbox"  name="groupCode"
+										data-url="/wrLabour/labourList"
+										data-model="vehicle" data-labelValue="GROUP_CODE"
+										data-lableDesc="GROUP_NAME" data-live-search="fales" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/wrLabour/addLabour" data-model="vehicle"
+				data-method="POST" data-callBack='true'
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>新增</a> <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("a.clear").click();
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	})
+</script>
+

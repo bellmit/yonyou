@@ -1,0 +1,53 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">出入库明细</div>
+				<div class="pannel-button">
+					<div class="btn-group btn-group-sm">
+						<a data-url="/partReport/reciepts/{[PART_BUY_ID]}/export/Items" data-model="report"
+							data-method="downLoad" data-toggle="confirmation"
+							class="btn btn-sm btn-outline "><i class="fa fa-download"></i>导出
+						</a>
+					</div>
+				</div>
+			</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+			</div>
+		<div class="form-actions">
+			<a data-goback="page" data-onclickEvent='true'
+				href="report/partReport/reciept/searchReciept.html"
+				class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initLocale({
+		src : "dms_table",
+		rowID:"PART_BUY_ID",
+		container:container,
+		url : dmsCommon.getDmsPath()["report"] + "/partReport/reciepts/{[PART_BUY_ID]}/Items",
+		sortName : "PART_BUY_ID", 
+		sortOrder : "asc",
+		autoHeight:false,
+		columns : [  
+		            {field : "STORAGE_NAME",title : "仓库名称",inputSelectFormat : {url:"/basedata/store/accessories/Warehouses",model:"part",labelValue:"STORAGE_CODE",lableDesc:"STORAGE_NAME"}},
+		            {field : "STORAGE_POSITION_CODE",title : "库位",inputTextFormat : {}},
+		            {field : "PART_CODE",title : "配件代码",inputHiddenFormat : {}},
+		            {field : "PART_NAME",title : "配件名称",inputHiddenFormat : {}},
+		            {field : "UNIT",title : "计量单位",inputHiddenFormat : {}},
+		            {field : "INQUANTITY",title : "入库数量",inputHiddenFormat : {},NumberFormat : {}},
+		            {field : "PRICE",title : "不含税单价",inputHiddenFormat : {},NumberFormat : {decimal : 2}},
+		            {field : "AMOUNT",title : "不含税金额",inputHiddenFormat : {},NumberFormat : {decimal : 2}},
+		            {field : "PRICETAXED",title : "含税单价",inputHiddenFormat : {},NumberFormat : {decimal : 2}},
+		            {field : "TAXEDAMOUNT",title : "含税金额",inputHiddenFormat : {},NumberFormat : {decimal : 2}},
+		            {field : "FROMTYPE",title : "来源方式",inputHiddenFormat : {},codeFormat : {type : "dict",codeType : "1305"}}
+		         ]
+		});
+	});
+</script>

@@ -1,0 +1,78 @@
+<div class="dms-edit ajaxrest" data-url="/service/project/{[SERVICE_ID]}/edit" data-model="retail">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-md-3">项目代码</label>
+							<div class="col-xs-8">
+								<input id="service_code" name="service_code" maxlength="4"
+									class="form-control" type="text" data-fieldName="SERVICE_CODE" disabled="disabled"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-md-3">项目名称</label>
+							<div class="col-xs-8">
+								<input id="service_name" name="service_name" maxlength="30"
+									class="form-control" type="text" data-fieldName="SERVICE_NAME" />
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group form-group-xs m-b-xs">
+							<label class="control-label col-xs-4 col-md-3">服务类型</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" id="service_type"
+									name="service_type" data-fieldName="SERVICE_TYPE"
+									data-dictCode="1402">
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-md-3">销售指导价</label>
+							<div class="col-xs-8">
+								<input id="directive_price" name="directive_price" maxlength="10"
+									class="form-control required number" type="text"
+									data-fieldName="DIRECTIVE_PRICE" />
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-md-3">成本单价</label>
+							<div class="col-xs-8">
+								<input id="cost_price" name="cost_price" class="form-control number" 
+									type="text" data-fieldName="COST_PRICE" maxlength="10" />
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2 col-md-1 ">备注</label>
+							<div class="col-xs-8 col-sm-10 col-md-11">
+								<textarea id="remark" name="remark" class="form-control"
+									rows="3" cols="" data-fieldName="remark" ></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-actions">
+			 <a data-dismiss="modal"
+				href="retail/ordermanage/serviceproject/searchService.html"
+				class="btn blue ajaxify"> <i class="fa fa-reply"></i>返回
+			</a>
+		</div>
+	</form>
+</div>

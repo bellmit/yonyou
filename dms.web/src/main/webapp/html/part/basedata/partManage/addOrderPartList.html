@@ -1,0 +1,131 @@
+<div class="dms-search" >
+	<form class="form-horizontal" >
+		<div class="modal-body">
+				<div class="row ">
+					
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="partCode" name="partCode"  >
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件名称</label>
+							<div class="col-xs-8">
+			  					<input type="hidden" id="partModels" name="partModels"/>
+								<input type="hidden" id="sjv" name="sjv" data-fieldName="sjv"/>
+								<input type="text" class="form-control" id="partName" name="partName" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件类别</label>
+							<div class="col-xs-8">
+								<select id="partModel" name="partModel" class="bs-select form-control" data-dictCode="8001" data-type="oemDict" data-value="" >
+								</select>
+							</div>
+						</div>
+					</div>
+    			</div>	
+			</div>
+			<div class="query-btn">
+				<div class="modal-footer center-block">
+				<a href="javascript:;" class="btn blue" > <i
+								class="fa fa-search" data-onclickEvent="true"></i> 查询
+							</a> 
+							
+				<a id = "undo" data-dismiss="modal" class="btn blue"><i
+							class="fa fa-undo"></i>关闭</a>
+				<a  id="save"  
+				data-callBack="true" class="btn blue" data-onclickEvent1="true"><i
+				class="fa fa-save"></i>确定</a>
+				</div>
+		</div>
+			
+	</form>
+	
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">信息列表 </div>
+			
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="partList"></table>
+		</div>
+	</div>
+	
+</div>
+<script type="text/javascript">
+ $(document).one("onload.dms",function(event,container){
+	 
+	 //根据上一个页面  进行赋值
+	 var sjv = ""
+	 var partModels = "";
+	
+	 var orderType = $("#orderTypeA",getElementContext()).val();
+	 if(orderType=='80041002' || orderType=='80041003' || orderType=='80041004'){
+		 partModels = '80011001';
+		 sjv = '10041002';
+	 }else if(orderType == '80041005'){
+		 partModels = '80011002';
+	 }else if(orderType == '80041001' || orderType == '80041008'){
+		 partModels = '80011006';
+	 }else if(orderType == '80041006'){
+		 partModels = '80011001'+","+"80011002"+","+"80011006";
+		
+	 }
+	 $("#sjv").val(sjv);
+	 $("#partModels").val(partModels);
+	 if(orderType != '80041006'){
+		 $("#partModel").selectpicker('val',partModels);
+	 }
+	 new Datatable().initPagination({
+			src : "partList",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/partOrderManageDLR/queryOrderPartList",
+			rowID : "PART_CODE",
+			autoHeight:false,
+			sortName : "PART_CODE",
+			sortOrder : "asc",
+			columns : [ 
+			    {checkbox:true,sortable : false},
+			  
+			    {title: "配件代码", field:'PART_CODE'},
+				{title: "配件名称", field:'PART_NAME'},
+				{title: "订货数量", field:'ORDER_NUM',visible : false},
+				{title: "配件类别", field:'PART_MDOEL', codeFormat : {type:"oemDict",codeType:"8001"}},
+				{title: "提报方式", field:'REPORT_TYPE', codeFormat : {type:"oemDict",codeType:"8003"}},
+				{title: "是否S", field:'IS_MJV', codeFormat : {type:"oemDict",codeType:"1004"}},
+				{title: "是否M", field:'IS_MOP', codeFormat : {type:"oemDict",codeType:"1004"}}
+			]
+			
+		});
+	
+	
+
+		$("a[data-onclickEvent1='true']",container).on("dms.click",function(event,container){
+			var selectRow = $("#partList",container).dmsTable().getSelections();
+			var item;
+			$.each(selectRow,function(index,row){
+				row["1"] = false;
+				$("#dcsList",getElementContext()).dmsTable().appendRow(row);
+			});
+			$("#save",getElementContext()).removeAttr('disabled');
+			
+			$("#undo",container).click();
+		});
+		//绑定查询按钮回调
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+ 		//	console.log("into callBack");
+		});
+});
+    
+</script>

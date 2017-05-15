@@ -1,0 +1,171 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">用户信息新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">姓名</label>
+								<div class="col-xs-8">
+									<input id="name" name="name" class="form-control" type="text" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">性别</label>
+								<div class="col-xs-8">
+									<select id="sex" name="sex" class="bs-select form-control"
+										data-dictCode="1002" data-value="10021001" data-excludeItems="10021002">
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">远程年龄例子</label>
+								<div class="col-xs-8">
+									<select id="example" name="example"
+										class="bs-select form-control" data-url="/basedata/positions/duty/dicts"
+										data-model="manage" data-labelValue="POSITION_CODE"
+										data-lableDesc="POSITION_NAME" data-excludeItems="12001001">
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">出生日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker"
+										data-date-format="yyyy/mm/dd">
+										<input id="birdthday" name="bridthday" readonly
+											class="form-control" type="text" value="" /> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">用户名</label>
+								<div class="col-xs-8">
+									<input id="username" name="username" type="text"
+										class="form-control" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">年龄</label>
+								<div class="col-xs-8">
+									<input id="age" name="age" type="text" class="form-control" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">有效状态</label>
+								<div class="col-xs-8">
+									<select id="status" name="status"
+										class="bs-select form-control" data-dictCode="1001"
+										data-value="10011002" data-existsDefault="false">
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">基数</label>
+								<div class="col-xs-8">
+									<input id="baseValue" name="baseValue" type="text"
+										class="form-control" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">薪水</label>
+								<div class="col-xs-8">
+									<input id="salary" name="salary" type="text"
+										class="form-control" data-autoValue="#age*(1-#baseValue)"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否状态</label>
+								<div class="col-xs-8">
+									<input id="status" name="status" type="radio"
+										data-dictCode="1004" data-value="10041001" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">工作开始时间</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker">
+										<input id="entryTime" name="entryTime" readonly
+											class="form-control" type="text" value="" /> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a  class="btn blue" data-onclickEvent="true"> <i class="fa fa-save"></i>确定
+			</a> <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+
+	//页面加载后初始化
+	 $(document).one("onload.dms",function(event,container){
+		//新增页面的回调函数
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event,response){
+			
+			$("#name",getParentModal(container)).val($("#name",container).val());
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+		});
+	 });
+	
+</script>

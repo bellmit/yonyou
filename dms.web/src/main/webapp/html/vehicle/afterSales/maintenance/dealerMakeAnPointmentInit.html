@@ -1,0 +1,39 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="modal-header">
+			<div class="modal-title">微信预约时段空闲度设定</div>
+		</div>
+		<div class="panel-footer">
+			<div style="text-align:center">
+			<a  data-url="/dealerMakeAnPointment/edit" data-model="vehicle" data-method="PUT" data-callBack='true'
+			class="btn blue" data-toggle="confirmation" ><i class="fa fa-save"></i>保存</a> 
+			</div>						
+		</div>
+		<div class="panel panel-default table-panel">
+
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+
+	</div>
+	</form>
+
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	 new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/dealerMakeAnPointment/dealerMakeAnPointmentSearch",
+		rowID : "ID",
+		sortName : "ID",
+		sortOrder : "asc",
+		pageSize:5,
+		columns : [ 
+				    {field : "RESERVE_DESC",title : "时间段",inputHiddenFormat : {hiddenField:"ID"}}, 
+				    {field : "RESERVE_NUM_LIMIT",title : "可接受预约的数量",inputNumberFormat : {defaultValue:0}}
+		]
+	});
+});
+</script>

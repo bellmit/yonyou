@@ -1,0 +1,83 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-body">
+			<div class="panel panel-default table-panel">
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_part">
+					</table>
+					<div class="row">
+						<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+							<div class="form-group">
+								<label class="control-label col-xs-4">折扣率</label>
+								<div class="col-xs-8">
+									<input id="rate" name="" data-fieldName="" value="1"
+										class="form-control" type="text"/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<div class="row">
+				<a href="javascript:;" class="btn blue"> <i
+					class="fa fa-search"></i> 收费类别</a> 
+				<a data-url="repair/order/repair/repairOrderTab/addRoPart.html" data-toggle="modal" data-width="modal-lg" class="btn blue"><i
+					class="fa fa-undo"></i> 新增</a>
+				<a href="javascript:;" class="btn blue"><i
+					class="fa fa-undo"></i> 删除</a>
+			</div>
+		</div>
+     </form>
+</div>
+<script type="text/javascript">   
+	 $(document).one("onload.dms",function(event,container){
+		 new Datatable().initPagination({
+				src : "dms_part",
+	   		    url : dmsCommon.getDmsPath()[""] + "",
+	   			rowID : "PART_NO",
+	   			sortName : "PART_NO",
+	   			sortOrder : "asc",
+	   			autoHeight:false,
+	   			undefinedText : "",
+	   			columns : [     
+	   				{checkbox : true,sortable : false},
+	   	            {field : "CARD_CODE",title : "会员卡编号",inputHiddenFormat:{}},
+	   	        	{field : "IS_FINISHED",title : "是否入账",inputHiddenFormat:{}},
+	   	         	{field : "MANAGE_SORT_CODE",title : "<span style='color: blue;'>收费类别</span>",inputTextFormat:{}},
+	   	         	{field : "CHARGE_PARTITION_CODE",title : "<span style='color: blue;'>收费区分</span>",inputTextFormat:{}},
+	   	         	{field : "PART_NO",title : "配件代码",inputHiddenFormat:{}},
+	   	         	{field : "PART_NAME",title : "<span style='color: blue;'>配件名称</span>",inputTextFormat:{}},
+	   	         	{field : "PART_SALES_PRICE",title : "配件销售单价",inputHiddenFormat:{}},
+	   	         	{field : "LABOUR_CODE",title : "<span style='color: blue;'>维修项目名称</span>",inputTextFormat:{}},
+	   	         	{field : "PART_SALES_AMOUNT",title : "配件销售金额",inputHiddenFormat:{}},
+	   	         	{field : "RECEIVE_AMOUNT",title : "实收金额",inputHiddenFormat:{}},
+	   	         	{field : "IS_MAIN_PART",title : "<span style='color: blue;'>主要配件</span>",inputTextFormat:{}},
+	   	         	{field : "PART_QUANTITY",title : "配件数量",inputHiddenFormat:{}},
+	   	         	{field : "UNIT_CODE",title : "计量单位",inputHiddenFormat:{}},
+	   	         	{field : "DISCOUNT_AMOUNT",title : "优惠金额",inputHiddenFormat:{}},
+	   	         	{field : "DISCOUNT",title : "<span style='color: blue;'>折扣率</span>",inputTextFormat:{}},
+	   	         	{field : "STORAGE_CODE",title : "仓库代码",inputHiddenFormat:{}},
+	   	         	{field : "IS_DISCOUNT",title : "不可打折",inputHiddenFormat:{}},
+	   	         	{field : "STORAGE_POSITION_CODE",title : "库位代码",inputHiddenFormat:{}},
+	   	         	{field : "NEEDLESS_REPAIR",title : "<span style='color: blue;'>是否不修</span>",inputTextFormat:{}},
+	   	         	{field : "REASON",title : "<span style='color: blue;'>不修原因</span>",inputTextFormat:{}},
+	   	         	{field : "PRE_CHECK",title : "<span style='color: blue;'>是否预拣</span>",inputTextFormat:{}},	
+	   	         	{field : "INTER_RETURN",title : "<span style='color: blue;'>是否内返</span>",inputTextFormat:{}},	
+	   	         	{field : "BATCH_NO",title : "流水号",inputHiddenFormat:{}},
+	   	        	{field : "PRINT_BATCH_NO",title : "预拣单打印流水号",inputHiddenFormat:{}},
+	   	        	{field : "ACTIVITY_CODE",title : "活动编号",inputHiddenFormat:{}},
+	   	        	{field : "MODEL_LABOUR_CODE",title : "项目车型组",inputHiddenFormat:{}},
+	   	        	{field : "PACKAGE_CODE",title : "组合代码",inputHiddenFormat:{}},
+	   	        	{field : "POS_NAME",title : "故障部位",inputHiddenFormat:{}},
+	   	        	{field : "PART_INFIX",title : "配件中缀",inputHiddenFormat:{}},
+	   	        	{field : "WAR_LEVEL",title : "预警等级",inputHiddenFormat:{}},
+	   	         	{field : "PART_CATEGORY",title : "<span style='color: blue;'>配件类别</span>",inputTextFormat:{}},
+	   	        	{field : "MAINTAIN_PACKAGE_CODE",title : "保养套餐代码",inputHiddenFormat:{}}
+	   			]
+			});
+	}); 
+</script>

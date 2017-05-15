@@ -1,0 +1,411 @@
+<div class="dms-edit ajaxrest" data-url="/ordermanage/servicesTransacting/{[VIN]}/load" data-model="vehicle" data-pageInitCallBack="true">
+	<form class="form-horizontal">
+	    <div class="modal-header">
+			<div class="modal-title">贷款办理结果</div>
+				<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+		<div class="panel panel-default" >
+		                   <div class="panel-heading">
+								<div class="pannel-name">贷款人信息</div>
+								<div class="pannel-tools">
+									<a href="javascript:;" class="expand"> <i
+										class="fa fa-chevron-down"></i></a>
+								</div>
+							</div>
+			<div class="panel-body">
+				<div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">姓名</label>
+					<div class="col-xs-8">
+					<input type="text" class="form-control" id="debitName" 
+				         name="debitName" data-fieldName="DEBIT_NAME">
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">身份证号</label>
+					<div class="col-xs-8">
+					<input type="text" class="form-control" id="debitIdentity"
+				         name="debitIdentity" data-fieldName="DEBIT_IDENTITY">
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">电话</label>
+					<div class="col-xs-8">
+					<input type="text" class="form-control mobile" id="debitPhone"
+				         name="debitPhone" data-fieldName="DEBIT_PHONE">
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">手机</label>
+					<div class="col-xs-8">
+					<input type="text" class="form-control phone" id="debitMobile"
+				         name="debitMobile" data-fieldName="DEBIT_MOBILE"/>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">出生日期</label>
+					<div class="col-xs-8">
+							<div class="input-group date date-picker" data-date-end-date="+0d" data-orientation="top right">
+								<input id="debitBirthday" name="debitBirthday" data-fieldName="DEBIT_BIRTHDAY"
+									class="form-control" type="text" value="" /> <span
+									class="input-group-btn">
+									<button class="btn default date-set" type="button">
+										<i class="fa fa-calendar"></i>
+									</button>
+                                            <button class="btn default date-reset" type="button">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+								</span>
+
+							</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">性别</label>
+						<div class="col-xs-8 ">
+							<input type="text" class="form-control" name="debitSex" id="debitSex" data-fieldName="DEBIT_SEX"> 
+						</div>
+					</div>
+			</div>
+			<div class="col-xs-12 col-sm-6">
+					<div class="form-group">
+						<label class="control-label col-xs-2">居住地址</label>
+						<div class="col-xs-10 ">
+							<input type="text" class="form-control" name="debitAddress" id="debitAddress" data-fieldName="DEBIT_ADDRESS"> 
+						</div>
+					</div>
+			</div>
+			<div class="col-xs-12 col-sm-6">
+					<div class="form-group">
+						<label class="control-label col-xs-2">户口地址</label>
+						<div class="col-xs-10 ">
+							<input type="text" class="form-control" name="debitRegAddress" id="debitRegAddress" data-fieldName="DEBIT_REG_ADDRESS"> 
+						</div>
+					</div>
+			</div>
+			</div>
+		</div>
+	
+</div>
+
+<div class="panel panel-default">
+		<div class="panel-heading">
+			<div class="pannel-name">担保人信息</div>
+			<div class="pannel-tools">
+				<a href="javascript:;" class="expand"> <i
+					class="fa fa-chevron-down"></i></a>
+			</div>
+		</div>
+		<div class="panel-body">
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">姓名</label>
+					<div class="col-xs-8">
+					<input type="text" class="form-control" id="cName"
+				         name="cName" data-fieldName="C_NAME">
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">身份证号</label>
+					<div class="col-xs-8">
+					<input type="text" class="form-control" id="cIdentity"
+				         name="cIdentity" data-fieldName="C_IDENTITY">
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">电话</label>
+					<div class="col-xs-8">
+					<input type="text" class="form-control mobile" id="cPhone"
+				         name="cPhone" data-fieldName="C_PHONE">
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">手机</label>
+					<div class="col-xs-8">
+					<input type="text" class="form-control phone" id="cMobile"
+				         name="cMobile" data-fieldName="C_MOBILE">
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">出生日期</label>
+					<div class="col-xs-8">
+							<div class="input-group date date-picker" data-date-end-date="+0d" data-orientation="bottom right">
+								<input id="cBirthday" name="cBirthday" data-fieldName="C_BIRTHDAY"
+									class="form-control" type="text" value="" /> <span
+									class="input-group-btn">
+									<button class="btn default date-set" type="button">
+										<i class="fa fa-calendar"></i>
+									</button>
+                                            <button class="btn default date-reset" type="button">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+								</span>
+
+							</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">性别</label>
+						<div class="col-xs-8 ">
+							<input type="text" class="form-control" name="cSex" id="cSex" data-fieldName="C_SEX"> 
+						</div>
+					</div>
+			</div>
+			<div class="col-xs-12 col-sm-6">
+					<div class="form-group">
+						<label class="control-label col-xs-2">居住地址</label>
+						<div class="col-xs-10 ">
+							<input type="text" class="form-control" name="cAddress" id="cAddress" data-fieldName="C_ADDRESS"> 
+						</div>
+					</div>
+			</div>
+			<div class="col-xs-12 col-sm-6">
+					<div class="form-group">
+						<label class="control-label col-xs-2">户口地址</label>
+						<div class="col-xs-10 ">
+							<input type="text" class="form-control" name="cRegAddress" id="cRegAddress" data-fieldName="C_REG_ADDRESS"> 
+						</div>
+					</div>
+			</div>
+		</div>
+</div>
+<div class="panel panel-default">
+		<div class="panel-heading">
+			<div class="pannel-name">贷款信息</div>
+			<div class="pannel-tools">
+				<a href="javascript:;" class="expand"> <i
+					class="fa fa-chevron-down"></i></a>
+			</div>
+		</div>
+		<div class="panel-body">
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">贷款总金额</label>
+					<div class="col-xs-8">
+					<input type="text" class="form-control" id="loanSum"
+				         name="loanSum" data-fieldName="LOAN_SUM">
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">贷款机构</label>
+					<div class="col-xs-8">
+					<input type="text" class="form-control" id="loanOrg"
+				         name="loanOrg" data-fieldName="LOAN_ORG">
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">贷款年限</label>
+					<div class="col-xs-8">
+					<input type="text" class="form-control" id="loanYears"
+				         name="loanYears" data-fieldName="LOAN_YEARS">
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">分期期数</label>
+					<div class="col-xs-8">
+					<input type="text" class="form-control" id="loanTerms"
+				         name="loanTerms" data-fieldName="LOAN_TERMS">
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">贷款利率</label>
+					<div class="col-xs-8">
+					<input type="text" class="form-control" id="loanInterestRate"
+				         name="loanInterestRate" data-fieldName="LOAN_INTEREST_RATE">
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">还款方式</label>
+						<div class="col-xs-8 ">
+							<input type="text" class="form-control" name="refundMode" id="refundMode" data-fieldName="RE_FUND_MODE"> 
+						</div>
+					</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">期付金额</label>
+						<div class="col-xs-8 ">
+							<input type="text" class="form-control" name="termAmount" id="termAmount" data-fieldName="TERM_AMOUNT"> 
+						</div>
+					</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">利息总额</label>
+						<div class="col-xs-8 ">
+							<input type="text" class="form-control" name="interestSum" id="interestSum" data-fieldName="INTEREST_SUM"> 
+						</div>
+					</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">还款总额</label>
+						<div class="col-xs-8 ">
+							<input type="text" class="form-control" name="refundSun" id="refundSun" data-fieldName="RE_FUND_SUM"> 
+						</div>
+					</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">按揭合同号</label>
+						<div class="col-xs-8 ">
+							<input type="text" class="form-control" name="amortizationNo" id="amortizationNo" data-fieldName="AMORTIZATION_NO"> 
+						</div>
+					</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">上报日期</label>
+						<div class="col-xs-8">
+							<div class="input-group date date-picker" data-date-end-date="+0d" data-orientation="bottom right">
+								<input id="submitTime" name="submitTime" data-fieldName="SUBMIT_TIME"
+									class="form-control" type="text" value="" /> <span
+									class="input-group-btn">
+									<button class="btn default date-set" type="button">
+										<i class="fa fa-calendar"></i>
+									</button>
+                                            <button class="btn default date-reset" type="button">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+								</span>
+
+							</div>
+						</div>
+					</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">实际费用</label>
+						<div class="col-xs-8 ">
+							<input type="text" class="form-control" name="actualExpending" id="actualExpending" data-fieldName="ACTUAL_EXPENDING"> 
+						</div>
+					</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">回款日期</label>
+						<div class="col-xs-8">
+							<div class="input-group date date-picker" data-date-end-date="+0d" data-orientation="bottom right">
+								<input id="incomeDate" name="incomeDate" data-fieldName="INCOME_DATE"
+									class="form-control" type="text" value="" /> <span
+									class="input-group-btn">
+									<button class="btn default date-set" type="button">
+										<i class="fa fa-calendar"></i>
+									</button>
+                                            <button class="btn default date-reset" type="button">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+								</span>
+
+							</div>
+						</div>
+					</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">服务专员</label>
+						<div class="col-xs-8 ">
+							<input type="text" class="form-control" name="completedBy" id="completedBy" data-fieldName="COMPLETE_BY"> 
+						</div>
+					</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">完工日期</label>
+						<div class="col-xs-8">
+							<div class="input-group date date-picker" data-date-end-date="+0d" data-orientation="bottom right">
+								<input id="completedDate" name="completedDate" data-fieldName="COMPLETE_DATE"
+									class="form-control" type="text" value="" /> <span
+									class="input-group-btn">
+									<button class="btn default date-set" type="button">
+										<i class="fa fa-calendar"></i>
+									</button>
+                                            <button class="btn default date-reset" type="button">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+								</span>
+
+							</div>
+						</div>
+					</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">登记人</label>
+						<div class="col-xs-8 ">
+							<input type="text" class="form-control" name="recorder" id="recorder" data-fieldName="RECORDER"> 
+						</div>
+					</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">登记日期</label>
+						<div class="col-xs-8">
+							<div class="input-group date date-picker" data-date-end-date="+0d" data-orientation="bottom right">
+								<input id="recordDate" name="recordDate" data-fieldName="RECORD_DATE"
+									class="form-control" type="text" value="" /> <span
+									class="input-group-btn">
+									<button class="btn default date-set" type="button">
+										<i class="fa fa-calendar"></i>
+									</button>
+                                            <button class="btn default date-reset" type="button">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+								</span>
+
+							</div>
+						</div>
+					</div>
+			</div>
+		</div>
+		
+
+		
+</div>
+</div>
+		<div class="modal-footer center-block">
+			<a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>关闭</a>
+		</div>
+		</form>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+	
+});	
+</script>

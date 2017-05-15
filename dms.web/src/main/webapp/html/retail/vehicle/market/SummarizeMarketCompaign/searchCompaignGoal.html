@@ -1,0 +1,79 @@
+<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">活动目标</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+				
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="campaign_gold">
+			</table>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-5">目标展厅客流量</label>
+					<div class="col-xs-7">
+					<input type="text" class="form-control" id="targetTraffic" data-fieldName="TARGET_TRAFFIC"
+				         name="targetTraffic" disabled="disabled">
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-5">目标新增订单数</label>
+					<div class="col-xs-7">
+					<input type="text" class="form-control" id="goalItem" data-fieldName="GOAL_ITEM"
+				         name="goalItem" disabled="disabled">
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-5">目标新增潜在客户</label>
+					<div class="col-xs-7">
+					<input type="text" class="form-control" id="targetNewCustomers" data-fieldName="TARGET_NEW_CUSTOMERS"
+				         name="targetNewCustomers" disabled="disabled">
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-5">目标新增车辆数</label>
+					<div class="col-xs-7">
+					<input type="text" class="form-control" id="targetNewVehicle" data-fieldName="TARGET_NEW_VEHICLE"
+				         name="targetNewVehicle" disabled="disabled">
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "campaign_gold",
+		container:container,
+		rowID:"GOAL_ITEM",
+		url : dmsCommon.getDmsPath()["retail"] + "/markting/marktingPlan/{[CAMPAIGN_CODE]}/CampaignGoal",
+		sortName : "GOAL_ITEM", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+		sortOrder : "asc",
+		pageSize:5,
+		autoHeight:false,
+	    //parentTable:"campaign_plan",
+		columns : [ 
+			   {field : "GOAL_ITEM",title : "目标项目"}, 
+	           {field : "ITEM_INDEX", title : "项目指标"},
+	           {field : "MEMO",title : "其他说明"}			        
+		         ]
+	});
+	$("a[id='campaign_gold']",getElementContext()).on("dms.click",function(event){
+		$("#campaign_gold",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["retail"] + "/markting/marktingPlan/"+$("#CAMPAIGN_CODE").val()+"/CampaignGoal");
+	 });
+	 $("a[id='CampaignGoal']",getElementContext()).click();
+		$("#CAMPAIGN_CODE").bindChange(function(obj){
+	    $("#campaign_gold",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["retail"] + "/markting/marktingPlan/"+$("#CAMPAIGN_CODE").val()+"/CampaignGoal");
+	});
+});	
+</script>

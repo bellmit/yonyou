@@ -1,0 +1,69 @@
+<div class="dms-add" 
+     data-pageInitCallBack="true">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">订单解锁</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				</a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row" data-tableSelect="true">
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-3">您确认要解锁该销售订单吗?</label>
+								
+							</div>
+						</div>
+						  <div class="col-xs-12" >
+							        <div class="form-group" hidden="hidden">
+							        <label class="control-label col-xs-4">隐藏</label>
+									<div class="col-xs-8">
+									<input  name="noList" id="noList" data-fieldName="SO_NO"
+									class="form-control" type="text" max="99"/>
+									</div>
+								     </div>
+							     </div>
+					
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="modal-footer">
+			<a data-url="/ordermanage/salesSynthesis/orderUnlock" data-model="retail" data-method="PUT"
+				data-callBack="true" class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>确定</a> <a
+				data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+
+	//页面加载后初始化
+	$(document).one("onload.dms",function(event,container){
+		//弹出页面打开前执行函数
+	 	 var str='';
+		var selectRow = $("#dms_table",getElementContext()).dmsTable().getSelections();
+		   	$(selectRow).each(function(index){
+			   str=selectRow[index].SO_NO;
+	  		});
+		   	alert(str);
+	  		/* var selectIds = $("#cusList",getElementContext()).dmsTable().getSelectionIds(); */
+		   	$("#noList").val(str);
+		//新增页面的回调函数
+ 		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		}); 
+	});
+</script>

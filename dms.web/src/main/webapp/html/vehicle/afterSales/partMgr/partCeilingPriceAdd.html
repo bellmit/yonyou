@@ -1,0 +1,67 @@
+<div class="dms-add"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">配件限价维护 新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+					<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">现价名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control required" id="ceilingPriceName" name="ceilingPriceName"/>
+							</div>
+						</div>
+					</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">限价范围</label>
+							<div class="col-xs-8">
+								<select id="ceilingPriceScope" name="ceilingPriceScope" class="bs-select form-control"  data-type="oemDict"  data-dictCode="1005" >
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">备注</label>
+							<div class="col-xs-8">	
+					<textarea id="remark" name="remark"  cols="30" rows="3" maxlength="600" class="form-control " ></textarea>
+							</div>
+						</div>
+					</div>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/partCeilingPrice/addPartCeilingPrice" data-model="vehicle"
+				data-method="POST" data-callBack='true'
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>新增</a> <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("a.clear").click();
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	})
+</script>
+

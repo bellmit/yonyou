@@ -1,0 +1,124 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">保险公司代码</label>
+								<div class="col-xs-8">
+									<input type="text" class="bs-select form-control"  id="insuranceCompanyCode" name="insuranceCompanyCode" />
+								</div>
+							</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">保险公司名称</label>
+								<div class="col-xs-8">
+									<input type="text" class="bs-select form-control"  id="insuranceCompanyName" name="insuranceCompanyName" />
+								</div>
+							</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">是否已下发</label>
+							<div class="col-xs-8">
+								<select id="isInputDms" name="isInputDms" 
+									class="bs-select form-control" data-dictCode="1004" data-type="oemDict" >
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">合作保险公司</label>
+							<div class="col-xs-8">
+								<select id="isCoCompany" name="isCoCompany" 
+									class="bs-select form-control" data-dictCode="1004" data-type="oemDict" >
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">上传日期</label>
+								<div class="input-group input-daterange" data-opens="right">
+		                             <input type="text" class="form-control" readonly  name="claimStartDate">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="claimEndDate">
+		                             <span class="input-group-btn">
+	                                    <button class="btn default input-clear" type="button">
+	                                       <i class="fa fa-close"></i>
+	                                   </button>
+	                                </span> 
+		                        </div>
+							</div>
+					</div>
+					</div>
+					<div class="row ">
+						<div class="col-xs-12 ">
+							<div class="query-btn">
+								<a href="javascript:;" class="btn blue"> <i
+									class="fa fa-search"></i> 查询
+								</a> 
+								<a href="javascript:;" class="btn blue"><i
+									class="fa fa-undo"></i> 重置
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >信息列表</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a  class="btn btn-outline" data-url="vehicle/insurance/insurancemanage/insurance_company_manange_Import.html"  data-toggle="modal" > 
+								<i class="fa fa-upload" ></i> 导入</a>
+							<a href="javascript:;" data-url="/InsuranceCompanyManange/Download" data-model="vehicle" data-method="downLoad" data-toggle="confirmation"
+								class="btn btn-outline " ><i class="fa fa-download"></i>下载</a>
+							<a href="javascript:;" data-url="" data-model="vehicle" data-method="downLoad" data-toggle="confirmation"
+								class="btn btn-outline " ><i class="fa fa-download"></i>全部下发</a>
+								
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="orderList"></table>
+		</div>
+	</div>
+</div>		
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "orderList",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/InsuranceCompanyManange/Query",
+		rowID : "",
+		sortName : "CDate", 
+		sortOrder : "desc",
+		columns : [ 
+            {field : "CDate",title : "上传日期"},
+		    {field : "INSURANCE_COMPANY_CODE",title : "保险公司代码"},
+		    {field : "INSURANCE_COMPANY_NAME",title : "保险公司名称"},
+		    {field : "INS_COMPANY_SHORT_NAME",title : "保险公司简称"},
+		    {field : "IS_CO_INSURANCE_COMPANY",title : "合作保险公司"},
+		    {field : "IS_DOMN",title : "是否已下发"},
+		],
+		onLoadSuccess : function() {
+			$("#orderList",container).dmsTable().bootstrapTable('resetView');
+		}
+	});
+	      	
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+//			console.log("into callBack");
+	
+	});
+	
+});
+	
+</script>	

@@ -1,0 +1,235 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">建档超过90天未维护客户</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+		      <div class="panel panel-default">
+					<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+								<div class="form-group form-group-xs m-b-xs">
+									<label class="control-label col-xs-4">销售顾问</label>
+									<div class="col-xs-8">
+										<select id="soldBy" name="soldBy"
+											class="bs-select form-control"
+											data-url="/basedata/employees/-1/salesConsultant"
+											data-model="manage" data-labelValue="USER_ID" data-value="{[userInfo.USER_ID]}"
+											data-lableDesc="USER_NAME" >
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">意向级别</label>
+									<div class="col-xs-6">
+										<select id="intentLevel" name="intentLevel" data-fieldName="INTENT_LEVEL"
+													class="bs-select form-control" data-dictCode="1310" data-excludeItems="13101006,13101007,13101008,13101009" 
+													data-value="" >
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+								<div class="form-group">
+									<label class="control-label col-xs-4 ">客户名称</label>
+									<div class="col-xs-6">
+										<input type="text" class="form-control" id="customerName" name="customerName">
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-1">
+								<div class="query-btn ">
+									<a href="javascript:;" class="btn blue"> <i
+									class="fa fa-search"></i>查询
+									</a> 
+								</div>
+							</div>
+					  </div>
+				</div>
+		 </div>				
+	
+		<div class="panel panel-default table-panel">
+			<div class="panel-body">
+				<table class="table table-striped table-bordered table-hover table-responsive"
+						id="cusList"></table>
+			</div>
+		</div>
+	</form>
+	<form class="form-horizontal">
+		<div class="modal-body">
+		      <div class="panel panel-default">
+					<div class="row">
+							<div class="col-xs-6">
+								<div class="form-group">
+									<label class="control-label col-xs-5">有效线索：预计成交时段</label>
+									<div class="col-xs-4">
+										<select class="bs-select form-control"  name="exceptTimesRange" id="exceptTimesRange" data-dictCode="5056">
+										</select>
+									</div>
+									<div class="col-xs-2">
+										<a data-url="/basedata/platform/exceptTimesRange/noList"
+											data-model="manage" data-method="PUT" id="back" data-beforeRequest="true" data-callBack="true"  data-validate="true"  class="btn blue" 
+											 data-toggle="confirmation"><i class="fa fa-save"></i>录入</a>
+									</div>
+								</div>
+							</div>
+							  <div class="" >
+							        <div class="form-group" hidden="hidden">
+							        <label class="control-label col-xs-4">隐藏</label>
+									<div class="col-xs-8">
+									<input  name="noList" id="noList" data-fieldName="NO_LIST"
+									class="form-control" type="text" max="99"/>
+									</div>
+								     </div>
+							     </div>
+							
+							<div class="col-xs-4 ">
+								<div class="form-group">
+									<label class="control-label col-xs-4">无效线索：</label>
+									<div class="col-xs-2">
+										<div class="query-btn">
+										<a class="btn blue" data-url="customer/potentialcus/customerInfo/dormancyApply.html" data-width="modal-md"
+											data-beforeShowEvent="true" data-toggle="modal"><label class="control-label col-xs-8  ">客户休眠申请</label>
+											</a> 
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="control-label center-block">
+					 			<a data-dismiss="modal" data-onclickEvent="true" class="btn blue"><i
+									class="fa fa-undo"></i>退出</a>
+		    				</div>
+					  </div>
+				</div>
+		 </div>				
+	</form>
+</div>			 	
+			 	
+		
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "cusList",
+		container:container,
+		    url : dmsCommon.getDmsPath()["manage"] + "/basedata/platform/customer",
+			rowID : "CUSTOMER_NO",
+			sortName : "FOUND_DATE",
+			sortOrder : "FOUND_DATE",
+			sortOrder : "asc",
+			//selectItemName:"userIds",
+			checkboxHeader:true, 
+			autoHeight : false,
+			columns : [ 
+				{checkbox:true,sortable : true},
+                {field : "CUSTOMER_NO",title : "客户编号"},
+                {field : "CUSTOMER_NAME",title : "客户姓名"},
+                {field : "CONTACTOR_MOBILE",title : "手机号码"},
+                {field : "INTENT_LEVEL",title : "客户当前级别",codeFormat : {type:"dict",codeType:"1310"}},
+                {field : "USER_NAME",title : "销售顾问"},
+                {field : "FOUND_DATE",title : "建档时间",dateFormat : {format:"YYYY-MM-DD"}}
+               
+			]
+		});
+	//弹出页面打开前执行函数
+	$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+		var selectRow = $("#cusList",container).dmsTable().getSelections();
+		
+		
+		
+	/* debugger; */
+		var falg=true;
+		
+		if(!selectRow){
+			dmsCommon.tip({status:"warning",msg:"请选择客户"});
+			returnResult.status = false;
+			return ;
+		}else if(selectRow.length>1){
+			dmsCommon.tip({status:"warning",msg:"只能单条进行休眠申请"});
+			returnResult.status = false;
+			return ;
+		}
+		returnResult.status = true;
+	});
+	
+	$("a[data-beforeRequest='true']",container).on('beforeRequest.dms',function(event,returnResult){
+		 var str='';
+		var selectRow = $("#cusList",container).dmsTable().getSelections();
+		var falg=true;
+		//alert(selectRow[0].CUSTOMER_NO);
+		$(selectRow).each(function(index){
+			   str+=selectRow[index].CUSTOMER_NO+',';
+	  		});
+		  $("#noList").val(str);
+		  
+		if(!selectRow){
+			//$("#back",container).attr("data-callBack","false");
+			dmsCommon.tip({status:"warning",msg:"请选择客户"});
+			falg=false;
+			return ;
+		}else{
+			var exceptTimesRange=$("#exceptTimesRange",container).val();
+			if(exceptTimesRange==""||exceptTimesRange==undefined){
+				dmsCommon.tip({status:"warning",msg:"请选择计划成交时段"});
+				//$("#back",container).attr("data-callBack","false");
+				falg=false;
+				return;
+			}else{
+				if(confirm("选择预计交车时段后客户的意向级别将发生变化,您确认吗?")){   
+					 
+					//$("#cusList",container).dmsTable().refreshTableWithForm();
+					returnResult.status = true;
+					}
+				//$("#back",container).attr("data-callBack","false"); 
+				falg=false;
+				return;
+				}
+			}
+		if(!falg){
+			returnResult.status = false;
+			return ;
+		}
+		returnResult.status = true;
+    });
+	
+	//新增页面的回调函数
+ 	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//刷新表格
+			$("#cusList",container).dmsTable().refreshTableWithForm();
+			//dmsCommon.refreshPageByUrl("manage/platform/searchPlatform.html",getElementContext());
+	});
+	
+	
+	
+	
+/* 	批除的前执行函数
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+		var selectRow = $("#cusList",container).dmsTable().getSelections();
+		var falg=true;
+		if(!selectRow){
+			dmsCommon.tip({status:"warning",msg:"请选择客户"});
+			returnResult.status = false;
+			return ;
+		}
+		$(selectRow).each(function(index){
+			   str+=selectRow[index].CUSTOMER_NO+',';
+	  		});
+		   	$("#noList").val(str);
+			alert(str);
+		returnResult.status = true;
+	}); */
+	
+	//事件点击
+	$("a[data-onclickEvent='true']", container).on("dms.click",
+			function(event) {
+		
+				dmsCommon.refreshPageByUrl("manage/platform/searchPlatform.html",getElementContext());
+			});
+	 
+});		
+</script>

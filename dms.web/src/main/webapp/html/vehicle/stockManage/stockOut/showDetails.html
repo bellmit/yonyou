@@ -1,0 +1,348 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row" data-seldate="true">
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">出库单号</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input type="hidden" id="vins"/>
+										<input type="hidden" id="qwe" data-fieldName="VIN"/>
+										<input type="hidden" id="asd" data-fieldName="PRODUCT_CODE"/>
+										<input type="hidden" name="sdNo" data-fieldName="SD_NO">
+										<input id="SdNo" readonly="readonly" name="SdNo"
+											class="form-control" data-fieldName="SD_NO" type="text" /> <span
+											class="input-group-btn">
+											<button class="btn default btn-sm" type="button" id="find"
+												data-url="vehicle/stockManage/stockOut/showItems.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-sitemap"></i>
+											</button>
+											<button class="btn default input-clear" id="clear"
+												type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-6"><span style="color: red;">*</span>出库业务类型</label>
+								<div class="col-xs-8 col-sm-5 col-md-5 col-lg-5">
+									<input type="hidden" id="stockOut" data-fieldName="STOCK_OUT_TYPE"/>
+									<select id="outType" name="outType"  data-excludeItems="13241002,13241003,13241005,13241006" 
+										class="bs-select form-control required" data-dictCode="1324">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">开单人员</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="createBy"
+										readonly data-fieldName="SHEET_CREATE_BY"
+										name="createBy" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">开单日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker">
+										<input id="createDate" name="createDate" readonly
+											data-fieldName="SHEET_CREATE_DATE" class="form-control"
+											type="text" /> <span class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+											<button class="btn default date-reset" type="button">
+												<i class="fa fa-times"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">车辆出库单明细</div>
+					<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a id="add"
+								data-url="vehicle/stockManage/stockOut/showVehicle.html"
+								data-beforeShowEvent="true" class="btn btn-outline"
+								data-toggle="modal" data-width="modal-lg"> <i
+								class="fa fa-plus-square"></i> 新增
+							</a> 
+							<a id="outter" data-callBack="true" data-model="vehicle" data-toggle="confirmation" data-beforeRequest="true" class="btn btn-outline">
+								<i class="fa fa-plus-square"></i> 出库
+							</a> 
+							<a id="print" class="btn btn-outline" data-toggle="modal" data-beforeShowEvent="true" 
+								data-url="vehicle/stockManage/stockOut/editStockOutPrint.html" 
+								data-width="modal-lg"> <i class="fa fa-plus-square"></i> 打印
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_table"></table>
+				</div>
+			</div>
+		</div>
+		<!-- 底部按钮 -->
+		<div class="modal-footer center-block">
+			<a data-errorCallBack="true" id="create" class="btn blue"><i
+				class="fa fa-plus-square"></i>新建</a> 
+				
+				<a id="save" data-model="vehicle"
+				data-beforeRequest="true" class="btn blue ajaxrest"
+				data-validate="true" data-onclickEvent="true" data-callBack="true"><i
+				class="fa fa-save"></i>保存</a> 
+				 <a id="exit" class="btn blue"><i
+				class="fa fa-print"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event, container){
+		$("#add", container).setElementReadOnly();
+		$("#createDate", container).setElementReadOnly();
+		$("#outter", container).setElementReadOnly();
+		$("#save", container).attr('disabled','disabled');
+		
+		new Datatable().initLocale({
+			src : "dms_table",
+			container:container,
+			rowID : "VIN",
+			selectItemName:"VIN",
+			autoHeight : false,
+			isQueryFirst : false,
+			checkboxHeader : true, //全选框
+			undefinedText : "",
+			columns : [  {checkbox : true,sortable : false
+						},{title : "操作",operateFormat : [
+						/* {type:"del",url:"/basedata/stockOut/btnStockOut/{[sdNo]}/{[VIN]}",title:"出库",model:"vehicle",method:"POST",operateIcon:'<i class="glyphicon glyphicon-ok"></i>',callBack:function(response){
+								$("#dms_table",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["vehicle"]
+									+ "/basedata/stockOut/findAllDetails/"+$("input[name='SdNo']").val()+"/0/0");
+								$("#dms_table", getElementContext()).dmsTable().refreshTableWithForm();
+			                  },isShow:function(value,row,index){
+			                	  if(row.IS_FINISHED=='12781001'||$("#SdNo",container).val()==""){
+			                		  return false;
+			                	  }else{
+			                		  return true;
+			                	  }
+			                  }
+						}, */
+						{type : "localDel",operateIcon:'<i class="glyphicon glyphicon-remove"></i>',onBeforeEvent:function(value, row, index){
+							/* dmsCommon.ajaxRestRequest({
+								url : dmsCommon.getDmsPath()["vehicle"] + "/basedata/stockOut/"+row.VIN+"/"+row.sdNo,
+								type : 'DELETE',
+								sucessCallBack : function(data) {
+								}
+							}); */
+			            },onAfterEvent:function(value, row, index){
+			            	$("#save",container).removeAttr('disabled');
+			            },isShow:function(value, row, index){
+			            	if(row.IS_FINISHED==12781001){
+			            		return false;
+			            	}else{
+				            	return true;
+			            	}
+			            }
+			            }]}, 
+			            {field : "sdNo",title : "出库单编号"},
+			            {field : "outType",title : "outType",visible : false},
+						{field : "VIN",inputField:"VIN",title : "VIN"},
+			            {field : "IS_FINISHED",inputField:"IS_FINISHED",title : "是否入账",codeFormat : {type:"dict",codeType:"1278",defaultValue : "12781002"},inputHiddenFormat : {hiddenField:"IS_FINISHED"}},
+						{field : "PRODUCT_CODE",inputField:"PRODUCT_CODE",inputHiddenFormat : {hiddenField:"PRODUCT_CODE"},title : "产品代码"},
+						{field : "STORAGE_CODE",inputField:"STORAGE_CODE",inputHiddenFormat : {hiddenField:"STORAGE_CODE"},visible : false},
+						{field : "STORAGE_NAME",inputField:"STORAGE_NAME",inputHiddenFormat : {hiddenField:"STORAGE_NAME"},title : "仓库代码"},
+						{field : "STORAGE_POSITION_CODE",inputField:"STORAGE_POSITION_CODE",inputHiddenFormat : {hiddenField:"STORAGE_POSITION_CODE"},title : "库位代码"},
+						{field : "PURCHASE_PRICE",inputField:"PURCHASE_PRICE",inputHiddenFormat : {hiddenField:"PURCHASE_PRICE"},title : "采购价格",numberFormat : {decimal:2}},
+						{field : "ADDITIONAL_COST",inputField:"ADDITIONAL_COST",inputHiddenFormat : {hiddenField:"ADDITIONAL_COST"},title : "附加成本",numberFormat : {decimal:2}},
+						{field : "STOCK_STATUS",inputField:"STOCK_STATUS",inputHiddenFormat : {hiddenField:"STOCK_STATUS"},title : "库存状态",codeFormat : {type:"dict",codeType:"1304"}},
+						{field : "DISPATCHED_STATUS",inputField:"DISPATCHED_STATUS",inputHiddenFormat : {hiddenField:"DISPATCHED_STATUS"},title : "配车状态",codeFormat : {type:"dict",codeType:"1305"}},
+						{field : "VEHICLE_PRICE",inputField:"VEHICLE_PRICE",inputHiddenFormat : {hiddenField:"VEHICLE_PRICE"},title : "车辆价格",numberFormat : {decimal:2}},
+						{field : "SO_NO",inputField:"SO_NO",inputHiddenFormat : {hiddenField:"SO_NO"},title : "销售订单编号"},
+						{field : "MAR_STATUS",inputField:"MAR_STATUS",inputHiddenFormat : {hiddenField:"MAR_STATUS"},title : "质损状态",codeFormat : {type:"dict",codeType:"1306"}},
+						{field : "IS_SECONDHAND",inputField:"IS_SECONDHAND",inputHiddenFormat : {hiddenField:"IS_SECONDHAND"},title : "是否二手车",codeFormat : {type:"dict",codeType:"1278"}},
+						{field : "IS_VIP",inputField:"IS_VIP",inputHiddenFormat : {hiddenField:"IS_VIP"},title : "是否VIP预留",codeFormat : {type:"dict",codeType:"1278"}},
+						{field : "IS_TEST_DRIVE_CAR",inputField:"IS_TEST_DRIVE_CAR",inputHiddenFormat : {hiddenField:"IS_TEST_DRIVE_CAR"},title : "是否试乘试驾车",codeFormat : {type:"dict",codeType:"1278"}},
+						{field : "IS_CONSIGNED",inputField:"IS_CONSIGNED",inputHiddenFormat : {hiddenField:"IS_CONSIGNED"},title : "是否受托交车",codeFormat : {type:"dict",codeType:"1278"}},
+						{field : "IS_PROMOTION",inputField:"IS_PROMOTION",inputHiddenFormat : {hiddenField:"IS_PROMOTION"},title : "是否促销车",codeFormat : {type:"dict",codeType:"1278"}},
+						{field : "IS_PURCHASE_RETURN",inputField:"IS_PURCHASE_RETURN",inputHiddenFormat : {hiddenField:"IS_PURCHASE_RETURN"},title : "是否采购退回",codeFormat : {type:"dict",codeType:"1278"}},
+						{field : "IS_PRICE_ADJUSTED",inputField:"IS_PRICE_ADJUSTED",inputHiddenFormat : {hiddenField:"IS_PRICE_ADJUSTED"},title : "是否调价",codeFormat : {type:"dict",codeType:"1278"}},
+						{field : "ADJUST_REASON",inputField:"ADJUST_REASON",inputHiddenFormat : {hiddenField:"ADJUST_REASON"},title : "调价原因"},
+						{field : "OLD_DIRECTIVE_PRICE",inputField:"OLD_DIRECTIVE_PRICE",inputHiddenFormat : {hiddenField:"OLD_DIRECTIVE_PRICE"},title : "原销售指导价",numberFormat : {decimal:2}},
+						{field : "DIRECTIVE_PRICE",inputField:"DIRECTIVE_PRICE",inputHiddenFormat : {hiddenField:"DIRECTIVE_PRICE"},title : "销售指导价",numberFormat : {decimal:2}},
+						{field : "REMARK",inputField:"REMARK",inputHiddenFormat : {hiddenField:"REMARK"},title : "备注"}
+				]
+		});
+		
+		//出库单号绑定改变事件
+		$("#stockOut", container).bindChange(function(obj){
+			if($("input[name='SdNo']").val()!=null&&$("input[name='SdNo']").val()!=''){
+				$("#dms_table",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["vehicle"]
+					+ "/basedata/stockOut/findAllDetails/"+$("input[name='SdNo']").val()+"/0/0");
+				$("#dms_table", getElementContext()).dmsTable().refreshTableWithForm();
+				$("#add", container).removeElementReadOnly();
+				$("#outter", container).removeElementReadOnly();
+				$("#create",container).attr('disabled','disabled');
+				$("#save",container).attr('disabled','disabled');
+			}else{
+				$("#create",container).removeAttr('disabled');
+			}
+		});
+		
+		//取消按钮
+		$("#clear", container).click(function(){
+			 dmsCommon.refreshPageByUrl("vehicle/stockManage/stockOut/showDetails.html",container);
+		});
+		$("#exit", container).click(function(){
+			 dmsCommon.refreshPageByUrl("vehicle/stockManage/stockOut/showDetails.html",container);
+		});
+		
+		//新建按钮
+		$("#create", container).click(function(){
+			$("#add", container).removeElementReadOnly();
+			$("#remark",container).removeAttr("readonly");
+			$(this).attr('disabled','disabled');
+			$("#save", container).attr('disabled','disabled');
+			$("#createBy",container).val("{[userInfo.userName]}");
+			$("#createDate",container).val(new Date().Format("yyyy-MM-dd"));
+		});
+		
+		//保存,批量出库前事件
+		$('a[data-beforeRequest="true"]',container).on('beforeRequest.dms',function(event,returnResult){
+			if($(this).attr('id')=='save'){
+				if($(this).attr('disabled')!='disabled'){//防止禁用时误点
+					var selectRow = $("#dms_table",container).dmsTable().getSelections();
+					console.log(JSON.stringify(selectRow));
+					debugger
+					if(selectRow!=null){
+						$(this).attr("data-method","POST");
+						$(this).attr("data-url","/basedata/stockOut/saveStockOut");
+						returnResult.status = true;
+					}else{
+						dmsCommon.tip({status:"warning",msg:"请选择需要保存的列！"});
+						returnResult.status=false;
+					}
+				}
+			}else{
+				if($(this).attr('disabled')!='disabled'){
+					var selectRow = $("#dms_table",container).dmsTable().getSelections();
+					if(selectRow!=null){
+						var checkFinish = false;//判断是否入账
+						var vins = "";//用来存选择的vin号
+						$.each(selectRow,function(index,row){
+							if(row.IS_FINISHED!='12781002'){//表示已经入账
+								checkFinish = true;
+							}
+							vins += row.VIN+",";//存储VIN号用','分割
+						});
+						debugger
+						if(checkFinish){//判断是否入账
+							dmsCommon.tip({status:"warning",msg:"已经入账的车不能再次出库！"});
+							returnResult.status=false;
+						}else{
+							$(this).attr("data-method","POST");
+							$(this).attr("data-url","/basedata/stockOut/btnStockOut/"+$("input[name='SdNo']").val()+"/"+vins);
+							returnResult.status = true;
+						}
+					}else{
+						dmsCommon.tip({status:"warning",msg:"请选择需要出库的列！"});
+						returnResult.status=false;
+					}
+				}
+			}
+		});
+		
+		//保存的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			$("#save", container).attr('disabled','disabled');
+			$("#outter", container).removeElementReadOnly();
+			if($(this).attr('id')=='save'){
+				$("input[name='SdNo']").val(response);
+			}
+			$("#dms_table",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["vehicle"]
+				+ "/basedata/stockOut/findAllDetails/"+$("input[name='SdNo']").val()+"/0/0");
+			$("#dms_table", getElementContext()).dmsTable().refreshTableWithForm();
+		});
+		
+		//出库明细新增
+		$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+			var ids = $(this).attr('id');
+			if(ids=='batch'){
+				var text = $("#dms_table",container).dmsTable().getSelections();
+				if(text==null){
+					dmsCommon.tip({status:"warning",msg:"请选择需要验收的项！"});
+					returnResult.status=false;
+				} else{
+					returnResult.status=true;
+				}
+			}else if(ids=='add'){
+				if($('#outType',container).val()!=null&&$('#outType',container).val()!=''){
+					$("#save", container).removeAttr('disabled');
+					returnResult.status=true;
+				}else{
+					dmsCommon.tip({status:"warning",msg:"请选择出库业务类型！"});
+					returnResult.status=false;
+				}
+			}else if(ids=='print'){//打印
+				var text = $("#seNo",container).val();
+				var selectRow = $("#dms_table",container).dmsTable().getSelections();
+				var vins = "";
+				if(text==""||selectRow==null){
+					dmsCommon.tip({status:"warning",msg:"请选择需要打印的列！"});
+					returnResult.status=false;
+				} else{
+					var flag = true;
+					$.each(selectRow,function(index,row){
+						if(row.IS_FINISHED=='12781002'){//表示未入账
+							flag = false;
+						}else{
+							vins += row.VIN+",";
+						}
+					});
+					if(!flag){
+						dmsCommon.tip({status:"warning",msg:"未入账的项不能打印！"});
+						returnResult.status=false;
+					}else{
+						vins = vins.substring(0,vins.length-1);
+						$("#vins",container).val(vins);
+						returnResult.status=true;
+					}
+				}
+			}
+		}); 
+		
+	});
+	
+	Date.prototype.Format = function (fmt) { //author: wx
+	    var o = {
+	        "M+": this.getMonth() + 1, //月份 
+	        "d+": this.getDate(), //日 
+	        "h+": this.getHours(), //小时 
+	        "m+": this.getMinutes(), //分 
+	        "s+": this.getSeconds(), //秒 
+	        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+	        "S": this.getMilliseconds() //毫秒 
+	    };
+	    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+	    for (var k in o)
+	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+	    return fmt;
+	}
+</script>

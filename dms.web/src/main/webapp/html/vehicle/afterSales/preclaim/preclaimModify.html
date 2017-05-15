@@ -1,0 +1,398 @@
+<div class="dms-edit ajaxrest" data-url="/perClaimFeedBack/getJiBenXinXi/{[ID]}"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">索赔预授权维护</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >基本信息</div>
+		    </div>
+	   </div>
+	    		<div class="modal-body">
+					<div class="row">
+             	  <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商代码：</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="DEALER_CODE"></span>
+								
+								</div>
+							</div>
+						</div>
+							<div class="col-xs-12 col-sm-6 col-md-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">经销商名称：</label>
+									<div class="col-xs-8">
+										<span class="form-show " data-fieldName="DEALER_NAME"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">维修工单号 ：</label>
+									<div class="col-xs-8">
+										<input type="text" class="form-control required " id="repairNo" name="repairNo"  data-fieldName="REPAIR_NO"/>
+												<input type="hidden" class="form-control"  id="groupIds" name="groupIds" />
+								                 <input type="hidden" class="form-control"  id="groupIds2" name="groupIds2" />
+									</div>
+								</div>
+							</div>
+						
+								<div class="col-xs-12 col-sm-6  col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">保修开始日期：</label>
+								<div class="col-xs-8">
+									<div class="input-group date  date-picker">
+										<input id="startDate" name="startDate" 
+											class="form-control required" type="text" value=""  data-fieldName="START_DATE" />		
+												<span  class="input-group-btn">
+											<button class="btn default date-set" type="button" >
+												<i class="fa fa-calendar"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+							<div class="col-xs-12 col-sm-6  col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">进厂日期：</label>
+								<div class="col-xs-8">
+									<div class="input-group date  date-picker">
+										<input id="intoDate" name="intoDate" 
+											class="form-control required" type="text" value=""  data-fieldName="INTO_DATE" />		
+												<span  class="input-group-btn">
+											<button class="btn default date-set" type="button" >
+												<i class="fa fa-calendar"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+							<div class="col-xs-12 col-sm-6 col-md-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">进厂里程数： </label> 
+									<div class="col-xs-8">
+										<input type="text" class="form-control required " id="intoMileage" name="intoMileage"  data-fieldName="INTO_MILEAGE"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">VIN：</label>
+									<div class="col-xs-8">
+										<input type="text" class="form-control required " id="vin" name="vin"  data-fieldName="VIN"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">牌照号： </label>
+									      <div class="col-xs-8">
+									      	<input type="text" class="form-control required " id="plateNo" name="plateNo"  data-fieldName="PLATE_NO"/>
+									      </div>
+									  </div>
+								</div>
+							<div class="col-xs-12 col-sm-6 col-md-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">发动机号： </label>
+									      <div class="col-xs-8">
+									      	<input type="text" class="form-control  " id="engineNo" name="engineNo"  data-fieldName="ENGINE_NO"/>
+									      </div>
+									  </div>
+								</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌 ：</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control required " id="brand" name="brand"  data-fieldName="BRAND"/>
+								</div>
+							</div>
+						</div>
+						
+							<div class="col-xs-12 col-sm-6 col-md-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">车系： </label>
+									<div class="col-xs-8">
+										<input type="text" class="form-control required " id="series" name="series"  data-fieldName="SERIES"/>
+									</div>
+								</div>
+							</div>
+					
+					
+							<div class="col-xs-12 col-sm-6 col-md-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">车型： </label>
+									<div class="col-xs-8">
+										<input type="text" class="form-control required " id="model" name="model"  data-fieldName="MODEL"/>
+									</div>
+								</div>
+							</div>
+							
+							
+							<div class="col-xs-12 col-sm-6  col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">申请日期：</label>
+								<div class="col-xs-8">
+									<div class="input-group date  date-picker">
+										<input id="applyDate" name="applyDate" 
+											class="form-control required" type="text" value=""  data-fieldName="APPLY_DATE" />		
+												<span  class="input-group-btn">
+											<button class="btn default date-set" type="button" >
+												<i class="fa fa-calendar"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+							
+							
+							<div class="col-xs-12 col-sm-6 col-md-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">申请人： </label>
+									<div class="col-xs-8">
+											<span class="form-show " data-fieldName="APPLY_MAN"></span>
+									</div>
+								</div>
+							</div>
+									<div class="col-xs-12 col-sm-6 col-md-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">联系电话： </label>
+									<div class="col-xs-8">
+											<span class="form-show " data-fieldName="LINK_TEL"></span>
+									</div>
+								</div>
+							</div>	
+							
+							
+				   
+
+					</div>
+				</div>
+			</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >项目信息</div>
+					<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" data-url="vehicle/afterSales/preclaim/searchXiangMuCode.html" data-width="modal-lg"data-toggle="modal"> 
+							<i class="fa fa-plus-square"></i> 新增
+							</a> 
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="one_table"></table>
+		</div>
+	</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >附件信息</div>
+			<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" data-url="vehicle/afterSales/preclaim/add3MaintainQuery.html" data-width="modal-md"data-toggle="modal"> 
+							<i class="fa fa-plus-square"></i> 添加附件
+							</a> 
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="two_table"></table>
+		</div>
+	</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/preclaimPre/edit/{[ID]}/e" data-model="vehicle" data-beforeRequest="true"
+				data-method="PUT" data-callBack='true'
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>修改</a>
+			<a data-url="/preclaimPre/edit/{[ID]}/u" data-model="vehicle" data-beforeRequest="true"
+				data-method="PUT" data-callBack='true'
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>上报</a>
+				 <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "one_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/perClaimFeedBack/XiangMuXinXiSearch/{[ID]}",
+			rowID : "",
+			sortName : "",
+			sortOrder : "asc",
+			autoHeight:false,
+		columns : [ 
+		            {checkbox : true,sortable : false},
+		           {field : "ID",title : "操作",operateFormat : [      
+		                                           	 	{type : "localDel",operateIcon:'<i class="glyphicon glyphicon-remove"></i>',onBeforeEvent:function(value, row, index){
+				                			            },onAfterEvent:function(value, row, index){
+				                			            	$("#save",container).removeAttr('disabled');  }}
+				                			            ]}, 
+				                			            
+			     {field : "ITEM_ID",visible : false, title : "项目id"},
+			     
+		        {field : "ITEM_CODE",title : "项目代码"},
+		       	
+		
+		       
+				 {field : "ITEM_DESC",title : "项目名称"},
+				
+				 {field : "CHECK_REMARK",inputField:"checkRemark",title : "故障描述及维修方案",inputTextFormat : {}},
+				 
+				 {field : "ITEM_TYPE",visible : false, title : "项目类型"}
+	        ]
+	             });
+		
+		
+	new Datatable().initPagination({
+			src : "two_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/preclaimPre/getFuJian/{[ID]}",
+			rowID : "",
+			sortName : "",
+			sortOrder : "asc",
+			autoHeight:false,
+		columns : [ 
+		         {checkbox : true,sortable : false},
+		           {field : "ID",title : "操作",operateFormat : [
+		                                           	 	{type : "localDel",operateIcon:'<i class="glyphicon glyphicon-remove"></i>',onBeforeEvent:function(value, row, index){
+				                			            },onAfterEvent:function(value, row, index){
+				                			            	$("#save",container).removeAttr('disabled');
+				                			            },isShow:function(value, row, index){
+				                			            	if(row.IS_FINISHED==12781001){
+				                			            		return false;
+				                			            	}else{
+				                				            	return true;
+				                			            	}
+				                			            }
+				                			            }]}, 
+                                {field : "FILENAME", title : "附件名称"},
+                                {field : "FILEURL",visible : false, title : "附件地址"},
+                                {field : "FILEID",visible : false, title : "附件ID"},
+                                {field : "FJID",visible : false, title : "FJID"}
+                            
+			
+	        ]
+	             });
+		
+		
+		
+		//批量修改的前执行函数
+		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			var selectRow = $("#one_table",container).dmsTable().getSelections();
+			debugger;
+			if(!selectRow){
+				dmsCommon.tip({status:"warning",msg:"请选择项目"});//总共的状态类型：info、success、error、warning
+				returnResult.status = false;
+				return ;
+			}  
+			if(selectRow.length > 0){
+				var groupIds = "";
+				
+				for(var i = 0 ;i<selectRow.length;i++){
+					if(groupIds=="" ){ //第一次循环为空值
+						
+						groupIds = selectRow[i]["ID"];
+						groupIds = groupIds+"#"+selectRow[i]["ITEM_ID"];
+						groupIds = groupIds+"#"+selectRow[i]["ITEM_CODE"];
+						groupIds = groupIds+"#"+selectRow[i]["ITEM_DESC"];
+						groupIds = groupIds+"#"+$("#checkRemark"+i+"").val();
+					
+						groupIds = groupIds+"#"+selectRow[i]["ITEM_TYPE"];
+						
+						
+						
+					}else{
+						
+						groupIds = groupIds+","+selectRow[i]["ID"];
+						groupIds = groupIds+"#"+selectRow[i]["ITEM_ID"];
+						groupIds = groupIds+"#"+selectRow[i]["ITEM_CODE"];
+						groupIds = groupIds+"#"+selectRow[i]["ITEM_DESC"];
+						groupIds = groupIds+"#"+$("#checkRemark"+i+"").val();
+					
+						groupIds = groupIds+"#"+selectRow[i]["ITEM_TYPE"];
+						
+					}
+					
+				}
+				$("#groupIds",getElementContext()).setDmsValue(groupIds);
+				
+			}
+			returnResult.status = true;
+		}); 
+		
+		
+ 	    $("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			var selectRow2 = $("#two_table",container).dmsTable().getSelections();
+			debugger;
+			if(!selectRow2){
+				dmsCommon.tip({status:"warning",msg:"请选择附件"});//总共的状态类型：info、success、error、warning
+				returnResult.status = false;
+				return ;
+			}
+			if(selectRow2.length > 0){
+				var groupIds = "";
+				
+				for(var i = 0 ;i<selectRow2.length;i++){
+					if(groupIds=="" ){ //第一次循环为空值
+						groupIds = selectRow2[i]["ID"];
+					
+						groupIds = groupIds+"#"+selectRow2[i]["FILENAME"];
+						groupIds = groupIds+"#"+selectRow2[i]["FILEURL"];
+						groupIds = groupIds+"#"+selectRow2[i]["FILEID"];
+						groupIds = groupIds+"#"+selectRow2[i]["FJID"];
+						
+					}else{
+						
+						groupIds = groupIds+","+selectRow2[i]["ID"];
+						
+						groupIds = groupIds+"#"+selectRow2[i]["FILENAME"];
+						groupIds = groupIds+"#"+selectRow2[i]["FILEURL"];
+						groupIds = groupIds+"#"+selectRow2[i]["FILEID"];
+						groupIds = groupIds+"#"+selectRow2[i]["FJID"];
+				
+						
+						
+					}
+					
+				}
+				$("#groupIds2",getElementContext()).setDmsValue(groupIds);
+				
+			}
+			returnResult.status = true;
+		});  
+		
+		
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("a.clear").click();
+			$("#one_table",getElementContext()).dmsTable().refreshTableWithForm();
+			$("#two_table",getElementContext()).dmsTable().refreshTableWithForm();
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+		
+		
+		
+	
+	});
+</script>

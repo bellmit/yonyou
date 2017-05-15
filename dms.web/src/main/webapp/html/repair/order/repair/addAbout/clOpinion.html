@@ -1,0 +1,36 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+		    <div class="modal-title">处理意见</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<textarea rows="5" id="remark" name="remark" style="width: 100%"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-beforeShowEvent="true"><i class="fa fa-save"></i>确定</a>
+			<a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+			//为了这个三包校验重新走一次保存按钮
+			$("#checkFlag",getElementContext()).setDmsValue("reset");
+			$("#remark1",getElementContext()).setDmsValue($("#remark",container).val());
+			$("#save", getElementContext()).click();
+			//关闭窗口
+			$("a[data-dismiss='modal']", container).click();
+		}
+	});
+</script>

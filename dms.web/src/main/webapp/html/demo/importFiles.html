@@ -1,0 +1,149 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+	
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="pannel-name">用户基本信息</div>
+				<div class="pannel-tools">
+					<a href="javascript:;" class="expand"> <i
+						class="fa fa-chevron-down"></i></a>
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">姓名</label>
+							<div class="col-xs-8">
+								<input id="name" name="name" class="form-control required" type="text" />
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">性别</label>
+							<div class="col-xs-8">
+								<select id="sex" name="sex" class="bs-select form-control required"
+									data-dictCode="1006" data-value="">
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">出生日期</label>
+							<div class="col-xs-8">
+								<div class="input-group date date-picker" >
+									<input id="birdthday" name="bridthday" readonly
+										class="form-control required"
+										type="text" value="" /> <span class="input-group-btn">
+										<button class="btn default date-set" type="button">
+											<i class="fa fa-calendar"></i>
+										</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+									</span>
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">用户名</label>
+							<div class="col-xs-8">
+								<input id="username" name="username" type="text"
+									class="form-control required" />
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">年龄</label>
+							<div class="col-xs-8">
+								<input id="age" name="age" type="text" class="form-control required" />
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">薪水</label>
+							<div class="col-xs-8">
+								<input id="salary" name="salary" type="text"
+									class="form-control required" />
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">工作开始时间</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker" data-defaultToday = "true">
+										<input id="entryTime" name="entryTime" readonly
+											class="form-control required" type="text" value="" /> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+				</div>
+			</div>
+		</div>
+	
+			
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="pannel-name">上传附件--发票信息</div>
+			</div>
+			<div class="panel-body">
+				<div class="row" >
+					<div class="col-xs-12 ">	
+						<div class="form-group">
+							<div class="col-xs-12">
+                             	<input type="file" class="importFiles" id="fileupload" multiple name="dmsFile" data-inputName="dmsFileIds">
+                            </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-actions">
+			<a class="btn blue"  data-url="/demoUsers" data-toggle="confirmation" data-model="demo" data-callBack="true" data-errorCallBack="true" data-fileUploadBtn="true"  data-method="POST">
+				<i class="fa fa-save"></i>保存</a>
+			<a data-goback="page" href="demo/searchUser2.html" class="btn blue ajaxify">
+			<i class="fa fa-reply"></i>返回</a>
+		</div>
+	</form>
+	
+</div>
+
+
+
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one("onload.dms",function(event,container){
+		
+		//当导入成功后的回调
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//$("a[data-goback='page']",container).click();
+		});
+		
+		
+	});
+
+	
+</script>

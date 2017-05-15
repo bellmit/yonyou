@@ -1,0 +1,77 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">系统提示</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default table-panel">
+				<div class="panel-body">
+					<table class="table table-striped table-bordered table-hover table-responsive"
+						id="tables"></table>
+				</div>
+				<div class="panel-body">
+					<div class="col-xs-12 col-sm-6">
+						<span style="color:red">
+							<h4>是否负库存：上述配件出入库会造成负库存，是否入帐？是否库存或金额为零 ：
+							<h5>1、库存数量*成本单价<>成本金额且库存数量或成本金额有为零；2、成本单价为零。
+						</span>
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						<div class="modal-footer center-block">
+							<a data-url="" data-model="demo" data-method="POST"
+								data-callBack="true" class="btn blue" data-fileUploadBtn="true"
+								data-toggle="confirmation"><i class="fa fa-save"></i>是</a> 
+							<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>否</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<input type="hidden" id="PART_NO" name="PART_NO"/>
+		<input type="hidden" id="STORAGE_CODE" name="STORAGE_CODE"/>
+		<input type="hidden" id="LEND_QUANTITY" name="LEND_QUANTITY"/>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		var selectRow = $("#tables",getElementContext()).dmsTable().getRowDataByIndex();
+		var PART_NO = "";
+		var STORAGE_CODE = "";
+		var LEND_QUANTITY = "";
+		$.each(selectRow,function(index,row){
+			PART_NO += row.PART_NO+",";
+			STORAGE_CODE += row.STORAGE_CODE+",";
+			LEND_QUANTITY += row.LEND_QUANTITY+",";
+		});
+		$("#PART_NO",container).val(PART_NO.substr(0,PART_NO.length-1));
+		$("#STORAGE_CODE",container).val(STORAGE_CODE.substr(0,STORAGE_CODE.length-1));
+		$("#LEND_QUANTITY",container).val(LEND_QUANTITY.substr(0,LEND_QUANTITY.length-1));
+		new Datatable().initPagination({
+			src : "tables",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/basedata/lendStuff/queryStock",
+			rowID : "",
+			sortName : "", 
+			sortOrder : "asc",
+			autoHeight : false,
+			isFormParam:true,
+			undefinedText : "",
+			columns : [ 
+				{field : "STORAGE_CODE",title : "仓库",inputHiddenFormat:{}}, 
+				{field : "PART_NO",title : "配件代码",inputHiddenFormat:{}},
+				{field : "PART_NAME",title : "配件名称",inputHiddenFormat:{}},
+				{field : "ISNORMAL",title : "是否库存或金额为零 ",codeFormat : {type:"dict",codeType:"1278"}},
+			    {field : "ISNEGATIVE",title : "是否负库存 ",codeFormat : {type:"dict",codeType:"1278"}}, 
+				{field : "USEABLE_STOCK",title : "可用库存",inputHiddenFormat:{}},
+				{field : "PART_QUANTITY",title : "出库数量",inputTextFormat:{}}, 
+				{field : "LOCKED_QUANTITY",title : "锁定数量",inputHiddenFormat:{}}
+			]
+		});
+	});
+	
+</script>

@@ -1,0 +1,128 @@
+<div class="dms-edit ajaxrest" data-url="/materialPackageGroupMaintain/{[PACKAGE_GROUP_ID]}"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">车款组信息编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-xs-4 col-md-3 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车款组代码</label>
+								<div class="col-xs-8">
+									<input type="hidden" class="form-control" id="type" name="type" value ="1">
+									<input id="packageGroupCode" name="packageGroupCode" data-fieldName="package_group_code" class="form-control required" maxlength="15" type="text" />
+								</div>
+							</div>
+						</div>
+		
+						<div class="col-xs-12 col-sm-6 col-xs-4 col-md-3 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车款组名称</label>
+								<div class="col-xs-8">
+										<input id="ids" name="ids" type="hidden"/>
+										<input id="packageGroupName" name="packageGroupName"  data-fieldName="package_group_name" class="form-control required"  maxlength="30" type="text"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-xs-4 col-md-3 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车款组状态</label>
+								<div class="col-xs-8">
+									<select id="status" name="status" data-fieldName="status" class="bs-select form-control required" data-type="oemDict" data-dictCode="1001" data-value="10011001"  >
+									</select>
+								</div>
+							</div>
+						</div>
+						
+
+					</div>
+					<div class="row ">
+						<div class="col-xs-12 col-sm-6 col-xs-4 col-md-3 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车款代码</label>
+								<div class="col-xs-8">
+									<input id="groupCode" name="groupCode" class="form-control"  maxlength="30" type="text"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="query-btn">
+								<a href="javascript:;" class="btn blue"> <i
+									class="fa fa-search"></i> 查询
+								</a> 
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default table-panel">
+							<div class="panel-heading">
+								<div class="pannel-name" >车款信息</div>
+							</div>
+							<div class="panel-body">
+								<table class="table table-striped table-bordered table-hover table-responsive"
+									id="dms_table"></table>
+							</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal-footer center-block">
+			<a data-url="/materialPackageGroupMaintain/{[PACKAGE_GROUP_ID]}" 
+				data-model="vehicle" data-method="PUT" data-callBack='true' data-beforeRequest="true"
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>保存</a> 
+				<a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/materialPackageGroupMaintain/select/packageGroup",
+			rowID : "GROUP_ID",
+			sortName : "GROUP_CODE",
+			sortOrder : "asc",
+			pageSize:10,
+			columns : [ 
+			    {checkbox:true,sortable : false},  
+			    {field : "GROUP_CODE",title : "车款代码"}, 
+				{field : "GROUP_NAME",title : "车款名称"}, 
+				{field : "STATUS",title : "状态" ,codeFormat : {type:"dict",codeType:"1001"}}
+			]
+
+		});
+		
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+		
+		//保存前处理多选值
+		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+		 	var str='';
+			var selectRow = $("#dms_table",container).dmsTable().getSelections();
+			   	$(selectRow).each(function(index){
+				  
+				   str+=selectRow[index].GROUP_ID+',';
+		  		});
+		  		/* var selectIds = $("#cusList",getElementContext()).dmsTable().getSelectionIds(); */
+			   	$("#ids").val(str);
+			   	returnResult.status = true;
+		});
+		
+	})
+</script>

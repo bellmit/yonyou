@@ -1,0 +1,124 @@
+<div class="dms-edit ajaxrest"  data-url="/orderSendTimeManage/getSendTime/{[ID]}"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">修改订单发送时间</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">状态</label>
+							<div class="col-xs-8">
+								<select id="status" name="status" class="bs-select form-control"  data-type="oemDict" data-dictCode="1147"  data-fieldName="STATUS"  data-existsDefault="false" >
+								</select>
+							</div>
+						</div>
+					</div>	
+					
+		 <div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">周</label>
+							<div class="col-xs-8">
+								<select id="week" name="week" class="bs-select form-control"   data-fieldName="WEEK"  data-type="oemDict" data-dictCode="9000"  data-existsDefault="false" >
+								</select>
+							</div>
+						</div>
+					</div>		
+						
+						<div  class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">开始时间</label>
+								<div class="col-xs-8">
+									<div class="input-group" data-defaultNow="true" >
+                                          <input type="text"  class="form-control timepicker" readonly  id="startTime" name="startTime"  data-fieldName="START_TIME">
+                                          <span class="input-group-btn">
+                                              <button class="btn default time-set" type="button">
+                                                  <i class="fa fa-clock-o"></i>
+                                              </button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+                                          </span>
+                                    </div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">截止时间</label>
+								<div class="col-xs-8">
+									<div class="input-group" data-defaultNow="true" >
+                                          <input type="text"  class="form-control timepicker" readonly id="stopTime" name="stopTime"  data-fieldName="STOP_TIME">
+                                          <span class="input-group-btn">
+                                              <button class="btn default time-set" type="button">
+                                                  <i class="fa fa-clock-o"></i>
+                                              </button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+                                          </span>
+                                    </div>
+								</div>
+							</div>
+						</div>
+					
+					
+					
+					<!-- 试用代码 -->
+				<!-- 		<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">周</label>
+								<div class="col-xs-8">
+								<input id="week" name="week" class="form-control required"  type="text" data-fieldName="WEEK" />
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">开始时间</label>
+								<div class="col-xs-8">
+								<input id="startTime" name="startTime" class="form-control required"  type="text" data-fieldName="START_TIME" />
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">结束时间</label>
+								<div class="col-xs-8">
+								<input id="stopTime" name="stopTime" class="form-control required"  type="text" data-fieldName="STOP_TIME" />
+								</div>
+							</div>
+						</div> -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/orderSendTimeManage/modify/{[ID]}" data-model="vehicle"
+				data-method="PUT" data-callBack='true'
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>修改</a> <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>返回</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	})
+</script>

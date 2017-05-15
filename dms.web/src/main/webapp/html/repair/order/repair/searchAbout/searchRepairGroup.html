@@ -1,0 +1,222 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">维修组合</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<div class="form-group">
+										<label class="control-label col-xs-4">组合代码：</label>
+										<div class="col-xs-8 ">
+											<input type="text" class="form-control" id="packageCode" name="packageCode">
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<div class="form-group">
+										<label class="control-label col-xs-4">组合名称：</label>
+										<div class="col-xs-8 ">
+											<input type="hidden" id="modelLabourCode" name="modelLabourCode"/>
+											<input type="text" class="form-control" id="packageName" name="packageName">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row ">
+								<div class="col-xs-12 ">
+									<div class="query-btn">
+										<a href="javascript:;" class="btn blue"> <i
+											class="fa fa-search"></i> 查询
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default table-panel">
+						<div class="panel-body">
+							<table
+								class="table table-striped table-bordered table-hover table-responsive"
+								id="dms_main">
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+					<div class="panel panel-default table-panel">
+						<div class="panel-body">
+							<table
+								class="table table-striped table-bordered table-hover table-responsive"
+								id="dms_second">
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+					<div class="panel panel-default table-panel">
+						<div class="panel-body">
+							<table
+								class="table table-striped table-bordered table-hover table-responsive"
+								id="dms_third">
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a id="b_save" data-onclickEvent='true'
+				class="btn blue"><i class="fa fa-save"></i>确定</a>
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		$("#modelLabourCode",container).val($("#modelLabourCode",getElementContext()).val());
+		
+		new Datatable().initPagination({
+			src : "dms_main",
+			rowID : "PACKAGE_CODE",
+			container:container,
+			url : dmsCommon.getDmsPath()["repair"] + "/basedata/group/findGroupItem",
+			sortName : "PACKAGE_CODE", 
+			sortOrder : "asc",
+			autoHeight : false,
+			height : 290,
+			pageSize : 5,
+			columns : [
+           	    {field : "IS_SELECT",inputHiddenFormat : {},title : "已添加",inputCheckBoxFormat:{type:"dict",codeType:"1057",disabled:true}},
+                {field : "PACKAGE_CODE",inputHiddenFormat : {},title : "组合代码"},
+                {field : "PACKAGE_TYPE_NAME",inputHiddenFormat : {hiddenField:"PACKAGE_TYPE"},title : "组合类别"},
+                {field : "PACKAGE_NAME",inputHiddenFormat : {},title : "组合名称"},
+				{radio : true,sortable : false}
+			]
+		});
+		
+		new Datatable().initLocale({//packageCode,packageName,modelLabourCode
+			src : "dms_second",
+			container:container,
+			rowID : "LABOUR_CODE",
+			url : dmsCommon.getDmsPath()["repair"] + "/basedata/group/findRepairProject/{[PACKAGE_CODE]}/{[PACKAGE_NAME]}/"+objToStr($("#modelLabourCode",getElementContext()).val()),
+			sortName : "LABOUR_CODE", 
+			sortOrder : "asc",
+			height : 180,
+			undefinedText : "",
+			parentTable:"dms_main",
+			columns : [
+                	   {field : "LABOUR_CODE",inputHiddenFormat : {},title : "项目代码"},
+                       {field : "LABOUR_NAME",inputHiddenFormat : {},title : "项目名称"},
+                       {field : "REPAIR_TYPE_CODE",inputHiddenFormat : {},title : "维修类型"},
+                       {field : "STD_LABOUR_HOUR",inputHiddenFormat : {},title : "标准工时"},
+                       {field : "ASSIGN_LABOUR_HOUR",inputHiddenFormat : {},title : "派工工时"},
+                       {field : "",inputHiddenFormat : {},title : "索赔工时"},
+                       {field : "LOCAL_LABOUR_CODE",inputHiddenFormat : {},title : "行管项目代码"},
+                       {field : "LOCAL_LABOUR_NAME",inputHiddenFormat : {},title : "行管项目名称"}
+			         ]
+		});
+		
+		new Datatable().initLocale({//partPo,packageName,modelLabourCode,userId
+			src : "dms_third",
+			container:container,
+			rowID : "PART_NO",
+			url : dmsCommon.getDmsPath()["repair"] + "/basedata/group/findRepairPart/{[PACKAGE_CODE]}/{[PACKAGE_NAME]}/"+objToStr($("#modelLabourCode",getElementContext()).val()),
+			sortName : "PART_NO", 
+			sortOrder : "asc",
+			height : 260,
+			undefinedText : "",
+			parentTable:"dms_main",
+			columns : [
+                	   {field : "STORAGE_CODE",inputHiddenFormat : {},title : "仓库代码"},
+                       {field : "PART_NO",inputHiddenFormat : {},title : "配件代码"},
+                       {field : "PART_NAME",inputHiddenFormat : {},title : "配件名称"},
+                       {field : "PART_QUANTITY",inputHiddenFormat : {},title : "配件数量"},
+                       {field : "PART_SALES_PRICE",inputHiddenFormat : {},title : "配件销售单价"},
+                       {field : "PART_SALES_AMOUNT",inputHiddenFormat : {},title : "配件销售金额"},
+                       {field : "USEABLE_STOCK",inputHiddenFormat : {},title : "可用库存"},
+                       {field : "PART_MODEL_GROUP_CODE_SET",inputHiddenFormat : {},title : "车型组"},
+                       {field : "LABOUR_CODE",inputHiddenFormat : {},title : "项目代码"},
+                       {field : "MODEL_LABOUR_CODE",inputHiddenFormat : {},title : "项目车型组"}
+			         ]
+		});
+		
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			var confirmPostBO=$("a[data-info='saveBeforeUrl']",container);
+			var $this = $(this).attr('id');
+			if($this=='b_save'){
+				var flag = false;//判断车型组是否缺少
+				var text = "";//判断是否重复新增
+				var selected = $("#dms_main",container).dmsTable().getSelections();
+				var reg=new RegExp(selected[0].PACKAGE_CODE);
+				var selectRow = $("#dms_second",container).dmsTable().getRowDataByIndex();
+				if(reg.test(text)){
+					confirmPostBO.confirm('重复的维修组合选择，是否继续新增？',function(confirmObj){},function(confirmObj){
+						return;
+					});
+				}else{
+					text += selected[0].PACKAGE_CODE+',';
+				}
+				$.each(selectRow,function(index,obj){
+					if(obj.MODEL_LABOUR_CODE==null||obj.MODEL_LABOUR_CODE==''){
+						flag = true;
+					}
+				});
+				if(flag){
+					dmsCommon.tip({status:"warning",msg:"维修组合缺少车型组信息，请在维修组合管理模块中维护以后再使用该功能！"});
+					return;
+				}else{
+					$.each(selectRow,function(index,row){
+						row["1"] = false;
+						$("#dms_table",getElementContext()).dmsTable().appendRow(row);
+					});
+
+					var selectRow2 = $("#dms_third",container).dmsTable().getRowDataByIndex();
+					var t2 = '';
+					$.each(selectRow2,function(index,row){
+						if(parseInt(row.PART_STATUS)==12781001){
+							dmsCommon.tip({status:"warning",msg:"配件："+row.PART_NO+"已停用，不能增加！"});
+							return;
+						}
+						if(parseFloat(row.PART_QUANTITY)>parseFloat(row.USEABLE_STOCK)){
+							t2 += "'"+row.PART_NO+"',";
+						}
+						row["1"] = false;
+						$("#dms_part",getElementContext()).dmsTable().appendRow(row);
+					});
+					if(t2!=''){
+						confirmPostBO.confirm('是否记录缺料明细?',function(confirmObj){
+						t2 = t2.substr(0,t2.length-1);
+						dmsCommon.ajaxRestRequest({
+							url:dmsCommon.getDmsPath()['repair']+"/order/repair/recordInDetail",
+							data : {'packageCode':$("#packageCode",container).val(),'packageName':$("#packageName",container).val(),'modelLabourCode':$("#modelLabourCode",getElementContext()).val(),'roNo':$("#roNo",getElementContext()).val()}
+						});
+						},function(confirmObj){
+						});
+					}
+					
+					//需要先将已添加勾中
+					selected[0].IS_SELECT=10571001;
+					$("#dms_second",container).dmsTable().updateRowByIndex(selected[0].index,selected);
+					confirmPostBO.confirm('维修组合新增成功，是否继续新增？',function(confirmObj){
+						return;
+					},function(confirmObj){
+						$("a[data-dismiss='modal']",container).click();
+						return;
+					});
+				}
+			}
+		});
+	});
+	var objToStr =function(text){
+		return isStringNull(text)?'1':text;
+	}
+</script>

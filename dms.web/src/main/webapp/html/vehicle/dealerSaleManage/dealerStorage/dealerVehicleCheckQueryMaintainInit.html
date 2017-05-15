@@ -1,0 +1,127 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">发车日期</label>
+							<div class="col-xs-8 col-sm-8">
+								<div class="input-group input-daterange" data-opens="right">
+									<input type="text" class="form-control" readonly name="beginArriveDate" id="beginArriveDate">
+								    <span class="input-group-addon">至</span>
+								    <input type="text" class="form-control" readonly name="endArriveDate" id="endArriveDate">
+<!-- 								    <input type="text" class="form-control required -- 必填"  name="endDate" id="endDate"> -->
+									<span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">验收日期</label>
+							<div class="col-xs-8 col-sm-8">
+								<div class="input-group input-daterange" data-opens="right">
+									<input type="text" class="form-control" readonly name="beginActualDate" id="beginActualDate">
+								    <span class="input-group-addon">至</span>
+								    <input type="text" class="form-control" readonly name="endActualDate" id="endActualDate">
+<!-- 								    <input type="text" class="form-control required -- 必填"  name="endDate" id="endDate"> -->
+									<span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否质损</label>
+							<div class="col-xs-8">
+								<select id="damageFlag" name="damageFlag" class="bs-select form-control" data-type="oemDict" data-dictCode="1004">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">订单号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="orderNo" name="orderNo">
+							</div>
+						</div>
+					</div>		
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">VIN</label>
+							<div class="col-xs-8">
+								<textarea class="form-control" id="vin" name="vin" rows="2"></textarea> 
+							</div>
+						</div>
+					</div>		
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i class="fa fa-undo"></i>重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name" >经销商车辆验收信息</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a href="javascript:;" data-url="/checkMaintain/dealer/export/excel" data-model="vehicle" data-method="downLoad" data-toggle="confirmation"
+								class="btn btn-outline " ><i class="fa fa-download"></i>下载</a>
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/checkMaintain/dealer",
+			rowID : "SWT_CODE",
+			sortName : "INSPECTION_ID",
+			sortOrder : "asc",
+			isQueryFirst: false,
+			columns : [ 
+			    {field : "INSPECTION_ID",title : "操作",operateFormat : [
+					   {type:"detail",url:"vehicle/dealerSaleManage/dealerStorage/dealerVehicleDetialCheckQueryMaintainInit.html",openType:"jump"}
+                   ]
+                },  
+			    {field : "ORDER_NO"				,title : "订单号"}, 
+			    {field : "BRAND_NAME"			,title : "品牌"}, 
+			    {field : "SERIES_NAME"			,title : "车系"}, 
+			    {field : "MODEL_CODE"			,title : "CPOS"}, 
+			    {field : "MODEL_YEAR"			,title : "年款"}, 
+			    {field : "GROUP_NAME"			,title : "车款"}, 
+			    {field : "COLOR_NAME"			,title : "颜色"}, 
+			    {field : "TRIM_NAME"			,title : "内饰"}, 
+			    {field : "VIN"					,title : "VIN"}, 
+				{field : "DAMAGE_FLAG"			,title : "是否质损" ,codeFormat : {type:"oemDict",codeType:"1004"}}, 
+				{field : "INSPECTION_PERSON"	,title : "验收人"},
+			    {field : "ARRIVE_DATE"			,title : "发车日期"}, 
+				{field : "ACTUAL_DATE"			,title : "验收日期"},
+				
+			]
+		});
+	});
+</script>

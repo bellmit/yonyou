@@ -1,0 +1,332 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">姓名姓名姓名</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input type="text" class="form-control" id="name" name="name">
+									<span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                 </span>
+                                 </div>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">用户名</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="userName" name="userName">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">出生日期</label>
+							<div class="col-xs-8 col-sm-10">
+								 <div class="input-group input-daterange" data-maxDays = "30" data-opens="right">
+		                             <input type="text" class="form-control" readonly  name="birdthFrom">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="birdthTo">
+		                             <span class="input-group-btn">
+                                         <button class="btn default input-clear" type="button">
+                                            <i class="fa fa-close"></i>
+                                        </button>
+                                      </span> 
+		                        </div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">年龄范围</label>
+							<div class="col-xs-8">
+								 <div class="input-group">
+		                             <input type="text" class="form-control digits" name="ageFrom">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control digits" name="ageTo"> 
+		                        </div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">性别</label>
+							<div class="col-xs-8">
+								<select id="sex" name="sex" class="bs-select form-control" data-dictCode="1002"  >
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">薪水范围</label>
+							<div class="col-xs-8">
+								 <div class="input-group">
+		                             <input type="text" class="form-control decimal" name="salaryFrom">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control decimal" name="salaryTo"> 
+		                        </div>
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">单选按钮</label>
+							<div class="col-xs-8">
+									<input id="isCheckRadio" name="isCheckRadio" type="radio"
+										data-dictCode="1004"/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">多选按钮</label>
+							<div class="col-xs-8">
+									<input id="isCheckCheckBox" name="isCheckCheckBox" type="checkbox"
+										data-dictCode="1004"/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">多选下拉框</label>
+								<div class="col-xs-8">
+									<select id="seriesMemual"
+										class="bs-select form-control" name="seriesMemual"
+										data-url="/basedata/positions/duty/dicts"
+										data-model="manage" data-labelValue="POSITION_CODE"
+										data-lableDesc="POSITION_NAME" multiple data-live-search="true" data-size="2" data-existsDefault = "false" >
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">出生月份</label>
+								<div class="col-xs-8">
+									<div class="input-group date month-picker" data-defaultToday = "true" data-date-end-date="+0d" data-orientation="top left">
+										<input id="birdthday" name="birdthday" readonly
+											class="form-control" type="text" value="" />
+										 <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">会计年度</label>
+								<div class="col-xs-8">
+									<div class="input-group date year-picker" data-defaultToday = "true">
+										<input id="funcYear" name="funcYear" readonly
+											class="form-control" type="text" value="" />
+										 <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">时间选择</label>
+								<div class="col-xs-8">
+									<div class="input-group" data-defaultNow="true" >
+                                          <input type="text"  class="form-control timepicker" readonly id="timetext" name="timetext">
+                                          <span class="input-group-btn">
+                                              <button class="btn default time-set" type="button">
+                                                  <i class="fa fa-clock-o"></i>
+                                              </button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+                                          </span>
+                                    </div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<div class="col-xs-12">
+		                            <input id="isCheck" name="isCheck" type="checkbox"
+										data-dictCode="1013" data-dictLabel="是否选中"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >用户信息列表</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" data-url="demo/addUser.html" data-width="modal-lg"   data-validateUrl="/demoUsers/export/excel" data-validateModel="demo"  data-validateMethod=""
+								data-toggle="modal"> <i class="fa fa-plus-square" ></i> 新增
+							</a> 
+							<a class="btn btn-outline" data-url="demo/addUser2.html" data-width="modal-lg"
+								data-toggle="modal"> <i class="fa fa-plus-square"></i> 多表单新增
+							</a> 
+							<a href="demo/addUser3.html" class="btn btn-outline ajaxify" > <i
+								class="fa fa-plus-square"></i>跳转新增
+							</a>
+							<a href="demo/tab.html" class="btn btn-outline ajaxify" > <i
+								class="fa fa-plus-square"></i> tab页
+							</a>
+							<a href="javascript:;" class="btn btn-outline" > <i
+								class="fa fa-print"></i>打印
+							</a>
+							<a href="demo/importUser.html" class="btn btn-outline ajaxify"> <i
+								class="fa fa-upload"></i>导入
+							</a>
+							<a href="demo/importFiles.html" class="btn btn-outline ajaxify"> <i
+								class="fa fa-upload"></i>附件上传
+							</a>
+							<a href="javascript:;" data-url="/demoUsers/export/excel" data-model="demo" data-method="downLoad" data-toggle="confirmation"
+								class="btn btn-outline " data-validateUrl="/demoUsers/export/excel" data-validateModel="demo"  data-validateMethod="" ><i class="fa fa-download"></i>导出</a>
+						
+						   <a href="javascript:;" data-url="/basedata/download/template/partInfoTemplate" data-model="web" data-method="downLoad"
+								class="btn btn-outline ajaxrest" data-validate = "false"><i class="fa fa-plus-square"></i> 模板下载</a>
+								
+							<a data-goback="page" href="demo/buttonModel.html"
+							   class="btn btn-sm btn-outline ajaxify"><i class="fa fa-plus-square"></i> 按钮模板</a>
+							   
+							<a class="btn btn-sm btn-outline" data-onclickEvent1="true"><i class="fa fa-plus-square"></i> 更新表格数据</a>
+					
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="userList"></table>
+		</div>
+	</div>
+	
+</div>
+<script type="text/javascript">
+
+    $(document).one("onload.dms",function(event,container){
+    	new Datatable().initPagination({
+			src : "userList",
+			container:container,
+			url : dmsCommon.getDmsPath()["demo"] + "/demoUsers",
+			rowID : "USER_ID",
+			detailView : true, //当需要显示明细时，打开此开关，否则不需要写
+			sortName : "USER_NAME,AGE", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+			sortOrder : "asc,desc",
+			isQueryFirst:false,
+			mergeTotal:{
+				megerCellNumber:5,
+				megerCellName:"合计"
+			},
+			//当需要开启显示明细时才实现，否则不实现
+			detailFormatter : function(index, row, element) {
+				return row.NAME;
+			},
+			columns : [ 
+			    {field : "USER_ID",title : "操作",inputField:"userId",inputHiddenFormat : {}, operateFormat : [
+                       {type:"edit",url:"demo/editUser.html",openWidth:"modal-lg",doubleClick:true,isShow:function(value, row, index){
+                    	   return true;
+                       },attr:'data-validateUrl="" data-validateMethod="" data-validateModel=""'}, //默认不支持双击操作
+                       {type:"edit",title:"修改2",url:"demo/editUser2.html",openType:"jump",isShow:function(value, row, index){
+                    	   return true;
+                       }},
+                       {type:"detail",url:"demo/editUser2.html",openType:"jump",isShow:function(value, row, index){
+                    	   return true;
+                       }},//打开方式默认弹出:open
+                       {type:"del",url:"/demoUsers/{[USER_ID]}",model:"demo",callBack:function(response){
+                    	   $("#userList",container).dmsTable().refreshTableWithForm();
+                       },isShow:function(value, row, index){
+                    	   if(row.SEX=="10021001"){
+                    		   return true;
+                    	   }else{
+                    		   return false;
+                    	   }
+                       },disableHidden:false}, //disableHidden：用来控制对于disabled 的按钮是否需要隐藏,默认不隐藏，如果需要隐藏，请设置为true
+                       {type:"edit",url:"demo/editUser4.html",openType:"jump",title:"结案",operateIcon:'<i class="glyphicon glyphicon-lg glyphicon-remove"></i>'}
+                   ]
+                },  
+			    {field : "USER_NAME",title : "用户名2",sortable : false, maxLengthFormat : {length:10}},
+				{field : "NAME",title : "姓名",inputField:"name",inputHiddenFormat : {hiddenField:"AGE"}}, 
+				{field : "AGE",title : "年龄",numberFormat : {}},
+				{field : "BIRTHDAY",title : "出生日期",dateFormat : {}}, 
+				{field : "SALARY",title : "薪水",inputHiddenFormat : {},numberFormat : {decimal:2}}, 
+				{field : "AGE_PERCENT",title : "年龄/薪水",inputHiddenFormat : {},numberFormat : {decimal:4,numberType:"percent"}}, 
+				{field : "ENTRY_TIME",title : "工作开始时间",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"},isVisible:function(column){
+					return false;
+				}}, 
+				{field : "SEX",title : "性别",inputHiddenFormat : {},codeFormat : {type:"dict",codeType:"1006"}} 
+			],
+			onLoadSuccess : function() {
+				$("#userList",container).dmsTable().bootstrapTable('resetView');
+			}
+		});
+    	
+    	
+    	//绑定onchange 事件
+		$("[name='isCheck']",container).bindChange(function(obj){
+			var isChecked = $(obj).is(':checked');
+			
+		});
+    	
+    	//绑定查询按钮回调
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+// 			console.log("into callBack");
+		});
+    	
+		//绑定onchange 事件
+		$("[name='isCheckRadio']",container).bindChange(function(obj){
+// 			console.log("into callBack");
+		});
+		
+		//动态修改表格中对应单元格的数据
+		$("a[data-onclickEvent1='true']",container).on("dms.click",function(event){
+			$("#userList",container).dmsTable().updateRowByIndex(0,{USER_NAME:"张宪超"});
+		});
+    	
+    });
+
+</script>

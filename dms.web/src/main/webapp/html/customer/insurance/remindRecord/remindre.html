@@ -1,0 +1,155 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title"></div>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="panel panel-default table-panel">
+						<div class="panel-heading">
+							<div class="pannel-button"></div>
+						</div>
+						<div class="panel-body">
+							<table
+								class="table table-striped table-bordered table-hover table-responsive"
+								id="dms_reminder">
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- <span/> -->
+		<div class="modal-footer center-block">
+			<a data-url="" data-model="customer" data-method="POST"
+				data-callBack="true" class="btn blue" data-toggle="confirmation">
+				<i class="fa fa-save "></i>保存
+			</a> <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document)
+			.one(
+					"onload.dms",
+					function(event, container) {
+
+						var vins = $("#vin2", getElementContext()).val();
+						$("#vin", container).val(vins);
+
+						new Datatable()
+								.initPagination({
+
+									rowID : "REMIND_ID",
+									url : dmsCommon.getDmsPath()["customer"]
+											+ "/customer/insurance/remindRecord/{[VIN]}/{[OWNER_NO]}",
+									sortName : "REMIND_ID",
+									sortOrder : "asc",
+									src : "dms_reminder",
+									container : container,
+									undefinedText : "",
+									autoHeight : false,
+									columns : [ 
+									{
+										title : "操作",
+										operateFormat : 
+												[{type : "edit",url : "customer/insurance/remindRecord/updateReminder.html",openWidth : "modal-sm"}, ]
+										},	{
+										field : "DEALER_SHORTNAME",
+										title : "经销商简称"
+									}, {
+										field : "OWNER_NO",
+										title : "车主编号"
+									}, {
+										field : "OWNER_NAME",
+										title : "车主名称"
+									}, {
+										field : "LICENSE",
+										title : "车牌号"
+									}, {
+										field : "VIN",
+										title : "VIN"
+									}, {
+										field : "REMIND_ID",
+										title : "提醒编号"
+									}, {
+										field : "REMIND_DATE",
+										title : "提醒日期",
+										dateFormat : {
+											format : "YYYY-MM-DD"
+										}
+									}, {
+										field : "REMIND_WAY",
+										title : "提醒方式",
+										codeFormat : {
+											type : "dict",
+											codeType : "1128"
+										}
+									}, {
+										field : "REMIND_CONTENT",
+										title : "提醒内容"
+									}, {
+										field : "CUSTOMER_FEEDBACK",
+										title : "客户反馈"
+									}, {
+										field : "USER_NAME",
+										title : "提醒人",inputHiddenFormat : {hiddenField:"SOLD_BY"}
+									}, {
+										field : "REMIND_STATUS",
+										title : "提醒状态",
+										codeFormat : {
+											type : "dict",
+											codeType : "1382"
+										}
+									}, {
+										field : "REMIND_FAIL_REASON",
+										title : "提醒失败原因"
+									}, {
+										field : "REMIND_TYPE",
+										title : "提醒类型",
+										codeFormat : {
+											type : "dict",
+											codeType : "1384"
+										}
+									}, {
+										field : "REMARK",
+										title : "备注"
+									}, {
+										field : "RENEWAL_REMIND_STATUS",
+										title : "是否续保战败"
+									}, {
+										field : "RENEWAL_FAILED_REASON",
+										title : "续保战败原因"
+									}, {
+										field : "RENEWAL_REMARK",
+										title : "续保战败备注"
+									}, {
+										field : "RENEWAL_FAILED_DATE",
+										title : "续保战败日期",
+										dateFormat : {
+											format : "YYYY-MM-DD"
+										}
+									}, {
+										field : "NEW_VEHICLE_DATE",
+										title : "新车关怀日期",
+										dateFormat : {
+											format : "YYYY-MM-DD"
+										}
+									}, {
+										field : "NEW_VEHICLE_MILEAGE",
+										title : "新车关怀里程"
+									}, {
+										field : "LAST_NEXT_MAINTAIN_DATE",
+										title : "上次预计保养里程"
+									}, {
+										field : "LAST_NEXT_MAINTAIN_MILEAGE",
+										title : "上次预计保养日期",
+										dateFormat : {
+											format : "YYYY-MM-DD"
+										}
+									} ]
+								});
+
+					});
+</script>

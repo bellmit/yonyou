@@ -1,0 +1,84 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel-heading">
+			<div class="pannel-name">险种选择</div>
+		</div>
+		<div class="panel-body">
+		<input type="hidden" id="bb" name="bb"/>
+			<table
+				class="table table-striped table-bordered table-hover
+				table-responsive"
+				id="dms_table">
+			</table>
+		</div>
+		<div class="modal-footer center-block">
+		<a   class="btn blue"  data-toggle="confirmation"  data-beforeRequest="true">
+				<i class="fa fa-save" ></i>确定</a>
+			<a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms", function(event, container) {
+		new Datatable().initPagination({
+			src : "dms_table",
+			rowID : "INSURANCE_TYPE_CODE",
+			container : container,
+			url : dmsCommon.getDmsPath()["repair"] + "/basedata/insuranceType",
+			sortName : "INSURANCE_TYPE_CODE",
+			sortOrder : "asc",
+			autoHeight : false,
+			undefinedText : "",
+			columns : [ {
+				checkbox : true,
+				sortable : false,
+				title : "选择"
+			}, {
+				field : "INSURANCE_TYPE_CODE",
+				title : "保险代码"
+			}, {
+				field : "INSURANCE_TYPE_NAME",
+				title : "保险名称"
+			}, {
+				field : "IS_COM_INSURANCE",
+				title : "是否交强险",
+				codeFormat : {
+					type : "dict",
+					codeType : "1278"
+				}
+			} ]
+		});
+		
+		 //新增页面的回调函数
+		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			var selectRow = $("#dms_table",container).dmsTable().getSelections();
+				 //将新增的数据追加到查询页面的表格中
+				 for(var i = 0;i<selectRow.length;i++){
+				 var jsonTr = {};
+				 jsonTr['INSURANCE_TYPE_NAME']=selectRow[i].INSURANCE_TYPE_NAME;//险种名称
+				 jsonTr['INSURANCE_TYPE_LEVEL']='11511002';//险种类型
+				 jsonTr['RECEIVABLE_AMOUNT']='0'
+				 $("#dms_insure",getElementContext()).dmsTable().appendRow(jsonTr,true);
+				 }
+				 var tab2=$("#dms_insure tbody",getElementContext());
+					$("input[id^='RECEIVABLE_AMOUNT']",tab2).bindChange(function(obj){
+						var row=$("#dms_insure",getElementContext()).dmsTable().getRowDataByIndex();
+						var coum=0;
+						   for(var i=0;i<row.length;i++){
+							coum += row[i].RECEIVABLE_AMOUNT;
+						};
+						for(var i=0;i<row.length;i++){
+							coum+=  $("tr:eq("+i+") td:eq(6) input[id^=RECEIVABLE_AMOUNT]",tab2).val();
+						}
+						console.log(coum);
+						$("#bb",container).val(coum);
+					});
+				//关闭窗口
+			   $("a[data-dismiss='modal']",container).click();
+			   returnResult.status =true;
+			//刷新表格
+//	 		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	});
+</script>

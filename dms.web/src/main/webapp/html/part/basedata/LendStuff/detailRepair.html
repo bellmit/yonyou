@@ -1,0 +1,65 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">维修项目情况</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default table-panel">
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="tables"></table>
+				</div>
+				<div class="modal-footer">
+							<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i> 返回</a>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		var roNo = $("#roNo",getElementContext()).val();
+		new Datatable().initPagination({
+			src : "tables",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/basedata/lendStuff/queryRepair/"+roNo,
+			rowID : "",
+			sortName : "", 
+			sortOrder : "asc",
+			autoHeight : false,
+			isFormParam:true,
+			undefinedText : "",
+			columns : [ 
+				{field : "MANAGE_SORT_CODE",title : "收费类别",inputHiddenFormat:{}}, 
+				{field : "CHARGE_PARTITION_CODE",title : "收费区分",inputHiddenFormat:{}},
+				{field : "LABOUR_CODE",title : "维修项目代码",inputHiddenFormat:{}},
+				{field : "LABOUR_NAME",title : "维修项目名称",inputTextFormat:{}},
+			    {field : "LABOUR_PRICE",title : "工时单价",inputSelectFormat : {}}, 
+				{field : "STD_LABOUR_HOUR",title : "标准工时",inputHiddenFormat:{}},
+				{field : "LABOUR_AMOUNT",title : "工时费",inputTextFormat:{}}, 
+				{field : "ASSIGN_LABOUR_HOUR",title : "派工工时",inputHiddenFormat:{}},
+				{field : "DISCOUNT_AMOUNT",title : "优惠金额",numberFormat : {decimal:2}},
+				{field : "DISCOUNT",title : "折扣率",inputHiddenFormat:{}},
+				{field : "RECEIVE_AMOUNT",title : "实收金额",numberFormat : {decimal:2}},
+				{field : "WORKER_TYPE_CODE",title : "工种",inputHiddenFormat:{}},
+				{field : "TECHNICIAN",title : "技师",inputHiddenFormat:{}},
+				{field : "ASSIGN_TAG",title : "派工标志",codeFormat : {type:"dict",codeType:"1278"}},
+				{field : "CONSIGN_EXTERIOR",title : "是否委外",codeFormat : {type:"dict",codeType:"1278"}},
+				{field : "NEEDLESS_REPAIR",title : "是否不修",codeFormat : {type:"dict",codeType:"1278"}},
+				{field : "PRE_CHECK",title : "是否预检",codeFormat : {type:"dict",codeType:"1278"}},
+				{field : "INTER_RETURN",title : "是否内返",codeFormat : {type:"dict",codeType:"1278"}},
+				{field : "ACTIVITY_CODE",title : "活动编号",inputHiddenFormat:{}},
+				{field : "TROUBLE_DESC",title : "故障描述",inputHiddenFormat:{}},
+				{field : "TROUBLE_CAUSE",title : "故障原因",inputHiddenFormat:{}},
+				{field : "REMARK",title : "备注",inputHiddenFormat:{}}
+			]
+		});
+	});
+	
+</script>

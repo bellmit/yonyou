@@ -1,0 +1,65 @@
+<div class="dms-edit ajaxrest" >
+	<form class="form-horizontal" >
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+					<div class="col-xs-12 col-sm-6  ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">参数名</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="paraName" name="paraName" value="{[PARA_NAME]}" disabled="disabled">
+							</div>
+						</div>
+					</div> 
+					<div class="col-xs-12 col-sm-6  ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">参数值</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control number" id="paraValue" name="paraValue" value="{[PARA_VALUE]}"  maxPrecision="2" data-autoValueDigits="2"  data-autoValueDigits="2" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6  ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">备注</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="remark" name="remark" value="{[REMARK]}">
+							</div>
+						</div>
+					</div>
+			
+
+				
+				</div>
+			</div>
+
+						
+		<div class="modal-footer">
+			<a class="btn blue" data-onclickEvent="true" data-beforeShowEvent="true"><i class="fa fa-save"></i>确定</a>
+		    <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消
+			</a>
+		</div>
+			</div>
+	   </div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event,container){
+		var paraValue=$("#paraValue",container).val();
+		var remark=$("#remark",container).val();
+		//var index=$('tbody >tr[data-uniqueid=\"'+(PARA_CODE)+'\"]',$("#partList",getElementContext())).attr("data-index");
+		var ind=$("tr.selected",getElementContext()).attr("data-index");
+		$("#partList",getElementContext()).dmsTable().updateRowByIndex(ind,{PARA_VALUE:paraValue,REMARK:remark});
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+	});
+	var license=$("#remark",container).val().match(/[^]*\{[\s\S]*?\}/g);
+	if(license){
+		 $("#remark",container).attr("value","");
+	}
+	
+});
+</script>

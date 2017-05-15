@@ -1,0 +1,167 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">家庭成员信息编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+                <div class="panel-heading">
+								<div class="pannel-name">基本信息</div>
+								<div class="pannel-tools">
+									<a href="javascript:;" class="expand"> <i
+										class="fa fa-chevron-down"></i></a>
+								</div>
+			    </div>
+				<div class="panel-body" data-parentTable ="partInfoTable">
+					<div class="row" data-familySelect="true">
+					                	<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">姓名</label>
+											<div class="col-xs-8">
+												<input id="customerName" name="CUSTOMER_NAME" 
+													data-fieldName="CUSTOMER_NAME" class="form-control"
+													type="text" maxlength="30" />
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">客户编号</label>
+							<div class="col-xs-8 ">
+								<div class="input-group">
+									<input type="text" class="form-control" 
+										 data-fieldName="CUSTOMER_CODE" /> <input
+										type="hidden" class="form-control" id="customerCode" name="CUSTOMER_CODE"
+									 /> <span class="input-group-btn">
+										<button class="btn default btn-sm" type="button"
+											data-url="customer/retainCustomer/retainCusMaintain/addFamilyMenber.html"
+											data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">出生日期</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker" data-orientation="top right" data-fieldName="BIRTHDAY">
+													<input id="birthday" name="BIRTHDAY" readonly
+														class="form-control" type="text" value="" /> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+													</span>
+
+												</div>
+											</div>
+										</div>
+									</div>
+										
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">家庭角色</label>
+											<div class="col-xs-8">
+												<select id="relation" name="RELATION"  data-fieldName="RELATION"
+													class="bs-select form-control" data-dictCode="4141"
+													data-value="">
+												</select>
+											</div>
+										</div>
+									</div>
+										<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">性别</label>
+											<div class="col-xs-8">
+												<select id="gender" name="GENDER"  data-fieldName="GENDER"
+													class="bs-select form-control" data-dictCode="1006"
+													data-value="">
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">婚姻状况</label>
+											<div class="col-xs-8">
+												<select id="ownerMarriage" name="OWNER_MARRIAGE" data-fieldName="OWNER_MARRIAGE"
+													class="bs-select form-control" data-dictCode="1119"
+													data-value="" >
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">联系人电话</label>
+											<div class="col-xs-8">
+												<input id="phone" name="PHONE" data-fieldName="PHONE"
+													class="form-control" type="text" data-autoSyncValue="#phone" maxlength="30" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+								    <div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">教育程度</label>
+											<div class="col-xs-8">
+												<select id="educationLevel" name="EDUCATION_LEVEL"  data-fieldName="EDUCATION_LEVEL"
+													class="bs-select form-control" data-dictCode="1116"
+													data-value="" >
+												</select>
+											</div>
+										</div>
+									</div>
+									
+									<!--/span-->
+									
+									
+									<!--/span-->
+
+								</div>
+				</div>
+			</div>
+		
+			
+		
+			
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-onclickEvent="true" data-validate="true" ><i
+				class="fa fa-save"></i>确定</a> <a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	//事件点击
+	$("a[data-onclickEvent='true']", container).on("dms.click",
+						function(event) {
+							var formJson = $(
+									"div[data-parentTable='partInfoTable']",
+									container).serializeFormJson();
+							$("#ownerList3", getElementContext()).dmsTable()
+							.appendRow(formJson);
+							$("a[data-dismiss='modal']", container).click();
+						});
+			});
+</script>

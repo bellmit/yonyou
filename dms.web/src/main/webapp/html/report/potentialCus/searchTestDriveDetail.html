@@ -1,0 +1,233 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+	<div class="panel panel-default">
+	     <div class="panel-body">
+			<div class="row"><!-- pull-left -->
+				<div class="col-xs-12 col-sm-12 col-md-8 col-lg-3">					
+						<div class="form-group">
+							<label class="control-label col-sm-2">登记日</label>
+							<div class="col-xs-10">
+								 <div class="input-group input-daterange"  >
+		                             <input type="text" class="form-control" readonly  name="testDriveRegisterBegin" id="testDriveRegisterBegin">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="testDriveRegisterEnd" id="testDriveRegisterEnd"> 
+		                             <span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                 </span>
+		                       
+		                        </div>
+							</div>
+						</div>
+					</div>			
+
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4 ">客户名称</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control" id="customerName" name="customerName">
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">联系电话</label>
+						<div class="col-xs-8 ">
+							<input type="text" class="form-control" id="contactorPhone" name="contactorPhone">
+						</div>
+					</div>
+				</div>
+				
+									<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group ">
+						<label class="control-label col-xs-4">销售顾问</label>
+							<div class="col-xs-8">
+								<select id="soldBy" name="soldBy"
+									class="bs-select form-control"
+									data-url="/basedata/employees/-1/salesConsultant" data-ajaxSync = "true" 
+									data-model="manage" data-labelValue="USER_ID" " data-value="{[userInfo.userId]}"
+									data-lableDesc="USER_NAME" >
+								</select>
+						</div>
+						</div>
+					</div>
+					
+				<div class="col-xs-12 col-sm-12 col-md-8 col-lg-3">					
+						<div class="form-group">
+							<label class="control-label col-sm-2">到店日</label>
+							<div class="col-xs-10">
+								 <div class="input-group input-daterange"  >
+		                             <input type="text" class="form-control" readonly  name="arriveTimeBegin" id="arriveTimeBegin">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="arriveTimeEnd" id="arriveTimeEnd"> 
+		                             <span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                 </span>
+		                       
+		                        </div>
+							</div>
+						</div>
+					</div>					
+					
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">试驾车系</label>
+							<div class="col-xs-8">
+								<select id="intentSeries"
+									class="bs-select form-control" name="intentSeries"
+									data-url="/basedata/selectSeries"
+									data-model="manage" data-labelValue="SERIES_CODE"
+									data-lableDesc="SERIES_NAME">
+
+								</select>
+							</div>
+						</div>
+					</div> 
+					
+									<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">体验内容</label>
+						<div class="col-xs-8">
+							 <select id="testDriveType"  name="testDriveType" class="bs-select form-control" data-dictCode="9200" ></select>
+						</div>
+					</div>
+				</div>		
+				
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">地点</label>
+						<div class="col-xs-8">
+							 <select id="place"  name="place" class="bs-select form-control" data-dictCode="9100" ></select>
+						</div>
+					</div>
+				</div>	
+				
+				<div class="col-xs-12 col-sm-12 col-md-8 col-lg-3">					
+						<div class="form-group">
+							<label class="control-label  col-sm-2">反馈日</label>
+							<div class="col-xs-10">
+								 <div class="input-group input-daterange"  >
+		                             <input type="text" class="form-control" readonly  name="testDriveFeedbackBegin" id="testDriveFeedbackBegin">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="testDriveFeedbackEnd" id="testDriveFeedbackEnd"> 
+		                             <span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                 </span>
+		                       
+		                        </div>
+							</div>
+						</div>
+					</div>
+					
+								<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">是否成交</label>
+						<div class="col-xs-8">
+							 <select id="isStockOut"  name="isStockOut" class="bs-select form-control" data-dictCode="1278" ></select>
+						</div>
+					</div>
+				</div>		
+					
+				
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">客户类型</label>
+						<div class="col-xs-8">
+							 <select id="customerType"  name="customerType" class="bs-select form-control" data-dictCode="1018" ></select>
+						</div>
+					</div>
+				</div>	
+					
+
+				
+
+					
+
+		
+
+	
+				  	
+			</div>
+			<div class="row ">
+				<div class="col-xs-12 ">
+					<div class="query-btn">
+						<a href="javascript:;" class="btn blue  "> <i
+							class="fa fa-search"></i> 查询
+						</a> <a href="javascript:;" class="btn blue"><i
+							class="fa fa-undo"></i> 重置</a>
+					</div>
+				</div>
+		   </div>
+		  </div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">试乘试驾明细表</div>
+					<a data-url="/saleReport/SearchTestDriveDetail/export/excel"
+						data-model="report" data-method="downLoad"
+						data-toggle="confirmation" class="btn btn-outline "><i class="fa fa-download"></i>导出
+					</a> 
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["report"] + "/saleReport/SearchTestDriveDetail",
+		rowID : "CUSTOMER_NO",
+		sortName : "CUSTOMER_NO", 
+		sortOrder : "asc",
+	 	checkboxHeader:true,
+		autoHeight : false,
+		undefinedText : "",
+		columns : [ 
+			{field : "USER_NAME",title : "销售顾问"}, 
+			{field : "CUSTOMER_NO",title : "客户编号"},
+			{field : "CUSTOMER_NAME",title : "客户名称"}, 
+			{field : "GENDER",title : "性别",codeFormat : {type:"dict",codeType:"1006"}},
+			{field : "CONTACTOR_PHONE",title : "联系电话"}, 
+			{field : "CONTACTOR_MOBILE",title : "联系手机"}, 
+			{field : "ARRIVE_TIME",title : "到店日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+			{field : "SERIES_NAME_1",title : "试驾车系"}, 
+			{field : "IS_REGISTER",title : "是否登记",codeFormat : {type:"dict",codeType:"1278"}},
+			{field : "TEST_DRIVE_REGISTER",title : "登记日期",dateFormat : {format:"YYYY-MM-DD"}},
+			{field : "TEST_DRIVE_REGISTER",title : "登记时间",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+			{field : "TEST_DRIVE_TYPE",title : "体验内容",codeFormat : {type:"dict",codeType:"9200"}},
+			{field : "PLACE",title : "试驾地点",codeFormat : {type:"dict",codeType:"9100"}},
+			{field : "IS_FEEDBACK",title : "是否填写反馈表",codeFormat : {type:"dict",codeType:"1278"}},
+			{field : "SCORE",title : "客户评分"}, 
+			{field : "TEST_DRIVE_FEEDBACK",title : "反馈时间",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+			{field : "IS_STOCK_OUT",title : "是否成交",codeFormat : {type:"dict",codeType:"1278"}},
+			{field : "SERIES_NAME_2",title : "成交车系"}, 
+			{field : "STOCK_OUT_DATE",title : "成交日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+			{field : "TEST_DRIVE_REMARK",title : "备注"}
+		],
+		onLoadSuccess : function() {
+			var rownu = $("#dms_table",container).dmsTable().getTableRows();
+			if(rownu<=0){
+				$("a[data-method='downLoad']",container).attr("disabled","true");
+			}else{
+				$("a[data-method='downLoad']",container).removeAttr("disabled");
+			}
+		}
+	});
+});
+
+
+	
+</script>

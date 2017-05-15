@@ -1,0 +1,48 @@
+<div class ="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">配件车型车系</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-onclickEvent='true' class="btn blue" ><i class="fa fa-save"></i>确定</a> <a
+				data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_table",
+			url : dmsCommon.getDmsPath()["part"] + "/basedata/partInfos/partModel",
+			rowID : "BRAND_CODE",
+   			sortName : "BRAND_CODE",
+			sortOrder : "asc",
+			autoHeight: false,
+			undefinedText : "",
+			columns : [ {radio : true
+			},
+                {field:"BRAND_CODE",title:"品牌"},
+    			{field:"SERIES_CODE",title:"车系代码"},
+    			{field:"MODEL_CODE",title:"车型代码"},
+    			{field:"MODEL_NAME",title:"车型名称"},
+			]
+		});
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event,response){
+			var selectRow = $("#dms_table",getElementContext()).dmsTable().getFirstSelection();
+			$("div[data-seldate='true']",getElementContext()).initHtmlContent(selectRow);
+			console.log(JSON.stringify(selectRow))
+			$("a[data-dismiss='modal']",container).click();
+		});
+	});
+</script>       

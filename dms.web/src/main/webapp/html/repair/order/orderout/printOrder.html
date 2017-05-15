@@ -1,0 +1,147 @@
+<link rel="stylesheet" type="text/css"href="../assets/layouts/layout/css/PrintArea.css">
+<div class="dms-edit PrintArea ajaxrest"data-url="/order/repair/{[RO_ID]}/Orderprint"data-pageInitCallBack="true" data-model="repair">
+	<div class="panel panel-default panel-print">
+		<div class="panel-body">
+			<div class="print-title">
+				<div class="row h1Title">
+					<div class="col-xs-12">
+						<label>{[userInfo.dealerName]}</label>
+					</div>
+				</div>
+				<div class="row h2Title">
+					<div class="col-xs-12">
+						<label>维修领料单</label>
+					</div>
+				</div>
+				<div class="row print-gap"></div>
+				<div class="row print-singleRow">
+					<div class="col-xs-12 ">
+						<label>工单号:&nbsp;<span class="form-show"
+							data-fieldName="RO_NO" style="padding-right: 20px"></span></label>
+						<label>开单日期:&nbsp;<span class="form-show "
+							data-fieldName="RO_CREATE_DATE" data-date-format="YYYY-MM-DD "></span></label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="print-main">
+			<div class="row">
+				<div class="col-xs-4">
+					<div class="form-group">
+						<label class="control-label col-xs-5">车主名称</label>
+						<div class="col-xs-7">
+							<span class="form-show" data-fieldName="OWNER_NAME"></span>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="form-group">
+						<label class="control-label col-xs-5">车牌号</label>
+						<div class="col-xs-7">
+							<span class="form-show " data-fieldName="LICENSE"></span>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="form-group">
+						<label class="control-label col-xs-3" >VIN号</label>
+						<div class="col-xs-9">
+							<span class="form-show " data-fieldName="VIN"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4">
+					<div class="form-group">
+						<label class="control-label col-xs-5" style="padding-left: 1px;">维修类型</label>
+						<div class="col-xs-7">
+							<span class="form-show " data-fieldName="REPAIR_TYPE_NAME"></span>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="form-group ">
+						<label class="control-label col-xs-5" style="padding-left: 1px;">服务顾问</label>
+						<div class="col-xs-7">
+							<span class="form-show ">{[userInfo.userName]}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row print-gap"></div>
+		<div class=" print-table">
+			<div class="panel panel-default table-panel">
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="orderList">
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="row print-gap"></div>
+		<div class="print-foot">
+			<div class="row">
+				<div class="col-xs-3">
+					<div>
+						<label>打印时间:&nbsp;<span class="form-show "
+							data-fieldName="printdata" data-date-format="YYYY-MM-DD HH:mm"></span></label>
+					</div>
+				</div>
+				<div class="col-xs-3 ">
+					<div class="form-group">
+						<label class="control-label col-xs-4">开单人:</label>
+					</div>
+				</div>
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">发料人:</label>
+					</div>
+				</div>
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">签收人:</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="print-without">
+	<a id="print" class="btn blue printfy"><i class="fa fa-print"></i>打印</a>
+	<a data-goback="page"
+		href="part/stockmanage/salespart/searchSalesPart.html"
+		class="btn blue ajaxify"> <i class="fa fa-reply"></i> 返回
+	</a>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initLocale({
+		src : "orderList",
+		container:container,
+		rowID:"RO_ID",
+		url : dmsCommon.getDmsPath()["repair"] + "/order/repair/{[RO_ID]}/printorder",
+		mergeTotal:{
+			megerCellNumber:6,
+			megerCellName:"合计"
+		},
+		columns : [
+		           {field:"STORAGE_NAME",title:"仓库"},
+		           {field:"PART_NO",title:"配件代码"},
+		           {field:"PART_NAME",title:"配件名称"},
+		           {field:"CHARGE_PARTITION_CODE",title:"收费区分"},
+		           {field:"PART_SALES_PRICE",title:"销售单价",numberFormat : {decimal:2}},
+		           {field:"QUANTITY",title:"可用库存",numberFormat : {decimal:2}},
+		           {field:"PART_COST_PRICE",title:"成本单价",numberFormat : {decimal:2}},
+		           {field:"DISCOUNT",title:"折扣率",numberFormat : {decimal:2}},
+		           {field:"UNIT",title:"数量"},
+		           {field:"PART_SALES_AMOUNT",title:"销售金额",numberFormat : {decimal:2}},
+		           {field:"PREFERENTIAL",title:"优惠金额",numberFormat : {decimal:2}},
+		           {field:"AFTER_DISCOUNT_AMOUNT",title:"折后金额",numberFormat : {decimal:2}},
+		           {field:"PART_COST_AMOUNT",title:"成本金额",numberFormat : {decimal:2}}
+		           ]
+	});
+});
+</script>

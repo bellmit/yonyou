@@ -1,0 +1,65 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+			
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">保险公司</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_insurance"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_insurance",
+			container:container,
+			url : dmsCommon.getDmsPath()["repair"] + "/basedata/insuranceCo",
+			rowID : "INSURATION_CODE",
+			sortName : "INSURATION_NAME", 
+			undefinedText : "",
+			sortOrder : "asc",
+			autoHeight : false,//设置自动高度为false，把下面的tab页显示
+			columns : [ 
+				{field : "INSURATION_CODE",title : "明细",operateFormat : 
+					[
+                	{type:"detail",url:"repair/basedata/Insurance/editInsurance.html",openWidth:"modal-lg"}
+                    ]}, 
+				{field : "INSURATION_CODE",title : "保险公司代码"}, 
+				{field : "INSURATION_NAME",title : "保险公司名称"},
+				{field : "INSURATION_SHORT_NAME",title : "保险公司简称"}, 
+				{field : "CONTACTOR_NAME",title : "联系人"}, 
+				{field : "CONTACTOR_PHONE",title : "联系人电话"}, 
+				{field : "CONTACTOR_MOBILE",title : "联系人手机"},
+				{field : "FAX",title : "传真"}, 
+				{field : "ADDRESS",title : "地址"},
+				{field : "ZIP_CODE",title : "邮编"}, 
+				{field : "BANK",title : "开户银行"}, 
+				{field : "BANK_ACCOUNT",title : "开户账号"}, 
+				{field : "INSURATION_LEVEL",title : "机构级别"},
+				{field : "INSURATION_HIGHER",title : "上级机构"}, 
+				{field : "INSURATION_MEDIUM",title : "保险中介机构"},
+				{field : "BUSI_INSURANCE_REBATE_NUM",title : "其他商业险返利点"}, 
+				{field : "COM_INSURANCE_REBATE_NUM",title : "其他交强险返利点"}, 
+				{field : "BUSI_INSURANCE_REBATE_NUMC",title : "传统商业返利点"}, 
+				{field : "COM_INSURANCE_REBATE_NUMC",title : "传统交强险返利点"},
+				{field : "BUSI_INSURANCE_REBATE_NUMX",title : "信贷商业险返利点"}, 
+				{field : "COM_INSURANCE_REBATE_NUMX",title : "信贷交强险返利点"}, 
+				{field : "BUSI_INSURANCE_REBATE_NUMD",title : "电话营销商业险返利点"}, 
+				{field : "COM_INSURANCE_REBATE_NUMD",title : "电话营销交强险返利点"},
+				{field : "IS_APPLY",title : "是否启用",inputCheckBoxFormat : {type:"dict",codeType:"1057",disabled:true}}, 
+				{field : "OEM_TAG",title : "是否OEM",inputCheckBoxFormat : {type:"dict",codeType:"1057",disabled:true}}, 
+				
+			]
+		});
+	});
+	
+</script>

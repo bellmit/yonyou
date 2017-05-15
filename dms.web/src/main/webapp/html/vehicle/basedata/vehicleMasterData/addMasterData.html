@@ -1,0 +1,232 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">车辆主数据信息新增</div>
+				<div class="modal-close">
+					<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+				</div>
+			</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">产品代码</label>
+								<div class="col-xs-8">
+									<input id="productCode" name="productCode" maxlength="20" type="text"
+										class="form-control required systemCode" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12  col-sm-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">产品名称</label>
+								<div class="col-xs-8">
+									<input id="productName" name="productName" maxlength="100" type="text"
+										class="form-control required" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12  col-sm-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">产品状态</label>
+								<div class="col-xs-8">
+									<select id="productStatus" name="productStatus"
+										class="bs-select form-control required" data-dictCode="1408" data-value="14081001">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12  col-sm-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">产品类别</label>
+								<div class="col-xs-8">
+									<select id="productType" name="productType"
+										class="bs-select form-control required" data-dictCode="1407">
+									</select>
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">品牌</label>
+							<div class="col-xs-8">
+								<select id="brandCode" class="bs-select form-control required" name="brandCode"
+									data-url="/basedata/brandsdict" data-model="manage"
+									data-labelValue="BRAND_ID" data-lableDesc="BRAND_NAME"
+									data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车系</label>
+							<div class="col-xs-8">
+								<select id="seriesCode" parent="brandCode"
+									class="bs-select form-control required" name="seriesCode"
+									data-url="/basedata/brandsdict/{[brandCode]}/seriessdict"
+									data-model="manage" data-labelValue="SERIES_ID"
+									data-lableDesc="SERIES_NAME" data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车型</label>
+							<div class="col-xs-8">
+								<select id="modelCode" parent="seriesCode"
+									class="bs-select form-control required" name="modelCode"
+									data-url="/basedata/brandsdict/{[brandCode]}/seriessdict/{[seriesCode]}/modelsdict"
+									data-model="manage" data-labelValue="MODEL_ID"
+									data-lableDesc="MODEL_NAME" data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配置</label>
+							<div class="col-xs-8">
+								<select id="packageId" parent="modelCode" class="bs-select form-control required"
+									name="packageId"
+									data-url="/basedata/brandsdict/{[brandCode]}/seriessdict/{[seriesCode]}/modelsdict/{[modelCode]}/packagesdict"
+									data-model="manage" data-labelValue="PACKAGE_ID"
+									data-lableDesc="CONFIG_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+						<div class="col-xs-12  col-sm-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">颜色</label>
+								<div class="col-xs-8">
+									<select class="bs-select form-control" name="color"
+										data-fieldName="COLOR" name="color"
+										data-url="/basedata/colors/colorinfo/dicts" data-model="repair"
+										data-labelValue="COLOR_ID" data-lableDesc="COLOR_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12  col-sm-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">上市日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker" data-date-end-date="+0d" data-orientation="top right">
+										<input id="enterDate" name="enterDate" readonly
+											class="form-control" type="text" value="" /> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12  col-sm-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">退市日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker" data-date-end-date="+0d" data-orientation="top right">
+										<input id="exeuntDate" name="exeuntDate" readonly
+											class="form-control" type="text" value="" /> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车厂指导价</label>
+								<div class="col-xs-8">
+									<input id="oemDirectivePrice" name="oemDirectivePrice"
+										type="text" maxlength="10" class="form-control number"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12  col-sm-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销售指导价</label>
+								<div class="col-xs-8">
+									<input id="directivePrice" name="directivePrice" maxlength="10" type="text"
+										class="form-control number"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12  col-sm-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否有效</label>
+								<div class="col-xs-8">
+									<select class="bs-select form-control" name="isValid"
+										data-dictCode="1004" data-value="10041001" data-existsDefault="false">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12  col-sm-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否OEM</label>
+								<div class="col-xs-8">
+									<select class="bs-select form-control"  name="oemTag"
+										data-dictCode="1004" data-value="10041002" disabled="disabled">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2 col-md-1 ">备注</label>
+								<div class="col-xs-8 col-sm-10 col-md-11">
+									<input id="remark" name="remark" type="text" maxlength="400"
+										class="form-control" data-fieldName="remark" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a data-url="/basedata/vehicleMasterDatas" data-model="vehicle"
+				data-method="POST" data-callBack="true" class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> <a
+				data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	$("select[id^=productStatus]",container).bindChange(function(obj){
+		var selectValue=$("select[id^=productStatus]",container).val();
+		if(selectValue=="14081002"){
+			
+			$("input[id^=exeuntDate]",container).setDmsValue(moment().format("YYYY-MM-DD"));
+		}else{
+			$("input[id^=exeuntDate]",container).setDmsValue("");
+		}
+	});
+	//新增页面回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+});
+</script>

@@ -1,0 +1,153 @@
+<div class="dms-search">
+
+    <form class="form-horizontal">	
+		<div class="modal-header">
+			<div class="modal-title">再分配</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+					id="cusList"></table>
+		</div>
+						
+		<div class="modal-body">
+			<div class="panel panel-default">
+				
+				<div class="panel-body">
+					<div class="row" data-tableSelect="true">
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销售顾问</label>
+								<div class="col-xs-8">
+								 <select id="soldBy2" name="soldBy2"
+									class="bs-select form-control" data-excludeItems="{[userInfo.userId]}"
+									data-url="/basedata/employees/-1/salesConsultant" 
+									data-model="manage" data-labelValue="USER_ID" data-fieldName="SOLD_BY" 
+									data-lableDesc="USER_NAME" >
+								</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			    <div class="col-xs-12" >
+					 <div class="form-group" hidden="hidden">
+						  <label class="control-label col-xs-4">隐藏</label>
+						  <div class="col-xs-8">
+								<input  name="noList" id="noList" data-fieldName="NO_LIST"
+									class="form-control" type="text" max="99"/>
+						  </div>
+					 </div>
+			    </div>
+			    <input type="hidden" id="perfromStatus" name="perfromStatus"/>
+			    <input type="hidden" id="soldBy" name="soldBy"/>
+			    <input type="hidden" id="intentSeries" name="intentSeries"/>
+			    <input type="hidden" id="visit_startdate" name="visit_startdate"/>
+			    <input type="hidden" id="visit_enddate" name="visit_enddate"/>
+			    <input type="hidden" id="customerName" name="customerName"/>
+			    <input type="hidden" id="contactorPhone" name="contactorPhone"/>
+			    <input type="hidden" id="visitType" name="visitType"/>
+			    <input type="hidden" id="leave_startdate" name="leave_startdate"/>
+			    <input type="hidden" id="leave_enddate" name="leave_enddate"/>
+			    <input type="hidden" id="isValid" name="isValid"/>
+			    <input type="hidden" id="isStepForwardGreeting" name="isStepForwardGreeting"/>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a data-url="/customerManage/visitingRecord/soldBy/noList" data-model="customer" data-method="PUT"
+				data-callBack="true" class="btn blue" data-beforeRequest='true'
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> <a
+				data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+		
+	
+</div>
+
+
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one("onload.dms",function(event,container){
+		$('input[name="perfromStatus"]').val($("#perfromStatus",getElementContext()).val());
+		$('input[name="soldBy"]').val($("#soldBy",getElementContext()).val());
+		$('input[name="intentSeries"]').val($("#intentSeries",getElementContext()).val());
+		$('input[name="visit_startdate"]').val($("#visit_startdate",getElementContext()).val());
+		$('input[name="visit_enddate"]').val($("#visit_enddate",getElementContext()).val());
+		$('input[name="customerName"]').val($("#customerName",getElementContext()).val());
+		$('input[name="contactorPhone"]').val($("#contactorPhone",getElementContext()).val());
+		$('input[name="visitType"]').val($("#visitType",getElementContext()).val());
+		$('input[name="leave_startdate"]').val($("#leave_startdate",getElementContext()).val());
+		$('input[name="leave_enddate"]').val($("#leave_enddate",getElementContext()).val());
+		$('input[name="isValid"]').val($("#isValid",getElementContext()).val());
+		$('input[name="isStepForwardGreeting"]').val($("#isStepForwardGreeting",getElementContext()).val());
+		
+		new Datatable().initPagination({
+			src : "cusList",
+			container:container,
+			url : dmsCommon.getDmsPath()["customer"] + "/customerManage/visitingRecord/redistribution",
+			rowID : "ITEM_ID",
+			sortName : "VISIT_TIME", 
+			sortOrder : "desc",
+		 	checkboxHeader:true,
+		 	autoHeight : false,
+		 	undefinedText : "",
+			columns : [ 
+				{checkbox:true,sortable : true},
+				//{field : "CUSTOMER_NO",title : "客户编号", visible:false},
+				{field : "CUSTOMER_NO",title : "客户编号"},
+				{field : "CUSTOMER_NAME",title : "客户名称"},
+				{field : "CONTACTOR_PHONE",title : "联系人电话"},
+				{field : "CONTACTOR_MOBILE",title : "联系人手机"},
+				{field : "SERIES_NAME",title : "意向车系"},
+				{field : "MODEL_NAME",title : "意向车型"},
+				{field : "CONFIG_NAME",title : "意向配置"},
+				{field : "INTENT_LEVEL",title : "意向级别",codeFormat : {type:"dict",codeType:"1310"}},
+				{field : "CUS_SOURCE",title : "客户来源",codeFormat : {type:"dict",codeType:"1311"}},
+				{field : "USER_NAME",title : "销售顾问",inputHiddenFormat : {hiddenField:"SOLD_BY"}}
+			  ]
+		
+			});
+			
+			//批量前执行函数
+			$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+				var str='';
+				var selectRow = $("#cusList",container).dmsTable().getSelections();
+				if(!selectRow){
+					dmsCommon.tip({status:"warning",msg:"请选择客户"});//总共的状态类型：info、success、error、warning
+					return ;
+				}
+                var sold = $("#soldBy2",container).val();
+				if(sold == ''){
+					dmsCommon.tip({status:"warning",msg:"请选择销售顾问"});
+					return;
+				}
+				
+			 	var str='';
+				var selectRow = $("#cusList",container).dmsTable().getSelections();
+				   	$(selectRow).each(function(index){
+					  
+					   str+=selectRow[index].ITEM_ID+',';
+					   
+			  		});
+			  		/* var selectIds = $("#cusList",getElementContext()).dmsTable().getSelectionIds(); */
+				   	$("#noList").val(str);
+				   	returnResult.status = true;
+			});
+		
+		
+			//新增页面的回调函数
+	 		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+				//关闭窗口
+				$("a[data-dismiss='modal']",container).click();
+				//刷新表格
+				$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+			}); 
+		});
+	
+		
+	
+</script>

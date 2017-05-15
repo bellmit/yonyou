@@ -1,0 +1,461 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<!-- pull-left -->
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">开票日</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" >
+									<input type="text" class="form-control" name="beginDate " disabled = "disabled"
+										id="beginDate"> <span class="input-group-addon">至</span>
+									<input type="text" class="form-control" name="endDate"  disabled = "disabled"
+										id="endDate"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">VIN</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="vin" name="vin">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">客户编号</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="customerNo"
+									name="customerNo">
+							</div>
+						</div>
+					</div>
+
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">跟踪状态</label>
+							<div class="col-xs-8">
+								<select id="traceStatus" name="traceStatus"
+									class="bs-select form-control" data-dictCode="1237"></select>
+							</div>
+						</div>
+					</div>
+					
+
+					
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">交车日</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" >
+									<input type="text" class="form-control"  disabled = "disabled"
+										name="begin_confirmed_date" id="begin_confirmed_date">
+									<span class="input-group-addon">至</span> <input type="text"  disabled = "disabled"
+										class="form-control" name="end_confirmed_date"
+										id="end_confirmed_date"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+							
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-3">
+						<div class="form-group ">
+						<label class="control-label col-xs-4">跟踪员</label>
+							<div class="col-xs-8">
+								<select id="trancer" name="trancer"
+									class="bs-select form-control"
+									data-url="/basedata/employees/queryTrancer" data-value="{[userInfo.userId]}"
+									data-model="manage" data-labelValue="EMPLOYEE_NO" 
+									data-lableDesc="EMPLOYEE_NAME" >
+								</select>
+						</div>
+						</div>
+					</div>
+
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">客户名称</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="customerName"
+									name="customerName">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">问卷名称</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="questionnaire_name"
+									name="questionnaire_name">
+							</div>
+						</div>
+					</div>
+				</div>					
+					
+
+
+
+				
+
+				
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue  "> <i
+								class="fa fa-search"> </i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">销售回访任务录入列表</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+
+					<!--	    <a class="btn btn-outline" data-url="customer\retainCustomer\salesTraceResultInput\salesTraceResultDetail.html" id="questionnaireEntry"
+							data-toggle="modal"  data-width="modal-lg" data-beforeShowEvent="true"> <i class="fa fa-plus-square"></i> 问卷录入
+					</a> 	 	
+			-->
+					<a class="btn btn-outline"
+						data-url="customer\retainCustomer\salesTraceResultInput\traceTaskHistory.html"
+						id="TraceTaskHistory" data-toggle="modal" data-width="modal-lg"
+						data-beforeShowEvent="true"> <i class="fa fa-plus-square"></i>
+						回访历史
+					</a>
+					<a data-url="/customerManage/salesTraceResultInput/export/excel"
+						data-model="customer" data-method="downLoad"
+						data-toggle="confirmation" class="btn btn-outline "><i class="fa fa-download"></i>导出
+					</a> 
+				</div>
+			</div>
+
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document)
+			.one(
+					"onload.dms",
+					function(event, container) {
+						new Datatable()
+								.initPagination({
+									src : "dms_table",
+									container : container,
+									url : dmsCommon.getDmsPath()["customer"]
+											+ "/customerManage/salesTraceResultInput",
+									rowID : "VIN",
+									sortName : "VIN",
+									sortOrder : "asc",
+									autoHeight : false,
+									
+									undefinedText : "",
+									columns : [
+											{
+												radio : true,
+												sortable : false
+											},
+
+											{
+												field : "CUSTOMER_NO",
+												title : "操作",
+												operateFormat : [
+														{
+															type : "edit",
+															title : "客户修改",
+															url : "customer/retainCustomer/salesTraceResultInput/editCustomerInfo.html",
+															openWidth : "modal-lg"
+														},														
+														 {type:"detail",title:"订单详细",url:"customer/retainCustomer/salesTraceResultInput/detailSalesOrder.html",openType:"jump"}, 
+														{
+															type : "edit",
+															url : "customer/retainCustomer/salesTraceResultInput/editTraceResultDetail.html",
+															openWidth : "modal-lg",
+															title : "问卷录入",
+															operateIcon : '<i class="	glyphicon glyphicon-log-in"></i>',
+															isShow : function(
+																	value, row,
+																	index) {
+																var traceStatus = row.TRACE_STATUS;
+																if (traceStatus == 12371001
+																		|| traceStatus == 12371002) {
+																	return true;
+																} else {
+																	return false;
+																}
+															}
+														},
+														{
+															type : "detail",
+															url : "customer/retainCustomer/salesTraceResultInput/editTraceResultDetail.html",
+															openWidth : "modal-lg",
+															title : "问卷明细",
+															isShow : function(
+																	value, row,
+																	index) {
+																var traceStatus = row.TRACE_STATUS;
+																if (traceStatus == 12371003
+																		|| traceStatus == 12371004) {
+																	return true;
+																} else {
+																	return false;
+																}
+															}
+														} ]
+											}, {
+												field : "EMPLOYEE_NAME",
+												title : "跟踪人"
+											}, {
+												field : "IS_SELECTED",
+												title : "结束跟踪",
+												codeFormat : {
+													type : "dict",
+													codeType : "1278"
+												}
+											}, {
+												field : "CUSTOMER_NO",
+												title : "客户编号"
+											}, {
+												field : "CUSTOMER_NAME",
+												title : "客户名称"
+											}, {
+												field : "SOLD_NAME",
+												title : "销售顾问"
+											}, {
+												field : "ORG_NAME",
+												title : "组别"
+											}, {
+												field : "VIN",
+												title : "VIN"
+											}, {
+												field : "BRAND_NAME",
+												title : "品牌"
+											}, {
+												field : "SERIES_NAME",
+												title : "车系"
+											}, {
+												field : "MODEL_NAME",
+												title : "车型"
+											}, {
+												field : "STOCK_OUT_DATE",
+												title : "开票日期",
+												dateFormat : {
+													format : "YYYY-MM-DD "
+												}
+											}, {
+												field : "GENDER",
+												title : "性别",
+												codeFormat : {
+													type : "dict",
+													codeType : "1006"
+												}
+											}, {
+												field : "ADDRESS",
+												title : "地址"
+											}, {
+												field : "CONTACTOR_PHONE",
+												title : "联系人电话"
+											}, {
+												field : "CONTACTOR_MOBILE",
+												title : "联系人手机"
+											}, {
+												field : "PROVINCE",
+												title : "省份",
+												codeFormat : {
+													type : "dict",
+													codeType : "9001"
+												}
+											}, {
+												field : "CITY",
+												title : "城市",
+												codeFormat : {
+													type : "dict",
+													codeType : "9002"
+												}
+											}, {
+												field : "DISTRICT",
+												title : "区县",
+												codeFormat : {
+													type : "dict",
+													codeType : "9003"
+												}
+											}, {
+												field : "QUESTIONNAIRE_NAME",
+												title : "问卷名称"
+											}, {
+												field : "INPUT_DATE",
+												title : "跟踪日期",
+												dateFormat : {
+													format : "YYYY-MM-DD "
+												}
+											}, {
+												field : "TRACE_STATUS",
+												title : "跟踪状态",
+												codeFormat : {
+													type : "dict",
+													codeType : "1237"
+												}
+											}, {
+												field : "E_MAIL",
+												title : "E_MAIL"
+											}, {
+												field : "CUSTOMER_TYPE",
+												title : "客户类型",
+												codeFormat : {
+													type : "dict",
+													codeType : "1018"
+												}
+											}, {
+												field : "OWNER_MARRIAGE",
+												title : "婚姻状况",
+												codeFormat : {
+													type : "dict",
+													codeType : "1119"
+												}
+											}, {
+												field : "AGE_STAGE",
+												title : "年龄段",
+												codeFormat : {
+													type : "dict",
+													codeType : "1342"
+												}
+											}, {
+												field : "EDUCATION_LEVEL",
+												title : "教育水平",
+												codeFormat : {
+													type : "dict",
+													codeType : "1116"
+												}
+											}, {
+												field : "INDUSTRY_FIRST",
+												title : "行业大类",
+												codeFormat : {
+													type : "dict",
+													codeType : "3001"
+												}
+											}, {
+												field : "INDUSTRY_SECOND",
+												title : "行业小类",
+												codeFormat : {
+													type : "dict",
+													codeType : "3002"
+												}
+											}, {
+												field : "VOCATION_TYPE",
+												title : "职业",
+												codeFormat : {
+													type : "dict",
+													codeType : "1111"
+												}
+											}, {
+												field : "POSITION_NAME",
+												title : "职务名称"
+											}, {
+												field : "FAMILY_INCOME",
+												title : "家庭月收入"
+											}, {
+												field : "HOBBY",
+												title : "爱好",
+												codeFormat : {
+													type : "dict",
+													codeType : "1117"
+												}
+											}, {
+												field : "CONFIRMED_DATE",
+												title : "交车日期",
+												dateFormat : {
+													format : "YYYY-MM-DD "
+												}
+											}, {
+												field : "CUS_SOURCE",
+												title : "客户来源",
+												codeFormat : {
+													type : "dict",
+													codeType : "1311"
+												}
+											}, {
+												field : "TASK_REMARK",
+												title : "备注"
+											}, {
+												field : "TRACE_TASK_ID",
+												title : "TRACE_TASK_ID",
+												visible : false
+											},
+
+											{
+												field : "SO_NO",
+												title : "SO_NO",
+												visible : false
+											}, {
+												field : "QUESTIONNAIRE_CODE",
+												title : "QUESTIONNAIRE_CODE",
+												visible : false
+											}	],
+											onLoadSuccess : function() {
+												var rownu = $("#dms_table",container).dmsTable().getTableRows();
+												if(rownu<=0){
+													$("a[data-method='downLoad']",container).attr("disabled","true");
+												}else{
+													$("a[data-method='downLoad']",container).removeAttr("disabled");
+												}
+											}
+										});
+
+						//弹出页面打开前执行函数
+						$("a[data-beforeShowEvent='true']", container).on(
+								"beforeShow.dms",
+								function(event, returnResult) {
+
+									var selectRow = $("#dms_table", container)
+											.dmsTable().getSelections();
+									var falg = true;
+
+									if (!selectRow) {
+										dmsCommon.tip({
+											status : "warning",
+											msg : "请选择表格数据1"
+										});
+										returnResult.status = false;
+										return;
+									}
+									if (!falg) {
+										returnResult.status = false;
+										return;
+									}
+									returnResult.status = true;
+								});
+
+					});
+</script>
+
+

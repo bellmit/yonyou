@@ -1,0 +1,339 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">服务活动新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">活动基本信息</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+			
+	    		<div class="modal-body">
+					<div class="row">
+					
+															
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">活动系统编号：</label>
+								<div class="col-xs-8">
+									<input id="activityCode" name="activityCode" class="form-control required" minlength="1" maxlength="5" type="text" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">活动名称：</label>
+								<div class="col-xs-8">
+									<input id="activityName" name="activityName" class="form-control required"  type="text" />
+								</div>
+							</div>
+						</div>
+					
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">活动编号：</label>
+								<div class="col-xs-8">
+									<input id="globalActivityCode" name="globalActivityCode" class="form-control required"  type="text" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">活动主题：</label>
+								<div class="col-xs-8">
+									<input id="activityTitle" name="activityTitle" class="form-control required"  type="text" />
+								</div>
+							</div>
+						</div>
+						
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4">活动类别:</label>
+							<div class="col-xs-8">
+									<select id="activityType" name="activityType" data-fieldName="ACTIVITY_TYPE" class="bs-select form-control required" data-type="oemDict" data-dictCode="4015"  data-value="40151001" >
+									</select>
+							</div>
+						</div>
+					</div>	
+					
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4">索赔类型:</label>
+							<div class="col-xs-8">
+									<select id="claimType" name="claimType" data-fieldName="CLAIM_TYPE" class="bs-select form-control required" data-type="oemDict" data-dictCode="4030"  data-value="40301001" >
+									</select>	
+							</div>
+						</div>
+					</div>	
+					
+
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">开始日期：</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker" >
+										<input id="startDate" name="startDate" readonly
+											class="form-control required"
+											type="text" value="" /> <span class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+
+									</div>
+								</div>
+							</div>
+						</div>						
+					
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">结束日期：</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker" >
+										<input id="endDate" name="endDate" readonly
+											class="form-control required"
+											type="text" value="" /> <span class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">工时费用：</label>
+								<div class="col-xs-8">
+									<input id="labourFee" name="labourFee" type="text"
+										class="form-control " />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">上传活动总结日期：</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker" >
+										<input id="summClosedate" name="summClosedate" readonly
+											class="form-control required"
+											type="text" value="" /> <span class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配件费用：</label>
+								<div class="col-xs-8">
+									<input id="partFee" name="partFee" type="text"
+										class="form-control " />
+								</div>
+							</div>
+						</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否固定费用:</label>
+								<div class="col-xs-8">
+									<select id="isFee" name="isFee" data-fieldName="is_ec" class="bs-select form-control " data-type="oemDict" data-dictCode="1004" data-value="10041002"   >
+									</select>
+								</div>
+							</div>
+					</div> 
+						
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">其他费用：</label>
+								<div class="col-xs-8">
+									<input id="otherFee" name="otherFee" type="text"
+										class="form-control " />
+								</div>
+							</div>
+						</div>
+						
+
+
+
+					<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否可多次：</label>
+								<div class="col-xs-8">
+									<select id="isMulti" name="isMulti" data-fieldName="is_ec" class="bs-select form-control required" data-type="oemDict" data-dictCode="1004" data-value="10041001"   >
+									</select>
+								</div>
+							</div>
+					</div> 
+
+					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4">活动选择方式:</label>
+							<div class="col-xs-8">
+									<select id="chooseWay" name="chooseWay" data-fieldName="CHOOSE_WAY" class="bs-select form-control required" data-type="oemDict" data-dictCode="4031"  data-value="40311001" >
+									</select>
+							</div>
+						</div>
+					</div>	
+
+					<div class="col-xs-12 col-sm-6 col-md-6">	
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">附件上传:</label>
+							<div class="col-xs-3">
+                             	<input type="file" class="importData" id="file" name="file">
+                            </div>
+                            <div class="col-xs-1"></div>
+						</div>
+					</div>
+																										
+					<div class="col-xs-12 col-sm-6 col-md-12 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">解决方案说明：</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input type="text" class="form-control" id="explans" name="explans">
+									<span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                 </span>
+                                 </div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-12 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">索赔申请指导：</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input type="text" class="form-control" id="guide" name="guide">
+									<span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                 </span>
+                                 </div>
+							</div>
+						</div>
+					</div>	
+
+					</div>
+				</div>
+			</div>
+
+		
+
+						
+
+
+
+						
+	</div>
+
+		<div class="modal-footer center-block">
+			<a data-url="/activityMaintain/activityAddSave" data-model="vehicle" data-method="POST"
+				data-callBack="true" class="btn blue" data-beforeRequest="true" 
+				data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+			</a> 
+		<!-- 	<a href="vehicle/activityManage/activityEdit.html" class="btn btn-outline ajaxify" data-goback="page"> lianjie</a> -->
+			
+			<a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+				<!-- 隐藏按钮  -->
+			<a id="fromTo" class="btn btn-outline" data-url="vehicle/activityManage/activityAddEdit.html" data-width="modal-lg"
+					data-toggle="modal"> <i class="fa "></i> 
+					</a> 	
+			
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one("onload.dms",function(event,container){
+		
+		//$(container).data("pageData",{USER_NAME:"XELLOSS"});
+		//alert("111");
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();			
+			//alert(response.ACTIVITY_ID);
+			
+			$("#activityId1",getElementContext()).val(response.ACTIVITY_ID);
+			$("#activityCode1",getElementContext()).val(response.ACTIVITY_CODE);			
+			$("#activityName1",getElementContext()).val(response.ACTIVITY_NAME);
+			$("#globalActivityCode1",getElementContext()).val(response.GLOBAL_ACTIVITY_CODE);
+			$("#activityTitle1",getElementContext()).val(response.ACTIVITY_TITLE);
+			$("#activityType1",getElementContext()).val(response.ACTIVITY_TYPE);
+			$("#claimType1",getElementContext()).val(response.CLAIM_TYPE);
+			$("#startDate1",getElementContext()).val(response.START_DATE);
+			$("#endDate1",getElementContext()).val(response.END_DATE);
+			$("#summClosedate1",getElementContext()).val(response.SUMM_CLOSEDATE);
+			$("#labourFee1",getElementContext()).val(response.LABOUR_FEE);
+			$("#partFee1",getElementContext()).val(response.PART_FEE);
+			$("#otherFee1",getElementContext()).val(response.OTHER_FEE);
+			$("#isFee1",getElementContext()).val(response.IS_FEE);
+			$("#isMulti1",getElementContext()).val(response.IS_MULTI);
+			$("#chooseWay1",getElementContext()).val(response.CHOOSE_WAY);
+			$("#explans1",getElementContext()).val(response.EXPLANS);
+			$("#guide1",getElementContext()).val(response.GUIDE);
+			
+			$("#fromTo").click();
+		});
+				
+		//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			//$("#addressList",getElementContext()).dmsTable().appendBlankRow();
+		});
+		
+		//事件点击
+		$("a[data-onclickEvent1='true']",container).on("dms.click",function(event){
+			//$("#addressList",getElementContext()).dmsTable().appendBlankRow();
+		});
+		
+		//发送请求前执行事件
+		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			//alert("发送请求前执行事件");			
+			//debugger;
+			
+/* 			if($("#activityCode").val() == null || $("#activityCode").val() == ""  ){
+				dmsCommon.tip({status:"warning",msg:"活动系统编号不能空"});//总共的状态类型：info、success、error、warning
+				returnResult.status = false;
+				return ;
+			} */
+
+
+			returnResult.status = true;
+		});
+		
+	});
+</script>

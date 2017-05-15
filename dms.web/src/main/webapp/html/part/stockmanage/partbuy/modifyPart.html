@@ -1,0 +1,501 @@
+<div class="dms-edit ajaxrest"
+	data-url=""
+	data-model="">
+	
+<div id="isNotBack" >	
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-close">
+				<a id="test"   data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+			<div class="modal-title">采购入库编辑</div>
+
+		</div>
+<div class="modal-body">
+<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row" isNotBack-data="true">
+					
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-6">仓库</label>
+								<div class="col-xs-6">
+									<input type="hidden" id="stockin" /> 
+									<select id="storageCode" name="storageCode" 
+											class="bs-select form-control required"
+											data-url="/basedata/store/storelist"
+											data-model="part" data-labelValue="STORAGE_CODE"
+											data-value="{[STORAGE_CODE]}" 
+											data-fieldName="STORAGE_CODE"
+											data-lableDesc="STORAGE_NAME">
+										</select>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-6 ">配件代码</label>
+								<div class="col-xs-6">
+									<input type="text" class="form-control" 
+										id="partNo" name="partNo"  
+										value="{[PART_NO]}"
+										readonly>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-6 ">配件名称</label>
+								<div class="col-xs-6">
+									<input type="text" class="form-control" 
+									id="partName" name="partName"  value="{[PART_NAME]}"
+				                	>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-6 ">入库数量</label>
+								<div class="col-xs-6">
+									<input type="text" class="form-control required number" maxPrecision="2"
+									id="inQuantity" name="inQuantity"  value="{[IN_QUANTITY]}"
+									>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-6 ">入库不含税单价</label>
+								<div class="col-xs-6">
+									<input type="text" class="form-control required number" maxPrecision="4"
+									id="inPrice" name="inPrice"  value="{[IN_PRICE]}"
+                                     >
+								</div>
+							</div>
+						</div>
+
+	                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-6 ">入库不含税金额</label>
+								<div class="col-xs-6">
+									<input type="text" class="form-control" 
+										id="inAmount" name="inAmount"  value="{[IN_AMOUNT]}"
+                                   readonly>
+								</div>
+							</div>
+						</div>
+			
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-6 ">入库含税单价</label>
+								<div class="col-xs-6">
+								<input type="text" class="form-control required number" maxPrecision="4"
+									id="inPriceTaxed" name="inPriceTaxed"  value="{[IN_PRICE_TAXED]}"
+                                   >   
+								</div>
+							</div>
+						</div>
+						
+		 		
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-6 ">入库含税金额</label>
+								<div class="col-xs-6">
+									<input type="text" class="form-control"
+									id="inAmountTaxed" name="inAmountTaxed"  value="{[IN_AMOUNT_TAXED]}"
+ 									readonly>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-6 ">输入不含税价</label>
+								<div class="col-xs-6">
+									<input type="checkbox"  id="ifTaxed" name="ifTaxed"  data-onclickEvent='true'
+									data-dictCode="1057" data-value="10571001"  >
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-6 "></label>
+								<div class="col-xs-6">
+									<input type="hidden" class="form-control"
+									id="fromType" name="fromType"  value="{[FROM_TYPE]}"
+ 									readonly>
+								</div>
+							</div>
+						</div>
+
+
+						
+					</div>
+					
+				</div>
+			</div>
+<div class="panel panel-default panel-primary table-panel">
+	<div class="panel-body">
+		<table
+			class="table table-striped table-bordered table-hover table-responsive"
+			id="part_table"></table>
+	</div>
+</div>
+</div>
+<div class="modal-footer center-block">
+	<a id="nb_save" data-callBack="true" data-onclickEvent='true'
+		class="btn blue"><i class="fa fa-save"></i>确定</a> <a
+		data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+
+</div>
+</form>
+</div>
+
+<!-- 分割  -->
+
+<div id="isBack" name="isBack">	
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+			<div class="modal-title">配件退货</div>
+
+		</div>
+<div class="modal-body">
+<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row" partBuy-data="true">
+					
+					
+					
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-6 ">入库单号</label>
+								<div class="col-xs-6">
+									<input type="text" class="form-control" 
+									id="iBstockInNo" name="iBstockInNo" 
+									value="{[OLD_STOCK_IN_NO]}" 
+									readonly>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-6 ">客户编号</label>
+								<div class="col-xs-6">
+									<input type="text" class="form-control" 
+									id="iBcustomerCode"  name="iBcustomerCode"  
+									 readonly>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-6 ">配件代码</label>
+								<div class="col-xs-6">
+									<input type="text" class="form-control" 
+									id="iBpartNo" name="iBpartNo" value="{[PART_NO]}"
+									 readonly>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-6 ">配件名称</label>
+								<div class="col-xs-6">
+									<input type="text" class="form-control" 
+									id="iBpartName" name="iBpartName" 	value="{[PART_NAME]}"	
+									 readonly>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-6">仓库</label>
+								<div class="col-xs-6">
+									<input type="hidden" id="stockin" /> 
+									<select disabled="disabled"  class="bs-select form-control required"
+											id="iBstorageCode" name="iBstorageCode" 
+											data-url="/basedata/store/storelist"
+											data-value="{[STORAGE_CODE]}"
+											data-model="part" data-labelValue="STORAGE_CODE"  data-fieldName="STORAGE_CODE"
+											data-lableDesc="STORAGE_NAME">
+										</select>
+								</div>
+							</div>
+						</div>
+
+						
+
+					</div>
+					
+				</div>
+			</div>
+			
+<!--退料原单据数据  -->			
+<div class="panel panel-default panel-primary table-panel">
+	<div class="panel-body">
+		<table
+			class="table table-striped table-bordered table-hover table-responsive"
+			id="back_origin_table"></table>
+	</div>
+</div>
+
+<!--退料单数据  -->			
+<div class="panel panel-default panel-primary table-panel">
+	<div class="panel-body">
+		<table
+			class="table table-striped table-bordered table-hover table-responsive"
+			id="back_table"></table>
+	</div>
+</div>
+
+
+
+</div>
+<div class="modal-footer center-block">
+	<a id="b_save" data-callBack="true" data-onclickEvent='true'
+		class="btn blue"><i class="fa fa-save"></i>确定</a> <a
+		data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+
+</div>
+</form>
+</div>
+
+</div>
+<script type="text/javascript">
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+		
+				//根据主页记录isBack的值来判断显示那个页面
+				if($("input[name='is_Back']",getElementContext()).val()!="12781001"){
+				//隐藏退货单修改界面	
+		        $("#isBack",container).hide();
+// 		 		parseFloat($("#inAmount", container).val())*0.17
+
+               
+		    	//数量变动计算绑定事件
+		    	var vl_tax=(parseFloat($("#tax",getElementContext()).val())+1);
+		    
+		    	$("#inQuantity", container).bindChange(function(obj){
+
+	$("#inAmount",container).val((parseFloat($("#inPrice",container).val())*parseFloat($("#inQuantity",container).val())).toFixed(2));
+	$("#inAmountTaxed",container).val((parseFloat($("#inPriceTaxed",container).val())*parseFloat($("#inQuantity",container).val())).toFixed(2));
+		    		
+		    	});
+				
+		    	$("#inPrice", container).bindChange(function(obj){
+	$("#inPriceTaxed",container).val( (parseFloat($("#inPrice",container).val())*parseFloat(vl_tax)).toFixed(4) );
+	$("#inAmount",container).val((parseFloat($("#inPrice",container).val())*parseFloat($("#inQuantity",container).val())).toFixed(2));
+	$("#inAmountTaxed",container).val((parseFloat($("#inPriceTaxed",container).val())*parseFloat($("#inQuantity",container).val())).toFixed(2));
+	 		   	
+		    	});
+		    	
+				$("#inPriceTaxed", container).bindChange(function(obj){
+	$("#inPrice",container).val( (parseFloat($("#inPriceTaxed",container).val())/parseFloat(vl_tax)).toFixed(4) );
+	$("#inAmount",container).val((parseFloat($("#inPrice",container).val())*parseFloat($("#inQuantity",container).val())).toFixed(2));
+	$("#inAmountTaxed",container).val((parseFloat($("#inPriceTaxed",container).val())*parseFloat($("#inQuantity",container).val())).toFixed(2));
+	 				    		
+		    	});
+		  
+//非退货单配件数据				
+				new Datatable().initPagination({
+					src : "part_table",
+					container : container,
+					url : dmsCommon.getDmsPath()["part"]
+							+ "/stockmanage/partbuy/stockInItemDetail/{[STORAGE_CODE]}/{[PART_NO]}",
+					rowID : "",
+					sortName : "",
+					sortOrder : "asc",
+					undefinedText : "",
+					autoHeight : false,
+					columns : [  {field : "SALES_PRICE",title : "销售价"},
+						{field : "CLAIM_PRICE",title : "索赔价"},
+						{field : "INSURANCE_PRICE",title : "保险价"},
+						{field : "MIN_LIMIT_PRICE",title : "最低销售限价"},
+						{field : "LIMIT_PRICE",title : "销售限价"},
+						{field : "MAX_STOCK",title : "最大库存"},
+						{field : "MIN_STOCK",title : "最小库存"},
+						{field : "STOCK_QUANTITY",title : "账面库存"},
+						{field : "USEABLE_STOCK",title : "可用库存"},
+						{field : "BORROW_QUANTITY",title : "借进数量"},
+						{field : "LEND_QUANTITY",title : "借出数量"},
+						{field : "LOCKED_QUANTITY",title : "锁定量"},
+						{field : "OPTION_NO",title : "替代配件"},
+						{field : "PART_GROUP_CODE",title : "配件类别"},
+						{field : "UNIT_CODE",title : "单位"},
+						{field : "INFO_PART_MODEL_GROUP_CODE_SET",title : "配件车型组集"}
+
+					]
+				});
+				
+
+			    //入库类型为“货运单入库（70051001）”仓库不可修改
+				if($("#inType", getElementContext()).val()=="70051001"){					
+					$("#storageCode",container).setElementReadOnly();				
+				}
+		
+				//是否含税价格
+				$("#inPriceTaxed",container).setElementReadOnly();
+				$("input[name='ifTaxed']").click(function(){
+					if($("input[name='ifTaxed']").is(':checked')){
+							$("#inPrice",container).removeElementReadOnly();
+							$("#inPriceTaxed",container).setElementReadOnly();
+						}else{
+							$("#inPrice",container).setElementReadOnly();
+							$("#inPriceTaxed",container).removeElementReadOnly();
+						}
+				    });
+	
+				
+				}else{
+				
+					//隐藏非退货单修改界面
+					$("#isNotBack",container).hide();	
+					
+					//界面表单赋值
+					$("#iBcustomerCode", container).val($("#customerCode", getElementContext()).val());
+					
+				new Datatable().initPagination({
+					src : "back_origin_table",
+					container : container,
+					url : dmsCommon.getDmsPath()["part"]
+							+ "/stockmanage/partbuy/backItem/{[PART_NO]}/{[OLD_STOCK_IN_NO]}",
+					rowID : "STOCK_IN_NO",
+					sortName : "STOCK_IN_NO",
+					sortOrder : "asc",
+					undefinedText : "",
+					autoHeight : false,
+					columns : [ {field : "STOCK_IN_NO",title : "入库单号"},
+						{field : "PART_NO",title : "配件代码"},
+						{field : "PART_NAME",title : "配件名称"},
+						{field : "IN_QUANTITY",title : "入库数量"},
+						{field : "IN_PRICE",title : "入库不含税单价"},
+						{field : "IN_AMOUNT",title : "入库不含税金额"},
+						{field : "IN_PRICE_TAXED",title : "入库含税单价"},
+						{field : "IN_AMOUNT_TAXED",title : "入库含税金额"},
+						{field : "COST_PRICE",title : "成本单价"},
+						{field : "COST_AMOUNT",title : "成本金额"},
+						{field : "STORAGE_CODE",title : "仓库"},
+						{field : "STORAGE_POSITION_CODE",title : "库位代码"},
+						{field : "DELVIERY_NO",title : "货运单号"},
+						{field : "CUSTOMER_NAME",title : "供应商名称"},
+						{field : "SHEET_CREATE_DATE",title : "开单日期"},
+						{field : "FINISHED_DATE",title : "入账日期"},
+
+					]
+												});
+				
+				
+				new Datatable().initPagination({
+					src : "back_table",
+					container : container,
+					url : dmsCommon.getDmsPath()["part"]
+					+ "/stockmanage/partbuy/backItem/{[PART_NO]}/{[OLD_STOCK_IN_NO]}",
+					rowID : "STOCK_IN_NO",
+					sortName : "STOCK_IN_NO",
+					sortOrder : "asc",
+					undefinedText : "",
+					autoHeight : false,
+					columns : [  {field : "STOCK_IN_NO",title : "入库单号"},
+						{field : "PART_NO",title : "配件代码"},
+						{field : "PART_NAME",title : "配件名称"},
+						{field : "IN_QUANTITY", title :"<span style='color: blue;'>退货数量</span>",
+						inputField:"backQuantity",inputTextFormat : {}
+						},
+						{field : "IN_PRICE",title : "入库不含税单价",inputField:"backInPrice",inputHiddenFormat : {}},
+						{field : "IN_AMOUNT",title : "入库不含税金额",inputField:"backAmount",inputHiddenFormat : {}},
+						{field : "IN_PRICE_TAXED",title : "入库含税单价",inputField:"backInPriceTaxed",inputHiddenFormat : {}},
+						{field : "IN_AMOUNT_TAXED",title : "入库含税金额",inputField:"backAmountTaxed",inputHiddenFormat : {}},
+						{field : "COST_PRICE",title : "成本单价"},
+						{field : "COST_AMOUNT",title : "成本金额"}
+
+					],onLoadSuccess:function(){
+						$("input[id^='backQuantity']",container).bindChange(function(obj){
+								
+						 	var index=$("tr.selected",container).attr("data-index");
+						 	
+							
+							$("#back_table",container).dmsTable().updateRowByIndex(index,{
+						
+			IN_AMOUNT:parseFloat($("input[id^='backQuantity']",container).val()*$("input[id^='backInPrice']",container).val()).toFixed(2),
+			IN_AMOUNT_TAXED:parseFloat($("input[id^='backQuantity']",container).val()*$("input[id^='backInPriceTaxed']",container).val()).toFixed(2)
+				   	
+								});	
+							return true; 
+						})
+					}
+												});
+				}
+			
+				
+				//退货数量值变动绑定事件
+				
+				//按键点击事件	
+				$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+					
+					//判断点击的按钮，根据不同按建的ID，执行不同的操作
+					//nb_save按键点击事件	
+					if($(this).attr('id')=='nb_save'){
+					
+					var index=$("tr.selected",getElementContext()).attr("data-index");
+					
+			
+					
+					$("#dms_table",getElementContext()).dmsTable().updateRowByIndex(index,{
+						       PART_NAME:$("#partName", container).val(),
+						       IN_QUANTITY:$("#inQuantity",container).val(),
+						       STORAGE_NAME:$("#storageCode option:selected").text(),
+						   	STORAGE_CODE:$("#storageCode option:selected").val(),
+						   	IN_PRICE:$("#inPrice", container).val(),
+						   	IN_AMOUNT:$("#inAmount", container).val(),
+						   	IN_PRICE_TAXED:$("#inPriceTaxed", container).val(),
+						   	IN_AMOUNT_TAXED:$("#inAmountTaxed", container).val()
+							});	
+					
+					//关闭界面
+					$("a[id='test']", container).click();
+ 					 return true;
+				
+					}
+				
+					//b_save按键点击事件	
+					if($(this).attr('id')=='b_save'){
+					
+					var index=$("tr.selected",getElementContext()).attr("data-index");
+										
+					$("#dms_table",getElementContext()).dmsTable().updateRowByIndex(index,{
+						IN_QUANTITY:($("input[id^='backQuantity']",container).val()*-1),
+						IN_AMOUNT:($("input[id^='backAmount']",container).val()*-1),       
+						IN_AMOUNT_TAXED:($("input[id^='backAmountTaxed']",container).val()*-1)       
+	
+							});	
+					
+					//关闭界面
+					$("a[data-dismiss='modal']", container).click();
+ 					 return true;
+				
+					}
+					
+					
+
+			 	});	
+
+			});
+
+
+</script>

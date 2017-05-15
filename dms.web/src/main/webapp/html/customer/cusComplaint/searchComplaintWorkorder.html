@@ -1,0 +1,129 @@
+<div class="dms-search">
+<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">工单信息</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">工单号</label>
+								<div class="col-xs-8">
+									<input id="roNo" name="roNo"
+										class="form-control required" type="text" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车牌号</label>
+								<div class="col-xs-8 ">
+									<input type="text" class="form-control" name="license" id="license">
+								</div>
+							</div>
+						</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车主名称</label>
+								<div class="col-xs-8 ">
+									<input type="text" class="form-control" name="ownerName" id="ownerName" >
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row ">
+						<div class="col-xs-12 ">
+							<div class="query-btn">
+								<a href="javascript:;" class="btn blue"> <i
+									class="fa fa-search"></i>查询
+								</a> 
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">工单信息</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="repairorderList">
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-onclickEvent="true"><i class="fa fa-save"></i>确定</a>
+			<a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消</a>
+		</div>
+</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+ 	new Datatable().initPagination({
+		src : "repairorderList",
+		rowID:"RO_ID",
+		container:container,
+	 	url : dmsCommon.getDmsPath()["repair"] + "/order/repair/complaint/repairOrderSel", 
+		sortName : "RO_ID", 
+		sortOrder : "asc",
+		autoHeight:false,
+		isQueryFirst:false,
+		columns : [ 
+		            {radio:true,sortable : false},
+		            {field : "RO_NO",title : "工单号"},
+		            {field : "LICENSE",title : "车牌号"},
+		            {field : "OWNER_NAME",title : "车主名称"},
+		            {field : "SERVICE_ADVISOR_ASS",title : "服务顾问",inputHiddenFormat : {hiddenField:"EMPLOYEE_NO"}},
+		            {field : "RO_CREATE_DATE",title : "开单日期",dateFormat : {format:"YYYY-MM-DD"}}, 
+		            {field : "DELIVERER",title : "送修人"},
+		            {field : "DELIVERER_PHONE",title : "送修人电话"},
+		            {field : "DELIVERER_MOBILE",title : "送修人手机"},
+		            {field : "VIN",title : "VIN号",visible : false},
+		            {field : "MILEAGE",title : "行驶里程",visible : false},
+		            {field : "LINK_ADDRESS",title : "车主地址",visible : false},
+		            {field : "SALES_DATE",title : "购车日期",visible : false},
+		            
+		            {field : "RO_STATUS",title : "工单状态",codeFormat : {type : "dict",codeType : "1215"}}
+		         ]
+	});
+ 	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		var selectRow = $("#repairorderList",container).dmsTable().getFirstSelection();
+		$("div[data-tableSelect2='true']",getElementContext()).initHtmlContent(selectRow);
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+	});
+	var formJson = $("div[data-parentTable='ownerInfoTable,replaceList']",getElementContext()).serializeFormJson();
+	if(formJson){
+		  $("#license",container).setDmsValue(formJson.license);
+		 // $(".fa-search",container).click();
+	}
+	$("#license",container).bindChange(function(obj){
+		if($("#license",container).val()){
+			$("#roNo",container).removeClass("required");
+		}else{
+			$("#roNo",container).addClass("required");
+		}
+		$("#roNo",container).validateElement();
+	});
+	$("#ownerName",container).bindChange(function(obj){
+		if($("#ownerName",container).val()){
+			$("#roNo",container).removeClass("required");
+		}else{
+			$("#roNo",container).addClass("required");
+		}
+		$("#roNo",container).validateElement();
+	});
+});
+</script>

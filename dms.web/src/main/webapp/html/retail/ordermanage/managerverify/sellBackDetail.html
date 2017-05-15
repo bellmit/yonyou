@@ -1,0 +1,440 @@
+<div class="dms-edit ajaxrest" data-url="/ordermanage/salesOrders/{[SO_NO_ID]}" data-model="retail">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row" >
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">退回单号</label>
+							<div class="col-xs-8">
+								<input id="soNo" name="soNo" class="form-control" type="text" disabled="disabled" data-fieldName="SO_NO"/>
+								<input id="auditedManager" name="auditedManager" class="form-control" type="hidden" disabled="disabled" data-fieldName="EMPLOYEE_NO"/>
+								<input id="soNoId" name="soNoId" class="form-control" type="hidden"  data-fieldName="SO_NO_ID"/>
+							</div>
+						</div>
+					</div>
+				
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">销售单号</label>
+							<div class="col-xs-8 ">
+									<input type="text" class="form-control" id="oldSoNo" name="oldSoNo"  disabled="disabled" data-fieldName="OLD_SO_NO"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">客户编号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="customerNo" disabled="disabled" name="customerNo" data-fieldName="POTENTIAL_CUSTOMER_NO"/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">客户名称</label>
+							<div class="col-xs-8">
+								<input id="customerName" name="customerName"
+									data-fieldName="CUSTOMER_NAME" class="form-control" type="text"
+									disabled="disabled" />
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-12 col-md-8">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">联系地址</label>
+							<div class="col-xs-8 col-sm-10">
+								<input id="address" name="address" class="form-control"
+									type="text" disabled="disabled" data-fieldName="ADDRESS" />
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">手机号</label>
+							<div class="col-xs-8">
+								<input id="mobile" name="mobile" class="form-control"
+									type="text" disabled="disabled" data-fieldName="MOBILE" />
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">开单日期</label>
+							<div class="col-xs-8">
+								<div class="input-group date date-picker">
+									<input id="sheetCreateDate" name="sheetCreateDate" readonly
+										class="form-control " type="text" data-fieldName="SHEET_CREATE_DATE"/> <span
+										class="input-group-btn">
+										<button class="btn default date-set" type="button">
+											<i class="fa fa-calendar"></i>
+										</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group form-group-xs m-b-xs">
+							<label class="control-label col-xs-4">开单人</label>
+							<div class="col-xs-8">
+								<select id="sheetCreatedBy" name="sheetCreatedBy"
+									class="bs-select form-control "
+									data-url="/basedata/employees/employees/dict" data-fieldName="SHEET_CREATED_BY"
+									data-model="manage" data-labelValue="EMPLOYEE_NO"
+									data-lableDesc="EMPLOYEE_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group form-group-xs m-b-xs">
+							<label class="control-label col-xs-4">销售顾问</label>
+							<div class="col-xs-8">
+								<select id="consultant" name="consultant"
+									class="bs-select form-control "
+									data-url="/basedata/employees/-1/salesConsultant"
+									data-model="manage" data-labelValue="EMPLOYEE_NO"
+									data-lableDesc="EMPLOYEE_NAME" data-fieldName="CONSULTANT">
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-12 col-md-8">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">退回原因</label>
+							<div class="col-xs-8 col-sm-10">
+								<input id="returnReason" name="returnReason" class="form-control "
+									type="text"  data-fieldName="RETURN_REASON" />
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">VIN号</label>
+							<div class="col-xs-8">
+									<input type="text" class="form-control" id="vin" name="vin"
+										data-fieldName="VIN" disabled="disabled"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">品牌</label>
+							<div class="col-xs-8">
+								<select id="brand" class="bs-select form-control" name="brand"
+									data-url="/basedata/brandsdict" data-model="manage"
+									data-labelValue="BRAND_CODE" data-lableDesc="BRAND_NAME"
+									 data-fieldName="BRAND_CODE" disabled="disabled">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车系</label>
+							<div class="col-xs-8">
+								<select id="seriess" parent="brand"
+									class="bs-select form-control" name="series"
+									data-url="/basedata/brandsdictC/{[brand]}/seriessdictC"
+									data-model="manage" data-labelValue="SERIES_CODE" data-fieldName="SERIES_CODE"
+									data-lableDesc="SERIES_NAME" disabled="disabled">
+								</select>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车型</label>
+							<div class="col-xs-8">
+								<select id="models" parent="seriess"
+									class="bs-select form-control" name="model"
+									data-url="/basedata/brandsdictC/{[brand]}/seriessdictC/{[seriess]}/modelsdictC"
+									data-model="manage" data-labelValue="MODEL_CODE" data-fieldName="MODEL_CODE"
+									data-lableDesc="MODEL_NAME" disabled="disabled">
+								</select>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配置</label>
+							<div class="col-xs-8">
+								<select id="confi" parent="models" class="bs-select form-control" name="confi"
+									data-url="/basedata/brandsdictC/{[brand]}/seriessdictC/{[seriess]}/modelsdictC/{[models]}/packagesdictC"
+									data-model="manage" data-labelValue="CONFIG_CODE" disabled="disabled"
+									data-lableDesc="CONFIG_NAME"  data-fieldName="CONFIG_CODE">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group form-group-xs m-b-xs">
+							<label class="control-label col-xs-4">颜色</label>
+							<div class="col-xs-8">
+								<select id="color"  disabled="disabled"
+									class="bs-select form-control" name="color" data-fieldName="COLOR_CODE"
+									data-url="/basedata/colors/colorinfo/dicts" data-model="repair"
+									data-labelValue="COLOR_CODE" data-lableDesc="COLOR_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">产品代码</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="productCode"
+									name="productCode" data-fieldName="PRODUCT_CODE"
+									disabled="disabled" /> <input type="hidden"
+									class="form-control" id="productId" name="productId"
+									data-fieldName="PRODUCT_ID" />
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">产品名称</label>
+							<div class="col-xs-8">
+								<input id="productname" name="productname" data-fieldName="PRODUCT_NAME" 
+									class="form-control" type="text" disabled="disabled" />
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="panel panel-default table-panel">
+			<div class="panel-body">
+				<div class="tabbable-custom">
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#tab_decorationProject"
+							data-toggle="tab">装潢项目</a></li>
+
+						<li><a href="#tab_decorationMaterials" data-toggle="tab">装潢材料</a>
+						</li>
+
+						<li><a href="#tab_serviceProject" data-toggle="tab">服务项目</a>
+						</li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane fade in active" id="tab_decorationProject">
+
+							<div class="panel panel-default table-panel">
+								<div class="panel-body">
+									<table
+										class="table table-striped table-bordered table-hover table-responsive"
+										id="decorationProjectList">
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="tab_decorationMaterials">
+							<div class="panel panel-default table-panel">
+								<div class="panel-body">
+									<table
+										class="table table-striped table-bordered table-hover table-responsive"
+										id="deracotionMaterialList">
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="tab_serviceProject">
+							<div class="panel panel-default table-panel">
+								<div class="panel-body">
+									<table
+										class="table table-striped table-bordered table-hover table-responsive"
+										id="serviceProjectList">
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group" data-tableSelect1="true">
+							<label class="control-label col-xs-4">车辆价格</label>
+							<div class="col-xs-8">
+								<input id="vehiclePrice" name="vehiclePrice" disabled="disabled"
+									class="form-control" type="text"  data-fieldName="DIRECTIVE_PRICE"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">装潢金额</label>
+							<div class="col-xs-8">
+								<input id="upholsterSum" name="upholsterSum" class="form-control"
+									type="text" disabled="disabled" data-fieldName="UPHOLSTER_SUM"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">赠送金额</label>
+							<div class="col-xs-8">
+								<input id="presentSum" name="presentSum" class="form-control"
+									type="text" disabled="disabled" data-fieldName="PRESENT_SUM"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">服务项目金额</label>
+							<div class="col-xs-8">
+								<input id="serviceSum" name="serviceSum" class="form-control"
+									type="text" disabled="disabled" data-fieldName="SERVICE_SUM"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">抵扣金额</label>
+							<div class="col-xs-8">
+								<input id="offsetAmount" name="offsetAmount" class="form-control"
+									type="text" data-fieldName="OFFSET_AMOUNT" disabled="disabled"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">订单应收</label>
+							<div class="col-xs-8">
+								<input id="orderReceivableSum" name="orderReceivableSum"
+									class="form-control" type="text" disabled="disabled"
+									data-fieldName="ORDER_RECEIVABLE_SUM"  />
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">违约金</label>
+							<div class="col-xs-8">
+								<input id="penaltyAmount" name="penaltyAmount" class="form-control"
+									type="text" data-fieldName="PENALTY_AMOUNT" maxlength="12"/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">退回应收</label>
+							<div class="col-xs-8">
+								<input id="roReceivableSum" name="roReceivableSum" class="form-control" data-autoValue="-#orderReceivableSum + #penaltyAmount"
+									type="text" data-fieldName="RO_RECEIVABLE_SUM" disabled="disabled"/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-actions">
+			<a class="btn blue" data-toggle="modal" data-width="modal-lg" data-beforeShowEvent="true"
+				data-url="retail/ordermanage/managerverify/verify.html" data-isExcludeReadOnly ="true"> <i
+				class="fa fa-check-square-o glyphicon-lg"></i>审核
+			</a>
+			<a data-goback="page" href="retail/ordermanage/managerverify/searchManagerVerify.html" class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document) .one( "onload.dms", function(event, container) { new Datatable() .initLocale({
+									src : "decorationProjectList",
+									rowID : "SO_DECRODATE_ID",
+									container : container,
+									url : dmsCommon.getDmsPath()["retail"]
+											+ "/ordermanage/salesOrders/{[SO_NO_ID]}/decorationproject",
+									columns : [
+												{ field : "SO_DECRODATE_ID", title : "操作", operateFormat : [ { type : "localDel" } ] },
+												{ field : "LABOUR_CODE", inputField : "labourCode", title : "装潢项目代码", inputHiddenFormat : {} },
+												{ field : "LABOUR_NAME", inputField : "labourName", title : "装潢项目名称", inputHiddenFormat : {} },
+												{ field : "STD_LABOUR_HOUR", inputField : "stdLabourHour", title : "标准工时", inputHiddenFormat : {}, NumberFormat : {}},
+												{ field : "LABOUR_PRICE", inputField : "labourPrice", title : "工时单价", inputHiddenFormat : {},NumberFormat : {}},
+												{ field : "DISCOUNT", inputField : "discount", title : "折扣率", inputHiddenFormat : {}, NumberFormat : {decimal : 2} },
+												{ field : "AFTER_DISCOUNT_AMOUNT", inputField : "afterDiscountAmount", title : "实收金额", inputHiddenFormat : {}, NumberFormat : { decimal : 2 }},
+												{ field : "REMARK", inputField : "remark", title : "备注"} 
+												]
+								});
+						new Datatable()
+								.initLocale({
+									src : "deracotionMaterialList",
+									rowID : "DECRODATE_PART_ID",
+									container : container,
+									url : dmsCommon.getDmsPath()["retail"]
+												+ "/ordermanage/salesOrders/{[SO_NO_ID]}/deracotionmaterial",
+									columns :[
+												{ field : "DECRODATE_PART_ID", title : "操作", operateFormat : [ { type : "localDel"} ] },
+												{ field : "PART_CODE", inputField : "partNo", title : "配件代码", inputHiddenFormat : {} },
+												{ field : "PART_NAME", inputField : "PartName", title : "配件名称", inputHiddenFormat : {} },
+												{ field : "STORAGE_NAME", inputField : "storageName", title : "仓库名称", inputHiddenFormat : {}},
+												{ field : "STORAGE_POSITION_CODE", inputField : "storagePositionCode", title : "库位", inputHiddenFormat : {} },
+												{ field : "PART_SEQUENCE", inputField : "partSequence", title : "序列号", inputHiddenFormat : {},NumberFormat : {} },
+												{ field : "SALES_PRICE", inputField : "partSalesPrice", title : "销售单价", inputHiddenFormat : {}, NumberFormat : { decimal : 2 } },
+												{ field : "PART_QUANTITY", inputField : "partQuantity", title : "数量",inputHiddenFormat : {}, NumberFormat : { decimal : 2 } },
+												{ field : "PART_SALES_AMOUNT", inputField : "partSalesAmount", title : "销售金额", inputHiddenFormat : {}, NumberFormat : { decimal : 2 } },
+												{ field : "DISCOUNT", inputField : "discount", title : "折扣率", inputHiddenFormat : {}, NumberFormat : { decimal : 2 } },
+												{ field : "AFTER_DISCOUNT_AMOUNT", inputField : "afterDiscountAmount", title : "实收金额", inputHiddenFormat : {}, NumberFormat : { decimal : 2 } },
+												{ field : "ACCOUNT_MODE", inputField : "accountMode", title : "结算方式",  inputHiddenFormat : {}, codeFormat : {type : "dict", codeType : "1406" }},
+												{ field : "REMARK", inputField : "remark", title : "备注"}
+												]
+								});
+						new Datatable()
+								.initLocale({
+									src : "serviceProjectList",
+									rowID : "SO_SERVICES_ID",
+									container : container,
+									url : dmsCommon.getDmsPath()["retail"]
+											+ "/ordermanage/salesOrders/{[SO_NO_ID]}/serviceproject",
+									columns : [
+												{ field : "SERVICE_ID", title : "操作", operateFormat : [ { type : "localDel" } ] },
+												{ field : "SERVICE_CODE", inputField : "serviceCode", title : "项目代码", inputHiddenFormat : {} },
+												{ field : "SERVICE_NAME", inputField : "serviceName", title : "项目名称", inputHiddenFormat : {} },
+												{ field : "SERVICE_TYPE", inputField : "serviceType", title : "服务类型", inputHiddenFormat : {} , codeFormat : { type : "dict", codeType : "1402" } },
+												{ field : "DIRECTIVE_PRICE", inputField : "directivePrice", title : "销售指导价", inputHiddenFormat : {}, NumberFormat : { decimal : 2 } },
+												{ field : "AFTER_DISCOUNT_AMOUNT", inputField : "afterDiscountAmount", title : "实收金额", inputHiddenFormat : {}, NumberFormat : { decimal : 2 } },
+												{ field : "ACCOUNT_MODE", inputField : "accountMode", title : "结算方式", inputHiddenFormat : {},codeFormat : { type : "dict", codeType : "1406" } },
+												{ field : "REMARK", inputField : "remark", title : "备注"}
+												]
+								});
+						//绑定事件，审核前
+						$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+							var soNoId = $("#soNoId",container).val();		
+							var map={key1:soNoId}
+							$(this).data("pageData",map);
+							returnResult.status = true;
+						 });
+						
+					});
+</script>

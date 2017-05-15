@@ -1,0 +1,232 @@
+<!-- <div class="dms-edit ajaxrest" data-url="/basedata/ToolDefine/{[TOOL_CODE]}" data-model="part" >  -->
+ <div class="dms-edit ">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+			<div class="modal-title">工具定义编辑</div>
+		</div>
+		<div class="modal-body">
+    		<div class="panel panel-default">
+				<div class="panel-body">
+		            <div class="row">
+		            
+		       <div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4 ">工具代码</label>
+					<div class="col-xs-8">
+						<input type="text" class="form-control " id="toolCode" name="TOOL_CODE" 
+					 readonly><!-- value={[TOOL_CODE]}  -->
+					</div>
+				</div>
+			</div>
+			  <div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4 ">工具名称</label>
+					<div class="col-xs-8">
+						<input type="text" class="form-control required"  id="toolName"  name="TOOL_NAME"
+						value={[TOOL_NAME]}    maxlength="60" >
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">工具拼音</label>
+					<div class="col-xs-8 ">
+						<input type="text" class="form-control" id="toolSpell" name="TOOL_SPELL" 
+					maxlength="20" data-autoPinYin="#toolName" disabled="disabled">	<!-- value={[TOOL_SPELL]} --> 
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">工具类别</label>
+					<div class="col-xs-8 ">
+					
+									<select class="bs-select form-control" id="toolTypeCodeG"name="TOOL_TYPE_NAME" 
+										data-url="/basedata/ToolsType/Select"  data-model="part"   
+										data-lableDesc="TOOL_TYPE_NAME" data-labelValue="TOOL_TYPE_CODE" data-live-search="true">
+									</select> 
+					</div>
+				</div>
+			</div>
+			
+				<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4 hidden">
+				<div class="form-group">
+					<label class="control-label col-xs-4">借进数量</label>
+					<div class="col-xs-8 ">
+						<input type="text" class="form-control" id="lendQuantity" name="LEND_QUANTITY" 
+					disabled="disabled"><!-- 	value={[LEND_QUANTITY]}  -->
+					</div>
+				</div>
+			</div>
+				<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4 hidden">
+				<div class="form-group">
+					<label class="control-label col-xs-4">库存数量</label>
+					<div class="col-xs-8 ">
+						<input type="text" class="form-control" id="stockQuantity" name="STOCK_QUANTITY" 
+						 disabled="disabled" ><!-- value={[STOCK_QUANTITY]}  -->
+					</div>
+				</div>
+			</div>
+		<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">计量单位名称</label>
+					<div class="col-xs-8 " >
+							<select class="bs-select form-control" id="unitCode"name="UNIT_CODE" 
+									data-url="/basedata/unit/Select" data-model="part"   
+									data-lableDesc="CODE_NAME" data-labelValue="UNIT_CODE" data-live-search="true">
+							</select> 
+					</div>
+				</div>
+			</div>
+			
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">存放位置</label>
+					<div class="col-xs-8 ">
+						<input type="text" class="form-control" id="position" 
+						name="POSITION" maxlength="30"  ><!-- value={[POSITION]} -->
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">负责人</label>
+					<div class="col-xs-8 ">
+					<select class="bs-select form-control" id="principalG" name="PRINCIPAL" 
+									data-url="/basedata/ToolDefine/Employee/Select" data-model="part"   
+									data-lableDesc="PRINCIPAL_NAME" data-labelValue="PRINCIPAL"  
+									data-live-search="true">
+									</select> 
+					</div>
+				</div>
+			</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">固定资产编号</label>
+						<div class="col-xs-8">
+							<input id="capitalAssertsManageNo" name="CAPITAL_ASSERTS_MANAGE_NO" class="form-control "  
+							maxlength="30" 	type="text" data-value="0.00" /><!-- value={[CAPITAL_ASSERTS_MANAGE_NO]}  -->
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">使用年限</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control " maxlength="20" id="dateValidity" 
+							name="DATE_VALIDITY"  /><!--  value={[DATE_VALIDITY]}  -->
+					    </div>
+					</div>
+				</div>
+			
+			</div>
+		</div>
+	</div>
+</div>
+		<div class="modal-footer center-block">
+			<!-- <a data-url="/basedata/ToolsType/{[TOOL_TYPE_CODE]}" data-model="part" data-method="PUT"
+				data-callBack="true" class="btn blue" data-onclickEvent="true"
+				data-toggle="confirmation"><i class="fa fa-save"></i>确定</a> -->
+				<a   class="btn blue"  data-toggle="confirmation"  data-beforeRequest="true">
+				<i class="fa fa-save" ></i>确定</a> 
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+//将json数据存入form表单
+$.fn.jsonToForm = function (info){
+	//1.循环JSON数据
+	for (var key in info) { 
+		var value = info[key];
+		if(key=="UNIT_CODE"){//下拉选特定赋值
+			$("#unitCode").attr('data-value',value);
+		}else if(key=="TOOL_TYPE_CODE"){
+			$("#toolTypeCodeG").attr('data-value',value);
+		}else if(key=="PRINCIPAL"){
+			$("#principalG").attr('data-value',value);
+		}else{//文本框直接赋值
+			$("[name=" + key + "]", $(this)).val(value);
+		}
+	}
+}
+$(document).one("onload.dms",function(event,container){
+	var index = $.cookie('stockInForUpdateIndex');//下标
+	var row = $.cookie('stockInForUpdate');
+	var item = JSON.parse($.cookie('stockInForUpdate'));//将cookie的string转化成json
+	//console.log(item);
+	$(".form-horizontal",container).jsonToForm(item);//将json填充到相应的框中
+	 //页面的回调函数
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+		
+		 var index=$("tr.selected",getElementContext()).attr("data-index");//获取选中行号
+		 var unitName=$('#unitCode option:selected').text();
+		 
+   		var num=unitName.indexOf("|");
+   		var name=unitName.substring(0,num);
+   	//	alert(unitName+":"+name);
+   		var toolTypeCodeG=$('#toolTypeCodeG option:selected ',container).text();
+   		var principalG=$('#principalG option:selected',container).text();
+   		if(name=="请选择"){
+   			name="";
+   		}
+   		if(toolTypeCodeG=="请选择"){
+   			toolTypeCodeG="";
+   		}
+   		if(principalG=="请选择"){
+   			principalG="";
+   		}
+	   $("#dms_toolsType",getElementContext()).dmsTable().updateRowByIndex(index,{
+			TOOL_CODE:$('#toolCode',container).val(),
+       		TOOL_NAME:$('#toolName').val(),
+       		 TOOL_SPELL:$('#toolSpell',container).val(),
+       		UNIT_CODE:$('#unitCode option:selected').val(),
+       		UNIT_NAME:name,
+            TOOL_TYPE_CODE:$('#toolTypeCodeG option:selected',container).val(),
+       		 TOOL_TYPE_NAME:toolTypeCodeG,
+       		POSITION:$('#position',container).val(),
+       		LEND_QUANTITY:$('#lendQuantity',container).val(),
+       		STOCK_QUANTITY:$('#stockQuantity',container).val(),
+       		CAPITAL_ASSERTS_MANAGE_NO:$('#capitalAssertsManageNo').val(),
+       		 PRINCIPAL:$('#principalG option:selected',container).val(),
+       		 PRINCIPAL_NAME:principalG,
+       		FLAG:"X",
+       		DATE_VALIDITY:$('#dateValidity').val()
+		}); 
+			//关闭窗口
+		   $("a[data-dismiss='modal']",container).click();
+		   $("#save",getElementContext()).removeAttr("disabled");
+		   returnResult.status =true;
+		}); 
+});
+//去掉json格式的中括号对[]
+$.fn.formToJson = function()    
+{    
+   var obj = {};    
+   var jsonInfo = this.serializeArray();    
+   $.each(jsonInfo, function() {    
+       if (obj[this.name]) {    
+           if (!obj[this.name].push) {    
+               obj[this.name] = [obj[this.name]];    
+           }    
+           obj[this.name].push(this.value || '');    
+       } else {    
+           obj[this.name] = this.value || '';    
+       }    
+   });    
+   return obj;    
+}; 
+</script>
+
+
+

@@ -1,0 +1,603 @@
+<div class="dms-edit ajaxrest" data-url="/BigCustomer/manage/{[WS_NO]}/in" data-model="customer">
+<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">大客户报备</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">			
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<div class="row"></div>				
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group" data-customerSelect="true" >
+							<label class="control-label col-xs-4">客户名称</label>
+							<div class="col-xs-8 ">
+								<div class="input-group">
+									<input type="text" class="form-control required" id="customerName" name="customerName" readonly
+										  data-fieldName="CUSTOMER_NAME" disabled="disabled" /> <input
+										type="hidden" class="form-control" id="customerName" name="customerName"
+										 /> <span class="input-group-btn">
+										<button class="btn default btn-sm" type="button" disabled="disabled"
+											data-url="customer/customerApply/selectBigCustomer.html"
+											data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button" disabled="disabled">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group" data-linkSelect="true" >
+							<label class="control-label col-xs-4">联系人</label>
+							<div class="col-xs-8 ">
+								<div class="input-group">
+									<input type="text" class="form-control" id="contactorName" readonly
+										 name="contactorName" data-fieldName="CONTACTOR_NAME"/> 
+										 <input
+										type="hidden" class="form-control" id="contactorName" name="contactorName" data-fieldName="CONTACTOR_NAME" 
+										 />  <span class="input-group-btn">
+										<button class="btn default btn-sm" type="button" 
+											data-url="customer/customerApply/selectLink.html"
+											data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button"  >
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group"  data-linkSelect="true">
+											<label class="control-label col-xs-4 ">联系人职务</label>
+											<div class="col-xs-8 ">
+												<input id="positionName" name="positionName" data-fieldName='POSITION_NAME' disabled="disabled"
+													class="form-control" type="text" />
+											</div>
+										</div>
+									</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group"  data-linkSelect="true">
+											<label class="control-label col-xs-4 ">联系人传真</label>
+											<div class="col-xs-8 ">
+												<input id="fax" name="fax" data-fieldName='FAX' disabled="disabled"
+													class="form-control" type="text" />
+											</div>
+										</div>
+									</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group"  data-linkSelect="true">
+											<label class="control-label col-xs-4 ">联系人电话</label>
+											<div class="col-xs-8 ">
+												<input id="phone" name="phone" data-fieldName='PHONE' disabled="disabled"
+													class="form-control" type="text" />
+											</div>
+										</div>
+									</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group"  data-linkSelect="true">
+											<label class="control-label col-xs-4 ">联系人手机</label>
+											<div class="col-xs-8 ">
+												<input id="mobile" name="mobile" data-fieldName='MOBILE' disabled="disabled"
+													class="form-control" type="text" />
+											</div>
+										</div>
+									</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">政策类别</label>
+											<div class="col-xs-8">
+												<select id="wsAppType" name="wsAppType" data-fieldName='WS_APP_TYPE' disabled
+													class="form-control required" data-dictCode="1597"
+													data-value=""  >
+												</select>
+											</div>
+										</div>
+							</div>
+								<div class="col-xs-12 col-sm-6 col-md-4" hidden="hidden">
+										<div class="form-group">
+											<label class="control-label col-xs-4">政策类别</label>
+											<div class="col-xs-8">
+												<select id="wsAppType1" name="wsAppType1" data-fieldName='WS_APP_TYPE'
+													class="form-control required" data-dictCode="1597"
+													data-value=""  >
+												</select>
+											</div>
+										</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">客户类别</label>
+											<div class="col-xs-8">
+												<select id="customerKind" name="customerKind" data-fieldName='CUSTOMER_KIND' 
+													class="bs-select form-control required" data-dictCode="6120"
+													data-value=""  >
+												</select>
+											</div>
+										</div>
+									</div>
+							<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">客户类别细分</label>
+											<div class="col-xs-8">
+												<select id="wsthreeType" name="wsthreeType" data-fieldName='WSTHREE_TYPE'
+													class="bs-select form-control "  data-dictCode="6130"
+													data-value=""  >
+												</select>
+											</div>
+										</div>
+									</div>
+				     <div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">预计申请时间</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker" data-orientation="top right">
+													<input id="estimateApplyTime" name="estimateApplyTime" readonly data-fieldName='ESTIMATE_APPLY_TIME'
+														class="form-control required" type="text" value="" /> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+													</span>
+
+												</div>
+											</div>
+										</div>
+									</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">理由陈述</label>
+											<div class="col-xs-8 ">
+												<input id="projectRemark" name="projectRemark" data-fieldName='PROJECT_REMARK'
+													class="form-control" type="text" />
+											</div>
+										</div>
+									</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">大客户负责人</label>
+											<div class="col-xs-8 ">
+												<input id="dlrPrincipal" name="dlrPrincipal" data-fieldName='DLR_PRINCIPAL'
+													class="form-control" type="text" value="{[userInfo.userName]}"disabled="disabled" />
+											</div>
+										</div>
+									</div>	
+						<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">联系电话</label>
+											<div class="col-xs-8 ">
+												<input id="dlrPrincipalPhone" name="dlrPrincipalPhone" data-fieldName='DLR_PRINCIPAL_PHONE'
+													class="form-control required" type="text"  value="{[userInfo.mobile]}"/>
+											</div>
+										</div>
+									</div>	
+						  <div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">上报日期</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker" data-orientation="top right">
+													<input id="submitTime" name="submitTime" readonly data-fieldName='SUBMIT_TIME'
+														class="form-control" type="text" disabled="disabled" /> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button" disabled="disabled">
+															<i class="fa fa-calendar"></i>
+														</button>
+                                              <button class="btn default date-reset" type="button" disabled="disabled">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+													</span>
+
+												</div>
+											</div>
+										</div>
+									</div>						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">报备状态</label>
+											<div class="col-xs-8">
+												<select id="wsStatus" name="wsStatus" data-fieldName='WS_STATUS' 
+													class="bs-select form-control" data-dictCode="1598" disabled="disabled"
+													data-value=""  >
+												</select>
+											</div>
+										</div>
+									</div>
+						 <div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4">审核日期</label>
+											<div class="col-xs-8">
+												<div class="input-group date date-picker" data-orientation="top right">
+													<input id="auditingDate" name="auditingDate" readonly data-fieldName='AUDITING_DATE'
+														class="form-control" type="text" disabled="disabled" /> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button" disabled="disabled">
+															<i class="fa fa-calendar"></i>
+														</button>
+                                              <button class="btn default date-reset" type="button" disabled="disabled">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+													</span>
+
+												</div>
+											</div>
+										</div>
+									</div>						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">报备审核人</label>
+											<div class="col-xs-8 ">
+												<input id="wsAuditor" name="wsAuditor" data-fieldName='WS_AUDITOR'
+													class="form-control" type="text" disabled="disabled"/>
+											</div>
+										</div>
+									</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group" data-customerSelect="true">
+											<label class="control-label col-xs-4 ">公司名称</label>
+											<div class="col-xs-8 ">
+												<input id="companyName" name="companyName" data-fieldName='COMPANY_NAME'
+													class="form-control" type="text" readonly />
+											</div>
+										</div>
+									</div>				
+                        <div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2 col-md-1">审核备注</label>
+								<div class="col-xs-8 col-sm-10 col-md-11">
+									<textarea id="wsAuditingRemark" name="wsAuditingRemark" class="form-control"  data-fieldName='WS_AUDITING_REMARK'
+										rows="3" cols="" disabled="disabled"></textarea>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" data-customerSelect="true">						
+								<div class="col-xs-8">
+									<input id="customerNo" name="customerNo" data-fieldName="CUSTOMER_NO" class="form-control hidden"
+										type="text" maxlength="120" />
+								</div>
+							</div>
+						</div>					  										
+					</div>					
+				</div>
+			<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">大客户申购车型列表</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+					<a data-goback="page" 
+						data-url="customer/customerApply/searchProduct.html" 
+						data-toggle="modal" data-width="modal-lg" data-beforeShowEvent='true'
+						class="btn btn-outline" ><i class="fa fa-plus-square"></i>
+						新增</a>						 
+					</div>
+				</div>	
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="invent"></table>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="pannel-name">上传附件</div>
+			</div>
+			<div class="panel-body">
+				<div class="row" >
+					<div class="col-xs-12 ">	
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-1">
+							<div class="form-group">
+								<label class="control-label col-xs-12">申请表</label>
+							
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-8">
+							<div class="form-group">
+							
+								<div class="col-xs-12">
+								   <input id="fileApplyUrl" name="fileApplyUrl" class="form-control "  type="text"  readonly/>
+													
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-3">
+							<div class="form-group">
+							
+								<div class="col-xs-12">
+								   <a class="btn blue"
+						             data-url="customer/customerApply/scan.html" 
+						         data-toggle="modal" data-width="modal-lg" id="allLoanRate" > 
+						             扫描上传
+					</a>
+									
+								</div>
+							</div>
+						</div> 
+				<!-- 	<div class="form-group">
+							<div class="col-xs-12">
+                             	<input type="file" class="importFiles" id="fileupload" multiple name="dmsFile" data-inputName="dmsFileIds">
+                            </div>
+					</div>  -->
+					</div>
+				</div>
+			</div>
+		</div>
+		 <div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="pannel-name">附件上传</div>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-xs-12 ">
+									<div class="form-group">
+										<div class="col-xs-12">
+											<input type="file" class="importFiles" id="fileupload" data-inputName="dmsFileIds" multiple name="dmsFile" data-billId="{[WS_NO]}"  data-billType="10421005">
+												
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+		</div>
+		
+	</div>
+		</div>
+		<div class="modal-footer center-block">
+				<a  data-errorCallBack="true" data-info="saveBefore" data-url="/BigCustomer/manage/checkdata" data-callBack="true"  data-beforeRequest="true" data-onclickEvent="true" class="btn blue" data-toggle="confirmation" data-model="customer" data-method="GET" ><i class="fa fa-save"></i> 保存
+			</a>
+			<a  data-info="saveBeforeUrl" data-url="/BigCustomer/manage/{[WS_NO]}/save" data-model="customer"
+				data-method="PUT"  class="btn blue ajaxrest hidden"
+				class="btn blue" ><i
+				class="fa fa-save"></i>确认</a> 
+			<a data-dismiss="modal" 
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>		
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	var applyNumber="0";
+	var is_gj="12781002";
+	$("#wsthreeType",container).attr("disabled","true");
+	new Datatable().initPagination({
+		src : "invent",
+		container:container,
+		    url : dmsCommon.getDmsPath()["customer"] + "/BigCustomer/manage/{[WS_NO]}/car",
+			sortOrder : "asc",
+			autoHeight:false,
+			columns : [     
+			    {field : "",title : "操作",operateFormat : [{type : "localDel",onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){}}
+                      ]			    
+			    },                  
+			    {field : "BRAND_CODE",title : "品牌",inputField:"brandCode",inputHiddenFormat : {hiddenField:"BRAND_CODE"}},
+	//		    {field : "BRAND_NAME",title : "品牌",inputField:"brandName",inputHiddenFormat : {hiddenField:"BRAND_NAME"}},
+			    {field : "SERIES_CODE",title : "车系",inputField:"seriesCode",inputHiddenFormat : {hiddenField:"SERIES_CODE"}},
+		//	    {field : "SERIES_NAME",title : "车系",inputField:"seriesName",inputHiddenFormat : {hiddenField:"SERIES_NAME"}},
+                {field : "MODEL_CODE",title : "车型",inputField:"modelCode",inputHiddenFormat : {hiddenField:"MODEL_CODE"}},
+        //        {field : "MODEL_NAME",title : "车型",inputField:"modelName",inputHiddenFormat : {hiddenField:"MODEL_NAME"}},
+                {field : "CONFIG_CODE",title : "配置",inputField:"configCode",inputHiddenFormat : {hiddenField:"CONFIG_CODE"}}, 
+      //          {field : "CONFIG_NAME",title : "配置",inputField:"configName",inputHiddenFormat : {hiddenField:"CONFIG_NAME"}}, 
+                {field : "COLOR_CODE",title : "颜色",inputField:"colorCode",inputHiddenFormat : {hiddenField:"COLOR_CODE"}},
+      //          {field : "COLOR_NAME",title : "颜色",inputField:"colorName",inputHiddenFormat : {hiddenField:"COLOR_NAME"}},
+                {field : "PURCHASE_COUNT",title : "购买数量",inputField:"purchaseCount",inputNumberFormat : {decimal : 2}}         
+			]
+
+		});
+
+	$("#wsAppType",container).bindChange(function(obj){
+ 		var wsAppType=$("#wsAppType",container).val();		
+		if(wsAppType=="15971001"){
+			var selectData = new Array();
+			selectData.push({id:"61201002",name:"知名企业"});
+			selectData.push({id:"61201003",name:"酒店/航空"});
+			selectData.push({id:"61201004",name:"租赁"});
+			selectData.push({id:"61201012",name:"一般企业"});
+			selectData.push({id:"61201013",name:"政府"});
+			dmsDict.refreshSelectByData($( "#customerKind" ,container),selectData,"id","name");
+
+		}
+		if(wsAppType=="15971003"){
+			var selectData = new Array();
+			selectData.push({id:"61201002",name:"知名企业"});
+			selectData.push({id:"61201005",name:"一般大客户"});
+			selectData.push({id:"61201008",name:"知名院校、医院"});
+			selectData.push({id:"61201009",name:"合作银行"});
+			selectData.push({id:"61201011",name:"公务员"});
+			dmsDict.refreshSelectByData($( "#customerKind" ,container),selectData,"id","name");
+//			$("#customerKind",container).attr("disabled","disabled");
+//			$("#campaignBtn",container).attr("disabled","disabled");
+//			$("#campaignName",container).removeClass("required");
+//			$("#campaignName").val("");	
+//			$("#campaignCode").val("");	
+		}	
+	}); 
+	$("#customerKind",container).bindChange(function(obj){
+		var wsAppType=$("#wsAppType",container).val();	
+		var customerKind=$("#customerKind",container).val();	
+		if(wsAppType=="15971001"){
+			if(customerKind=="61201002"){
+			$("#wsthreeType",container).addClass("required");
+			$("#wsthreeType",container).removeAttr("disabled");
+			$("#wsthreeType",container).setDmsValue("");
+			var selectData = new Array();
+			selectData.push({id:"61301009",name:"世界500强"});
+			selectData.push({id:"61301010",name:"中国500强"});
+			selectData.push({id:"61301004",name:"其他"});
+	      	dmsDict.refreshSelectByData($( "#wsthreeType" ,container),selectData,"id","name");
+			
+			$("#wsthreeType",container).removeAttr("disabled");
+			}
+			if(customerKind=="61201003" || customerKind=="61201004"|| customerKind=="61201012"|| customerKind=="61201013" ){
+				$("#wsthreeType",container).parents("div:first").find("div:first").removeClass("required");
+				$("#wsthreeType",container).removeClass("required");
+				$("#wsthreeType",container).attr("disabled","disabled");
+				$("#wsthreeType",container).setDmsValue("");
+			}
+		}
+		if(wsAppType=="15971003"){
+			if(customerKind=="61201002"){
+				$("#wsthreeType",container).addClass("required");
+				$("#wsthreeType",container).removeAttr("disabled");
+				$("#wsthreeType",container).setDmsValue("");
+				var selectData = new Array();
+				selectData.push({id:"61301001",name:"腾讯集团"});
+				selectData.push({id:"61301002",name:"中石油中石化"});
+				selectData.push({id:"61301003",name:"平安集团"});
+				selectData.push({id:"61301011",name:"万科"});
+				selectData.push({id:"61301012",name:"华为"});
+				selectData.push({id:"61301013",name:"海尔"});
+				selectData.push({id:"61301014",name:"蓝色光标"});
+				selectData.push({id:"61301004",name:"其他"});
+				dmsDict.refreshSelectByData($( "#wsthreeType" ,container),selectData,"id","name");
+				$("#wsthreeType",container).removeAttr("disabled");
+			}
+			if (customerKind=="61201005"||customerKind=="61201011"){
+				$("#wsthreeType",container).parents("div:first").find("div:first").removeClass("required");
+				$("#wsthreeType",container).removeClass("required");
+				$("#wsthreeType",container).attr("disabled","disabled");
+				$("#wsthreeType",container).setDmsValue("");
+			}
+			if (customerKind=="61201008"){
+				$("#wsthreeType",container).addClass("required");
+				$("#wsthreeType",container).removeAttr("disabled");
+				$("#wsthreeType",container).setDmsValue("");
+				var selectData = new Array();
+				selectData.push({id:"61301015",name:"中欧商学院"});
+				selectData.push({id:"61301016",name:"长江商学院"});
+				selectData.push({id:"61301017",name:"211院校"});
+				selectData.push({id:"61301018",name:"三甲医院"});
+		      	dmsDict.refreshSelectByData($( "#wsthreeType" ,container),selectData,"id","name");				
+				$("#wsthreeType",container).removeAttr("disabled");				
+			}
+			if (customerKind=="61201009"){
+				$("#wsthreeType",container).addClass("required");
+				$("#wsthreeType",container).removeAttr("disabled");
+				$("#wsthreeType",container).setDmsValue("");
+				var selectData = new Array();
+				selectData.push({id:"61301006",name:"中国银行"});
+				selectData.push({id:"61301007",name:"工商银行"});
+				selectData.push({id:"61301008",name:"中信银行"});				
+		      	dmsDict.refreshSelectByData($( "#wsthreeType" ,container),selectData,"id","name");				
+				$("#wsthreeType",container).removeAttr("disabled");				
+			}
+		}
+	});
+	$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+		var wsAppType=$("#wsAppType",container).val();	
+		if (isStringNull(wsAppType)){
+			dmsCommon.tip({status:"warning",msg:"政策类别不能为空"});//总共的状态类型：info、success、error、warning
+			returnResult.status = false;
+			return ;
+		}
+		returnResult.status = true;
+	});
+	$("a[data-info='saveBefore']",container).on("callBack.dms",function(event,response){
+		alert(response.success)
+		if(response.success=="false"){
+			$("a[data-info='saveBeforeUrl']",container).click();
+			$("a[data-info='saveBefore']",container).removeClass("hidden");
+			$("a[data-info='saveBeforeUrl']",container).addClass("hidden");
+		}else{
+			var confirmPostBO=$("a[data-info='saveBeforeUrl']",$(this).parent());
+			$("a[data-info='saveBefore']",container).addClass("hidden");
+			confirmPostBO.removeClass("hidden");
+			confirmPostBO.confirm("已存在同一政策类别、同一公司的报备单，您确定继续保存?",function(confirmObj){
+				$(confirmObj).click();
+				$("a[data-info='saveBefore']",container).removeClass("hidden");
+				$("a[data-info='saveBeforeUrl']",container).addClass("hidden");
+				$("a[data-dismiss='modal']",container).click();
+				},function(confirmObj){
+					$("a[data-info='saveBefore']",container).removeClass("hidden");
+					$("a[data-info='saveBeforeUrl']",container).addClass("hidden");
+				}
+			);
+		}
+	});
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+		var sum=0;
+		var equalM=false;
+			var rownum = $("#invent",container).dmsTable().getTableRows();
+			var rownu = $("#invent",container).dmsTable().getRowDataByIndex();
+			var rownuu = $("#invent",container).dmsTable().getRowDataByIndex()
+			
+			if(rownum==0){
+				dmsCommon.tip({status:"warning",msg:"大客户报备时，需达到最低申请数量，才能提交!"});
+				returnResult.status =false;
+				return ;
+			}
+		if(rownum>0){
+				$(rownu).each(function(index){
+					$(rownuu).each(function(ir){
+						if(ir!=index){
+							if(rownuu[ir].BRAND_CODE==rownu[index].BRAND_CODE&&rownuu[ir].SERIES_CODE==rownu[index].SERIES_CODE&&rownuu[ir].MODEL_CODE==rownu[index].MODEL_CODE&&rownuu[ir].CONFIG_CODE==rownu[index].CONFIG_CODE&&rownuu[ir].COLOR_CODE==rownu[index].COLOR_CODE){
+								equalM=true;
+							}
+						}
+					});
+					var tab=$("#invent tbody");
+					var labH = $("tr:eq("+index+") td:eq(7) input[id^=purchaseCount]",tab).val();
+					//console.log(JSON.stringify(rownu));
+					sum = parseFloat(sum)+parseFloat(labH)
+			  		});
+			}
+		if(equalM){
+			dmsCommon.tip({status:"warning",msg:"大客户申购车型列表存在相同信息，请重新添加！"});
+			returnResult.status =false;
+			return ;
+		}
+		if(applyNumber=="0"){
+			dmsCommon.tip({status:"warning",msg:"客户类型对应的最低申请数量为0，不允许创建报备单。"});
+			returnResult.status =false;
+			return ;
+		}
+		if(sum<applyNumber&&applyNumber!="0"){
+			dmsCommon.tip({status:"warning",msg:"大客户报备时，需达到最低申请数量，才能提交"});
+			returnResult.status =false;
+			return ;
+		}
+		if(sum>=5&&is_gj=="12781002"){
+			//alert("该大客户两周内无跟进记录，请及时跟进!");
+			dmsCommon.tip({status:"warning",msg:"该大客户两周内无跟进记录，请及时跟进!"});
+		}
+		returnResult.status = true;
+	});
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		//alert(1111)
+		CheckData2($("#wsAppType",container).val(),$("#customerKind",container).val());
+		CheckGenJin($("#customerNo",container).val());
+	});
+	 var CheckData2=function(wsT,cusK){
+			dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["customer"] + "/BigCustomer/manage/Check/"+wsT+"/CheckData2/"+cusK,
+				type : 'GET',
+				sucessCallBack : function(data) {
+					applyNumber=data;
+				}
+			});	
+	 }
+	 var CheckGenJin=function(str){
+			dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["customer"] + "/BigCustomer/manage/Check/"+str+"/CheckGenJin",
+				type : 'GET',
+				sucessCallBack : function(data) {
+					is_gj=data;
+				}
+			});
+			
+	 }
+});		
+</script>
+
+	

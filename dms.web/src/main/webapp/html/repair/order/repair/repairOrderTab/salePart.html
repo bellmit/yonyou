@@ -1,0 +1,41 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-body">
+			<div class="panel panel-default table-panel">
+				<div class="panel-body">
+					<table class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_sales">
+					</table>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_sales",
+			container:container,
+			//url : dmsCommon.getDmsPath()["part"] + "/stockmanage/salesparts/RO160800001/items",
+			sortName : "ITEM_ID", 
+			sortOrder : "asc",
+			autoHeight:false,
+			columns : [
+                	   {field : "",inputHiddenFormat : {},title : "收费类别"},
+                       {field : "",inputHiddenFormat : {},title : "仓库名称"},
+                       {field : "",inputHiddenFormat : {},title : "库位名称"},
+                       {field : "",inputHiddenFormat : {},title : "配件代码"}, 
+			           {field : "",inputHiddenFormat : {},title : "配件名称"},
+			           {field : "",inputHiddenFormat : {},title : "计量单位"},
+			           {field : "",inputHiddenFormat : {},title : "配件销售数量",numberFormat : {decimal : 2}}, 			           
+			           {field : "",inputHiddenFormat : {},title : "配件销售单价",numberFormat : {decimal : 2}},   
+			           {field : "",inputHiddenFormat : {},title : "配件销售金额",numberFormat : {decimal : 2}},
+			           {field : "",title:"优惠金额",inputField:""},
+			           {field : "",inputHiddenFormat : {},title : "折扣率",numberFormat : {decimal : 2}},   
+			           {field : "",inputHiddenFormat : {},title : "实收金额",numberFormat : {decimal : 2}},
+                       {field : "",title : "是否入账",codeFormat:{type:"dict",codeType:"1278"}}
+			         ]
+		});
+	});
+</script>

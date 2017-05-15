@@ -1,0 +1,103 @@
+<div class="dms-search">
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">退料</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-responsive" id="partTable"></table>
+		</div>
+		<div">
+			退料数量&nbsp;<input type="text" id="" name=""/>
+		</div>
+		<div class="modal-footer center-block">
+			 <a class="btn blue" data-onclickEvent="true" id = "sureBtn"><i class="fa fa-save hidden"></i>确定</a> 
+			 <a disabled = "disabled" class="btn blue" data-onclickEvent="true" id = "sureBtn"><i class="fa fa-save hidden"></i>删除</a> 
+				<a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+	</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		var storageCode = $("#storageCode", getElementContext()).val();
+		var roNo = $("#roNo", getElementContext()).val();
+		var partNo = $("#partNo", getElementContext()).val();
+		var license = $("#LICENSE", getElementContext()).val();
+		var ownerName = $("#ownerName", getElementContext()).val();
+		new Datatable().initPagination({
+			src : "partTable",
+			container:container,
+			url : dmsCommon.getDmsPath()["repair"] + "/basedata/ttRepairOrder/backPart",
+			rowID : "STORAGE_CODE,PART_NO",
+			sortName : "STORAGE_CODE", 
+			sortOrder : "asc",
+			autoHeight : false,
+			isQueryFirst : false,
+			columns : [ 
+			    {field : "STORAGE_CODE",title : "仓库"}, 
+				{field : "PART_NO",title : "配件代码"},
+				{field : "PART_NAME",title : "配件名称"}, 
+				{field : "PART_QUANTITY",title : "发料数量"}
+			] 
+		});
+		var selectMasterRow = $("#maintainPickingTbl",getElementContext()).dmsTable().getFirstSelection();
+		
+		var parentRow = $("#maintainPickingTbl",getElementContext()).dmsTable().getRowDataByIndex();//获取整个table
+		for(var i = 0; i < parentRow.length; i++){
+			if(selectMasterRow['STORAGE_CODE'] == parentRow[i]["STORAGE_CODE"] && selectMasterRow['PART_NO'] == parentRow[i]["PART_NO"]){
+				var jsonTr = {};
+				jsonTr['STORAGE_CODE'] = parentRow[i]['STORAGE_CODE'];
+				jsonTr['PART_NO'] = parentRow[i]['PART_NO'];
+				jsonTr['PART_NAME'] = parentRow[i]['PART_NAME'];
+				jsonTr['PART_QUANTITY'] = parentRow[i]['PART_QUANTITY'];
+				$("#partTable",container).dmsTable().appendRow(jsonTr);
+			}
+		}
+		//点击 按钮事件
+		$("a[data-onclickEvent='true']", container).on("dms.click", function(event) {
+					if (this.id == "sureBtn") {
+                        var partTr = {};
+                        jsonTr["UPDATE_STATUS"] = "A";
+                        jsonTr["RO_NO"] = roNo;
+                        jsonTr["IS_FINISHED"] = "12781002";
+                        jsonTr["STORAGE_NAME"] = selectMasterRow["STORAGE_NAME"];
+                        jsonTr["STORAGE_POSITION_CODE"] = selectMasterRow["STORAGE_POSITION_CODE"];
+                        jsonTr['PART_NO']=selectMasterRow['PART_NO'];
+                		jsonTr['PART_NAME']=selectMasterRow['PART_NAME'];
+                		if(selectMasterRow['PART_QUANTITY'] != ""){
+                			if( selectMasterRow['PART_QUANTITY'] != '0'){
+                    			jsonTr["PART_QUANTITY"] = "-" + selectMasterRow['PART_QUANTITY'];
+                    		}else{
+                    			jsonTr["PART_QUANTITY"] = selectMasterRow['PART_QUANTITY'];
+                    		}
+                		}
+                		jsonTr["USEABLE_STOCK"] = selectMasterRow["USEABLE_STOCK"];
+                		jsonTr["LOCKED_QUANTITY"] = selectMasterRow["LOCKED_QUANTITY"];
+                		jsonTr["PART_SALES_PRICE"] = selectMasterRow["PART_SALES_PRICE"];
+                		if(selectMasterRow['PART_QUANTITY'] != ""){
+                			if(selectMasterRow['PART_QUANTITY'] != '0'){
+                    			jsonTr["PART_SALES_AMOUNT"] = "-" + selectMasterRow["PART_SALES_AMOUNT"];
+                    		}else{
+                    			jsonTr["PART_SALES_AMOUNT"] = selectMasterRow["PART_SALES_AMOUNT"];
+                    		}
+                		}
+                		jsonTr["SENDER"] = selectMasterRow["SENDER"];
+                		jsonTr["RECEIVER"] = selectMasterRow["RECEIVER"];
+                		jsonTr["DISCOUNT"] = selectMasterRow["DISCOUNT"];
+                		jsonTr["ADD_RATE"] = selectMasterRow["ADD_RATE"];
+                		jsonTr["PART_COST_PRICE"] = selectMasterRow["PART_COST_PRICE"];
+                		if(selectMasterRow["PART_COST_AMOUNT"] != "" && selectMasterRow["PART_COST_AMOUNT"] != '0'){
+                			jsonTr["PART_COST_AMOUNT"] = "-" + selectMasterRow["PART_COST_AMOUNT"];
+                		}else{
+                			jsonTr["PART_COST_AMOUNT"] = selectMasterRow["PART_COST_AMOUNT"];
+                		}
+                		$("#maintainPickingTbl",getElementContext()).dmsTable().appendRow(jsonTr);
+                		//关闭窗口
+    					$("a[data-dismiss='modal']", container).click();
+ 					}
+				});
+	});
+	
+</script>

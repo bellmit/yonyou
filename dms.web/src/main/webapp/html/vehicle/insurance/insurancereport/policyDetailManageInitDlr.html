@@ -1,0 +1,233 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+						 <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌</label>
+								<div class="col-xs-8">
+									<select id="brandCode"
+										class="bs-select form-control" name="brandCode"
+										data-url="/basedata/material/brand/2"
+										data-model="manage" data-labelValue="BRAND_ID"
+										data-lableDesc="BRAND_NAME">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系</label>
+								<div class="col-xs-8">
+									<select id="SERIES" parent="brandCode"
+										class="bs-select form-control" name="SERIES"
+										data-url="/basedata/material/series/2/{[brandCode]}"
+										data-model="manage" data-labelValue="SERIES_ID"
+										data-lableDesc="SERIES_NAME">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车型</label>
+							<div class="col-xs-8">
+								<select id="MODEL" parent="SERIES"
+									class="bs-select form-control" name="MODEL"
+									data-url="/PolicyDetailManage/{[series]}/getSeries"
+									data-model="vehicle" data-labelValue="MODEL_ID"
+									data-lableDesc="MODEL_CODE" >
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车款</label>
+							<div class="col-xs-8">
+								<select id="GROUP" parent="MODEL"
+									class="bs-select form-control" name="GROUP"
+									data-url="/PolicyDetailManage/{[model]}/getGroup"
+									data-model="vehicle" data-labelValue="GROUP_ID"
+									data-lableDesc="GROUP_NAME" >
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">保险公司简称</label>
+							<div class="col-xs-8">
+								<select id="companyCode"
+									class="bs-select form-control" name="companyCode"
+									data-url="/PolicyDetailManage/getcompanyCode"
+									data-model="vehicle" data-labelValue="INSURANCE_COMPANY_CODE"
+									data-lableDesc="INS_COMPANY_SHORT_NAME" >
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">新续保</label>
+							<div class="col-xs-8">
+								<select id="insureOrderType" name="insureOrderType" 
+									class="bs-select form-control" data-dictCode="9120" data-type="oemDict" >
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">险种</label>
+							<div class="col-xs-8">
+								<select id="sortCode"
+									class="bs-select form-control" name="sortCode"
+									data-url="/PolicyDetailManage/getsortCode"
+									data-model="vehicle" data-labelValue="INSURANCE_SORT_CODE"
+									data-lableDesc="INSURANCE_SORT_NAME" >
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">投保单号：</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control"  id="insureOrderCode" name="insureOrderCode" />
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">VIN</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control"  id="vin" name="vin" />
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">保单状态</label>
+							<div class="col-xs-8">
+								<select id="formStatus" name="formStatus" 
+									class="bs-select form-control" data-dictCode="9121" data-type="oemDict" >
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">保险销售日期</label>
+								<div class="input-group input-daterange" data-opens="right">
+		                             <input type="text" class="form-control" readonly  name="claimStartDate">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="claimEndDate">
+		                             <span class="input-group-btn">
+	                                    <button class="btn default input-clear" type="button">
+	                                       <i class="fa fa-close"></i>
+	                                   </button>
+	                                </span> 
+		                        </div>
+							</div>
+					</div>
+					</div>
+					<div class="row ">
+						<div class="col-xs-12 ">
+							<div class="query-btn">
+								<a href="javascript:;" class="btn blue"> <i
+									class="fa fa-search"></i> 查询
+								</a> 
+								<a href="javascript:;" class="btn blue"><i
+									class="fa fa-undo"></i> 重置
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >信息列表</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a href="javascript:;" data-url="/PolicyDetailManageDlr/Download" data-model="vehicle" data-method="downLoad" data-toggle="confirmation"
+								class="btn btn-outline " ><i class="fa fa-download"></i>下载</a>
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="orderList"></table>
+		</div>
+	</div>
+</div>		
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "orderList",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/PolicyDetailManageDlr/Query",
+		rowID : "",
+		sortName : "DEALER_CODE", 
+		sortOrder : "desc",
+		columns : [ 
+            {field : "BIG_AREA_NAME",title : "大区"},
+		    {field : "SMALL_AREA_NAME",title : "小区"},
+		    {field : "DEALER_CODE",title : "经销商代码"},
+		    {field : "DEALER_NAME",title : "经销商全称"},
+		    {field : "DEALER_SHORTNAME",title : "经销商名称"},
+		    {field : "PROVINCE",title : "省份"},
+		    {field : "CITY",title : "城市"},
+		    {field : "INSURE_ORDER_CODE",title : "投保单号"},
+		    {field : "INS_SALES_DATE",title : "保险销售日期"},
+		    {field : "INSURE_ORDER_TYPE",title : "投保类型",codeFormat : {type:"oemDict",codeType:"9120"}},
+		    {field : "CTM_NAME",title : "车主姓名"},
+		    {field : "LICENSE",title : "车牌号"},
+		    {field : "VIN",title : "VIN码"},
+		    {field : "ENGINE_NO",title : "发动机号"},
+		    {field : "SALES_MODEL",title : "销售模式"/* ,codeFormat : {type:"oemDict",codeType:"1001"} */},
+		    {field : "IS_INS_CREDIT",title : "是否信贷投保",codeFormat : {type:"oemDict",codeType:"1004"}},
+		    {field : "INSURED_NAME",title : "投保人"},
+		    {field : "INSURE_ORDER_NAME",title : "被保险人"},
+		    {field : "FIRST_REGISTER_DATE",title : "初登日期"},
+		    {field : "COM_INS_CODE",title : "交强险保单号"},
+		    {field : "BUSI_INS_CODE",title : "商业险保单号"},
+		    {field : "IS_INS_LOCAL",title : "是否本地投保",codeFormat : {type:"oemDict",codeType:"9123"}},
+		    {field : "INS_CHANNELS",title : "投保渠道" ,codeFormat : {type:"oemDict",codeType:"9122"}},
+		    {field : "INSURANCE_COMPANY_CODE",title : "保险公司代码"},
+		    {field : "INS_COMPANY_SHORT_NAME",title : "保险公司简称"},
+		    {field : "BRAND_NAME",title : "品牌"},
+		    {field : "SERIES_NAME",title : "车系"},
+		    {field : "MODEL_NAME",title : "车型"},
+		    {field : "GROUP_NAME",title : "车款"},
+		    {field : "MODEL_YEAR",title : "年款"},
+		    {field : "BUY_DEALER",title : "购车经销商"},
+		    {field : "INVOICE_DATE",title : "开票日期"},
+		    {field : "FORM_STATUS",title : "保单状态",codeFormat : {type:"oemDict",codeType:"9121"}},
+		    {field : "INSURANCE_SORT_CODE",title : "险种代码"},
+		    {field : "INSURANCE_SORT_NAME",title : "险种名称"},
+		    {field : "INSURE_ORDER_AMOUNT",title : "保额"},
+		    {field : "TOTAL_PREFERENTIAL",title : "应收金额"},
+		    {field : "BEGIN_DATE",title : "开始日期"},
+		    {field : "END_DATE",title : "结束日期"},
+		    {field : "IS_PRESENTED",title : "是否赠送",codeFormat : {type:"oemDict",codeType:"1004"}}
+		],
+		onLoadSuccess : function() {
+			$("#orderList",container).dmsTable().bootstrapTable('resetView');
+		}
+	});
+	      	
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+//			console.log("into callBack");
+	
+	});
+	
+});
+	
+</script>	

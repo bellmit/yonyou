@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc" 
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="http://www.springframework.org/schema/aop   
+        http://www.springframework.org/schema/aop/spring-aop-3.2.xsd   
+        http://www.springframework.org/schema/beans   
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd   
+        http://www.springframework.org/schema/context   
+        http://www.springframework.org/schema/context/spring-context-3.2.xsd   
+        http://www.springframework.org/schema/mvc   
+        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-3.2.xsd  
+        http://www.springframework.org/schema/tx   
+        http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+
+	 
+    <mvc:annotation-driven validator="validator">
+        <mvc:message-converters>
+        	<bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter" />
+			<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/plain;charset=UTF-8</value>
+                        <value>text/html;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" id="MappingJackson2HttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json; charset=UTF-8</value>
+                        <value>application/x-www-form-urlencoded; charset=UTF-8</value>
+                        <value>multipart/form-data; charset=UTF-8</value>
+                    </list>
+                </property>
+                <property name="objectMapper">
+                	<bean class="com.yonyou.dms.framework.filter.XssObjectMappper" id="XssObjectMappper"/>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+	
+	<!-- upload settings -->
+	<bean id="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    	<property name="maxUploadSize" value="5242880"></property>
+    	<property name="resolveLazily" value="true"/> 
+	</bean>
+	
+	<!-- 国际化配置 -->    
+	<bean id="localeResolver"    
+    	class="org.springframework.web.servlet.i18n.CookieLocaleResolver" > 
+    	<property name="cookieName" value="language"></property>
+   	</bean> 
+    	
+    <bean id="messageSource"    
+    	class="org.springframework.context.support.ResourceBundleMessageSource">    
+	    <property name="basenames">    
+	        <list>    
+	            <value>messages/interface</value>
+	        </list>    
+	    </property>    
+	</bean> 
+		
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">      
+      	<property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>      
+     	 <!-- 这里配置将使用上面国际化配置的messageSource -->    
+      	<property name="validationMessageSource" ref="messageSource"/>      
+  	</bean> 
+  	
+  	<!-- 安全拦截 -->
+	<bean id="accessInterceptor" class="com.yonyou.dms.interf.interceptors.AccessInterceptor">
+	</bean>
+	
+	<!-- mvc 拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <ref bean="accessInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+	
+</beans>

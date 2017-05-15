@@ -1,0 +1,269 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+	
+	<div class="modal-header">
+			<div class="modal-title">角色模板选择</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+	
+	<div class="modal-body">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4">角色代码</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="roleCode"
+									name="roleCode">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4">角色名称</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" id="roleName"
+									name="roleName">
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"> <i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+  
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	<!-- </form>
+	
+	
+	<form class="form-horizontal"> -->
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading ">
+			<div class="pannel-name ">角色信息</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+					<a  class="btn blue" data-onclickEvent="true">  确定
+					</a>
+					
+				</div>
+			</div>
+		</div>
+		<!--  -->
+		
+		<!--  -->
+		<div class="panel-body ">
+			<table class="table table-striped table-bordered table-hover"
+				id="selectRole" ></table>
+		</div>
+
+	</div>
+	
+	</form>
+</div>
+<script type="text/javascript">
+	
+  
+  $(document).one("onload.dms",function(event,container){
+	    var myRowData;
+     	new Datatable().initPagination({
+  		src : "selectRole",
+  		container:container,
+		url :dmsCommon.getDmsPath()["manage"] + "/basedata/roles",
+		rowID : "ROLE_ID",
+		sortName : "ROLE_ID", 
+		sortOrder : "asc",
+		height:380,
+		autoHeight:false,
+		columns:[
+		            {checkbox:true,sortable : false},
+					{field:"ROLE_CODE",title:"角色代码"},
+					{field:"ROLE_NAME",title:"角色名称"},
+					
+		    	  ]
+		   
+		});
+		 $("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			var selectRow = $("#selectRole",container).dmsTable().getSelections();
+			var roleIds;
+				if(!selectRow){
+					dmsCommon.tip({status:"warning",msg:"请单击选择父表格数据"});
+					
+				}
+				for(var i=0;i<selectRow.length;i++){
+					if(roleIds==null){
+						roleIds=selectRow[i].ROLE_ID;	
+					}else{
+						roleIds+=","+selectRow[i].ROLE_ID;
+					}			
+				}
+
+			var roleId="data="+roleIds;
+	        var selectCode;
+		    var menuIdBefore;
+		    var menuId; 
+		 dmsCommon.ajaxRestRequest({
+			url : dmsCommon.getDmsPath()["manage"]
+					+ "/basedata/roles/roleData/"+roleIds,
+			type : 'GET',
+			sucessCallBack : function(data) {
+				var listTree=$('#treeMenuAction',getElementContext()).data('listTree');//取存的对象
+				var listtreeMenuAction=data.treeMenuAction;
+				var listtreeMenuRange=data.treeMenuRange;///
+				
+			    //新拿到的菜单，看是否已经打勾，没勾的勾上
+			    for (var i = 0; i <data.treejson.length; i++) {
+				   if(data.treejson[i].state.checked==true){
+					   var id=data.treejson[i].id;
+					   var ischeck=  $.jstree.reference("#using_json_2",getElementContext()).is_selected(id);//判断树是否勾上
+					   if(ischeck==false){
+						   $.jstree.reference("#using_json_2",getElementContext()).check_node(id);//勾上
+						   var ischeck=  $.jstree.reference("#using_json_2",getElementContext()).is_selected(id);//判断树是否勾上
+					   }	   
+				   }
+			    }; 
+			    //克隆一个listtreeMenuAction，当遍历时发现有相同的菜单id的，就去掉，最后剩下的，push到新的listTree.action中
+			    //发现相同的菜单时listTree.action自身也会去掉，然后加入一个合并后的action
+			    var listtreeMenuActionClone = listtreeMenuAction.concat();
+			    var listtreeActionClone = listTree.action.concat();
+			    for (var i = 0; i <listtreeMenuAction.length; i++) {
+					for(var j=0;j<listTree.action.length;j++){
+						var oneAction=listtreeMenuAction[i];
+						var strs= new Array(); //定义一数组 
+						strs=oneAction.split("-"); //字符分割 
+						var menuId=strs[0];
+						menuId = menuId.replace(new RegExp("\"",'gm'),"");
+						//另一个的
+						var oneAction2=listTree.action[j];
+						var strs2= new Array(); //定义一数组 
+						strs2=oneAction2.split("-"); //字符分割 
+						var menuId2=strs2[0];
+						menuId2 = menuId2.replace(new RegExp("\"",'gm'),"");
+						//如果菜单id相同，去掉重复的，加上新组合的
+						if(menuId==menuId2){
+						//去掉此menuid的项
+					    listtreeMenuActionClone=$.grep(listtreeMenuActionClone,function(value){		
+						return value.indexOf(menuId)==-1;
+						});
+						
+					    listtreeActionClone=$.grep(listtreeActionClone,function(value){		
+						return value.indexOf(menuId2)==-1;
+						});
+						//两个已逗号分割的字符串去重合并
+						var astr =strs[1].replace(/\s/ig,'');//去掉字符串中所有空格
+					    var bstr =strs2[1].replace(/\s/ig,'');//去掉字符串中所有空格
+					    var s = "," + astr + ",";
+					    var a  = bstr.split(",");
+					    for(var k=0;k<a.length;k++){
+					       if(s.indexOf(","+ a[k] +",")==-1){
+					          s += a[k] + ",";
+					       }    
+					    }
+					    s = s.substr(1,s.length-2);
+					    var newAction=menuId+'-'+s;
+						listtreeActionClone.push(newAction);
+						}
+					}	
+			    };
+			    //合并两个筛选过的数组
+			    var allAction = listtreeActionClone.concat(listtreeMenuActionClone);
+			    listTree.action=allAction;
+			    ////----------------------------------------这是一条分割线，后期会合并 
+			     //克隆一个listtreeMenuRange，当遍历时发现有相同的菜单id的，就去掉，最后剩下的，push到新的listTree.range中
+			    //发现相同的菜单时listTree.range自身也会去掉，然后加入一个合并后的range
+			    var listtreeMenuRangeClone = listtreeMenuRange.concat();
+			    var listtreeRangeClone = listTree.range.concat();
+			    for (var i = 0; i <listtreeMenuRange.length; i++) {
+					for(var j=0;j<listTree.range.length;j++){
+						var oneRange=listtreeMenuRange[i];
+						var strs= new Array(); //定义一数组 
+						strs=oneRange.split("-"); //字符分割 
+						var menuId=strs[0];
+						menuId = menuId.replace(new RegExp("\"",'gm'),"");
+						//另一个的
+						var oneRange2=listTree.range[j];
+						var strs2= new Array(); //定义一数组 
+						strs2=oneRange2.split("-"); //字符分割 
+						var menuId2=strs2[0];
+						menuId2 = menuId2.replace(new RegExp("\"",'gm'),"");
+						//如果菜单id相同，去掉重复的，加上新组合的
+						if(menuId==menuId2){
+						//去掉此menuid的项
+					    listtreeMenuRangeClone=$.grep(listtreeMenuRangeClone,function(value){		
+						return value.indexOf(menuId)==-1;
+						});
+						
+					    listtreeRangeClone=$.grep(listtreeRangeClone,function(value){		
+						return value.indexOf(menuId2)==-1;
+						});
+						//两个已逗号分割的字符串去重合并
+						var astr =strs[1].replace(/\s/ig,'');//去掉字符串中所有空格
+					    var bstr =strs2[1].replace(/\s/ig,'');//去掉字符串中所有空格
+					    var s = "," + astr + ",";
+					    var a  = bstr.split(",");
+					    for(var k=0;k<a.length;k++){
+					       if(s.indexOf(","+ a[k] +",")==-1){
+					          s += a[k] + ",";
+					       }    
+					    }
+					    s = s.substr(1,s.length-2);
+					    var newRange=menuId+'-'+s;
+						listtreeRangeClone.push(newRange);
+						}
+					}	
+			    };
+			    //合并两个筛选过的数组
+			    var allRange = listtreeRangeClone.concat(listtreeMenuRangeClone);
+			    listTree.range=allRange;
+			    		
+				
+				///////////////
+				//加载前先清空右侧的复选框组
+		 		var maintainObj = $("input[type='checkbox'][name^='maintain']:first",getElementContext());
+		 		var accessoriesObj = $("input[type='checkbox'][name^='accessories']:first",getElementContext());
+		 		var warehouseObj = $("input[type='checkbox'][name^='warehouse']:first",getElementContext());
+		 		var favorableModelsObj = $("input[type='checkbox'][name^='favorableModels']:first",getElementContext());
+		 	    maintainObj.attr("data-value","");
+		 	    accessoriesObj.attr("data-value","");
+		 	    warehouseObj.attr("data-value","");
+		 	    favorableModelsObj.attr("data-value","");
+		 	    dmsDict.initObject(maintainObj);
+		 	    dmsDict.initObject(accessoriesObj);
+		 	    dmsDict.initObject(warehouseObj);
+		 	    dmsDict.initObject(favorableModelsObj);
+			 	if(data.checkbox!=null){
+					$("div[data-tableSelect='true']",getElementContext()).initHtmlContent(data.checkbox);
+		  
+				} 
+			 	$('#treeMenuAction',getElementContext()).data('listTree',listTree);
+			}
+		}); 
+	/////////////////
+	
+	
+	//////////////////
+		 
+			//关闭窗口
+				$("a[data-dismiss='modal']",container).click();
+			
+		 });
+  	
+  
+
+		});
+</script>

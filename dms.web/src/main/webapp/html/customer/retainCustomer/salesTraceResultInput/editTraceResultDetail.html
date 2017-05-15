@@ -1,0 +1,488 @@
+<div class="dms-edit ajaxrest"
+	data-url="/customerManage/salesTraceResultInput/findByVin/{[TRACE_TASK_ID]}/{[QUESTIONNAIRE_CODE]}"
+	data-model="customer" data-pageInitCallBack="true">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">销售回访信息录入</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">客户信息</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i
+							class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row" data-tableSelect="true">
+
+						<div class="panel panel-default table-panel">
+
+							<div class="panel-body">
+								<table
+									class="table table-striped table-bordered table-hover table-responsive"
+									id="dms_table1">
+								</table>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">回访信息</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i
+							class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row" data-tableSelect="true">
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">问卷选择</label>
+								<div class="col-xs-8">
+									<select id="questionnaireName" name="questionnaireName"
+										class="bs-select form-control "
+										data-url="/customerManage/salesTraceResultInput/-1/salesConsultant"
+										data-model="manage" data-labelValue="QUESTIONNAIRE_CODE"
+										data-lableDesc="QUESTIONNAIRE_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4" hidden>
+							<div class="form-group">
+								<label class="control-label col-xs-4">隐藏TRACE_STATUS</label>
+								<div class="col-xs-8">
+									<input name="noList" id="noList" data-fieldName="TRACE_STATUS"
+										class="form-control" type="text" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4" hidden>
+							<div class="form-group">
+								<label class="control-label col-xs-4">隐藏TRACE_TASK_ID</label>
+								<div class="col-xs-8">
+									<input name="noList1" id="noList1"
+										data-fieldName="TRACE_TASK_ID" class="form-control"
+										type="text" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4" hidden>
+							<div class="form-group">
+								<label class="control-label col-xs-4">隐藏QUESTION_CODE</label>
+								<div class="col-xs-8">
+									<input name="noList2" id="noList2"
+										data-fieldName="QUESTION_CODE" class="form-control"
+										type="text" />
+								</div>
+							</div>
+						</div>
+
+						<div class="panel panel-default table-panel">
+							<div class="panel-heading">
+								<div class="pannel-button">
+									<div class="btn-group btn-group-sm">
+										<a class="btn btn-outline" id="intentListBtn"
+											data-beforeShowEvent="true" disabled
+											data-url="customer/retainCustomer/salesTraceResultInput/editQuestions.html"
+											data-toggle="modal" data-width="modal-lg"><i
+											class="fa fa-plus-square"></i>修改 </a>
+									</div>
+								</div>
+
+							</div>
+							<div class="panel-body">
+								<table
+									class="table table-striped table-bordered table-hover table-responsive"
+									id="dms_table2">
+								</table>
+							</div>
+						</div>
+
+
+
+						<!-- 						<div class="panel panel-default table-panel">
+
+							<div class="panel-body">
+								<table class="table table-striped table-bordered table-hover table-responsive"
+									id="dms_table2">
+								</table>
+							</div>
+						</div> -->
+						<div class="panel-body">
+							<div class="panel panel-default table-panel">
+								<div class="panel-body">
+									<div class="col-xs-12 >
+									<div class="form-group">
+										<label class="control-label col-xs-1">跟踪状态</label>
+										<div class="col-xs-2">
+											<select id="traceStatus" name="traceStatus"
+												data-fieldName="TRACE_STATUS" class="form-control "
+												data-dictCode="1237" data-value="">
+											</select>
+										</div>
+									</div>
+									
+									<div class="col-xs-12 >
+									<div class="form-group">
+										<label class="control-label col-xs-12"> </label>
+										
+									</div>
+									
+									
+									<div class="col-xs-12 >
+									<div class="form-group">
+										<label class="control-label col-xs-1 ">备注</label>
+										<div class="col-xs-11">
+											<textarea id="taskRemark" name="taskRemark"
+												data-fieldName="TASK_REMARK" class="form-control" rows="2"
+												maxlength="120" cols=""></textarea>
+										</div>
+									</div>
+
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		
+		
+			<div class="panel-body">
+				<div class="row" data-tableSelect="true">
+					<div class="panel panel-default table-panel">
+						<div class="panel-heading">
+							<div class="pannel-name">跟踪记录</div>
+							<div class="btn-group btn-group-sm">
+								<a class="btn btn-outline"
+									data-url="customer/retainCustomer/salesTraceResultInput/addTrackRecord.html"
+									data-toggle="modal" data-width="modal-lg"><i
+									class="fa fa-plus-square"></i>新增 </a>
+							</div>
+
+						</div>
+						<div class="panel-body">
+
+							<table
+								class="table table-striped table-bordered table-hover table-responsive"
+								id="dms_table3">
+							</table>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		
+		<div class="modal-footer">
+			<a data-url="/customerManage/salesTraceResultInput/{[TRACE_TASK_ID]}"
+				data-model="customer" data-method="PUT" data-callBack="true"
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>保存</a> <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event, container) {
+		//	var str = $("#questionnaireName",container).val();
+		//	alert("问卷名称: "+str);
+		new Datatable().initLocale({
+			src : "dms_table1",
+			container : container,
+			url : dmsCommon.getDmsPath()["customer"]+ "/customerManage/salesTraceResultInput/history/{[VIN]}",
+			rowID : "VIN",
+			sortName : "VIN",
+			sortOrder : "asc",
+			autoHeight : false,
+
+			columns : [
+				
+			   {field : "USER_NAME",title : "跟踪人"
+			}, {field : "INPUT_DATE",title : "跟踪日期",dateFormat : {format : "YYYY-MM-DD HH:MM"}
+			}, {field : "IS_SELECTED",title : "结束跟踪",codeFormat : {type : "dict",codeType : "1278"}
+			}, {field : "CUSTOMER_NO",title : "客户编号"
+			}, {field : "CUSTOMER_NAME",title : "客户名称"
+			}, {field : "SOLD_NAME",title : "销售顾问"
+			}, {field : "ORG_NAME",title : "组别"
+			}, {field : "VIN",title : "VIN"
+			}, {field : "BRAND_NAME",title : "品牌"
+			}, {field : "SERIES_NAME",title : "车系"
+			}, {field : "MODEL_NAME",title : "车型"
+			}, {field : "STOCK_OUT_DATE",title : "开票日期",dateFormat : {format : "YYYY-MM-DD HH:MM"}
+			}, {field : "GENDER",title : "性别",codeFormat : {type : "dict",codeType : "1006"}
+			}, {field : "ADDRESS",title : "地址"
+			}, {field : "CONTACTOR_NAME",title : "联系人"
+			}, {field : "CONTACTOR_PHONE",title : "联系人电话"
+			}, {field : "CONTACTOR_MOBILE",title : "联系人手机"
+			}, {field : "PROVINCE",title : "省份",codeFormat : {type : "dict",codeType : "9001"}
+			}, {field : "CITY",title : "城市",codeFormat : {type : "dict",codeType : "9002"}
+			}, {field : "DISTRICT",title : "区县",codeFormat : {type : "dict",codeType : "9003"}
+			}, {field : "QUESTIONNAIRE_NAME",title : "问卷名称"
+			}, {field : "TRACE_STATUS",title : "跟踪状态",codeFormat : {type : "dict",codeType : "1237"}
+			}, {field : "E_MAIL",title : "E_MAIL"
+			}, {field : "CUSTOMER_TYPE",title : "客户类型",codeFormat : {type : "dict",codeType : "1018"}
+			}, {field : "OWNER_MARRIAGE",title : "婚姻状况",codeFormat : {type : "dict",codeType : "1119"}
+			}, {field : "AGE_STAGE",title : "年龄段",codeFormat : {type : "dict",codeType : "1342"}
+			}, {field : "EDUCATION_LEVEL",title : "教育水平",codeFormat : {type : "dict",codeType : "1116"}
+			}, {field : "INDUSTRY_FIRST",title : "行业大类",codeFormat : {type : "dict",codeType : "3001"}
+			}, {field : "INDUSTRY_SECOND",title : "行业小类",codeFormat : {type : "dict",codeType : "3002"}
+			}, {field : "VOCATION_TYPE",title : "职业",codeFormat : {type : "dict",codeType : "1111"}
+			}, {field : "POSITION_NAME",title : "职务名称"
+			}, {field : "FAMILY_INCOME",title : "家庭月收入"
+			}, {field : "CONFIRMED_DATE",title : "交车日期",dateFormat : {format : "YYYY-MM-DD HH:MM"}
+			}, {field : "CUS_SOURCE",title : "客户来源",codeFormat : {type : "dict",codeType : "1311"}
+			}, {field : "TASK_REMARK",title : "备注"
+			}]
+		});
+		
+		new Datatable().initLocale({
+			src : "dms_table2",
+			container : container,
+			autoHeight : false,
+			columns : [ 
+				{radio:true},
+					{field : "QUESTIONNAIRE_NAME",title : "问卷",inputHiddenFormat : {}},
+					{field : "QUESTIONNAIRE_CODE",title : "问卷编号",inputHiddenFormat : {}},
+					{field : "QUESTION_NAME",title : "问题名称",inputHiddenFormat : {}},
+					{field : "QUESTION_CODE",title : "问题编号",inputHiddenFormat : {}}, 
+					{field : "QUESTION_CONTENT",title : "问题内容",inputHiddenFormat : {}}, 
+					{field : "QUESTION_TYPE",title : "类型",inputHiddenFormat : {},codeFormat : 
+						{type : "dict",codeType : "1132"}},
+					{field : "IS_MUST_FILLED",title : "必填",inputHiddenFormat : {},codeFormat : {
+						type : "dict",codeType : "1278"}}, 
+					{field : "ANSWER_GROUP_NO",title : "答案",inputHiddenFormat : {},visible : false}, 
+					{field : "ANSWER_ALL",title : "答案",inputHiddenFormat : {},visible : false}, 
+					{field : "ANSWER",title : "答案",inputHiddenFormat : {}},
+					{field : "ANSWER_NAME",inputField : "ANSWER_NAME",title : "答案",inputSelectFormat : {},visible:false},
+					{field : "REMARK",title : "备注",inputHiddenFormat : {}},					
+					{field : "TRACE_TASK_ID",title : "跟踪任务ID",inputHiddenFormat : {}},
+					{field : "TRACE_TASK_QUESTION_ID",title : "跟踪任务问题ID",inputHiddenFormat : {}} 
+				],onLoadSuccess : function() {
+				var table2 = $("#dms_table2",getElementContext()).dmsTable().getRowDataByIndex();
+				for (var i = 0; i < table2.length; i++) {
+					var answer = table2[i].ANSWER_ALL;
+					var flag = table2[i].ANSWER;
+					var answerName = answer.split(",");
+					var selectData = new Array();
+					var s = '<option value="-1"></option>';
+					for (var j = 0; j < answerName.length; j++) {
+						selectData.push({id : j,name : answerName[j]});
+						if (answerName[j] == flag) {
+							s += "<option selected='selected' value='"+answerName[j]+"'>"+ answerName[j]+ "</option>";
+						} else {
+							s += "<option value='"+answerName[j]+"'>"+ answerName[j]+ "</option>";
+						}
+					}
+					$(
+						"select[id='ANSWER_NAME"+ i + "']",container).html(s);
+						var trace_task_id = table2[i].TRACE_TASK_ID;
+						if (trace_task_id == null) {
+						$("a[data-method='downLoad']",container).attr("disabled", "true");
+					} else {
+						$("a[data-method='downLoad']",container).removeAttr("disabled");
+					}
+				}
+				$("#dms_table2 tbody tr").find("select").prop("disabled","disabled")
+
+				$("#dms_table2", container).find("th[data-field='TRACE_TASK_QUESTION_ID']").hide();
+				$("#dms_table2", container).find("input[name='TRACE_TASK_QUESTION_ID']").parent().hide();
+			    $("#dms_table2", container).find("th[data-field='TRACE_TASK_ID']").hide();
+				$("#dms_table2", container).find("input[name='TRACE_TASK_ID']").parent().hide(); 
+				$("#dms_table2", container).find("th[data-field='QUESTIONNAIRE_CODE']").hide();
+				$("#dms_table2", container).find("input[name='QUESTIONNAIRE_CODE']").parent().hide();
+				$("#dms_table2", container).find("th[data-field='QUESTION_CODE']").hide();
+				$("#dms_table2", container).find("input[name='QUESTION_CODE']").parent().hide();
+			}, onClickRow(rowData, element){
+      	         $("#intentListBtn",container).removeAttr("disabled");                 
+			}
+		});
+
+		new Datatable().initLocale({
+			src : "dms_table3",
+			container : container,
+			url : dmsCommon.getDmsPath()["customer"]
+					+ "/customerManage/salesTraceResultInput/querySalesTraceTaskLog/{[TRACE_TASK_ID]}",
+			autoHeight : false,
+			columns : [
+					{title : "操作",operateFormat : [ {
+							type : "localDel",onAfterEvent : function(value, row, index) {},
+							onBeforeEvent : function(value, row, index) {}} ]
+					},{field : "TRACE_LOG_DATE",title : "跟踪时间",inputDateFormat : {format : "YYYY-MM-DD"}
+					},{field : "TRACE_LOG_DESC",inputField : "TRACE_LOG_DESC",title : "描述",inputNumberFormat : {
+							decimal : 2,validate : {validateClass : "text",validateAttr : 'maxDigit="300"'}}
+					}, {field : "UPDATE_STATUS",title : "UPDATE_STATUS",inputHiddenFormat : {}
+					}, {field : "TRACE_TASK_LOG_ID",title : "TRACE_TASK_LOG_ID",inputHiddenFormat : {}
+					} ],onLoadSuccess : function(row) {
+				$("#dms_table3", container).find("th[data-field='TRACE_TASK_LOG_ID']").hide();
+				$("#dms_table3", container).find("input[name='TRACE_TASK_LOG_ID']").parent().hide();
+					$("#dms_table3", container).find("th[data-field='UPDATE_STATUS']").hide();
+				$("#dms_table3", container).find("input[name='UPDATE_STATUS']").parent().hide(); 
+						$('#dms_table3 tbody tr', container).on('click',function() {
+							var $this = $(this).children();
+							var index = $this.html() - 1;
+							$($this.find("#TRACE_LOG_DATE"+ index)).bindChange(function() {
+								$this.find("#UPDATE_STATUS"+ index).prop('type','text');
+								$this.find("#UPDATE_STATUS"+ index).prop('value','U');
+								});
+							/* $($this.find("#TRACE_LOG_DESC"+ index)).on('click',function() {
+								$this.find("#UPDATE_STATUS"+ index).prop('type','text');
+								$this.find("#UPDATE_STATUS"+ index).prop('value','U');
+								}); */
+							$($this.find("#TRACE_LOG_DESC"+ index)).on('keyup',function() {
+								$this.find("#UPDATE_STATUS"+ index).prop('type','text');
+								$this.find("#UPDATE_STATUS"+ index).prop('value','U');
+								
+								});
+							$($this.find("#TRACE_LOG_DESC"+ index)).bindChange(function() {
+								$this.find("#UPDATE_STATUS"+ index).prop('type','text');
+								$this.find("#UPDATE_STATUS"+ index).prop('value','U');
+								
+								});
+							});																								
+			}
+		});
+		  
+
+		 $("#questionnaireName", container).bindChange(function(obj) {
+							if($("#questionnaireName",container).val() != ""){
+								var questionnaireName = $("#questionnaireName",container).val();
+							}else{
+								var questionnaireName = "-11";
+							}
+							if($("#noList",container).val() != ""){
+								var noList = $("#noList",container).val();
+							}else{
+								var noList = "-11";
+							}
+							if($("#noList1",container).val() != ""){
+								var noList1 = $("#noList1",container).val();
+							}else{
+								var noList1 = "-11";
+							}
+							if($("#noList2",container).val() != ""){
+								var noList2 = $("#noList2",container).val();
+							}else{
+								var noList2 = "-11";
+							}
+							if (questionnaireName != "-11") {					
+								$("#dms_table2", container).dmsTable().refreshUrl(
+										dmsCommon.getDmsPath()["customer"]+ "/customerManage/salesTraceResultInput/salesqusetionnaire/"
+										+ questionnaireName+ "/"+ noList+ "/"+ noList1+ "/"+ noList2);
+								$("#dms_table2", container).dmsTable().refreshTableWithForm();
+							} else {
+							
+								$("#dms_table2", container).dmsTable().refreshUrl(
+										dmsCommon.getDmsPath()["customer"]+ "/customerManage/salesTraceResultInput/salesqusetionnaire/空/"
+										+ noList+ "/"+ noList1+ "/"+ noList2);
+								$("#dms_table2", container).dmsTable().refreshTableWithForm();
+							}
+
+						}); 
+		 
+		 $("#noList2", container).bindChange(function(obj) {
+				if($("#questionnaireName",container).val() != ""){
+					var questionnaireName = $("#questionnaireName",container).val();
+				}else{
+					var questionnaireName = "-11";
+				}
+				if($("#noList",container).val() != ""){
+					var noList = $("#noList",container).val();
+				}else{
+					var noList = "-11";
+				}
+				if($("#noList1",container).val() != ""){
+					var noList1 = $("#noList1",container).val();
+				}else{
+					var noList1 = "-11";
+				}
+				if($("#noList2",container).val() != ""){
+					var noList2 = $("#noList2",container).val();
+				}else{
+					var noList2 = "-11";
+				}
+				if (questionnaireName != "-11") {
+					$("#dms_table2", container).dmsTable().refreshUrl(
+						dmsCommon.getDmsPath()["customer"]+ "/customerManage/salesTraceResultInput/salesqusetionnaire/"
+							+ questionnaireName+ "/"+ noList+ "/"+ noList1+ "/"+ noList2);
+					$("#dms_table2", container).dmsTable().refreshTableWithForm();
+				}
+			}); 
+		 
+		//弹出页面打开前执行函数
+			$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+				    if(event.target.id=='intentListBtn'){
+				    	var selectRow = $("#dms_table2",container).dmsTable().getSelections();
+	
+						var questionContent = "";
+						var answerAll = "";
+						var remark = "";
+						var answer = "";
+						if(selectRow[0].QUESTION_CONTENT!=null&&selectRow[0].QUESTION_CONTENT!=undefined){
+							questionContent=selectRow[0].QUESTION_CONTENT;
+						}
+						if(selectRow[0].ANSWER_ALL!=null&&selectRow[0].ANSWER_ALL!=undefined){
+							answerAll=selectRow[0].ANSWER_ALL;
+						}
+						if(selectRow[0].REMARK!=null&&selectRow[0].REMARK!=undefined){
+							remark=selectRow[0].REMARK;
+						}
+						if(selectRow[0].QUESTION_TYPE!=null&&selectRow[0].QUESTION_TYPE!=undefined){
+							questionType=selectRow[0].QUESTION_TYPE;
+						}
+						if(selectRow[0].ANSWER!=null&&selectRow[0].ANSWER!=undefined){
+							answer=selectRow[0].ANSWER;
+						}
+							$(this).data("pageData",{
+								QUESTION_CONTENT:questionContent,	
+								ANSWER_ALL:answerAll,
+								REMARK:remark,
+								rowindex:selectRow[0].index,
+								QUESTION_TYPE:questionType,
+								ANSWER:answer
+								});
+				    }				
+					returnResult.status = true;					
+				});		 
+		 
+
+		//新增页面的回调函数
+		$("a[data-callBack='true']", container).on(
+				"callBack.dms",
+				function(event, response) {
+					//关闭窗口
+					$("a[data-dismiss='modal']", container)
+							.click();
+					//刷新表格
+					$("#dms_table", getElementContext())
+							.dmsTable().refreshTableWithForm();
+				});
+
+	});
+</script>
+
+
+
+
+
+
+
+
+

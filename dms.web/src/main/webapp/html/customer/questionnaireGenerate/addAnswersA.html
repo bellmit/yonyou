@@ -1,0 +1,93 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">答案新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body" data-parentTable ="partInfoTable">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">答案编号</label>
+								<div class="col-xs-8 ">
+									<input id="answerNo" name="answerNo"  class="form-control required systemCode"  type="text"  maxlength="6" minlength="6"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">答案名称</label>
+								<div class="col-xs-8 ">
+									<input id="answer" name="answer"  class="form-control required"  type="text" maxlength="90"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">答案说明</label>
+								<div class="col-xs-8 ">
+									<input id="answerDesc" name="answerDesc"  class="form-control "   type="text"  maxlength="120"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4  hidden">
+						<div class="form-group">
+							<label class="control-label col-xs-4">问题组编号hidden</label>
+						<div class="col-xs-8">
+						<input type="text" class="form-control" id="answerGroupNo" name="answerGroupNo"  >
+							</div>
+						</div>
+					</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"></label>
+								<div class="col-xs-8 ">
+									<input type="checkbox"  name="isValid" id="isValid" data-dictCode="1057" data-dictLabel="启用"   />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"></label>
+								<div class="col-xs-8 ">
+									<input type="checkbox" name="DOWN_TAG" id="downTag" data-fieldName="DOWN_TAG" data-dictCode="1057" data-dictLabel="OEM下发"    disabled="disabled"/>
+								</div>
+							</div>
+						</div>
+					
+					</div>
+				</div>
+				<div class="modal-footer">
+				<a data-url="/questionnaire/saveAnswersA" data-model="customer" data-method="PUT" data-callBack="true"  class="btn blue"  data-toggle="confirmation"><i class="fa fa-save"></i>保存</a>
+				<a data-dismiss="modal" class="btn blue" ><i
+				class="fa fa-undo"></i>取消</a>
+				</div>
+				
+			</div>
+		</div>
+		
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+		 $("#answerGroupNo",container).val($("#ANSWER_GROUP_NO",getElementContext()).val());
+		//新增页面回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#answer",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	
+});	
+</script>

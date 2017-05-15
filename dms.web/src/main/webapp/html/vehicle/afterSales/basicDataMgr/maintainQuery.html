@@ -1,0 +1,140 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					
+				<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">保养套餐代码：</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control"  id="packageCode" name="packageCode" />
+							</div>
+						</div>
+					</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">保养套餐名称：</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control"  id="packageName" name="packageName" />
+							</div>
+						</div>
+					</div>
+			
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车型</label>
+								<div class="col-xs-8">
+									<select id="groupName"
+										class="bs-select form-control" name="groupName"
+										data-url="/maintain/GetAllCheXing"
+										data-model="vehicle" data-labelValue="GROUP_NAME"
+										data-lableDesc="GROUP_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+				</div>
+
+				
+				<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">保养里程数：</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control"  id="maintainStartmileage" name="maintainStartmileage" />
+								至<input type="text" class="bs-select form-control"  id="maintainEndmileage" name="maintainEndmileage" />
+							</div>
+						</div>
+					</div>
+					
+				<div class="col-xs-12 col-sm-6 col-md-4 ">
+					<div class="form-group">
+						<label class="control-label col-xs-4 col-sm-2">有效日期</label>
+						<div class="col-xs-8 col-sm-10">
+							 <div class="input-group input-daterange" data-opens="right">
+	                             <input type="text" class="form-control" readonly id="maintainStartdate" name="maintainStartdate">
+	                             <span class="input-group-addon">至</span>
+	                             <input type="text" class="form-control" readonly  id="maintainEnddate"  name="maintainEnddate">
+	                             <span class="input-group-btn">
+                                    <button class="btn default input-clear" type="button">
+                                       <i class="fa fa-close"></i>
+                                   </button>
+                                 </span> 
+	                        </div>
+						</div>
+					</div>
+				</div>
+							
+					
+					
+					
+					
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+								<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 全部下发</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >保养套餐维护</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" data-url="vehicle/afterSales/basicDataMgr/addMaintainQuery.html" data-width="modal-lg"data-toggle="modal"> 
+							<i class="fa fa-plus-square"></i> 新增
+							</a> 
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/maintain/maintainSearch",
+		rowID : "PACKAGE_ID",
+		sortName : "PACKAGE_ID",
+		sortOrder : "desc",
+		
+	columns : [ 
+	   	    {field : "PACKAGE_ID",title : "操作",operateFormat : [
+	   	    {type:"edit",url:"vehicle/afterSales/basicDataMgr/editMaintainQuery.html",openWidth:"modal-lg",doubleClick:true},
+	        {type:"del",url:"/maintain/{[PACKAGE_ID]}",model:"vehicle",callBack:function(response){
+            	   $("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+               }},
+               {type:"del",title:"下发",url:"/maintain/xiafa/{[PACKAGE_ID]}",model:"vehicle",callBack:function(response){
+            	   $("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+               }},
+             
+               {type:"edit",title:"复制",url:"vehicle/afterSales/basicDataMgr/fuZhiMaintainQuery.html",openWidth:"modal-lg",doubleClick:true}
+               
+	   	    ]
+	   	  },             
+	{field : "PACKAGE_CODE",title : "保养套餐代码"}, 
+	{field : "PACKAGE_NAME",title : "保养套餐名称"},
+	{field : "MAINTAIN_STARTDAY",title : "保养开始天数"}, 
+	{field : "MAINTAIN_ENDDAY",title : "保养结束天数"},
+	{field : "MAINTAIN_STARTMILEAGE",title : "保养开始里程"}, 
+	{field : "MAINTAIN_ENDMILEAGE",title : "保养结束里程"},
+	{field : "MAINTAIN_STARTDATE",title : "开始日期"}, 
+	{field : "MAINTAIN_ENDDATE",title : "结束日期"},
+	{field : "GROUP_NAME",title : "车型"}
+        ]
+             });
+                      });
+</script>

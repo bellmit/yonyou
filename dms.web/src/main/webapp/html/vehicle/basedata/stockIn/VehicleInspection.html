@@ -1,0 +1,211 @@
+<div class="dms-edit ajaxrest" data-pageInitCallBack="true"
+	data-url="/vehicleStock/stockIn/{[ENTRY_ID]}"
+	data-model="vehicle">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+				<div id="hid">
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">VIN:</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="vin" name="vin" data-fieldName="VIN">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">承运车牌号:</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="shipperLicense" name="shipperLicense" data-fieldName="SHIPPER_LICENSE">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group" >
+							<label class="control-label col-xs-4">承运商名称:</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="shipperName" name="shipperName" data-fieldName="SHIPPER_NAME">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group" >
+							<label class="control-label col-xs-4">发货单号:</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="shippingOrderNO" name="shippingOrderNO" data-fieldName="SHIPPING_ORDER_NO">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group" >
+							<label class="control-label col-xs-4">钥匙编号:</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="shippingOrderNO" name="shippingOrderNO" data-fieldName="SHIPPING_ORDER_NO">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group" >
+							<label class="control-label col-xs-4">合格证号:</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="shippingOrderNO" name="shippingOrderNO" data-fieldName="SHIPPING_ORDER_NO">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group" >
+							<label class="control-label col-xs-4">送车人姓名:</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="deliverymanName" name="deliverymanName" data-fieldName="DELIVERYMAN_NAME">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group" >
+							<label class="control-label col-xs-4">送修人电话:</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="deliverymanPhone" name="deliverymanPhone" data-fieldName="DELIVERYMAN_PHONE">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">收货地址:</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="shippingAdderess" name="shippingAdderess" data-fieldName="SHIPPING_ADDRESS">
+							</div>
+						</div>
+					</div>
+					</div>
+					
+				
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-9">
+					<label class="control-label col-xs-12"></label>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">验收结果:</label>
+							<div class="col-xs-8" id="getfirst">
+									<input id="inspectionResult" name="inspectionResult" type="radio" data-fieldName="INSPECTION_RESULT"
+										data-dictCode="1039"  class="form-control required"/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">质损状态</label>
+							<div class="col-xs-8">
+									<input id="trafficMarStatus" name="trafficMarStatus" type="radio"  data-fieldName="TRAFFIC_MAR_STATUS"
+										data-dictCode="1040"  />
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">验收人</label>
+								<div class="col-xs-8">
+									<select id="inspectionBY" name="inspectionBY" class="bs-select form-control required"
+									data-url="/basedata/employees/employees/dict" data-model="manage" data-fieldName="EMPLOYEE_NO"
+									data-labelValue="EMPLOYEE_NO" data-lableDesc="EMPLOYEE_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+
+				</div>
+				
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >验收明细</div>
+					<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" href="javascript:;" data-onclickEvent="true">
+								<i class="fa fa-plus-square"></i> 新增
+							</a>
+			            </div>
+			    </div>
+				
+		</div>
+		<div class="panel-body">
+				<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="marList">
+			</table>
+		</div>
+	</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="pannel-name">附件上传</div>
+			</div>
+			<div class="panel-body">
+				<div class="row" >
+					<div class="col-xs-12 ">	
+						<div class="form-group">
+							<div class="col-xs-12">
+                             	<input type="file" class="importFiles" id="fileupload" data-inputName="dmsFileIds" multiple name="dmsFile" data-billId="{[ENTRY_ID]}" data-billType="10421004">
+                            </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+			<div class="panel-body">
+				<div class="modal-footer center-block">
+					<a data-url="/vehicleStock/stockIn/mar/{[ENTRY_ID]}" data-fileUploadBtn="true"
+						data-model="vehicle" data-method="PUT" data-callBack="true"
+						class="btn blue" data-toggle="confirmation"><i
+						class="fa fa-save"></i>保存</a> <a data-goback="page"
+						href="vehicle/basedata/stockIn/searchStockIn.html"
+						class="btn blue ajaxify"> <i class="fa fa-undo"></i>取消
+					</a>
+				</div>
+			</div>
+	
+	</form>
+	
+	
+</div>
+<script type="text/javascript">
+
+    $(document).one("onload.dms",function(event,container){
+    	new Datatable().initLocale({
+			src : "marList",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/vehicleStock/stockIn/InspectMar/{[ENTRY_ID]}",
+			rowID : "INSPECTION_MAR_ID",
+			selectItemName:"marId",
+			columns : [ {title : "操作",operateFormat : [ {type : "localDel",onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){}}]}, 
+			            
+			            {field : "MAR_POSITION",inputHiddenFormat : {},inputField:"marPosition",title : "质损部位",inputSelectFormat : {type : "dict",codeType : "1418",defaultValue:"14181001"}},
+			            {field : "MAR_DEGREE",inputHiddenFormat : {},inputField:"marDegree",title : "质损程度",inputSelectFormat : {type : "dict",codeType : "1419",defaultValue:"14191001"}},
+			            {field : "MAR_TYPE",inputHiddenFormat : {},inputField:"marType",title : "质损性质",inputSelectFormat : {type : "dict",codeType : "1420",defaultValue:"14201001"}},
+			            {field : "MAR_REMARK",inputHiddenFormat : {},inputField:"marRemark",title : "质损说明",inputTextFormat : {}}
+                        
+			         ]
+		});
+    	//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			$("#marList",getElementContext()).dmsTable().appendBlankRow();
+		});
+    	$("#hid",container).setContainerReadOnly();
+    	$("input[type='radio'][name='inspectionResult']:first",container).parents("label").attr("class","hidden");
+    	//当修改页面初始化完成后的回调函数
+	/* 	$("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){
+			//设置成只读属性
+			//$("#hid",container).setContainerReadOnly();
+			//$("input[type='radio'][name='isCheckRadio']:first",container).parents("label").attr("class","hidden");
+		}); */
+    	//$("#dms_table",getElementContext()).dmsTable().appendBlankRow();
+		//SELECT TYPE_NAME as a1,CODE_CN_DESC as a2 FROM tc_code where 1=1 and TYPE in (1409,1410,1411);
+    });
+
+</script>

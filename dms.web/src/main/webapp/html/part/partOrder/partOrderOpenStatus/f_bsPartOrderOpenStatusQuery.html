@@ -1,0 +1,144 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="modal-body">
+				<div class="row ">
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">订单编号</label>
+							<div class="col-xs-8">
+								<input id="orderNo" name="orderNo" class="form-control"
+									type="text" />
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">订单类型</label>
+							<div class="col-xs-8">
+								<select id="orderType" name="orderType"
+									data-fieldName="PART_ORDER_TYPE"
+									class="bs-select form-control " data-dictCode="1248"
+									data-excludeItems="12481001,12481002,12481012">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">订单开票状态</label>
+							<div class="col-xs-8">
+								<select id="partOrderBookingStatus" name="partOrderBookingStatus"
+									class="bs-select form-control " data-dictCode="1252"
+									data-excludeItems="">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+				
+			
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<div class="col-xs-4">
+								<label class="control-label col-xs-4">订单日期</label>
+							</div>
+							<div class="col-xs-8 ">
+								<div class="input-group input-daterange" data-maxDays="90"
+									data-opens="right">
+									<input type="text" class="form-control" readonly
+										name="beginTime"> <span class="input-group-addon">至</span>
+									<input type="text" class="form-control" readonly
+										name="endTime"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">接货状态</label>
+							<div class="col-xs-8">
+								<select id="isValid" name="isValid"
+									class="bs-select form-control " data-dictCode="1256" data-value="">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+			
+
+
+
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置 </a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-button">
+					<div class="btn-group btn-group-sm">
+					<a href="javascript:;" data-url="/partOrder/OrderPlanQuery/export/excel" data-model="part" data-method="downLoad" data-toggle="confirmation"
+                       class="btn btn-outline "><i class="fa fa-download"></i>导出</a>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="ptpartOrder">
+				</table>
+
+			</div>
+		</div>
+	</form>
+
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+ 	new Datatable().initPagination({
+		src : "ptpartOrder",
+		container:container,
+	//	url : dmsCommon.getDmsPath()["part"] + "/partOrder/OrderPlanQuery",
+		rowID : "ORDER_NO",
+		autoHeight:false,
+		columns : [
+		           {radio:true,sortable : false},
+		            {field : "ORDER_NO",inputField:"itemId",title : "操作",
+		            operateFormat : [
+		              {type:"detail",url:"part/partOrder/partOrderPlanSubmit/showDmsOrderDetail.html",openWidth:"modal-lg",onBeforeEvent:function(value, row, index,obj){
+                   	$(obj).data("pageData",row);
+			        }}]}, 
+		            {field : "ORDER_NO",title : "订单编号"},
+		            {field : "Part_Order_Open_Status",title : "订单开票状态",codeFormat : {type:"dict",codeType:"1252"}},
+		            {field : "Delivery_Status",title : "接货状态",codeFormat : {type:"dict",codeType:"1256"}},
+		            {field : "PART_ORDER_TYPE",title : "订单类型",codeFormat : {type:"dict",codeType:"1248"}},
+		            {field : "PART_ORDER_DATE",title : "订单日期",dateFormat : {format:"YYYY-MM-DD"}}
+		         ]
+	});
+
+
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,value){
+		$("#ptpartOrder",container).dmsTable().refreshTableWithForm();
+	})
+	
+
+
+});		
+</script>

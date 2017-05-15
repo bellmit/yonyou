@@ -1,0 +1,53 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">车辆预警信息</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">预警信息列表</div>
+				</div>
+				<div class="panel-body">
+				<input id="vin" name="vin" class="form-control " type="hidden"/>
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_warn">
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>关闭</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		var vins = $("#vin2",getElementContext()).val();
+		$("#vin",container).val(vins);
+	 	new Datatable().initPagination({
+			src : "dms_warn",
+			rowID:"",
+			container:container,
+			url : dmsCommon.getDmsPath()["repair"] + "/basedata/queryByLinsence/queryTripleInfoByVin",
+			sortName : "", 
+			sortOrder : "asc",
+			autoHeight:false,
+			columns : [ 
+			            {field : "WARN_ITEM_NO",title : "预警项目编号"},
+			            {field : "WARN_ITEM_NAME",title : "项目"},
+			            {field : "WARN_TIMES",title : "项目次数/总天数"},
+			            {field : "WARN_STANDARD",title : "预警次数"},
+			            {field : "LEGAL_STANDARD",title : "法定标准"},
+			            {field : "YELLOW_STANDARD",title : "黄色标准"},
+			            {field : "ORANGE_STANDARD",title : "橙色标准"},
+			            {field : "RED_STANDARD",title : "红色标准"}
+			         ]
+		});
+	});
+</script>

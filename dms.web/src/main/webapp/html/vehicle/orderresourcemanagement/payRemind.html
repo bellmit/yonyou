@@ -1,0 +1,109 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true">
+								<i class="fa fa-search"></i> 查询
+							</a> <a class="btn btn-outline"
+								data-url="vehicle/orderresourcemanagement/payRemind1.html"
+								data-width="modal-lg" data-toggle="modal"> <i
+								class="fa fa-plus-square" data-validateUrl=""
+								data-validateMethod="" data-validateModel=""></i> 新增
+							</a>
+
+						</div>
+					</div>
+				</div>
+
+
+
+				<div class="row ">
+					<div class="panel panel-default table-panel">
+						<div class="panel-heading">
+							<div class="pannel-name">付款通知维护</div>
+						</div>
+						<div class="panel-body">
+							<table
+								class="form-group  table table-striped table-bordered table-hover table-responsive"
+								id="dms_table"></table>
+						</div>
+					</div>
+				</div>
+			</div>
+	</form>
+
+
+</div>
+<script type="text/javascript">
+	//付款通知维护
+	$(document)
+			.one(
+					"onload.dms",
+					function(event, container) {
+						new Datatable()
+								.initPagination({
+									src : "dms_table",
+									container : container,
+									url : dmsCommon.getDmsPath()["vehicle"]
+											+ "/payRemind/payRemind",
+									isQueryFirst : true,
+									pageSize : 5,
+									columns : [{field : "REMIND_ID",
+												title : "操作",
+												operateFormat : [
+														{
+															type : "edit",
+															url : "vehicle/orderresourcemanagement/payRemind2.html",
+															openWidth : "modal-lg",
+		
+															doubleClick : true
+														},
+														
+														{
+															type : "del",
+															url : "/payRemind/delpayRemind/{[REMIND_ID]}",
+															
+															model : "vehicle",
+															callBack : function(
+																	response) {
+																$(
+																		"#dms_table",
+																		getElementContext())
+																		.dmsTable()
+																		.refreshTableWithForm();
+															}
+														} ]
+											}, 
+											
+											 {
+												field : "RTYPE",
+												title : "订单类型",codeFormat : {type:"oemDict",codeType:"2083"}
+											}, {
+												field : "DAY_NUM",
+												title : "天数"
+											}
+
+									]
+
+								});
+						//事件点击
+						$("a[data-onclickEvent='true']", container).on(
+								"dms.click",
+								function(event) {
+									var selectRow = $("#dms_table", container)
+											.dmsTable().getFirstSelection();
+
+									$("div[data-tableSelect='true']",
+											getElementContext())
+											.initHtmlContent(selectRow);
+									//关闭窗口
+									$("a[data-dismiss='modal']", container)
+											.click();
+								});
+
+					});
+</script>

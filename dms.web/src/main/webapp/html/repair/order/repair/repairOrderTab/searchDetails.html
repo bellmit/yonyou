@@ -1,0 +1,676 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+<div class="modal-body">
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<div class="pannel-name">基本信息</div>
+	</div>
+	<div class="panel-body">
+		<div class="row">
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">车主编号</label>
+					<div class="col-xs-8">
+						<input id="ownerNo" name="ownerNo"
+							data-fieldName="OWNER_NO" readonly="readonly"
+							class="form-control" type="text" />
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4"><span
+						style="color: Red">*</span>车主姓名</label>
+					<div class="col-xs-8">
+						<input id="ownerName" name="ownerName"
+							data-fieldName="OWNER_NAME" class="form-control required"
+							maxlength="120" type="text" />
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">车主拼音</label>
+					<div class="col-xs-8">
+						<input id="ownerSpell" name="ownerSpell"
+							data-fieldName="OWNER_SPELL" class="form-control"
+							maxlength="120" type="text" />
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4"><span
+						style="color: Red">*</span>性别</label>
+					<div class="col-xs-8">
+						<select id="gender" name="gender" data-fieldName="GENDER"
+							class="form-control required" data-dictCode="1006">
+						</select>
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">证件类型</label>
+					<div class="col-xs-8">
+						<select id="ctCode" name="ctCode" data_fieldName="CT_CODE"
+							class="bs-select form-control" data-dictCode="1239">
+						</select>
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4 ">证件号码</label>
+					<div class="col-xs-8 ">
+						<input id="certificateNo" name="certificateNo"
+							data_fieldName="CERTIFICATE_NO" class="form-control"
+							type="text" />
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">所在省份</label>
+					<div class="col-xs-8">
+						<select id="province" class="bs-select form-control"
+							name="province" data-type="region" data-dictCode="9001"
+							data_fieldName="PROVINCE">
+						</select>
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">城市</label>
+					<div class="col-xs-8">
+						<select parent="province" class="bs-select form-control"
+							name="city" id="city" data_fieldName="CITY"
+							data-dictCode="9002">
+						</select>
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">区县</label>
+					<div class="col-xs-8">
+						<select parent="city" id="district"
+							data_fieldName="DISTRICT" class="bs-select form-control"
+							name="district" data-dictCode="9003">
+						</select>
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-12 col-md-8">
+				<div class="form-group">
+					<label class="control-label col-xs-2">地址</label>
+					<div class="col-xs-10">
+						<input id="address" name="address" class="form-control"
+							maxlength="120" type="text" data-fieldName="ADDRESS" />
+	
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group" data-campaignSelect="true">
+					<label class="control-label col-xs-4">邮编</label>
+					<div class="col-xs-8">
+						<select id="zipCode" data-fieldName="ZIP_CODE"
+							data-dictCode="9004" class="bs-select form-control"
+							name="zipCode">
+						</select>
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group" data-campaignSelect="true">
+					<label class="control-label col-xs-4">行业大类</label>
+					<div class="col-xs-8">
+						<select id="industryFirst" data-fieldName="INDUSTRY_FIRST"
+							class="bs-select form-control" name="industryFirst"
+							data-dictCode="3001">
+						</select>
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group" data-campaignSelect="true">
+					<label class="control-label col-xs-4">行业小类</label>
+					<div class="col-xs-8">
+						<select id="industrySecond"
+							data-fieldName="INDUSTRY_SECOND"
+							class="bs-select form-control" name="industrySecond"
+							data-dictCode="3002">
+						</select>
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">税号</label>
+					<div class="col-xs-8 ">
+						<input id="taxNo" name="taxNo" data-fieldName="TAX_NO"
+							class="form-control" type="text" />
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">预收款</label>
+					<div class="col-xs-8 ">
+						<input id="prePay" name="prePay" data-fieldName="PRE_PAY"
+							class="form-control" type="text" disabled />
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">欠款金额</label>
+					<div class="col-xs-8 ">
+						<input id="arrearageAmount" name="arrearageAmount"
+							data-fieldName="ARREARAGE_AMOUNT" class="form-control"
+							type="text" readonly="readonly" />
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group" data-campaignSelect="true">
+					<label class="control-label col-xs-4">客户收款类别</label>
+					<div class="col-xs-8">
+						<select id="cusReceiveSort" data-dictCode="1378"
+							readonly="readonly" class="bs-select form-control"
+							name="cusReceiveSort" data-fieldName="CUS_RECEIVE_SORT">
+						</select>
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+		</div>
+	</div>
+</div>
+<div id="company" class="panel panel-default">
+	<div class="panel-heading">
+		<div class="pannel-name">附加信息-公司</div>
+	</div>
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4 col-sm-4">姓名</label>
+					<div class="col-xs-8">
+						<input id="decisionMarkerName" name="decisionMarkerName" class="form-control"
+							 type="text" data-fieldName="DECISION_MARKER_NAME" />
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">性别</label>
+					<div class="col-xs-8">
+						<select class="bs-select form-control" id="decisionMarkerGender" name="decisionMarkerGender" data-fieldName="DECISION_MARKER_GENDER" 
+							data-dictCode="1006" data-excludeItems="">
+						</select>
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">生日</label>
+					<div class="col-xs-8">
+						<div class="input-group date date-picker"
+							data-defaultToday="false" data-date-end-date="+0d"
+							data-orientation="top right">
+							<input id="decisionMarkerBirthday" name="decisionMarkerBirthday" class="form-control"
+								type="text" data-fieldName="DECISION_MARKER_BIRTHDAY" /> <span
+								class="input-group-btn">
+								<button class="btn default date-set" type="button">
+									<i class="fa fa-calendar"></i>
+								</button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">手机</label>
+					<div class="col-xs-8">
+						<input id="decisionMarkerMobile" name="decisionMarkerMobile" data-fieldName="DECISION_MARKER_MOBILE"
+							class="form-control" type="text" />
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">电话</label>
+					<div class="col-xs-8">
+						<input id="decisionMarkerPhone" name="decisionMarkerPhone" data-fieldName="DECISION_MARKER_PHONE"
+							class="form-control" type="text" />
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">E-Mail</label>
+					<div class="col-xs-8">
+						<input id="decisionMarkerEMail" name="decisionMarkerEMail" data-fieldName="DECISION_MARKER_E_MAIL"
+							class="form-control" type="text" />
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-12 col-md-8">
+				<div class="form-group">
+					<label class="control-label col-xs-2">地址</label>
+					<div class="col-xs-10">
+						<input id="decisionMarkerAddress" name="decisionMarkerAddress" data-fieldName="DECISION_MARKER_ADDRESS"
+							class="form-control" type="text" />
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-12 col-md-8">
+				<div class="form-group">
+					<label class="control-label col-xs-2">爱好</label>
+					<div class="col-xs-10">
+						<select id="hobby" data-fieldName="HOBBY"
+							class="bs-select form-control" name="hobby"
+							data-dictCode="1117" multiple data-live-search="true" data-size="5" data-existsDefault = "false">
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="person" class="panel panel-default">
+	<div class="panel-heading">
+		<div class="pannel-name">附加信息-个人</div>
+	</div>
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-8">
+				<div class="form-group">
+					<label class="control-label col-xs-4 col-sm-2">地址二</label>
+					<div class="col-xs-8 col-sm-10">
+						<input id="secondAddress" name="secondAddress" class="form-control"
+							maxlength="120" type="text" data-fieldName="SECOND_ADDRESS" />
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">电话</label>
+					<div class="col-xs-8">
+						<input id="phone" name="phone" data-fieldName="PHONE"
+							class="form-control" type="text" />
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">E-Mail</label>
+					<div class="col-xs-8">
+						<input id="email" name="email" data-fieldName="E_MAIL"
+							class="form-control" type="text" />
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">生日</label>
+					<div class="col-xs-8">
+						<div class="input-group date date-picker"
+							data-defaultToday="false" data-date-end-date="+0d"
+							data-orientation="top right">
+							<input id="birthday" name="birthday" class="form-control"
+								type="text" data-fieldName="BIRTHDAY" /> <span
+								class="input-group-btn">
+								<button class="btn default date-set" type="button">
+									<i class="fa fa-calendar"></i>
+								</button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">手机</label>
+					<div class="col-xs-8">
+						<input id="mobile" name="mobile" data-fieldName="MOBILE"
+							class="form-control" type="text" />
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">家庭月收入</label>
+					<div class="col-xs-8">
+						<select id="familyIncome" name="familyIncome"
+							data-fieldName="FAMILY_INCOME" class="form-control"
+							data-dictCode="1343">
+						</select>
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-12 col-md-8">
+				<div class="form-group">
+					<label class="control-label col-xs-2">爱好</label>
+					<div class="col-xs-10">
+							<select id="hobby" data-fieldName="HOBBY"
+								class="bs-select form-control" name="hobby"
+								data-dictCode="1117" multiple data-live-search="true" data-size="5" data-existsDefault = "false">
+							</select>
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">婚姻状况</label>
+					<div class="col-xs-8">
+						<select id="ownerMarriage" name="ownerMarriage"
+							data-fieldName="OWNER_MARRIAGE" class="form-control"
+							data-dictCode="1119">
+						</select>
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">学历</label>
+					<div class="col-xs-8">
+						<select id="eduLevel" name="eduLevel"
+							data-fieldName="EDU_LEVEL" class="form-control"
+							data-dictCode="1116" data-value="">
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--/span-->
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<div class="pannel-name">联系人信息</div>
+		<div class="pannel-tools">
+			<a href="javascript:;" class="expand"> <i
+				class="fa fa-chevron-down"></i></a>
+		</div>
+	</div>
+	<div class="panel-body">
+		<!--/span-->
+		<div class="row">
+			<div class="col-xs-12 ">
+				<div class="input-group">
+					<span class="input-group-btn">
+						<button id="tb" class="btn default btn-sm btn-green "
+							type="button">
+							<i class="fa">自动同步车主信息</i>
+						</button>
+					</span>
+
+				</div>
+			</div>
+		</div>
+		<!--/span-->
+		<div class="row">
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4"><span
+						style="color: Red">*</span>姓名</label>
+					<div class="col-xs-8">
+						<input id="contactorName" name="contactorName"
+							data-fieldName="CONTACTOR_NAME"
+							class="form-control required" />
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4"><span
+						style="color: Red">*</span>性别</label>
+					<div class="col-xs-8">
+						<select id="contactorGender" name="contactorGender"
+							data-fieldName="CONTACTOR_GENDER"
+							class="form-control required" data-dictCode="1006"
+							data-value="">
+						</select>
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4"><span
+						style="color: Red">*</span>电话</label>
+					<div class="col-xs-8">
+						<input id="contactorPhone" name="contactorPhone"
+							class="form-control mobile" type="text"
+							data-fieldName="CONTACTOR_PHONE" />
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">E-Mail</label>
+					<div class="col-xs-8">
+						<input id="contactorEmail" name="contactorEmail"
+							data-fieldName="CONTACTOR_EMAIL"
+							class="form-control email" type="text" />
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">传真</label>
+					<div class="col-xs-8">
+						<input id="contactorFax" name="contactorFax"
+							class="form-control" data-fieldName="CONTACTOR_FAX"
+							type="text" />
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4"><span
+						style="color: Red">*</span>手机</label>
+					<div class="col-xs-8">
+						<input id="contactorMobile" name="contactorMobile"
+							data-fieldName="CONTACTOR_MOBILE"
+							class="form-control phone" type="text" />
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">所在省份</label>
+					<div class="col-xs-8">
+						<select id="contactorProvince"
+							class="bs-select form-control" name="contactorProvince"
+							data-type="region" data-dictCode="9001"
+							data-fieldName="CONTACTOR_PROVINCE">
+						</select>
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">城市</label>
+					<div class="col-xs-8">
+						<select parent="province" class="bs-select form-control"
+							data-dictCode="9002" name="contactorCity"
+							id="contactorCity" data-fieldName="CONTACTOR_CITY">
+						</select>
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">区县</label>
+					<div class="col-xs-8">
+						<select parent="city" id="contactorDistrict"
+							data-fieldName="CONTACTOR_DISTRICT" class="bs-select form-control"
+							name="contactorDistrict" data-dictCode="9003">
+						</select>
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-12 col-md-8">
+				<div class="form-group">
+					<label class="control-label col-xs-2">地址</label>
+					<div class="col-xs-10">
+						<input id="contactorAddress" name="contactorAddress"
+							class="form-control" maxlength="120" type="text"
+							data-fieldName="CONTACTOR_ADDRESS" />
+
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">邮编</label>
+					<div class="col-xs-8">
+						<select id="contactorZipCode"
+							class="bs-select form-control" name="contactorZipCode"
+							data-dictCode="9004" data-fieldName="CONTACTOR_ZIP_CODE" />
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">喜欢的联络方式</label>
+					<div class="col-xs-8">
+						<select id="contactorHobbyContact"
+							class="bs-select form-control"
+							name="contactorHobbyContact"
+							data-fieldName="CONTACTOR_HOBBY_CONTACT"
+							data-dictCode="1331">
+						</select>
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">职业</label>
+					<div class="col-xs-8">
+						<select id="contactVocationType"
+							class="bs-select form-control" name="contactVocationType"
+							data-dictCode="1111"
+							data-fieldName="CONTACTOR_VOCATION_TYPE">
+						</select>
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">职称</label>
+					<div class="col-xs-8">
+						<select id="contactorPosition"
+							class="bs-select form-control" name="contactorPosition"
+							data-dictCode="1110" data-fieldName="CONTACTOR_POSITION">
+						</select>
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+		</div>
+	</div>
+</div>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<div class="pannel-name">备注</div>
+	</div>
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-xs-10">
+				<div class="form-group">
+					<label class="control-label col-xs-2">备注</label>
+					<div class="col-xs-10">
+						<input type="text" class="form-control" id="remark"
+							name="remark" data-fieldName="REMARK">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		$("#company",container).hide();//加载时隐藏公司
+		
+		$("#tb", container).on(
+				'click',
+				function() {
+					$("#contactorName", container).val(
+							$("#ownerName", container).val());
+					$("#contactorGender", container).val(
+							$("#gender", container).val());
+					$("#contactorPhone", container).val(
+							$("#phone", container).val());
+					$("#contactorMobile", container).val(
+							$("#mobile", container).val());
+					$("#contactorProvince", container).selectpicker(
+							'val', $("#province", container).val());
+					$("#contactorCity", container).selectpicker('val',
+							$("#city", container).val());
+					$("#contactorDistrict", container).selectpicker(
+							'val', $("#district", container).val());
+					$("#contactorZipCode", container).selectpicker(
+							'val', $("#zipCode", container).val());
+					$("#contactorAddress", container).val(
+							$("#address", container).val());
+					$("#contactorEmail", container).val(
+							$("#email", container).val());
+				});
+
+	});
+</script>

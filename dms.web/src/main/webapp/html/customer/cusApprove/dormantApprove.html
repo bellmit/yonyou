@@ -1,0 +1,168 @@
+<div class="dms-edit ajaxrest" 
+    data-url="/customerManage/cusapprove/{[CUSTOMER_NO]}" data-model="customer" data-pageInitCallBack="true">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">客户休眠申请审批</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row" data-tableSelect="true">
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-3">销售顾问</label>
+								<div class="col-xs-8">
+								  <select id="soldBy" name="soldBy"
+									class="bs-select form-control" disabled="disabled"
+									data-url="/basedata/employees/10154100/qrySalesConsultant" data-ajaxSync="true"
+									data-model="manage" data-labelValue="USER_ID" data-value="{[userInfo.userId]}"
+									data-lableDesc="USER_NAME" >
+								</select>
+								</div>
+							</div>
+						</div>
+					
+                       <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">休眠类型</label>
+								<div class="col-xs-8 .col-md-1">
+									<select id="sleepType" name="sleepType" disabled="disabled"
+										data-fieldName="SLEEP_TYPE" class="form-control required"
+										data-dictCode="8001" data-value="">
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">竞品</label>
+								<div class="col-xs-8 .col-md-1">
+									<input name="sleepSeries" id="sleepSeries" disabled="disabled"
+										data-fieldName="sleep_series_name" class="form-control" type="text"
+										 />
+								</div>
+							</div>
+						</div>
+						&nbsp;
+					   <div class="col-md-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2 col-md-1">放弃理由</label>
+								<div class="col-xs-11 .col-md-10">
+									   <select id="keepApplyReasion"
+										           class="bs-select form-control required" name="keepApplyReasion"
+										           data-fieldName="KEEP_APPLY_REASION" disabled="disabled"
+										            data-dictCode="1615"
+										            multiple data-live-search="true"  data-existsDefault = "false">
+									   </select>
+								</div>
+							</div>
+						</div>
+				
+						<p></p><br>
+						
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2 col-md-1">备注</label>
+								<div class="col-xs-11 .col-md-10">
+								<textarea id="keepApplyRemark" name="keepApplyRemark" disabled="disabled"
+										data-fieldName="KEEP_APPLY_REMARK" class="form-control"
+										maxlength="120" rows="2" cols=""></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal-body">
+			<div class="panel panel-default">
+			<div class="panel-heading">
+					<div class="pannel-name">审核结果</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row" data-tableSelect="true">
+                   	
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-3">审核状态</label>
+								<div class="col-xs-8">
+									<select id="auditStatus" name="auditStatus"
+										class="bs-select form-control"  data-dictCode="3335" data-fieldName="AUDIT_STATUS" data-excludeItems="33351001"
+										>
+									</select>
+								</div>
+							</div>
+						</div>
+                    
+						<p></p><br>
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2 col-md-1">审核意见</label>
+								<div class="col-xs-11 .col-md-10">
+								<textarea name="auditView" class="form-control" id="auditView" rows="3" cols="" maxlength="500" data-fieldName="AUDIT_VIEW"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="modal-footer">
+			<a data-url="/customerManage/cusapprove/{[CUSTOMER_NO]}" data-model="customer" data-method="PUT"
+				data-callBack="true" class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> <a
+				data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	 
+	
+	
+	
+	
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#cusList",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		$("#intentList",getElementContext()).dmsTable().appendBlankRow();
+	});
+
+	
+		$("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){
+		   var isStepForwordGreeting=$("#isStepForwordGreeting3",container).val();
+		   var isLeavingFarewell=$("#isLeavingFarewell3",container).val();
+		   var isRecording=$("#isRecording3",container).val();
+		   
+		   if(!isStringNull(isStepForwordGreeting)&&isStepForwordGreeting=='12781001'){
+			   $("[name = isStepForwordGreeting]:checkbox",container).prop("checked",true);
+		   }
+		   if(!isStringNull(isLeavingFarewell)&&isLeavingFarewell=='12781001'){
+			   $("[name = isLeavingFarewell]:checkbox",container).prop("checked",true);
+		   }
+		   if(!isStringNull(isRecording)&&isRecording=='12781001'){
+			   $("[name = isRecording]:checkbox",container).prop("checked",true);
+		   }
+		});
+});
+
+</script>

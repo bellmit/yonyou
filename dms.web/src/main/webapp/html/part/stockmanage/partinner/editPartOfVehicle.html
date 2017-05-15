@@ -1,0 +1,114 @@
+<div class="dms-edit ajaxrest" data-url="/basedata/BookPart/{[partNo]}/{[STORAGE_CODE]}/{[Ro_No]}" data-model="part">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">车间借料</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">仓库</label>
+							<div class="col-xs-8">
+								<select id="STORAGE_CODE" name="STORAGE_CODE" class="bs-select form-control" data-fieldName="STORAGE_CODE"
+								data-url="/partStocks/StockCode" data-model="part" data-labelValue="STORAGE_CODE" data-lableDesc="STORAGE_NAME"></select>
+                          </div> 
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">配件代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="partNo" name="partNo" disabled="disabled" data-fieldName="partNo">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">配件名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="partName" name="partName" disabled="disabled" data-fieldName="partName">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">借出数量</label>
+							<div class="col-xs-8">
+								<input id="canLendNum" name="canLendNum" class="form-control required" type="text" data-fieldName="canLendNum"/>
+								<input type="hidden" class="form-control" id="enableNum" name="enableNum"/>
+								<input type="hidden" class="form-control" id="unitName" name="unitName"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">借用人</label>
+							<div class="col-xs-8 ">
+								<select class="bs-select form-control required" id="customerManager" name="customerManager" data-fieldName="BORROWER"
+								data-url="/basedata/ownerWeChatBooking/findEmployees" data-model="repair" data-labelValue="EMPLOYEE_NO" data-lableDesc="EMPLOYEE_NAME"></select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-body"
+				style="border: solid 1px #DDDDDD; height: 150px; overflow-y: scroll; overflow-x: hidden">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="workshop_detail"></table>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="" data-model="part"
+				data-method="POST" data-onclickEvent="true" class="btn blue" ><i class="fa fa-save"></i>确定</a> <a
+				data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initLocale({
+		src : "workshop_detail",
+		container:container,
+		url : dmsCommon.getDmsPath()["part"]+"/basedata/BookPart/partsVehicle/{[partNo]}/{[STORAGE_CODE]}",
+		rowID : "PART_NO,STORAGE_CODE",
+		isFormParam:true,
+		undefinedText : "",
+		autoHeight : false,
+		columns : [ 
+		    {field : "SALES_PRICE",title : "销售价"}, 
+			{field : "CLAIM_PRICE",title : "索赔价"}, 
+			{field : "INSURANCE_PRICE",title : "保险价"}, 
+			{field : "MIN_LIMIT_PRICE",title : "最低销售限价"},
+			{field : "LIMIT_PRICE",title : "销售限价"},
+			{field : "max_Stock",title : "最大库存"},
+			{field : "min_stock",title : "最小库存"},
+			{field : "STOCK_QUANTITY",title : "账面库存"},
+			{field : "USEABLE_STOCK",title : "可用库存"},
+			{field : "BORROW_QUANTITY",title : "借进数量"},
+			{field : "LEND_QUANTITY",title : "借出数量"},
+			{field : "LOCKED_QUANTITY",title : "锁定量"},
+			{field : "OPTION_NO",title : "替代配件"},
+			{field : "OPTION_STOCK",title : "替代件库存"},
+			{field : "PART_GROUP_CODE",title : "配件类别"},
+			{field : "UNIT",title : "单位"},
+			{field : "PART_MODEL_GROUP_CODE_SET",title : "配件车型组集"}]
+		});
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	});
+</script>

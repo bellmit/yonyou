@@ -1,0 +1,56 @@
+<div class="dms-edit ajaxrest" data-url="/basedata/packageType/{[PACKAGE_TYPE_CODE]}" data-model="repair" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">预约限量设置新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12   ">
+							<div class="form-group">
+									<label class="control-label col-xs-4 "> 组合代码类别 </label>
+									<div class="col-xs-8">
+										<input type="text" class="form-control" id="packageTypeCode"
+										disabled="disabled"	name="packageTypeCode" data-fieldName="PACKAGE_TYPE_CODE">
+									</div>
+							</div>
+						</div>
+						<div class="col-xs-12  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">组合代码名称</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="packageTypeName"
+										name="packageTypeName" data-fieldName="PACKAGE_TYPE_NAME">
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a data-url="/basedata/packageType/{[PACKAGE_TYPE_CODE]}" data-model="repair"
+				data-method="PUT" data-callBack="true" class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> <a
+				data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	//新增页面回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+});	
+</script>

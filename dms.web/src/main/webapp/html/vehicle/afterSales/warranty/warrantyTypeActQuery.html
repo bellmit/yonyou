@@ -1,0 +1,113 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+				
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">类型代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="wtCode" name="wtCode">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">类型名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="wtName" name="wtName">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否售前保修</label>
+							<div class="col-xs-8">
+								<select  class="form-control" id="isPresale" name="isPresale"  data-dictCode="1004" data-type="oemDict">
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">状态</label>
+							<div class="col-xs-8">
+								<select  class="form-control" id="status" name="status"  data-dictCode="1001" data-type="oemDict">
+								</select>
+							</div>
+						</div>
+					</div>
+							
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel panel-default table-panel">
+			
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+					<a class="btn btn-outline" data-url="vehicle/afterSales/warranty/warrantyTypeActAdd.html"
+						data-width="modal-lg" data-toggle="modal"> <i
+						class="fa fa-plus-square"></i> 新增
+					</a>
+				</div>
+			</div>
+			
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="warrantyList"></table>
+		</div>
+	</div>
+		
+	</div>
+	</form>
+	
+	
+</div>
+<script type="text/javascript">
+ $(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "warrantyList",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/warrantyTypeAct/warrantyTypeSearch",
+		rowID : "ID",
+		sortName : "UPDATE_DATE",
+		sortOrder : "desc",
+		autoHeight:false,
+		columns : [
+			{field :"ID",title : "操作",operateFormat : [
+														{type:"edit",title:"修改",url:"vehicle/afterSales/warranty/warrantyTypeActUpdate.html",openType:"jump",doubleClick:false },
+			                                           ]
+		    },
+		    {title: "类型代码", field:'WT_CODE'},
+			{title: "类型名称", field:'WT_NAME'},
+			{title: "是否售前保修", field:'IS_PRESALE',codeFormat : {type:"oemDict",codeType:"1004"}},
+			{title: "活动类型", field:'ACT_TYPE',codeFormat : {type:"oemDict",codeType:"8033"}},
+			{title: "保修类型", field:'WT_TYPE',codeFormat : {type:"oemDict",codeType:"8031"}},
+			{title: "是否活动相关", field: 'IS_ACT',codeFormat : {type:"oemDict",codeType:"1004"}},
+			{title: "状态", field: 'STATUS',codeFormat : {type:"oemDict",codeType:"1001"}},
+			{title: "更新人", field: 'UPDATE_BY'},
+			{title: "更新时间", field: 'UPDATE_DATE'}
+		]
+		
+	});
+	
+});
+    
+</script>

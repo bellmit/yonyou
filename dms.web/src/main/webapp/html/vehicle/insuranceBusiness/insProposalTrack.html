@@ -1,0 +1,153 @@
+<div class="dms-edit">
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">投保单跟踪</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="tabbable-retail ">
+				<div class="tab-content">
+					<div class="tab-pane fade in active" id="tab_basreceive">
+						<div class="panel-body" data-tableRetailSelect="true">
+							<div class="row">
+								<!--/span-->
+								<div class="col-xs-12">
+										<div class="form-group">
+											<label class="control-label col-xs-2">投保单号</label>
+											<div class="col-xs-4">
+												<input id="proposalCode" name="proposalCode" disabled="disabled" 
+													class="form-control" maxlength="120" type="text" />
+											</div>
+										</div>
+									</div>
+								<!--/span-->
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label class="control-label col-xs-2">接触内容</label>
+										<div class="col-xs-10">
+											<textarea id="trackContent" name="trackContent"
+												class="form-control required" rows="3" cols=""></textarea>
+										</div>
+									</div>
+								</div>
+									<!--/span-->
+								<div class="col-xs-12 ">
+									<div class="form-group">
+										<label class="control-label col-xs-2">跟踪状态</label>
+										<div class="col-xs-4">
+											<select id="trackType" class="bs-select form-control required" 
+												name="trackType" data-dictCode="1606" data-value="16061005">
+											</select>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label class="control-label col-xs-2">战败原因</label>
+										<div class="col-xs-10">
+											<textarea id="failingReason" name="failingReason"
+												class="form-control" rows="1" cols=""></textarea>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label class="control-label col-xs-2">下次跟踪日期</label>
+										<div class="col-xs-4">
+											<div class="input-group date date-picker">
+												<input type="text" class="form-control required" 
+													name="trackNextDate"
+													id="trackNextDate" /><span class="input-group-btn">
+													<button class="btn default input-clear" type="button">
+														<i class="fa fa-close"></i>
+													</button>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- /span -->
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label class="control-label col-xs-2">跟踪人</label>
+										<div class="col-xs-4">
+											<div class="input-group">
+												<input id="tracer" name="tracer" class="form-control required" type="text" 
+												disabled="disabled" value="{[userInfo.userName]}"/>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label class="control-label col-xs-2">客户反馈</label>
+										<div class="col-xs-10">
+											<textarea id="customerFeedback" name="customerFeedback"
+												class="form-control" rows="3" cols=""></textarea>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12">
+									<div class="form-group">
+										<label class="control-label col-xs-2">备注</label>
+										<div class="col-xs-10">
+											<textarea id="remark" name="remark"
+												class="form-control" rows="1" cols=""></textarea>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/vehicle/insProposal/addProposalTrack"
+				data-model="vehicle" data-method="POST" data-callBack="true" data-beforeRequest="true"
+				class="btn blue" data-toggle="confirmation"> <i class="fa fa-save "></i>保存
+			</a> <a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+</div>
+<script type="text/javascript">
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				var proposalCodes = $("#proposalCode2",getElementContext()).val();
+				$("#proposalCode",container).val(proposalCodes);
+				//新增页面回调函数
+				$("a[data-callBack='true']", container).on(
+						"callBack.dms",
+						function(event, response) {
+							//关闭窗口
+							$("a[data-dismiss='modal']", container).click();
+							//刷新表格
+							$("#dms_ins", getElementContext()).dmsTable().refreshTableWithForm();
+						});
+				
+				$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+					if(true){
+// 						//获取提醒内容
+// 						var context = $("#remindContent",container).val();
+// 						//往提醒内容赋值
+// 						$("#remindContent",container).val(context+"("+first+")");
+						returnResult.status = true;
+					}else{
+						returnResult.status = false;
+					}
+				});
+			});
+</script>

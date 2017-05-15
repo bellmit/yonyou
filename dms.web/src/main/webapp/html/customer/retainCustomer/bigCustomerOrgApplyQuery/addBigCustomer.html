@@ -1,0 +1,150 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">大客户申请</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+					
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">员工代码</label>
+								<div class="col-xs-8">
+									<input id="userCode" name="userCode" class="form-control " value="{[userInfo.userCode]}" readonly
+										type="text"  maxlength="120" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">用户代码</label>
+								<div class="col-xs-8">
+									<input id="employeeCode" name="employeeCode" class="form-control " value="{[userInfo.employeeNo]}"readonly
+										type="text"  maxlength="120" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">用户名称</label>
+								<div class="col-xs-8">
+									<input id="userName" name="userName" class="form-control "  value="{[userInfo.userName]}"readonly
+										type="text"  maxlength="120" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">原职位</label>
+								<div class="col-xs-8">
+									<input id="originalStation" name="originalStation" class="form-control required"  
+										type="text"  maxlength="120" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否兼职</label>
+								<div class="col-xs-8">
+									<select id="isParttime" name="isParttime" 
+										class="bs-select form-control  required" data-dictCode="1278" ></select>
+								</div>
+							</div>
+						</div>
+					
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">兼职岗位</label>
+								<div class="col-xs-8">
+									<input id="parttimeStation" name="parttimeStation" class="form-control "  
+										type="text"  maxlength="120" />
+								</div>
+							</div>
+						</div>						
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">手机号</label>
+								<div class="col-xs-8">
+									<input id="contactorMobile" name="contactorMobile" class="form-control required phone"  
+										value="{[userInfo.mobile]}"   type="text"  maxlength="11" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">本品牌工作年限</label>
+								<div class="col-xs-8">
+									<input id="brandYear" name="brandYear" class="form-control  required"  
+										type="text"  maxlength="120" />
+								</div>
+							</div>
+						</div>	
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">申请理由</label>
+								<div class="col-xs-8">
+									<select id="remark" name="remark" 
+										class="bs-select form-control required" data-dictCode="5782" ></select>
+								</div>
+							</div>
+						</div>			
+						
+						<div class="col-xs-8 col-sm-8 col-md-8">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2 ">自我评价</label>
+								<div class="col-xs-8 col-sm-10">
+									<textarea id="selfEvalution" name="selfEvalution" data-fieldName="SCENE" class="form-control required"   rows="2" maxlength="600" cols=""></textarea>
+								</div>
+								<label class="control-label col-xs-8 col-sm-10">最多输入200个汉字</label>
+							</div>
+						</div>									
+					
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/bigCustomer/orgApply" data-model="customer"
+				data-method="POST" data-callBack="true" class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> <a
+				data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		$("#dms_table1",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	$("#isParttime",container).bindChange(function(obj){
+	 	if($("#isParttime",container).val() == '12781001'){
+	 		 $("#parttimeStation",container).attr("class","form-control required");
+		}else {
+			$("#parttimeStation",container).attr("class","form-control");
+		}
+	});	
+});
+
+
+</script>

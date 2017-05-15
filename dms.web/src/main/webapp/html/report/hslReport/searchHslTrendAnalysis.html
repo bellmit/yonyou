@@ -1,0 +1,112 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group form-group-xs m-b-xs">
+							<label class="control-label col-xs-4">销售顾问</label>
+							<div class="col-xs-8">
+								<select id="soldBy" name="soldBy"
+									class="bs-select form-control"
+									data-url="/basedata/employees/606004/qrySalesConsultant"
+									data-model="manage" data-labelValue="USER_ID" data-ajaxSync = "true" data-value="{[userInfo.userId]}"
+									data-lableDesc="USER_NAME" >
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车系</label>
+							<div class="col-xs-8">
+								<select id="series"
+									class="bs-select form-control" name="series"
+									data-url="/basedata/selectSeries"
+									data-model="manage" data-labelValue="SERIES_CODE"
+									data-lableDesc="SERIES_NAME">
+
+								</select>
+							</div>
+						</div>
+					</div>			
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn btn-sm blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn btn-sm blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">客流HSL趋势分析信息列表</div>
+				<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+				<a href="javascript:;" data-url="/basedata/hslTrendAnalysis/export/excel" data-model="report" data-method="downLoad" data-toggle="confirmation"
+								class="btn btn-outline " ><i class="fa fa-download"></i>导出</a>
+				</div>
+		   </div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+		
+		<form class="form-horizontal">
+			<div class="panel-body">	
+				<div>
+					<div class="form-group" style="color:red">
+							&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspHSL:客户意向级别是H、A、B、C的潜客数量
+					</div>
+				</div>
+			</div>
+		</form>	
+		
+	</div>
+
+				
+
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dms_table",
+		rowID:"SERIES_NAME",
+		container:container,
+	    url : dmsCommon.getDmsPath()["report"] + "/basedata/hslTrendAnalysis/hslSearch",
+		sortName : "SERIES_NAME", 
+		sortOrder : "asc",
+		autoHeight : false,
+		/* mergeTotal:{
+			megerCellNumber:2,
+			megerCellName:"合计"
+		},  */
+		columns : [ 
+                    {field : "SERIES_NAME",title : "车系"},
+                    {field : "TYPE",title : ""},
+                    {field : "W8",title : "前8周"},
+                    {field : "W7",title : "前7周"},
+                    {field : "W6",title : "前6周"},
+                    {field : "W5",title : "前5周"},
+                    {field : "W4",title : "前4周"},
+                    {field : "W3",title : "前3周"},
+                    {field : "W2",title : "前2周"},
+                    {field : "W1",title : "前1周"},
+                    {field : "WN",title : "当前周"},
+                    {field : "AVERAGE",title : "前8周平均", rowspan: 1,numberFormat : {decimal:2}}
+		         ],
+					onLoadSuccess : function() {
+						var table = $("#dms_table",getElementContext()).dmsTable().getRowDataByIndex();
+						for(var i = 0; i < table.length; i=i+2){
+							$("#dms_table",container).dmsTable().bootstrapTable('mergeCells', {index: i, field: 'SERIES_NAME', colspan: 0, rowspan: 2});
+						}
+						
+					}
+	});
+});		
+</script>

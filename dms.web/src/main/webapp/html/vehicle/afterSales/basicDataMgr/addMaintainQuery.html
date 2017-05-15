@@ -1,0 +1,316 @@
+<div class="dms-add"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">新增保养套餐</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+	
+             	<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">保养套餐代码：</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control"  id="packageCode" name="packageCode" />
+								<input type="hidden" class="form-control"  id="groupIds" name="groupIds" />
+								<!-- <input    type="hidden"   id="wrgroupId" readonly name="wrgroupId" class="form-control" type="text" /> -->
+								<input type="hidden" class="form-control"  id="groupIds2" name="groupIds2" />
+							</div>
+						</div>
+					</div>
+					
+				<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">保养套餐名称：</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control"  id="packageName" name="packageName" />
+							</div>
+						</div>
+					</div>
+					
+							<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">保养里程数：</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control"  id="maintainStartmileage" name="maintainStartmileage" />
+								至<input type="text" class="bs-select form-control"  id="maintainEndmileage" name="maintainEndmileage" />
+							</div>
+						</div>
+					</div>
+				
+					
+					
+					<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">保养天数：</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control"  id="maintainStartday" name="maintainStartday" />
+								至<input type="text" class="bs-select form-control"  id="maintainEndday" name="maintainEndday" />
+							</div>
+						</div>
+					</div>
+					
+		
+			<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车型</label>
+								<div class="col-xs-8">
+									<select id="groupName"
+										class="bs-select form-control" name="modelId"
+										data-url="/maintain/GetAllCheXing"
+										data-model="vehicle" data-labelValue="GROUP_ID"
+										data-lableDesc="GROUP_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+				
+				<div class="col-xs-12 col-sm-6 ">
+					<div class="form-group">
+						<label class="control-label col-xs-4 col-sm-2">有效日期</label>
+						<div class="col-xs-8 col-sm-10">
+							 <div class="input-group input-daterange" data-opens="right">
+	                             <input type="text" class="form-control" readonly id="maintainStartdate" name="maintainStartdate">
+	                             <span class="input-group-addon">至</span>
+	                             <input type="text" class="form-control" readonly  id="maintainEnddate"  name="maintainEnddate">
+	                             <span class="input-group-btn">
+                                    <button class="btn default input-clear" type="button">
+                                       <i class="fa fa-close"></i>
+                                   </button>
+                                 </span> 
+	                        </div>
+						</div>
+					</div>
+				</div>
+				   
+				   
+
+					</div>
+				</div>
+			</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >项目列表</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" data-url="vehicle/afterSales/basicDataMgr/add2MaintainQuery.html" data-width="modal-md"data-toggle="modal"> 
+							<i class="fa fa-plus-square"></i> 新增
+							</a> 
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="one_table"></table>
+		</div>
+	</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >零件列表</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" data-url="vehicle/afterSales/basicDataMgr/add3MaintainQuery.html" data-width="modal-md"data-toggle="modal"> 
+							<i class="fa fa-plus-square"></i> 新增
+							</a> 
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="two_table"></table>
+		</div>
+	</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/maintain/add" data-model="vehicle" data-beforeRequest="true"
+				data-method="POST" data-callBack='true'
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>新增</a> <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		
+		new Datatable().initLocale({
+			src : "one_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/maintain/getAllGongShi",
+			rowID : "ID",
+			sortName : "ID",
+			sortOrder : "asc",
+// 			autoHeight:false,
+			isFormParam:true,
+			isQueryFirst:false,
+// 			pageSize:5,
+			columns : [ 
+	   {checkbox:true,sortable : true}, 
+			    {field : "ID",title : "操作",operateFormat :[
+						                        			
+					                						{type : "localDel",operateIcon:'<i class="glyphicon glyphicon-remove"></i>',onBeforeEvent:function(value, row, index){
+					                			            },onAfterEvent:function(value, row, index){
+					                			            	$("#save",container).removeAttr('disabled');
+					                			            },isShow:function(value, row, index){
+					                			            	if(row.IS_FINISHED==12781001){
+					                			            		return false;
+					                			            	}else{
+					                				            	return true;
+					                			            	}
+					                			            }
+					                			            }]}, 
+			
+				   {field : "LABOUR_CODE",title : "工时代码"},
+				   {field : "LABOUR_NAME",title : "描述"},
+				   {field : "FRT",title : "工时数"},
+				   {field : "DEAL_TYPE",title : "处理"}
+			]
+
+		});
+		
+			new Datatable().initLocale({
+				src : "two_table",
+				container:container,
+				url : dmsCommon.getDmsPath()["vehicle"] + "/maintain/getAllGongShi",
+				rowID : "ID",
+				sortName : "ID",
+				sortOrder : "asc",
+//	 			autoHeight:false,
+				isFormParam:true,
+				isQueryFirst:false,
+//	 			pageSize:5,
+				columns : [ 
+			    {checkbox:true,sortable : true}, 
+				    {field : "ID",title : "操作",operateFormat : [
+				                        			
+				                						{type : "localDel",operateIcon:'<i class="glyphicon glyphicon-remove"></i>',onBeforeEvent:function(value, row, index){
+				                			            },onAfterEvent:function(value, row, index){
+				                			            	$("#save",container).removeAttr('disabled');
+				                			            },isShow:function(value, row, index){
+				                			            	if(row.IS_FINISHED==12781001){
+				                			            		return false;
+				                			            	}else{
+				                				            	return true;
+				                			            	}
+				                			            }
+				                			            }]}, 
+				  
+					{field : "PART_CODE",title : "零部件编号"},
+					{field : "PART_NAME",title : "描述"},
+					   {field : "FEE",title : "零售单价"},
+						{field : "DEAL_TYPE",title : "处理", codeFormat : {type:"oemDict",codeType:"4003"}},
+						{field : "PRICE",title : "费用"},
+						   {field : "AMOUNT",title : "数量"}
+				]
+
+			});
+			
+			//批量新增的前执行函数
+		 	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+				var selectRow = $("#one_table",container).dmsTable().getSelections();
+				debugger;
+				if(!selectRow){
+					dmsCommon.tip({status:"warning",msg:"请选择工时"});//总共的状态类型：info、success、error、warning
+					returnResult.status = false;
+					return ;
+				} 
+				if(selectRow.length > 0){
+					var groupIds = "";
+					
+					for(var i = 0 ;i<selectRow.length;i++){
+						if(groupIds=="" ){ //第一次循环为空值
+							
+							groupIds = selectRow[i]["ID"];
+						
+							groupIds = groupIds+"#"+selectRow[i]["LABOUR_CODE"];
+							groupIds = groupIds+"#"+selectRow[i]["LABOUR_NAME"];
+							groupIds = groupIds+"#"+selectRow[i]["FRT"];
+							
+							groupIds = groupIds+"#"+selectRow[i]["DEAL_TYPE"];
+							
+						}else{
+							
+							groupIds = groupIds+","+selectRow[i]["ID"];
+						
+							groupIds = groupIds+"#"+selectRow[i]["LABOUR_CODE"];
+							groupIds = groupIds+"#"+selectRow[i]["LABOUR_NAME"];
+							groupIds = groupIds+"#"+selectRow[i]["FRT"];
+							groupIds = groupIds+"#"+selectRow[i]["DEAL_TYPE"];
+							
+							
+						}
+						
+					}
+					$("#groupIds",getElementContext()).setDmsValue(groupIds);
+					
+				}
+				returnResult.status = true;
+			});
+			
+			
+		 	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+				var selectRow2 = $("#two_table",container).dmsTable().getSelections();
+				debugger;
+				if(!selectRow2){
+					dmsCommon.tip({status:"warning",msg:"请选择零件"});//总共的状态类型：info、success、error、warning
+					returnResult.status = false;
+					return ;
+				}
+				if(selectRow2.length > 0){
+					var groupIds = "";
+					
+					for(var i = 0 ;i<selectRow2.length;i++){
+						if(groupIds=="" ){ //第一次循环为空值
+							groupIds = selectRow2[i]["ID"];
+						
+							groupIds = groupIds+"#"+selectRow2[i]["PART_CODE"];
+							groupIds = groupIds+"#"+selectRow2[i]["PART_NAME"];
+							groupIds = groupIds+"#"+selectRow2[i]["FEE"];
+							
+							groupIds = groupIds+"#"+selectRow2[i]["DEAL_TYPE"];
+							groupIds = groupIds+"#"+selectRow2[i]["PRICE"];
+							groupIds = groupIds+"#"+selectRow2[i]["AMOUNT"];
+							
+							
+						}else{
+							
+							groupIds = groupIds+","+selectRow2[i]["ID"];
+					
+							groupIds = groupIds+"#"+selectRow2[i]["PART_CODE"];
+							groupIds = groupIds+"#"+selectRow2[i]["PART_NAME"];
+							groupIds = groupIds+"#"+selectRow2[i]["FEE"];
+							
+							groupIds = groupIds+"#"+selectRow2[i]["DEAL_TYPE"];
+							groupIds = groupIds+"#"+selectRow2[i]["PRICE"];
+							groupIds = groupIds+"#"+selectRow2[i]["AMOUNT"];
+							
+							
+						}
+						
+					}
+					$("#groupIds2",getElementContext()).setDmsValue(groupIds);
+					
+				}
+				returnResult.status = true;
+			});
+			
+	
+		
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("a.clear").click();
+			$("#one_table",getElementContext()).dmsTable().refreshTableWithForm();
+			$("#two_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	});
+</script>

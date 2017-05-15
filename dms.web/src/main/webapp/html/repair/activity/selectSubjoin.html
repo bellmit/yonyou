@@ -1,0 +1,110 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">附加项目选择</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body" data-parentTable ="roAddItemInfoTable">
+					<div class="row" data-selectTable="true">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">附加项目名称</label>
+								<div class="col-xs-8">
+									<select id="addItemCodes" name="addItemCodes"
+										class="bs-select form-control required"  data-url="/basedata/appendProject/appendProject/dicts"
+										data-model="repair" data-labelValue="ADD_ITEM_CODE"
+										data-lableDesc="ADD_ITEM_NAME">
+									</select>
+									<input type="hidden" id="addItemName" name="addItemName" value="">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">附加项目代码</label>
+								<div class="col-xs-8">
+									<input id="addItemCode" name="addItemCode" type="text" class="form-control" disabled="disabled"/>		
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">附加项目收费</label>
+								<div class="col-xs-8">
+								<input id="addItemAmount" name="addItemAmount" class="form-control" type="text" disabled="disabled"/>
+								<input id="disAddItemAmount" name="disAddItemAmount" class="form-control" type="hidden" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+								<div class="form-group">
+									<label class="control-label col-xs-4">收费区分代码</label>
+									<div class="col-xs-8">
+										<select id="chargePartitionCode" name="chargePartitionCode" data-info="charge"
+											class="bs-select form-control required" data-url="/basedata/ChargeCO/Charge/dictexs"
+											data-model="retail" data-labelValue="CHARGE_PARTITION_CODE"
+											data-lableDesc="CHARGE_PARTITION_NAME" data-ajaxSync = "true">
+										</select>
+										<input type="hidden" id="chargePartitionName" name="chargePartitionName" value="">
+									    <input type="hidden" name="discount" id="discount" value="1">
+									</div>
+								</div>
+							</div>
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">备注</label>
+								<div class="col-xs-8">
+								<input id="remark" name="remark" class="form-control" type="text"  maxlength="400"/>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a  data-onclickEvent="true" class="btn blue" data-validate="true"> <i class="fa fa-save"></i>确定</a> 
+			<a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+			<div class="hidden">
+			<a data-onclickEvent1="true"></a>
+			</div>
+		</div>
+		
+	</form>
+</div>
+
+<script type="text/javascript">
+
+	$(document).one("onload.dms",function(event,container){
+		$("select[name='addItemCodes']",container).bindChange(function(obj){
+			var addItemCode=$("#addItemCodes",container).val();
+			var addItemName=$('option:selected',$("#addItemCodes",container)).text();
+			var addItemAmount=dmsDict.getSelectedOptionData($("#addItemCodes",container)).ADD_ITEM_AMOUNT;
+			$("input[name='addItemName']",container).setDmsValue(addItemName);
+			$("input[name='addItemCode']",container).setDmsValue(addItemCode);
+			$("input[name='addItemAmount']",container).setDmsValue(addItemAmount);
+			$("input[name='disAddItemAmount']",container).setDmsValue(addItemAmount);
+			var chargePartitionCode=$("#chargePartitionCode",container).val();
+			var chargePartitionName=$('option:selected',$("#chargePartitionCode",container)).text();
+		});
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			var addItemAmount=$("#addItemAmount",container).val();
+			var formJson = $("div[data-parentTable='roAddItemInfoTable']",container).serializeFormJson();
+			$("#subjoinList",getElementContext()).dmsTable().appendRow(formJson);
+			//计算总金额
+			var disAddItemAmount=$("#disAddItemAmount",container).val();
+			if(disAddItemAmount=="NaN"||disAddItemAmount==""){
+				disAddItemAmount=0;
+			}
+			var addItemAmount=parseFloat($("#addItemAmount",getElementContext()).val())+parseFloat(disAddItemAmount);
+			$("#addItemAmount",getElementContext()).setDmsValue(addItemAmount.toFixed(2));
+		});
+	});
+</script>

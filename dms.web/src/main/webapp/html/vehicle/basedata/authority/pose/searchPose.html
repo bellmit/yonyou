@@ -1,0 +1,148 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">职位类别</label>
+							<div class="col-xs-8">
+								<select id="poseType" name="poseType" class="bs-select form-control required" data-type="oemDict" data-dictCode="1002" data-value="10021001" data-existsDefault="false">
+								</select>
+							</div>
+						</div>
+					</div>	
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">状态</label>
+							<div class="col-xs-8">
+								<select id="poseStatus" name="poseStatus" class="bs-select form-control" data-type="oemDict" data-dictCode="1001"  data-existsDefault="false">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">职位代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="poseCode" name="poseCode">
+							</div>
+						</div>
+					</div>		
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">职位名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="poseName" name="poseName">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" id="oemOrg">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">车厂组织</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input type="hidden" class="form-control" id="orgId" name="orgId">	
+										<input type="text" class="form-control" readonly id="orgName" name="orgName">
+										
+										<span class="input-group-btn">
+													<button class="btn default btn-sm" type="button" data-url="manage/basedata/employee/selectOemDept.html"
+														data-toggle="modal" data-width="modal-sm"> <i class="fa fa-sitemap"></i>
+													</button>
+													<button class="btn default input-clear" type="button">
+		                                            	<i class="fa fa-close"></i>
+		                                    		</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 hidden" id="dealer" data-tableSelect="true">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商代码</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+									<input id="companyId" name="companyId" readonly type="hidden">
+									<input id="dealerId" name="dealerId" readonly type="hidden">
+									<input id="companyShortname" readonly
+										name="companyShortname" class="form-control required" type="text"
+										data-fieldName="dealer_code" /> <span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="vehicle/basedata/authority/pose/searchDealersCompany.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>		
+					
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >职位信息</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" data-url="vehicle/basedata/authority/pose/addPose.html" data-width="modal-lg"
+								data-toggle="modal"> <i class="fa fa-plus-square"></i> 新增
+							</a> 
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["web"] + "/pose",
+			rowID : "POSE_ID",
+			sortName : "POSE_CODE",
+			sortOrder : "ASC",
+			columns : [ 
+			    {field : "POSE_ID",title : "操作",operateFormat : [
+                       {type:"edit",url:"vehicle/basedata/authority/pose/editPose.html",openWidth:"modal-lg" }
+                   ]
+                },  
+			    {field : "POSE_CODE",title : "职位代码"}, 
+			    {field : "POSE_NAME",title : "职位名称"}, 
+				{field : "POSE_TYPE",title : "职位类别",codeFormat : {type:"oemDict",codeType:"1002"}}, 
+				{field : "POSE_STATUS",title : "状态" ,codeFormat : {type:"oemDict",codeType:"1001"}}
+			]
+
+		});
+		//绑定onchange 事件
+		$("[name='poseType']",container).bindChange(function(obj){
+			if(obj.value==10021002){
+				$("#oemOrg",container).addClass("hidden");
+				$("#dealer",container).removeClass("hidden");
+			}else{
+				$("#oemOrg",container).removeClass("hidden");
+				$("#dealer",container).addClass("hidden");
+			}			
+		});
+	});
+</script>

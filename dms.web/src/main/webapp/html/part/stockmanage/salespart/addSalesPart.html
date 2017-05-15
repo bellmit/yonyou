@@ -1,0 +1,233 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<!-- <div class="panel-heading">
+				<div class="pannel-name">销售出库单</div>
+				<div class="pannel-tools">
+					<a href="javascript:;" class="expand"> <i
+						class="fa fa-chevron-down"></i></a>
+				</div>
+			</div> -->
+			<div class="panel-body">
+				<div class="row" data-rono="ro_no">
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">销售单号</label>
+							<div class="col-xs-8">
+								<input id="salesPartNo" name="salesPartNo" disabled class="form-control" type="text" />
+							</div>
+						</div>
+					</div>
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group"   >
+							<label class="control-label col-xs-4">工单号</label>
+							<div class="col-xs-8 ">
+								<div class="input-group">
+									<input type="text" class="form-control" id="roNo" name="roNo" data-fieldName="RO_NO" readonly>
+									<input type="hidden" class="form-control" id="roId" name="roId" data-fieldName="RO_ID" readonly>
+									<span class="input-group-btn">
+										<button class="btn default btn-sm" type="button" data-url="part/stockmanage/salespart/selectRepairOrder.html" data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">开单日期</label>
+							<div class="col-xs-8">
+								<div class="input-group date date-picker " data-date-format="yyyy/mm/dd">
+									<input id="orderDate" name="orderDate" readonly class="form-control required" type="text" value="" />
+									<span class="input-group-btn">
+										<button class="btn default date-set" type="button">
+											<i class="fa fa-calendar"></i>
+										</button>
+										<button class="btn default date-reset" type="button">
+											<i class="fa fa-times"></i>
+										</button>
+									</span>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group" data-tableSelect="true">
+							<label class="control-label col-xs-4">客户名称</label>
+							<div class="col-xs-8 ">
+								<div class="input-group" >
+									<input type="hidden" class="form-control" id="customerCode" name="customerCode" data-fieldName="CUSTOMER_CODE">
+									<input type="text" class="form-control required" id="customerName" name="customerName" data-fieldName="CUSTOMER_NAME" readonly>
+									<!-- <input type="text" class="form-control" id="customerType" name="customerType" data-fieldName="CUSTOMER_TYPE"> -->
+									<input type="hidden" class="form-control" id="customerId" name="customerId" data-fieldName="PART_CUSTOMER_ID">
+									<input type="hidden" class="form-control" id="priceRate" name="priceRate" data-fieldName="PRICE_RATE" />
+									<span class="input-group-btn">
+										<button class="btn default btn-sm" type="button" data-alert="cusorown" data-beforeShowEvent="true" onclick="return false" data-url="part/stockmanage/partbuy/selectPartCustomer.html" data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+						    <label class="control-label col-xs-4"></label>
+							<div class="col-xs-8">
+								<input id="status" name="customerType" type="radio"
+										data-dictCode="1038" data-value="10381001"  data-fieldName="CUSTOMER_TYPE"/>
+							</div>
+						</div>
+					</div>	
+					
+
+					<div class="col-xs-12  col-sm-12 col-md-8">
+						<div class="form-group">
+							<label class="control-label col-xs-2">备注</label>
+							<div class="col-xs-10">
+								<!-- <textarea class="form-control" cols="2" rows="2"> </textarea> -->
+								<input id="remark" name="remark" type="text" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					
+					
+					 
+					 
+					 
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name">销售出库单明细</div>
+				<div class="pannel-button">
+					<div class="btn-group btn-group-sm">
+						<a class="btn btn-outline" data-url="part/stockmanage/salespart/partInfoList.html" data-toggle="modal" data-beforeShowEvent="true" data-alert="partinfo" data-width="modal-lg">
+							<i class="fa fa-plus-square"></i>
+							添加
+						</a>
+						<a class="btn btn-outline" data-url="part/stockmanage/salespart/importSalesItem.html" data-toggle="modal" data-width="modal-lg">
+							<i class="fa fa-upload"></i>
+							导入
+						</a>
+						<a href="javascript:;" data-url="/basedata/download/template/partsalesoutTemplate" data-model="web" data-method="downLoad" class="btn btn-outline ajaxrest" data-validate = "false">
+							<i class="fa fa-download"></i>
+							模板
+						</a>
+						<div class="hidden">
+							<a href="part/stockmanage/salespart/editSalesPart.html" class="btn btn-outline ajaxify" data-onclickEvent="true">
+								<i class="fa fa-plus-square"></i>
+								保存成功后
+							</a>
+							<a class="btn btn-outline" data-onclickEvent1="true" data-url="part/stockmanage/partbuy/selectPartCustomer.html" data-toggle="modal" data-width="modal-lg">
+								<i class="fa fa-plus-square"></i>
+								往来客户
+							</a>
+							<a class="btn btn-outline" data-onclickEvent2="true" data-url="part/stockmanage/salespart/selectPartCarowner.html" data-toggle="modal" data-width="modal-lg">
+								<i class="fa fa-list-alt">车主</i>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive" id="salesPartItemDtos">
+			</table>
+		</div>
+	</div>
+	<div class="modal-footer center-block">
+						<div class="col-xs-12 ">
+							<div class="query-btn">
+								<a data-url="/stockmanage/salesparts" data-method="POST" data-model="part" data-toggle="confirmation" data-callBack="true" class="btn blue">
+									<i class="fa fa-save"></i>
+									保存
+								</a>
+								<a id="finish" disabled="disabled" data-errorCallBack="true" data-toggle="confirmation" data-callBack="true" data-toggle="confirmation" class="btn blue">
+									<i class="fa fa-save"></i>
+									入账
+								</a>
+								<a data-goback="page" href="part/stockmanage/salespart/searchSalesPart.html" class="btn blue ajaxify">
+									<i class="fa fa-reply"></i>
+									返回
+								</a>
+							</div>
+						</div>
+					</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	
+	$(document).one("onload.dms",function(event,container){
+		 new Datatable().initLocale({
+			src : "salesPartItemDtos",
+			rowID:"",
+			container:container,//[ {type : "localDel",onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){}} ]},
+			columns : [
+                       {field : "",title : "操作",operateFormat : [ {type : "localDel"} ]},
+			           {field : "isFinishedShow",title : "是否入账",codeFormat:{type:"dict",codeType:"1004"}},
+			           {field : "partCodeShow",inputField:"partNo",inputHiddenFormat : {},title : "配件代码"}, 
+			           {field : "partNameShow",inputField:"partName",inputHiddenFormat : {},title : "配件名称"},
+			           {field : "storageCodeShow",inputField:"storageCode",inputHiddenFormat : {},title : "仓库名称",inputSelectFormat : {url:"/basedata/store/accessories/Warehouses",model:"part",labelValue:"STORAGE_CODE",lableDesc:"STORAGE_NAME"}}, 
+			           {field : "storagePositionCodeShow",inputField:"storagePositionCode",inputHiddenFormat : {},title : "库位",inputTextFormat:{validate:{validateAttr:'maxLength="30"'}}}, 
+			           {field : "unitShow",inputField:"unit",inputHiddenFormat : {},title : "计量单位"}, 
+			           {field : "canNumShow",inputField:"partQuantity",inputHiddenFormat : {},title : "出库数量",numberFormat : {decimal : 4}}, 			           
+			           {field : "salesPriceShow",inputField:"partSalesPrice",inputHiddenFormat : {},title : "销售单价",numberFormat : {decimal : 2}},   
+			           {field : "salesAmountShow",inputField:"partSalesAmount",inputHiddenFormat : {},title : "销售金额"},
+			           {field : "disCountShow",inputField:"discount",inputNumberFormat : {},title : "折扣率",inputNumberFormat : {decimal : 2,validate:{validateAttr:'maxPrecision="2" maxDigit="1"'}}},
+			           {field : "disAmountShow",inputField:"salesAmount",inputHiddenFormat : {},title : "折后金额",numberFormat : {decimal : 2,autoValueFormat:{autoValue:"#partSalesAmount*#discount" }}}
+			          ]
+		});
+		 
+		 //绑定事件
+		 $("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			 	$("a[data-onclickEvent='true']",container).data("pageData",response);
+			    $("a[data-onclickEvent='true']",container).click();
+		 });
+		 //添加事件
+		 $("a[data-alert='partinfo']",container).on("beforeShow.dms",function(event,returnResult){
+			var parentTableRow = $("#priceRate",getElementContext()).val();		
+			//设置页面初始化值
+			//如果价格系数为空   默认为1
+			if(parentTableRow==""){
+				parentTableRow=1;
+			}
+			var map={key1:parentTableRow}
+			$(this).data("pageData",map);
+			returnResult.status = true;
+		 });
+		 //根据单选按钮  弹框
+		 $("button[data-alert='cusorown']",container).on("beforeShow.dms",function(event,returnResult){
+			    var result2 = $("input[name='customerType']:checked").val();
+			   // $("#customerType",container).val(result2);
+			    //往来客户
+			    if("10381001"==result2){			        			    	 
+			    	 $("a[data-onclickEvent1='true']",container).click();
+			    	 $("#roNo",container).val("");
+			    	
+			    }
+			    //车主
+			    if("10381002"==result2){
+			    	 $("a[data-onclickEvent2='true']",container).click();
+			    }  
+			   
+		});
+		 //根据单选按钮  弹框
+		 $("input[name='customerType']",container).on("click",function(event,returnResult){
+			 $("#roNo",container).val("");
+			 $("#customerName",container).val("");
+			   
+		});
+		 
+	});
+</script>
+

@@ -1,0 +1,135 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">订单编号</label>
+								<div class="col-xs-8">
+									<input id="soNo" name="soNo" class="form-control" type="text" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">客户名称</label>
+								<div class="col-xs-8">
+									<input id="customerName" name="customerName"
+										class="form-control" type="text" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">VIN号</label>
+								<div class="col-xs-8">
+									<input id="vin" name="vin" class="form-control" type="text" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">合约编号</label>
+								<div class="col-xs-8">
+									<input id="soNo" name="soNo" class="form-control" type="text" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row ">
+						<div class="col-xs-12 ">
+							<div class="query-btn">
+								<a href="javascript:;" class="btn blue"> <i
+									class="fa fa-search"></i>查询
+								</a>
+								<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">销售订单信息</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_table"></table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-onclickEvent="true"><i
+				class="fa fa-save"></i>确定</a> <a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["retail"] + "/ordermanage/invoiceregisters/registers/salesOrderSel/set",
+			rowID : "SO_NO",
+			sortName : "SO_NO",
+			sortOrder : "desc",
+			autoHeight:false,
+			undefinedText : "",
+			columns : [ 
+				{radio:true},      
+                {field:"SO_NO",title:"订单编号"},
+                 {field:"VIN",title:"VIN"},
+    			{field:"SO_STATUS",title:"订单状态",codeFormat : {type:"dict",codeType:"1301"}},
+    			//{field:"IS_SPEEDINESS",title:"是否快速订单",codeFormat : {type:"dict",codeType:"1278"}},
+                {field:"CUSTOMER_NO",title:"客户编号"},
+                {field:"CUSTOMER_NAME",title:"客户名称"},
+                {field:"CUS_SOURCE",title:"客户类型",visible:false},
+                {field:"BRAND_NAME",title:"品牌"},
+                {field:"SERIES_NAME",title:"车系"},
+                {field:"MODEL_NAME",title:"车型"},
+    			{field:"BRAND_CODE",title:"品牌",inputSelectFormat : {url:"/basedata/brandsdict",model:"manage",labelValue:"BRAND_CODE",lableDesc:"BRAND_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"},visible:false},
+    			{field:"SERIES_CODE",title:"车系", inputSelectFormat : {url:"/basedata/selectSeries",model:"manage",labelValue:"SERIES_CODE",lableDesc:"SERIES_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"},visible:false},
+    			{field:"MODEL_CODE",title:"车型", inputSelectFormat : {url:"/basedata/intentionModel",model:"manage",labelValue:"MODEL_CODE",lableDesc:"MODEL_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"},visible:false},
+    			{field:"CONFIG_CODE",title:"配置"},
+    			{field:"COLOR_NAME",title:"颜色"},
+    			{field:"COLOR_CODE",title:"颜色", inputSelectFormat : {url:"/basedata/colors/colorInfo/dicts",model:"repair",labelValue:"COLOR_CODE",lableDesc:"COLOR_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"},visible:false},
+    			{field:"CONTRACT_NO",title:"合约编号"},
+    			{field:"CONTRACT_DATE",title:"签约日期",dateFormat : {format:"YYYY-MM-DD"}},
+    			{field:"USER_NAME",title:"销售顾问"},
+    			{field:"OWNED_BY",title:"销售顾问",visible:false},
+    			{field:"LOCK_USER",title:"锁定人",visible:false},
+    			{field:"LOCK_BY",title:"锁定人"},
+    			{field:"DELIVERING_DATE",title:"预交车时间",dateFormat : {format:"YYYY-MM-DD"}}, 
+    			{field:"CERTIFICATE_NO",title:"隐藏",visible:false},
+    		
+    			]
+		});
+		
+		//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			var selectRow = $("#dms_table",container).dmsTable().getFirstSelection();
+			selectRow['OLD_CER_NO']=selectRow.CERTIFICATE_NO;
+
+			if(selectRow.CUS_SOURCE==13111021){
+		
+				$("#certificateNo",getElementContext()).attr("disabled","disabled");
+				$("#ctCode",getElementContext()).attr("disabled","disabled");
+			}else{
+				$("#certificateNo",getElementContext()).removeAttr("disabled");
+				$("#ctCode",getElementContext()).removeAttr("disabled");
+			}
+			$("div[data-tableSelect='true']",getElementContext()).initHtmlContent(selectRow);
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+		});
+	});
+</script>  

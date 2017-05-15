@@ -1,0 +1,76 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<h4 class="modal-title">收费区分新增</h4>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+    		<div class="panel panel-default">
+				<div class="panel-body">
+		            <div class="row">
+				<div class="col-xs-12">
+					<div class="form-group">
+						<label class="control-label col-xs-4">收费区分代码</label>
+						<div class="col-xs-8">
+							<input id="charge_partition_code" name="charge_partition_code" maxlength="4" class="form-control required systemCode"  type="text" />
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-12 ">
+					<div class="form-group">
+						<label class="control-label col-xs-4">收费区分名称</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control required" id="charge_partition_name" maxlength="20" name="charge_partition_name">
+					    </div>
+					</div>
+				</div>
+				
+				<div class="col-xs-12">
+					<div class="form-group">
+						<label class="control-label col-xs-4">是否OEM</label>
+						<div class="col-xs-8">
+							<select id="oem_tag" name="oem_tag"
+									class="bs-select form-control" data-dictCode="1278"
+									data-value="12781002" data-existsDefault="false" disabled="disabled"></select>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-12">
+					<div class="form-group">
+						<label class="control-label col-xs-4">结算是否打印</label>
+						<div class="col-xs-8">
+							<select id="is_print" name="is_print"
+									class="bs-select form-control" data-dictCode="1278"
+									data-value="12781001" data-existsDefault="false"></select>
+						</div>
+					</div>
+				</div>
+				</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/basedata/ChargeCO/Charge" data-model="retail" data-method="POST" data-callBack="true"  class="btn blue" data-toggle="confirmation" >
+			<i class="fa fa-save"></i>保存</a>
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#tm_charge_partition",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+});
+
+</script>

@@ -1,0 +1,72 @@
+<div class="dms-edit ajaxrest" 
+	data-model="manage">
+	<!-- BEGIN FORM-->
+	<form class="form-horizontal">
+	    <input type="hidden" id="delModels" name="delModels" >
+		<div class="panel panel-default table-panel">
+		    <div class="panel-heading">
+				<div class="pannel-name">活动车型</div>
+				<div class="btn-group btn-group-sm">
+					<a class="btn btn-outline" data-url="repair/activity/selectConfiguration.html" data-toggle="modal" data-width="modal-lg"><i class="fa fa-plus-square"></i>新增</a> 
+		       </div>
+		    </div>
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="modelList">
+				</table>
+				<input type="hidden" id="afterDiscountAmountPart" name="afterDiscountAmountPart" value="0">
+				<input type="hidden" id="zkAmountPart" name="zkAmountPart" value="0">
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+		    <div class="panel-heading">
+				<div class="pannel-name">活动车辆</div>
+				<div class="btn-group btn-group-sm">
+					<!-- <a class="btn btn-outline" data-url="repair/activity/selectVehicleInfo.html" data-toggle="modal" data-width="modal-lg"><i class="fa fa-plus-square"></i>新增</a>  -->
+		       </div>
+		    </div>
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="vehicleList">
+				</table>
+				<!-- <input type="hidden" id="afterDiscountAmountPart" name="afterDiscountAmountPart" value="0">
+				<input type="hidden" id="zkAmountPart" name="zkAmountPart" value="0"> -->
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		
+		new Datatable().initLocale({
+			src : "modelList",
+			container:container,
+			columns : [ {field : "",inputField:"",inputTextFormat:{},title : "操作",operateFormat : [ {type : "localDel",onAfterEvent:function(value, row, index){
+							
+			            }} ]},
+			            //{field : "BRAND_NAME",inputField:"packageId",inputHiddenFormat : {hiddenField:"PACKAGE_ID"},title : "品牌"}, 
+			            {field : "SERIES_NAME",inputField:"packageId",inputHiddenFormat : {hiddenField:"PACKAGE_ID"},title : "车型"}, 
+			            {field : "MODEL_NAME",inputField:"modelCode",inputHiddenFormat : {},title : "版本"}, 
+			            {field : "CONFIG_NAME",inputField:"",inputHiddenFormat : {},inputHiddenFormat : {},title : "车款"}, 
+			            {field : "COLOR_NAME",inputField:"",inputHiddenFormat : {},inputHiddenFormat : {},title : "颜色"}/* ,
+			            {field : "BEGIN_VIN",inputField:"beginVin",inputHiddenFormat : {},title : "VIN号后6位开始"},
+			            {field : "END_VIN",inputField:"endVin",inputHiddenFormat : {},title : "VIN号后6位结束"} */
+			         ]
+		});
+		
+		new Datatable().initLocale({
+			src : "vehicleList",
+			container:container,
+			columns:[{field : "",inputField:"",inputTextFormat:{},title : "操作",operateFormat : [ {type : "localDel",onAfterEvent:function(value, row, index){}}]},
+					{field:"VIN",title : "VIN"}, 
+					{field:"LICENSE",title : "车牌号"}, 
+					{field:"OWNER_NAME",title:"车主姓名"},
+					{field:"CONTACTOR_NAME",title : "联系人姓名"},
+					{field:"CONTACTOR_PHONE",title : "联系人电话"}]
+		});
+	});
+
+</script>

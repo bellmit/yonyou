@@ -1,0 +1,250 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+			<div class="modal-title">工具定义编辑</div>
+		</div>
+		<div class="modal-body">
+    		<div class="panel panel-default">
+				<div class="panel-body">
+		            <div class="row">
+		            
+				 <div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4 ">工具代码</label>
+					<div class="col-xs-8">
+						<input type="text" class="form-control  required"  id="toolCode" 
+						name="toolCode" maxlength="15"  >
+					</div>
+				</div>
+			</div>
+			  <div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4 ">工具名称</label>
+					<div class="col-xs-8">
+						<input type="text" class="form-control  required" id="toolName" 
+						name="toolName"  maxlength="60" >
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">工具拼音</label>
+					<div class="col-xs-8 ">
+						<input type="text" class="form-control" id="toolSpell" name="toolSpell" 
+						maxlength="20" data-autoPinYin="#toolName"  disabled="disabled">
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">工具类别</label>
+					<div class="col-xs-8 ">
+								<select class="bs-select form-control" id="toolTypeCode"name="toolTypeCode" 
+									data-url="/basedata/ToolsType/Select" data-model="part" 
+									data-lableDesc="TOOL_TYPE_NAME" data-labelValue="TOOL_TYPE_CODE" data-live-search="true">
+									</select> 
+					</div>
+				</div>
+			</div>
+			
+		<!-- 	<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">工具类别名称</label>
+					<div class="col-xs-8 ">
+						<input type="hidden" id="" name="toolTypeName"  />
+								<select class="bs-select form-control" id="toolTypeName"name="toolTypeName" 
+									data-url="/basedata/ToolsType/Select" data-model="part" 
+									data-lableDesc="TOOL_TYPE_CODE" data-labelValue="TOOL_TYPE_NAME" data-live-search="true">
+									</select> 
+					</div>
+				</div>
+			</div> -->
+		<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">计量单位名称</label>
+					<div class="col-xs-8 ">
+								<select class="bs-select form-control" id="unitCode"name="unitCode" 
+									data-url="/basedata/unit/Select" data-model="part" 
+									data-lableDesc="CODE_NAME" data-labelValue="UNIT_CODE" data-live-search="true">
+									</select> 
+									<!-- <select  parent="unitCode" class="bs-select form-control" id="unitCode"name="unitCode" 
+									data-url="/basedata/unit/Select" data-model="part" 
+									data-lableDesc="CODE_NAME" data-labelValue="CODE_NAME" data-live-search="true">
+									</select> --> 
+					</div>
+				</div>
+			</div>
+		<div class="col-xs-12 col-sm-6 col-md-4 hidden">
+				<div class="form-group">
+					<label class="control-label col-xs-4">借进数量</label>
+					<div class="col-xs-8 ">
+						<input type="text" class="form-control" id="lendQuantity" name="lendQuantity" 
+						disabled="disabled">
+					</div>
+				</div>
+			</div>
+				<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4 hidden">
+				<div class="form-group">
+					<label class="control-label col-xs-4">库存数量</label>
+					<div class="col-xs-8 ">
+						<input type="text" class="form-control" id="stockQuantity" name="stockQuantity" 
+						 disabled="disabled" >
+					</div>
+				</div>
+			</div>
+			
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">存放位置</label>
+					<div class="col-xs-8 ">
+						<input type="text" class="form-control" id="position" 
+						name="position" maxlength="30"  >
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="form-group">
+					<label class="control-label col-xs-4">负责人</label>
+					<div class="col-xs-8 ">
+						<select class="bs-select form-control" id="principal"name="principal" 
+									data-url="/basedata/ToolDefine/Employee/Select" data-model="part" 
+									data-lableDesc="PRINCIPAL_NAME" data-labelValue="PRINCIPAL" data-live-search="true">
+									</select> 
+								<!-- 	<select  parent="principal" class="bs-select form-control" id="principalName"name="principal" 
+									data-url="/basedata/ToolDefine/Employee/Select" data-model="part" 
+									data-lableDesc="PRINCIPAL_NAME" data-labelValue="PRINCIPAL_NAME" data-live-search="true">
+									</select>  -->
+					</div>
+				</div>
+			</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">固定资产编号</label>
+						<div class="col-xs-8">
+							<input id="capitalAssertsManageNo" name="capitalAssertsManageNo" 
+							class="form-control "  type="text" maxlength="30" />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">使用年限</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control " maxlength="5" id="dateValidity" 
+							name="dateValidity"   value="0.00" />
+					    </div>
+					</div>
+				</div>
+			
+			</div>
+		</div>
+		</div>
+		</div>
+		<div class="modal-footer center-block">
+<!-- 		data-url="/basedata/ToolsType" data-model="part" data-method="POST"  data-callBack="true"  -->
+			<a   class="btn blue"  data-toggle="confirmation"  data-beforeRequest="true">
+				<i class="fa fa-save" ></i>确定</a>
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+
+<script type="text/javascript">
+ $(document).one("onload.dms",function(event,container){
+		//给故障描述增加失去焦点事件
+		$('input[id=toolCode]',  container).on('blur',function(){
+			  var val = this.value;
+			  //console.log(val);
+			  dmsCommon.ajaxRestRequest({
+				  url:dmsCommon.getDmsPath()['part']+"/basedata/ToolDefine/"+val,
+				  type: "GET",
+				  sucessCallBack : function(modelData) {
+					//console.log(modelData.TOOL_CODE);
+						if(modelData.TOOL_CODE!=null){
+							//console.log(11);
+							dmsCommon.tip({status:"error",msg:"该代码已存在！"});
+							 dmsCommon.refreshPageByUrl("part/basedata/ToolDefine/addToolDefine.html",container);
+						} 
+						//	dmsCommon.tip({status:"success",msg:"该代码尚未被使用！"});
+				}
+			  });
+       });
+	//$("#toolTypeName").val()=	$("#toolTypeCode"). ; 
+	 //新增页面的回调函数
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			 //将新增的数据追加到查询页面的表格中
+			 var unitName=$('#unitCode option:selected').text();
+   			var num=unitName.indexOf("|");
+   			var name=unitName.substring(num+1);
+			 var jsonTr = {};
+			 if($('#lendQuantity',container).val()==""){
+				 jsonTr['LEND_QUANTITY']="0";
+			 }else{
+				 jsonTr['LEND_QUANTITY']=$('#lendQuantity',container).val();//借进数量
+			 }
+			 if($('#stockQuantity').val()==""){
+				 jsonTr['STOCK_QUANTITY']="0";
+			 }else{
+				 jsonTr['STOCK_QUANTITY']=$('#stockQuantity').val();//库存数量
+			 }
+			
+			 
+			 jsonTr['TOOL_CODE']=$('#toolCode',container).val();//代码
+			 jsonTr['TOOL_NAME']=$('#toolName').val();//名称
+			 jsonTr['TOOL_SPELL']=$('#toolSpell',container).val();//拼音
+			 jsonTr['TOOL_TYPE_CODE']=$('#toolTypeCode option:selected',container).val();//工具类别
+			 if($('#toolTypeCode option:selected ',container).text()=="请选择"){
+				 jsonTr['TOOL_TYPE_NAME']=null;
+			 }else{
+				 jsonTr['TOOL_TYPE_NAME']=$('#toolTypeCode option:selected ',container).text();
+			 }
+			
+			 jsonTr['UNIT_CODE']=$('#unitCode option:selected').val();//单位
+			 if(name=="请选择"){
+				 jsonTr['UNIT_NAME']=null;
+			 }else{
+				 jsonTr['UNIT_NAME']=name;
+			 }
+			 jsonTr['POSITION']=$('#position',container).val();//存放位置
+			 jsonTr['CAPITAL_ASSERTS_MANAGE_NO']=$('#capitalAssertsManageNo').val();//固定资产编号
+			// jsonTr['PRINCIPAL']=$('#principal',container).val();//负责人编号
+			 jsonTr['PRINCIPAL']=$('#principal option:selected',container).val();
+			if($('#principal option:selected',container).text()=="请选择"){
+				 jsonTr['PRINCIPAL_NAME']=null;
+			}else{
+				 jsonTr['PRINCIPAL_NAME']=$('#principal option:selected',container).text();
+			}
+			 var dateValidity=$('#dateValidity').val();
+			 if(parseFloat(dateValidity)>=100.00){
+					//总共的状态类型：info、success、error、warning
+						dmsCommon.tip({status:"error",msg:"使用年限超出最大范围！"});
+						returnResult.status =false;
+						return ;
+				}
+			 jsonTr['DATE_VALIDITY']=dateValidity;//使用年限
+			 jsonTr['FLAG']="A";
+			 console.log(jsonTr);
+			 $("#dms_toolsType",getElementContext()).dmsTable().appendRow(jsonTr,true);
+			//关闭窗口
+		   $("a[data-dismiss='modal']",container).click();
+		   $("#delete",getElementContext()).removeAttr("disabled");
+		   $("#save",getElementContext()).removeAttr("disabled");
+		   returnResult.status =true;
+			//刷新表格
+		//$("#dms_toolsType",getElementContext()).dmsTable().refreshTableWithForm();
+		}); 
+		
+	});
+</script>
+
+

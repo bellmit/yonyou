@@ -1,0 +1,74 @@
+<div class="dms-edit ajaxrest" data-url="/furtherOrderRangeSetting/queryInit" data-model="vehicle" data-pageInitCallBack="true">
+	<form class="form-horizontal" >
+		<div class="modal-body">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<input id="codeId" name="codeId" type="hidden" data-fieldName="code_id" />
+					<input id="ischeck" name="ischeck" type="hidden" data-fieldName="IS_CHECK" />
+					<input id="nodes" name="nodes" type="hidden" />
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-12">车辆节点</label>
+							<div class="col-xs-12">
+									<input id="nodeStatus" name="nodeStatus" type="checkbox"
+										data-type="oemDict" data-dictCode="1151"
+										data-excludeItems="11511016,11511008,11511019,11511018,11511020,11511015,11511012,11511011,11511010,11511009" />
+								</div>
+						</div>
+					</div>		
+				</div>
+		    <div class="modal-footer center-block">
+		      <a data-url="/furtherOrderRangeSetting/settingRange" data-model="vehicle" data-method="PUT"  
+			    data-callBack="true" class="btn blue" data-beforeRequest="true"
+			    data-toggle="confirmation"><i class="fa fa-save"></i>设定范围</a>
+	         </div>
+				
+			</div>
+		</div>
+		</div>
+	</form>
+	
+</div>
+<script type="text/javascript">
+//页面加载后初始化
+$(document).one("onload.dms",function(event,container){
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+		var addIds ="";
+		$("INPUT[name='nodeStatus']").each( function() {
+			if(this.checked==true) {
+				
+				if(addIds==""){
+					addIds = this.value;
+				}else{
+					addIds = addIds+ "," + this.value;
+				}
+			}
+	    });
+		if(addIds==""){
+			dmsCommon.tip({status:"warning",msg:"请选择设置节点"});
+			returnResult.status = false;
+		}else{
+			$("#nodes",container).setDmsValue(addIds);
+			returnResult.status = true;
+		}
+	});
+	//页面初始化
+	$("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){
+		var codeIds = $("#codeId",container).val();
+		$("INPUT[name='nodeStatus']").each( function() {
+				var ids = codeIds.split(",");
+				for (var i = 0; i < ids.length; i++) {
+					if(this.value == ids[i]){
+						$(this).attr('checked', true);
+					}
+				}
+	    });
+	});  
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//刷新表格
+		dmsCommon.tip({status:"info",msg:"设定成功"});
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+});
+</script>

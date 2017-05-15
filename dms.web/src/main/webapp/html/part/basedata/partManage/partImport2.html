@@ -1,0 +1,191 @@
+<div class="dms-add">
+	<form  class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+			
+				<div class="row ">
+				
+					
+					<div class="form-group">
+						<label class="control-label">1.点击“浏览”按钮，选择您要导入的文件，文件格式为：配件代码、配件名称、订货数量</label>
+						<a href="javascript:;" class="btn blue" data-url="/partOrderManageDLR/downloadTemple" data-model="part" data-method="downLoad" data-toggle="confirmation" > <i
+								class="fa fa-search" ></i> 下载模板
+							</a>  
+					</div>
+				</div>	
+				<div class="row ">
+	
+					<div class="form-group">
+						 <input type="hidden" id="partCodes" name="partCodes"/>
+						 <input type="hidden" id="orderType2" name="orderType2"/>
+						 <input type="file" class="importData" id="fileupload" name="file">
+					</div>
+				</div>
+				
+				<div class="row ">
+					<div class="form-group">
+						<label class="control-label">2.选择文件后点击“确定”按钮.</label>
+						<a href="javascript:;"  class="btn blue"  
+						data-url="/partOrderManageDLR/exporOrderPartData" 
+						data-model="part" data-callBack="true" 
+						data-errorCallBack="true"  data-toggle="confirmation" 
+						data-method="importData">
+						<i class="fa fa-upload">确定</i>
+						</a>
+					
+					</div>
+					<div class="modal-footer center-block">
+					<a  id="save"  
+					    class="btn blue" data-onclickEvent="true"><i
+						class="fa fa-save"></i>添  加</a>
+						
+						 <a data-dismiss="modal" class="btn blue" id="undo2"><i
+						class="fa fa-undo"></i>返回</a> 
+					</div>
+					<div class="panel panel-default table-panel margin-top-5"
+				id="errorInfoPanpel">
+				<div class="panel-heading">
+					<div class="pannel-name">错误信息列表</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="errorList">
+					</table>
+				</div>
+			</div>
+			
+				<div class="panel panel-default table-panel margin-top-5" id="successPlanPanpel">
+				<div class="panel-heading">
+					<div class="pannel-name">导入信息列表</div>
+				</div>
+				<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="successList">
+	 			</table>
+				</div>
+			
+		</div>
+					
+				</div>
+				
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+
+
+	$(document).one("onload.dms",function(event,container){
+		
+		var strs= new Array(); //定义一数组 
+		var partCodeps = $("#partCode",getElementContext()).val();
+		var partCodes = "";
+		if(partCodeps!='' && partCodeps!=null){
+			strs=partCodeps.split(","); 
+			for (var i=0;i<strs.length-1;i++) {
+	    		var partCode = strs[i];
+	    		if(i!=strs.length-2){
+	    			partCodes += partCode + ",";
+	    		}else{
+	    			partCodes += partCode;
+	    		}
+	    	}
+		}
+	
+		document.getElementById("partCodes").value = partCodes;
+		var orderType1 = $("#orderTypeA",getElementContext()).val();
+		document.getElementById("orderType2").value = orderType1;
+		//导入异常信息
+		var errInfo = 'S';
+		
+		//创建表格
+		new Datatable().initLocale({
+			src : "errorList",
+			container:container,
+			columns : [ 
+			            {field : "rowNO",title : "行号"},
+			            {field : "errorMsg",title : "错误原因"}
+			         ]
+		});
+
+		//创建表格
+		new Datatable().initLocale({
+			src : "successList",
+			container:container,
+			columns : [	
+						{title: "行号", field:'LINE_NO'},
+						{title: "配件代码", field:'PART_CODE'},
+						{title: "配件名称", field:'PART_NAME'},
+						{title: "订货数量", field:'ORDER_NUM'},
+						{title: "导入校验信息", field:'ERR_INFO'}
+					]
+		});
+
+		$("#errorInfoPanpel",container).hide();
+		$("#successPlanPanpel",container).hide();
+
+		//当导入临时表成功后的回调
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//$("a[data-goback='page']",container).click();
+			errInfo = 'Y';
+			dmsCommon.ajaxRestRequest({
+				src : "successList",
+				container : container,
+				url : dmsCommon.getDmsPath()["part"] + "/partOrderManageDLR/queryExportList",
+				type: 'GET',
+				sucessCallBack : function(data) {
+					//显示
+					$("#successPlanPanpel",container).show();
+					$("#successList",container).dmsTable().refreshLocalData(data);
+					
+				} 
+			});
+		}); 
+		//当导入成功后的回调
+		$("#import2[data-callBack='true']",container).on("callBack.dms",function(event,response){
+
+			//$("#successPlanPanpel",container).hide();
+//			dmsCommon.refreshPageByUrl("k4Order/execute/dealerRebateImport.html",container);
+			$("#successPlanPanpel",container).addClass("hidden");
+			
+		});
+		//当错误的情况下的回调
+		$("a[data-errorCallBack='true']",container).on("errorCallBack.dms",function(event,response){
+			errInfo = 'N';
+			//显示
+			$("#errorInfoPanpel",container).show();
+			$("#errorList",getElementContext()).dmsTable().refreshLocalData(response);
+		});
+
+		//新增操作
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event,container){
+			console.log(errInfo);
+			if (errInfo=="N") {
+				dmsCommon.tip({status:"warning",msg:"导入配件有问题，无法添加!"});
+				return ;
+			}
+			if (errInfo!="Y") {
+				dmsCommon.tip({status:"warning",msg:"请导入配件!"});
+				return ;
+			}
+			
+			var selectRow = $("#successList",container).dmsTable().getRowDataByIndex();
+			
+			if(selectRow==null || selectRow==''){
+				dmsCommon.tip({status:"warning",msg:"请选择新增配件!"});
+				return;
+			}
+			
+			var item;
+			$.each(selectRow,function(index,row){
+				row["1"] = false;
+				$("#dcsList",getElementContext()).dmsTable().appendRow(row);
+			});
+			$("#save",getElementContext()).removeAttr('disabled');
+			$("#undo2",container).click();
+		});
+		
+	});
+</script>

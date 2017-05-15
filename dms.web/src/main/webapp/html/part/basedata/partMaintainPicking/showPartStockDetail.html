@@ -1,0 +1,387 @@
+<div class="dms-edit ajaxrest" data-url="/partStocks/{[PART_NO]}/{[STORAGE_CODE]}" data-model="part">
+	<form class="form-horizontal">
+	<div class="panel panel-default">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true"></button>
+			<h4 class="modal-title">配件库存详细</h4>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group form-group-xs m-b-xs">
+							<label class="control-label col-xs-4 ">仓库</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" data-fieldName="STORAGE_NAME"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+			         <div class="form-group form-group-xs m-b-xs">
+			             <label class="control-label col-xs-4">销售价</label>
+			             <div class="col-xs-8 ">
+			             	<input id="SALE_PRICE" name="SALE_PRICE" class="form-control" type="text"
+							 data-fieldName="SALE_PRICE"  />
+			             </div>
+			         </div>
+	     		</div>
+	     		<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">配件名称</label>
+						<div class="col-xs-8">
+							<input id="PART_NAME" name="PART_NAME" class="form-control" type="text"
+							 data-fieldName="PART_NAME"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">不含税进价</label>
+						<div class="col-xs-8">
+							<input id="LATEST_PRICE" name="LATEST_PRICE" class="form-control" type="text"
+							 data-fieldName="LATEST_PRICE"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">锁定量</label>
+						<div class="col-xs-8">
+							 <input id="LOCKED_QUANTITY" name="LOCKED_QUANTITY" class="form-control" type="text"
+							 data-fieldName="LOCKED_QUANTITY"  >
+							</input>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">是否停用</label>
+						<div class="col-xs-8">
+							<select id="PART_STATUS" name="PART_STATUS" class="bs-select form-control"
+									data-dictCode="1278" data-fieldName="PART_STATUS">
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">库位代码</label>
+						<div class="col-xs-8">
+							<input id="STORAGE_POSITION_CODE" name="STORAGE_POSITION_CODE"
+								class="form-control" type="text"
+								data-fieldName="STORAGE_POSITION_CODE" />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">建议销售价</label>
+						<div class="col-xs-8">
+							<input id="INSTRUCT_PRICE" name="INSTRUCT_PRICE" class="form-control" type="text"
+							  data-fieldName="INSTRUCT_PRICE"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">拼音代码</label>
+						<div class="col-xs-8">
+							<input id="SPELL_CODE" name="SPELL_CODE" class="form-control" type="text"
+							 data-fieldName="SPELL_CODE"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">成本金额</label>
+						<div class="col-xs-8">
+							<input id="COST_AMOUNT" name="COST_AMOUNT" class="form-control" type="text"
+							 data-fieldName="COST_AMOUNT"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">可用库存</label>
+						<div class="col-xs-8">
+							<input id="USEABLE_STOCK" name="USEABLE_STOCK" class="form-control" type="text"
+							 data-fieldName="USEABLE_STOCK"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">是否寄售</label>
+						<div class="col-xs-8">
+							<input id="IS_STORAGE_SALE" name="IS_STORAGE_SALE" class="form-control" type="text"
+							 data-fieldName="IS_STORAGE_SALE"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">配件类别</label>
+						<div class="col-xs-8">
+							<input id="PART_GROUP_CODE" name="PART_GROUP_CODE" class="form-control" type="text"
+							 data-fieldName="PART_GROUP_CODE"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">索赔价</label>
+						<div class="col-xs-8">
+							<input id="CLAIM_PRICE" name="CLAIM_PRICE" class="form-control" type="text"
+							 data-fieldName="CLAIM_PRICE"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">替代配件</label>
+						<div class="col-xs-8">
+							<input id="OPTION_NO" name="OPTION_NO" class="form-control" type="text"
+							 data-fieldName="OPTION_NO"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">最大库存</label>
+						<div class="col-xs-8">
+							<input id="MAX_STOCK" name="MAX_STOCK" class="form-control" type="text"
+							 data-fieldName="MAX_STOCK"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">借出数量</label>
+						<div class="col-xs-8">
+							<input id="LEND_QUANTITY" name="LEND_QUANTITY" class="form-control" type="text"
+							 data-fieldName="LEND_QUANTITY"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">是否用品</label>
+						<div class="col-xs-8">
+							<input id="IS_THINGS" name="IS_THINGS" class="form-control" type="text"
+							 data-fieldName="IS_THINGS"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">配件代码</label>
+						<div class="col-xs-8">
+							<input id="PART_CODE" name="PART_CODE" class="form-control" type="text"
+							 data-fieldName="PART_CODE"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">含税进价</label>
+						<div class="col-xs-8">
+							<input id="LATEST_PRICE" name="LATEST_PRICE" class="form-control" type="text"
+							 data-fieldName="LATEST_PRICE"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">单位</label>
+						<div class="col-xs-8">
+							<input id="UNIT_CODE" name="UNIT_CODE" class="form-control" type="text"
+							 data-fieldName="UNIT_CODE"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">安全库存</label>
+						<div class="col-xs-8">
+							<input id="SAFE_STOCK" name="SAFE_STOCK" class="form-control" type="text"
+							 data-fieldName="SAFE_STOCK"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">最新出库日期</label>
+						<div class="col-xs-8">
+							<input id="LAST_STOCK_OUT" name="LAST_STOCK_OUT" class="form-control" type="text"
+							 data-fieldName="LAST_STOCK_OUT"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">用品大分类</label>
+						<div class="col-xs-8">
+							<input id="BIG_CATEGORY_CODE" name="BIG_CATEGORY_CODE" class="form-control" type="text"
+							 data-fieldName="BIG_CATEGORY_CODE"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">用品中分类</label>
+						<div class="col-xs-8">
+							<input id="SUB_CATEGORY_CODE" name="SUB_CATEGORY_CODE" class="form-control" type="text"
+							 data-fieldName="SUB_CATEGORY_CODE"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">用品小分类</label>
+						<div class="col-xs-8">
+							<input id="THD_CATEGORY_CODE" name="THD_CATEGORY_CODE" class="form-control" type="text"
+							 data-fieldName="THD_CATEGORY_CODE"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">九大类</label>
+						<div class="col-xs-8">
+							<select id="PART_MAIN_TYPE" name="PART_MAIN_TYPE"
+										class="form-control" data-dictCode="1366"
+										data-fieldName="PART_MAIN_TYPE">
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">最小包装数</label>
+						<div class="col-xs-8">
+							<input id="MIN_PACKAGE" name="MIN_PACKAGE" class="form-control" type="text"
+							 data-fieldName="MIN_PACKAGE"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">最小库存</label>
+						<div class="col-xs-8">
+							<input id="MIN_STOCK" name="MIN_STOCK" class="form-control" type="text"
+							 data-fieldName="MIN_STOCK"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">保险价</label>
+						<div class="col-xs-8">
+							<input id="INSURANCE_PRICE" name="INSURANCE_PRICE" class="form-control" type="text"
+							 data-fieldName="INSURANCE_PRICE"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">建档日期</label>
+						<div class="col-xs-8">
+							<input id="FOUND_DATE" name="FOUND_DATE" class="form-control" type="text"
+							 data-fieldName="FOUND_DATE"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">最新入库日期</label>
+						<div class="col-xs-8">
+							<input id="LAST_STOCK_IN" name="LAST_STOCK_IN" class="form-control" type="text"
+							 data-fieldName="LAST_STOCK_IN"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">账面库存</label>
+						<div class="col-xs-8">
+							<input id="STOCK_QUANTITY" name="STOCK_QUANTITY" class="form-control" type="text"
+							 data-fieldName="STOCK_QUANTITY"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">借进数量</label>
+						<div class="col-xs-8">
+							<input id="BORROW_QUANTITY" name="BORROW_QUANTITY" class="form-control" type="text"
+							 data-fieldName="BORROW_QUANTITY"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">产地</label>
+						<div class="col-xs-8">
+							<input id="PRODUCTING_AREA" name="PRODUCTING_AREA" class="form-control" type="text"
+							 data-fieldName="PRODUCTING_AREA"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">品牌</label>
+						<div class="col-xs-8">
+							<input id="BRAND" name="BRAND" class="form-control" type="text"
+							 data-fieldName="BRAND"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">配件特殊类型</label>
+						<div class="col-xs-8">
+							<select id="PART_SPE_TYPE" name="PART_SPE_TYPE"
+										class="form-control " data-dictCode="1364"
+										data-fieldName="PART_SPE_TYPE">
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">建议采购</label>
+						<div class="col-xs-8">
+							<input id="IS_SUGGEST_ORDER" name="IS_SUGGEST_ORDER" class="form-control" type="text"
+							 data-fieldName="IS_SUGGEST_ORDER"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">车型组</label>
+						<div class="col-xs-8">
+							<input id="PART_MODEL_GROUP_CODE_SET" name="PART_MODEL_GROUP_CODE_SET" class="form-control" type="text"
+							 data-fieldName="PART_MODEL_GROUP_CODE"  />
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">备注</label>
+						<div class="col-xs-8">
+							<input id="REMARK" name="REMARK" class="form-control" type="text"
+							 data-fieldName="REMARK"  />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+		<div class="modal-footer center-block">
+				<a data-dismiss="modal" class="btn blue"> <i
+				class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>

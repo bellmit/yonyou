@@ -1,0 +1,58 @@
+<div class="dms-detail">
+	<form class="form-horizontal">
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name">明细</div>
+			</div>
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="groupitemList"></table>
+			</div>
+		</div>
+	</form>
+
+	<div class="modal-footer center-block">
+			<a data-url="/report/OrderPut/export2" data-model="report"
+				data-method="downLoad" data-toggle="confirmation"
+				class="btn blue "><i class="fa fa-download"></i>导出</a> <a
+				data-goback="page"
+				href="report/partReport/orderForm/searchOrderPut.html"
+				class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>
+		</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		console.log($("#PartMainType",getElementContext()).val());
+		new Datatable().initPagination({
+			src : "groupitemList",
+			container:container,
+			rowID:"ITEM_ID",
+			url : dmsCommon.getDmsPath()["report"] + "/report/OrderPut/{[PART_BUY_ID]}/item",
+			sortName : "ITEM_ID", 
+			sortOrder : "asc",
+			pageSize:10,
+			autoHeight:false,
+			columns : [ 
+						{field : "STOCK_IN_NO",title : "入库单号"}, 
+						{field : "STORAGE_CODE",title : "仓库"}, 
+						{field : "STORAGE_POSITION_CODE",title : "库位"},
+						{field : "DELIVERY_NO",title : "货运单号"},
+						{field : "PART_NO",title : "配件代码"},
+						{field : "PART_NAME",title : "配件名称"},
+						{field : "IN_QUANTITY",title : "入库数量",numberFormat : {decimal:2}},
+						{field : "IN_PRICE",title : "不含税单价",numberFormat : {decimal:2}},
+						{field : "IN_AMOUNT",title : "不含税金额",numberFormat : {decimal:2}},
+						{field : "IN_PRICE_TAXED",title : "含税单价",numberFormat : {decimal:2}},
+						{field : "IN_AMOUNT_TAXED",title : "含税金额",numberFormat : {decimal:2}},
+						{field : "PART_MAIN_TYPE",title : "九大类",codeFormat : {type:"dict",codeType:"1301"}},
+						{field : "FINISHED_DATE",title : "完成/入账日期",dateFormat : {}},
+						{field : "CUSTOMER_CODE",title : "供应商代码"},
+						{field : "CUSTOMER_NAME",title : "供应商名称"},
+						{field : "FIT_MODEL_CODE",title : "适用车型"},
+						{field : "FROM_TYPE",title : "来源方式",codeFormat : {type:"dict",codeType:"1305"}},
+						{field : "EMPLOYEE_NAME",title : "经手人"}
+					]
+				});
+   			});
+</script>

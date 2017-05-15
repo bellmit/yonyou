@@ -1,0 +1,195 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">附加项目选择</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body" data-parentTable ="roAddItemInfoTable">
+					<div class="row" data-selectTable="true">
+						<!-- <div class="col-xs-12">
+								<div class="form-group">
+									<label class="control-label col-xs-4">收费区分</label>
+									<div class="col-xs-8">
+										<select id="chargePartitionCode" name="chargePartitionCode" data-info="charge"
+											class="bs-select form-control"  data-url="/basedata/ChargeCO/Charge/dictexs"
+											data-model="retail" data-labelValue="CHARGE_PARTITION_CODE"
+											data-lableDesc="CHARGE_PARTITION_NAME">
+										</select>
+										<input type="hidden" id="chargePartitionName" name="chargePartitionName" value="">
+									</div>
+								</div>
+							</div> -->
+					
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">附加项目名称</label>
+								<div class="col-xs-8">  <!-- basedata/appendProject/appendProjectDict -->
+									<select id="addItemCodes" name="addItemCodes"
+										class="bs-select form-control required"  data-url="/basedata/appendProject/appendProject/dicts"
+										data-model="repair" data-labelValue="ADD_ITEM_CODE"
+										data-lableDesc="ADD_ITEM_NAME">
+									</select>
+									<input type="hidden" id="addItemName" name="addItemName" value="">
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">附加项目代码</label>
+								<div class="col-xs-8">
+									<input id="addItemCode" name="addItemCode" type="text" class="form-control" disabled="disabled"/>		
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">附加项目收费</label>
+								<div class="col-xs-8">
+								<input id="addItemAmount" name="addItemAmount" class="form-control" type="text" disabled="disabled"/>
+								
+								</div>
+							</div>
+						</div>
+						
+						
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">应收金额</label>
+								<div class="col-xs-8">
+								<input id="receivableAmount" name="receivableAmount" class="form-control money" type="text"/>
+								<input type="hidden" id="discountAmount" name="discountAmount" maxDigit="10" data-autoValue="#addItemAmount - #receivableAmount">
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">备注</label>
+								<div class="col-xs-8">
+								<input id="remark" name="remark" class="form-control" type="text"  maxlength="400"/>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a  data-onclickEvent="true" class="btn blue" data-validate="true"> <i class="fa fa-save"></i>确定</a> 
+			<a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+			<div class="hidden">
+			<a data-onclickEvent1="true"></a>
+			</div>
+		</div>
+		
+	</form>
+</div>
+
+<script type="text/javascript">
+
+	$(document).one("onload.dms",function(event,container){
+		$("select[name='addItemCodes']",container).bindChange(function(obj){
+			var addItemCode=$("#addItemCodes",container).val();
+			var addItemName=$('option:selected',$("#addItemCodes",container)).text();
+			var addItemAmount=dmsDict.getSelectedOptionData($("#addItemCodes",container)).ADD_ITEM_AMOUNT;
+			$("input[name='addItemName']",container).setDmsValue(addItemName);
+			$("input[name='addItemCode']",container).setDmsValue(addItemCode);
+			$("input[name='addItemAmount']",container).setDmsValue(addItemAmount);
+			$("input[name='receivableAmount']",container).setDmsValue(addItemAmount);
+		});
+		/* $("select[data-info='charge']",container).bindChange(function(obj){
+			var chargePartitionCode=$("#chargePartitionCode",container).val();
+			if(chargePartitionCode!=""){
+				var receivableAmount=0;
+				$("#receivableAmount",container).val(receivableAmount);
+				$("#receivableAmount",container).attr("disabled","disabled");
+			}else{
+				$("#receivableAmount",container).removeAttr("disabled");
+			}
+		}); */
+		
+		 /* $("select[name='chargePartitionCode']",container).bindChange(function(obj){
+			var chargePartitionCode=$("#chargePartitionCode",container).val();
+			var  chargePartitionName=$('option:selected',$("#chargePartitionCode",container)).text();
+			if(chargePartitionName=="请选择"){
+				chargePartitionName="";
+			}
+			$("input[name='chargePartitionName']",container).val(chargePartitionName);
+			var receivableAmount=0;
+			$("#receivableAmount",container).val(receivableAmount);
+		}); */
+		
+		
+		
+		$("#receivableAmount",container).bindChange(function(obj){
+			var receivableAmount=$("#receivableAmount",container).val();
+			var addItemAmount=$("#addItemAmount",container).val();
+			if(receivableAmount==""){
+				receivableAmount=0;
+			}
+			if(addItemAmount==""){
+				addItemAmount=0;
+			}
+			var discountAmount=addItemAmount-receivableAmount;
+			$("#discountAmount",container).valChange(discountAmount);
+		}); 
+		
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event,container){
+			var receivableAmount=$("#receivableAmount",container).val();
+			var addItemAmount=$("#receivableAmount",container).val();
+			var discountAmount=addItemAmount-receivableAmount;
+			$("#discountAmount",container).valChange(discountAmount);
+			var formJson = $("div[data-parentTable='roAddItemInfoTable']",container).serializeFormJson();
+			//是否重复添加
+			var roPartDtos = $("#boAddItemList",getElementContext()).dmsTable().getRowDataByIndex();
+			var currentData=formJson.addItemCode;  
+			if(roPartDtos.length>0){
+				for(var i=0;i<roPartDtos.length;i++){
+					var tableData=roPartDtos[i].addItemCode;
+					if(currentData == tableData){
+						dmsCommon.tip({status:"warning",msg:"已添加过该附加项目，请重新选择!"});
+						returnResult.status = false;
+						return ;
+					}
+				}
+			}
+			
+			$("#boAddItemList",getElementContext()).dmsTable().appendRow(formJson);
+			//$("a[data-onclickEvent1='true']",container).click();
+			//$("a[data-dismiss='modal']",container).click();
+			
+			//addItemAmount附加项目费用
+			var estimateAmount = $("#estimateAmount",getElementContext()).val();//获取前一个界面预估价格
+			if(estimateAmount == "" || estimateAmount == 0){
+				var estimateAmount =parseFloat(0);
+			    $("#estimateAmount",container).setDmsValue(parseFloat(addItemAmount).toFixed(2));
+			}else{
+				$("#estimateAmount",container).setDmsValue((parseFloat(estimateAmount)+parseFloat(addItemAmount)).toFixed(2));
+			} 
+			
+		});
+		
+		/* $("a[data-onclickEvent1='true']",container).on("dms.click",function(event){
+			var alladdItemAmount=0;
+			var allreceivableAmount=0;
+			var rowNum=$("#addRoItemList",getElementContext()).dmsTable().getTableRows();
+			for(var i=0;i<rowNum;i++){
+ 				var oneaddItemAmount=parseFloat($("#addRoItemList",getElementContext()).dmsTable().getRowDataByIndex(i).addItemAmount);
+ 				var onereceivableAmount=parseFloat($("#addRoItemList",getElementContext()).dmsTable().getRowDataByIndex(i).receivableAmount);
+  				alladdItemAmount=parseFloat(alladdItemAmount)+oneaddItemAmount;
+  				allreceivableAmount=parseFloat(allreceivableAmount)+onereceivableAmount;
+			};
+			var map={dis_add_item_amount:allreceivableAmount,add_item_amount:alladdItemAmount};
+			$("div[data-allAddItemAmount='true']",getElementContext()).initHtmlContent(map);
+		}); */
+	});
+</script>

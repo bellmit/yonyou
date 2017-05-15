@@ -1,0 +1,231 @@
+
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="panel panel-default table-panel">
+						<div class="panel-heading">
+							<div class="pannel-button"></div>
+						</div>
+						<div class="panel-body">
+							<input type="hidden" class="form-control" id="vin" name="vin">
+							<input type="hidden" class="form-control" id="ownerNo"
+								name="ownerNo">
+							<table
+								class="table table-striped table-bordered table-hover table-responsive"
+								id="tab_sales">
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- <span/> -->
+		<div class="modal-footer center-block">
+			<a href="javascript:;"
+				data-url="/customer/lossVehicleTraceTask/exportSales"
+				data-model="customer" data-method="downLoad" id="excel"
+				data-toggle="confirmation" class="btn blue" class="btn btn-outline"> <i
+				class="fa fa-download"></i>导出
+			</a> <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				var vins = $("#vin2", getElementContext()).val();
+				$("#vin", container).val(vins);
+				var ownerNos = $("#ownerNo2", getElementContext()).val();
+				$("#ownerNo", container).val(ownerNos);
+				new Datatable().initPagination({
+					src : "tab_sales",
+					container : container,
+					url : dmsCommon.getDmsPath()["customer"]
+							+ '/customer/lossVehicleTraceTask/trackTask',
+					autoHeight : false,
+					columns : [ {
+						field : "IS_SELECTED",
+						title : "结束跟踪",
+						codeFormat : {
+							type : "dict",
+							codeType : "1278"
+						}
+					}, {
+						field : "CUSTOMER_NO",
+						title : "客户代码"
+					}, {
+						field : "CUSTOMER_NAME",
+						title : "客户名称"
+					}, {
+						field : "SOLD_BY",
+						title : "销售顾问"
+					}, {
+						field : "ORG_NAME",
+						title : "组别"
+					}, {
+						field : "VIN",
+						title : "VIN"
+					}, {
+						field : "brand_name",
+						title : "品牌"
+					}, {
+						field : "series_name",
+						title : "车系"
+					}, {
+						field : "MODEL_NAME",
+						title : "车型"
+					}, {
+						field : "STOCK_OUT_DATE",
+						title : "开票日期",
+						dateFormat : {
+							format : "YYYY-MM-DD"
+						}
+					}, {
+						field : "GENDER",
+						title : "性别",
+						codeFormat : {
+							type : "dict",
+							codeType : "1002"
+						}
+					}, {
+						field : "ADDRESS",
+						title : "地址"
+					}, {
+						field : "CONTACTOR_PHONE",
+						title : "联系人电话"
+					}, {
+						field : "CONTACTOR_MOBILE",
+						title : "联系人手机"
+					}, {
+						field : "PROVINCE",
+						title : "省份",
+						codeFormat : {
+							type : "dict",
+							codeType : "9001"
+						}
+					}, {
+						field : "CITY",
+						title : "城市",
+						codeFormat : {
+							type : "dict",
+							codeType : "9002"
+						}
+					}, {
+						field : "DISTRICT",
+						title : "区县",
+						codeFormat : {
+							type : "dict",
+							codeType : "9003"
+						}
+					}, {
+						field : "QUESTIONNAIRE_NAME",
+						title : "问卷名称"
+					}, {
+						field : "TRANCER",
+						title : "跟踪人"
+					}, {
+						field : "INPUT_DATE",
+						title : "跟踪日期",
+						dateFormat : {
+							format : "YYYY-MM-DD"
+						}
+					}, {
+						field : "TRACE_STATUS",
+						title : "跟踪状态",
+						codeFormat : {
+							type : "dict",
+							codeType : "1237"
+						}
+					}, {
+						field : "E_MAIL",
+						title : "E_MAIL"
+					}, {
+						field : "CUSTOMER_TYPE",
+						title : "客户类型",
+						codeFormat : {
+							type : "dict",
+							codeType : "1018"
+						}
+					}, {
+						field : "OWNER_MARRIAGE",
+						title : "婚姻状况",
+						codeFormat : {
+							type : "dict",
+							codeType : "1036"
+						}
+					}, {
+						field : "AGE_STAGE",
+						title : "年龄段",
+						codeFormat : {
+							type : "dict",
+							codeType : "1342"
+						}
+					}, {
+						field : "EDUCATION_LEVEL",
+						title : "教育水平",
+						codeFormat : {
+							type : "dict",
+							codeType : "1116"
+						}
+					}, {
+						field : "INDUSTRY_FIRST",
+						title : "行业大类",
+							codeFormat : {
+								type : "dict",
+								codeType : "3001"
+							}
+					}, {
+						field : "INDUSTRY_SECOND",
+						title : "行业小类",
+							codeFormat : {
+								type : "dict",
+								codeType : "3002"
+							}
+					}, {
+						field : "VOCATION_TYPE",
+						title : "职业",
+						codeFormat : {
+							type : "dict",
+							codeType : "1111"
+						}
+					}, {
+						field : "POSITION_NAME",
+						title : "职务名称"
+					}, {
+						field : "FAMILY_INCOME",
+						title : "家庭月收入",
+						codeFormat : {
+							type : "dict",
+							codeType : "1343"
+						}
+					}, {
+						field : "HOBBY",
+						title : "爱好",
+						codeFormat : {
+							type : "dict",
+							codeType : "1117"
+						}
+					}, {
+						field : "CONFIRMED_DATE",
+						title : "交车日期",
+						dateFormat : {
+							format : "YYYY-MM-DD"
+						}
+					}, {
+						field : "CUS_SOURCE",
+						title : "客户来源",
+						codeFormat : {
+							type : "dict",
+							codeType : "1311"
+						}
+					}, {
+						field : "TASK_REMARK",
+						title : "备注"
+					} ]
+				});
+
+			});
+</script>

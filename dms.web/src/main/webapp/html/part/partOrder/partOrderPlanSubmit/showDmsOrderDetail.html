@@ -1,0 +1,141 @@
+<div class="dms-edit ajaxrest" data-url="/partOrder/partSubmit/{[ORDER_NO]}" data-model="part">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">订单明细</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default hidden">
+				<div class="panel-body ">
+					<div class="row ">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">配件编码</label>
+								<div class="col-xs-8">
+									<input id="partNo" name="partNo" class="form-control"
+									  data-isExcludeReadOnly="true"	type="text" value="{[ORDER_NO]}" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+				   <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">isMopOrder</label>
+							<div class="col-xs-8">
+								<input id="isMopOrder" name="isMopOrder" class="form-control"
+								 data-isExcludeReadOnly="true"	type="text"  data-fieldName="IS_MOP_ORDER"/>
+
+							</div>
+						</div>
+					</div>
+					
+					  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">上报</label>
+							<div class="col-xs-8">
+								<input id="isbtnUp" name="isbtnUp" class="form-control"
+								data-isExcludeReadOnly="true"	type="text"  value="{[isbtnUp]}"/>
+
+							</div>
+						</div>
+					 </div>
+
+					</div>
+	
+
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="ptPartOrderItem">
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a href="javascript:;" data-url="/partOrder/partSubmit/export/moexcel"  disabled="disabled" data-model="part" data-method="downLoad" data-toggle="confirmation"
+			   class="btn blue " data-isExcludeReadOnly="true"><i class="fa fa-download" ></i>MOP件导出</a>
+				<a href="javascript:;" data-url="/partOrder/partSubmit/export/excel" data-model="part" data-method="downLoad" data-toggle="confirmation" data-isExcludeReadOnly="true"
+					class="btn blue "><i class="fa fa-download"></i>Excel</a>
+				 <a data-url="/partOrder/partSubmit/SEDMSP01" data-model="part" data-method="PUT" 
+				    data-callBack="true" class="btn blue" data-toggle="confirmation" id="isbtnUp" > <i class="fa fa-save"></i>上报
+			    </a> 
+				 <a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+		
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+ 	new Datatable().initPagination({
+		src : "ptPartOrderItem",
+		container:container,
+		url : dmsCommon.getDmsPath()["part"] + "/partOrder/partSubmit/QueryDmsPtOrderItemInfo",
+		autoHeight:false,
+		columns : [
+		            {field : "PART_NO",title : "配件代码"},
+	                {field : "PART_NAME",title : "配件名称"},
+	                {field : "COUNT",title : "订货数量"},
+	                {field : "NETWR",title : "含税单价"},
+	                {field : "TOTAL",title : "含税金额"},
+	                {field : "OPNETWR",title : "不含税单价"},
+	                {field : "OPTOTAL",title : "不含税金额"},
+	                {field : "NO_TAX_PRICE",title : "不含税终端销售价"},
+	                {field : "SINGLE_Discount",title : "单个折扣"},
+	                {field : "UNIT_CODE",title : "单位",isVisible:function(column){
+	                	if($("input[id='isbtnUp']",container).val()=='12781001'){
+							return false;
+						}else{
+							return true;
+						}
+	                }},
+	                {field : "DETAIL_REMARK",title : "备注"},
+	                {field : "IS_MOP",title : "是否M",codeFormat : {type:"dict",codeType:"1278"},isVisible:function(column){
+	                	if($("input[id='isbtnUp']",container).val()=='12781001'){
+							return false;
+						}else{
+							return true;
+						}
+	                }},
+	                {field : "IS_SJV",title : "是否S",codeFormat : {type:"dict",codeType:"1278"},isVisible:function(column){
+	                	if($("input[id='isbtnUp']",container).val()=='12781001'){
+							return false;
+						}else{
+							return true;
+						}
+	                }},
+	                {field : "REPORT_WAY",title : "提报方式",codeFormat : {type:"dict",codeType:"8003"},isVisible:function(column){
+	                	if($("input[id='isbtnUp']",container).val()=='12781001'){
+							return false;
+						}else{
+							return true;
+						}
+	                }}
+	                ],onLoadSuccess : function() {
+						var isMopOrder=$("#isMopOrder",container).val();
+						if(isMopOrder=='12781001'){
+							$("#isMopOrder",container).removeAttr("disabled");
+						}
+	    			}
+	});
+      
+ 	
+	+function(){
+		if($("#isbtnUp",container).val()=='12781001'){
+			$("a:not([data-goback],[data-dismiss],[id='isbtnUp'])",container).hide();
+		}else{
+			$("a[id='isbtnUp']",container).hide();
+		}
+	}();
+
+});	
+
+
+</script>

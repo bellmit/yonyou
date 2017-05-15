@@ -1,0 +1,114 @@
+<div class="dms-search">
+	<form  class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+			
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">文件</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="fileName" name="fileName">
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div  class="center-block" style="width:200px;">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >大客户政策查询明细</div>
+			</div>
+			<div class="panel-body">
+				<table class="table table-striped table-bordered table-hover table-responsive"
+					id="dealerList"></table>
+			</div>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="panel-heading">
+					<div class="pannel-name" >大客户政策文件维护 </div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-8 col-lg-6">	
+						<div class="form-group">
+							<label class="control-label  col-xs-4">上传文件</label>
+								<div class="col-xs-8">
+                             		<input type="file" class="importData" id="fileupload" name="file">
+                          		</div>
+                            <div class="col-xs-1"></div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					 <div class="form-actions"> 
+						<a data-url="/bigCustomerAaManage/uploadFiles" data-model="vehicle"
+							 data-method="importData" data-fileUploadBtn="true"
+							  data-callBack="true"  class="btn blue "
+							 data-toggle="confirmation"> <i class="fa fa-upload"></i>上传
+						</a> 
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dealerList",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/bigCustomerAaManage/queryBigCustomerPolicyInfo",
+			rowID : "POLICY_FILE_PID",
+			sortName : "POLICY_FILE_PID",
+			sortOrder : "asc",
+			columns : [ 
+			  
+			    {field : "CREATE_DATE",title : "创建日期" },
+			    {field : "POLICY_FILE_NAME",title : "文件名称" },
+			    {field :"POLICY_FILE_PID",title : "操作",operateFormat : [
+																	
+																	{
+																		type : "del",
+																		url : "/bigCustomerAaManage/deleteBigCustomerPolicy/{[POLICY_FILE_PID]}",
+																		
+																		model : "vehicle",
+																		callBack : function(response) {
+																			$(
+																				"#dealerList",
+																				getElementContext())
+																				.dmsTable()
+																				.refreshTableWithForm();
+																		},isShow:function(value, row, index){
+				                                                    		
+				                                                    		  if(row.actionFlag =="action"){
+				                                                    			  return true;
+				                                                    		  }else{
+				                                                    			  return false;
+				                                                    		  }
+				                                                   	  		} },
+				                                                   	
+																	]
+			    } 
+			]
+			
+		});
+	});
+</script>

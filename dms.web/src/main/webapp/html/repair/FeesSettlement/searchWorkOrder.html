@@ -1,0 +1,159 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default"  data-tableSelect="true">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">车主</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input type="text" class="form-control" readonly
+									data-fieldName="OWNER_NAME"
+									id="owner" name="owner">
+									<span class="input-group-btn"></span>
+                                 </div>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">送修人</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control"  readonly
+								data-fieldName="SERVICE_ADVISOR" id="sendPeople" name="sendPeople">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">客户经理</label>
+							<div class="col-xs-8">
+								<select  class="bs-select form-control" disabled
+								 data-fieldName="SERVICE_ADVISOR" id="customerManager" name="customerManager">
+								</select>
+							</div>
+						</div>
+					</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-3 ">
+								<div class="form-group">
+									<label class="control-label col-xs-4">开单日期</label>
+									<div class="col-xs-8">
+										<div class="input-group date date-picker">
+											<input id="roCreateDate" name="roCreateDate" readonly
+												 data-fieldName="RO_CREATE_DATE"
+												class="form-control" type="text"/> <span
+												class="input-group-btn">
+												<button class="btn default date-set" type="button">
+													<i class="fa fa-calendar"></i>
+												</button>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+																	
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">维修类型</label>
+							<div class="col-xs-8">								
+							     <select id="repairTypeCode" name="repairTypeCode"
+							      data-url="/basedata/repairtypes/getRepairTypes/item" 
+							      data-model="manage" data-labelValue="REPAIR_TYPE_CODE" disabled
+							      data-lableDesc="REPAIR_TYPE_NAME"  class="bs-select form-control"  
+							      data-fieldName="repair_type_code">
+							    </select>
+							</div>
+						</div>
+					</div>					
+					
+					<!--/span-->
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">品牌</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control"  
+								data-url="/basedata/brandsdict" data-labelValue="BRAND_CODE" disabled
+									data-lableDesc="BRAND_NAME" data-model="manage"
+								data-fieldName="BRAND" id="brand" name="brand">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车系</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control"
+								data-fieldName="SERIES" 
+								data-url="/basedata/selectSeries" disabled
+									data-model="manage" data-labelValue="SERIES_CODE"
+									data-lableDesc="SERIES_NAME" id="series" name="series">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车型</label>
+							<div class="col-xs-8">
+								<select class="form-control"
+								data-fieldName="MODEL"
+								data-url="/basedata/selectModel" disabled
+									data-model="manage" data-labelValue="MODEL_CODE"
+									data-lableDesc="MODEL_NAME" id="model" name="model">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">行驶里程</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" readonly
+								data-fieldName="IN_MILEAGE" id="milsage" name="milsage">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">VIN</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control vin" readonly
+								data-fieldName="VIN" id="vin" name="vin">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">VIN编号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" readonly
+								id="vinCode" name="vinCode">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+			
+					</div>
+				</div>
+			</div>
+		</form>
+		
+	</div>
+				

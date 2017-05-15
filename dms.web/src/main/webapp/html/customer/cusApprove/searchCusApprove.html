@@ -1,0 +1,430 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+	
+		<div class="panel panel-default">
+			<div class="panel-heading">
+								<div class="pannel-name">查询条件</div>
+								<div class="pannel-tools">
+									<a href="javascript:;" class=collapse> <i
+										class="fa fa-chevron-down"></i></a>
+								</div>
+			    </div>
+		 <div class="panel-body">
+			<div class="row">
+			
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">联系人手机</label>
+						<div class="col-xs-8 ">
+							<input type="text" class="form-control" id="linkMobile" name="linkMobile">
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">联系人电话</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="linkPhone" name="linkPhone">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">最后进店时间</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange"
+									 >
+									<input type="text" class="form-control" readonly
+										name="beginLastArriveTime" id="beginLastArriveTime"> <span
+										class="input-group-addon">至</span> <input type="text"
+										class="form-control" readonly name="endLastArriveTime"
+										id="endLastArriveTime">
+										 <span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                         </button>
+	                                   </span>
+									</div>
+								
+							</div>
+						</div>
+					</div>
+					
+			
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">客户类型</label>
+							<div class="col-xs-8">
+								<select id="customerType" name="customerType"
+									class="bs-select form-control" data-dictCode="1018"
+									data-value="">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<!-- <div class="form-group">
+							<label class="control-label col-xs-4 ">客户类型</label>
+							<div class="col-xs-8">
+								<select id="customerType" name="customerType"
+									class="bs-select form-control" data-dictCode="1018"
+									data-value="">
+								</select>
+							</div>
+						</div> -->
+					</div>
+				
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">建档日期</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange"
+									 >
+									<input type="text" class="form-control" readonly
+										name="foundDate_startdate" id="foundDate_startdate"> <span
+										class="input-group-addon">至</span> <input type="text"
+										class="form-control" readonly name="foundDate_enddate"
+										id="foundDate_enddate">
+										 <span class="input-group-btn">
+	                                         <button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                        </button>
+	                                   </span>
+									</div>
+								
+							</div>
+						</div>
+					</div>
+					
+			
+			</div>
+		</div>
+	     
+	     
+	     
+	     
+			<div class="row"><!-- pull-left -->
+				 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">销售顾问</label>
+						<div class="col-xs-8">
+							 <select id="soldBy" name="soldBy"
+									class="bs-select form-control"
+									data-url="/basedata/employees/10154100/qrySalesConsultant" data-ajaxSync="true"
+									data-model="manage" data-labelValue="USER_ID" data-value="{[userInfo.userId]}"
+									data-lableDesc="USER_NAME" >
+								</select>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">联系电话</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="contactorPhone" name="contactorPhone">
+							</div>
+						</div>
+					</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">客户来源</label>
+							<div class="col-xs-8">
+								<select id="cusSource" name="cusSource"
+									class="bs-select form-control" data-dictCode="1311">
+								</select>
+							</div>
+						</div>
+				</div>	
+					
+					
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">客户编号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="customerNo"
+									name="customerNo">
+							</div>
+						</div>
+					</div>
+				
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">意向级别</label>
+							<div class="col-xs-8">
+								<select id="intentLevel" name="intentLevel" data-fieldName="INTENT_LEVEL"
+													class="bs-select form-control" data-dictCode="1310"
+													data-value="13101006" data-excludeItems="13101001,13101002,13101003,13101004,13101005,13101008,13101009"  >
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">联系手机</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="contactorMobile" name="contactorMobile">
+							</div>
+						</div>
+					</div>
+					
+			
+				
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">客户名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="customerName" name="customerName">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">审批状态</label>
+						<div class="col-xs-8">
+							 <select id="auditStatus"  name="auditStatus" class="bs-select form-control" data-dictCode="3335" data-excludeItems=""  ></select>
+						</div>
+					</div>
+				</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">意向品牌</label>
+							<div class="col-xs-8">
+								<select id="brand" class="bs-select form-control"
+									name="intentBrand" data-url="/basedata/brandsdict"
+									data-model="manage" data-labelValue="BRAND_CODE"
+									data-lableDesc="BRAND_NAME">
+
+								</select>
+							</div>
+						</div>
+					</div>
+				
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">意向车系</label>
+							<div class="col-xs-8">
+								<select id="series" 
+									class="bs-select form-control" name="intentSeries"
+									data-url="/basedata/selectSeries"
+									data-model="manage" data-labelValue="SERIES_CODE"
+									data-lableDesc="SERIES_NAME">
+
+								</select>
+							</div>
+						</div>
+					</div>
+				
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">意向车型</label>
+							<div class="col-xs-8">
+								<select id="model" 
+									class="bs-select form-control" name="intentModel"
+									data-url="/basedata/selectModel"
+									data-model="manage" data-labelValue="MODEL_CODE"
+									data-lableDesc="MODEL_NAME">
+
+								</select>
+							</div>
+						</div>
+					</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">意向配置</label>
+							<div class="col-xs-8">
+								<select id="confi"  class="bs-select form-control"
+									name="configCode"
+									data-url="/basedata/selectConfig"
+									data-model="manage" data-labelValue="PACKAGE_ID"
+									data-lableDesc="CONFIG_NAME">
+
+								</select>
+							</div>
+						</div>
+					</div>
+				
+				
+			
+				
+		
+				
+			<div class="row ">
+				<div class="col-xs-12 ">
+					<div class="query-btn">
+						<a href="javascript:;" class="btn blue  "> <i
+							class="fa fa-search"></i> 查询
+						</a> <a href="javascript:;" class="btn blue"><i
+							class="fa fa-undo"></i> 重置</a>
+					</div>
+				</div>
+		   </div>
+		</div>
+	  </div>
+	
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+				  	<a class="btn btn-outline" data-url="customer/cusApprove/dormantApprove.html" id="approve"
+							data-toggle="modal" data-beforeShowEvent="true" data-width="modal-lg"> <i class="fa fa-plus-square"></i> 审核
+					</a>
+					<a class="btn btn-outline" data-url="customer/potentialcus/customerInfo/searchSoldBy.html" id="redistribution"
+							data-toggle="modal"  data-width="modal-sm" data-beforeShowEvent="true"> <i class="fa fa-plus-square"></i> 再分配
+					</a>
+				    <a data-url="/customerManage/cusapprove/export/excel"
+						data-model="customer" data-method="downLoad"
+						data-toggle="confirmation" class="btn btn-outline "><i class="fa fa-download"></i>导出
+					</a> 
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="cusList"></table>
+		</div>
+	</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "cusList",
+		container:container,
+		url : dmsCommon.getDmsPath()["customer"] + "/customerManage/cusapprove",
+		sortName : "CUSTOMER_NO",
+		sortOrder : "desc",
+		checkboxHeader:true,
+		selectItemName:"cusId",
+		autoHeight : false,
+		undefinedText : "",
+		columns : [ 
+			{radio:true,sortable : false},
+		    {field : "",title : "操作",operateFormat : [
+		    	{type:"detail",url:"customer/cusApprove/editCusInfo.html",openWidth:"modal-lg"}
+                 
+               ]
+            },  
+            {field : "CUSTOMER_NO",title : "客户编号"},
+            {field : "CUSTOMER_NAME",title : "客户名称"}, 
+            {field : "CUSTOMER_TYPE",title : "客户类型",codeFormat : {type:"dict",codeType:"1018"}}, 
+            {field : "FOUND_DATE",title : "建档时间",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+            {field : "CUS_SOURCE",title : "客户来源",codeFormat : {type:"dict",codeType:"1311"}},
+            {field : "INTENT_LEVEL",title : "意向级别",codeFormat : {type:"dict",codeType:"1310"}},
+            {field : "CONTACTOR_PHONE",title : "联系电话"}, 
+            {field : "CONTACTOR_MOBILE",title : "联系手机"}, 
+            {field : "USER_NAME",title : "销售顾问",inputHiddenFormat : {hiddenField:"SOLD_BY"}},
+            {field : "DELAY_CONSULTANT",title : "延时再分配"},
+            {field : "CONSULTANT_TIME",title : "再分配时间",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+            {field : "CONTACTOR_NAME",title : "联系人姓名"},
+            {field : "POSITION_NAME",title : "职务名称"},
+            {field : "PHONE",title : "默认联系人电话"},
+            {field : "MOBILE",title : "默认联系人手机"},
+            {field : "REMARK",title : "备注"},
+            {field : "BRAND_NAME",title : "意向品牌"},
+            {field : "SERIES_NAME",title : "意向车系"},
+            {field : "MODEL_NAME",title : "意向车型"},
+            {field : "CONFIG_NAME",title : "意向配置"},
+            {field : "COLOR_NAME",title : "意向颜色"},
+            {field : "IS_TO_SHOP",title : "是否到店",codeFormat : {type:"dict",codeType:"1278"}},
+            {field : "TIME_TO_SHOP",title : "首次到店时间",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+			{field : "LAST_ARRIVE_TIME",title : "最后一次进店时间",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+			{field : "LAST_USER_NAME",title : "前销售顾问"},
+			{field : "AUDIT_STATUS",title : "审批状态",codeFormat : {type:"dict",codeType:"3335"}},
+			{field : "VALIDITY_BEGIN_DATE",title : "客户有效期开始时间",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}}
+		],
+		onLoadSuccess : function() {
+			var rownu = $("#cusList",container).dmsTable().getTableRows();
+			if(rownu<=0){
+				$("a[data-method='downLoad']",container).attr("disabled","true");
+			}else{
+				$("a[data-method='downLoad']",container).removeAttr("disabled");
+			}
+		}
+	
+	});
+	
+	//弹出页面打开前执行函数
+	$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+		var selectRow = $("#cusList",container).dmsTable().getSelections();
+	/* debugger; */
+		var falg=true;
+		
+		if(!selectRow){
+			dmsCommon.tip({status:"warning",msg:"请选择表格数据"});
+			returnResult.status = false;
+			return ;
+		}
+		var i=0;
+	 	 $(selectRow).each(function(e){
+		
+   		 if(event.target.id=='approve'){
+   			if(selectRow[e].INTENT_LEVEL!='13101006'){
+				 dmsCommon.tip({status:"warning",msg:"请选择意向级别为FO的客户审批,请重新选择!"});
+				 falg=false;
+				 return false;
+			} 
+   		 }
+   		if(event.target.id=='redistribution'){
+   			if(selectRow[e].INTENT_LEVEL=='13101007'){
+				 dmsCommon.tip({status:"warning",msg:"意向级别为F的客户 不能进行再分配,请重新选择!"});
+				 falg=false;
+				 return false;
+			} 
+   		 }
+   	
+   		
+		}); 
+	 	
+		if(!falg){
+				returnResult.status = false;
+				return ;
+		}
+		$(this).data("pageData",{CUSTOMER_NO:selectRow[0].CUSTOMER_NO});
+		returnResult.status = true;
+	});
+	
+	
+	
+	
+	//弹出页面打开前执行函数
+/* 	$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+		var selectRow = $("#dms_table",container).dmsTable().getSelections(); */
+	/* debugger; */
+	//	var falg=true;
+		
+	//	var i=0;
+		
+	 //	 $(selectRow).each(function(e){
+	 //		 if(event.target.id=='approve'){
+	  //  			if(selectRow[e].INTENT_LEVEL!='13101006'){
+	 //				 dmsCommon.tip({status:"warning",msg:"请选择意向级别为FO的客户进行审核,请重新选择!"});
+	 	//			 falg=false;
+	 	//			 return false;
+	 //			} 
+	   // 	 }
+	 	//	if(event.target.id=='redistribution'){
+	   //			if(selectRow[e].INTENT_LEVEL=='13101007'){
+		//			 dmsCommon.tip({status:"warning",msg:"意向级别为F的客户 不能进行再分配,请重新选择!"});
+		//			 falg=false;
+		//			 return false;
+		//		} 
+	   	//	 }
+	 	// });
+		
+		
+		//var selectRow = $("#dms_table",container).dmsTable().getSelections();
+		
+	//	$(this).data("pageData",{CUSTOMER_NO:selectRow[0].CUSTOMER_NO});
+	//	returnResult.status = true;
+//	});
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//刷新表格
+		$("#cusList",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+});
+
+
+	
+</script>

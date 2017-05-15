@@ -1,0 +1,73 @@
+<div class="dms-add"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">新增附件信息</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+						<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="panel-heading">
+					<div class="pannel-name" >附件上传 </div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12">	
+						<div class="form-group">
+							<label class="control-label  col-xs-4">选择附件</label>
+								<div class="col-xs-8">
+                             		<input type="file" class="importData" id="fileupload" name="file">
+                          		</div>
+                            <div class="col-xs-1"></div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					 <div class="form-actions"> 
+						<a data-url="/preclaimPre/uploadFiles" data-model="vehicle"
+							 data-method="importData" data-fileUploadBtn="true"
+							  data-callBack="true"  class="btn blue "
+							 data-toggle="confirmation"> <i class="fa fa-upload"></i>上传
+						</a> 
+						 <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>返回</a>
+					</div>
+				</div>
+			</div>
+		</div>
+					
+					
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+	/* 	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			var row=  $('.form-horizontal',container).serializeFormJson();
+			$("#two_table", getParentModal(container)).dmsTable().appendRow(row);
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+		}); */
+		
+		
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("a.clear").click();
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	})
+</script>
+

@@ -1,0 +1,188 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">业务类型</label>
+								<div class="col-xs-8">
+									<select id="BUSINESS_TYPE" name="BUSINESS_TYPE" class="bs-select form-control required"
+										data-dictCode="1216" data-value="12161001"  data-existsDefault="false">
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">业务单号</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input id="BUSINESS_NO" name="BUSINESS_NO" 
+											class="form-control" 
+											type="text" value="" /> 
+										</div>
+									</div>
+								</div>
+							</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车牌号</label>
+								<div class="col-xs-8">
+									<input id="LICENSE" name="LICENSE" class="form-control" 
+										type="text" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">结算单号</label>
+								<div class="col-xs-8">
+									<input id="BALANCE_NO" name="BALANCE_NO" type="text" 
+										class="form-control" />
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">结算日期</label>
+							<div class="col-xs-8 col-sm-10">
+								 <div class="input-group input-daterange" data-defaultDays="7">
+		                             <input type="text" class="form-control" readonly  name="BALANCE_TIME_FROM">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="BALANCE_TIME_TO">
+		                             <span class="input-group-btn">
+                                         <button class="btn default input-clear" type="button">
+                                            <i class="fa fa-close"></i>
+                                        </button>
+                                      </span> 
+		                        </div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<form class="form-horizontal" >
+		<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name" >结算单信息</div>
+					<div class="pannel-button">
+<!-- 							<div class="btn-group btn-group-sm"> -->
+<!-- 								<a href="javascript:;" class="btn btn-outline" data-url="/balance/balanceAccounts" data-model="repair" data-method="PUT" -->
+<!-- 									data-toggle="confirmation" data-callBack="true" data-beforeRequest="true"> <i class="fa fa fa-undo" ></i> 取消结算 -->
+<!-- 								</a>  -->
+<!-- 							</div> -->
+					</div>
+			</div>
+			<div class="panel-body">
+				<table class="table table-striped table-bordered table-hover table-responsive"
+					id="balanceList"></table>
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+
+    $(document).one("onload.dms",function(event,container){
+    	new Datatable().initPagination({
+			src : "balanceList",
+			container:container,
+			url : dmsCommon.getDmsPath()["repair"] + "/balance/balanceAccounts/querys/balanceAccounts",
+			rowID : "BALANCE_ID",
+			sortName : "BALANCE_TIME", 
+			sortOrder : "desc",
+			autoHeight:false,
+			columns : [  
+				{field : "BALANCE_ID",title : "操作",inputField:"balanceId",inputHiddenFormat : {}, operateFormat : [
+						{type:"del",url:"/balance/balanceAccounts/{[BALANCE_ID]}",model:"repair",method:"PUT",title:"取消结算",callBack:function(response){
+							$("#balanceList",container).dmsTable().refreshTableWithForm();
+						},operateIcon:'<i class="glyphicon-lg  fa fa fa-undo"></i>',isShow:function(value, row, index){
+							if(row.PAY_OFF=="12231001"||row.INVOICE_TAG=="10131001"){
+								return false;
+							}else{
+								return true;
+							};	
+						}},
+//                         {type:"detail",url:"repair/Settlement/charge/editChargeSettlement.html",openType:"jump",isShow:function(value, row, index){
+//                      	   return true;
+//                         }}		
+						{type:"detail",url:"repair/Settlement/charge/editChargeSettlement.html",openType:"jump",
+							isShow:function(value, row, index){
+								  var val=$("#BUSINESS_TYPE",container).val();
+		                    	   if(val=="12161001"){
+		                    		   return true;
+		                    	   }else{
+		                    		   return false;
+		                    	   } 
+						 },disableHidden:true},	                                        
+		                {type:"detail",url:"repair/Settlement/charge/editSalesPart.html",openType:"jump",
+		                	isShow:function(value, row, index){
+			                	   var val=$("#BUSINESS_TYPE",container).val();
+		                    	   if(val=="12161002"){
+		                    		   return true;
+		                    	   }else{
+		                    		   return false;
+		                    	   } 
+		                      },disableHidden:true},
+		                {type:"detail",url:"repair/Settlement/charge/editTransfers.html",openType:"jump",
+		                 isShow:function(value, row, index){
+		                	  var val=$("#BUSINESS_TYPE",container).val();
+	                    	   if(val=="12161003"){
+	                    		   return true;
+	                    	   }else{
+	                    		   return false;
+	                    	   } 
+	                      },disableHidden:true}
+				     ]                                                                                        
+				},
+			    {field : "BUSINESS_TYPE",title : "业务类型",codeFormat : {type:"dict",codeType:"1216"}},
+				{field : "BUSINESS_NO",title : "业务单号"}, 
+				{field : "BALANCE_NO",title : "结算单号"},
+				{field : "BALANCE_TIME",title : "结算日期",dateFormat : {}}, 
+				{field : "BALANCE_HANDLER",title : "结算人"}, 
+				{field : "LICENSE",title : "车牌号"}, 
+				{field : "PAY_OFF",title : "结清",inputCheckBoxFormat : {type : "dict",codeType : "1013",disabled:true}},
+				{field : "RECEIVABLE_AMOUNT",title : "应收账款"},
+				{field : "RECEIVE_AMOUNT",title : "已收账款"},
+				{field : "DERATE_AMOUNT",title : "已免账款"},
+				{field : "NOT_RECEIVED_AMOUNT",title : "未收账款"},
+				{field : "INVOICE_TAG",title : "已开票",inputCheckBoxFormat : {type : "dict",codeType : "1013",disabled:true}}
+			]
+		});
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//刷新表格
+			$("#balanceList",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+		
+		//批量删除的前执行函数
+		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			var selectRow = $("#balanceList",container).dmsTable().getFirstSelection();
+			if(!selectRow){
+				dmsCommon.tip({status:"warning",msg:"请表格数据"});//总共的状态类型：info、success、error、warning
+				returnResult.status = false;
+				return ;
+			}
+			$("a[data-beforeRequest='true']",container).attr("data-url","/balance/balanceAccounts/"+selectRow.BALANCE_ID);
+			returnResult.status = true;
+		});
+    });
+
+</script>

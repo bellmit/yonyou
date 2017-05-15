@@ -1,0 +1,91 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+					   <div class="form-group">
+							<label class="control-label col-xs-4">MVS</label>
+							<div class="col-xs-8">
+								<input type="text" id="mvs" class="form-control"
+									name="mvs" data-fieldName="MVS">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+					   <div class="form-group">
+							<label class="control-label col-xs-4">操作代码</label>
+							<div class="col-xs-8">
+								<input type="text" id="optCode" class="form-control"
+									name="optCode" data-fieldName="OPT_CODE">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">保修标准工时维护</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+					<a class="btn btn-outline" data-url="vehicle/afterSales/warranty/warrantyWorkHourAdd.html"
+						data-width="modal-lg" data-toggle="modal"> <i
+						class="fa fa-plus-square"></i> 新增
+					</a> <a class="btn btn-outline"	data-url="vehicle/afterSales/warranty/warrantyWorkHourImport.html"
+						data-toggle="modal"> <i class="fa fa-plus-square"></i> 导入
+					</a> <a href="javascript:;" data-url="/warrantyWorkHour/downloadWorkHour"
+						data-model="vehicle" data-method="downLoad"	data-toggle="confirmation" class="btn btn-outline "><i
+						class="fa fa-download"></i>下载</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive" id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+	//查询操作代码
+	
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/warrantyWorkHour/warrantyWorkHourSearch",
+		rowID : "ID",
+		sortName : "ID,UPDATE_DATE",
+		sortOrder : "desc,desc",
+		autoHeight:false,
+		columns : [  
+				{field : "ID",title : "操作",operateFormat : [ {	type : "edit",url : "vehicle/afterSales/warranty/warrantyWorkHourUpdate.html",	openWidth : "modal-lg",	doubleClick : true }]}, 
+				{field : "MVS",title : "MVS"},
+				{field : "OPT_CODE",title : "操作代码"}, 
+				{field : "STATUS",title : "状态"},
+				{field : "WORK_HOUR",title : "标准工时数"}, 
+				{field : "CREATE_BY",title : "创建人"},
+				{field : "CREATE_DATE",title : "创建时间"},
+				{field : "UPDATE_BY",title : "更新人"},
+				{field : "UPDATE_DATE",title : "更新时间"}
+        ]
+     });
+	//表格刷新和关闭
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+})
+</script>

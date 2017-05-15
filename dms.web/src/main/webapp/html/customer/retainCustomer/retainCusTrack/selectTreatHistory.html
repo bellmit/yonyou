@@ -1,0 +1,54 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-body">			
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">关怀历史</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="cus_table"></table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			   <a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>关闭
+			</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initLocale({
+		src : "cus_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["customer"] + "/customerManage/retainCusTracking/{[VIN]}/treat/{[CUSTOMER_NO]}",
+		columns : [ {title : "操作"}, 
+		            {field : "VIN",title : "VIN"},
+		            {field : "CUSTOMER_NAME",title : "客户名称"},
+		            {field : "CR_LINKER",title : "联系人"},
+		            {field : "LINK_PHONE",title : "联系电话"},
+		            {field : "LINK_MOBILE",title : "联系手机"},
+		            {field : "ADDRESS",title : "地址"},
+		            {field : "SCHEDULE_DATE",title : "计划日期",dateFormat : {format:"YYYY-MM-DD"}},
+		            {field : "ACTION_DATE",title : "执行日期",dateFormat : {format:"YYYY-MM-DD"}},
+		            {field : "CR_NAME",title : "关怀名称"},
+		            {field : "CR_TYPE",title : "关怀方式", codeFormat : {type:"dict",codeType:"1326"}},
+		            {field : "CR_RESULT",title : "关怀结果",codeFormat : {type:"dict",codeType:"1327"}},
+		            {field : "CR_SCENE",title : "回访经过"},
+		            {field : "SOLD_BY",title : "销售顾问"},
+		            {field : "CR_CONTEXT",title : "关怀内容"}	          
+		         ]
+	});
+		
+		//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			
+			//关闭窗口		
+			
+			$("a[data-dismiss='modal']",container).click();
+		});
+	});
+</script>  

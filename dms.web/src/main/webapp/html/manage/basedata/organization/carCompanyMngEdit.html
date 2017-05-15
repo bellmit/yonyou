@@ -1,0 +1,129 @@
+<div class="dms-edit ajaxrest" data-url="/organization/carCompanyMaintain/{[COMPANY_ID]}" data-model="manage" data-beforeRequest="true" data-pageInitCallBack="true">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">公司组织修改</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<input type="hidden" name="companyId"  data-fieldName="companyId">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+						<div class="pannel-name">公司信息</div>
+				</div>
+	    		<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">公司代码：</label>
+								<div class="col-xs-8">
+									<input id="companyCode" name="companyCode" class="form-control required dmsDisabled" type="text" data-fieldName="companyCode"  />
+								</div>
+							</div>
+						</div>						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">公司名称：</label>
+								<div class="col-xs-8">
+										<input id="companyName" name="companyName" class="form-control required"  type="text" data-fieldName="companyName" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">公司简称：</label>
+								<div class="col-xs-8">
+										<input id="companyShortName" name="companyShortName" class="form-control required"  type="text" data-fieldName="companyShortName" />
+								</div>
+							</div>
+						</div>						
+						<div class="col-xs-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">省份：</label>
+								<div class="col-xs-8">
+									<select  class="bs-select form-control " id="province" name="province" data-type="oemRegion" data-fieldName="province" ></select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">城市：</label>
+								<div class="col-xs-8">
+									<select  class="bs-select form-control " parent="province" class="bs-select form-control" name="city" id = "city"  data-fieldName="city" ></select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系电话：</label>
+								<div class="col-xs-8">
+										<input id="phone" name="phone" class="form-control"  type="text" data-fieldName="phone" />
+								</div>
+							</div>
+						</div>	
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">邮编：</label>
+								<div class="col-xs-8">
+										<input id="zipCode" name="zipCode" class="form-control"  type="text" data-fieldName="zipCode" />
+								</div>
+							</div>
+						</div>	
+							
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">传真：</label>
+								<div class="col-xs-8">
+										<input id="fax" name="fax" class="form-control"  type="text" data-fieldName="fax" />
+								</div>
+							</div>
+						</div>	
+						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">详细地址：</label>
+								<div class="col-xs-8">
+										<input id="address" name="address" class="form-control"  type="text" data-fieldName="address" />
+								</div>
+							</div>
+						</div>				
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">状态：</label>
+								<div class="col-xs-8">
+									<select class="bs-select form-control required" id="status" name="status" data-fieldName="status"  
+										data-type="oemDict" data-dictCode="1001" data-existsDefault="false">
+									</select>
+								</div>
+							</div>
+						</div>											
+											
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/organization/carCompanyMaintain/editCarCompany" data-model="manage" data-method="PUT"
+				data-callBack="true" class="btn blue"
+				data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+			</a> <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+$(document).one("onload.dms",function(event,container){
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+});
+</script>

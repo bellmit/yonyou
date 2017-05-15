@@ -1,0 +1,59 @@
+<div class="dms-edit ajaxrest" data-url="/MvsFamilyMaintain/updateQueryInit/{[GROUP_ID]}" data-model="vehicle"  data-pageInitCallBack="true">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">MVS家族维护修改</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系</label>
+								<div class="col-xs-8">
+									<input type="text" class="bs-select form-control"  id="seriesId" name="seriesId" data-fieldName="GROUP_CODE" disabled/>
+								</div>
+							</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车型代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control"  id="groupCode" name="groupCode" data-fieldName="GROUP_NAME" disabled/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">MVS</label>
+							<div class="col-xs-8">
+								<input type="text" class="bs-select form-control required"  id="mvs" name="mvs" data-fieldName="MVS"/>
+							</div>
+						</div>
+					</div>
+				</div>		
+	</div>
+
+		<div class="modal-footer center-block">
+			<a data-url="/MvsFamilyMaintain/MvsFamilyMaintainUp" data-model="vehicle" data-method="POST"
+				data-callBack="true" class="btn blue"  
+				data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+			</a> 
+			<a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("a[data-dismiss='modal']",container).click();
+		$("a.clear").click();
+		$("#orderList",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+})
+</script>

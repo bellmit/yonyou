@@ -1,0 +1,101 @@
+<link rel="stylesheet" type="text/css" href="../assets/layouts/layout/css/PrintArea.css">
+<div class="modal-header">
+	<div class="modal-title">打印信息</div>
+	<div class="modal-close">
+		<a data-dismiss="modal" class="btn btn-lg">
+		<i class="fa fa-remove"></i></a>
+	</div>
+</div>
+<div class="modal-body">
+	<div class="dms-edit PrintArea ajaxrest" data-url="/transferRepository/printFirstShow"
+		data-model="vehicle">
+		<div class="panel panel-default panel-print">
+			<div class="panel-body">
+				<div class="print-title">
+					<div class="row h1Title">
+						<div class="col-xs-12">
+							<label >{[userInfo.dealerName]}</label>
+						</div>
+					</div>
+					<div class="row print-gap">
+				
+					</div>
+					<div class="row h2Title">
+						<div class="col-xs-12">
+							<label>车辆移库</label>
+						</div>
+					</div>
+					<div class="row print-gap">
+				
+					</div>
+					<div class="row print-singleRow">
+						<div class="col-xs-12">
+							<div class="col-xs-3">
+								<label class="text-left">移库单号:<span  class="form-show" data-fieldName="ST_NO"></span></label>
+							</div>
+							<div class="col-xs-3">
+								<label class="text-left">移库日期:<span class="form-show " data-fieldName="UPDATED_AT" data-date-format="YYYY-MM-DD "></span></label>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				<div class=" print-table">
+					<div class="panel panel-default table-panel">
+						<div class="panel-body">
+							<table class="table table-striped table-bordered table-hover table-responsive"
+									id="labourList">
+							</table>
+						</div>
+					</div>
+				
+				<div class="row print-gap">
+					
+				</div>
+				<div class="row print-singleRow">
+						<div class="col-xs-12">
+							<div class="col-xs-3">
+								<label class="text-left">库管签字:</label>
+							</div>
+							<div class="col-xs-3">
+								<label class="text-left">经理签字:</label>
+							</div>
+							<div class="col-xs-3">
+								<label class="text-left">财务经理签字:</label>
+							</div>
+						</div>
+					</div>
+			</div>
+		</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer center-block">
+<div class="print-without">
+	<a id="print" class="btn blue printfy"><i class="fa fa-print"></i>打印</a>
+    <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+			new Datatable().initLocale({
+				src : "labourList",
+				container:container,
+				rowID:"VIN",
+				url : dmsCommon.getDmsPath()["vehicle"] + "/transferRepository/findAllPrintAbout",
+				/* mergeTotal:{
+					megerCellNumber:5,
+				}, */
+				columns : [
+				           {field:"MODEL_NAME",title:"车型"},
+				           {field:"COLOR_NAME",title:"颜色"},
+				           {field:"VIN",title:"VIN"},
+				           {field:"MAR_STATUS",title:"质损状态",codeFormat : {type : "dict",codeType : "1306"}},
+				           {field:"OUT_STORAGE",title:"移出仓库"},
+				           {field:"IN_STORAGE",title:"移入仓库"},
+				           {field:"PURCHASE_PRICE",title:"采购价",numberFormat : {decimal:2}},
+				           {field:"PRODUCT_NAME",title:"产品名称"}
+				           ]
+			});
+});
+</script>

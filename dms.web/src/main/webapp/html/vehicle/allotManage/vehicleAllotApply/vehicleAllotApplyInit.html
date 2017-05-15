@@ -1,0 +1,222 @@
+<div class="dms-search">
+ <form class="form-horizontal">
+   		<div class="panel panel-default">
+	   	   <div class="panel-body">
+	   	   		<div class="row">
+			      	   	<div class="col-xs-3">
+				           <div class="form-group">
+				               <label class="control-label col-xs-4 ">VIN</label>
+				               <div class="col-xs-8">
+				                   <!-- <input type="text"  class="form-control" id="vin" name="vin"> -->
+				                   <textarea class="form-control" rows="2" cols="30" id="vin" name="vin"></textarea>
+				               </div>
+				           </div>
+				      </div>		
+	   	   		</div>
+				<div class="row ">
+				    <div class="col-xs-12 " >
+				      <div class="query-btn">
+				            <a href="javascript:;" class="btn blue" id="query" > <i class="fa fa-search"></i>查询</a>
+				            <a href="javascript:;" class="btn blue" id="clear"><i class="fa fa-undo"></i>重置</a>
+				      </div>
+				    </div>
+				</div>
+	   	   </div>
+   	   </div>
+   	   <div class="panel  panel-default table-panel">
+		   <div class="panel-body">
+				<table class="table table-striped table-bordered table-hover table-responsive"
+					id="dms_table"></table>
+		   </div>
+	   </div>
+	   <div class="panel  panel-default table-panel">
+		   <div class="panel-body">
+		   		<div class="row">
+					<div class="col-md-8">
+						<div class="form-group">
+								<label class="control-label col-md-2">调入经销商</label>
+								<div class="col-md-4">
+								     <div class="input-group">
+										   <input id="inDealerCode" name="inDealerCode" class="form-control " type="text" />
+									   </div>
+								</div>
+						</div>
+					</div>
+				    <div class="col-md-4" >
+				        <a href="javascript:;" id="dealerQuery" class="btn blue" ><i class="fa fa-undo"></i>查询</a>
+				        <a class="btn hidden" data-url="vehicle/allotManage/vehicleAllotApply/dealerQueryResult.html" data-width="modal-lg"
+							data-toggle="modal" id="dealerResult" data-callBack="true" > <i class="fa fa-undo"></i></a> 
+				    </div>
+		   		</div>
+		   		<div class="row">
+				    <div class="col-md-8">
+				    	<div class="form-group">
+				    		<label class="control-label col-md-2">调拨原因</label>
+				    		<div class="col-md-8">
+								<textarea id="reason" class="col-md-12"></textarea>
+								<input type="hidden" id="vehicleId">
+				    		</div>
+				    	</div>
+					</div>
+			    	<div class="col-md-4">
+				        <!-- <a id="apply" class="btn blue"><i class="fa fa-save"></i>申请</a> -->
+				        <a  data-errorCallBack="true" data-onclickEvent="true" id="btnApply" data-info="saveBefore"  data-callBack="true"  class="btn blue" data-toggle="confirmation" data-model="vehicle" data-method="GET" ><i class="fa fa-save"></i>申请</a>
+			    	</div>
+		   </div>
+	   </div>
+   	</div>
+ </form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+ 	new Datatable().initPagination({
+		src:"dms_table",
+		container:container,
+	    url : dmsCommon.getDmsPath()["vehicle"] + "/vehicleAllotMange/dealerApply",
+	    rowID:"VEHICLE_ID",
+	    sortName:"VIN",
+	    sortOrder:"ASC",
+		columns : [ 
+		          {checkbox:true,sortable : false},
+			      {field:"VIN",title:"VIN"},
+			      {field:"BRAND_NAME",title:"品牌"},
+			      {field:"SERIES_NAME",title:"车系"},
+			      {field:"MODEL_CODE",title:"CPOS"},
+			      {field:"MODEL_YEAR",title:"年款"},
+			      {field:"GROUP_NAME",title:"车款"},
+			      {field:"COLOR_NAME",title:"颜色"},
+			      {field:"TRIM_NAME",title:"内饰"}
+		      ]
+	});
+ 	
+ 	//查询按钮 
+ 	$("#dealerQuery",container).bind("click",function(){
+ 		var value = $("#inDealerCode").val();
+ 		if(value == null || value == ""){
+ 			dmsCommon.tip({status:"warning",msg:"请输入经销商代码！"});
+ 			return;
+ 		}
+		dmsCommon.ajaxRestRequest({
+			url:dmsCommon.getDmsPath()["vehicle"] + "/vehicleAllotMange/dealerApply/checkDealer/"+value,
+			type:"GET",
+			async:false,
+			dataType:"json",
+			sucessCallBack : function(data) {
+				if(data.code ==  "false"){
+					dmsCommon.tip({status:"warning",msg:data.msg});
+				}else{
+ 					$("#dealerResult").click();
+				}
+			}
+		});
+ 	});
+ 	
+ 	//申请按钮
+	$("#apply",container).bind("click",function(){
+		var selectRow = $("#dms_table",container).dmsTable().getSelections();
+		var inDealerCode = $("#inDealerCode",container).val();
+		var reason = $("#reason",container).val();
+		if(!selectRow){
+			dmsCommon.tip({status:"warning",msg:"请单击选择表格数据"});
+			returnResult.status = false;
+			return ;
+		}
+		else if(inDealerCode == null || inDealerCode == ""){
+ 			dmsCommon.tip({status:"warning",msg:"请输入经销商代码！"});
+			returnResult.status = false;
+ 			return;
+ 		}else{
+			var vehicleId = "";
+			for(var i = 0; i < selectRow.length; i++){
+				if(i == 0){
+					vehicleId = selectRow[i].VEHICLE_ID;
+				}else{
+					vehicleId = vehicleId+","+selectRow[i].VEHICLE_ID;
+				}
+			}
+			$("#vehicleId",container).val(vehicleId);
+			$(this).confirmation({
+	        	container: 'body', 
+	        	btnOkClass: 'btn btn-sm btn-success', 
+	        	btnCancelClass: 'btn btn-sm btn-info',
+	        	title:"是否同意车辆调拨?",
+	        	btnCancelLabel:"取消",
+	        	btnOkLabel:"确认",
+	        	placement:"top",
+	        	onConfirm:function(event, element){
+	        		dmsCommon.ajaxRestRequest({
+	        			url:dmsCommon.getDmsPath()["vehicle"] + "/vehicleAllotMange/dealerApply/vehicleTransfersApply",
+	        			type:"GET",
+	        			async:false,
+	        			dataType:"json",
+	        			data:{inDealerCode:$("#inDealerCode").val(),reason:$("#reason").val(),vehicleId:$("#vehicleId").val()},
+	        			sucessCallBack : function(data) {
+	        				if(data.code ==  "true"){
+	        					dmsCommon.tip({status:"success",msg:data.msg});
+	        				}else{
+	        					dmsCommon.tip({status:"warning",msg:data.msg});
+	        				}
+	        			}
+	        		});
+	        	},
+	        	onCancel:function(event, element){
+	        		
+	        	}
+			});
+		}
+	});
+ 	
+	$("a#btnApply[data-onclickEvent='true']", container).on("dms.onConfirm",function(event,returnResult){
+		var selectRow = $("#dms_table",container).dmsTable().getSelections();
+		var inDealerCode = $("#inDealerCode",container).val();
+		var reason = $("#reason",container).val();
+		if(!selectRow){
+			dmsCommon.tip({status:"warning",msg:"请单击选择表格数据"});
+			returnResult.status = false;
+			return ;
+		}
+		else if(inDealerCode == null || inDealerCode == ""){
+ 			dmsCommon.tip({status:"warning",msg:"请输入经销商代码！"});
+			returnResult.status = false;
+ 			return;
+ 		}else{
+			var vehicleId = "";
+			for(var i = 0; i < selectRow.length; i++){
+				if(i == 0){
+					vehicleId = selectRow[i].VEHICLE_ID;
+				}else{
+					vehicleId = vehicleId+","+selectRow[i].VEHICLE_ID;
+				}
+			}
+			$("#vehicleId",container).val(vehicleId);
+			//发送请求
+			dmsCommon.ajaxRestRequest({
+    			url:dmsCommon.getDmsPath()["vehicle"] + "/vehicleAllotMange/dealerApply/vehicleTransfersApply",
+    			type:"GET",
+    			async:false,
+    			dataType:"json",
+    			data:{inDealerCode:$("#inDealerCode").val(),reason:$("#reason").val(),vehicleId:$("#vehicleId").val()},
+    			sucessCallBack : function(data) {
+    				if(data.code ==  "true"){
+    					dmsCommon.tip({status:"success",msg:data.msg});
+    				}else{
+    					dmsCommon.tip({status:"warning",msg:data.msg});
+    				}
+    			}
+    		});
+			//刷新表格
+			$("#clear").click();
+			$("#query").click();
+ 		}
+		
+	});
+ 	
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//刷新表格
+		$("#clear").click();
+		$("#query").click();
+	});
+ 	
+ 	
+});
+</script>

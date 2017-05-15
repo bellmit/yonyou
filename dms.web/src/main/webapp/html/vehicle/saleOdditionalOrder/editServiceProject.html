@@ -1,0 +1,250 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">服务项目编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body" data-parentTable ="partInfoTable">
+					<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">服务项目代码</label>
+							<div class="col-xs-8">
+								<input id="serviceCode" name="SERVICE_CODE" class="form-control" 
+									type="text" data-fieldName="SERVICE_CODE"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">服务项目名称</label>
+							<div class="col-xs-8">
+								<input id="serviceName" name="SERVICE_NAME" class="form-control" 
+									type="text" data-fieldName="SERVICE_NAME"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">服务类别</label>
+							<div class="col-xs-8">
+								<select id="serviceType" name="SERVICE_TYPE" data-fieldName="SERVICE_TYPE" disabled
+									class="bs-select form-control" data-dictCode="1402" data-value="">
+								</select>
+							</div>
+						</div>
+					</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销售指导价</label>
+								<div class="col-xs-8">
+									<input id="directivePrice" name="DIRECTIVE_PRICE" data-fieldName="DIRECTIVE_PRICE" class="form-control money" disabled maxDigit="30" type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">实际销售价</label>
+								<div class="col-xs-8">
+									<input id="realPrice" name="REAL_PRICE" data-fieldName="REAL_PRICE" class="form-control money"  maxDigit="30" type="text" />
+								</div>
+							</div>
+						</div>						
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:red;">*</span>结算方式</label>
+								<div class="col-xs-8 ">
+									<select id="accountMode" name="ACCOUNT_MODE" data-fieldName="ACCOUNT_MODE"
+									   class="bs-select form-control required" data-dictCode="1406" data-value="">
+								    </select>							
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">实际发生金额</label>
+								<div class="col-xs-8 ">
+									<input id="receiveableAmount" name="RECEIVEABLE_AMOUNT" disabled data-fieldName="RECEIVEABLE_AMOUNT" class="form-control money"  maxDigit="30" type="text" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">代办预售金额</label>
+								<div class="col-xs-8 ">
+									<input id="consignedAmount" name="CONSIGNED_AMOUNT" disabled data-fieldName="CONSIGNED_AMOUNT" class="form-control money"  maxDigit="30" type="text" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">备注</label>
+								<div class="col-xs-8 ">
+									<input id="remark1" name="REMARK"  class="form-control "  maxDigit="30" type="text" />
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-onclickEvent="true" data-callBack="true"><i
+				class="fa fa-save"></i>确定</a> <a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+	//将上页数据赋给本页面
+	var selectRow = $("#soServicesList",getElementContext()).dmsTable().getSelections();
+   	$(selectRow).each(function(index){
+   	   serviceCode = selectRow[index].SERVICE_CODE;
+   	   serviceName = selectRow[index].SERVICE_NAME;
+	   serviceType = selectRow[index].SERVICE_TYPE;
+	   directivePrice = selectRow[index].DIRECTIVE_PRICE;
+	   realPrice = selectRow[index].REAL_PRICE;
+	   accountMode = selectRow[index].ACCOUNT_MODE;
+	   receiveableAmount = selectRow[index].RECEIVEABLE_AMOUNT;
+	   consignedAmount = selectRow[index].CONSIGNED_AMOUNT;
+	   remark = selectRow[index].REMARK;
+	   
+	   $("#serviceCode").val(serviceCode);
+	   $("#serviceName").val(serviceName);
+	   $("#serviceType").selectpicker('val',serviceType); 
+	   $("#directivePrice").val(directivePrice);
+	   $("#realPrice").val(realPrice);
+	   $("#accountMode").selectpicker('val',accountMode); 
+	   $("#receiveableAmount").val(receiveableAmount);
+	   $("#consignedAmount").val(consignedAmount);
+	   $("#remark1").val(remark);
+	   
+	});
+   	
+   	//结算方式变动事件
+   	$("#accountMode",container).bindChange(function(obj){
+        var am = $("#accountMode",container).val();
+   		if(am == '14061002'){//销售
+   			$("#realPrice",container).removeAttr("disabled","disabled");
+   			$("#consignedAmount",container).attr("disabled","disabled");
+   			$("#directivePrice",container).attr("disabled","disabled");
+   			var dp = $("#directivePrice",container).val();
+   			$("#realPrice").val(dp);
+   			$("#receiveableAmount").val(dp);
+   		    $("#consignedAmount").val(0);
+   		}else if(am == '14061003'){//车价已包含
+   			$("#directivePrice",container).removeAttr("disabled","disabled");
+   			$("#realPrice",container).attr("disabled","disabled");
+   			$("#consignedAmount",container).attr("disabled","disabled");
+   			$("#realPrice").val(0);
+   			$("#receiveableAmount").val(0);
+   		    $("#consignedAmount").val(0);
+   		}else if(am == '14061004'){//免费赠送
+   			$("#directivePrice",container).removeAttr("disabled","disabled");
+   			$("#realPrice",container).attr("disabled","disabled");
+   			$("#consignedAmount",container).attr("disabled","disabled");
+   			$("#realPrice").val(0);
+   			$("#receiveableAmount").val(0);
+   		    $("#consignedAmount").val(0);
+   		}else if(am == '14061001'){//代办
+   			$("#consignedAmount",container).removeAttr("disabled","disabled");
+   			$("#realPrice",container).attr("disabled","disabled");
+   			$("#directivePrice",container).attr("disabled","disabled");
+   			$("#realPrice").val(0);
+   			$("#receiveableAmount").val(0);
+   		    $("#consignedAmount").val(0);
+   		}
+	});
+   	
+   	//代办
+   	$("input[name='CONSIGNED_AMOUNT']",container).bindChange(function(obj){
+   		var am = $("#accountMode",container).val();
+   		if(am == '14061001'){
+   			$("#realPrice",container).bindAutoValueEvent("#consignedAmount");
+   			$("#receiveableAmount",container).bindAutoValueEvent("#consignedAmount");
+   		}
+   	});
+   	//销售
+   	$("input[name='REAL_PRICE']",container).bindChange(function(obj){
+   		var am = $("#accountMode",container).val();
+   		if(am == '14061002'){
+   			$("#receiveableAmount",container).bindAutoValueEvent("#realPrice");
+   		}
+   	}); 
+  
+   	
+   	var index = $.cookie('ServiceIndex');//下标
+   	var aaa = $.cookie('Service');
+ 	var item = JSON.parse($.cookie('Service'));//将cookie的string转化成json
+ 	$(".form-horizontal",container).jsonToForm(item);//将json填充到相应的框中 
+	
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+	   var newInfo =  $('.form-horizontal',container).formToJson();
+	   $("#soServicesList",getElementContext()).dmsTable().updateRowByIndex(index,newInfo);	   
+	   
+	   dmsCommon.tip({status:"success",msg:"修改成功！"});
+	   $("a[data-dismiss='modal']",container).click();
+	   //刷新表格
+	   $("#soServicesList",getElementContext()).dmsTable().refreshTableWithForm();
+	   
+	});
+	
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("#directivePrice").removeAttr("disabled","disabled");
+		$("#realPrice").removeAttr("disabled","disabled");
+		$("#receiveableAmount").removeAttr("disabled","disabled");
+		$("#consignedAmount").removeAttr("disabled","disabled");
+		
+		$.cookie('service', '', { expires: -1 });//删除cookie
+		$.cookie('serviceIndex', '', { expires: -1 });//删除cookie	
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#soServicesList",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+   	
+	
+});	
+
+//去掉json格式的中括号对[]
+$.fn.formToJson = function()    
+{    
+   var obj = {};    
+   var jsonInfo = this.serializeArray();    
+   $.each(jsonInfo, function() {    
+       if (obj[this.name]) {    
+           if (!obj[this.name].push) {    
+               obj[this.name] = [obj[this.name]];    
+           }    
+           obj[this.name].push(this.value || '');    
+       } else {    
+           obj[this.name] = this.value || '';    
+       }    
+   });    
+   return obj;    
+}; 
+
+//将json数据存入form表单
+$.fn.jsonToForm = function (info){
+	//1.循环JSON数据
+	for (var key in info) { 
+		var value = info[key];
+			$("[name=" + key + "]", $(this)).val(value);
+	}
+}
+</script>

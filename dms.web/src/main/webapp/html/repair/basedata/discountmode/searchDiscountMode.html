@@ -1,0 +1,90 @@
+<div class ="dms-search">
+ <form class="form-horizontal">
+  	<div class="panel panel-default">
+			<div class="panel-body">
+			     <div class="row" >
+			       <div class="col-xs-12 col-sm-6 col-md-4">
+			           <div class="form-group">
+			               <label class="control-label col-xs-4 ">优惠模式代码</label>
+			               <div class="col-xs-8">
+			                   <input type="text"  class="form-control" id="discountModeCode" name="discountModeCode">
+			               </div>
+			           </div>
+			       </div>
+			       <div class="col-xs-12 col-sm-6 col-md-4 ">
+			           <div class="form-group">
+			               <label class="control-label col-xs-4">优惠模式名称</label>
+			               <div class="col-xs-8 ">
+			                    <input type="text" class="form-control" id="discountModeName" name="discountModeName">
+			               </div>
+			           </div>
+			       </div>
+<!-- 			       <div class="col-xs-12 col-sm-6 col-md-4 "> -->
+<!-- 			         <div class="form-group"> -->
+<!-- 			             <label class="control-label col-xs-4">是否有效</label> -->
+<!-- 			             <div class="col-xs-8"> -->
+<!-- 			                 <select class="bs-select form-control" id="isvalid" name="isvalid" data-dictCode="1004" data-value="10041001"> -->
+<!-- 			                 </select> -->
+<!-- 			             </div> -->
+<!-- 			         </div> -->
+<!-- 			     </div> -->
+			 </div>
+			 <div class="row ">
+			    <div class="col-xs-12 " >
+			      <div class="query-btn">
+			                  <a href="javascript:;" class="btn blue" > <i class="fa fa-search"></i>查询</a>
+			                  <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+			            </div>
+			   		 </div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name" >优惠信息列表</div>
+      			<div class="pannel-button" >
+         			 <div class="btn-group btn-group-sm">
+            			<a class="btn btn-outline" data-url="repair/basedata/discountmode/addDiscountMode.html"
+            				data-width="modal-lg" data-toggle="modal"> <i class="fa fa-plus-square"></i> 新增
+            			</a>
+          			</div>
+      			</div>
+		 	</div>
+    		<div class="panel-body">
+      			<table class="table table-striped table-bordered table-hover table-responsive"
+       				 id="dms_table">
+       			</table>
+    		</div>
+  		</div>
+	</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["repair"] + "/basedata/discountmodes", ///basedata
+		rowID : "DISCOUNT_MODE_CODE",
+		sortName : "DISCOUNT_MODE_NAME", //默认按工种代码升序排列
+		sortOrder : "asc",
+		autoHeight: false,
+		columns : [ 
+		    
+		    {field : "",title : "操作",operateFormat : [
+                   {type:"edit",url:"repair/basedata/discountmode/editDiscountMode.html",openWidth:"modal-lg",doubleClick:true}
+               ]
+            }, 
+		    {field : "DISCOUNT_MODE_CODE",title : "优惠模式代码"},
+			{field : "DISCOUNT_MODE_NAME",title : "优惠模式说明"}, 
+			{field : "LABOUR_AMOUNT_DISCOUNT",title : "工时费优惠率"}, 
+			{field : "REPAIR_PART_DISCOUNT",title : "维修材料费优惠率"}, 
+			{field : "SALES_PART_DISCOUNT",title : "销售材料费优惠率"},
+			{field : "ADD_ITEM_DISCOUNT",title : "附加费优惠率"}, 
+			{field : "UPHOLSTER_AMOUNT_DISCOUNT",title : "装潢工时费优惠率"}, 
+			{field : "UPHOLSTER_PART_DISCOUNT",title : "装潢材料费优惠率"}, 
+			{field : "NO_DISCOUNT_BY_INSURANCE",title : "保险类默认无优惠",codeFormat : {type:"dict",codeType:"1278"}}],
+		
+		}); 
+	});
+</script>          

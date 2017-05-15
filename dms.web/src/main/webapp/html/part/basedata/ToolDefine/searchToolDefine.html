@@ -1,0 +1,226 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+	  <div class="panel panel-default">
+			<div class="panel-body">
+		<div class="row">
+		
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4 ">代码</label>
+					<div class="col-xs-8">
+						<input type="text" class="form-control " id="toolCode" name="toolCode" maxlength="4">
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">拼音</label>
+					<div class="col-xs-8 ">
+						<input type="text" class="form-control" id="toolSpell" name="toolSpell" maxlength="20">
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">工具类别</label>
+					<div class="col-xs-8 ">
+								<select class="bs-select form-control" id="toolTypeCode"name="toolTypeCode" 
+									data-url="/basedata/ToolsType/Select" data-model="part" 
+									data-lableDesc="TOOL_TYPE_NAME" data-labelValue="TOOL_TYPE_CODE" data-live-search="true">
+									</select> 
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">存放位置</label>
+					<div class="col-xs-8 ">
+						<input type="text" class="form-control" id="position" 
+						name="position" maxlength="20">
+					</div>
+				</div>
+			</div>
+			<!-- 隐藏域 -->
+			<!-- <div  id="hide" name="hide"   class="form-control required "  type="hidden" ></div> -->
+			<!--/span-->
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">负责人</label>
+					<div class="col-xs-8 ">
+						<select class="bs-select form-control" id="principal"name="principal" 
+									data-url="/basedata/ToolDefine/Employee/Select" data-model="part" 
+									data-lableDesc="PRINCIPAL_NAME" data-labelValue="PRINCIPAL" data-live-search="true">
+									</select> 
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" id="query"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+		  </div>
+		  
+		</div>
+	  </div>
+	
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >工具类别列表</div>
+		<div class="pannel-button"> 
+					<div class="btn-group btn-group-sm">
+						<a class="btn btn-outline" data-width="modal-lg" 
+						data-url="part/basedata/ToolDefine/addToolDefine.html"
+							data-toggle="modal"  data-beforeRequest="true">
+							 <i class="fa fa-plus-square"></i> 新增
+						</a> 
+					</div>
+				</div>
+			</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_toolsType"></table>
+		</div>
+	</div>
+		<!-- 底部按钮 -->
+		<div class="modal-footer center-block">
+								<a class="btn blue ajaxrest" data-width="modal-lg"  data-model="part" data-callBack="true"
+						data-validate="true" disabled="disabled" id="save"  data-onclickEvent="true" data-beforeRequest="true">
+						<!--  data-url="/basedata/ToolDefine"  data-method="POST" data-toggle="confirmation"     data-toggle="confirmation" -->
+							 <i class="fa fa-save"></i> 保存
+						</a> 
+						<a class="btn blue" data-width="modal-lg"  disabled="disabled"
+					 id="cancel" data-toggle="confirmation"  data-beforeRequest="true">
+							 <i class="fa fa-undo" ></i> 取消
+							<!-- 清空数据--相当于重新加载页面 -->
+						</a> 	
+						<a  data-url="/basedata/ToolDefine/export" data-model="part"  class="btn blue" 
+							data-width="modal-lg" data-method="downLoad" data-toggle="confirmation"
+							disabled="disabled"  id="excel">
+							 <i class="fa fa-download"></i> 导出
+							  <!-- 获取当前表格里的数据导出为excel表格 -->
+						</a> 	
+						<a class="btn blue" data-width="modal-lg" 
+						data-url="part/basedata/ToolDefine/editToolDefine.html"
+							data-toggle="modal" disabled="disabled"  id="printer">
+							 <i class="fa fa-print"></i>打印
+							   <!--  获取当前表格里的数据导出为*.fp3格式的报表文件 -->
+						</a> 
+						
+				<!-- <a data-errorCallBack="true" id="create" class="btn blue" ><i class="fa fa-plus-square"></i>新建</a>
+				<a id="save" data-model="vehicle" data-beforeRequest="true" class="btn blue ajaxrest"
+				data-validate="true" data-onclickEvent="true" data-callBack="true"><i class="fa fa-save"></i>保存</a> 
+				<a id="exit" class="btn blue"><i class="fa fa-print"></i>取消</a> -->
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_toolsType",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/basedata/ToolDefine",
+			rowID : "TOOL_CODE",
+			sortOrder : "asc",
+			autoHeight: false,
+			//isQueryFirst:false,
+			columns : [ 
+				 {title : "操作",operateFormat : [//localDel 本地删除
+                   {type:"edit",title:"修改",url:"part/basedata/ToolDefine/editToolDefine.html",
+					openWidth:"modal-lg",isShow:function(value, row,index){
+						var rows=$("#dms_toolsType",container).dmsTable().getRowDataByIndex();//获取表格里的所有
+						$(rows).each(function(index){
+							if(rows[index].FLAG=="A"){
+							}else{
+								if($("#allocateInNo",container).val()==""){
+									rows[index].FLAG="A";
+								}else{
+									rows[index].FLAG="S";
+								}
+							}
+						});
+						 return true; 
+						 }},
+				 {type : "localDel",title:"本地删除",isShow:function(value, row, index){
+						if(row.FLAG=="A"){
+							return true;
+						}
+						 return false;
+						}
+						/*  ,onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){} */
+						 } ]},
+				 //{checkbox:true,isVisible:function(column){return true;}},
+			/* 	  {field:"STORAGE_NAME",title:"仓库",
+            	   inputHiddenFormat:{hiddenFieldName:"storageCode,itemId,flag",hiddenField:"STORAGE_CODE,ITEM_ID,FLAG"}},  */
+                 {field : "TOOL_CODE",title : "代码", inputHiddenFormat:{hiddenFieldName:"toolCode,flag",hiddenField:"TOOL_CODE,FLAG"}}, 
+           		{field : "TOOL_NAME",inputField:"toolName",title : "名称",inputHiddenFormat:{hiddenField:"TOOL_NAME"}},
+           		 {field : "TOOL_SPELL",inputField:"toolSpell",title : "拼音",inputHiddenFormat:{hiddenField:"TOOL_SPELL"}}, 
+           	/* 	{field : "UNIT_CODE",inputField:"unitCode",title : "单位代码",isVisible:function(column){return false;},
+					inputHiddenFormat:{hiddenField:"UNIT_CODE"}}, */
+           		{field : "UNIT_NAME",inputField:"unitCode",title : "单位",inputHiddenFormat:{hiddenField:"UNIT_CODE"}},
+              /*  {field : "TOOL_TYPE_CODE",inputField:"toolTypeCode",title : "工具类别代码" ,isVisible:
+						function(column){return false;},inputHiddenFormat:{hiddenField:"TOOL_TYPE_CODE"}},  */
+           		 {field : "TOOL_TYPE_NAME",inputField:"toolTypeCode",title : "工具类别",inputHiddenFormat:{hiddenField:"TOOL_TYPE_CODE"}}, 
+           		{field : "POSITION",inputField:"position",title : "存放位置",inputHiddenFormat:{hiddenField:"POSITION"}},
+           		 {field : "LEND_QUANTITY",inputField:"lendQuantity",title : "借进数量",inputHiddenFormat:{hiddenField:"LEND_QUANTITY"}}, 
+           		{field : "STOCK_QUANTITY",inputField:"stockQuantity",title : "库存数量",inputHiddenFormat:{hiddenField:"STOCK_QUANTITY"}},
+           		{field : "CAPITAL_ASSERTS_MANAGE_NO",inputField:"capitalAssertsManageNo",title : "固定资产编号",
+							inputHiddenFormat:{hiddenField:"CAPITAL_ASSERTS_MANAGE_NO"}},
+           		/*  {field : "PRINCIPAL",inputField:"principal",title : "负责人编号"  ,isVisible:
+					function(column){return false;},inputHiddenFormat:{hiddenField:"PRINCIPAL"}},  */
+           		 {field : "PRINCIPAL_NAME",inputField:"principal",title : "负责人",inputHiddenFormat:{hiddenField:"PRINCIPAL"}}, 
+           		{field : "DATE_VALIDITY",inputField:"dateValidity",title : "使用年限",inputHiddenFormat:{hiddenField:"DATE_VALIDITY"}}
+           	/* 	{field : "FLAG",inputField:"flag",inputHiddenFormat:{hiddenField:"FLAG"},isVisible:function(column){return false;}} */
+			],onLoadSuccess : function() {
+				 $("#cancel").removeAttr("disabled");
+				 $("#excel").removeAttr("disabled");
+				 $("#printer").removeAttr("disabled");
+			}
+		});
+		
+		/* 
+		   {field : "REPORTED_NUMBER",inputField:"reportedNumber",title : "上报数量",inputNumberFormat : {}},
+ */
+		
+		//单击表格行数据触发事件
+		$("#dms_toolsType tbody",container).on('click','tr',function(){
+			var all = $("#dms_toolsType",container).dmsTable().getRowDataByIndex();
+			var index = $(this).attr('data-index');
+			$.cookie('stockInForUpdate', JSON.stringify(all[index]));
+			$.cookie('stockInForUpdateIndex', index); 
+		});
+	 	
+		
+	       //保存的回调函数
+	 	 $("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+	 		 alsert(1);
+	 		  if(container.id="save"){
+	 			// $("a[id=query]",container).click();
+				}  
+	 	});
+	          
+		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			 if(container.id="cancel"){
+				 //刷新表格，将修改内容还原  //将增加的都清除
+				  dmsCommon.refreshPageByUrl("part/basedata/ToolDefine/searchToolDefine.html",container);
+				}
+			  if(container.id="save"){
+							//新增
+							$(this).attr("data-method","POST");
+							$(this).attr("data-url","/basedata/ToolDefine"); 
+				}  
+			 returnResult.status =true;
+		});
+		
+	});
+	
+</script>

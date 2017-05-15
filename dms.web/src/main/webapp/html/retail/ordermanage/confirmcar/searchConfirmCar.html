@@ -1,0 +1,682 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">业务类型</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" id="businessType"
+									name="businessType" data-dictCode="1300" data-excludeItems="13001002,13001003">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">订单编号</label>
+							<div class="col-xs-8">
+								<input id="soNo" name="soNo" class="form-control" type="text" />
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">客户名称</label>
+							<div class="col-xs-8">
+								<input id="customerName" name="customerName"
+									class="form-control" type="text" />
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">VIN号</label>
+							<div class="col-xs-8">
+								<input id="vin" name="vin" class="form-control" type="text" />
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">订单状态</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" id="soStatus"
+									name="soStatus" data-dictCode="1301" data-value="13011025"
+									data-excludeItems="13011010,13011015,13011020,13011035,13011040,13011045,13011050,13011055,13011060,13011065,13011070,13011075">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i>查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i>重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">交车确认信息</div>
+			<!-- <div class="hidden"> -->
+	 		<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+				<!-- <a 
+				data-url="/ordermanage/confirmcar/updatecustomerinfo/car"
+				data-model="retail" data-method="PUT" data-callBack="true"
+				class="btn btn-outline" disabled id="saveBtn"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a>
+					<a class="btn btn-outline" id="audit" disabled
+						data-url="retail/ordermanage/confirmcar/cusWarrantyRegist.html"
+						data-toggle="modal" data-width="modal-md"
+						data-beforeShowEvent="true"> <i class="fa fa-plus-square"></i>
+						交车确认
+					</a> <a class="btn btn-outline" id="upAudit" disabled
+						data-url="retail/ordermanage/managerverify/commitAudit.html"
+						data-toggle="modal" data-width="modal-md"
+						data-beforeShowEvent="true"> <i class="fa fa-plus-square"></i>
+						提交审核
+					</a> --> <a class="btn btn-outline" id="auditHis" disabled
+						data-url="retail/ordermanage/managerverify/searchAuditDetail.html"
+						data-toggle="modal" data-width="modal-lg"
+						data-beforeShowEvent="true"> <i class="fa fa-plus-square"></i>
+						审批记录
+					</a>
+				</div>
+			</div> 
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+	<form class="form-horizontal" hidden="hidden">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<div class="pannel-name">保有客户信息</div>
+
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="pannel-name">个人/公司信息</div>
+				<div class="pannel-tools">
+					<a href="javascript:;" class="expand"> <i
+						class="fa fa-chevron-down"></i></a>
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">客户类型</label>
+							<div class="col-xs-8">
+								<!-- <input type="text" class="form-control" id="customerType" name="customerType" readonly disabled="disabled">
+							 -->
+								<select id="customerType" name="customerType"
+									class="form-control" data-dictCode="1518" disabled="disabled">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">客户名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="cusName"
+									name="cusName"  disabled="disabled">
+							</div>
+						</div>
+					</div>
+				<!-- 	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">保有客户编号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="customerNo"
+									name="customerNo"  disabled="disabled">
+							</div>
+						</div>
+					</div> -->
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">客户性别</label>
+							<div class="col-xs-8">
+								<select id="gender" name="gender" data-fieldName="GENDER"
+									class="form-control" data-dictCode="1006" disabled="disabled">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">出生日期</label>
+							<div class="col-xs-8">
+								<div class="input-group date date-picker"
+									data-orientation="top right">
+									<input id="birthday" name="birthday" readonly
+										disabled="disabled" class="form-control" type="text" value="" />
+									<span class="input-group-btn">
+										<button class="btn default date-set" type="button" disabled="disabled" id="birthdayBtn">
+											<i class="fa fa-calendar"></i>
+										</button>
+										<button class="btn default date-reset" type="button"
+											disabled="disabled" id="birthdayBtnX">
+											<i class="fa fa-times"></i>
+										</button>
+									</span>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">证件类型</label>
+							<div class="col-xs-8">
+								<select id="ctCode" name="ctCode" class="form-control"
+									data-dictCode="1239" disabled="disabled">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">证件号码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="certificateNo"
+									name="certificateNo" disabled="disabled">
+							</div>
+						</div>
+					</div>
+				<!-- 	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" hidden="hidden">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">保存</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="usoNo"
+									name="usoNo" disabled="disabled">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" hidden="hidden">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">保存</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="uVin"
+									name="uVin" disabled="disabled">
+							</div>
+						</div>
+					</div> -->
+					<!--/span-->
+					<!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+										<div class="form-group">
+											<label class="control-label col-xs-4">省份</label>
+											<div class="col-xs-8">
+												<select id="province" class="form-control"
+													name="province" 
+													data-type="region">
+												</select>
+											</div>
+										</div>
+									</div>
+									/span
+									<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+										<div class="form-group">
+											<label class="control-label col-xs-4">城市</label>
+											<div class="col-xs-8">
+												<select  class="bs-select form-control" 
+												  name="city" id="city" >
+												</select>
+											</div>
+										</div>
+									</div>
+									/span
+									<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+										<div class="form-group">
+											<label class="control-label col-xs-4">区县</label>
+											<div class="col-xs-8">
+												<select data-type="region" id="district"
+													class="bs-select form-control" name="district"  >
+													</select>
+											</div>
+										</div>
+									</div> -->
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">地址</label>
+							<div class="col-xs-8 col-sm-10">
+								<input id="address" name="address" class="form-control"
+									maxlength="120" type="text" disabled="disabled"/>
+
+							</div>
+						</div>
+					</div>
+					<!-- /span -->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">联系方式</label>
+							<div class="col-xs-8">
+								<select id="bestContactType" name="bestContactType"
+									class="form-control" data-dictCode="1331" disabled="disabled">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">联系手机</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="contactorMobile"
+									name="contactorMobile" disabled="disabled">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">客户来源</label>
+							<div class="col-xs-8">
+								<select id="cusSource" name="cusSource" class="form-control"
+									data-dictCode="1311" disabled="disabled">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">购车目的</label>
+							<div class="col-xs-8">
+								<select id="buyPurpose" name="buyPurpose" class="form-control"
+									data-dictCode="1346" data-value="" disabled="disabled">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+
+					<!-- 		
+								<div class="col-xs-12 col-sm-12 col-md-8">
+										<div class="form-group">
+											<label class="control-label col-xs-4 col-sm-2">购车因素</label>
+											<div class="col-xs-8 col-sm-10">
+									            <select id="buyReason"
+										           class="form-control" name="buyReason"
+										            data-dictCode="1376"
+										            multiple data-live-search="true"  data-existsDefault = "false">
+									            </select>
+								              </div>
+										
+										</div>
+									</div> -->
+					<!--/span-->
+
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="pannel-name">车辆信息</div>
+				<div class="pannel-tools">
+					<a href="javascript:;" class="expand"> <i
+						class="fa fa-chevron-down"></i></a>
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="row ">
+				                   
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">车型</label>
+							<div class="col-xs-8">
+							    <select id="model" name="model"
+										class="form-control" disabled="disabled"
+										data-url="/basedata/intentionModel"
+										data-model="manage" data-labelValue="MODEL_CODE"
+										data-lableDesc="MODEL_NAME">
+									</select>
+								<!-- <input type="text" class="form-control" id="model" name="model"
+									 disabled="disabled"> -->
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">配置</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="apackage"
+									name="apackage"  disabled="disabled">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">颜色</label>
+							<div class="col-xs-8">
+							<select id="color" name="color"
+										class="form-control" disabled="disabled"
+										data-url="/basedata/colors/colorinfo/dicts"
+										data-model="repair" data-labelValue="COLOR_CODE"
+										data-lableDesc="COLOR_NAME">
+									</select>
+								<!-- <input type="text" class="form-control" id="color" name="color"
+									 disabled="disabled"> -->
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">VIN</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="cvin" name="cvin"
+									 disabled="disabled">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<!-- 	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">productCode</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="productCode" name="productCode"
+									 disabled="disabled">
+							</div>
+						</div>
+					</div> -->
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">车牌号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="license"
+									name="license"  disabled="disabled">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">上牌日期</label>
+							<div class="col-xs-8">
+								<div class="input-group date date-picker"
+									data-orientation="top right">
+									<input id="licenseDate" name="licenseDate" readonly
+										disabled="disabled" class="form-control" type="text" value="" />
+									<span class="input-group-btn">
+										<button class="btn default date-set" type="button" disabled="disabled" id="licenseDateBtn">
+											<i class="fa fa-calendar"></i>
+										</button>
+										<button class="btn default date-reset" type="button"
+											disabled="disabled" id="licenseDateBtnX">
+											<i class="fa fa-times"></i>
+										</button>
+									</span>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">开票日期</label>
+							<div class="col-xs-8">
+								<div class="input-group date date-picker"
+									data-orientation="top right">
+									<input id="salesDate" name="salesDate" readonly
+										disabled="disabled" class="form-control" type="text" value="" />
+									<span class="input-group-btn">
+										<button class="btn default date-set" type="button" disabled="disabled" id="salesDateBtn">
+											<i class="fa fa-calendar"></i>
+										</button>
+										<button class="btn default date-reset" type="button"
+											disabled="disabled" id="salesDateBtnX">
+											<i class="fa fa-times"></i>
+										</button>
+									</span>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">销售里程</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="salesMileage"
+									name="salesMileage" disabled="disabled">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!-- 	<div class="modal-footer center-block">
+			<a 
+				data-url="/ordermanage/confirmcar/savecustomerinfo/car"
+				data-model="retail" data-method="PUT" data-callBack="true"
+				class="btn blue" disabled id="saveBtn"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a>
+				<a data-goback="page" href="retail/ordermanage/confirmcar/searchConfirmCar.html"
+				class="btn blue ajaxify"><i class="fa fa-reply"></i>取消</a> <a
+				data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div> -->
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["retail"] + "/ordermanage/confirmcar",
+			rowID : "SO_NO",
+			sortName : "SO_NO",
+			sortOrder : "desc",
+			checkboxHeader:true,
+			selectItemName:"SO_NO",
+			undefinedText : "",
+			autoHeight:false,
+			columns : [ 
+			    {field : "SO_NO",title : "操作",operateFormat : [
+			    	 {type:"edit",url:"retail/ordermanage/confirmcar/cusWarrantyRegist.html",openWidth:"modal-md",title:"交车确认",operateIcon:'<i class="fa fa-lg fa-check-square-o"></i>',isShow:function(value, row, index){
+	                	   if(row.SO_STATUS=='13011025'&&row.VIN!=null&&row.VIN!=undefined&&row.VIN!=""){
+	                		   return true;
+	                	   }else{
+	                		   return false;
+	                	   } 
+	                   }},
+	                   {type:"edit",openType:"jump",url:"retail/ordermanage/confirmcar/printSalesOrder.html",title:"打印交车单",operateIcon:'<i class="fa fa-print"></i>',isShow:function(value, row, index){
+	                	   if(row.SO_STATUS=='13011025'&&row.VIN!=null&&row.VIN!=undefined&&row.VIN!=""){
+	                		   return true;
+	                	   }else{
+	                		   return true;
+	                	   } 
+	                   }},
+				     {type:"edit",url:"retail/ordermanage/confirmcar/editSalesOrder.html",title:"订单明细",openType:"jump",operateIcon:'<i class="fa fa-edit glyphicon-lg"></i>'},
+                     {type:"detail",url:"customer/potentialcus/potentialCusFollow/editCusInfo.html",openWidth:"modal-lg",title:"客户详情",operateIcon:'<i class="fa fa-lg fa-user-plus"></i>'}
+                   ]
+                }, 
+                {field:"SO_STATUS",title:"订单状态",codeFormat : {type:"dict",codeType:"1301"}},
+                {field:"DELIVERING_DATE",title:"预计交车日期",dateFormat : {format:"YYYY-MM-DD"}},
+                {field:"VIN",title:"VIN"},
+                {field:"MODEL_NAME",title:"车型"},
+    			{field:"MODEL_CODE",title:"车型",minWidth:20,inputSelectFormat : {url:"/basedata/intentionModel",model:"manage",labelValue:"MODEL_CODE",lableDesc:"MODEL_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"},visible:false},
+    			{field:"CONFIG_NAME",title:"配置"},
+    			{field:"COLOR_NAME",title:"颜色"},
+    			{field:"CONFIG_CODE",title:"配置",visible:false},
+    			{field:"COLOR_CODE",title:"颜色",minWidth:15,inputSelectFormat : {url:"/basedata/colors/colorinfo/dicts",model:"repair",labelValue:"COLOR_CODE",lableDesc:"COLOR_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"},visible:false},
+    			{field:"CONTACTOR_NAME",title:"联系人"},
+    			{field:"MOBILE",title:"电话"},
+                {field:"BUSINESS_TYPE",title:"业务类型",codeFormat : {type:"dict",codeType:"1300"}},
+                {field:"SHEET_CREATE_DATE",title:"开单日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+                {field:"ORDER_RECEIVABLE_SUM",title:"订单应收",numberFormat : {decimal:2}},
+                {field:"SO_NO",title:"销售单号"},
+                {field:"USER_NAME",title:"销售单号"},
+                {field:"SOLD_BY",title:"销售顾问",minWidth:10,inputSelectFormat : {url:"/basedata/employees/-1/salesConsultant",model:"manage",labelValue:"USER_ID",lableDesc:"USER_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"},visible:false},
+                {field:"CUSTOMER_NO",title:"客户编号"},
+                {field:"CUSTOMER_TYPE",title : "客户类型",codeFormat : {type:"dict",codeType:"1018"}},
+                {field:"CUSTOMER_NAME",title:"客户名称"},
+                {field:"CONTRACT_NO",title:"合约编号"},
+                {field:"CONTRACT_DATE",title:"签约日期",dateFormat : {format:"YYYY-MM-DD"}},
+    			{field:"CT_CODE",title:"证件类型",codeFormat : {type:"dict",codeType:"1239"}},
+     			{field:"CERTIFICATE_NO",title:"证件号码"},
+                {field:"APPLY_NO",title:"调拨申请单号",visible:false},
+    			{field:"VEHICLE_PRICE",title:"车辆价格",visible:false},
+    			{field:"AUDITED_BY",title:"经理审核人",visible:false},
+    			{field:"IS_ACCOUNTANT_AUDITING",title:"隐藏",visible:false},
+    			{field:"VER",title:"隐藏",visible:false},
+    			{field:"IS_SPEEDINESS",title:"隐藏",visible:false},
+     			{field:"OTHER_AMOUNT",title:"其他金额",visible:false},
+    			{field:"OTHER_AMOUNT_OBJECT",title:"其他金额对象",visible:false},
+    			{field:"OTHER_PAY_OFF",title:"其他金额是否已付",visible:false},
+    			{field:"ESC_ORDER_STATUS",title : "电商订单状态",codeFormat : {type:"dict",codeType:"1619"},visible:false},
+                {field:"ESC_TYPE",title : "电商客户类型",codeFormat : {type:"dict",codeType:"1618"},visible:false},
+    			{field:"DELIVERY_MODE_ELEC",title:"官网交车方式",visible:false},
+    			{field:"REMARK",title:"备注",visible:false},
+    			{radio:true,sortable : true}
+    			], onClickRow(rowData, element){
+					 $("#auditHis",container).removeAttr("disabled");
+					 $("#saveBtn",container).removeAttr("disabled");
+					 $("#uVin").val(rowData.VIN);
+					 $("#usoNo").val(rowData.SO_NO);
+					 checkoutMobile(rowData.SO_NO+","+rowData.VIN);
+					 if(rowData.SO_STATUS=='1301103'){
+						 $("#saveBtn",container).removeAttr("disabled");
+						    $("#ctCode").removeAttr("disabled");
+							$("#certificateNo").removeAttr("disabled");
+							$("#gender").removeAttr("disabled");
+							$("#customerType").removeAttr("disabled");
+							$("#cusName").removeAttr("disabled");
+							$("#province").removeAttr("disabled");
+							$("#bestContactType").removeAttr("disabled");
+							$("#contactorMobile").removeAttr("disabled");
+							$("#address").removeAttr("disabled");
+							$("#buyReason").removeAttr("disabled");
+							$("#buyPurpose").removeAttr("disabled");
+							$("#cusSource").removeAttr("disabled");
+							$("#model").removeAttr("disabled");
+							$("#apackage").removeAttr("disabled");
+							$("#color").removeAttr("disabled");
+							$("#cvin").removeAttr("disabled");
+							$("#license").removeAttr("disabled");
+							$("#licenseDate").removeAttr("disabled");
+							$("#salesDate").removeAttr("disabled");
+							$("#salesMileage").removeAttr("disabled");
+							$("#birthday").removeAttr("disabled");
+							$("#birthdayBtn").removeAttr("disabled");
+							$("#birthdayBtnX").removeAttr("disabled");
+							$("#salesDateBtn").removeAttr("disabled");
+							$("#salesDateBtnX").removeAttr("disabled");
+							$("#licenseDateBtn").removeAttr("disabled");
+							$("#licenseDateBtnX").removeAttr("disabled");
+							
+					 }else{
+						 /* $("#saveBtn").attr("disabled","disabled"); */
+						 $("#birthdayBtn").attr("disabled","disabled");
+						 $("#birthdayBtnX").attr("disabled","disabled");
+						 $("#salesDateBtn").attr("disabled","disabled");
+						 $("#salesDateBtnX").attr("disabled","disabled");
+						 $("#licenseDateBtn").attr("disabled","disabled");
+						 $("#licenseDateBtnX").attr("disabled","disabled");
+						    $("#ctCode").attr("disabled","disabled");
+							$("#certificateNo").attr("disabled","disabled");
+							$("#gender").attr("disabled","disabled");
+							$("#customerType").attr("disabled","disabled");
+							$("#cusName").attr("disabled","disabled");
+							$("#province").attr("disabled","disabled");
+							$("#bestContactType").attr("disabled","disabled");
+							$("#contactorMobile").attr("disabled","disabled");
+							$("#address").attr("disabled","disabled");
+							$("#buyReason").attr("disabled","disabled");
+							$("#buyPurpose").attr("disabled","disabled");
+							$("#cusSource").attr("disabled","disabled");
+							$("#model").attr("disabled","disabled");
+							$("#apackage").attr("disabled","disabled");
+							$("#color").attr("disabled","disabled");
+							$("#cvin").attr("disabled","disabled");
+							$("#license").attr("disabled","disabled");
+							$("#licenseDate").attr("disabled","disabled");
+							$("#salesDate").attr("disabled","disabled");
+							$("#salesMileage").attr("disabled","disabled");
+							$("#birthday").attr("disabled","disabled");
+					 }
+					 
+							 
+				}
+		});
+		//弹出页面打开前执行函数
+		$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+			var selectRow = $("#dms_table",container).dmsTable().getSelections();
+			if(!selectRow){
+				dmsCommon.tip({status:"warning",msg:"请单击选择表格数据"});
+				returnResult.status = false;
+				return ;
+			}
+			returnResult.status = true;
+		});
+		
+		var checkoutMobile=function(str){
+			dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["retail"] + "/ordermanage/confirmcar/test/"+str,
+				type : 'GET',
+				sucessCallBack : function(data) {
+					if(data.length>0){
+						$("#ctCode").val(data[0].CT_CODE);
+						$("#certificateNo").val(data[0].CERTIFICATE_NO);
+						$("#gender").val(data[0].GENDER);
+						$("#customerType").val(data[0].CUSTOMER_TYPE);
+						$("#cusName").val(data[0].CUSTOMER_NAME);
+						$("#province").val(data[0].PROVINCE);
+						$("#bestContactType").val(data[0].BEST_CONTACT_TYPE);
+						$("#contactorMobile").val(data[0].CONTACTOR_MOBILE);
+						$("#address").val(data[0].ADDRESS);
+						$("#buyReason").val(data[0].BUY_REASON);
+						$("#buyPurpose").val(data[0].BUY_PURPOSE);
+						$("#cusSource").val(data[0].CUS_SOURCE);
+						$("#customerNo").val(data[0].CUSTOMER_NO);
+						$("#model").val(data[0].MODEL);
+						$("#apackage").val(data[0].APACKAGE);
+						$("#color").val(data[0].COLOR);
+						$("#cvin").val(data[0].VIN);
+						$("#license").val(data[0].LICENSE);
+						$("#productCode").val(data[0].PRODUCT_CODE);
+						$("#licenseDate").val(data[0].LICENSE_DATE);
+						$("#salesDate").val(data[0].SALES_DATE);
+						$("#salesMileage").val(data[0].SALES_MILEAGE);
+						$("#birthday").val(data[0].BIRTHDAY1);
+						flag = true;//总共的状态类型：info、success、error、warning
+					}
+				}
+			});
+			
+	 }
+	});
+</script>      

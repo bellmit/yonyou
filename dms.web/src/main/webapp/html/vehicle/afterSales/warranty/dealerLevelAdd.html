@@ -1,0 +1,89 @@
+<div class="dms-add" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">经销商等级新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4" data-tableSelect="true">
+							<div class="form-group">
+								<label class="control-label col-xs-5">经销商代码</label>
+								<div class="col-xs-7">
+									<div class="input-group">
+									<input id="dealerCode" readonly
+										name="dealerCode" class="form-control required" type="text"
+										data-fieldName="dealer_code" /> <span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="vehicle/afterSales/warranty/searchAfterDealers.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-5">经销商简称</label>
+								<div class="col-xs-7">
+									<input type="hidden" id="dealerId" name="dealerId"/>
+									<input type="text" class="form-control" id="dealerName" name="dealerName" readonly/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-5">工时费级别：</label>
+							<div class="col-xs-7">
+								<select id="derLevel" name="derLevel" class="bs-select form-control required" data-type="oemDict" data-dictCode="8030" >
+								</select>
+							</div>
+						</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-5">ESIGI经销商代码</label>
+								<div class="col-xs-7">
+									<input type="text" class="form-control required" id="fiatWebdacCode" name="fiatWebdacCode" maxlength="30"/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/DealerLevelMain/Add" data-model="vehicle" data-method="POST"
+				data-callBack="true" class="btn blue" data-toggle="confirmation">
+				<i class="fa fa-save"></i>保存
+			</a> <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+	
+	$(document).one("onload.dms",function(event, container) {
+		
+		//新增页面的回调函数
+		$("a[data-callBack='true']", container).on(	"callBack.dms",	function(event, response) {
+			//关闭窗口
+			$("a[data-dismiss='modal']", container).click();
+			//刷新表格
+			$("#orderList", getElementContext()).dmsTable().refreshTableWithForm();	
+		});
+	});
+	
+</script>

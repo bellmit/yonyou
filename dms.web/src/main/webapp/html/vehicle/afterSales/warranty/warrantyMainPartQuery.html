@@ -1,0 +1,76 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4">
+					   <div class="form-group">
+							<label class="control-label col-xs-4">主因件代码</label>
+							<div class="col-xs-8">
+								<input type="text" id="oldptCode" name="oldptCode" class="form-control"	>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+					   <div class="form-group">
+							<label class="control-label col-xs-4">主因件描述</label>
+							<div class="col-xs-8">
+								<input type="text" id="oldptName" name="oldptName"class="form-control">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">主因件维护</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+					<a href="javascript:;" data-url="/warrantyMainPart/downloadMainPart"
+						data-model="vehicle" data-method="downLoad"	data-toggle="confirmation" class="btn btn-outline "><i
+						class="fa fa-download"></i>下载</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive" id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+	//查询操作代码
+	
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/warrantyMainPart/warrantyMainPartSearch",
+		rowID : "ID",
+		sortName : "UPDATE_DATE,ID",
+		sortOrder : "desc,desc",
+		autoHeight:false,
+		columns : [  
+				{field : "OLDPT_CODE",title : "主因件代码"},
+				{field : "OLDPT_NAME",title : "主因件描述",maxLengthFormat : {length:20}}, 
+				{field : "STATUS",title : "状态"},
+				{field : "CREATE_BY",title : "创建人"},
+				{field : "CREATE_DATE",title : "创建时间"},
+				{field : "UPDATE_BY",title : "更新人"},
+				{field : "UPDATE_DATE",title : "更新时间"}
+        ]
+     });
+})
+</script>

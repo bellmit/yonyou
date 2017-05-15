@@ -1,0 +1,133 @@
+<div class="dms-detail">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">仓库名称</label>
+							<div class="col-xs-8">
+								<select id="storageCode" name="storageCode"
+									class="bs-select form-control" disabled="disabled"
+									data-url="/basedata/store/accessories/Warehouses" data-model="part" data-labelValue="STORAGE_CODE" data-lableDesc="STORAGE_NAME"></select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件代码</label>
+							<div class="col-xs-8 ">
+								<input type="text" class="form-control" disabled="disabled" id="partCode"
+									name="partCode">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" disabled="disabled" id="partName"
+									name="partName">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-8 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">查看日期</label>
+						<div class="col-xs-8 col-sm-10">
+							<div class="input-group input-daterange">
+			         			<input type="text" class="form-control" readonly  name="operteDateFrom" id="operteDateFrom">
+			         			<span class="input-group-addon">至</span>
+			         			<input type="text" class="form-control" readonly  name="operteDateTo" id="operteDateTo"> 
+			    	 		</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">出入库类型</label>
+								<div class="col-xs-8">
+									<select class="bs-select form-control" id="inOutType" name="inOutType"
+										data-dictCode="1315">
+									</select>
+								</div>
+						</div>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">配件流水明细</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+					<a data-url="/partReport/partflows/{[STORAGE_CODE]}/export" data-model="report"
+						data-method="downLoad" data-toggle="confirmation"
+						class="btn btn-sm btn-outline "><i class="fa fa-download"></i>导出
+					</a>					
+				</div>
+			</div>
+		</div>
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="dms_table"></table>
+			</div>
+			<div class="form-actions">
+				<a data-goback="page" href="report/partReport/partflow/searchPartFlow.html"
+				class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	dmsCommon.ajaxRestRequest({
+		url : dmsCommon.getDmsPath()["report"] + "/partReport/partflows/"+{[PART_STOCK_ID]},
+		type : 'GET',
+		sucessCallBack : function(modelData) {
+			$("#storageCode",container).setDmsValue(modelData.STORAGE_CODE);
+			$("#partCode",container).val(modelData.PART_CODE);
+			$("#partName",container).val(modelData.PART_NAME);
+			$("#storageCode",getElementContext()).val("");
+		}
+	});
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["report"] + "/partReport/partflows/{[STORAGE_CODE]}/items", ///basedata
+		rowID : "FLOW_ID",
+		sortName : "OPERATE_DATE", 
+		sortOrder : "asc",
+		autoHeight:false,
+		columns : [ 
+            {field : "OPERATE_DATE",title : "发生日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+            {field : "IN_OUT_TYPE",title : "出入库类型",codeFormat : {type:"dict",codeType:"1315"}},
+            {field : "SHEET_NO",title : "出入库单号"},
+            {field : "STOCK_IN_QUANTITY",title : "入库数量"}, 
+            {field : "STOCK_OUT_QUANTITY",title : "出库数量"}, 
+            {field : "STOCK_QUANTITY",title : "库存数量"},
+            {field : "COST_PRICE",title : "成本单价"},
+            {field : "COST_AMOUNT",title : "成本金额"},
+            {field : "IN_OUT_NET_PRICE",title : "出入库不含税单价"},
+            {field : "IN_OUT_NET_AMOUNT",title : "出入库不含税金额"},
+            {field : "IN_OUT_TAXED_PRICE",title : "出入库含税单价"},
+            {field : "IN_OUT_TAXED_AMOUNT",title : "出入库含税金额"},
+            {field : "CUSTOMER_CODE",title : "客户代码"},
+            {field : "CUSTOMER_NAME",title : "客户名称"},
+			{field : "EMPLOYEE_NAME",title : "操作员"}
+			]
+		}); 
+	});
+</script>

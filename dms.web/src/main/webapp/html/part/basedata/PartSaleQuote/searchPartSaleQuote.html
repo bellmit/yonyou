@@ -1,0 +1,250 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+	<input type="hidden" id="customerCode" name = "customerCode"/>
+	<input type="hidden" id="isFinished" name = "isFinished"/>
+	<input type="hidden" id="deleteList" name = "deleteList"/>
+	<input type="hidden" id="updateStatus" name = "updateStatus"/>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6  col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 "> 报价单号</label>
+							<div class="col-xs-8">
+									<div class="input-group">
+										<input id="quoteNo" name="quoteNo" class="form-control" type="text" />
+										<span class="input-group-btn">
+											<button class="btn default btn-sm" id="btnSearchQuoteNo"
+												type="button" data-onclickEvent="true"
+												data-url="part/basedata/PartSaleQuote/searchQuoteNo.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+						</div>
+					</div>
+					
+
+					<div class="col-xs-12 col-sm-6  col-md-3">
+						<div class="form-group">
+							<div class="col-xs-8">
+									<div class="input-group">
+										<input type="radio" name="customerRadio" checked="checked"
+							 id="customer0" data-isinit="true"><span>客户</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							 <input type="radio" name="customerRadio"
+							 id="customer1" data-isinit="true"><span>车主</span>
+									</div>
+								</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6  col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 "> 客户名称</label>
+							<div class="col-xs-8">
+									<div class="input-group">
+										<input id="customerName" name="customer" disabled="disabled" class="form-control" type="text" />
+										<span class="input-group-btn">
+											<button class="btn default btn-sm" id="btnChooseUser" type="button" data-Width="modal-lg" data-url="part/basedata/accountPayableManage/searchCustomers.html"
+												data-toggle="modal" >
+												<i class="fa fa-search" />
+											</button>
+										</span>
+									</div>
+								</div>
+						</div>
+					</div>
+					
+						<div class="col-xs-12 col-sm-6 col-md-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">报价日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker"
+													data-orientation="top right">
+													<input id="quoteDate" name="quoteDate"
+														class="form-control" type="text" value="" /> <span
+														class="input-group-btn">
+														<button class="btn default date-set" type="button">
+															<i class="fa fa-calendar"></i>
+														</button>
+														<button class="btn default date-reset" type="button">
+															<i class="fa fa-times"></i>
+														</button>
+													</span>
+
+												</div>
+								</div>
+							</div>
+						</div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i>查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+	</form>
+	
+	<div id="btnDiv" class="modal-footer center-block">
+			<a class="btn btn-outline" id="btnAdd" data-beforeRequest="true"
+				data-url="part/basedata/PartSaleQuote/addPartStorage.html"
+				data-toggle="modal" data-width="modal-lg"> <i
+				class="fa fa-plus-square"></i> 新增配件
+			</a> <a  id="btnNew" class="btn btn-outline" data-onclickEvent="true"><i
+				class="fa fa-plus-square"></i>新建报价单</a> <a  data-url="part/basedata/PartSaleQuote/importSalesSlip.html"
+				id="btnBorrow" class="btn btn-outline" data-toggle="modal" data-width="modal-lg">
+				<i class="fa fa-plus-square"></i>导入销售单</a> <a data-url="/basedata/ttSalesQuote"
+				data-model="part" data-method="POST" data-toggle="confirmation"
+				id="btnDelete" class="btn btn-outline">
+				<i class="fa fa-plus-square"></i>作废</a>
+				<a id="btnSave" class="btn btn-outline" data-onclickEvent="true" data-url="/basedata/ttSalesQuote"
+				data-model="part" data-method="POST" data-toggle="confirmation">
+				<i class="fa fa-plus-square"></i>保存</a> 
+				<a class="btn btn-outline" href="javascript:;"  data-url="/basedata/ttSalesQuote/export/excel" 
+				data-model="part" data-method="downLoad" data-toggle="confirmation"> <i
+			    class="fa fa-download " ></i> EXCEL</a>
+			    <a id="btnCancel" class="btn btn-outline"
+				data-onclickEvent="true"><i class="fa fa-plus-square"></i>取消</a> <a
+				data-url="/basedata/ttSalesQuote/partQuoteToSale" id="btnExport"
+				data-model="customer" data-method="POST"
+				data-onclickEvent="true" data-toggle="confirmation"
+				class="btn btn-outline"><i class="fa fa-plus-square"></i>导出销售单 </a> <a
+				disabled="disabled" id="btnPrint" data-onclickEvent="true"
+				class="btn btn-outline"><i class="fa fa-plus-square"></i>打印报价单</a>
+                <a id="btnFinish" data-onclickEvent="true" data-url="/basedata/ttSalesQuote/changeQuoteIsfinished"
+				class="btn btn-outline" data-model="part" data-method="POST" data-toggle="confirmation">
+				<i class="fa fa-plus-square"></i>完成</a>
+		</div>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+ 	new Datatable().initLocale({
+		src:"dms_table",
+		container:container,
+	    url : dmsCommon.getDmsPath()['part']+"/basedata/ttSalesQuote/queryPartStockItem",
+	    rowID:"SALES_QUOTE_NO",
+	    autoHeight : false,
+	    isQueryFirst : false,
+		columns : [ 
+			  {radio : true,sortable : false},
+				{field : "",title : "操作",operateFormat : [ {
+                 type : "localDel",onBeforeEvent:function(value, row, index){
+                	 if($("#isFinished", container).val() == '12781001'){
+                		 dmsCommon.tip({status:"warning",msg:"该报价单已经完成，不能删除！"});
+                		 return false;
+                	 }
+						if (row.UPDATE_STATUS == "R" || row.UPDATE_STATUS == "U"){
+							if($("#deleteList",container).val()!=''){
+								$("#deleteList",container).val($("#deleteList",container).val()+";{itemId:"+row.ITEM_ID+"}");
+							}else{
+								$("#deleteList",container).val("{itemId:"+row.ITEM_ID+"}");
+							}
+						}
+							$("#maintainPickingTbl",container).dmsTable().refreshTableWithForm();
+		            },isShow : function(value,row, index) {return true;}
+				} ]
+				},
+		      {field:"STORAGE_NAME",title:"仓库",
+					inputHiddenFormat : {
+						hiddenFieldName : "storageName,itemUpdateStatus,itemId",
+						hiddenField : "STORAGE_NAME,,ITEM_ID"
+					}},
+			  {field:"ITEM_UPDATE_STATUS",title:"状态",inputHiddenFormat : {
+					hiddenFieldName : "itemUpdateStatus",
+					hiddenField : "ITEM_UPDATE_STATUS"
+				}},
+		      {field:"STORAGE_POSITION_CODE",title:"库位"},
+		      {field:"PART_NO",title:"配件代码"},
+		      {field:"PART_NAME",title:"配件名称"},
+		      {field:"UNIT_CODE",title:"单位"},
+		      {field:"COST_PRICE",inputField:"costPrice",title:"销售单价",inputTextFormat : {id:costPrice,decimal : 4,validate:{validateClass:"decimal",validateAttr:'maxPrecision="12"'}}},
+		      {field:"OUT_QUANTITY",inputField:"outQuantity",title:"销售数量",inputTextFormat : {id:outQuantity,decimal : 2,validate:{validateClass:"decimal",validateAttr:'maxPrecision="8"'}}},
+		      {field:"OUT_AMOUNT",inputField:"outAmount",title:"销售金额",inputHiddenFormat : {},numberFormat:{decimal:4,autoValueFormat:{autoValue:"#outQuantity*#costPrice"}}}
+		      ],
+				onLoadSuccess : function() {
+					var row = $("#dms_table",container).dmsTable().getRowDataByIndex();
+					if (row.length >= 1) {
+						$("#btnAdd").removeAttr("disabled");
+						$("#btnSave").removeAttr("disabled");
+						$("#btnExcel").removeAttr("disabled");
+						$("#btnSearchQuoteNo").attr("disabled", "true");
+						$("input[id^='costPrice']").bindChange(function(obj){
+							
+						});
+					}
+				}
+	});
+ 	
+ 	$("#customer0", container).change(function(){
+ 		$("#btnChooseUser", container).attr("data-url", "part/basedata/accountPayableManage/searchCustomers.html");
+ 	});
+ 	$("#customer1", container).change(function(){
+ 		$("#btnChooseUser", container).attr("data-url", "part/basedata/PartSaleQuote/searchOwners.html");
+ 	});
+ 	
+ 	$("a[data-onclickEvent='true']", container).on("dms.click",function(event) {
+ 		if(this.id=='btnNew'){
+ 			$("#quoteDate",container).val(new Date().Format("yyyy-MM-dd"));
+ 			$("#updateStatus",container).val("A");
+ 		}else if(this.id == 'btnExport'){
+ 			//到处报价单 请求后台 返回报价单号 不为空则保存成功 
+			dmsCommon.ajaxRestRequest({
+					  url:dmsCommon.getDmsPath()['part']+"/basedata/ttSalesQuote/PartQuoteToSale",
+					  type: "POST",
+					  sucessCallBack : function(salesPartNo) {
+						  if(salesPartNo == '1'){
+							  dmsCommon.tip({status:"warning",msg:"报价单id为空或者没有查询到报价单 "});
+						  }else if(salesPartNo == '0'){
+							  dmsCommon.tip({status:"warning",msg:"后台报错"});
+						  }else{
+							  dmsCommon.tip({status:"warning",msg:"销售报价单转销售单成功！配件销售单号   "+salesPartNo});
+						  }
+					 }
+				  });
+ 		}else if(this.id == "btnCancel"){
+				dmsCommon.refreshPageByUrl("part/basedata/PartSaleQuote/searchPartSaleQuote.html",container);
+ 		}
+ 	});
+});
+
+/* var totalValue = function(row){
+	var ind = 0;
+	int rows = $("#dms_table", container).dmsTable().getRowDataByIndex();
+	if(rows.length < 0)return ind;
+	for(var i = 0; i < rows.length; i++){
+		ind = rows[i].OUT_AMOUNT+ind;
+	}
+	return ind;
+} */
+
+Date.prototype.Format = function (fmt) {
+    var o = {
+        "M+": this.getMonth() + 1, //月份 
+        "d+": this.getDate(), //日 
+        "h+": this.getHours(), //小时 
+        "m+": this.getMinutes(), //分 
+        "s+": this.getSeconds(), //秒 
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+        "S": this.getMilliseconds() //毫秒 
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
+</script>

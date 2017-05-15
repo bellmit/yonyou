@@ -1,0 +1,87 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">去零</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+					<div class="row">
+
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">付款方名称</label>
+								<div class="col-xs-8">
+									<input id="name" name="name" type="text" class="form-control" disabled="disabled"/>		
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">应收金额</label>
+								<div class="col-xs-8">
+								<input id="addItemAmount" name="addItemAmount" class="form-control" type="text" disabled="disabled"/>
+								
+								</div>
+							</div>
+						</div>
+						
+						
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">去零金额</label>
+								<div class="col-xs-8">
+								<input id="subObbAmountZ" name="subObbAmountZ" class="form-control money" type="text"/>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a  data-onclickEvent="true" class="btn blue"> <i class="fa fa-save"></i>确定</a> 
+			<a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+		
+	</form>
+</div>
+
+<script type="text/javascript">
+
+	$(document).one("onload.dms",function(event,container){
+		var selectRow =$("#bPODtoList",getElementContext()).dmsTable().getFirstSelection();
+		var tab=$("#bPODtoList tbody");
+		var disAmount = $("tr:eq("+selectRow.index+") td:eq(4) input[id^=disAmount]",tab).val();
+		$("#name",container).setDmsValue(selectRow.DELIVERER);
+		$("#addItemAmount",container).setDmsValue(disAmount);
+		var precision=$("#precision",getElementContext()).val();
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			var maxSubObbAmount=$("#paymentRange",getElementContext()).val();
+			var subObbAmount=parseFloat($("#subObbAmountZ",container).val()).toFixed(2);
+			if(eval(subObbAmount)>eval(maxSubObbAmount)){
+				dmsCommon.tip({status:"warning",msg:"请输入小于"+maxSubObbAmount+"的值"});//总共的状态类型：info、success、error、warning
+				return;
+			}
+			$("#bPODtoList",getElementContext()).dmsTable().updateRowByIndex(selectRow.index,{SUB_OBB_AMOUNT:subObbAmount});
+			var tab=$("#bPODtoList tbody");
+			var rows=$("tr",tab).length;
+			var subObbAmountAll=parseFloat(0).toFixed(2);
+			var receivableAmountAll=parseFloat(0).toFixed(precision);
+			for(var i=0;i<rows;i++){
+				var subObbAmountZ = $("tr:eq("+i+") td:eq(5) input[id^=subObbAmount]",tab).val();
+				var receivableAmountZ = $("tr:eq("+i+") td:eq(6) input[id^=receivableAmount]",tab).val();
+				subObbAmountAll=parseFloat(parseFloat(subObbAmountAll)+parseFloat(subObbAmountZ)).toFixed(2);
+				receivableAmountAll=parseFloat(parseFloat(receivableAmountAll)+parseFloat(receivableAmountZ)).toFixed(precision);
+			}
+			var map={SUB_OBB_AMOUNT:subObbAmountAll,DIS_AMOUNT:receivableAmountAll};
+			$("div[data-RoAmount='true']",getElementContext()).initHtmlContent(map,false);
+			$("a[data-dismiss='modal']",container).click();
+		});
+	});
+</script>

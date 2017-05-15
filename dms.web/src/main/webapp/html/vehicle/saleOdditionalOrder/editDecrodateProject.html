@@ -1,0 +1,199 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">装潢项目编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body" data-parentTable ="partInfoTable">
+					<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">装潢项目代码</label>
+							<div class="col-xs-8">
+								<input id="upholsterCode" name="UPHOLSTER_CODE" class="form-control" 
+									type="text" data-fieldName="UPHOLSTER_CODE"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">装潢项目名称</label>
+							<div class="col-xs-8">
+								<input id="upholsterName" name="UPHOLSTER_NAME" class="form-control" 
+									type="text" data-fieldName="UPHOLSTER_NAME"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">标准工时</label>
+							<div class="col-xs-8">
+							    <input id="stdLabourHour" name="STD_LABOUR_HOUR" class="form-control" disabled
+									type="text" data-fieldName="STD_LABOUR_HOUR"/>
+							</div>
+						</div>
+					</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">工时单价</label>
+								<div class="col-xs-8">
+									<select id="labourPrice" 
+										class="form-control" name="labourPrice" data-fieldName="LABOUR_PRICE"
+										data-url="/ordermanage/salesOdditionalOrder/hourPrice/dicts" data-model="vehicle"
+										data-labelValue="LABOUR_PRICE_CODE" data-lableDesc="LABOUR_PRICE">
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->					
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:red;">*</span>结算方式</label>
+								<div class="col-xs-8 ">
+									<select id="accountMode" name="ACCOUNT_MODE" data-fieldName="ACCOUNT_MODE" data-excludeItems="14061001"
+									   class="bs-select form-control required" data-dictCode="1406" >
+								    </select>							
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">折扣率</label>
+								<div class="col-xs-8">
+									<input id="discount" name="DISCOUNT" data-fieldName="DISCOUNT" class="form-control money"  maxDigit="30" type="text" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">优惠金额</label>
+								<div class="col-xs-8 ">
+									<input id="discountAmount" name="DISCOUNT_AMOUNT" disabled data-fieldName="DISCOUNT_AMOUNT" class="form-control money"  maxDigit="30" type="text" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">实收金额</label>
+								<div class="col-xs-8 ">
+									<input id="receiveAmount" name="RECEIVE_AMOUNT" disabled data-fieldName="RECEIVE_AMOUNT" class="form-control money"  maxDigit="30" type="text" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">备注</label>
+								<div class="col-xs-8 ">
+									<input id="remark1" name="REMARK"  class="form-control "  maxDigit="30" type="text" />
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue" data-onclickEvent="true" data-callBack="true"><i
+				class="fa fa-save"></i>确定</a> <a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+	//将上页数据赋给本页面
+	var selectRow = $("#soDecrodateList",getElementContext()).dmsTable().getSelections();
+   	$(selectRow).each(function(index){
+   	   upholsterCode = selectRow[index].UPHOLSTER_CODE;
+   	   upholsterName = selectRow[index].UPHOLSTER_NAME;
+   	   stdLabourHour = selectRow[index].STD_LABOUR_HOUR;
+   	   labourPrice = selectRow[index].LABOUR_PRICE;
+	   accountMode = selectRow[index].ACCOUNT_MODE;
+	   discount = selectRow[index].DISCOUNT;
+	   discountAmount = selectRow[index].DISCOUNT_AMOUNT;
+	   receiveAmount = selectRow[index].RECEIVE_AMOUNT;
+	   remark = selectRow[index].REMARK;
+	   
+	   $("#upholsterCode").val(upholsterCode);
+	   $("#upholsterName").val(upholsterName);
+	   $("#stdLabourHour").val(stdLabourHour); 
+	   $("#accountMode").selectpicker('val',accountMode);
+	   $("#discount").val(discount);
+	   $("#discountAmount").val(discountAmount);
+	   $("#receiveAmount").val(receiveAmount);
+	   $("#remark1").val(remark);
+	   $("#labourPrice").val(labourPrice);
+	   
+	});
+   	
+   	var index = $.cookie('DecrodateIndex');//下标
+   	var aaa = $.cookie('Decrodate');
+ 	var item = JSON.parse($.cookie('Decrodate'));//将cookie的string转化成json
+ 	$(".form-horizontal",container).jsonToForm(item);//将json填充到相应的框中 
+	
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+	   var newInfo =  $('.form-horizontal',container).formToJson();
+	   $("#soDecrodateList",getElementContext()).dmsTable().updateRowByIndex(index,newInfo);
+
+	   dmsCommon.tip({status:"success",msg:"修改成功！"});
+	   $("a[data-dismiss='modal']",container).click();
+	   //刷新表格
+	   $("#soDecrodateList",getElementContext()).dmsTable().refreshTableWithForm();
+	   
+	});
+	
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$.cookie('Decrodate', '', { expires: -1 });//删除cookie
+		$.cookie('DecrodateIndex', '', { expires: -1 });//删除cookie
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#soDecrodateList",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+   	
+	
+});	
+
+//去掉json格式的中括号对[]
+$.fn.formToJson = function()    
+{    
+   var obj = {};    
+   var jsonInfo = this.serializeArray();    
+   $.each(jsonInfo, function() {    
+       if (obj[this.name]) {    
+           if (!obj[this.name].push) {    
+               obj[this.name] = [obj[this.name]];    
+           }    
+           obj[this.name].push(this.value || '');    
+       } else {    
+           obj[this.name] = this.value || '';    
+       }    
+   });    
+   return obj;    
+}; 
+
+//将json数据存入form表单
+$.fn.jsonToForm = function (info){
+	//1.循环JSON数据
+	for (var key in info) { 
+		var value = info[key];
+			$("[name=" + key + "]", $(this)).val(value);
+	}
+}
+</script>

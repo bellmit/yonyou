@@ -1,0 +1,148 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row" data-seldate="true">
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">盘点单号</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input id="INVENTORY_NO" readonly="readonly" name="INVENTORY_NO"
+											class="form-control" data-fieldName="INVENTORY_NO" type="text" /> 
+										<span class="input-group-btn">
+											<button class="btn default btn-sm" type="button" id="find"
+												data-url="vehicle/stockManage/stockIn/searchStockItem.html" data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-sitemap"></i>
+											</button>
+											<button class="btn default input-clear" id="clear"
+												type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经手人</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="sheetCreatedBy" readonly
+										data-fieldName="SHEET_CREATED_BY" name="createBy" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">盘点日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker">
+										<input id="sheetCreatedDate" name="createDate" readonly
+											data-fieldName="SHEET_CREATE_DATE" class="form-control"
+											type="text" /> <span class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+											<button class="btn default date-reset" type="button">
+												<i class="fa fa-times"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row" data-seldate="true">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<div class="form-group">
+								<label class="control-label col-xs-1">备注</label>
+								<div class="col-xs-11">
+									<input id="remark" name="remark" readonly data-fieldName="REMARK"
+											class="form-control" type="text" maxlength="400"/>
+									<input type="hidden" value="add" id="type" name="type"/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">车辆入库单明细</div>
+					<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a id="add" data-url="vehicle/stockManage/stockIn/addStockIn.html" data-beforeShowEvent="true" class="btn btn-outline" data-toggle="modal"
+								data-width="modal-lg"> <i class="fa fa-plus-square"></i> 新增
+							</a> 
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_table"></table>
+				</div>
+			</div>
+		</div>
+		<!-- 底部按钮 -->
+		<div class="modal-footer center-block">
+				<a data-errorCallBack="true" id="create" class="btn blue" ><i class="fa fa-plus-square"></i>作废</a>
+				<a id="save" data-model="vehicle" data-beforeRequest="true" class="btn blue ajaxrest"
+					data-validate="true" data-onclickEvent="true" data-callBack="true"><i class="fa fa-save"></i>保存</a>
+				<a id="save" data-model="vehicle" data-beforeRequest="true" class="btn blue ajaxrest"
+					data-validate="true" data-onclickEvent="true" data-callBack="true"><i class="fa fa-save"></i>盘点确认</a> 
+				<a id="exit" class="btn blue"><i class="fa fa-print"></i>取消</a>
+				<a id="print" class="btn btn-outline" data-toggle="modal" data-beforeShowEvent="true" 
+					data-url="vehicle/stockManage/stockIn/editStockInPrint.html" 
+					data-width="modal-lg"> <i class="fa fa-plus-square"></i> 打印
+				</a> 
+				<a data-model="vehicle"
+					data-method="downLoad" data-toggle="confirmation" id="export" data-beforeRequest="true" 
+					class="btn btn-outline "><i class="fa fa-download"></i>导出
+				</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initLocale({
+		src : "dms_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["part"]
+		+ "/basedata/inventoryCheck/"+$("#INVENTORY_NO",container).val(),
+		rowID : "INVENTORY_NO",
+		//selectItemName:"",
+		autoHeight : false,
+		isQueryFirst : false,
+		//checkboxHeader : true, //全选框
+		columns : [ {
+			title :"操作",operateFormat : [ {type : "localDel",onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){
+			}},{type:"edit",title:'修改',url:"",openWidth:"modal-lg"} ]}, 
+	        {field : "STORAGE_NAME",title : "仓库",inputHiddenFormat : {hiddenField:"STORAGE_CODE"}},
+	        {field : "STORAGE_POSITION_CODE",title : "库位代码",inputHiddenFormat : {}},
+	        {field : "PART_NO",title : "配件代码",inputHiddenFormat : {}},
+	        {field : "PART_NAME",title : "配件名称",inputHiddenFormat : {}},
+	        {field : "",title : "当前库存",inputHiddenFormat : {hiddenField:""},numberFormat : {decimal : 2}},
+	        {field : "",title : "借进数量",inputHiddenFormat : {},numberFormat : {decimal : 2}},
+	        {field : "",title : "借出数量",inputHiddenFormat : {},numberFormat : {decimal : 2}},
+	        {field : "",title : "实际库存 ",inputHiddenFormat : {hiddenField:""},numberFormat : {decimal : 2}},,
+	        {field : "",title : "清点数量",inputHiddenFormat : {},numberFormat : {decimal : 2}},
+	        {field : "",title : "差异数量",numberFormat : {decimal : 2}},
+	        {field : "",title : "成本单价",numberFormat : {decimal : 2}}
+	     ],
+		undefinedText : "",
+		onLoadSuccess : function (row){
+			if(row!=null){
+				$("#update", container).removeElementReadOnly();
+				var index = parseInt(row.length)-1;//获取最后一列的下标
+				$("#vendorName",container).val(row[index].VENDOR_NAME);
+			}
+		},
+		onClickRow : function(row,$element){
+			
+		}
+	});
+});
+</script>

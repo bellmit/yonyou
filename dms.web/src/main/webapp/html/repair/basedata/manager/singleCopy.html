@@ -1,0 +1,246 @@
+<div class="dms-edit">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">单选复制</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<!-- model-header end -->		
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">单选复制</div>
+				</div>
+				<!-- panel-heading end -->
+				<div class="panel-body">
+					<div class="row" data-tableSelect="true">
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">项目车型组</label>
+								<div class="col-xs-8">
+									<input type="hidden" id="modelLabourName" name="modelLabourName" data-fieldName="MODEL_LABOUR_NAME" class="bs-select form-control">
+									<select id="modelLabourCode" name="modelLabourCode" class="bs-select form-control"
+										data-existsDefault="true"
+										data-url="/basedata/modelgroups/getMaintainModel/dicts" data-model="repair"
+										data-labelValue="MODEL_LABOUR_CODE" data-lableDesc="MODEL_LABOUR_NAME" data-fieldName="MODEL_LABOUR_CODE" disabled>
+									</select>
+								</div>
+							</div>
+						</div>
+						<!-- span end -->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">主分类名称</label>
+								<div class="col-xs-8">
+									<input type="hidden" name="mainGroupName" data-fieldName="MAIN_GROUP_NAME">
+									<select id="mainGroupCode" name="mainGroupCode" class="bs-select form-control"
+										data-url="/basedata/labourgroups/getGroupList/dicts/items" data-model="repair"
+										data-labelValue="MAIN_GROUP_CODE" data-lableDesc="MAIN_GROUP_NAME" data-fieldName="MAIN_GROUP_CODE" disabled>
+									</select>
+								</div>
+							</div>
+						</div>
+						<!-- span end -->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">二级分类名称</label>
+								<div class="col-xs-8">
+									<input type="hidden" name="subGroupName"
+										data-fieldName="SUB_GROUP_NAME"> <select
+										id="subGroupCode" name="subGroupCode" parent="mainGroupCode"
+										class="bs-select form-control"
+										data-url="/basedata/labourgroups/getGroupList/{[mainGroupCode]}"
+										data-model="repair" data-labelValue="SUB_GROUP_CODE"
+										data-lableDesc="SUB_GROUP_NAME"
+										data-fieldName="SUB_GROUP_CODE" disabled>
+									</select>
+								</div>
+							</div>
+						</div>
+						<!-- span end -->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" >
+								<label class="control-label col-xs-4">维修项目代码</label>
+								<div class="col-xs-8">
+									<input id="labourCode" name="labourCode" type="text" class="form-control" data-fieldName="LABOUR_CODE" disabled/>
+									<input type="hidden" id="modelCode" name="modelCode" class="form-control" data-fieldName="MODEL_LABOUR_CODE">
+								</div>
+							</div>
+						</div>
+						<!-- span end -->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" >
+								<label class="control-label col-xs-4">维修项目名称</label>
+								<div class="col-xs-8">
+									<input id="labourName" name="labourName" type="text" class="form-control" data-fieldName="LABOUR_NAME" disabled/>
+								</div>
+							</div>
+						</div>
+						<!-- span end -->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" >
+								<label class="control-label col-xs-4">拼音代码</label>
+								<div class="col-xs-8">
+									<input id="spellCode" name="spellCode" type="text" class="form-control" data-fieldName="SPELL_CODE" disabled/>
+								</div>
+							</div>
+						</div>
+						<!-- span end -->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" >
+								<label class="control-label col-xs-4">行管项目代码</label>
+								<div class="col-xs-8">
+									<input id="localLabourCode" name="localLabourCode" type="text" class="form-control" data-fieldName="LOCAL_LABOUR_CODE" disabled/>
+								</div>
+							</div>
+						</div>
+						<!-- span end -->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" >
+								<label class="control-label col-xs-4">行管项目名称</label>
+								<div class="col-xs-8">
+									<input id="localLabourName" name="localLabourName" type="text" class="form-control" data-fieldName="LOCAL_LABOUR_NAME" disabled/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" >
+								<label class="control-label col-xs-4">索赔代码</label>
+								<div class="col-xs-8">
+									<input id="operationCode" name="operationCode" type="text" class="form-control" data-fieldName="OPERATION_CODE" disabled/>
+								</div>
+							</div>
+						</div>
+						<!-- span end -->
+						<div class="col-xs-12 col-sm-6 col-md-4" >
+							<div class="form-group">
+								<label class="control-label col-xs-4">标准工时</label>
+								<div class="col-xs-8">
+									<input id="stdLabourHour" name="stdLabourHour" type="text" class="form-control" data-fieldName="STD_LABOUR_HOUR" disabled/>
+								</div>
+							</div>
+						</div>
+						<!-- span end -->
+						<div class="col-xs-12 col-sm-6 col-md-4" >
+							<div class="form-group">
+								<label class="control-label col-xs-4">派工工时</label>
+								<div class="col-xs-8">
+									<input id="assignLabourHour" name="assignLabourHour" type="text" class="form-control" data-fieldName="ASSIGN_LABOUR_HOUR" disabled/>
+								</div>
+							</div>
+						</div>
+						<!-- span end -->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">索赔工时</label>
+								<div class="col-xs-8">
+									<input id="claimLabHour" name="claimLabHour" type="text" class="form-control" data-fieldName="CLAIM_LABOUR" disabled/>
+								</div>
+							</div>
+						</div>
+						<!-- span end -->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<div class="col-xs-8">
+									<input type="hidden" class="form-control" id="workTypeName" name="workTypeName" class="form-control" data-fieldName="WORKER_TYPE_NAME">
+								</div>
+							</div>
+						</div>
+						<!-- span end -->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<div class="col-xs-8">
+									<input type="hidden" class="form-control" id="repairTypeName" name="repairTypeName" class="form-control" data-fieldName="REPAIR_TYPE_NAME">
+									<input type="hidden" class="form-control" id="workTypeCode" name="workTypeCode" class="form-control" data-fieldName="WORKER_TYPE_CODE">
+									<input type="hidden" class="form-control" id="repairTypeCode" name="repairTypeCode" class="form-control" data-fieldName="REPAIR_TYPE_CODE">
+									<input type="hidden" class="form-control" id="omgTag" name="omgTag" class="form-control" data-fieldName="OEM_TAG">
+									<input type="hidden" class="form-control" id="modelGroupIds" name="modelGroupIds">
+								</div>
+							</div>
+						</div>
+						<!-- span end -->
+					</div>
+					<!-- row end -->
+				</div>
+				<!-- pandel-body end -->
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">粘贴对象</div>
+				</div>
+				<!-- panel-heading end -->
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="modeGroupList">
+					</table>
+				</div>
+				<!-- panel-body end -->
+			</div>
+			<!-- table-panel end -->
+		</div>
+		提醒：已经存在此维修项目，复制将覆盖当前的。 
+		<!-- modal-body end -->
+		<div class="modal-footer center-block">
+			<a data-url="/basedata/repairProManager/selectSingleCopy" data-model="repair" data-method="PUT" data-beforeRequest='true'
+				data-callBack="true" class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>确定</a> 
+				<a data-dismiss="modal" class="btn btn-sm blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+		<!-- modal-footer end -->
+	</form>
+</div>
+
+<script type="text/javascript">
+	
+	$(document).one("onload.dms",function(event,container){
+		var labourCode;
+		var modelLabourCode;
+		+function(){
+			var selectRow = $("#repairProMng",getElementContext()).dmsTable().getFirstSelection();
+			console.log(selectRow);
+
+			$("div[data-tableSelect='true']",container).initHtmlContent(selectRow);
+			
+			labourCode = $("#labourCode",container).val();
+			modelLabourCode = $("#modelCode",container).val();
+		}();
+		new Datatable().initPagination({
+			src : "modeGroupList",
+			container:container,
+			rowID : "MODEL_GROUP_ID",
+			sortName : "MODEL_GROUP_ID", 
+			sortOrder : "asc",
+			pageSize:5,
+			autoHeight:false,
+			url :dmsCommon.getDmsPath()["repair"] + "/basedata/repairProManager/singleCopy/"+modelLabourCode,
+			columns : [ 
+			            {checkbox:true,sortable : false},
+						{field:"MODEL_LABOUR_CODE",title:"项目车型组代码"},
+						{field:"MODEL_LABOUR_NAME",title:"项目车型组名称"},
+						{field:"isRe",title:"是否存在",codeFormat : {type:"dict",codeType:"1004"}},
+			         ]
+		});
+		
+		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			var selectIds = $("#modeGroupList",getElementContext()).dmsTable().getSelectionIds();
+			if(!selectIds){
+				dmsCommon.tip({status:"warning",msg:"请选择车型组"});
+				returnResult.status = false;
+				return ;
+			}
+			$("#modelGroupIds",container).val(selectIds);
+			returnResult.status = true; //定义返回值
+		});
+		
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			$("a[data-dismiss='modal']",container).click();
+			$("#repairProMng",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	});
+
+</script>

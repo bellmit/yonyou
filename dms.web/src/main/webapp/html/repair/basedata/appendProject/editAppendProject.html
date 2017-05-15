@@ -1,0 +1,86 @@
+<div class="dms-edit ajaxrest" data-url="/basedata/appendProject/{[ADD_ITEM_CODE]}" data-model="repair" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">附加项目编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="panel-body">
+		<div class="panel panel-default">
+				<div class="panel-body">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="form-group">
+						<label class="control-label col-xs-4">附加项目代码</label>
+						<div class="col-xs-8">
+							<input id="add_item_code" name="add_item_code" class="form-control required" type="text" value="" 
+							readonly="readonly" data-fieldName="add_item_code" disabled="disabled" maxlength="4"/>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-12">
+					<div class="form-group">
+						<label class="control-label col-xs-4">附加项目名称</label>
+						<div class="col-xs-8">
+							<input id="add_item_name" name="add_item_name" type="text" maxlength="20"
+								class="form-control required" data-fieldName="add_item_name"/>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-xs-12">
+					<div class="form-group">
+						<label class="control-label col-xs-4">附加项目费用</label>
+						<div class="col-xs-8">
+							<input id="add_item_amount" name="add_item_amount" type="text" maxDigit="10" maxPrecision="2"
+								class="form-control required number" data-fieldName="add_item_amount"/>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-xs-12">
+					<div class="form-group">
+						<label class="control-label col-xs-4">是否OEM</label>
+						<div class="col-xs-8">
+							<select id="oem_tag" name="oem_tag" 
+								class="bs-select form-control" data-existsDefault="false" data-fieldName="oem_tag" data-dictCode="1278" disabled="disabled"></select>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-xs-12">
+					<div class="form-group">
+						<label class="control-label col-xs-4">是否有效</label>
+						<div class="col-xs-8">
+							<select id="is_valid" name="is_valid" 
+								class="bs-select form-control" data-existsDefault="false" data-dictCode="1278" data-fieldName="is_valid"></select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+		<div class="modal-footer center-block">
+			<a data-url="/basedata/appendProject/{[ADD_ITEM_CODE]}" data-model="repair" data-method="PUT"
+				 data-callBack='true' class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> 
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	});
+</script>

@@ -1,0 +1,700 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">入库单新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div id="table" class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-3" style="position: relative;top: 8px;">
+							<div class="form-group">
+								<label class="control-label col-xs-4">VIN</label>
+								<div class="col-xs-8">
+									<input type="hidden" id="flag" name="flag" value="0"/>
+									<input id="vin" name="vin" class="form-control" type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-3" style="position: relative;top: 8px;">
+							<div class="form-group">
+								<label class="control-label col-xs-4">产品代码</label>
+								<div class="col-xs-8">
+									<input id="productCode" name="productCode" class="form-control" type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-3 " style="position: relative;top: -3px;">
+								<div class="query-btn">
+									<a href="javascript:;" class="btn blue"> <i
+										class="fa fa-search"></i>查询</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default table-panel">
+					<div class="panel-heading">
+						<div class="pannel-name">车辆信息表</div>
+					</div>
+					<div class="panel-body">
+						<table
+							class="table table-striped table-bordered table-hover table-responsive"
+							id="dms_show"></table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-body">	
+			<div data-parentTable ="dms_show">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="pannel-name">车辆信息</div>
+						<div class="pannel-tools">
+							<a href="javascript:;" class="expand"> <i
+								class="fa fa-chevron-down"></i></a>
+						</div>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4"><span style="color: red;">*</span>产品代码</label>
+									<div class="col-xs-8">
+										<div class="input-group">
+											<input id="PRODUCT_CODE" name="PRODUCT_CODE"
+												data-fieldName="PRODUCT_CODE" readonly="readonly" class="form-control required" type="text" />
+											<div class="input-group-btn">
+												<button class="btn default btn-sm" type="button"
+													data-url=""
+													data-toggle="modal" 
+													data-info="license" data-width="modal-lg">
+													<i class="fa fa-search"></i>
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">VIN</label>
+									<div class="col-xs-8">
+										<input id="VIN" name="VIN" data-fieldName="VIN" class="form-control" readonly="readonly" type="text"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4"><span style="color: red;">*</span>含税采购价</label>
+									<div class="col-xs-8">
+										<input id="PURCHASE_PRICE" name="PURCHASE_PRICE" data-fieldName="PURCHASE_PRICE" class="form-control required money"
+											type="text" maxlength='10'/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4"><span style="color: red;">*</span>仓库代码</label>
+									<div class="col-xs-8">
+										<select id="STORAGE_CODE" class="bs-select form-control required"
+											name="STORAGE_CODE"
+											data-url="/stockManage/safeguard/findStorage/{[dealer_code]}"
+											data-model="vehicle" data-labelValue="STORAGE_CODE"  data-fieldName="STORAGE_CODE"
+											data-lableDesc="STORAGE_NAME">
+										</select>
+									</div>
+								</div>
+							</div>
+	
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">库位代码</label>
+									<div class="col-xs-8">
+										<input id="STORAGE_POSITION_CODE" name="STORAGE_POSITION_CODE" data-fieldName="STORAGE_POSITION_CODE"
+											class="form-control" type="text" />
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">发动机号</label>
+									<div class="col-xs-8">
+										<input id="ENGINE_NO" name="ENGINE_NO" class="form-control" data-fieldName="ENGINE_NO"
+											type="text" />
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">排气量</label>
+									<div class="col-xs-8">
+										<input id="EXHAUST_QUANTITY" name="EXHAUST_QUANTITY" data-fieldName="EXHAUST_QUANTITY"
+											class="form-control" type="text"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">排放标准</label>
+									<div class="col-xs-8">
+										<select id="DISCHARGE_STANDARD" name="DISCHARGE_STANDARD" data-fieldName="DISCHARGE_STANDARD"
+											class="bs-select form-control" data-dictCode="3010">
+										</select>
+									</div>
+								</div>
+							</div>
+	
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">钥匙编号</label>
+									<div class="col-xs-8">
+										<input id="KEY_NUMBER" name="KEY_NUMBER" class="form-control"
+											type="text" data-fieldName="KEY_NUMBER"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">合格证号</label>
+									<div class="col-xs-8">
+										<input id="CERTIFICATE_NUMBER" name="CERTIFICATE_NUMBER"
+											class="form-control" type="text" data-fieldName="CERTIFICATE_NUMBER"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">生产日期</label>
+									<div class="col-xs-8">
+										<div class="input-group date date-picker">
+											<input id="MANUFACTURE_DATE" name="MANUFACTURE_DATE" data-fieldName="MANUFACTURE_DATE"
+												class="form-control" type="text"/> <span
+												class="input-group-btn">
+												<button class="btn default date-set" type="button">
+													<i class="fa fa-calendar"></i>
+												</button>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+	
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">出厂日期</label>
+									<div class="col-xs-8">
+										<div class="input-group date date-picker">
+											<input id="FACTORY_DATE" name="FACTORY_DATE" data-fieldName="FACTORY_DATE"
+												class="form-control" type="text"/> <span
+												class="input-group-btn">
+												<button class="btn default date-set" type="button">
+													<i class="fa fa-calendar"></i>
+												</button>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+	
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">产地</label>
+									<div class="col-xs-8">
+										<input id="PRODUCTING_AREA" name="PRODUCTING_AREA"
+											class="form-control" type="text" />
+									</div>
+								</div>
+							</div>
+	
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">附加成本</label>
+									<div class="col-xs-8">
+										<input id="ADDITIONAL_COST" name="ADDITIONAL_COST" data-fieldName="ADDITIONAL_COST"
+											class="form-control" type="text" />
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">年款</label>
+									<div class="col-xs-8">
+										<input id="MODEL_YEAR" name="MODEL_YEAR" readonly="readonly" data-fieldName="MODEL_YEAR"
+											class="form-control" type="text" />
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">VSN</label>
+									<div class="col-xs-8">
+										<input id="VSN" name="VSN"
+											class="form-control" type="text"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">采购订单号</label>
+									<div class="col-xs-8">
+										<input id="PO_NO" name="PO_NO" data-fieldName="PO_NO"
+											class="form-control" type="text"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3" id="checkColor">
+								<div class="form-group">
+									<label class="control-label col-xs-4">颜色</label>
+									<div class="col-xs-8">
+										<select id="COLOR_CODE" class="bs-select form-control"
+											name="COLOR_CODE" data-url="/stockManage/safeguard/findColor"
+											data-model="vehicle" data-labelValue="COLOR_CODE"
+											data-lableDesc="COLOR_NAME">
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-6">
+								<div class="form-group">
+									<label class="control-label col-xs-2">备注</label>
+									<div class="col-xs-10">
+										<input id="REMARK" name="REMARK" class="form-control" data-fieldName="REMARK"
+											type="text" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="pannel-name">承运信息</div>
+						<div class="pannel-tools">
+							<a href="javascript:;" class="expand"> <i
+								class="fa fa-chevron-down"></i></a>
+						</div>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">发货单号</label>
+									<div class="col-xs-8">
+										<input id="SHIPPING_ORDER_NO" name="SHIPPING_ORDER_NO"
+											class="form-control" type="text" data-fieldName="SHIPPING_ORDER_NO"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">承运车牌号</label>
+									<div class="col-xs-8">
+										<input id="SHIPPER_LICENSE" name="SHIPPER_LICENSE" readonly="readonly"
+											class="form-control" type="text" data-fieldName="SHIPPER_LICENSE"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">承运商名称</label>
+									<div class="col-xs-8">
+										<input id="SHIPPER_NAME" name="SHIPPER_NAME" class="form-control" data-fieldName="SHIPPER_NAME" 
+											type="text" readonly="readonly"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">发车日期</label>
+									<div class="col-xs-8">
+										<div class="input-group date date-picker">
+											<input id="SHIPPING_DATE" name="SHIPPING_DATE" readonly data-fieldName="SHIPPING_DATE"
+												class="form-control" type="text" value="" /> <span
+												class="input-group-btn">
+												<button class="btn default date-set" type="button">
+													<i class="fa fa-calendar"></i>
+												</button>
+												<button class="btn default date-reset" type="button">
+													<i class="fa fa-times"></i>
+												</button>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">预送到日期</label>
+									<div class="col-xs-8">
+										<div class="input-group date date-picker">
+											<input id="ARRIVING_DATE" name="ARRIVING_DATE" readonly data-fieldName="ARRIVING_DATE" 
+												class="form-control" type="text" value="" /> <span
+												class="input-group-btn">
+												<button class="btn default date-set" type="button">
+													<i class="fa fa-calendar"></i>
+												</button>
+												<button class="btn default date-reset" type="button">
+													<i class="fa fa-times"></i>
+												</button>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4"><span style="color: red;">*</span>实送到日期</label>
+									<div class="col-xs-8">
+										<div class="input-group date date-picker" data-defaulttoday="true">
+											<input id="ARRIVED_DATE" name="ARRIVED_DATE" 
+												class="form-control required" type="text" value=""/> <span
+												class="input-group-btn">
+												<button class="btn default date-set" type="button">
+													<i class="fa fa-calendar"></i>
+												</button>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">送车人姓名</label>
+									<div class="col-xs-8">
+										<input id="DELIVERYMAN_NAME" name="DELIVERYMAN_NAME" data-fieldName="DELIVERYMAN_NAME" 
+											class="form-control" type="text" readonly="readonly"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">送车人电话</label>
+									<div class="col-xs-8">
+										<input id="DELIVERYMAN_PHONE" name="DELIVERYMAN_PHONE" data-fieldName="DELIVERYMAN_PHONE" 
+											class="form-control" type="text" readonly="readonly"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">收货地址</label>
+									<div class="col-xs-8">
+										<input id="SHIPPING_ADDRESS" name="SHIPPING_ADDRESS" data-fieldName="SHIPPING_ADDRESS"
+											class="form-control" type="text" readonly="readonly"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">采购日期</label>
+									<div class="col-xs-8">
+										<div class="input-group date date-picker">
+											<input id="VS_PURCHASE_DATE" name="VS_PURCHASE_DATE" 
+												class="form-control" type="text" data-fieldName="VS_PURCHASE_DATE"/> <span
+												class="input-group-btn">
+												<button class="btn default date-set" type="button">
+													<i class="fa fa-calendar"></i>
+												</button>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="pannel-name">供应商信息</div>
+						<div class="pannel-tools">
+							<a href="javascript:;" class="collapse"> <i
+								class="fa fa-chevron-down"></i></a>
+						</div>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">供应方代码</label>
+									<div class="col-xs-8">
+										<input id="VENDOR_CODE" name="VENDOR_CODE" class="form-control" data-fieldName="VENDOR_CODE" 
+											type="text" readonly="readonly"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">供应方名称</label>
+									<div class="col-xs-8">
+										<input id="VENDOR_NAME" name="VENDOR_NAME" class="form-control" data-fieldName="VENDOR_NAME" 
+											type="text" readonly="readonly"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">委托方代码</label>
+									<div class="col-xs-8">
+										<input id="CONSIGNER_CODE" name="CONSIGNER_CODE" data-fieldName="CONSIGNER_CODE" 
+											class="form-control" type="text" readonly="readonly"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">委托方名称</label>
+									<div class="col-xs-8">
+										<input id="CONSIGNER_NAME" name="CONSIGNER_NAME" data-fieldName="CONSIGNER_NAME" 
+											class="form-control" type="text" readonly="readonly"/>
+										<input type="hidden" id="IS_FINISHED" name="IS_FINISHED" value="12781002"/>
+										<input type="hidden" id="IS_UPLOAD" name="IS_UPLOAD" value="12781002"/>
+										<input type="hidden" id="inType" name="inType"/>
+										<input type="hidden" id="HAS_CERTIFICATE" name="HAS_CERTIFICATE" data-fieldName="HAS_CERTIFICATE"/>
+										<input type="hidden" id="OEM_TAG" name="OEM_TAG" data-fieldName="OEM_TAG"/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a  data-onclickEvent="true" data-validate="true"
+				data-callBack="true" class="btn blue"><i
+				class="fa fa-save"></i>确定</a>
+			<a  data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms", function(event, container) {
+		
+		var flag = dmsCommon.getSystemParamInfo("8016","8016");
+		if(flag == '12781001'){//显示颜色
+			$("#checkColor",container).show();
+		}else{//不显示颜色
+			$("#checkColor",container).hide();
+		}
+		
+		$("#shippingDate", container).setElementReadOnly();
+		$("#arrivingDate", container).setElementReadOnly();
+		
+		var items = inNew;
+		var type = $("#inType",getElementContext()).val();
+		$("#inType",container).val(type);
+		var type2 = $("#type",getElementContext()).val();
+		$('button[class="btn default btn-sm"]',container).attr('disabled','disabled');
+		if(type==13071002){//采购
+			$("#flag",container).val(1);
+		}else{
+			items = inReturn;
+		}
+		
+		if(type2=='modify'){
+			$('#table',container).hide();
+		}else{
+			$('#table',container).show();
+		}
+		
+		new Datatable().initPagination({
+			src : "dms_show",
+			url : dmsCommon.getDmsPath()["vehicle"] + "/vehicleStock/stockIn/findAllVehicleInfo",
+			rowID : "VIN",
+			autoHeight : false,
+			sortName : "VIN", 
+			sortOrder : "asc",
+			undefinedText : "",
+			columns : items
+		});
+		
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event,container){
+			   var parentRow = $("#dms_table",getElementContext()).dmsTable().getRowDataByIndex();
+			   
+			   var result = false;
+			   
+			   var formJson = $("div[data-parentTable='dms_show']",container).serializeFormJson();
+			   $(parentRow).each(function(m){
+				    if(formJson["VIN"]==parentRow[m].VIN){
+					    result = true;
+				    }else{
+					    result = false;
+				    }
+			   });
+			   if(result){
+				    dmsCommon.tip({status:"warning",msg:"VIN已经存在！"});
+			   }else{
+				    var dqsj = new Date().getTime();//当前时间
+					var scrq = $('#MANUFACTURE_DATE').val()//生产日期
+					var ccrq = $('#FACTORY_DATE').val();//出厂日期
+					var fcrq = $('#SHIPPING_DATE').val();//发车日期
+					var yjsdrq = $('#ARRIVING_DATE').val();//预计送到日期
+					var sjsdrq = $('#ARRIVED_DATE').val();//实际送到日期
+					var cgrq = $('#PROCURE_DATE').val();//采购日期
+					//生产日期不能大于当前时间
+					if(toMS(scrq)>dqsj){
+						dmsCommon.tip({status:"warning",msg:"生产日期不能大于当前时间！"});
+						return;
+					}else 
+					//出厂日期不能大于当前时间
+					if(toMS(ccrq)>dqsj){
+						dmsCommon.tip({status:"warning",msg:"出厂日期不能大于当前时间！"});
+						return;
+					}else 
+					//出厂日期不能小于生产日期
+					if(toMS(ccrq)<toMS(scrq)){
+						dmsCommon.tip({status:"warning",msg:"出厂日期不能小于生产日期！"});
+						return;
+					}else 
+					//实际送到日期不能小于出厂日期
+					if(toMS(sjsdrq)<toMS(ccrq)){
+						dmsCommon.tip({status:"warning",msg:"实际送到日期不能小于出厂日期！"});
+						return;
+					}else 
+					//实际送到日期不能小于生产日期
+					if(toMS(sjsdrq)<toMS(scrq)){
+						dmsCommon.tip({status:"warning",msg:"实际送到日期不能小于生产日期！"});
+						return;
+					}else 
+					//实际送到日期不能大于当前日期
+					if(toMS(sjsdrq)>toMS(dqsj)){
+						dmsCommon.tip({status:"warning",msg:"实际送到日期不能大于当前日期！"});
+						return;
+					}else 
+					//预计送到日期不能小于出厂日期
+					if(toMS(yjsdrq)<toMS(ccrq)){
+						dmsCommon.tip({status:"warning",msg:"预计送到日期不能小于出厂日期！"});
+						return;
+					}else 
+					//预计送到日期不能小于生产日期
+					if(toMS(yjsdrq)<toMS(scrq)){
+						dmsCommon.tip({status:"warning",msg:"预计送到日期不能小于生产日期！"});
+						return;
+					}else 
+					//发车日期不能小于生产日期
+					if(toMS(fcrq)<toMS(scrq)){
+						dmsCommon.tip({status:"warning",msg:"发车日期不能小于生产日期！"});
+						return;
+					}else 
+					//发车日期不能小于出厂日期
+					if(toMS(fcrq)<toMS(ccrq)){
+						dmsCommon.tip({status:"warning",msg:"发车日期不能小于出厂日期！"});
+						return;
+					}else 
+					//预计送到日期不能小于发车日期
+					if(toMS(yjsdrq)<toMS(fcrq)){
+						dmsCommon.tip({status:"warning",msg:"预计送到日期不能小于发车日期！"});
+						return;
+					}else 
+					//采购日期不能大于当前时间
+					if(toMS(cgrq)>toMS(dqsj)){
+						dmsCommon.tip({status:"warning",msg:"采购日期不能大于当前时间！"});
+						return;
+					}else 
+					//发车日期不能大于实际送到日期
+					if(toMS(fcrq)>toMS(sjsdrq)){
+						dmsCommon.tip({status:"warning",msg:"发车日期不能大于实际送到日期！"});
+						return;
+					}else{
+						var storageCode = formJson.STORAGE_CODE;
+						var storageName = $("option[value="+storageCode+"]").text();
+						formJson.STORAGE_CODE = storageName;
+						console.log(formJson);
+					    $("#dms_table", getElementContext()).dmsTable().appendRow(formJson);
+					    $("#update", getElementContext()).removeElementReadOnly();
+					    $("#save", getElementContext()).removeAttr('disabled');
+	   				    $("a[data-dismiss='modal']",container).click();
+					}
+			   }
+			   
+			   
+		   });
+		
+		//新增页面的回调函数
+		$("a[data-callBack='true']", container).on("callBack.dms",function(event, response) {
+				//关闭窗口
+				$("a[data-dismiss='modal']", container).click();
+				//刷新表格
+				$("#dms_table", getElementContext()).dmsTable().refreshTableWithForm();
+		});
+		
+	});
+	
+	//采购入库
+	var inNew = [ 
+			{field : "VIN",title : "VIN"}, 
+			{field : "PRODUCT_CODE",title : "产品代码"},
+			{field : "ENGINE_NO",title : "发动机号"},
+			{field : "KEY_NUMBER",title : "钥匙编号"},
+			{field : "MODEL_YEAR",title : "年款"},
+			{field : "HAS_CERTIFICATE",title : "是否有合格证",codeFormat : {type:"dict",codeType:"1278"}},
+			{field : "CERTIFICATE_NUMBER",title : "合格证号"},
+			{field : "MANUFACTURE_DATE",title : "生产日期",dateFormat : {format:"YYYY-MM-DD"}},
+			{field : "FACTORY_DATE",title : "出厂日期",dateFormat : {format:"YYYY-MM-DD"}},
+			{field : "PO_NO",title : "采购订单编号"},
+			{field : "VENDOR_CODE",title : "供应单位代码"},
+			{field : "VENDOR_NAME",title : "供应单位名称"},
+			{field : "PURCHASE_PRICE",title : "采购价格",numberFormat : {decimal:2}},
+			{field : "ADDITIONAL_COST",title : "附加成本",numberFormat : {decimal:2}},
+			{field : "CONSIGNER_CODE",title : "委托单位代码"},
+			{field : "CONSIGNER_NAME",title : "委托单位名称"},
+			{field : "SHIPPING_DATE",title : "发车日期",dateFormat : {format:"YYYY-MM-DD"}},
+			{field : "SHIPPER_NAME",title : "承运商名称"},
+			{field : "SHIPPER_LICENSE",title : "承运车牌号"},
+			{field : "DELIVERYMAN_NAME",title : "送车人姓名"},
+			{field : "DELIVERYMAN_PHONE",title : "送车人电话"},
+			{field : "ARRIVING_DATE",title : "预计送到日期",dateFormat : {format:"YYYY-MM-DD"}},
+			{field : "SHIPPING_ORDER_NO",title : "发货单号"},
+			{field : "SHIPPING_ADDRESS",title : "收货地址"},
+			{field : "REMARK",title : "备注"},
+			{field : "EC_ORDER_NO",title : "官网订单号"},
+			{field : "OEM_TAG",title : "OEM",visible : false},
+			{field : "COLOR_CODE",title : "颜色代码",visible : false},
+			{field : "VS_PURCHASE_DATE",title : "采购日期",visible : false}
+		]
+	
+	//销售退回
+	var inReturn = [ 
+			{field : "VIN",title : "VIN"}, 
+			{field : "PRODUCT_CODE",title : "产品代码"},
+			{field : "STORAGE_CODE",title : "仓库代码"},
+			{field : "STORAGE_POSITION_CODE",title : "库位代码"},
+			{field : "ENGINE_NO",title : "发动机号"},
+			{field : "KEY_NUMBER",title : "钥匙编号"},
+			{field : "HAS_CERTIFICATE",title : "是否有合格证",codeFormat : {type:"dict",codeType:"1278"}},
+			{field : "CERTIFICATE_NUMBER",title : "合格证号"},
+			{field : "MANUFACTURE_DATE",title : "生产日期",dateFormat : {format:"YYYY-MM-DD"}},
+			{field : "FACTORY_DATE",title : "出厂日期",dateFormat : {format:"YYYY-MM-DD"}},
+			{field : "PO_NO",title : "采购订单编号"},
+			{field : "VENDOR_CODE",title : "供应单位代码"},
+			{field : "VENDOR_NAME",title : "供应单位名称"},
+			{field : "PURCHASE_PRICE",title : "采购价格",numberFormat : {decimal:2}},
+			{field : "ADDITIONAL_COST",title : "附加成本",numberFormat : {decimal:2}},
+			{field : "CONSIGNER_CODE",title : "委托单位代码"},
+			{field : "CONSIGNER_NAME",title : "委托单位名称"},
+			{field : "EC_ORDER_NO",title : "官网订单号"},
+			{field : "COLOR_CODE",title : "颜色代码",visible : false},
+			{field : "VS_PURCHASE_DATE",title : "采购日期",visible : false},
+			{field : "MODEL_YEAR",title : "年款",visible : false},
+			{field : "EXHAUST_QUANTITY",title : "排气量",visible : false},
+			{field : "DISCHARGE_STANDARD",title : "排放标准",visible : false}
+		]
+	
+	//转化毫秒数
+	var toMS = function(data){
+		var time = new Date(data);
+		return time.getTime();
+	}
+</script>

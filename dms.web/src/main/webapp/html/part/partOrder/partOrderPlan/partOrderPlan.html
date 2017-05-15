@@ -1,0 +1,1087 @@
+<div class="dms-add">
+	<form class="form-horizontal" method="post">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row " >
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 hidden">
+						<div class="form-group">
+							<label class="control-label col-xs-4">判断操作状态</label>
+							<div class="col-xs-8">
+								<input id="status" name="status" class="form-control"
+									type="text" value="A" />
+
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 hidden">
+						<div class="form-group">
+							<label class="control-label col-xs-4">明细删除记录</label>
+							<div class="col-xs-8">
+								<input id="orderItems" name="orderItems" class="form-control"
+									type="text" />
+
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 hidden">
+						<div class="form-group">
+							<label class="control-label col-xs-4">回调参数</label>
+							<div class="col-xs-8">
+								<input id="addcallBack" name="addcallBack" class="form-control"
+									type="text" />
+
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 hidden">	
+						<div class="form-group">
+							<label class="control-label col-xs-2 ">导入文件</label>
+							<div class="col-xs-6">
+                             	<input type="file" class="importData" id="fileupload" name="file" data-isExcludeReadOnly="true">
+                            </div>
+                            <div class="col-xs-4"></div>
+						</div>
+					</div>
+					
+					
+					
+					
+					
+
+				</div>
+
+				<div class="row " data-parentTable="ownerInfoTable,replaceList" data-tablePartOrderSelect="true">
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">订单编码</label>
+							<div class="col-xs-8 ">
+								<div class="input-group">
+									<input type="text" class="form-control hidden" id="orderSum"
+										data-isExcludeReadOnly="true" readonly name="orderSum"
+										data-fieldName="ORDER_SUM" />
+									<input type="text" class="form-control" id="orderNo "
+										data-isExcludeReadOnly="true" readonly name="orderNo"
+										data-fieldName="ORDER_NO" /> <span class="input-group-btn">
+										<button class="btn default btn-sm" type="button"
+											id="deliveryNo1"
+											data-url="part/partOrder/partOrderPlan/selectOrder.html"
+											data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button"
+											id="deliveryNo1">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-12 col-md-8 hidden">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2 ">导出</label>
+								<div class="col-xs-8 col-sm-10">
+									<textarea id="scene" name="scene" data-fieldName="SCENE" class="form-control" rows="2" cols=""></textarea>
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 hidden">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否完成</label>
+							<div class="col-xs-8">
+								<input id="isAchieve" name="isAchieve" class="form-control" data-Change="true"
+									type="text" data-fieldName="IS_ACHIEVE"/>
+
+							</div>
+						</div>
+					</div>
+					
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">订单类型</label>
+							<div class="col-xs-8">
+								<select id="partOrderType" name="partOrderType"
+									data-fieldName="PART_ORDER_TYPE"
+									class="bs-select form-control " data-dictCode="1248"
+									data-excludeItems="12481001,12481002,12481012">
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group" data-tableSelect1="true">
+							<label class="control-label col-xs-4">三包缺省单</label>
+							<div class="col-xs-8 ">
+								<div class="input-group">
+									<input type="text" class="form-control" id="woNo" readonly
+										name="woNo" data-fieldName="deliveryNo" /> <span
+										class="input-group-btn">
+										<button class="btn default btn-sm" type="button"
+											data-url="part/partOrder/partOrderPlan/tbsSanBaoPartAbsentAddDMS.html"
+											id="deliveryNo2" data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button" id="deliveryNo2">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">VIN码</label>
+							<div class="col-xs-8">
+								<input id="vin" name="vin" class="form-control" type="text"
+									data-fieldName="VIN" data-Change="true"/>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">车主姓名</label>
+							<div class="col-xs-8">
+								<input id="ownerName" name="ownerName" class="form-control"
+									type="text" data-fieldName="OWNER_NAME" data-Change="true"/> 
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">车牌号</label>
+							<div class="col-xs-8">
+								<input id="license" name="license" class="form-control"
+									type="text" data-fieldName="LICENSE" data-Change="true"/>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">联系电话</label>
+							<div class="col-xs-8">
+								<input id="mobile" name="mobile" class="form-control"
+									type="text" data-fieldName="MOBILE" data-Change="true"/>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">电子编码</label>
+							<div class="col-xs-8">
+								<input id="elecCode" name="elecCode" class="form-control"
+									type="text" data-fieldName="ELEC_CODE" data-Change="true"/>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">机械代码</label>
+							<div class="col-xs-8">
+								<input id="mechCode" name="mechCode" class="form-control"
+									type="text" data-fieldName="MECH_CODE" data-Change="true"/>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-6 ">锁芯机械码/CD机序列号</label>
+							<div class="col-xs-6">
+								<input id="keyCode" name="keyCode" data-fieldName="KEY_CODE" data-Change="true"
+									class="form-control" type="text" />
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+						<div class="form-group">
+							<div class="col-xs-10">
+								<input id="emerg" name="emerg" type="checkbox" data-Change="true"
+									data-dictCode="1057" data-dictLabel="是否通过应急启动"
+									data-excludeItems="10131004" data-fieldName="emerg"/>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<div class="col-xs-12">
+								<input id="change" name="change" type="checkbox" data-Change="true"
+									data-dictCode="1057" data-dictLabel="是否在未授权店私自更换"
+									data-excludeItems="10131004" data-fieldName="CHANGE"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">选择订货公式</label>
+							<div class="col-xs-8">
+								<select id="cboOrderPartFormula" name="cboOrderPartFormula"
+									class="bs-select form-control" data-fieldName="STORAGE_CODE"
+														data-url="/partOrder/placeAnorder/queryDmsPartOrderFormulan" data-model="part"
+														data-labelValue="ITEM_ID"
+														data-labledesc="ORDER_PLAN_FORMULAS_NAME" >
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件类别</label>
+							<div class="col-xs-8">
+								<select id="partGroupCode" name="partGroupCode"
+									class="bs-select form-control" data-dictCode="1136">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">销售天数</label>
+							<div class="col-xs-8">
+								<input id="buyCycle" name="buyCycle" class="form-control"
+									type="text" />
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">仓库</label>
+							<div class="col-xs-8">
+								<select id="storageCode" name="storageCode"
+									class="bs-select form-control" data-url="/partStocks/StockCode"
+									data-model="part" data-lableDesc="STORAGE_NAME"
+									data-labelValue="STORAGE_CODE" tabindex="-98"  data-fieldName="STORAGE_CODE">
+
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">订货周期</label>
+							<div class="col-xs-8">
+								<input id="buyCycle" name="buyCycle" class="form-control"
+									type="text" data-fieldName=""/>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="btn-group">
+							<a href="javascript:;" class="btn blue" data-onclickEvent3="true" 
+							data-url="/demoUsers/export/excel" data-model="demo" data-method="downLoad" > 
+						    <i class="fa list-ul" ></i> 建议采购
+							</a> 
+					
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+		<div class="panel panel-default table-panel ">
+
+			<div class="panel-body">
+				<div class="row horizationDiv ">
+					<div class="panel panel-default table-panel ">
+						<div class="panel-heading">
+							<div class="pannel-name">附件上传</div>
+						</div>
+						<div class="panel-body">
+							<div class="row ">
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6  ">
+									<div class="form-group">
+										<label class="control-label col-xs-5">CODE订单上传附件一</label>
+										<div class="col-xs-7">
+											<div class="file-input file-input-new">
+												<div class="input-group file-caption-main">
+													<input id="dmsFile0" name="dmsFile"
+														data-inputName="addressFile" type="file"
+														class="importFiles  " data-billId=""
+														data-billType="undefined" value="" /> <input
+														type='hidden' id='addressFile0' value=''
+														name='addressFile' />
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6  ">
+									<div class="form-group">
+										<label class="control-label col-xs-5">CODE订单上传附件二</label>
+										<div class="col-xs-7">
+											<div class="file-input file-input-new">
+												<div class="input-group file-caption-main">
+													<input id="dmsFile0" name="dmsFile"
+														data-inputName="addressFile" type="file"
+														class="importFiles  " data-billId=""
+														data-billType="undefined" value="" /> <input
+														type='hidden' id='addressFile0' value=''
+														name='addressFile' />
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								
+								<div class="col-xs-12 col-sm-6  ">
+									<div class="form-group">
+										<label class="control-label col-xs-5">CODE订单上传附件三</label>
+										<div class="col-xs-7">
+											<div class="file-input file-input-new">
+												<div class="input-group file-caption-main">
+													<input id="dmsFile0" name="dmsFile"
+														data-inputName="addressFile" type="file"
+														class="importFiles  " data-billId=""
+														data-billType="undefined" value="" /> <input
+														type='hidden' id='addressFile0' value=''
+														name='addressFile' />
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+								<div class="col-xs-12 col-sm-6 ">
+									<div class="form-group">
+										<label class="control-label col-xs-5 ">备注</label>
+										<div class="col-xs-7">
+											<input id="remark" name="remark" class="form-control"
+												type="text" />
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+							</div>
+							<div class="tabbable-custom ">
+								<ul class="nav nav-tabs">
+									<li class="active"><a href="#tab_placeanPart"
+										data-toggle="tab">订单配件</a></li>
+									<li><a href="#tab_purchasedPart" data-toggle="tab">采购参考配件</a></li>
+								</ul>
+								<div class="tab-content">
+									<div class="tab-pane fade in active" id="tab_placeanPart">
+										<div class="panel panel-default table-panel">
+											<div class="panel-heading">
+												<div class="pannel-name">订单配件</div>
+												<div class="pannel-button">
+													<div class="btn-group btn-group-sm">
+														<a class="btn btn-outline" data-url="part/partOrder/partOrderPlan/tbsPartOrderPlanEditFormDMS.html"
+											                id="planEditFormDMS" data-toggle="modal" data-width="modal-lg" data-beforeShowEvent="true"
+															data-onclickEvent="true"> <i
+															class="fa fa-plus-square"></i> 新增
+														</a>
+													</div>
+													<div class="btn-group btn-group-sm">
+														<a class="btn btn-outline"  data-beforeShowEvent="true"
+															data-url="part/partOrder/partOrderPlan/tbsPartOrderPlanFormDMS.html"
+											                id="planForm" data-toggle="modal" data-width="modal-lg"> <i
+															class="fa fa-plus-square"></i>导入缺料
+														</a>
+														<a class="btn btn-outline"  data-url="/demoUsers/import" data-model="demo" data-callBack="true" data-errorCallBack="true"  data-toggle="confirmation" data-method="importData">
+				                                        <i class="fa fa-plus-square"></i>Excel导入</a>
+														<a href="javascript:;" data-url="/partOrder/placeAnorder/export/excel" data-model="part" data-method="downLoad" data-toggle="confirmation"
+								                           class="btn btn-outline " data-beforeRequest="true"><i class="fa fa-download"></i>导出</a>
+													</div>
+												</div>
+											</div>
+											<div class="panel-body">
+												<table
+													class="table table-striped table-bordered table-hover table-responsive"
+													id="partOrderItem"></table>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="tab-pane fade in " id="tab_purchasedPart">
+										<div class="panel panel-default table-panel">
+											<div class="panel-heading">
+												<div class="pannel-name">采购参考配件</div>
+												<div class="pannel-button">
+													<div class="btn-group btn-group-sm"></div>
+												</div>
+											</div>
+											<div class="panel-body">
+												<table
+													class="table table-striped table-bordered table-hover table-responsive"
+													id="dms_table2"></table>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<div data-info="refesh">
+						<div class="panel panel-default table-panel col-md-4 hidden">
+							<div class="panel-heading">
+								<div class="pannel-name">参考信息</div>
+							</div>
+							<div class="panel panel-default" data-tablePartStoSelect="true"
+								data-tablePartOrderSelect="true">
+								<div class="panel-body">
+									<div class="row ">
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 ">
+											<div class="form-group">
+												<label class="control-label col-xs-4">仓库</label>
+												<div class="col-xs-8">
+													<select id="STORAGE_CODE" name="STORAGE_CODE"
+														class="bs-select form-control"
+														data-fieldName="STORAGE_CODE"
+														data-url="/partStocks/StockCode" data-model="part"
+														data-labelValue="STORAGE_CODE"
+														data-labledesc="STORAGE_NAME" tabindex="-98">
+
+													</select>
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 ">
+											<div class="form-group">
+												<label class="control-label col-xs-4 ">配件代码</label>
+												<div class="col-xs-8">
+													<input id="partNo" name="partNo" class="form-control"
+														type="text" data-fieldName="PART_NO" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 ">
+											<div class="form-group">
+												<label class="control-label col-xs-4 ">配件名称</label>
+												<div class="col-xs-8">
+													<input id="partName" name="partName" class="form-control"
+														type="text" data-fieldName="PART_NAME" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 ">
+											<div class="form-group">
+												<label class="control-label col-xs-4 ">合计</label>
+												<div class="col-xs-8">
+													<input id="totalPrices" name="totalPrices" class="form-control"
+														type="text" data-fieldName="TOTAL_PRICES" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<div class="row ">
+										<div class="col-xs-12 col-sm-6 ">
+											<div class="form-group">
+												<label class="control-label col-xs-4 ">账面库存</label>
+												<div class="col-xs-8">
+													<input id="STOCK_QUANTITY" name="STOCK_QUANTITY" class="form-control"
+														type="text" data-fieldName="STOCK_QUANTITY" readonly />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 ">
+											<div class="form-group">
+												<label class="control-label col-xs-4 ">最新进货价</label>
+												<div class="col-xs-8">
+													<input id="LATEST_PRICE" name="LATEST_PRICE" class="form-control"
+														type="text" readonly data-fieldName="LATEST_PRICE" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 ">
+											<div class="form-group">
+												<label class="control-label col-xs-4 ">借进数量</label>
+												<div class="col-xs-8">
+													<input id="BORROW_QUANTITY" name="BORROW_QUANTITY" class="form-control"
+														type="text" readonly data-fieldName="BORROW_QUANTITY" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 ">
+											<div class="form-group">
+												<label class="control-label col-xs-4 ">成本单价</label>
+												<div class="col-xs-8">
+													<input id="COST_PRICE" name="COST_PRICE" class="form-control"
+														type="text" readonly data-fieldName="COST_PRICE" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 ">
+											<div class="form-group">
+												<label class="control-label col-xs-4 ">借出数量</label>
+												<div class="col-xs-8">
+													<input id="LEND_QUANTITY" name="LEND_QUANTITY" class="form-control"
+														type="text" readonly data-fieldName="LEND_QUANTITY" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 ">
+											<div class="form-group">
+												<label class="control-label col-xs-4 ">成本金额</label>
+												<div class="col-xs-8">
+													<input id="COST_AMOUNT" name="COST_AMOUNT"
+														class="form-control" type="text" readonly
+														data-fieldName="COST_AMOUNT" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 ">
+											<div class="form-group">
+												<label class="control-label col-xs-4 ">锁定数量</label>
+												<div class="col-xs-8">
+													<input id="LOCKED_QUANTITY" name="LOCKED_QUANTITY" class="form-control"
+														type="text" readonly data-fieldName="LOCKED_QUANTITY" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 ">
+											<div class="form-group">
+												<label class="control-label col-xs-4 ">替代配件</label>
+												<div class="col-xs-8">
+													<input id="edtOptionPart" name="edtOptionPart"
+														class="form-control" type="text" readonly
+														data-fieldName="" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 ">
+											<div class="form-group">
+												<label class="control-label col-xs-4 ">可用库存</label>
+												<div class="col-xs-8">
+													<input id="USEABLE_STOCK" name="USEABLE_STOCK"
+														class="form-control" type="text" readonly
+														data-fieldName="USEABLE_STOCK" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 ">
+											<div class="form-group">
+												<label class="control-label col-xs-4 ">替代配件库存</label>
+												<div class="col-xs-8">
+													<input id="edtOptionPartStock" name="edtOptionPartStock"
+														class="form-control" type="text" readonly
+														data-fieldName="" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 ">
+											<div class="form-group">
+												<label class="control-label col-xs-4 ">最大库存</label>
+												<div class="col-xs-8">
+													<input id="edtMaxStock" name="edtMaxStock"
+														class="form-control" type="text" readonly
+														data-fieldName="MAX_STOCK" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<!-- 		<div class="col-xs-12 col-sm-6 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4 ">在订数量</label>
+											<div class="col-xs-8">
+												<input id="edtOrderCount" name="edtOrderCount"
+													class="form-control" type="text" readonly data-fieldName="" />
+											</div>
+										</div>
+									</div> -->
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 ">
+											<div class="form-group">
+												<label class="control-label col-xs-4 ">最小库存</label>
+												<div class="col-xs-8">
+													<input id="edtMinStock" name="edtMinStock"
+														class="form-control" type="text" readonly
+														data-fieldName="MIN_STOCK" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6  ">
+											<div class="form-group">
+												<label class="control-label col-xs-4">最新入库日期</label>
+												<div class="col-xs-8">
+													<div class="input-group date date-picker">
+														<input id="deInDate" name="deInDate" readonly
+															class="form-control" type="text" value=""
+															data-fieldName="LAST_STOCK_IN" /> <span
+															class="input-group-btn">
+															<button class="btn default date-set" type="button">
+																<i class="fa fa-calendar"></i>
+															</button>
+															<button class="btn default date-reset" type="button">
+																<i class="fa fa-times"></i>
+															</button>
+														</span>
+
+													</div>
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 ">
+											<div class="form-group">
+												<label class="control-label col-xs-4">最新出库日期</label>
+												<div class="col-xs-8">
+													<div class="input-group date date-picker">
+														<input id="deOutDate" name="deOutDate" readonly
+															class="form-control" type="text" value=""
+															data-fieldName="LAST_STOCK_OUT" /> <span
+															class="input-group-btn">
+															<button class="btn default date-set" type="button">
+																<i class="fa fa-calendar"></i>
+															</button>
+															<button class="btn default date-reset" type="button">
+																<i class="fa fa-times"></i>
+															</button>
+														</span>
+
+													</div>
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default table-panel">
+
+								<div class="panel-body">
+									<table
+										class="table table-striped table-bordered table-hover table-responsive"
+										id="dms_table3">
+									</table>
+								</div>
+							</div>
+							<!--/span-->
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="modal-footer center-block">
+			<a class="btn blue btn-primary" data-isExcludeReadOnly="true" 
+				id="add" data-onclickEvent="true"> <i class="fa fa-plus-square"></i>
+				新增
+			</a><a data-url="/partOrder/placeAnorder/maintainDmsPtOrder"
+				data-beforeRequest="true" data-model="part" data-method="POST"
+				data-callBack="true" class="btn blue btn-primary" id="save_a"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> <a
+				data-url="/partOrder/placeAnorder/maintainDmsPtOrder"
+				data-model="part" data-method="POST" data-callBack="true"
+				class="btn blue btn-primary" id="update_u" data-beforeRequest="true"
+				data-toggle="confirmation"><i class="fa fa-save"></i>完成</a> <a
+				data-url="/partOrder/placeAnorder/deleteDmsPtOrderPlan"
+				data-model="part" data-method="POST" data-callBack="true"
+				class="btn blue btn-primary" id="delete_d" data-beforeRequest="true"
+				data-toggle="confirmation"><i class="fa fa-save"></i>作废</a>
+				<a data-callBack="true"
+				class="btn blue btn-primary" id="cxButton2Click"  data-onclickEvent4="true"
+				data-toggle="confirmation"><i class="fa fa-save"></i>获取清单信息</a> 
+				<a class="btn btn-primary" data-url="demo/addUser.html" data-width="modal-lg" data-beforeShowEvent='true'
+				   id="btnReplacePartClick" data-toggle="modal"> <i class="fa fa-plus-square" ></i> 替换件
+				</a> 
+				<a
+				data-goback="page" href="dashBoard.html" class="btn blue ajaxify">
+				<i class="fa fa-reply"></i>取消
+			</a>
+		</div>
+	</form>
+
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initLocale({
+		src : "partOrderItem",
+		container:container,
+		autoHeight:false,
+		columns : [ 
+	            {radio:true,sortable : false,visible : true},
+		        {field : "ITEM_ID",inputField:"itemId",title : "操作",operateFormat : [{type : "localDel",onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){
+		            var mystr=new stringConnect();
+		            var valu=$("#orderItems",container).val();
+		            if(!isStringNull(valu)) mystr.append(valu);
+		        	    mystr.append(row.ITEM_ID);
+		        	    var str=mystr.toString()
+		        	    $("#orderItems",container).setDmsValue(str);
+		        	console.log("--------------"+str);
+		        }},{type:"detail",url:"part/partOrder/partOrderPlan/editPartOrderItemPlan.html",openWidth:"modal-lg",onBeforeEvent:function(value, row, index,obj){
+		        	$(obj).data("pageData",row);
+		        	console.log(JSON.stringify(row));
+		        }}],inputHiddenFormat:"ITEM_ID"}, 
+                {field : "PART_NO",title : "配件代码",inputField:"partNo",inputHiddenFormat:"PART_NO"},
+                {field : "ARKTX",title : "别名",inputField:"arktx",inputHiddenFormat:"ARKTX"},
+	            {field : "PART_NAME",title : "配件名称",inputField:"partName",inputHiddenFormat:"PART_NAME"},
+	            {field : "COUNT",title : "订货件数量",inputField:"count",inputHiddenFormat:"COUNT"},
+	            {field : "Is_Stock",title : "车厂库存",inputField:"isStock",inputHiddenFormat:"Is_Stock"},
+	            {field : "NETWR",title : "含税单价",inputField:"netwr",inputHiddenFormat:"NETWR"},
+	            {field : "TOTAL",title : "含税总额",inputField:"total",inputHiddenFormat:"TOTAL"}, 
+				{field : "OPNETWR",title : "不含税单价",inputField:"opnetwr",inputHiddenFormat:"OPNETWR"}, 
+				{field : "OPTOTAL",title : "不含税总额",inputField:"optotal",inputHiddenFormat:"OPTOTAL"},
+				{field : "HAS_CHANGE",inputField:"hasChange",title : "是否有替换件",inputCheckBoxFormat:{type : "dict",codeType : "1057",disabled:true}},
+				{field : "NO_TAX_PRICE",title : "不含税终端销售价",inputField:"noTaxPrice",inputHiddenFormat:"NO_TAX_PRICE"},
+				{field : "SINGLE_Discount",title : "单个折扣",inputField:"singleDiscount",inputHiddenFormat:"SINGLE_Discount"},
+				{field : "UNIT_CODE",title : "单位",inputField:"unitCode",inputHiddenFormat:"UNIT_CODE"},
+				{field : "MIN_PACKAGE",title : "最小包装数",inputField:"minPackage",inputHiddenFormat:"MIN_PACKAGE"},
+				{field : "DETAIL_REMARK",title : "备注",inputHiddenFormat : {hiddenFieldName:"detailRemark,storageCode",hiddenField:"DETAIL_REMARK,STORAGE_CODE"},visible : true}
+	           
+			],
+			onLoadSuccess : function() {
+				$("#dms_table",container).closest("td",$("tr[data-index='0']",container)).click();
+
+			},onCheck:function(row){
+				$("#dms_table3",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["part"] + "/partOrder/placeAnorder/queryDetail/"+row.PART_NO+"/"+row.STORAGE_CODE+"/queryDmsPartInOutSub");
+				$("div[data-tablePartStoSelect='true']",getElementContext()).initHtmlContent(row);
+				
+			}
+
+		});
+	
+	new Datatable().initPagination({
+		src : "dms_table2",
+		container:container,
+		autoHeight:false,
+			columns : [ 
+                {field : "PART_NO",title : "配件代码"},
+                {field : "IS_SELECTED",title : "选择"},
+	            {field : "PART_NAME",title : "配件名称"},
+	            {field : "SUGGEST_QUANTITY",title : "建议数量"},
+	            {field : "STORAGE_CODE",title : "仓库"},
+	            {field : "USEABLE_STOCK",title : "可用库存"}, 
+				{field : "STOCK_QUANTITY",title : "库存数量"},
+				{field : "REMARK",title : "备注"}
+	           
+			]
+		});
+	
+	new Datatable().initPagination({
+		src : "dms_table3",
+		container:container,
+		autoHeight:false,
+		pageSize:5,
+			columns : [  
+                {field : "YEAR",title : "年度"},
+                {field : "MONTH",title : "月度"},
+	            {field : "IN_QUANTITY",title : "出库数量"},
+	            {field : "OUT_QUANTITY",title : "入库数量"}
+			]
+		});
+	dmsPart.initElementReadOnly(container);
+	var arr = new Array();
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		var id=$(this).closest("a").attr('id');
+		if(id=='save_a'){
+			$("#update_u",container).removeAttr("disabled");
+			$('input[data-Change="true"]',container).off().on( 'hidden', 'input change');
+			$("#status",container).setDmsValue('U');
+			$("#addcallBack",container).setDmsValue('12781001');
+			$("div[data-tablePartOrderSelect='true']",getElementContext()).initHtmlContent(response,true);
+
+			$('input[data-Change="true"]',container).bindChange(function(obj){
+			 	var status=$("#status",getElementContext()).val();
+				if(!isStringNull(status)&&status=='U'){
+					$("a[id='save_a']",getElementContext()).removeAttr("disabled");
+					$("a[id='update_u']",getElementContext()).attr("disabled","disabled");
+					$("a[id='delete_d']",getElementContext()).attr("disabled","disabled");
+				}
+			});
+			console.log('----');
+		}
+		
+	});
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+		var flage=true;
+	 	var id=event.target.id;
+		if(id=='update_u'){
+			$("#status",container).setDmsValue('U');
+			$("#isAchieve",container).setDmsValue('12781001');
+		}
+		if(id=='delete_d'){
+			$("#remark",container).addClass("required");
+			if(!$("#remark",container).validateElement()){
+				flage=false;
+			}
+			$("#status",container).setDmsValue('D');
+		} 
+		var pentRow=$("#partOrderItem",container).dmsTable().getRowDataByIndex();
+		var orderSum=0;
+		for(var i=0;i<pentRow.length;i++){
+			orderSum+=(parseFloat(pentRow[i].COUNT))*(isStringNull(pentRow[i].UNIT_PRICE)?0:parseFloat(pentRow[i].UNIT_PRICE));
+		}
+		
+		$("#orderSum",container).setDmsValue(orderSum);
+		if(flage){
+			returnResult.status = true;
+		}
+		debugger;
+		$("#scene",container).val(JSON.stringify(pentRow));
+	});
+	
+	$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+		var id=event.target.id; 
+		var partOrderType=$("#partOrderType",container).val();
+		if(isStringNull(partOrderType)){
+			dmsCommon.tip({status:"warning",msg:"请输入订单类型!"});
+			returnResult.status = false;
+			return ;
+		}
+		if(id=='btnReplacePartClick'){
+			var selectRow = $("#partOrderItem",container).dmsTable().getFirstSelection();
+			debugger;
+			if(isStringNull(selectRow)||!isStringNull.length>0){
+				dmsCommon.tip({status:"warning",msg:"请先添加配件信息！"});
+				return ;
+			}
+			if(selectRow.HAS_CHANGE!='10571001'){
+				dmsCommon.tip({status:"warning",msg:"配件是否有替换件为否，不能使用替换件功能！"});
+				return ;
+			}
+			if(selectRow.IS_SJV!='12781001'){
+				dmsCommon.tip({status:"warning",msg:"配件属性是否S为否，不能使用替换件功能！"});
+				return ;
+			}
+		}
+		
+		returnResult.status = true;
+	});
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		var id=event.target.id;
+	    if(id=='add'){
+	    	arr=new Array('update_u');
+		    dmsPart.removeElementsReadOnly(container,isBigEnough);
+			var requiredArr = new Array('partOrderType');
+			addElementsRequired(requiredArr);
+			$("button[id='deliveryNo1']",container).attr("disabled","disabled");
+			$("a[id='delete_d']",container).attr("disabled","disabled");
+			$("a[id='update_u']",container).attr("disabled","disabled");
+			$(this).attr("disabled","disabled");
+	    }
+	});
+	
+	$("a[data-onclickEvent2='true']",container).on("dms.click",function(event){
+	
+		
+	});
+	
+	
+	$("a[data-onclickEvent4='true']",container).on("dms.click",function(event){
+		var selectRow = $("#partOrderItem",container).dmsTable().getFirstSelection();
+		if(isStringNull(selectRow)||!isStringNull.length>0){
+			dmsCommon.tip({status:"warning",msg:"请先添加配件信息！"});
+			return ;
+		}
+		
+	});
+	
+	$("a[data-onclickEvent3='true']",container).on("dms.click",function(event){
+		if(isStringNull($("#storageCode",container).val())){
+			dmsCommon.tip({status:"warning",msg:"仓库代码不能为空!"});
+			return ;
+		}
+		if(isStringNull($("#storageCode",container).val())){
+			dmsCommon.tip({status:"warning",msg:"请填写销售天数!"});
+			return ;
+		}
+		if(isStringNull($("#storageCode",container).val())){
+			dmsCommon.tip({status:"warning",msg:"请选择订货公式!"});
+			return ;
+		}
+		if(isStringNull($("#cboPartType",container).val())){
+			dmsCommon.tip({status:"warning",msg:"请选择配件类别!"});
+			return ;
+		}
+		var partOrderType=$("#partOrderType",container).val();
+		if(partOrderType=='12481010'||partOrderType=='12481011'){
+			dmsCommon.tip({status:"warning",msg:"E-CODE 2和S-CODE 2订单类型，只能选择配件类别是底盘号相关的配件!"});
+			return ;
+		}
+		if(partOrderType=='12481009'){
+			dmsCommon.tip({status:"warning",msg:"T.O.订单类型，只能选择配件类别是第三方的配件!"});
+			return ;
+		}
+		$("#dms_table2",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["part"] + "/partOrder/placeAnorder/queryDmsSuggestOrder");
+		$("a[href='#tab_purchasedPart']",container).click();
+		
+	});
+	$("#partOrderType",container).bindChange(function(obj){
+		var rows=$("#partOrderItem",container).dmsTable().getTableRows();
+		var status=$("#status",container).val();
+		var addcallBack=$("#addcallBack",container).val();  
+		if(rows>0&&isStringNull(addcallBack)&&addcallBack!='12781001'){
+			$(obj).confirm("选择不同的订单类型将清空配件信息",function(confirmObj){
+				for(var i=0;i<rows;i++){
+					var row=$("#partOrderItem",container).dmsTable().getRowDataByIndex(i);
+					var mystr=new stringConnect();
+		            var valu=$("#orderItems",container).val();
+		            if(!isStringNull(valu)) mystr.append(valu);
+		        	    mystr.append(rows.ITEM_ID);
+		        	    var str=mystr.toString()
+		        	    $("#orderItems",container).setDmsValue(str);
+				}
+				deleteRows();
+			});
+		} 
+		var val=$(obj).val();
+		//E.O.
+		if(val=='12481005'){
+			dmsPart.initElementReadOnly(container);
+			arr=new Array('deliveryNo2','woNo');
+			setButstar(arr,status);
+			dmsPart.removeElementsReadOnly(container,isBigEnough);
+			removeElementsRequired();
+		}
+		//S.O.
+		if(val=='12481006'){
+			dmsPart.initElementReadOnly(container);
+			arr=new Array('deliveryNo2','woNo');
+			setButstar(arr,status);
+			dmsPart.removeElementsReadOnly(container,isBigEnough);
+		}
+		//V.O.R
+		if(val=='12481007'){
+			dmsPart.initElementReadOnly(container);
+			arr=new Array('deliveryNo2','woNo');
+			setButstar(arr,status);
+			dmsPart.removeElementsReadOnly(container,isBigEnough);
+		}
+		//W.O.
+		if(val=='12481008'){
+			dmsPart.initElementReadOnly(container);
+			arr=new Array('vin','ownername','license','planEditFormDMS','planForm');
+			setButstar(arr,status);
+			dmsPart.removeElementsReadOnly(container,isBigEnough);
+		}
+		if(val=='12481009'){
+			dmsPart.initElementReadOnly(container);
+			arr=new Array('woNo');
+			setButstar(arr,status);
+			dmsPart.removeElementsReadOnly(container,isBigEnough);
+		}
+		//S-CODE 2
+		if(val=='12481011'){
+			dmsPart.initElementReadOnly(container);
+			var requiredArr = new Array('partOrderType','keyCode','vin','ownerName','license','mobile','elecCode','mechCode');
+			arr=new Array('woNo');
+			setButstar(arr,status);
+			dmsPart.removeElementsReadOnly(container,isBigEnough);
+			addElementsRequired(requiredArr);
+		}
+		//E-CODE 2
+		if(val=='12481010'){
+			dmsPart.initElementReadOnly(container);
+			var requiredArr = new Array('partOrderType','keyCode','vin','ownerName','license','mobile','elecCode','mechCode');
+			arr=new Array('woNo');
+			setButstar(arr,status);
+			dmsPart.removeElementsReadOnly(container,isBigEnough);
+			addElementsRequired(requiredArr);
+		}
+		$("#addcallBack",container).val(''); 
+		
+	});
+
+	
+	var addElementsRequired=function(requiredArr){
+		 $.each(requiredArr, function(i, obj){  
+			 $("#"+obj).addClass("required");
+		  }); 
+	};
+	
+	var removeElementsRequired=function(notinputArray,filterFunction){
+		var inputArray = $('input[type!="hidden"],textarea,select,a:not([data-goback],[data-dismiss],[data-toggle="tab"],.expand)',container);
+		if(filterFunction){
+			inputArray = inputArray.filter(filterFunction);
+		}
+		//循环过滤
+		inputArray.each(function(index,item){
+			var obj = item;
+			if($(obj).hasClass("required")){
+				$(obj).removeClass("required");
+			}
+		});
+	}
+	//点亮控件
+	function isBigEnough(index,item) {
+		var val=$(item,container).attr('id');
+		var flag=true;
+		if (arr.indexOf(val) !== -1) {
+			    return false;
+	      } else {
+			    return true;
+	     }
+    };
+	function stringConnect(){
+	    this._str_=new Array();
+	}
+	stringConnect.prototype.append=function(a){
+	    this._str_.push(a);
+	}
+	stringConnect.prototype.toString=function(){
+	    return this._str_.join();
+	}
+	
+	var deleteRows=function(){
+		var rows=$("#partOrderItem",container).dmsTable().getTableRows();
+		if(rows<=0)return;
+		for(var i=0;i<rows;i++){
+			$("#partOrderItem",container).dmsTable().deleteRowByIndex(i);
+		}
+		deleteRows();
+	}
+	var setButstar=function(arr,status){
+		if(!isStringNull(status)&&status=='U'){
+			arr.push('save_a');
+		}
+		if(!isStringNull(status)&&status=='A'){
+			arr.push('update_u','delete_d');
+		}
+	}
+	
+	
+});
+</script>

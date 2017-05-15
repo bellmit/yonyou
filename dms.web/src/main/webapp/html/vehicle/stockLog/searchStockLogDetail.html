@@ -1,0 +1,247 @@
+<div class="dms-edit ajaxrest" data-url="/vehicleStock/StockLog/{[VIN]}/detail" data-model="vehicle" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">车辆信息</div>
+			 <div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			  </div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">车辆明细信息</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i
+							class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					    <div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-2">VIN</label>
+							        <div class="col-xs-10">
+												<input id="vin" name="vin" 
+												 data-fieldName="VIN" class="form-control " maxlength="120" type="text" />
+											</div>
+							</div>
+						</div>
+						
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">产品代码</label>
+							        <div class="col-xs-8">
+												<input id="productCode" name="productCode" 
+												 data-fieldName="PRODUCT_CODE" class="form-control " maxlength="120" type="text" />
+											</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group"> 
+								<label class="control-label col-xs-4">库存状态</label>
+								<div class="col-xs-8">
+									<select id="stockStatus" name="stockStatus"  data-fieldName="STOCK_STATUS"
+										class="bs-select form-control " data-dictCode="1304"
+										data-value="">
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌</label>
+								<div class="col-xs-8">
+									<select id="brand" class="bs-select form-control" data-ajaxSync = "true" name="brandCode"
+										data-url="/basedata/brandsdict" data-model="manage" data-fieldName="BRAND_CODE"
+										data-labelValue="BRAND_CODE" data-lableDesc="BRAND_NAME"
+										data-alwaysRefresh="true">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系</label>
+								<div class="col-xs-8">
+									<select id="series" parent="brand"
+										class="bs-select form-control" data-ajaxSync = "true" name="seriesCode"
+										data-url="/basedata/brandsdictC/{[brand]}/seriessdictC"
+										data-model="manage" data-fieldName="SERIES_CODE" data-labelValue="SERIES_CODE"
+										data-lableDesc="SERIES_NAME" data-alwaysRefresh="true">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车型</label>
+								<div class="col-xs-8">
+									<select id="model" parent="series"
+										class="bs-select form-control" data-ajaxSync = "true" name="modelCode"
+										data-url="/basedata/brandsdictC/{[brand]}/seriessdictC/{[series]}/modelsdictC"
+										data-model="manage" data-fieldName="MODEL_CODE" data-labelValue="MODEL_CODE"
+										data-lableDesc="MODEL_NAME" data-alwaysRefresh="true">
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配置</label>
+							<div class="col-xs-8">
+								<select id="configCodes"  class="bs-select form-control" parent="models"
+									name="configName" data-ajaxSync = "true"
+									data-url="/basedata/brandsdict/{[brands]}/seriessdict/{[seriess]}/modelsdict/{[models]}/packagesdict"
+									data-model="manage" data-fieldName="CONFIG_CODE" data-labelValue="CONFIG_CODE"
+									data-lableDesc="CONFIG_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">颜色</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" id="colors" parent="configCodes"
+									data-fieldName="COLOR" name="color" data-ajaxSync = "true"
+									data-url="/basedata/colors/colorInfo/dicts" data-model="repair" data-fieldName="COLOR_CODE"
+									data-labelValue="COLOR_CODE" data-lableDesc="COLOR_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">仓库名称</label>
+							<div class="col-xs-8">
+								<select id="stockName" class="bs-select form-control" data-ajaxSync = "true" name="stockName"
+									data-url="/basedata/vehicleInStore/store" data-model="report" data-fieldName="STORAGE_CODE"
+									data-labelValue="STORAGE_CODE" data-lableDesc="STORAGE_NAME"
+									data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">库位</label>
+							        <div class="col-xs-8">
+												<input id="contacrorMobile" name="contacrorMobile" 
+												 data-fieldName="STORAGE_POSITION_CODE" class="form-control " maxlength="120" type="text" />
+									</div>
+							</div>
+						</div>
+						<!--/span-->
+				
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-1">说明</label>
+							        <div class="col-xs-8">
+											<input id="remark" name="remark"
+												 data-fieldName="REMARK" class="form-control " maxlength="120" type="text" />
+											</div>
+							</div>
+						</div>
+							
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="detailList1">
+					</table>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="detailList2">
+					</table>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="detailList3">
+					</table>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="modal-footer center-block">
+		 <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>返回</a>
+		</div>
+	 </div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "detailList1",
+		rowID : "SE_NO",
+		sortName : "SE_NO",
+		container:container,
+		sortOrder : "asc",
+		autoHeight : false,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/vehicleStock/StockLog/{[VIN]}/InspectionMar",
+		columns : [  
+			        {field : "SE_NO",title : "入库单编号"},
+			        {field : "PRODUCT_CODE",title : "产品代码"},
+			        {field : "USER_NAME",title : "验收人员"},
+			        {field : "INSPECTION_DATE",title : "验收日期",dateFormat : {format:"YYYY-MM-DD"}},
+			        {field : "VIN",title : "VIN"},
+			        {field : "ENGINE_NO",title : "发动机号"},
+			        {field : "SHIPPING_DATE",title : "发车日期",dateFormat : {format:"YYYY-MM-DD"}},
+			        {field : "SHIPPER_LICENSE",title : "承运车牌号"},
+			        {field : "SHIPPER_NAME",title : "承运商名称"},
+			        {field : "DELIVERYMAN_NAME",title : "送车人姓名"},
+			        {field : "DELIVERYMAN_PHONE",title : "送车人电话"},
+			        {field : "ARRIVING_DATE",title : "预计送到日期",dateFormat : {format:"YYYY-MM-DD"}},
+			        {field : "ARRIVED_DATE",title : "实际送到日期",dateFormat : {format:"YYYY-MM-DD"}},
+			        {field : "MAR_STATUS",title : "质损状态",codeFormat : {type:"dict",codeType:"1306"}}
+		         ]
+	});
+	new Datatable().initPagination({
+		src : "detailList2",
+		rowID : "SE_NO",
+		sortName : "SE_NO",
+		container:container,
+		sortOrder : "asc",
+		parentTable:"detailList1",
+		autoHeight : false,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/vehicleStock/StockLog/{[VIN]}/Mar",
+		columns : [  
+			        {field : "SE_NO",title : "入库单编号"},
+			        {field : "VIN",title : "VIN"},
+			        {field : "MAR_POSITION",title : "质损部位",codeFormat : {type:"dict",codeType:"1243"}},
+			        {field : "MAR_DEGREE",title : "质损程度",codeFormat : {type:"dict",codeType:"1244"}},
+			        {field : "MAR_TYPE",title : "质损性质",codeFormat : {type:"dict",codeType:"1336"}},
+			        {field : "MAR_REMARK",title : "质损说明"}
+		         ]
+	});
+	new Datatable().initPagination({
+		src : "detailList3",
+		rowID : "FILE_NAME",
+		sortName : "FILE_NAME",
+		container:container,
+		sortOrder : "asc",
+		parentTable:"detailList2",
+		autoHeight : false,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/vehicleStock/StockLog/{[ITEM_ID]}/MarAttachment",
+		columns : [  
+			        {field : "FILE_NAME",title : "质损附件名称"}
+		         ]
+	});
+	
+	/* //绑定刷新表格操作
+	$("#aaa",container).on('click',function(){
+		$("#detailList",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["vehicle"] + "/vehicleStock/StockLog/{[VIN]}/vehicle");
+    }); */
+	
+});		
+</script>

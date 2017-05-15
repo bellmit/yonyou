@@ -1,0 +1,306 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4  col-lg-3">
+							<div class="form-group form-group-xs m-b-xs">
+								<label class="control-label col-xs-4 ">仓库</label>
+								<div class="col-xs-8">
+									<select id="inStorage" class="bs-select form-control"
+										name="inStorage"
+										data-url="/stockManage/safeguard/findStorage/{[dealer_code]}"
+										data-model="vehicle" data-labelValue="STORAGE_CODE"
+										data-lableDesc="STORAGE_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">车系</label>
+								<div class="col-xs-8">
+									<select id="series" class="bs-select form-control"
+										name="seriesCode" data-url="/basedata/selectSeries"
+										data-model="manage" data-labelValue="SERIES_CODE"
+										data-fieldName="SERIES_CODE" data-lableDesc="SERIES_NAME"
+										data-alwaysRefresh="true">
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配置</label>
+								<div class="col-xs-8 ">
+									<select id="configCode" class="bs-select form-control"
+										name="configCode" data-url="/basedata/selectConfig"
+										data-model="manage" data-labelValue="CONFIG_CODE"
+										data-fieldName="CONFIG_CODE" data-lableDesc="CONFIG_NAME"
+										data-alwaysRefresh="true">
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">VIN</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="vin" name="vin">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否调价</label>
+								<div class="col-xs-8">
+									<select id="isPriceAdjusted" name="isPriceAdjusted"
+										class="bs-select form-control" data-dictCode="1278"
+										data-fieldName="is_PriceAdjusted">
+									</select>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+					<div class="row ">
+						<div class="col-xs-12 ">
+							<div class="query-btn">
+								<a href="javascript:;" class="btn blue"> <i
+									class="fa fa-search"></i>查询
+								</a> <a href="javascript:;" class="btn blue"><i
+									class="fa fa-undo"></i>重置</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-12 col-md-12 col-lg-12">
+							<div class="panel panel-default table-panel">
+								<div class="panel-heading">
+									<div class="pannel-name">促销价格管理</div>
+								</div>
+								<div class="panel-body">
+									<table
+										class="table table-striped table-bordered table-hover table-responsive"
+										id="dms_table"></table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">修改销售指导价</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i
+							class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<input type="hidden" name="vins" id="vins" />
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销售指导价</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control money" name="SalesPrice"  value='0.00'> 
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">附加成本</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control money" name="Cost" value='0.00'>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">调价原因</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" name="Reason">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a id="move" data-model="vehicle" data-method="PUT"
+				data-callBack="true" class="btn blue ajaxrest"
+				data-url="/stockManage/salesPricePromotion/editsalesPrice"
+				data-validate="true" data-beforeRequest="true"><i
+				class="fa fa-check-square-o"></i>保存</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document)
+			.one(
+					"onload.dms",
+					function(event, container) {
+						new Datatable()
+								.initPagination({
+									src : "dms_table",
+									container : container,
+									url : dmsCommon.getDmsPath()["vehicle"]
+											+ "/stockManage/salesPricePromotion",
+									rowID : "VIN",
+									sortName : "VIN",
+									/* selectItemName:"VIN", *///当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+									sortOrder : "asc",
+									autoHeight : false,
+									checkboxHeader : true, //全选框
+									undefinedText : "",
+									columns : [
+											{
+												checkbox : true,
+												sortable : false
+											},
+											{
+												field : "STORAGE_NAME",
+												title : "仓库"/* ,
+												inputSelectFormat : {
+													url : "/stockManage/safeguard/findStorage/{[dealer_code]}",
+													model : "vehicle",
+													labelValue : "STORAGE_CODE",
+													lableDesc : "STORAGE_NAME",
+													validate : {
+														validateClass : "gfkselect disabled"
+													},
+													attr : "data-existsdefault='false'"
+												} */
+											},
+											{
+												field : "STORAGE_POSITION_CODE",
+												title : "库位"
+											},
+											{
+												field : "VIN",
+												title : "VIN"
+											},
+											{
+												field : "BRAND_NAME",
+												title : "品牌"
+											},
+											{
+												field : "SERIES_NAME",
+												title : "车系"
+											},
+											{
+												field : "MODEL_NAME",
+												title : "车型"
+											},
+											{
+												field : "CONFIG_NAME",
+												title : "配置"
+							
+											},
+											{
+												field : "COLOR_NAME",
+												title : "颜色"/* ,
+												inputSelectFormat : {
+													url : "/basedata/colors/colorinfo/dicts",
+													model : "repair",
+													labelValue : "COLOR_CODE",
+													lableDesc : "COLOR_NAME",
+													validate : {
+														validateClass : "gfkselect disabled"
+													},
+													attr : "data-existsdefault='false'"
+												} */
+											},
+											{
+												field : "DIRECTIVE_PRICE",
+												title : "销售指导价"
+											},
+											{
+												field : "OLD_DIRECTIVE_PRICE",
+												title : "原销售价格"
+											},
+											{
+												field : "ADDITIONAL_COST",
+												title : "附加成本"
+											},
+											{
+												field : "IS_PRICE_ADJUSTED",
+												title : "是否调价",
+												codeFormat : {
+													type : "dict",
+													codeType : "1278"
+												}
+											},
+											{
+												field : "ADJUST_REASON",
+												title : "调价原因"
+
+											},
+											{
+												field : "MANUFACTURE_DATE",
+												title : "生产日期",
+												dateFormat : {
+													format : "YYYY-MM-DD"
+												}
+											},
+											{
+												field : "LATEST_STOCK_IN_DATE",
+												title : "最后入库日期",
+												dateFormat : {
+													format : "YYYY-MM-DD HH:mm:ss"
+												}
+											},
+
+									]
+								});
+
+						//保存前事件
+						$('a[data-beforeRequest="true"]', container).on(
+								'beforeRequest.dms',
+								function(event, returnResult) {
+									var vins = "";
+									var text = $("#dms_table", container)
+											.dmsTable().getSelections();
+									if (text != null) {
+										$(text).each(function(e) {
+											vins += text[e].VIN + ';';
+										});
+										$("#vins", container).val(vins);
+										returnResult.status = true;
+									} else {
+										dmsCommon.tip({
+											status : "warning",
+											msg : "请选择记录！"
+										});
+										returnResult.status = false;
+										return;
+									}
+								});
+
+						//新增页面的回调函数
+						$("a[data-callBack='true']", container).on(
+								"callBack.dms",
+								function(event, response) {
+									//关闭窗口
+									$("a[data-dismiss='modal']", container)
+											.click();
+									//刷新表格
+									$("#dms_table", getElementContext())
+											.dmsTable().refreshTableWithForm();
+								});
+					});
+</script>

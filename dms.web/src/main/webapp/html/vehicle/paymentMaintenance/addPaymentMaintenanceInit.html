@@ -1,0 +1,73 @@
+<div class="dms-add"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">添加经销商付款方式</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+							<div class="col-xs-12  " data-tableSelect="true">
+						<div class="form-group">
+								<label class="control-label col-xs-2">经销商代码</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+									<input id="dealerName" readonly name="dealerName" class="form-control required" type="text"/>
+									<input id="dealerId" readonly name="dealerId" class="form-control " type="hidden"/> 
+										<span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="manage/basedata/bulletin/searchDealersQuery.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+					</div>	
+				<div class="col-xs-12  ">
+						<div class="form-group">
+							<label class="control-label col-xs-2 ">付款方式</label>
+							<div class="col-xs-8">
+								<input id="paymentType" name="paymentType"  type="checkbox" 
+										data-type="oemDict" data-dictCode="9018"  data-fieldName="PAYMENT_TYPE"  />
+							</div>
+						</div>
+					</div>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/paymentMaintenance/addDealerPayment" data-model="vehicle"
+				data-method="POST" data-callBack='true'
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>新增</a> <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("a.clear").click();
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	})
+</script>
+

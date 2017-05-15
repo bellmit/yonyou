@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="
+          http://www.springframework.org/schema/beans 
+          http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/aop
+          http://www.springframework.org/schema/aop/spring-aop.xsd
+          http://www.springframework.org/schema/tx
+          http://www.springframework.org/schema/tx/spring-tx.xsd
+          http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context.xsd
+          http://www.springframework.org/schema/data/jpa
+          http://www.springframework.org/schema/data/jpa/spring-jpa.xsd 
+          http://www.springframework.org/schema/jee      
+          http://www.springframework.org/schema/jee/spring-jee.xsd
+          http://www.springframework.org/schema/util
+          http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<beans profile="test,source">
+		<bean
+			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" id="f4config">
+			<property name="locations">
+				<list>
+					<value>classpath:f4config.properties</value>
+					<value>classpath:dmsFramework.properties</value>
+					<value>classpath:system_interface.properties</value>
+					<value>classpath*:*_sql.properties</value>
+				</list>
+			</property>
+		</bean>
+	</beans>
+
+	<beans profile="source">
+<!-- 		<bean id="dataSource" -->
+<!-- 			class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
+<!-- 			<property name="driverClassName"> -->
+<!-- 				<value>${f4.ds.driver}</value> -->
+<!-- 			</property> -->
+<!-- 			<property name="url"> -->
+<!-- 				<value>${f4.ds.url}</value> -->
+<!-- 			</property> -->
+<!-- 			<property name="username"> -->
+<!-- 				<value>${f4.ds.username}</value> -->
+<!-- 			</property> -->
+<!-- 			<property name="password"> -->
+<!-- 				<value>${f4.ds.password}</value> -->
+<!-- 			</property> -->
+<!-- 		</bean> -->
+		<jee:jndi-lookup id="fwk" jndi-name="java:comp/env/jdbc/fwk" />
+		<jee:jndi-lookup id="dmsdev1" jndi-name="java:comp/env/jdbc/dmsdev1" />
+	</beans>
+
+	<beans profile="test">
+		<bean id="dmsdev1"
+			class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+			<property name="url" value="jdbc:mysql://10.180.8.208:3306/dmsdev1" />
+			<property name="username" value="dev1" />
+			<property name="password" value="dev1" />
+		</bean>
+		<bean id="fwk"
+			class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+			<property name="url" value="jdbc:mysql://10.180.8.208:3306/fwk" />
+			<property name="username" value="fwk" />
+			<property name="password" value="fwk" />
+		</bean>
+	</beans>
+	<beans profile="source,test">
+
+		<bean id="DbTxnManagerdmsdev"
+			class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+			<property name="dataSource" ref="dmsdev1" />
+		</bean>
+
+        <bean id="DbTxnManager"
+			class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+			<property name="dataSource" ref="fwk" />
+		</bean>
+		<!--annotation方式配置事务与数据源 -->
+<!-- 		<tx:annotation-driven transaction-manager="DbTxnManager" /> -->
+		<bean id="DBService" class="com.yonyou.f4.common.database.impl.DBServiceImpl"/>
+		<bean id="TenantService" class="com.yonyou.f4.common.database.impl.TenantServiceImpl" depends-on="DBService"/>
+		<bean id="TenantMappingService" class="com.yonyou.dms.framework.service.impl.TenantDealerMappingServiceImpl" depends-on="DBService"/>
+		
+		<!-- Transaction AOP configuration -->
+		<bean id="tm" class="com.yonyou.f4.mvc.aop.TransactionManagerAround" />
+		<aop:config >
+			<aop:aspect ref="tm" id="tmAOP">
+				<aop:around method="around" 
+					pointcut="@within(com.yonyou.f4.mvc.annotation.Txn) || @within(com.yonyou.f4.mvc.annotation.Conn) || @within(com.yonyou.f4.mvc.annotation.TxnConn) || 
+			                                      @annotation(com.yonyou.f4.mvc.annotation.Txn) || @annotation(com.yonyou.f4.mvc.annotation.Conn) || @annotation(com.yonyou.f4.mvc.annotation.TxnConn)" />
+			</aop:aspect>
+		</aop:config>
+	</beans>
+</beans>
+

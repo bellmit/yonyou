@@ -1,0 +1,119 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="modal-header">
+			<div class="modal-title">用户职位选择</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> 
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+				<div class="row " data-tableSelect="true">
+				<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">职位代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="poseCode" name="poseCode">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">职位名称</label>
+							<div class="col-xs-8">
+								<input type="hidden" class="form-control" id="companyId" name="companyId">
+								<input type="hidden" class="form-control" id="poseIds" name="poseIds">
+								<input type="text" class="form-control" id="poseName" name="poseName">
+							</div>
+						</div>
+					</div>		
+				</div>
+				<div class="row ">
+						<div class="col-xs-12 ">
+							<div class="query-btn">
+								<a href="javascript:;" class="btn blue"> <i
+									class="fa fa-search"></i> 查询
+								</a> <a href="javascript:;" class="btn blue"><i
+									class="fa fa-undo"></i> 重置</a>
+								 <a class="btn blue" data-onclickEvent="true"><i class="fa fa-save hidden"></i>确定</a> 
+									<a data-dismiss="modal" class="btn blue">
+									<i class="fa fa-undo"></i>取消
+								</a>
+							</div>
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >职位信息</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="poseList"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		//初始化带入父页面的信息
+		var parentIds = $("#addIds",getElementContext()).val();
+		$("#poseIds",container).setDmsValue(parentIds);
+		$("#companyId",container).setDmsValue($("#companyId",getElementContext()).val());
+		
+		new Datatable().initPagination({
+			src : "poseList",
+			container:container,
+			url : dmsCommon.getDmsPath()["web"] + "/dealerUsers/searchPose",
+			rowID : "POSE_ID",
+			sortName : "POSE_CODE",
+			sortOrder : "asc",
+			autoHeight:false,
+			isQueryFirst:true,
+			pageSize:10,
+			columns : [ 
+			    {checkbox:true,sortable : false},
+				{field : "POSE_ID",title : "职位ID",visible :false}, 
+				{field : "POSE_CODE",title : "职位代码"}, 
+				{field : "POSE_NAME",title : "职位名称"}
+			]
+
+		});
+		
+		//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			var selectRow = $("#poseList",container).dmsTable().getSelections();
+			var ids = "";
+			if(selectRow.length>0){
+				for(var i=0;i<selectRow.length;i++){
+					if(ids==""){
+						ids = selectRow[i].POSE_ID;
+					}else{
+						ids = selectRow[i].POSE_ID+","+ids;
+					}
+					var dms_table = {};
+					dms_table.POSE_ID=selectRow[i].POSE_ID;
+					dms_table.POSE_CODE=selectRow[i].POSE_CODE;
+					dms_table.POSE_NAME=selectRow[i].POSE_NAME;
+					$("#dms_table1",getElementContext()).dmsTable().appendRow(dms_table);
+				}
+				if(parentIds==""){
+					$("#addIds",getElementContext()).setDmsValue(ids);
+				}else{
+					$("#addIds",getElementContext()).setDmsValue(parentIds+","+ids);
+				}
+			}else{
+				dmsCommon.tip({status:"warning",msg:"请选择职位信息！"});//总共的状态类型：info、success、error、warning
+				return false;
+			}
+			$("a[data-dismiss='modal']",container).click();
+		}); 
+		
+	});
+</script>

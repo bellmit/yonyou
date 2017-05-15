@@ -1,0 +1,56 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">微信卡券</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-xs-12 col-md-12 col-lg-12">
+					<div class="panel panel-default table-panel">
+						<div class="panel-body">
+							<table class="table table-striped table-bordered table-hover table-responsive"
+								id="dms_table"></table>
+						</div>
+					</div>
+				</div> 					
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>关闭</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+    		src : "dms_table",
+   		    url : dmsCommon.getDmsPath()["repair"] + "/basedata/ownerWeChatBooking/{[RESERVATION_ID]}",
+   			rowID : "CARD_NO",
+   			sortName : "CARD_NO",
+   			sortOrder : "desc",
+   			autoHeight:false,
+   			undefinedText : "",
+   			columns : [     
+   	            {field : "CARD_NO",title : "券号"},
+   	            {field : "CARD_TYPE",title : "分类",codeFormat : {type : "dict",codeType : "5021"}},
+                {field : "CARD_NAME",title : "卡券名称"},
+   	            {field : "SUB_TYPE",title : "卡券子类",codeFormat : {type : "dict",codeType : "5023"}},
+   	            {field : "CARD_VALUE",title : "卡券面值"},
+   	         	{field : "BUY_AMOUNT",title : "购买金额"},
+   	         	{field : "ISSUE_DATE",title : "发放时间",dateFormat : {format:"YYYY-MM-DD hh:mm:ss"}},
+	   	        {field : "START_DATE",title : "起始开始日期",dateFormat : {format:"YYYY-MM-DD hh:mm:ss"}},
+	   	      	{field : "END_DATE",title : "起始结束日期",dateFormat : {format:"YYYY-MM-DD hh:mm:ss"}},
+	   	     	{field : "USE_DEALER",title : "使用经销商"},
+	   	     	{field : "USE_PROJECT",title : "使用项目"},
+	   	      	{field : "USE_STATUS",title : "使用状态"}
+                  
+   			]
+
+   		});
+	});
+</script>

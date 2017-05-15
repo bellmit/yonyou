@@ -1,0 +1,36 @@
+
+<div class="tabbable-custom ">
+	<ul class="nav nav-tabs">
+		<li class="active">
+			<a href="#tab_brand" data-toggle="tab" id="brandTab">品牌</a>
+		</li>
+		<li >
+			<a href="#tab_serials" data-toggle="tab" id="seriesTab"> 车系</a>
+		</li>
+		<li>
+			<a href="#tab_model" data-toggle="tab" id="modalTab"> 车型 </a>
+		</li>
+	</ul>
+	<div class="tab-content">
+		<div class="tab-pane fade in active" id="tab_brand" data-url="demo/searchUser2.html">
+		</div>
+		<div class="tab-pane  fade" id="tab_serials" data-url="demo/searchUser3.html">
+			
+		</div>
+		<div class="tab-pane  fade" id="tab_model" data-url="demo/searchUser4.html">
+			
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+//页面加载后初始化
+$(document).one("onload.dms",function(event,container){
+	
+	$("#brandTab",container).on("dms.click",function(event){
+		console.log("into tab click");
+	});
+	
+});
+	
+</script>

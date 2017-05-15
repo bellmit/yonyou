@@ -1,0 +1,320 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌</label>
+								<div class="col-xs-8">
+									<select id="brandId"
+										class="bs-select form-control" name="brandId"
+										data-url="/basedata/material/brand/90081002"
+										data-model="manage" data-labelValue="BRAND_ID"
+										data-lableDesc="BRAND_NAME">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系</label>
+								<div class="col-xs-8">
+									<select id="seriesId" parent="brandId"
+										class="bs-select form-control" name="seriesName"
+										data-url="/basedata/material/series/90081002/{[brandId]}"
+										data-model="manage" data-labelValue="SERIES_ID"
+										data-lableDesc="SERIES_NAME">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车款</label>
+								<div class="col-xs-8">
+									<select id="groupId" parent="seriesId"
+										class="bs-select form-control" name="groupName"
+										data-url="/basedata/material/group/90081002/{[seriesId]}"
+										data-model="manage" data-labelValue="GROUP_ID"
+										data-lableDesc="GROUP_NAME" >
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">年款</label>
+								<div class="col-xs-8">
+									<select id="modelId" parent="groupId"
+										class="bs-select form-control" name="modelYear"
+										data-url="/basedata/material/modelYear/90081002/{[groupId]}"
+										data-model="manage" data-labelValue="MODEL_YEAR"
+										data-lableDesc="MODEL_YEAR">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">颜色</label>
+								<div class="col-xs-8">
+									<select id="colorId" parent="modelId"
+										class="bs-select form-control" name="colorName"
+										data-url="/basedata/material/color/90081002/{[groupId]}/{[modelId]}"
+										data-model="manage" data-labelValue="COLOR_CODE"
+										data-lableDesc="COLOR_NAME" >
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">内饰</label>
+								<div class="col-xs-8">
+									<select id="trimId" parent="colorId"
+										class="bs-select form-control" name="trimName"
+										data-url="/basedata/material/trim/90081002/{[groupId]}/{[modelId]}/{[colorId]}"
+										data-model="manage" data-labelValue="TRIM_CODE"
+										data-lableDesc="TRIM_NAME" >
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">备注</label>
+							<div class="col-xs-8">
+								<select id="remark1" name="remark1" class="bs-select form-control"
+									data-type="oemDict" data-dictCode="1121" data-value=""></select>
+
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">VIN</label>
+							<div class="col-xs-8">
+								<input type="text" hidden="true" id="vins" name="vins">
+								<input type="text" class="form-control" id="vin" name="vin">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">任务内/外</label>
+								<input type="text" hidden="true" id="isSupport" name="isSupport">
+							<div class="col-xs-8">
+								<select id="Support" name="Support"
+									class="bs-select form-control" data-type="oemDict"
+									data-dictCode="1263" data-value=""></select>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true">
+								<i class="fa fa-search"></i> 查询
+							</a>
+							  
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default table-panel">
+					<div class="panel-heading">
+						<div class="pannel-name">车辆备注设定</div>
+						<a href="javascript:;" class="btn" data-url="/commonResorceRemark/download"
+								data-model="vehicle" data-method="downLoad"
+								data-toggle="confirmation" class="btn btn-outline "> <i
+								class="fa fa-download"></i> 下载
+							</a>
+							<a href="vehicle/orderresourcemanagement/resourceImport.html"
+								class=" btn-outline ajaxify"> <i class="fa fa-upload"></i>导入
+							</a>
+					</div>
+					<div class="panel-body">
+						<table
+							class="form-group  table table-striped table-bordered table-hover table-responsive"
+							id="dms_table"></table>
+					</div>
+				</div>
+				<div class="modal-body">
+					<div class="panel panel-default table-panel">
+						<div class="modal-body">
+									
+
+							<div class="co-xs-12 col-sm-6 col-md-4 col-lg-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">备注</label>
+									<div class="col-xs-8">
+										<select id="remark" name="remark"
+											class="bs-select form-control" data-type="oemDict"
+											data-dictCode="1121" data-value=""></select>
+									</div>
+								</div>
+							</div>
+							<div class="co-xs-12 col-sm-6 col-md-4 col-lg-3" style="display:none" id="other">
+								<div class="form-group">
+								其他备注<input type="text" id="otherRemark" name="otherRemark">
+								</div>
+							</div>
+							<a data-url="/commonResorceRemark/resourceAllotRemark" data-model="vehicle"
+								data-method="PUT" data-callBack='true' class="btn blue" 
+								data-toggle="confirmation" data-beforeRequest="true"><i class="fa fa-save"></i>分配备注</a>
+
+							<a data-url="/commonResorceRemark/resourceUnlock" data-model="vehicle"
+								data-method="PUT" data-callBack='true' class="btn blue"
+								data-toggle="confirmation" data-beforeRequest="true"><i class="fa fa-save"></i>解锁</a>
+							<a data-url="/commonResorceRemark/resourceLock" data-model="vehicle"
+								data-method="PUT" data-callBack='true' class="btn blue"
+								data-toggle="confirmation" data-beforeRequest="true"><i class="fa fa-save"></i>锁定</a>
+						
+							<a data-url="/commonResorceRemark/resourceSupport" data-model="vehicle"
+								data-method="PUT" data-callBack='true' class="btn blue"
+								data-toggle="confirmation" data-beforeRequest="true" data-beforeRequest="true" ><i class="fa fa-save" ></i>设置任务内</a>
+						
+							<a data-url="/commonResorceRemark/resourceNOSupport" data-model="vehicle"
+								data-method="PUT" data-callBack='true' class="btn blue"
+								data-toggle="confirmation" data-beforeRequest="true" ><i class="fa fa-save" ></i>设置任务外</a>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+
+</div>
+<script type="text/javascript">
+
+$(document).one("onload.dms",function(event,container){
+    	new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/commonResorceRemark/commonResorceRemarkInit",
+			rowID : "",
+			isQueryFirst:false,
+			pageSize:5,
+		
+			columns : [ 
+					{checkbox:true},
+					{field : "VIN",title :"VIN"},
+					{field : "BRAND_CODE",title :"品牌"}, 
+					{field : "VPC_PORT",title : "VPC港口",codeFormat : {type:"oemDict",codeType:"1392"}}, 
+					{field : "MODEL_CODE",title : "车型代码"},
+					{field : "GROUP_NAME",title : "车型描述"}, 
+					{field : "COLOR_NAME",title : "颜色"}, 
+					{field : "TRIM_NAME",title : "内饰"}, 
+					{field : "REMARK",title : "车辆分配备注" ,codeFormat : {type:"oemDict",codeType:"1121"}},  
+					{field : "OTHER_REMARK",title : "其它备注"},
+					{field : "VEHICLE_USAGE",title : "车辆用途"}, 
+					{field : "IS_LOCK",title : "是否锁定" ,codeFormat : {type:"oemDict",codeType:"1004"}},
+					{field : "IS_SUPPORT",title : "任务内/外",codeFormat : {type:"oemDict",codeType:"1263"}}, 
+					{field : "NAME",title : "操作人"}, 
+					{field : "UPDATE_DATE",title : "操作时间",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}}
+						   
+			]
+			
+		});
+    
+    	//事件点击
+ 		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+ 			var selectRow = $("#dms_table",container).dmsTable().getFirstSelection();
+			
+ 			$("div[data-tableSelect='true']",getElementContext()).initHtmlContent(selectRow);
+ 			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+		}); 
+		
+    	$("a[data-beforeRequest='true']",container)
+		.on("beforeRequest.dms",function(event,returnResult){
+			// debugger; 
+		var selectRow = $("#dms_table",container).dmsTable().getSelections();
+		if(selectRow.length > 0){
+			var vins = "";
+			var isSupport = "";
+			var remark = "";
+			var otherRemark = "";
+			for(var i = 0 ;i<selectRow.length;i++){
+				if(vins=="" ){ //第一次循环为空值
+					vins = selectRow[i]["VIN"];
+				}else{
+					vins = vins+","+selectRow[i]["VIN"];
+					
+				}
+				if(isSupport=="" ){
+					isSupport = selectRow[i]["IS_SUPPORT"];
+					if(isSupport=="任务内"){
+						isSupport=12631002;
+					}else{
+						if(isSupport=="任务外"){
+							isSupport=12631001;
+						}
+					}
+				}else{
+					if(selectRow[i]["IS_SUPPORT"]=="任务内"){
+						isSupport=12631002;
+					}else{
+						if(selectRow[i]["IS_SUPPORT"]=="任务外"){
+							isSupport=12631001;
+						}
+					}
+					isSupport = isSupport+","+selectRow[i]["IS_SUPPORT"];
+					
+					
+				}
+				
+				
+			}
+			$("#vins",getElementContext()).setDmsValue(vins);
+			$("#isSupport",getElementContext()).setDmsValue(isSupport);
+			
+		}else{
+			dmsCommon.tip({status:"warning",msg:"请选择"});//总共的状态类型：info、success、error、warning
+			returnResult.status = false;
+			return ;
+		}
+
+		returnResult.status = true; //定义返回值
+	});
+
+    	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		}); 
+
+    	//绑定onchange 事件
+		$("[name='remark']",container).bindChange(function(obj){
+// 			console.log("into callBack");
+           var re=$('#remark').val() ;
+			 if(re==11211010||re==11211016){
+				 document.getElementById('other').style.display = "";
+				 document.getElementById('other').setDmsValue("");
+			 }else{
+				 document.getElementById('other').style.display = "none"; 
+			 }
+        
+		});
+    });
+
+</script>

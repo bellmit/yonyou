@@ -1,0 +1,367 @@
+<div class="dms-search"  data-pageInitCallBack= "true">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+				
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">订单编号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="soNo" name="soNo">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">客户名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="customerName" name="customerName">
+							</div>
+						</div>
+					</div> 
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">VIN</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="vin" name="vin">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">开单日</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" >
+									<input type="text" class="form-control" name="beginDate" disabled = "disabled"
+										id="beginDate"> <span class="input-group-addon">至</span>
+									<input type="text" class="form-control" name="endDate"  disabled = "disabled"
+										id="endDate"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车牌号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="license" name="license">
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">装潢专员</label>
+						<div class="col-xs-8">
+							 <select id="serviceAdvisor" name="serviceAdvisor"
+									class="bs-select form-control"
+									data-url="/basedata/employees/DecorationSpecialist"
+									data-model="manage" data-labelValue="USER_ID" 
+									data-lableDesc="USER_NAME" >
+							</select>
+						</div>
+					</div>
+				  </div>
+					
+				  	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">派单状态</label>
+							<div class="col-xs-8">
+								<select id="roStatus" name="roStatus"
+									class="bs-select form-control" data-dictCode="1227" data-excludeItems = "12271004,12271005,12271006"></select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否竣工</label>
+							<div class="col-xs-8">
+								<select id="completeTag" name="completeTag"
+									class="bs-select form-control" data-dictCode="1278"></select>
+							</div>
+						</div>
+					</div>
+				
+					
+				</div>
+				
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name">装潢派工</div>
+				<div class="pannel-button">
+					<div class="btn-group btn-group-sm">
+					<a class="btn btn-outline" data-url="vehicle/upholsterWorker/addDecorationProject.html" id="redistribution" data-model="vehicle" 
+							data-toggle="modal"  data-width="modal-lg" data-beforeShowEvent="true"> <i class="fa fa-plus-square"></i> 项目添加
+					</a>
+					<a class="btn btn-outline" data-url="vehicle/upholsterWorker/AllDecoration.html" id="redistribution1" data-model="vehicle" 
+							data-toggle="modal"  data-width="modal-lg" data-beforeShowEvent="true"> <i class="fa fa-plus-square"></i> 整单派工
+					</a>
+					<a class="btn btn-outline" data-url="vehicle/upholsterWorker/subitemDecoration.html" id="redistribution2" data-model="vehicle" 
+							data-toggle="modal"  data-width="modal-lg" data-beforeShowEvent="true"> <i class="fa fa-plus-square"></i> 分项派工
+					</a>
+					<a class="btn btn-outline" data-url="vehicle/upholsterWorker/finalChecker.html" id="redistribution3" data-model="vehicle" 
+							data-toggle="modal"  data-width="modal-lg" data-beforeShowEvent="true" data-onclickEvent1="true" > <i class="fa fa-plus-square"></i> 竣工
+					</a>
+					<!-- <a class="btn btn-outline" data-url="vehicle/upholsterWorker/selectPrint.html" id="redistribution5" data-model="vehicle" 
+							data-toggle="modal"  data-width="modal-lg" data-beforeShowEvent="true"> <i class="fa fa-plus-square"></i> 打印
+					</a> -->
+					<a data-goback="page" href="vehicle/upholsterWorker/selectPrint.html" id="redistribution5"
+						class="btn btn-outline ajaxify" data-beforeShowEvent="true"><i class="fa fa-plus-square" ></i> 打印
+					</a> 
+				 	<a class="btn btn-outline" data-url="" id="redistribution4" data-model="vehicle" id="redistribution4" 
+					 data-method="PUT" data-toggle="confirmation"  data-width="modal-lg"  data-beforeRequest='true'> <i class="fa fa-plus-square"></i> 取消竣工
+					</a>
+					<a href="javascript:;"
+					data-url="/stockManage/UpholsterWorker/export/excel"
+					data-model="vehicle" data-method="downLoad"
+					data-toggle="confirmation" class="btn btn-outline "><i
+					class="fa fa-upload"></i>导出</a>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="veInspectList"></table>
+			</div>
+
+
+		</div>
+
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event, container) {
+						var check= 0;
+						var check1=0;
+						new Datatable().initPagination({
+									src : "veInspectList",
+									container : container,
+									url : dmsCommon.getDmsPath()["vehicle"]
+											+ "/stockManage/UpholsterWorker",
+									rowID : "SO_NO",
+									/* selectItemName:"VEHICLE_INSPECT_ID", */
+									sortName : "SO_NO",
+									sortOrder : "asc",
+									autoHeight : false,
+									checkboxHeader:true,
+									undefinedText : "",
+									columns : [ 
+										       /*  {checkbox:true,sortable : false}, */
+										        {radio:true,sortable : false},
+											    /* {field : "SO_NO",title : "装潢派工",
+												operateFormat : [ 
+										          	{type : "edit",url : "vehicle/stockManage/pdichecked/addPDIChecked.html",openWidth : "modal-lg",
+													      callBack:function(response){
+								                    	    $("#veInspectList",getElementContext()).dmsTable().refreshTableWithForm(); 
+								                    	   }, isShow:function(value, row, index){
+									                    	   if(row.PDI_RESULT== null){
+									                    	   	   return true;
+									                    	   }else{
+									                    	   	   return false;
+									                    	   } 
+								                             }
+								                      } 
+                                                    ]},  */
+                                            {
+        										field : "SO_NO",
+        										title : "服务订单单号"
+        									},
+											{
+												field : "CUSTOMER_NAME",
+												title : "客户名称"
+											},
+											{
+												field : "LICENSE",
+												title : "车牌号"
+											},
+											{
+												field : "VIN",
+												title : "VIN"
+											},
+											{
+												field : "BRAND_NAME",
+												title : "品牌"
+											},
+											{
+												field : "SERIES_NAME",
+												title : "车系"
+											},
+											{
+												field : "MODEL_NAME",
+												title : "车型"
+											}, {
+												field : "SOLD_USER",
+												title : "销售顾问"
+											}, {
+												field : "COMPLETE_TAG",
+												title : "是否竣工",
+											    inputCheckBoxFormat : {type : "dict",codeType : "1057" ,disabled:true} 
+											}, {
+												field : "SHEET_USER",
+												title : "开单人"
+											}, {
+												field : "LOCK_USER",
+												title : "锁定人"
+											}, {
+												field : "SHEET_CREATE_DATE",
+												title : "开单日期",
+												dateFormat : {format : "YYYY-MM-DD "}
+											}, {
+												field : "ASSIGN_STATUS",
+												title : "派工状态",
+												codeFormat : {type:"dict",codeType:"1227"}
+											}, {
+												field : "FINISH_USER",
+												title : "终检人"
+											} 
+											],
+											onLoadSuccess : function() {
+												var rownu = $("#veInspectList",container).dmsTable().getTableRows();
+												if(rownu<=0){
+													$("a[data-method='downLoad']",container).attr("disabled","true");
+												}else{
+													$("a[data-method='downLoad']",container).removeAttr("disabled");
+												}
+											},//竣工之后，隐藏按钮
+											onCheck:function(row){
+												 var id='';
+												 var selectRow = $("#veInspectList",getElementContext()).dmsTable().getSelections();
+											   	  $(selectRow).each(function(index){
+												   id=selectRow[index].COMPLETE_TAG;
+											 	  });
+											   
+											   	 if(id == '10571001') {
+											   		$("#redistribution1",container).attr("disabled","disabled");
+											   		$("#redistribution2",container).attr("disabled","disabled");
+											   		$("#redistribution3",container).attr("disabled","disabled");
+											   		$("#redistribution5",container).attr("disabled","disabled");
+											   		$("#redistribution4",container).removeAttr("disabled");
+											   	 }else {
+											   		$("#redistribution1",container).removeAttr("disabled");
+											   		$("#redistribution2",container).removeAttr("disabled");
+											   		$("#redistribution3",container).removeAttr("disabled");
+											   		$("#redistribution5",container).removeAttr("disabled");
+											   		$("#redistribution4",container).attr("disabled","disabled");
+											   	 }
+											
+											}
+								});
+						
+						//弹出页面打开前执行函数-->>点击单选框的时候页面传入参数SO_NO
+						$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+							
+							var selectRow = $("#veInspectList",container).dmsTable().getSelections();
+							if(!selectRow){
+								dmsCommon.tip({status:"warning",msg:"请选择表格数据"});
+								returnResult.status = false;
+								return ;
+							}
+							$(this).data("pageData",{SO_NO:selectRow[0].SO_NO});
+							
+						/* 	//是否竣工提示
+						    CheckWork(); 
+							CheckWork1();
+						    if(check == 1){
+								dmsCommon.tip({status:"warning",msg:"有未入帐装潢配件，不能竣工！"})
+								returnResult.status = false; //定义返回值
+								return;
+							}  
+							if(check1 == 1){
+								dmsCommon.tip({status:"warning",msg:"有项目没有派工！"})
+								returnResult.status = false; //定义返回值
+								return;
+						    }  */
+							returnResult.status = true;
+							
+						});
+						
+						$("a[data-onclickEvent1='true']",container).on("beforeShow.dms",function(event,returnResult){
+							//是否竣工提示
+						    CheckWork(); 
+							CheckWork1();
+						    if(check == 1){
+								dmsCommon.tip({status:"warning",msg:"有未入帐装潢配件，不能竣工！"})
+								returnResult.status = false; //定义返回值
+								return;
+							}  
+							if(check1 == 1){
+								dmsCommon.tip({status:"warning",msg:"有项目没有派工！"})
+								returnResult.status = false; //定义返回值
+								return;
+						    } 
+							returnResult.status = true;
+						});
+						
+						//为取消竣工添加url
+						$("a[data-beforeRequest='true']",container).on('beforeRequest.dms',function(event,returnResult){
+								var selectRow = $("#veInspectList",container).dmsTable().getSelections();
+								if(!selectRow){
+									dmsCommon.tip({status:"warning",msg:"请选择表格数据"});
+									returnResult.status = false;
+									return ;
+							   }
+							   if(event.target.id=='redistribution4'){ 
+								 var id='';
+								 var selectRow = $("#veInspectList",container).dmsTable().getSelections();
+								 id=selectRow[0].SO_NO;
+								 $("#redistribution4",container).attr("data-url","/stockManage/UpholsterWorker/finalChecker1/"+id+"");
+								 $("#veInspectList",getElementContext()).dmsTable().refreshTableWithForm();
+							   }
+							   returnResult.status = true;
+						});
+						
+						
+					
+						//前台写入sql执行之后，返回提示框--ajax
+						var CheckWork=function(){
+							 var selectRow = $("#veInspectList",container).dmsTable().getSelections();
+							 id=selectRow[0].SO_NO;
+							 dmsCommon.ajaxRestRequest({
+									url : dmsCommon.getDmsPath()["vehicle"] + "/stockManage/UpholsterWorker/isFinshWork/"+id,
+									type : 'GET',
+									sucessCallBack : function(data) {
+										check=data;
+									}
+								});
+						 }
+						
+						var CheckWork1=function(){
+							 var selectRow = $("#veInspectList",container).dmsTable().getSelections();
+							 id=selectRow[0].SO_NO;
+							 dmsCommon.ajaxRestRequest({
+									url : dmsCommon.getDmsPath()["vehicle"] + "/stockManage/UpholsterWorker/isFinshWork1/"+id,
+									type : 'GET',
+									sucessCallBack : function(data) {
+										check1=data;
+									}
+								});
+						 }
+					
+			});
+</script>

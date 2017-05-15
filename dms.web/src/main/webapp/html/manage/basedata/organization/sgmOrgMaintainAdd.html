@@ -1,0 +1,115 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">公司组织新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">组织代码：</label>
+								<div class="col-xs-8">
+									<input id="deptCode" name="deptCode" class="form-control required " type="text" />
+								</div>
+							</div>
+						</div>						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">组织名称：</label>
+								<div class="col-xs-8">
+										<input id="deptName" name="deptName" class="form-control required"  type="text"/>
+								</div>
+							</div>
+						</div>
+						
+			      	   	<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">上级组织：</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input type="hidden" class="form-control" id="orgId" name="orgId">	
+										<input type="text" class="form-control required" readonly id="orgName" name="orgName">									
+										<span class="input-group-btn">
+											<button class="btn default btn-sm" type="button" data-url="manage/basedata/employee/selectOemDept.html"
+												data-toggle="modal" data-width="modal-sm"> <i class="fa fa-sitemap"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+                                            	<i class="fa fa-close"></i>
+                                    		</button>
+										</span>
+									</div>
+								</div>
+							</div>
+				      	</div>
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">组织状态：</label>
+								<div class="col-xs-8">
+									<select class="bs-select form-control " id="deptStatus" name="deptStatus" 
+										data-type="oemDict" data-dictCode="1001" data-existsDefault="false">
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">组织类型：</label>
+								<div class="col-xs-8">
+									<select class="bs-select form-control " id="deptType" name="deptType"
+										data-type="oemDict" data-dictCode="1043" data-existsDefault="false"  data-excludeItems="10431005">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">业务类型：</label>
+								<div class="col-xs-8">
+									<select class="bs-select form-control " id="busiType" name="busiType" 
+										data-type="oemDict" data-dictCode="1235" data-existsDefault="false">
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2">备注：</label>
+								<div class="col-xs-10">
+									<input id="deptDesc" name="deptDesc" class="form-control " type="text" />
+								</div>
+							</div>
+						</div>
+											
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/organization/sgmOrgMaintain/addSgmOrg" data-model="manage" data-method="POST"
+				data-callBack="true" class="btn blue"
+				data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+			</a> <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+$(document).one("onload.dms",function(event,container){
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("a[data-dismiss='modal']").click();
+		//刷新表格
+		$("#clear").click();
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+});
+</script>

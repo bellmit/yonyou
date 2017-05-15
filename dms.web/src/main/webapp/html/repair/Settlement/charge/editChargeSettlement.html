@@ -1,0 +1,646 @@
+<div class="dms-edit ajaxrest" data-url="/balance/balanceAccounts/{[BALANCE_ID]}"
+	data-model="repair">
+	<form class="form-horizontal">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">费用结算</div>	
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row" data-tableSelect="true">
+						<div class="hidden">
+							<input type="hidden" id="roId" name="roId" data-fieldName="RO_ID">
+							<a href="repair/Settlement/charge/chargeSettlement.html" class="btn btn-outline ajaxify" data-info="roTypeMaintenance">
+							</a>
+							<a href="repair/Settlement/charge/salesPart.html" class="btn btn-outline ajaxify" data-info="roTypeSales">
+							</a>
+							<a href="repair/Settlement/charge/transfers.html" class="btn btn-outline ajaxify" data-info="roTypeTransfers">
+							</a>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">单据类型</label>
+								<div class="col-xs-8">
+									<select id="roType" name="roType" class="bs-select form-control required"
+										data-dictCode="1216" data-value="12161001"  data-existsDefault="false">
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">业务单号</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input id="roNo" name="roNo" 
+											class="form-control required" data-fieldName="RO_NO"
+											type="text" value="" /> 
+										<div class="input-group-btn">
+											<button class="btn default btn-sm" type="button"
+												  data-info="roNo" > <i class="fa fa-search"></i>
+											</button>
+											<div class="hidden">
+												<button type="button" data-url="repair/Settlement/charge/repairOrderSearch.html"
+													data-toggle="modal"  data-info="vehicle" data-width="modal-lg"> <i class="fa fa-search"></i>
+												</button>
+											</div>
+											<button class="btn default input-clear" type="button">
+	                                            <i class="fa fa-close"></i>
+	                                    	</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">维修类型</label>
+								<div class="col-xs-8">
+									<select id="repairTypeCode" name="repairTypeCode" disabled="disabled"
+									      class="bs-select form-control"
+									      data-url="/basedata/repairtypes/getRepairTypes/item"
+									      data-model="manage" data-labelValue="REPAIR_TYPE_CODE"  
+									      data-lableDesc="REPAIR_TYPE_NAME" data-fieldName="REPAIR_TYPE_CODE">
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">开单时间</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker">
+										<input id="roCreateDate" name="roCreateDate" disabled="disabled" data-fieldName="RO_CREATE_DATE"
+											class="form-control"
+											type="text" value="" /> <span class="input-group-btn" >
+											<button class="btn default date-set" type="button" disabled="disabled" >
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button" disabled="disabled">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group" data-inMileage="true">
+								<label class="control-label col-xs-4">送修人</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input id="deliverer" name="deliverer" type="text" class="form-control" disabled="disabled"  data-fieldName="DELIVERER"/>
+										<input id="ownerNo" name="ownerNo" type="hidden" class="form-control"data-fieldName="OWNER_NO"/>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车牌号</label>
+								<div class="col-xs-8">
+									<input id="license" name="license" class="form-control" disabled="disabled" data-fieldName="LICENSE"
+										type="text" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车型</label>
+								<div class="col-xs-8">
+									<input id="engineNo" name="engineNo" type="text" disabled="disabled" data-fieldName="MODEL_NAME"
+										class="form-control" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">VIN</label>
+								<div class="col-xs-8">
+									<input id="vin" name="vin" type="text"  disabled="disabled" data-fieldName="VIN"
+										class="form-control" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">服务顾问</label>
+								<div class="col-xs-8">
+									<select id="serviceAdvisorAss" name="serviceAdvisorAss" class="bs-select form-control" disabled="disabled"
+									data-url="/basedata/employees/employees/dict" data-model="manage" 
+									data-labelValue="EMPLOYEE_NO" data-lableDesc="EMPLOYEE_NAME" data-fieldName="EMPLOYEE_NO">
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">出厂里程</label>
+								<div class="col-xs-8">
+									<input id="outMileage" name="outMileage" class="form-control" disabled="disabled" data-fieldName="OUT_MILEAGE"
+										type="text" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2">备注</label>
+								<div class="col-xs-8 col-sm-10">
+									<input id="remarkR" name="remarkR" type="text" disabled="disabled" data-fieldName="REMARK"
+										class="form-control" />
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				
+				<div class="tabbable-custom ">
+					<ul class="nav nav-tabs">
+						<li class="active">
+							<a href="#tab_repairPart" data-toggle="tab">维修项目</a>
+						</li>
+						
+						<li>
+							<a href="#tab_repairMaterial" data-toggle="tab"> 维修材料 </a>
+						</li>
+
+						<li >
+							<a href="#tab_subjoinItem" data-toggle="tab" > 附加项目</a>
+						</li>
+						
+						<li>
+							<a href="#tab_salePart" data-toggle="tab"> 销售材料 </a>
+						</li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane fade in active" id="tab_repairPart" data-url="repair/Settlement/charge/repairTab/editRepairPart.html">
+						</div>
+						<div class="tab-pane  fade" id="tab_repairMaterial" data-url="repair/Settlement/charge/repairTab/editRepairMaterial.html">			
+						</div>
+						<div class="tab-pane  fade" id="tab_subjoinItem" data-url="repair/Settlement/charge/repairTab/editAddItem.html">	
+						</div>
+						<div class="tab-pane  fade" id="tab_salePart" data-url="repair/Settlement/charge/repairTab/editSalesPartRo.html">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">结算信息</div>
+					<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a data-url="/balance/balanceAccounts" data-model="repair" data-method="POST"
+							data-callBack="true" class="btn btn-outline"
+							data-toggle="confirmation"><i class="fa fa-plus-square" ></i> 结算
+							</a> 
+							<div class="hidden">
+								<a data-onclickEvent1="true"></a>
+							</div>
+						</div>
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" 
+								data-toggle="modal"><i class="fa fa-print "></i> 预打印
+							</a> 
+						</div>
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" 
+								data-toggle="modal"> <i class="fa fa-print "></i> 打印
+							</a> 
+						</div>
+					</div>
+					
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row" data-tableSelect="true">
+					
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">结算单号：</label>
+								<div class="col-xs-8">
+									<span class="col-xs-12 form-show " data-fieldName="BALANCE_NO"></span>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">收费对象名称：</label>
+								<div class="col-xs-8">
+									<span class="col-xs-12 form-show " data-fieldName="DELIVERER"></span>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">优惠模式</label>
+								<div class="col-xs-8">
+									<select id="discountModeCode" name="discountModeCode" class="bs-select form-control"
+										data-url="/basedata/discountmodes/discountMode/dicts" data-model="repair"
+										data-labelValue="DISCOUNT_MODE_CODE" data-lableDesc="DISCOUNT_MODE_NAME" data-fieldName="DISCOUNT_MODE_CODE">
+									</select>
+									<input type="hidden" name="labourAmountDiscount" id="labourAmountDiscount">
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">备注</label>
+								<div class="col-xs-8">
+									<input id="remark" type="text" name="remark" class="bs form-control" data-fieldName="REMARK"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">工时费：</label>
+								<div class="col-xs-8">
+									<span class="col-xs-8 form-show " data-fieldName="LABOUR_AMOUNT">0</span>
+									<input type="hidden" id="labourAmount" name="labourAmount" data-fieldName="LABOUR_AMOUNT" value="0">
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">维修材料费：</label>
+								<div class="col-xs-8">
+									<span class="col-xs-8 form-show " data-fieldName="REPAIR_PART_AMOUNT">0</span>
+									<input type="hidden" id="repairPartAmount" name="repairPartAmount" data-fieldName="REPAIR_PART_AMOUNT"value="0">
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销售材料费：</label>
+								<div class="col-xs-8">
+									<span class="col-xs-8 form-show " data-fieldName="SALES_PART_AMOUNT">0</span>
+									<input type="hidden" id="salesPartAmount" name="salesPartAmount" data-fieldName="SALES_PART_AMOUNT" value="0">
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">附加项目费：</label>
+								<div class="col-xs-8">
+									<span class="col-xs-8 form-show " data-fieldName="ADD_ITEM_AMOUNT">0</span>
+									<input type="hidden" id="addItemAmount" name="addItemAmount" data-fieldName="ADD_ITEM_AMOUNT" value="0">
+									<input type="hidden" id="disAddItemAmount" name="disAddItemAmount" data-fieldName="DIS_ADD_ITEM_AMOUNT" value="0">
+								</div>
+							</div>
+						</div>
+						
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">汇总金额：</label>
+								<div class="col-xs-8">
+									<span class="col-xs-8 form-show " data-fieldName="AMOUNT">0</span>
+									<input type="hidden" id="amount" name="amount" data-fieldName="AMOUNT">
+								</div>
+							</div>
+						</div>
+						<div class="hidden " data-countAmount="true">
+							<input type="hidden" id="afterDiscountAmountPart" name="afterDiscountAmountPart" value="0" data-fieldName="afterDiscountAmountPart">
+							<input type="hidden" id="zkAmountPart" name="zkAmountPart" value="0" data-fieldName="zkAmountPart">
+							<input type="hidden" id="afterDiscountAmountLabour" name="afterDiscountAmountLabour" value="0" data-fieldName="afterDiscountAmountLabour">
+							<input type="hidden" id="zkAmountLabour" name="zkAmountLabour" value="0" data-fieldName="zkAmountLabour">
+							<input type="hidden" id="afterDiscountAmountAddItem" name="afterDiscountAmountAddItem" value="0" data-fieldName="afterDiscountAmountAddItem">
+							<input type="hidden" id="zkAmountAddItem" name="zkAmountAddItem" value="0" data-fieldName="zkAmountAddItem">
+						</div>
+						
+						<div data-RoAmount="true">
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">折扣金额：</label>
+									<div class="col-xs-8">
+										<span class="col-xs-8 form-show"  data-fieldName="DIS_COUNT_AMOUNT">0</span>
+										<input type="hidden"  id="disCountAmounts" name="disCountAmounts" data-fieldName="DIS_COUNT_AMOUNT"/>
+										<input type="hidden"  id="disCountAmount" name="disCountAmount" data-autoValue="#zkAmountPart+#zkAmountLabour+#zkAmountAddItem"/>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">去零金额：</label>
+									<div class="col-xs-8">
+										<span class="col-xs-8 form-show "data-fieldName="SUB_OBB_AMOUNT">0</span>
+										<input type="hidden" id="subObbAmounts" name="subObbAmounts" data-fieldName="SUB_OBB_AMOUNT">
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">应收总金额：</label>
+									<div class="col-xs-8">
+										<span class="col-xs-8 form-show " data-fieldName="BALANCE_AMOUNT">0</span>
+										<input type="hidden"  id="disAmounts" name="disAmounts" data-autoValue="#amount-#disCountAmounts"/>
+										<input type="hidden"  id="disAmount" name="disAmount" data-autoValue="#afterDiscountAmountPart+#afterDiscountAmountLabour+#afterDiscountAmountAddItem"/>
+									</div>
+								</div>
+							</div>	
+						</div>	
+					</div>
+				</div>
+			</div>
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">收费对象</div>
+					<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" data-url="repair/Settlement/charge/chooseClinet.html" data-width="modal-lg"
+								data-toggle="modal"><i class="fa fa-plus-square" ></i> 费用拆分
+							</a> 
+						</div>
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" data-url="repair/Settlement/charge/zeroSuppression.html" data-width="modal-sm"
+								data-toggle="modal"><i class="fa fa-plus-square" ></i>去零
+							</a> 
+						</div>
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" data-url="repair/Settlement/charge/gathering.html" data-width="modal-lg"
+								data-toggle="modal" data-beforeShowEvent="true"><i class="fa fa-plus-square" ></i>收款
+							</a> 
+						</div>
+					</div>
+					
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="bPODtoList">
+					</table>
+				</div>
+			</div>
+			<div class="form-actions">
+				<a data-goback="page" href="repair/Settlement/charge/cancelSettlement.html"
+					class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>
+			</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+
+	//当费用拆分第二个客户输入金额时计算
+	var countDisAmount=function(param){
+		var rowNum = $(param).closest("tr").data("index");
+		if(rowNum=='0'){
+			return;
+		}
+		var disAmountAll=$("#disAmounts",container).val();
+		var disAmount=parseFloat("0");
+		var tab=$("#bPODtoList tbody");
+		var rows=$("tr",tab).length;
+		if(rows>1){
+			for(var i=0;i<rows-1;i++){
+				var j=i+1;
+				var disAmountX=$("tr:eq("+j+") td:eq(4) input[id^=disAmount]",tab).val();
+				if(disAmountX.trim()==""){
+					disAmountX=0;
+				};
+				disAmount=parseFloat(disAmount)+parseFloat(disAmountX);
+			}
+			var td=$("tr:eq(0) td:eq(4)",tab);
+			var disAmountZ=disAmountAll-disAmount;
+			$("input[type='hidden']",td).valChange(disAmountZ);
+			$("span",td).text(disAmountZ);
+ 		}
+	};
+	 $("button[data-info='roNo']",container).on("click",function(event){
+			var roNo=$("#roNo",container).val();
+			var roLabour=$("#tab_repairPart",container).attr("class");
+			var roPart=$("#tab_repairMaterial",container).attr("class");
+			var roItem=$("#tab_subjoinItem",container).attr("class");
+			var roSale=$("#tab_salePart",container).attr("class");
+			var active=" ";
+			if(roLabour.indexOf("active")!=-1){
+				active="roLabour";
+			}
+			if(roPart.indexOf("active")!=-1){
+				active="roPart";
+			}
+			if(roItem.indexOf("active")!=-1){
+				active="roItem";
+			}
+			if(roSale.indexOf("active")!=-1){
+				active="roSale";
+			}
+			$("#active",container).setDmsValue(active);
+			var map={RONO:roNo,ACTIVE:active};
+		 if(roNo!=""){
+			dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["repair"] + "/balance/balanceAccounts/queryRepairOrder/"+roNo,
+				type : 'GET',
+				sucessCallBack : function(modelData) {
+					if(modelData.length==1){
+						var repairOrder=modelData[0];
+						$("div[data-tableSelect='true']",container).initHtmlContent(repairOrder,false);
+						$("a[data-onclickEvent1='true']",container).trigger("dms.click");
+						var roId=repairOrder.RO_ID;
+						var active=$("#active",container).val();
+						if(active=="roLabour"){
+							$("#bLDtoList",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["repair"] + "/balance/balanceAccounts/queryRoLabour/"+roId);
+						}else if(active=="roPart"){
+							$("#bRPDtoList",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["repair"] + "/balance/balanceAccounts/queryRoPart/"+roId);
+						}else if(active=="roItem"){
+							$("#bAIDtoList",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["repair"] + "/balance/balanceAccounts/queryAddRoItem/"+roId);
+						}else if(active=="roSale"){
+							
+						}						
+						var dmsTable=$("#bPODtoList",container).dmsTable();		
+						var rowsNum=dmsTable.getTableRows();
+						if(rowsNum>0){
+							for(var i=0;i<rowsNum;i++){
+			 					dmsTable.deleteRowByIndex(0);
+							}
+						}
+						var map={OWNER_NO:repairOrder.OWNER_NO,DELIVERER:repairOrder.DELIVERER,DIS_AMOUNT:repairOrder.DIS_AMOUNT,SUB_OBB_AMOUNT:0,RECEIVABLE_AMOUNT:repairOrder.DIS_AMOUNT};
+						dmsTable.appendRow(map);
+						var tab=$("#bPODtoList tbody tr:eq(0) td:eq(4)");
+						$("input[type='text']",tab).attr("type","hidden");
+						tab.append("<span>"+repairOrder.DIS_AMOUNT+"</span>");
+					}else{
+						 $("button[data-info='vehicle']",container).data("pageData",map);
+						 $("button[data-info='vehicle']",container).click();
+					}
+				}
+			});
+		 }else{
+			 $("button[data-info='vehicle']",container).data("pageData",map);
+			 $("button[data-info='vehicle']",container).click();
+		 }
+	 });
+	//赋值结算精度
+	var accuracy=2; //默认分
+	var accuracyCount=function(){
+		if($("#accuracy",container).val()=="10121001"){
+			accuracy=0;//元
+		}else if($("#accuracy",container).val()=="10121002"){
+			accuracy=1;//角
+		}else if($("#accuracy",container).val()=="10121003"){
+			accuracy=2;//分
+		}
+	};
+	new Datatable().initLocale({
+		src : "bPODtoList",
+		container:container,
+		rowID:"BALA_PAYOBJ_ID",
+		url : dmsCommon.getDmsPath()["repair"] + "/balance/balanceAccounts/balancePayobj/{[BALANCE_ID]}",
+		sortName : "BALA_PAYOBJ_ID",
+		sortOrder : "asc",
+		columns : [ 
+					{radio :  true},
+					{field : "BALA_PAYOBJ_ID",title : "结算单收费对象ID",inputHiddenFormat : {},visible : false},
+		            {field : "PAYMENT_OBJECT_CODE",inputField:"paymentObjectCode",inputHiddenFormat : {},title : "付款方代码"}, 
+		            {field : "PAYMENT_OBJECT_NAME",inputField:"paymentObjectName",inputHiddenFormat : {},title : "付款方名称"}, 
+		            {field : "DIS_AMOUNT",inputField:"disAmount",title : "折扣后金额",inputHiddenFormat : {}}, 
+		            {field : "SUB_OBB_AMOUNT",inputField:"subObbAmount",inputHiddenFormat : {},title : "去零金额"}, 
+		            {field : "RECEIVABLE_AMOUNT",inputField:"receivableAmount",inputHiddenFormat : {},title : "应收金额",numberFormat:{decimal : accuracy,autoValueFormat:{autoValue:"#disAmount-#subObbAmount",afterEvent:countDisAmount}}}, 
+		            {field : "NOT_RECEIVED_AMOUNT",inputField:"notReceivedAmount",inputHiddenFormat : {},title : "未收金额"}, 
+		            {field : "PAY_OFF",inputField:"payOff",inputHiddenFormat : {},title : "是否结清",inputCheckBoxFormat : {type : "dict",codeType : "1013"}}, 
+		            {field : "INVOICE_TAG",inputField:"invoiceTag",inputHiddenFormat : {},title : "已开票",inputCheckBoxFormat : {type : "dict",codeType : "1013"}}
+		         ]
+	});
+	//选择优惠模式时计算金额
+	$("select[name='discountModeCode']",container).bindChange(function(obj){
+		var labourAmountDiscount=dmsDict.getSelectedOptionData($("#discountModeCode",container)).LABOUR_AMOUNT_DISCOUNT;
+		if(labourAmountDiscount==undefined){
+			$("#labourAmountDiscount",container).setDmsValue("");
+		}else{
+			$("#labourAmountDiscount",container).setDmsValue(labourAmountDiscount);
+		}
+		$("a[data-onclickEvent1='true']",container).click();
+	});
+	//金额计算
+	$("a[data-onclickEvent1='true']",container).on("dms.click",function(event){
+		accuracyCount();
+		var ownerNo=$("#ownerNo",container).val();
+		var deliverer=$("#deliverer",container).val();
+		
+		var labourAmountDiscount=dmsDict.getSelectedOptionData($("#discountModeCode",container)).LABOUR_AMOUNT_DISCOUNT;
+		var repairPartDiscount=dmsDict.getSelectedOptionData($("#discountModeCode",container)).REPAIR_PART_DISCOUNT;
+		var salesPartDiscount=dmsDict.getSelectedOptionData($("#discountModeCode",container)).SALES_PART_DISCOUNT;
+		if(labourAmountDiscount==undefined){
+			labourAmountDiscount=1;
+		}
+		if(repairPartDiscount==undefined){
+			repairPartDiscount=1;
+		}
+		if(salesPartDiscount==undefined){
+			salesPartDiscount=1;
+		}
+		var labourAmount=$("#labourAmount",container).val();
+		var repairPartAmount=$("#repairPartAmount",container).val();
+		var salesPartAmount=$("#salesPartAmount",container).val();
+		var addItemAmount=$("#addItemAmount",container).val();
+		
+		var disLabourAmount=labourAmount*(1-labourAmountDiscount);
+		var disRepairPartAmount=repairPartAmount*(1-repairPartDiscount);
+		var disSalesPartAmount=salesPartAmount*(1-salesPartDiscount);
+		var disAddItemAmount=addItemAmount-$("#disAddItemAmount",container).val();
+		
+		var amount=$("#amount",container).val();
+		var discountAmount=disLabourAmount+disRepairPartAmount+disSalesPartAmount+disAddItemAmount;
+		var disAmount=(amount-disLabourAmount-disRepairPartAmount-disSalesPartAmount-disAddItemAmount).toFixed(accuracy);
+		var map={DIS_COUNT_AMOUNT:discountAmount.toFixed(accuracy),DIS_AMOUNT:disAmount,OWNER_NO:ownerNo,DELIVERER:deliverer};
+		$("div[data-RoAmount='true']",getElementContext()).initHtmlContent(map,false);
+
+		var tab=$("#bPODtoList tbody");
+		var td=$("tr:eq(0) td:eq(4)",tab);
+		$("input[type='hidden']",td).valChange(disAmount);
+		$("span",td).text(disAmount);
+	});
+
+	//选择单据类型时，进行页面变化
+	$("select[name='roType']",container).bindChange(function(obj){
+		var roType=$("#roType",container).val();
+		if(roType=="12161002"){
+			$("a[data-info='roTypeSales']",container).click();
+		}else if(roType=="12161003"){
+			$("a[data-info='roTypeTransfers']",container).click();
+		}
+	});
+	//当改变折扣率时进行金额计算
+	$("#disCountAmount",container).bindChange(function(obj){
+		$("a[data-onclickEvent1='true']",container).click();
+		$("#discountModeCode",container).setDmsValue("");
+		var disAmountAll=$("#disAmounts",container).val();
+		var disCountAmount=$("#disCountAmount",container).val();
+		var disCountAmounts=$("#disCountAmounts",container).val();
+		disCountAmount=disCountAmounts*1+disCountAmount*1;
+		var amount=$("#amount",container).val()
+		var disAmount=amount-disCountAmount;
+		var map={DIS_COUNT_AMOUNT:disCountAmount.toFixed(accuracy),DIS_AMOUNT:disAmount.toFixed(accuracy)};
+		$("div[data-tableSelect='true']",getElementContext()).initHtmlContent(map,false);
+
+		var tab=$("#bPODtoList tbody");
+		var td=$("tr:eq(0) td:eq(4)",tab);
+		$("input[type='hidden']",td).valChange(disAmount);
+		$("span",td).text(disAmount);
+		
+	});
+	//触发点击事件
+	$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+		var selectRow = $("#bPODtoList",getElementContext()).dmsTable().getFirstSelection();
+		if(selectRow==undefined){
+			dmsCommon.tip({status:"warning",msg:"请收费对象"});//总共的状态类型：info、success、error、warning
+			returnResult.status = false;
+			return;
+		}
+		if(selectRow.BALA_PAYOBJ_ID==undefined){
+			dmsCommon.tip({status:"warning",msg:"工单未结算，不能进行收款"});//总共的状态类型：info、success、error、warning
+			returnResult.status = false;
+			return;
+		}
+		//设置页面初始化值
+		$(this).data("pageData",selectRow);
+
+		returnResult.status = true;
+	});
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("#balanceId",container).setDmsValue(response.balanceId);
+		var bPODtoList=response.bPODtoList;
+		console.log($("#bPODtoList tbody tr",container).length);
+		if(bPODtoList.length>$("#bPODtoList tbody tr",container).length){
+			for(var i=0;i<bPODtoList.length-1;i++){
+				debugger;
+				console.log(bPODtoList[i].balaPayobjId);
+				$("#bPODtoList",container).dmsTable().updateRowByIndex(i,{BALA_PAYOBJ_ID:bPODtoList[i].balaPayobjId});
+			}
+		}else{
+			for(var i=0;i<bPODtoList.length;i++){
+				$("#bPODtoList",container).dmsTable().updateRowByIndex(i,{BALA_PAYOBJ_ID:bPODtoList[i].balaPayobjId});
+			}
+		}
+	});
+});
+	
+</script>

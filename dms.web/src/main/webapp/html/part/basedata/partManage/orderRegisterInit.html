@@ -1,0 +1,162 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					
+					
+					<!--/span-->
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">SAP订单号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="ivbeln" name="ivbeln">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">订单类型</label>
+							<div class="col-xs-8">
+								<select  class="bs-select form-control" id="orderType" name="orderType"  data-dictCode="8004" data-type="oemDict">
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">开票状态</label>
+							<div class="col-xs-8">
+								<select  class="bs-select form-control" id="orderType" name="orderType"  data-dictCode="8004" data-type="oemDict">
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">登记状态</label>
+								<div class="col-xs-8">
+									<select id="status"
+										class="bs-select form-control" name="status"
+										data-url="/partOrderManageDLR/status"
+										data-model="part" data-labelValue="codeId" data-value =""
+										data-lableDesc="typeName"  data-size="5" data-existsDefault = "false" >
+									</select>
+									
+								</div>
+							</div>
+						</div>
+					
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">订单日期</label>
+							<div class="col-xs-10 ">
+								 <div class="input-group input-daterange" data-maxDays = "30" data-opens="right">
+		                             <input type="text" class="form-control" readonly  name="invoiceStartDate" id="invoiceStartDate">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="invoiceEndDate" id="invoiceEndDate">
+		                             <span class="input-group-btn">
+                                         <button class="btn default input-clear" type="button">
+                                            <i class="fa fa-close"></i>
+                                        </button>
+                                      </span> 
+		                        </div>
+							</div>
+						</div>
+					</div>		
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="modal-title">信息列表  </div>
+				
+			</div>
+			
+				<div class="panel-body">
+					<table class="table table-striped table-bordered table-hover table-responsive"
+						id="partList"></table>
+				</div>
+			</div>
+		</div>
+		
+	</form>
+	
+	
+</div>
+<script type="text/javascript">
+ $(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "partList",
+		container:container,
+		url : dmsCommon.getDmsPath()["part"] + "/partOrderManageDLR/queryInvoice",
+		rowID : "",
+		sortName : "",
+		sortOrder : "asc",
+		autoHeight:false,
+		columns : [
+		           {field :"OP_SAP_ORDER_NO",title : "操作",operateFormat : [
+		   		                                                     	{type:"edit",title:"登记",url:"part/basedata/partManage/orderRegisterDetail.html",title :"补发运单录入",openType:"jump",doubleClick:false,
+		   		                                                    	  isShow:function(value, row, index){
+		   		                                                    		
+		   		                                                    		  if(opStatus=="未登记"){
+		   		                                                    			  return true;
+		   		                                                    		  }else{
+		   		                                                    			  return false;
+		   		                                                    		  }
+		   		                                                   	  		}
+		   		                                                     	 },
+		   		                                                     	 {type:"edit",title:"明细",url:"part/basedata/partManage/orderRegisterDetail1.html",title :"审核",openType:"jump",doubleClick:false,
+		   			                                                    	  isShow:function(value, row, index){
+		   			                                                    		
+		   			                                                    		  if(opStatus=="未登记"){
+		   			                                                    			  return false;
+		   			                                                    		  }else{
+		   			                                                    			  return true;
+		   			                                                    		  }
+		   			                                                   	  		}
+		   			                                                     	 } 
+		   		                                                     ]
+		   		    },
+				 {title: "订单编号", field:'OP_SAP_ORDER_NO'},
+				 {title: "订单开票状态", field:'OP_INVOICE_STATUS'},
+				 {title: "登记状态", field:'OP_STATUS'},
+				 {title: "订单类型", field:'OP_ORDER_TYPE'},
+				 {title: "订单日期", field:'OP_ORDER_DATE'}
+		        
+		]
+		
+	});
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		var invoiceStartDate=document.getElementById("invoiceStartDate").value;
+		var invoiceEndDate=document.getElementById("invoiceEndDate").value;
+		
+		if(invoiceEndDate!='' && invoiceStartDate==''){
+			dmsCommon.tip({status:"warning",msg:"订单日期开始时间不能为空!"});
+			return;
+		}
+		if(invoiceStartDate!=''&& invoiceEndDate==''){
+			dmsCommon.tip({status:"warning",msg:"订单日期结束时间不能为空！"});
+			return;
+		}
+	}) ;
+});
+    
+</script>

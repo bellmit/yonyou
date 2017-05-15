@@ -1,0 +1,77 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">通告类别资料</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2">通告类别</label>
+								<div class="col-xs-8" >
+									  <input class="form-control required" type="text" id="typename" name="typename"/>
+								</div>
+							</div>
+						</div>	
+								
+						
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-2 ">状态</label>
+								<div class="col-xs-8">
+					                 <select class="bs-select form-control required" id="status" name="status" 
+					                 data-url="/bulletin/bulletinType/selectStatus"
+					                  data-model="manage" data-lableDesc ="value" data-labelValue="code" data-value="1" data-existsDefault="false" >
+					                 </select>
+								</div>
+							</div>
+						</div>							
+										
+					</div>					
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<div class="modal-footer center-block">
+				<a data-url="/bulletin/bulletinType" data-model="manage" data-method="POST"
+				 data-callBack="true"  class="btn blue "data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+				</a> 
+				<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+	/* $("#typename",container).bind("blur",function(){
+		dmsCommon.ajaxRestRequest({
+			url:dmsCommon.getDmsPath()["manage"] + "/bulletin/bulletinType/checkType/"+$("#typename").val(),
+			type:"GET",
+			async:false,
+			dataType:"json",
+			sucessCallBack : function(data) {
+				if(data.code ==  "false"){
+					dmsCommon.tip({status:"warning",msg:data.msg});
+				}else{
+ 					//$("a[data-callBack='true']").click();
+				}
+			}
+		});
+	}); */
+	
+});
+
+</script>

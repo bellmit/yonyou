@@ -1,0 +1,320 @@
+<div class="dms-edit ajaxrest" data-url="/realitySalesQuery/detail/{[DEALER_ID]}/{[VIN]}"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">零售上报明细</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel-heading">
+			<div class="pannel-name" >车辆信息</div>
+			</div>
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">VIN号: </label>
+								<div class="col-xs-8">
+									<input class="form-control " type="text"  readonly id="vin" name="vin" data-fieldName="VIN"></input>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销售类型: </label>
+								<div class="col-xs-8">
+									<select id="sellType" name="sellType" data-fieldName="SELL_TYPE" 
+											class="bs-select form-control" data-type="oemDict" data-dictCode="2091" >
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">交付时公里数: </label>
+								<div class="col-xs-8">
+									<input class="form-control " type="text" readonly id="odometer" name="odometer" data-fieldName="ODOMETER"></input>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">金融术语: </label>
+								<div class="col-xs-8">
+									<input class="form-control " type="text" readonly id="ownerName16" name="ownerName16" data-fieldName="owner_name16"></input>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销售顾问ID: </label>
+								<div class="col-xs-8">
+									<input class="form-control " type="text" readonly id="salespersonId" name="salespersonId" data-fieldName="SALESPERSON_ID"></input>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">业务经理ID: </label>
+								<div class="col-xs-8">
+									<input class="form-control " type="text" readonly id="businmanageId" name="businmanageId" data-fieldName="BUSINMANAGE_ID"></input>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销售经理ID: </label>
+								<div class="col-xs-8">
+									<input class="form-control " type="text" readonly id="salesmanageId" name="salesmanageId" data-fieldName="SALESMANAGE_ID"></input>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">注册时间: </label>
+								<div class="col-xs-8">
+									<input class="form-control " type="text" readonly id="registrationDate" name="registrationDate" data-fieldName="REGISTRATION_DATE"></input>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">注册编号: </label>
+								<div class="col-xs-8">
+									<input class="form-control " type="text" readonly id="registrationNumber" name="registrationNumber" data-fieldName="REGISTRATION_NUMBER"></input>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">交货日期: </label>
+								<div class="col-xs-8">
+									<div class="input-group date  date-picker">
+										<input id="deliveryDate" name="deliveryDate" 
+										class="form-control required" type="text" value=""  data-fieldName="DELIVERY_DATE" />
+										 <input  class="input-group-btn">
+											<button class="btn default date-set" type="button" >
+												<i class="fa fa-calendar"></i>
+											</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel-heading">
+			<div class="pannel-name" >客户信息</div>
+			</div>
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商代码: </label>
+								<div class="col-xs-8">
+									<input class="form-control " type="text" readonly id="dealerCode" name="dealerCode" data-fieldName="DEALER_CODE"></input>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">头衔: </label>
+								<div class="col-xs-8">
+									<select id="title" name="title" data-fieldName="TITLE" class="bs-select form-control" data-type="oemDict" data-dictCode="2092" >
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">首选: </label>
+								<div class="col-xs-8">
+									<input class="form-control " type="text" readonly id="ownerName32" name="ownerName32" data-fieldName="owner_name32"></input>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">称呼: </label>
+								<div class="col-xs-8">
+									<input class="form-control " type="text" readonly id="salutation" name="salutation" data-fieldName="SALUTATION"></input>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">姓氏: </label>
+								<div class="col-xs-8">
+									<input class="form-control " type="text" readonly id="ownerName5" name="ownerName5" data-fieldName="owner_name5"></input>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">名字: </label>
+								<div class="col-xs-8">
+									<input class="form-control " type="text" readonly id="ownerName33" name="ownerName33" data-fieldName="owner_name33"></input>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">民族: </label>
+								<div class="col-xs-8">
+									<input class="form-control " type="text" readonly id="ownerName332" name="ownerName332" data-fieldName="owner_name332"></input>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">公司名称: </label>
+								<div class="col-xs-8">
+									<input class="form-control " type="text" readonly id="businessName" name="businessName" data-fieldName="BUSINESS_NAME"></input>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">公司联系人: </label>
+								<div class="col-xs-8">
+									<input class="form-control " type="text" readonly id="busincontactName" name="busincontactName" data-fieldName="BUSINCONTACT_NAME"></input>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">国家: </label>
+								<div class="col-xs-8">
+									<select id="country" name="country" data-fieldName="COUNTRY" class="bs-select form-control"  data-type="oemDict" data-dictCode="2093" >
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">邮编: </label>
+								<div class="col-xs-8">
+									<input class="form-control " type="text" readonly id="postalCode" name="postalCode" data-fieldName="POSTAL_CODE"></input>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">省份: </label>
+								<div class="col-xs-8">
+									<input class="form-control " type="text" readonly id="province" name="province" data-fieldName="PROVINCE"></input>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">城市: </label>
+								<div class="col-xs-8">
+									<input class="form-control " type="text" readonly id="city" name="city" data-fieldName="city"></input>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系电话&nbsp;-&nbsp;分机: </label>
+								<div class="col-xs-8">
+									<div class="col-xs-4">
+										<input class="form-control " type="text" readonly id="shortTxt" name="shortTxt" data-fieldName="short_txt"></input>
+									</div>
+									<label class="control-label col-xs-1">-</label>
+									<div class="col-xs-7">
+										<input class="form-control " type="text" readonly id="miniTxt" name="miniTxt" data-fieldName="mini_txt"></input>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">办公电话&nbsp;-&nbsp;分机: </label>
+								<div class="col-xs-8">
+									<div class="col-xs-4">
+										<input class="form-control " type="text"  readonly id="shortTxt" name="shortTxt" data-fieldName="short_txt"></input>
+									</div>
+									<label class="control-label col-xs-1">-</label>
+									<div class="col-xs-7">
+										<input class="form-control " type="text" readonly id="miniTxt" name="miniTxt" data-fieldName="mini_txt"></input>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">移动电话: </label>
+								<div class="col-xs-8">
+									<input class="form-control " type="text" readonly id="mobilePhone" name="mobilePhone" data-fieldName="MOBILE_PHONE"></input>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">传真号: </label>
+								<div class="col-xs-8">
+									<input class="form-control " type="text" readonly id="faxNumber" name="faxNumber" data-fieldName="FAX_NUMBER"></input>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">电子邮箱: </label>
+								<div class="col-xs-8">
+									<input class="form-control " type="text" readonly id="email" name="email" data-fieldName="EMAIL"></input>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">客户语言偏好: </label>
+								<div class="col-xs-8">
+									<select id="customerLanguage" name="customerLanguage" data-fieldName="CUSTOMER_LANGUAGE" class="bs-select form-control" data-type="oemDict" data-dictCode="2094" >
+									</select>
+								</div>
+							</div>
+						</div>
+						<input type="hidden" id="type" name="type" value="1"/> <!-- 单次上报： 1 -->
+						<div class="col-xs-12 col-sm-6  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否可联系: </label>
+								<div class="col-xs-8">
+									<select id="isContact" name="isContact" data-fieldName="IS_CONTACT" class="bs-select form-control" data-type="oemDict" data-dictCode="2095" >
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/realitySalesQuery/approved" data-model="vehicle"
+					data-method="PUT" data-callBack='true'
+					class="btn blue" data-toggle="confirmation"><i
+					class="fa fa-save"></i>上报</a>
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+})
+</script>

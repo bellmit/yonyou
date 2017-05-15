@@ -1,0 +1,373 @@
+<div class="dms-edit ajaxrest"
+	data-url="/customerManage/testDriver/{[ITEM_ID]}"
+	data-model="customer" data-pageInitCallBack="true">
+	<form class="form-horizontal">
+		<div class="modal-header">
+
+			<div class="modal-title">试乘试驾反馈</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>		
+		<div class="modal-body">
+			<div class="tabbable-custom ">
+
+				<div class="tab-content">
+					<div class="tab-pane fade in active" id="tab_basreceive">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<div class="pannel-name">客户信息</div>
+
+								<div class="pannel-tools">
+									<a href="javascript:;" class="expand"> <i
+										class="fa fa-chevron-down"></i></a>
+								</div>
+							</div>
+							<div class="panel-body">
+								<div class="row" data-tableCustomerSelect="true">
+									<div class="col-xs-12 col-sm-6 col-md-4">
+									<div class="form-group" >
+								<label class="control-label col-xs-4 col-md-3">客户名称</label>
+								<div class="col-xs-8 col-md-9">
+									<div class="input-group">
+									
+										<input type="text" class="form-control " id="customerName"  disabled="disabled"
+											name="customerName" data-fieldName="CUSTOMER_NAME" maxlength="120">
+										 <span class="input-group-btn">
+											<button class="btn default btn-sm" type="button"  disabled="disabled"
+												data-url="customer/potentialcus/potentialCusFollow/searchCustomer.html"
+												data-toggle="modal" data-width="modal-lg" id="oldCustomerBtn">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear"  disabled="disabled" type="button"> 
+	                                            			<i class="fa fa-close"></i>
+	                                    				</button>
+										</span>
+									</div>
+								</div>
+							</div>
+									</div>
+									
+							<!--/span-->		
+							<div class="col-xs-12 col-sm-6 col-md-4" >
+										<div class="form-group" data-tableSelect="true">
+											<label class="control-label col-xs-4 col-md-3">客户编号</label>
+											<div class="col-xs-8 col-md-9">
+												<input id="customerNo" name="customerNo" data-fieldName="CUSTOMER_NO" disabled="disabled" 
+													class="form-control" type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 col-md-3">销售顾问</label>
+											<div class="col-xs-8 col-md-9">
+												<select id="soldBy" name="soldBy" data-fieldName="SOLD_BY" disabled="disabled"
+													 class="bs-select form-control "
+													data-url="/basedata/employees/-1/salesConsultant"
+													data-model="manage" data-labelValue="USER_ID"
+													data-lableDesc="USER_NAME" >
+												</select>
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 col-md-3">客户类型</label>
+											<div class="col-xs-8 col-md-9">
+												<select id="customerType" name="customerType" data-fieldName="CUSTOMER_TYPE" disabled="disabled"
+													class="bs-select form-control" data-dictCode="1018"
+													data-value="">
+												</select>
+											</div>
+										</div>
+									</div>
+									
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 col-md-3">客户来源</label>
+											<div class="col-xs-8 col-md-9">
+												<select id="cusSource" name="cusSource" data-fieldName="CUS_SOURCE" disabled="disabled"
+													class="bs-select form-control" data-dictCode="1311"
+													data-value="">
+												</select>
+											</div>
+										</div>
+									</div>
+																		
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 col-md-3">购买意向</label>
+											<div class="col-xs-8 col-md-9">
+												<select id="buyIntent" name="buyIntent" data-fieldName="BUY_INTENT"  disabled="disabled"
+													class="bs-select form-control" data-dictCode="1511"
+													data-value="">
+												</select>
+											</div>
+										</div>
+									</div>
+									
+									<div class="col-xs-12 col-sm-6 col-md-4 col-md-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">意向品牌</label>
+								<div class="col-xs-8 col-md-9" >
+									<select id="intentBrand" class="bs-select form-control " disabled="disabled"
+										data-fieldName="BRAND_CODE"
+										name="INTENT_BRAND" data-url="/basedata/brandsdict"
+										data-model="manage" data-labelValue="BRAND_CODE"
+										data-lableDesc="BRAND_NAME">
+
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">意向车系</label>
+								<div class="col-xs-8 col-md-9">
+									<select id="intentSeries" parent="intentBrand" disabled="disabled"
+										data-fieldName="SERIES_CODE"
+										class="bs-select form-control " name="INTENT_SERIES"
+										data-url="/basedata/brandsdictC/{[intentBrand]}/seriessdictC"
+										data-model="manage" data-labelValue="SERIES_CODE"
+										data-lableDesc="SERIES_NAME" >
+
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">意向车型</label>
+								<div class="col-xs-8 col-md-9">
+									<select id="intentModel" parent="intentSeries" disabled="disabled"
+										class="bs-select form-control " name="INTENT_MODEL"
+										data-fieldName="MODEL_CODE"
+										data-url="/basedata/brandsdictC/{[intentBrand]}/seriessdictC/{[intentSeries]}/modelsdictC"
+										data-model="manage" data-labelValue="MODEL_CODE"
+										data-lableDesc="MODEL_NAME" >
+
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4" >
+										<div class="form-group" data-tableSelect="true">
+											<label class="control-label col-xs-4 col-md-3">联系电话</label>
+											<div class="col-xs-8 col-md-9">
+												<input id="" name="" data-fieldName="CONTACTOR_PHONE" disabled="disabled"
+													class="form-control" type="text" />
+											</div>
+										</div>
+									</div>	
+									
+						<div class="col-xs-12 col-sm-6 col-md-4" >
+										<div class="form-group" data-tableSelect="true">
+											<label class="control-label col-xs-4 col-md-3">联系手机</label>
+											<div class="col-xs-8 col-md-9">
+												<input id="" name="" data-fieldName="CONTACTOR_MOBILE" disabled="disabled"
+													class="form-control" type="text" />
+											</div>
+										</div>
+									</div>				
+							
+								<div class="col-xs-12 col-sm-6 col-md-4" >
+										<div class="form-group" data-tableSelect="true">
+											<label class="control-label col-xs-4 col-md-3">驾驶证号</label>
+											<div class="col-xs-8 col-md-9">
+												<input id="driverLicense" name="driverLicense" data-fieldName="DRIVER_LICENSE"  disabled="disabled"
+													class="form-control  " type="text" />
+											</div>
+										</div>
+									</div>		
+									
+												<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-md-3">信息渠道</label>
+								<div class="col-xs-8 col-md-9">
+									<select id="mediaType" name="mediaType" data-fieldName="MEDIA_TYPE" disabled="disabled"
+										class="bs-select form-control " data-dictCode="1298"
+										data-value="">
+									</select>
+								</div>
+							</div>
+						</div>			
+									
+							<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 col-md-3">渠道细分</label>
+											<div class="col-xs-8 col-md-9">
+												<select id="mediaDetail" parent="mediaType" data-fieldName="MEDIA_DETAIL"  disabled="disabled"
+													class="bs-select form-control" name="mediaDetail"
+													data-url="/customerManage/visitingRecord/{[mediaType]}/mediaDetail"
+													data-model="customer" data-labelValue="MEDIA_DETAIL"
+													data-lableDesc="MEDIA_DETAIL_NAME">
+												</select>
+											</div>
+										</div>
+									</div>				
+									
+<!-- 								<div class="col-xs-12 col-sm-6 col-md-4" >
+										<div class="form-group" data-tableSelect="true">
+											<label class="control-label col-xs-4 col-md-3">联系手机</label>
+											<div class="col-xs-8 col-md-9">
+												<input id="ITEM_ID" name="ITEM_ID" data-fieldName="ITEM_ID" disabled="disabled"
+													class="form-control" type="text" />
+											</div>
+										</div>
+									</div>					 -->							
+							
+							
+
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<div class="pannel-name">试乘试驾登记</div>
+
+								<div class="pannel-tools">
+									<a href="javascript:;" class="expand"> <i
+										class="fa fa-chevron-down"></i></a>
+								</div>
+							</div>
+							<div class="panel-body">
+					<div class="row" data-tableCustomerSelect="true">
+
+		<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 col-md-3"><span style ="color:red">*</span>试驾类型</label>
+											<div class="col-xs-8 col-md-9">
+												<select id="testDriveType" name="testDriveType" data-fieldName="TEST_DRIVE_TYPE"  disabled="disabled"
+													class="bs-select form-control " data-dictCode="9200"
+													data-value="">
+												</select>
+											</div>
+										</div>
+									</div>
+									
+									<div class="col-xs-12 col-sm-6 col-md-4 ">
+										<div class="form-group">
+											<label class="control-label col-xs-4 col-md-3""><span style ="color:red">*</span>试驾车系</label>
+											<div class="col-xs-8 col-md-9">
+												<select id="intentSeries" disabled="disabled"
+													class="bs-select form-control " name="intentSeries"  data-fieldName="SERIES_CODE"  
+													data-url="/basedata/selectSeries"
+													data-model="manage" data-labelValue="SERIES_CODE"
+													data-lableDesc="SERIES_NAME">
+				
+												</select>
+											</div>
+										</div>
+									</div> 
+									
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4 col-md-3"><span style ="color:red">*</span>地点</label>
+											<div class="col-xs-8 col-md-9">
+												<select id="place" name="place" data-fieldName="PLACE"  disabled="disabled"
+													class="bs-select form-control " data-dictCode="9100"
+													data-value="">
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						
+												<div class="panel panel-default">
+							<div class="panel-heading">
+								<div class="pannel-name">试乘试驾反馈</div>
+
+								<div class="pannel-tools">
+									<a href="javascript:;" class="expand"> <i
+										class="fa fa-chevron-down"></i></a>
+								</div>
+							</div>
+							<div class="panel-body">
+								<div class="row">
+								
+								<div class="col-xs-12 ">
+										<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+											<div class="form-group">
+												<label class="control-label col-xs-12">客户反馈表照片</label>
+											</div>
+										</div>
+										<div class="col-xs-12 col-sm-6 col-md-8">
+											<div class="form-group">
+												<div class="col-xs-12">
+													<input id="fkPhoto" name="fkPhoto" class="form-control required" type="text" readonly />
+												</div>
+											</div>
+										</div>
+										<div class="col-xs-12 col-sm-6 col-md-2">
+											<div class="form-group">
+												<div class="col-xs-12">
+													<a class="btn blue" data-url="customer/potentialcus/testDriveManage/fkScan.html"
+														data-toggle="modal" data-width="modal-lg" id="allLoanRate"> 点击扫描 </a>
+												</div>
+											</div>
+										</div>
+									</div>	
+
+								<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group" data-tableSelect="true">
+											<label class="control-label col-xs-8 col-md-9">请根据客户反馈如实进行打分：</label>
+											<div class="col-xs-4 col-md-3">
+												<input id="score" name="score" data-fieldName="SCORE"  max="10" min ="0"
+													class="form-control number required" type="text" />
+											</div>
+										</div>
+									</div>		
+								<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group" data-tableSelect="true">
+											<font  class="control-label col-xs-8 col-md-9" color="#FF0000">注：最高为10分</font >
+
+										</div>
+									</div>		
+									
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+				<div class="modal-footer center-block">
+	            <a data-url="/customerManage/testDriver/{[ITEM_ID]}"
+				data-model="customer" data-method="PUT" data-callBack="true"
+				class="btn blue" data-toggle="confirmation"> <i
+				class="fa fa-save"></i>保存
+			</a> <a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消
+			</a>
+
+
+		</div>
+
+	
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+});
+</script>

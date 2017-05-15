@@ -1,0 +1,62 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">功能代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="funcCode" name="funcCode">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-xs-4">功能类别</label>
+							<div class="col-xs-8">
+								<select id="groupType" name="groupType" data-existsDefault="false" data-value="10021001" class="bs-select form-control" data-type="oemDict" data-dictCode="1002" >
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> 
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >系统功能清单查询 </div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/sysFunctionListQuery",
+			rowID : "FUNC_NAME",
+			sortName : "FUNC_TYPE",
+			sortOrder : "asc",
+			isQueryFirst:false,
+			columns : [ 
+			    {field : "FUNC_CODE",title : "功能代码"}, 
+				{field : "FUNC_NAME",title : "功能名称"}, 
+				{field : "FUNC_TYPE",title : "功能类别",codeFormat : {type:"oemDict",codeType:"1002"}} 
+			]
+
+		});
+	});
+</script>

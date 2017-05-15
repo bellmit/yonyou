@@ -1,0 +1,60 @@
+<div class="dms-edit ajaxrest" 
+	data-model="manage">
+	<!-- BEGIN FORM-->
+	<form class="form-horizontal">
+		
+			<div class="panel panel-default table-panel">
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="bLDtoList">
+					</table>
+					<input type="hidden" id="afterDiscountAmountLabour" name="afterDiscountAmountLabour" value="0">
+					<input type="hidden" id="zkAmountLabour" name="zkAmountLabour" value="0">
+				</div>
+			</div>
+		
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initLocale({
+			src : "bLDtoList",
+			container:container,
+			rowID:"RO_NO",
+			sortName : "RO_NO", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+			sortOrder : "asc",
+			height : 250,
+			columns : [ {field : "CARD_CODE",title : "会员卡编号"},
+						{field : "MANAGE_SORT_CODE",title : "收费类别"},
+			            {field : "CONSIGN_EXTERIOR",inputField:"chargePartitionCode",inputHiddenFormat : {},title : "收费区分"}, 
+			            {field : "STD_LABOUR_HOUR",title : "维修类型"}, 
+			            {field : "TROUBLE_DESC",title : "故障原因"},
+			            {field : "LABOUR_CODE",inputField:"labourCode",inputHiddenFormat : {},title : "项目代码"}, 
+			            {field : "LABOUR_NAME",inputField:"labourName",inputHiddenFormat : {},title : "项目名称"}, 
+			            {field : "LABOUR_AMOUNT",inputField:"labourAmount",inputHiddenFormat : {},title : "工时费"}, 
+			            {field : "TECHNICIAN",title:"责任技师"},
+			            {field : "DISCOUNT",inputField:"discount",title : "折扣率", inputNumberFormat : {decimal : 2,validate:{validateClass:"decimal",validateAttr:'maxPrecision="2"'}}}, 
+			            {field : "DIS_LABOUR_AMOUNT",title : "折扣金额",inputField:"zkAmountZ",inputHiddenFormat : {},numberFormat:{decimal:1,autoValueFormat:{autoValue:"(1-#discount)*#labourAmount"}}},
+			            {field : "CALC_REAL_RECEIVE_AMOUNT",title : "实收金额"},
+			            {field : "STD_LABOUR_HOUR",title : "标准工时"},
+			            {field : "ASSIGN_LABOUR_HOUR",title : "派工工时"},
+			            {field : "LABOUR_PRICE",title : "工时单价"},
+			            {field : "ACTIVITY_CODE",title : "活动编号"},
+			            {field : "TROUBLE_DESC",title : "检查结果"},
+			            {field : "PACKAGE_CODE",title : "组合代码"},
+			            {field : "MODEL_LABOUR_CODE",title : "项目车型组"},
+			            {field : "REMARK",title : "备注"},
+			            {field : "MAINTAIN_PACKAGE_CODE",title : "保养套餐代码"}
+			         ],
+			         onLoadSuccess : function() {
+							}
+		});
+/* 		if(roNo!=""){
+			$("#bLDtoList",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["repair"] + "/feesSettlement/queryRoLabourByRoNO/"+roNo);
+		}; */
+
+	});
+
+</script>

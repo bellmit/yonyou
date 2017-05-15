@@ -1,0 +1,80 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">车型选择</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">维修车型分组名称</label>
+							<div class="col-xs-8">
+								<input type="hidden" id="modelGroupId" name="modelGroupId" value="{[MODEL_GROUP_ID]}">
+								<input disabled="disabled" class="form-control" type="text" value="{[MODEL_LABOUR_NAME]}"/>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12  ">
+				<div class="form-group">
+				 <label class="control-label col-xs-4">品牌名称</label>
+                     <div class="col-xs-8">
+                      <input type="hidden" name="brandCode" data-fieldName="BRAND_ID">
+                   <select class="bs-select form-control" id="editbrand" name = "brandId" data-fieldName="BRAND_ID" data-url="/basedata/brandsdictOEM" data-model="manage" data-labelValue="BRAND_ID" data-lableDesc="BRAND_NAME" >
+                 
+                  </select>
+                 </div>
+			 </div>
+			</div>
+			<div class="col-xs-12  ">
+				<div class="form-group">
+				  <label class="control-label col-xs-4">车系名称</label>
+                    <div class="col-xs-8">
+                     <input type="hidden" name="seriesId" data-fieldName="SERIES_ID">
+                  <select class="bs-select form-control" id="editseries" parent="editbrand" name = "seriesId" data-fieldName="SERIES_ID" data-url="/basedata/brandsdictOEM/{[editbrand]}/seriessdictOEM" data-model="manage" data-labelValue="SERIES_ID" data-lableDesc="SERIES_NAME" >
+                 
+                  </select>
+             </div>
+	 	 </div>
+	</div>
+			<div class="col-xs-12  ">
+				<div class="form-group">
+				  <label class="control-label col-xs-4">车型名称</label>
+                    <div class="col-xs-8">
+                     		<!-- <input type="hidden" name="modelCode" data-fieldName="MODEL_CODE"> -->
+                  			<select class="bs-select form-control required" id="editmodel" parent="editseries" name = "modelCode" data-fieldName="MODEL_CODE" data-url="/basedata/brandsdictOEM/{[editbrand]}/seriessdictOEM/{[editseries]}/modelsdictOEM" data-model="manage" data-labelValue="MODEL_CODE" data-lableDesc="MODEL_NAME" >
+                 
+                  			</select>
+             			</div>
+					 </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+		<div class="modal-footer">
+			<a data-url="/basedata/modelgroups/{[MODEL_GROUP_ID]}/groupitems" data-model="repair" data-method="POST" data-callBack="true"  class="btn blue"  data-toggle="confirmation"><i class="fa fa-save"></i>保存</a>
+			<a data-dismiss="modal" class="btn blue" ><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+
+$(document).one("onload.dms",function(event,container){
+	//新增页面回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#groupitem",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	 
+}); 
+</script>

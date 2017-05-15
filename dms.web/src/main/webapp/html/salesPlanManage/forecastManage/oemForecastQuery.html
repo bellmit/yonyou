@@ -1,0 +1,348 @@
+<!-- add by zhengzengliang  -->
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<!-- 国产 -->
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌</label>
+								<div class="col-xs-8">
+									<select id="brandId"
+										class="bs-select form-control" name="brandId"
+										data-url="/basedata/material/brand/90081002"
+										data-model="manage" data-labelValue="BRAND_ID"
+										data-lableDesc="BRAND_NAME">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系</label>
+								<div class="col-xs-8">
+									<select id="seriesId" parent="brandId"
+										class="bs-select form-control" name="seriesId"
+										data-url="/basedata/material/series/90081002/{[brandId]}"
+										data-model="manage" data-labelValue="SERIES_ID"
+										data-lableDesc="SERIES_NAME">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车款</label>
+								<div class="col-xs-8">
+									<select id="groupId" parent="seriesId"
+										class="bs-select form-control" name="groupId"
+										data-url="/basedata/material/group/90081002/{[seriesId]}"
+										data-model="manage" data-labelValue="GROUP_ID"
+										data-lableDesc="GROUP_NAME" >
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">年款</label>
+								<div class="col-xs-8">
+									<select id="modelId" parent="groupId"
+										class="bs-select form-control" name="modelYear"
+										data-url="/basedata/material/modelYear/90081002/{[groupId]}"
+										data-model="manage" data-labelValue="MODEL_YEAR"
+										data-lableDesc="MODEL_YEAR">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">颜色</label>
+								<div class="col-xs-8">
+									<select id="colorId" parent="modelId"
+										class="bs-select form-control" name="colorName"
+										data-url="/basedata/material/color/90081002/{[groupId]}/{[modelId]}"
+										data-model="manage" data-labelValue="COLOR_CODE"
+										data-lableDesc="COLOR_NAME" >
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">内饰</label>
+								<div class="col-xs-8">
+									<select id="trimId" parent="colorId"
+										class="bs-select form-control" name="trimName"
+										data-url="/basedata/material/trim/90081002/{[groupId]}/{[modelId]}/{[colorId]}"
+										data-model="manage" data-labelValue="TRIM_CODE"
+										data-lableDesc="TRIM_NAME" >
+									</select>
+									
+								</div>
+							</div>
+						</div> 
+						<!-- 国产 -->
+
+					<div class="col-xs-12 col-sm-6 col-md-4" data-tableSelect="true">
+					<div class="form-group">
+						<label class="control-label col-xs-4">选择经销商</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+								<input id="dealerCode" readonly
+									name="dealerCode" class="form-control" type="text"
+									data-fieldName="dealer_code" /> <span
+										class="input-group-btn" >
+										<button class="btn default btn-sm" type="button"
+											data-url="manage/basedata/dealers/searchDealers.html"
+											data-toggle="modal" data-width="modal-lg">
+											<i class="fa fa-list-alt"></i>
+										</button>
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>	
+					
+					<!-- <div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-2" style="margin-left:30px;">日期</label>
+							<div class="col-xs-4">
+								<select id="yearId" class="bs-select form-control"
+									name="yearName" data-url="/forecastAudit/forecastQueryInit"
+									data-model="manage" data-existsDefault = "false"
+									data-labelValue="YEAR" data-lableDesc="YEAR"
+									data-alwaysRefresh="true">
+								</select>
+							</div>
+							<label class="control-label col-xs-1" style="margin-left:-15px;">年</label>
+							<div class="col-xs-4">
+								<select id="monthId" class="bs-select form-control"
+									 data-existsDefault = "false"
+									 data-labelValue="MONTH" data-lableDesc="MONTH"
+									name="monthName"   data-dictCode="9009">
+								</select>
+							</div>
+							<label class="control-label col-xs-1" style="margin-left:-15px;">月</label>
+						</div>
+					</div> -->
+					
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">任务编号</label>
+							<div class="col-xs-8">
+								<select id="taskCodeId" parent="monthId" name="taskCodeName"
+									class="bs-select form-control" data-existsDefault = "false"
+									data-url="/forecastAudit/forecastQueryInit/month/getMonthPlanTaskNoList2"
+									data-model="manage" data-labelValue="TASK_ID"
+									data-lableDesc="TASK_ID" data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="row ">
+						<div class="col-xs-12 col-md-offset-3">
+							<!-- <div class="query-btn"> -->
+								<a id="bigAreaCollect" href="javascript:;" data-onclickEvent="true"
+									 class="btn blue"> <i
+									class="fa fa-search"></i>大区汇总
+								</a>
+								 <a id="countryCollect" href="javascript:;" data-onclickEvent="true"
+								 	 class="btn blue"> <i
+									class="fa fa-search"></i> 全国汇总
+								</a> 
+								<a id="detailSearch" href="javascript:;"data-onclickEvent="true"
+									 class="btn blue"> <i
+									class="fa fa-search"></i> 明细查询
+								</a> 
+								<a  id="noHandInDealer" href="javascript:;" 
+								 	data-url="salesPlanManage/forecastManage/noHandInDealer.html"
+								 	class="btn blue ajaxify" data-toggle="modal"
+								 	data-width="modal-lg" >
+								 	 <i class="fa fa-search"></i> 未提报组织
+								</a>
+								<!-- <a href="javascript:;" class="btn blue"><i
+									class="fa fa-undo"></i> 重置
+								</a> -->
+							<!-- </div> -->
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<div class="panel panel-default table-panel" id="forecastQueryTotalId">
+		<div class="panel-heading">
+			<div class="pannel-name">大区汇总列表</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+					<a href="javascript:;" data-url="/forecastAudit/forecastTotalDownload/export/excel" data-model="manage" data-method="downLoad" data-toggle="confirmation"
+							class="btn btn-outline " ><i class="fa fa-download"></i>大区汇总下载</a> 
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="forecastQueryTotal_table"></table>
+		</div>
+	</div>
+	<div class="panel panel-default table-panel" id="forecastQueryTotalId2">
+		<div class="panel-heading">
+			<div class="pannel-name">全国汇总列表</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+					<a href="javascript:;" data-url="/forecastAudit/forecastTotalDownload2/export/excel" data-model="manage" data-method="downLoad" data-toggle="confirmation"
+						class="btn btn-outline " ><i class="fa fa-download"></i>全国汇总下载</a> 
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="forecastQueryTotal2_table"></table>
+		</div>
+	</div>
+	<div class="panel panel-default table-panel" id="forecastQueryDetailId">
+		<div class="panel-heading">
+			<div class="pannel-name">明细查询列表</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+					<a href="javascript:;" data-url="/forecastAudit/forecastDetailDownload/export/excel" data-model="manage" data-method="downLoad" data-toggle="confirmation"
+						class="btn btn-outline " ><i class="fa fa-download"></i>明细查询下载</a> 
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="forecastQueryDetail_table"></table>
+		</div>
+	</div>
+	
+</div>
+<script type="text/javascript">
+
+$(document).one("onload.dms",function(event,container){
+	//大区汇总
+	new Datatable().initPagination({
+		src : "forecastQueryTotal_table",
+		container:container,
+		   url : dmsCommon.getDmsPath()["manage"] + "/forecastAudit/forecastQueryTotal",
+		   rowID : "ORG_ID",
+		   pageSize:10,
+		   autoHeight:false,
+			columns : [ 
+                {field : "ORG_NAME",title : "区域"},
+                {field : "SERIES_CODE",title : "车系代码"},
+                {field : "SERIES_NAME",title : "车系名称"},
+                {field : "MODEL_CODE",title : "车型代码"},
+                {field : "MODEL_NAME",title : "车型名称"},
+                {field : "GROUP_CODE",title : "车款代码"},
+                {field : "GROUP_NAME",title : "车款名称"},
+                {field : "COLOR_NAME",title : "颜色"},
+                {field : "TRIM_NAME",title : "内饰"},
+                {field : "REQUIRE_NUM",title : "需求数量"},
+                {field : "CONFIRM_NUM",title : "OTD确认数量"},
+                {field : "REPORT_NUM",title : "上报数量"},
+                {field : "PAY_NUM",title : "支付定金数量"}
+			]
+		});
+	
+	//全国汇总
+	new Datatable().initPagination({
+		src : "forecastQueryTotal2_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["manage"] + "/forecastAudit/forecastQueryTotal2",
+		rowID : "DETAIL_COLOR_ID",
+		pageSize:10,
+		autoHeight:false,
+		isQueryFirst:false,
+		columns : [
+					{field : "SERIES_CODE",title : "车系代码"},
+					{field : "SERIES_NAME",title : "车系名称"},
+					{field : "MODEL_CODE",title : "车型代码"},
+					{field : "MODEL_NAME",title : "车型名称"},
+					{field : "GROUP_CODE",title : "车款代码"},
+					{field : "GROUP_NAME",title : "车款名称"},
+					{field : "COLOR_NAME",title : "颜色"},
+					{field : "TRIM_NAME",title : "内饰"},
+					{field : "REQUIRE_NUM",title : "需求数量"},
+					{field : "CONFIRM_NUM",title : "OTD确认数量"},
+					{field : "REPORT_NUM",title : "上报数量"},
+					{field : "PAY_NUM",title : "支付定金数量"} 
+		         ]
+	});
+	$("#forecastQueryTotalId2",container).hide();
+	
+	//明细查询
+	new Datatable().initPagination({
+		src : "forecastQueryDetail_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["manage"] + "/forecastAudit/forecastQueryDetail",
+		rowID : "ORG_ID",
+		pageSize:10,
+		autoHeight:false,
+		isQueryFirst:false,
+		columns : [ 
+			{field : "PORG_NAME",title : "大区"},
+			{field : "ORG_NAME",title : "小区"},
+			{field : "DEALER_CODE",title : "经销商代码"},
+			{field : "DEALER_SHORTNAME",title : "经销商名称"},
+			{field : "SERIES_CODE",title : "车系代码"},
+			{field : "SERIES_NAME",title : "车系名称"},
+			{field : "MODEL_CODE",title : "车型代码"},
+			{field : "MODEL_NAME",title : "车型名称"},
+			{field : "GROUP_CODE",title : "车款代码"},
+			{field : "GROUP_NAME",title : "车款名称"},
+			{field : "COLOR_NAME",title : "颜色"},
+			{field : "TRIM_NAME",title : "内饰"},
+			{field : "REQUIRE_NUM",title : "需求数量"},
+			{field : "CONFIRM_NUM",title : "OTD确认数量"},
+			{field : "REPORT_NUM",title : "上报数量"},
+			{field : "PAY_NUM",title : "支付定金数量"}  
+		 ]
+	});
+	$("#forecastQueryDetailId",container).hide();
+	
+	//绑定大区汇总按钮
+	$("#bigAreaCollect[data-onclickEvent='true']",container).on("dms.click",function(event){
+		$("#forecastQueryTotalId",container).show();
+		$("#forecastQueryTotalId2",container).hide();
+		$("#forecastQueryDetailId",container).hide();
+		$("#forecastQueryTotal_table",container).dmsTable().refreshTableWithForm();
+	});
+	
+	//绑定全国汇总按钮
+	$("#countryCollect[data-onclickEvent='true']",container).on("dms.click",function(event){
+		$("#forecastQueryTotalId",container).hide();
+		$("#forecastQueryTotalId2",container).show();
+		$("#forecastQueryDetailId",container).hide();
+		$("#forecastQueryTotal2_table",container).dmsTable().refreshTableWithForm();
+	});
+	
+	//绑定明细查询按钮
+	$("#detailSearch[data-onclickEvent='true']",container).on("dms.click",function(event){
+		$("#forecastQueryTotalId",container).hide();
+		$("#forecastQueryTotalId2",container).hide();
+		$("#forecastQueryDetailId",container).show();
+		$("#forecastQueryDetail_table",container).dmsTable().refreshTableWithForm();
+	});
+	
+	
+	
+});
+
+</script>

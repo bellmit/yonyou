@@ -1,0 +1,70 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">公关费用新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">项目</label>
+								<div class="col-xs-8">
+								<input type="hidden" name="campaignCode"/>								
+									<input id="items" name="items"
+										class="form-control " type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">预算费用</label>
+								<div class="col-xs-8">
+									<input id="itemsBudget" name="itemsBudget" class="form-control number" maxlength="10" type="text" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">项目说明</label>
+								<div class="col-xs-8">
+									<input id="itemsDesc" name="itemsDesc"
+										class="form-control" type="text"/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a data-url="/markting/marktingPlan/prFee" data-model="retail"
+				data-method="POST" data-callBack="true" class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> <a
+				data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				//获取活动编号
+				$("input[name=campaignCode]",container).val($("#CAMPAIGN_CODE",getElementContext()).val());
+				//新增页面回调函数
+				$("a[data-callBack='true']", container).on(
+						"callBack.dms",
+						function(event, response) {
+							//关闭窗口
+							$("a[data-dismiss='modal']", container).click();
+							//刷新表格
+							$("#campaign_prfee", getElementContext()).dmsTable()
+									.refreshTableWithForm();
+						});
+			});
+</script>

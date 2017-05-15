@@ -1,0 +1,685 @@
+<div class="dms-search" data-pageInitCallBack= "true">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="pannel-name">查询条件</div>
+				<div class="pannel-tools">
+					<a href="javascript:;" class=collapse> <i
+						class="fa fa-chevron-down"></i></a>
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">经销商</label>
+							<div class="col-xs-8">
+								<select id="dealer_code" class="bs-select form-control"
+									name="dealer_code"
+									data-url="/stockManage/safeguard/findDealerInfo"
+									data-model="vehicle" data-labelValue="dealer_code"
+									data-value="{[userInfo.dealerCode]}"
+									data-lableDesc="DEALER_SHORTNAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">品牌</label>
+							<div class="col-xs-8">
+								<select id="brand" class="bs-select form-control" name="brandId"
+									data-url="/basedata/brandsdict" data-model="manage"
+									data-labelValue="BRAND_CODE" data-lableDesc="BRAND_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车系</label>
+							<div class="col-xs-8">
+								<select id="series" class="bs-select form-control"
+									name="seriesCode" data-url="/basedata/selectSeries"
+									data-model="manage" data-labelValue="SERIES_CODE"
+									data-lableDesc="SERIES_NAME" data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车型</label>
+							<div class="col-xs-8">
+								<select id="model" class="bs-select form-control"
+									name="modelCode" data-url="/basedata/selectModel"
+									data-model="manage" data-labelValue="MODEL_CODE"
+									data-lableDesc="MODEL_NAME" data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">车主性质</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" name="ownerProperty"
+									id="ownerProperty" data-dictCode="1190"
+									data-existsDefault="true">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">营运性质</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" name="businessKind"
+									id="businessKind" data-dictCode="1194"
+									data-existsDefault="true">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">已行驶</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input type="text" class="form-control"
+										name="startNotInMileage"> <span
+										class="input-group-addon">至</span> <input type="text"
+										class="form-control" name="endNotInMileage"><span
+										class="input-group-addon">未进厂</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">至今</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input type="text" class="form-control" name="startNotInDate">
+									<span class="input-group-addon">至</span> <input type="text"
+										class="form-control" name="endNotInDate"><span
+										class="input-group-addon">未进厂</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否会员</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" name="isMember"
+									id="isMember" data-dictCode="1278" data-existsDefault="true">
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-5 ">会员卡等级</label>
+							<div class="col-xs-7">
+								<input type="text" class="form-control" id="cardTypeCode"
+									name="cardTypeCode">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">上次维修日期</label>
+							<div class="col-xs-8 ">
+								<div class="input-group input-daterange">
+									<input type="text" class="form-control" readonly
+										name="last_maintain_begin_date"> <span
+										class="input-group-addon">至</span> <input type="text"
+										class="form-control" readonly name="last_maintain_end_date">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车牌号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="license"
+									name="license">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车主编号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="ownerNo"
+									name="ownerNo">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">提醒状态</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" name="flag" id="flag"
+									data-dictCode="1382" data-existsDefault="true">
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">客户经理</label>
+							<div class="col-xs-8">
+								<select id="serviceAdvisor" name="serviceAdvisor"
+									class="bs-select form-control "
+									data-url="/basedata/employees/-1/salesConsultant"
+									data-model="manage" data-labelValue="USER_ID" data-value=""
+									data-lableDesc="USER_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">行驶里程至</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input type="text" class="form-control" name="mileageBegin">
+									<span class="input-group-addon">至</span> <input type="text"
+										class="form-control" name="mileageEnd">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">车辆用途</label>
+					<div class="col-xs-8">
+						<select class="bs-select form-control" name="vehiclePurpose"
+							id="vehiclePurpose" data-dictCode="1193"
+							data-existsDefault="true">
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">是否回厂</label>
+					<div class="col-xs-8">
+						<select class="bs-select form-control" name="isReturnFactory"
+							id="isReturnFactory" data-dictCode="1278"
+							data-existsDefault="true">
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-5">是否本公司购车</label>
+					<div class="col-xs-7">
+						<select class="bs-select form-control" name="isSelfCompany"
+							id="isSelfCompany" data-dictCode="1278" data-existsDefault="true">
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">车龄(年)</label>
+					<div class="col-xs-8">
+						<div class="input-group">
+							<input type="text" class="form-control" name="salesDateBegin">
+							<span class="input-group-addon">至</span> <input type="text"
+								class="form-control" name="salesDateEnd">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4 ">车主地址</label>
+					<div class="col-xs-8">
+						<input type="text" class="form-control" id="address"
+							name="address">
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-5">是否无进厂日期</label>
+					<div class="col-xs-7">
+						<select class="bs-select form-control" name="comeInFactory"
+							id="comeInFactory" data-dictCode="1278" data-existsDefault="true">
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">是否未提醒</label>
+					<div class="col-xs-8">
+						<select class="bs-select form-control" name="remindStatus"
+							id="remindStatus" data-dictCode="1278" data-existsDefault="true">
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">是否激活</label>
+					<div class="col-xs-8">
+						<select class="bs-select form-control" name="IsValid" id="IsValid"
+							data-dictCode="1278" data-existsDefault="true">
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4 ">VIN</label>
+					<div class="col-xs-8">
+					<input type="hidden" id="vin2"/>
+					<input type="hidden" id="ownerNo2">
+						<input type="text" class="form-control" id="vin" name="vin">
+					</div>
+				</div>
+			</div>
+
+			<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">提醒时间</label>
+					<div class="col-xs-8">
+						<div class="input-group input-daterange">
+							<input type="text" class="form-control" readonly
+								name="remindDateBegin"> <span class="input-group-addon">至</span>
+							<input type="text" class="form-control" readonly
+								name="remindDateEnd">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-7">上次维修工单的客户经理</label>
+					<div class="col-xs-5">
+						<select id="lastServiceadvisor" name="lastServiceadvisor"
+							class="bs-select form-control "
+							data-url="/basedata/employees/-1/salesConsultant"
+							data-model="manage" data-labelValue="USER_ID" data-value=""
+							data-lableDesc="USER_NAME">
+						</select>
+					</div>
+				</div>
+				</select>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+				<div class="form-group">
+					<label class="control-label col-xs-4">是否分派</label>
+					<div class="col-xs-8">
+						<select class="bs-select form-control" name="traceTag"
+							id="traceTag" data-dictCode="1278" data-existsDefault="true">
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row ">
+			<div class="col-xs-12 ">
+				<div class="query-btn">
+					<a href="javascript:;" class="btn blue"> <i
+						class="fa fa-search"></i>查询
+					</a> <a href="javascript:;" class="btn blue"><i class="fa fa-undo"></i>重置</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name">客户流失报警列表</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<!--/span-->
+							<a id="123" data-toggle="modal" data-beforeShowEvent="true"
+								data-url="customer/solicitude/updateOwner.html" data-width="modal-lg"
+								data-callBack="true" class="btn btn-outline"><i class="fa fa-edit" />预约安排
+							</a>
+							<!--/span-->	
+							<a id="editOwner" data-toggle="modal" data-beforeShowEvent="true" 
+								data-url="customer/vehicleLossRemind/owner1.html" data-width="modal-lg"
+								data-callBack="true" class="btn btn-outline"> <i class="fa fa-edit" ></i> 修改车主信息
+							</a>
+							<!--/span-->
+							<a id="remind" data-beforeShowEvent="true" class="btn btn-outline" data-beforeShowEvent="true" 
+								data-url="customer/vehicleLossRemind/remind.html" data-toggle="modal" data-width="modal-lg">
+								<i class="fa fa-edit" />提醒 
+							</a> 
+							<!--/span-->
+							<a id="remindRecord" data-toggle="modal" data-width="modal-lg" class="btn btn-outline"
+								data-url="customer/vehicleLossRemind/remindRecord.html" data-beforeShowEvent="true">
+								<i class="fa fa-search" />提醒记录
+							</a>
+							<!--/span-->							
+							<a id="maintainHistory" data-toggle="modal" data-width="modal-lg" class="btn btn-outline"
+								data-url="customer/vehicleLossRemind/maintainHistory.html" data-beforeShowEvent="true">
+								<i class="fa fa-edit" />维修历史
+							</a>
+							<!--/span-->
+							<a id="suggestMaintain" data-toggle="modal" data-width="modal-lg" data-beforeShowEvent="true"
+								data-url="customer/vehicleLossRemind/suggestMaintain.html" class="btn btn-outline">
+								<i class="fa fa-edit" />建议维修
+							</a>
+							<!--/span-->
+							<a id="complainHistory" data-toggle="modal" data-width="modal-lg" data-beforeShowEvent="true"
+								data-url="customer/vehicleLossRemind/complainHistory.html" class="btn btn-outline">
+								<i class="fa fa-edit" />投诉历史
+							</a>
+							<!--/span-->
+							<a href="javascript:;" data-url="/customer/vehicleLossRemind/export"
+								data-model="customer" data-method="downLoad" id="excel" 
+								data-toggle="confirmation" class="btn btn-outline "> <i
+								class="fa fa-download"></i>导出
+							</a>
+						</div>
+					</div>
+			</div>
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="dms_loss"></table>
+			</div>
+		</div>
+		</form>
+</div>
+
+
+<script type="text/javascript">
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				new Datatable().initPagination({
+					src : "dms_loss",
+					url : dmsCommon.getDmsPath()["customer"]
+							+ "/customer/vehicleLossRemind",
+					container : container,
+					rowID : "VIN",
+					sortName : "VIN",
+					sortOrder : "asc",
+					autoHeight : false,
+					undefinedText : "",
+					columns : [ {
+						checkbox : true,
+						sortable : false,
+						title : "选择"
+					}, {
+						field : "dealer_shortname",
+						title : "经销商"
+					}, {
+						field : "LICENSE",
+						title : "车牌号"
+					}, {
+						field : "OWNER_NAME",
+						title : "车主"
+					}, {
+						field : "IS_RETURN_FACTORY",
+						title : "是否回厂",
+						codeFormat : {
+							type : "dict",
+							codeType : "1278"
+						}
+					}, {
+						field : "PHONE",
+						title : "车主电话"
+					}, {
+						field : "MOBILE",
+						title : "车主手机"
+					}, {
+						field : "ADDRESS",
+						title : "车主地址"
+					}, {
+						field : "OWNER_PROPERTY",
+						title : "车主性质",
+						codeFormat : {
+							type : "dict",
+							codeType : "1190"
+						}
+					}, {
+						field : "PROVINCE",
+						title : "省份",
+						codeFormat : {
+							type : "dict",
+							codeType : "9001"
+						}
+					}, {
+						field : "CITY",
+						title : "城市",
+						codeFormat : {
+							type : "dict",
+							codeType : "9002"
+						}
+					}, {
+						field : "DISTRICT",
+						title : "区县",
+						codeFormat : {
+							type : "dict",
+							codeType : "9003"
+						}
+					}, {
+						field : "CONSULTANT",
+						title : "销售顾问"
+					}, {
+						field : "CONTACTOR_NAME",
+						title : "联系人"
+					}, {
+						field : "CONTACTOR_MOBILE",
+						title : "联系人手机"
+					}, {
+						field : "CONTACTOR_PHONE",
+						title : "联系人电话"
+					}, {
+						field : "CONTACTOR_ZIP_CODE",
+						title : "联系人邮编"
+					}, {
+						field : "CONTACTOR_ADDRESS",
+						title : "联系人详细地址"
+					}, {
+						field : "CONTACTOR_PROVINCE",
+						title : "联系人省份",
+						codeFormat : {
+							type : "dict",
+							codeType : "9001"
+						}
+					}, {
+						field : "CONTACTOR_CITY",
+						title : "联系人城市",
+						codeFormat : {
+							type : "dict",
+							codeType : "9002"
+						}
+					}, {
+						field : "CONTACTOR_DISTRICT",
+						title : "联系人区县",
+						codeFormat : {
+							type : "dict",
+							codeType : "9003"
+						}
+					}, {
+						field : "VIN",
+						title : "VIN"
+					}, {
+						field : "DELIVERER_PHONE",
+						title : "送修人电话"
+					}, {
+						field : "DELIVERER_MOBILE",
+						title : "送修人手机"
+					}, {
+						field : "LAST_MAINTAIN_DATE",
+						title : "上次维修日期",
+						dateFormat : {
+							format : "YYYY-MM-DD"
+						}
+					},
+
+					{
+						field : "LAST_SERVICE_ADVISOR",
+						title : "上次维修工单的服务专员"
+					}, {
+						field : "SALES_DATE",
+						title : "销售日期",
+						dateFormat : {
+							format : "YYYY-MM-DD"
+						}
+					}, {
+						field : "NEXT_MAINTAIN_DATE",
+						title : "预计下次保养日期",
+						dateFormat : {
+							format : "YYYY-MM-DD"
+						}
+					}, {
+						field : "NEXT_MAINTAIN_MILEAGE",
+						title : "下次保养里程"
+					}, {
+						field : "REMINDER",
+						title : "提醒人"
+					}, {
+						field : "REMIND_STATUS",
+						title : "提醒状态",
+						codeFormat : {
+							type : "dict",
+							codeType : "1382"
+						}
+					}, {
+						field : "REMIND_FAIL_REASON",
+						title : "提醒失败原因"
+					}, {
+						field : "REMIND_CONTENT",
+						title : "提醒内容"
+					}, {
+						field : "REMIND_WAY",
+						title : "提醒方式",
+						codeFormat : {
+							type : "dict",
+							codeType : "1128"
+						}
+					}, {
+						field : "REMIND_DATE",
+						title : "提醒时间",
+						dateFormat : {
+							format : "YYYY-MM-DD"
+						}
+					}, {
+						field : "CUSTOMER_FEEDBACK",
+						title : "客户反馈"
+					}, {
+						field : "brand_name",
+						title : "品牌"
+					}, {
+						field : "series_name",
+						title : "车系"
+					}, {
+						field : "MODEL_NAME",
+						title : "车型"
+					}, {
+						field : "OWNER_NO",
+						title : "车主编号"
+					}, {
+						field : "ON_REPAIR",
+						title : "是否在修",
+						codeFormat : {
+							type : "dict",
+							codeType : "1278"
+						}
+					}, {
+						field : "SERVICE_ADVISOR_NAME",
+						title : "服务专员"
+					}, {
+						field : "IS_SELF_COMPANY",
+						title : "是否本公司购车",
+						codeFormat : {
+							type : "dict",
+							codeType : "1278"
+						}
+					}, {
+						field : "MILEAGE",
+						title : "行驶里程"
+					}, {
+						field : "FIRST_IN_DATE",
+						title : "第一次进厂日期",
+						dateFormat : {
+							format : "YYYY-MM-DD"
+						}
+					}, {
+						field : "TRACE_TAG",
+						title : "是否分派",
+						codeFormat : {
+							type : "dict",
+							codeType : "1278"
+						}
+					}, {
+						field : "TRACE_STATUS",
+						title : "跟踪状态",
+						codeFormat : {
+							type : "dict",
+							codeType : "1237"
+						}
+					}, {
+						field : "IS_VALID",
+						title : "是否激活",
+						codeFormat : {
+							type : "dict",
+							codeType : "1278"
+						}
+					}, {
+						field : "CARD_TYPE_CODE",
+						title : "会员卡等级"
+					} ]
+
+				});
+
+				$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+					var selectRow = $("#dms_loss",container).dmsTable().getSelections();
+					 
+					 if(!selectRow){
+							dmsCommon.tip({status:"warning",msg:"请选择表格数据"});
+							returnResult.status = false;
+							return ;
+						}
+						$(this).data("pageData",{VIN:selectRow[0].VIN,LICENSE:selectRow[0].LICENSE,OWNER_NO:selectRow[0].OWNER_NO,OWNER_NAME:selectRow[0].OWNER_NAME});//传递3个值
+						returnResult.status = true;
+					
+					 var vins = '';
+					 var ownerNos = '';
+					 var nextMaintainMileages = '';
+					 for(var i = 0;i<selectRow.length;i++){
+						 if(i==selectRow.length-1){
+							 vins +=selectRow[i].VIN;
+							 ownerNos+=selectRow[i].OWNER_NO;
+							 nextMaintainMileages +=selectRow[i].NEXT_MAINTAIN_MILEAGES;
+						 }else{
+							 vins +=selectRow[i].VIN+',';
+							 ownerNos +=selectRow[i].OWNER_NO+',';
+							 nextMaintainMileages +=selectRow[i].NEXT_MAINTAIN_MILEAGES+',';
+						 }
+					 }
+					 $("#vin2",container).val(vins);
+					 $("#vin",container).removeClass("required");
+					 $("#ownerNo2",container).val(ownerNos);
+					 $("#ownerNo",container).removeClass("required");
+					 $("#nextMaintainMileage2",container).val(nextMaintainMileages);
+					 $("#nextMaintainMileage",container).removeClass("required");
+					returnResult.status = true;
+					
+				});
+				
+			});
+</script>

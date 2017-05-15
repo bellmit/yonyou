@@ -1,0 +1,285 @@
+<div class="dms-edit ajaxrest" data-url="/perClaimFeedBack/getJiBenXinXi/{[ID]}"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">索赔预授权反馈信息 </div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel-heading">
+			<div class="pannel-name" >基本信息</div>
+			</div>
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">维修站代码：</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="DEALER_CODE"></span>
+								</div>
+							</div>
+						</div>
+						<div id="hidden">
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">维修站名称：</label>
+									<div class="col-xs-8">
+										<span class="form-show " data-fieldName="DEALER_NAME"></span>
+									</div>
+								</div>
+							</div>
+					
+						<div id="hidden">
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">维修工单号 ：</label>
+									<div class="col-xs-8">
+										<span class="form-show " data-fieldName="REPAIR_NO"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">保修开始日期：</label>
+									<div class="col-xs-8">
+											<span class="form-show " data-fieldName="START_DATE"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">进厂日期： </label> 
+									<div class="col-xs-8">
+											<span class="form-show " data-fieldName="INTO_DATE"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">进厂里程数： </label> 
+									<div class="col-xs-8">
+											<span class="form-show " data-fieldName="INTO_MILEAGE"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">VIN：</label>
+									<div class="col-xs-8">
+											<span class="form-show " data-fieldName="VIN"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">牌照号： </label>
+									      <div class="col-xs-8">
+											<span class="form-show " data-fieldName="PLATE_NO"></span>
+									      </div>
+									  </div>
+								</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">发动机号： </label>
+									      <div class="col-xs-8">
+											<span class="form-show " data-fieldName="ENGINE_NO"></span>
+									      </div>
+									  </div>
+								</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌 ：</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="BRAND"></span>
+								</div>
+							</div>
+						</div>
+						<div id="hidden">
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">车系： </label>
+									<div class="col-xs-8">
+										<span class="form-show " data-fieldName="SERIES"></span>
+									</div>
+								</div>
+							</div>
+					
+						<div id="hidden">
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">车型： </label>
+									<div class="col-xs-8">
+										<span class="form-show " data-fieldName="MODEL"></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group">
+									<label class="control-label col-xs-4">预授权单号： </label>
+									<div class="col-xs-8">
+											<span class="form-show " data-fieldName="FORE_NO"></span>
+									</div>
+								</div>
+							</div>
+							
+							</div>
+							</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal-body">
+			<div class="panel-heading">
+			<div class="pannel-name" >项目信息</div>
+			</div>
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		 </div>
+		
+			<div class="modal-body">
+			<div class="panel-heading">
+			<div class="pannel-name" >反馈信息</div>
+			</div>
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">金额：</label>
+								<div class="col-xs-8">
+									   <input type="text" class="form-control"  id="amount" name="amount"/>
+									    <input type="hidden" class="form-control"  id="foreId" name="foreId"  data-fieldName="ID" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">反馈单号：</label>
+								<div class="col-xs-8">
+									   <input type="text" class="form-control"  id="feedbackNo" name="feedbackNo"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">备注：</label>
+								<div class="col-xs-8">
+									   <input type="text" class="form-control"  id="remark" name="remark"/>
+								</div>
+							</div>
+						</div>	
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/perClaimFeedBack/addFanKui" data-model="vehicle" 
+				data-method="POST" data-callBack='true'
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>反馈</a> <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>	
+	</form>
+</div>
+<div class="dms-edit ajaxrest" data-url="/perClaimFeedBack/getFuJian/{[ID]}"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-body">
+
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">	
+
+
+		        <div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">附件名称 ：</label>
+								<div class="col-xs-8">
+									<span class="form-show " data-fieldName="FILENAME"></span>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="panel-heading">
+					<div class="pannel-name" >附件上传 </div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12">	
+						<div class="form-group">
+							<label class="control-label  col-xs-4">选择附件</label>
+								<div class="col-xs-8">
+                             		<input type="file" class="importData" id="fileupload" name="file">
+                          		</div>
+                            <div class="col-xs-1"></div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					 <div class="form-actions"> 
+						<a data-url="/perClaimFeedBack/uploadFiles" data-model="vehicle"
+							 data-method="importData" data-fileUploadBtn="true"
+							  data-callBack="true"  class="btn blue "
+							 data-toggle="confirmation"> <i class="fa fa-upload"></i>上传
+						</a> 
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	
+	//查询项目信息
+	
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/perClaimFeedBack/XiangMuXinXiSearch/{[ID]}",
+		rowID : "FID",
+		sortName : "FID",
+		sortOrder : "asc",
+		autoHeight:false,
+		columns : [       
+				{field : "ITEM_TYPE",title : "项目类型",codeFormat : {type:"oemDict",codeType:"4029"}}, 
+				{field : "ITEM_CODE",title : "项目代码"},	
+				{field : "ITEM_DESC",title : "项目名称"}, 
+				{field : "CHECK_REMARK",title : "故障描述及处理意见"}
+        ]
+             });
+	
+	
+	
+	
+	
+	
+	
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+})
+</script>

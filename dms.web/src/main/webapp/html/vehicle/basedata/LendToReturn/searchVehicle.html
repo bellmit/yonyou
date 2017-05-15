@@ -1,0 +1,108 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">车辆信息</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">仓库</label>
+						<div class="col-xs-8 col-md-5 col-lg-5">
+							<select id="storageCode"
+								class="bs-select form-control" name="storageCode"
+								data-url="/stockManage/safeguard/findStorage/{[dealer_code]}"
+								data-model="vehicle" data-labelValue="STORAGE_CODE"
+								data-lableDesc="STORAGE_NAME">
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+					<div class="form-group">
+						<label class="control-label col-xs-2 col-sm-2 col-md-2 col-lg-2">VIN</label>
+						<div class="col-xs-8 col-md-7 col-lg-7">
+							<input type="text" class="form-control" id="vin"
+								name="vin" onkeyup="this.value = this.value.toUpperCase();">
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+					<div class="form-group">
+						<label class="control-label col-xs-3 col-md-3 col-lg-3">产品代码</label>
+						<div class="col-xs-8 col-sm-6 col-md-6 col-lg-6">
+							<input type="text" class="form-control" id="productCode"
+								name="productCode">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row ">
+				<div class="col-xs-12 ">
+					<div class="query-btn">
+						<a href="javascript:;" class="btn blue"> <i
+							class="fa fa-search"></i> 查询
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-md-12 col-lg-12">
+					<div class="panel panel-default table-panel">
+						<div class="panel-heading">
+							<div class="pannel-name">车辆信息</div>
+							<div class="pannel-button">
+								<a id="save" data-callBack="true" data-onclickEvent='true'
+										class="btn btn-outline">
+									<i class="fa fa-check-square-o"></i> 确定
+								</a> 
+							</div>
+						</div>
+						<div class="panel-body">
+							<table class="table table-striped table-bordered table-hover table-responsive"
+								id="dms_table"></table>
+						</div>
+					</div>
+				</div> 					
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	   new Datatable().initPagination({
+			src : "dms_table",
+			url : dmsCommon.getDmsPath()["vehicle"] + "/LendAndReturn/findAllVehicle",
+			rowID : "VIN",
+			autoHeight : false,
+			sortName : "VIN", 
+			sortOrder : "asc",
+			checkboxHeader:true, //全选框
+			columns : [ 
+				{checkbox:true,sortable : false},
+				{field : "VIN",title : "VIN"},
+				{field : "PRODUCT_CODE",title : "PRODUCT_CODE"},
+				{field : "OUT_STORAGE",title : "仓库"}, 
+				{field : "STORAGE_POSITION_CODE",title : "库位"},
+				{field : "ADDITIONAL_COST",title : "附加成本",numberFormat : {decimal:2}},
+				{field : "PURCHASE_PRICE",title : "采购价格",numberFormat : {decimal:2}},
+				{field : "MAR_STATUS",title : "质损状态",codeFormat : {type : "dict",codeType : "1306"}},
+				{field : "DIRECTIVE_PRICE",title : "销售指导价",numberFormat : {decimal:2}}
+			]
+			
+		});
+	   
+	   $("a[data-onclickEvent='true']",container).on("dms.click",function(event,container){
+		   var selectRow = $("#dms_table",container).dmsTable().getSelections();
+		   $(selectRow).each(function(e){
+			   $("#dms_show",getElementContext()).dmsTable().appendRow(selectRow[e]);
+		   });
+		   $("a[data-dismiss='modal']",container).click();
+	   });
+	   
+	});
+</script>

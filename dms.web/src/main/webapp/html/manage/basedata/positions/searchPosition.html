@@ -1,0 +1,91 @@
+<div class="dms-search">
+	<!-- <form class="form-horizontal" >
+		 <div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+				<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">职务代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="positionCode" name="positionCode">
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">职务名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="positionName" name="positionName">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否有效</label>
+							<div class="col-xs-8">
+								<select id="isValid" name="isValid" class="bs-select form-control" data-dictCode="1004" data-value="10041001" ></select>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> 
+	</form> -->
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >职务信息</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline hidden" data-url="manage/basedata/positions/addPosition.html" data-width="modal-md" 
+								data-toggle="modal"> <i class="fa fa-plus-square"></i> 新增
+							</a> 
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["manage"] + "/basedata/positions",
+			rowID : "POSITION_ID",
+			sortName : "POSITION_CODE",
+			sortOrder : "asc",
+			autoHeight : false,
+			undefinedText : "",
+			columns : [ 
+			   /*  {field : "POSITION_ID",title : "操作",operateFormat : [
+                       {type:"edit",url:"manage/basedata/positions/editPosition.html",openWidth:"modal-md",doubleClick:true},
+                        {type:"del",url:"/basedata/positions/{[POSITION_ID]}",model:"manage",callBack:function(response){
+                    	   $("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+                       }} 
+                   ]
+                },   */
+			    {field : "POSITION_CODE",title : "职务代码"}, 
+				{field : "POSITION_NAME",title : "职务名称"}, 
+				{field : "POSITION_DESC",title : "职务描述"},
+				/* {field : "IS_VALID",title : "是否有效",codeFormat : {type:"dict",codeType:"1004"}} */
+			]
+
+		});
+	});
+</script>

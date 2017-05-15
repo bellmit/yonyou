@@ -1,0 +1,222 @@
+<div class="dms-edit ajaxrest" data-url="/decrodateProject/findById/{[MODEL_LABOUR_CODE]}/{[LABOUR_CODE]}" data-pageInitCallBack="true"
+	data-model="vehicle" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">装潢项目编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">项目车型组</label>
+								<div class="col-xs-8">
+									<select id="modelLabourCode" class="bs-select form-control" name="modelLabourCode" disabled = "disabled"
+										data-url="/decrodateProject/duty/dicts" data-model="vehicle" data-fieldName="MODEL_LABOUR_CODE"
+										data-labelValue="MODEL_LABOUR_CODE" data-lableDesc="MODEL_LABOUR_NAME" >
+									</select>
+								</div>
+							</div>
+						</div> 
+								     
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">主分类名称</label>
+							<div class="col-xs-8">
+								<select id="mainGroupCode" class="bs-select form-control required" name="mainGroupCode" disabled = "disabled"
+									data-url="/decrodateProject/duty/main" data-model="vehicle" data-fieldName="MAIN_GROUP_CODE"
+									data-labelValue="MAIN_GROUP_CODE" data-lableDesc="MAIN_GROUP_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					
+<!-- 					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">二级分类名称</label>
+							<div class="col-xs-8">
+								<select id="subGroupCode" class="bs-select form-control required" name="subGroupCode"
+									data-url="/decrodateProject/duty/sub2" data-model="vehicle" data-fieldName="SUB_GROUP_CODE"
+									data-labelValue="SUB_GROUP_CODE" data-lableDesc="SUB_GROUP_NAME">
+								</select>
+							</div>
+						</div>
+					</div> -->
+
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">二级分类名称</label>
+							<div class="col-xs-8">
+								<select id="subGroupCode" parent="mainGroupCode" class="bs-select form-control required" disabled = "disabled"
+									name="subGroupCode" data-url="/decrodateProject/{[mainGroupCode]}/sub" data-model="vehicle" data-fieldName="SUB_GROUP_CODE"
+									data-labelValue="SUB_GROUP_CODE" data-lableDesc="SUB_GROUP_NAME">
+								</select>
+							</div>
+						</div>
+					</div>		
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">装潢项目代码</label>
+							<div class="col-xs-8" >
+								<input type="text" class="form-control required" id="labourCode" name="labourCode" data-fieldName="LABOUR_CODE">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">装潢项目名称</label>
+							<div class="col-xs-8" >
+								<input type="text" class="form-control required" id="labourName" name="labourName" data-fieldName="LABOUR_NAME">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">拼音代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="spellCode" name="spellCode" data-fieldName="SPELL_CODE">
+							</div>
+						</div>
+					</div>		
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">装潢类型</label>
+							<div class="col-xs-8">
+								<select id="repairTypeCode" class="bs-select form-control" name="repairTypeCode"
+									data-url="/decrodateProject/duty/repair" data-model="vehicle" data-fieldName="REPAIR_TYPE_CODE"
+									data-labelValue="REPAIR_TYPE_CODE" data-lableDesc="REPAIR_TYPE_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">行管项目代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="localLabourCode" name="localLabourCode" data-fieldName="LOCAL_LABOUR_CODE">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">行管项目名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="localLabourName" name="localLabourName"  data-fieldName="LOCAL_LABOUR_NAME">
+							</div>
+						</div>
+					</div>				
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">索赔代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="operationCode" name="operationCode" data-fieldName="OPERATION_CODE">
+							</div>
+						</div>
+					</div>			
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">工种</label>
+							<div class="col-xs-8">
+								<select id="workerTypeCode" class="bs-select form-control" name="workerTypeCode"
+									data-url="/decrodateProject/duty/work" data-model="vehicle" data-fieldName="WORKER_TYPE_CODE"
+									data-labelValue="WORKER_TYPE_CODE" data-lableDesc="WORKER_TYPE_NAME">
+								</select>
+							</div>
+						</div>
+					</div>		
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">标准工时</label>
+							<div class="col-xs-8" >
+								<input type="text" class="form-control" id="operationCode" name="operationCode" data-fieldName="OPERATION_CODE">							
+							</div>
+						</div>
+					</div>				
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">派工工时</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="workerTypeCode" name="workerTypeCode" data-fieldName="WORKER_TYPE_CODE">								
+							</div>
+						</div>
+					</div>	
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">索赔工时</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="claimLabour" name="claimLabour"  data-fieldName="CLAIM_LABOUR">
+							</div>
+						</div>
+					</div>			
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">是否会员专用</label>
+							<div class="col-xs-8">
+								<select id="isMember" name="isMember" class="bs-select form-control" data-dictCode="1278"  
+								 data-value="12781002"  data-fieldName="IS_MEMBER">
+								</select>
+							</div>
+						</div>
+					</div>			
+					
+<!-- 		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-8">
+						<div class="form-group">
+							<label class="control-label col-xs-3">复制到其他车型组</label>
+							<div class="col-xs-9">
+								<select id="modelLabourCode" class="bs-select form-control required" name="modelLabourCode"
+									data-url="/decrodateProject/duty/dicts" data-model="vehicle"
+									data-labelValue="MODEL_LABOUR_CODE" data-lableDesc="MODEL_LABOUR_NAME" multiple
+									data-live-search="true" data-size="5" data-existsDefault="false">
+								</select>
+							</div>
+						</div>
+					</div>	 -->		     
+					
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div class="modal-footer center-block">
+			<a data-url="/decrodateProject/editDecrodate" data-model="vehicle" data-method="PUT"
+				data-callBack="true" class="btn blue" 
+				data-toggle="confirmation"> <i class="fa fa-save"></i>保存
+			</a> <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+//页面加载后初始化
+$(document).one("onload.dms",function(event,container){
+	
+
+	//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	}); 
+});
+</script>

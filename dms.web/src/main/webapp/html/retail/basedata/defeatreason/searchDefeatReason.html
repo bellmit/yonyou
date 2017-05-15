@@ -1,0 +1,72 @@
+<div class ="dms-search">
+  <form class="form-horizontal">
+	<div class="panel panel-default">
+	     <div class="panel-body">
+			<div class="row" >
+	     		<div class="col-xs-12 col-sm-6  ">
+	        		 <div class="form-group">
+	            		 <label class="control-label col-xs-4 ">战败原因描述</label>
+	             	 <div class="col-xs-8">
+	                 	 <input type="text"  class="form-control" id="drDesc" name="drDesc">
+	            	 </div>
+	         	</div>
+	    	 </div>
+     	<div class="col-xs-12 col-sm-6  ">
+         	<div class="form-group">
+            	 <label class="control-label col-xs-4">是否有效</label>
+             	<div class="col-xs-8">
+                 	<select class="bs-select form-control" id="isValid" name="isValid" data-dictCode="1004" data-value="10041001">
+                 	</select>
+             	</div>
+         	</div>
+     	</div>
+ 	</div>
+		 <div class="row ">
+				<div class="col-xs-12 ">
+					<div class="query-btn">
+						<a href="javascript:;" class="btn blue"> <i
+							class="fa fa-search"></i> 查询</a> 
+						<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >战败原因定义</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" data-url="retail/basedata/defeatreason/addDefeatReason.html"
+								data-toggle="modal" data-width="modal-sm" > <i class="fa fa-plus-square"></i> 新增
+							</a> 
+						</div>
+					 </div>
+        		</div>
+       	 	<div class="panel-body">
+            	<table class="table table-striped table-bordered table-hover" id="dms_table" ></table>
+        	</div>
+    	</div>
+	</div>
+<script type="text/javascript">
+	 $(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["retail"] + "/basedata/defeats",
+			rowID : "DEFEAT_REASON_ID",
+			sortName : "DR_CODE", 
+			sortOrder : "asc",
+			columns : [ 
+			    {field : "DEFEAT_REASON_ID",title : "操作",operateFormat : [
+	                   {type:"edit",url:"retail/basedata/defeatreason/editDefeatReason.html",openWidth:"modal-sm",doubleClick:true}
+	               ]},  
+			    {field : "DR_CODE",title : "战败原因代码"},
+				{field : "DR_DESC",title : "战败原因描述"}, 
+				{field :"IS_VALID",title:"是否有效",codeFormat : {type:"dict",codeType:"1004"}}
+			],
+		});
+	});
+</script>          

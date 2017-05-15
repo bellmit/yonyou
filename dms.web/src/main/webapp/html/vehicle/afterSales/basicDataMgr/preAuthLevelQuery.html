@@ -1,0 +1,36 @@
+<div class="dms-search">
+
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >授权级别维护</div>
+	
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/authLevel/authLevelSearch",
+		rowID : "LEVEL_TIER",
+		sortName : "LEVEL_TIER",
+		sortOrder : "asc",
+		
+		columns : [ 
+			   	    {field : "LEVEL_TIER",title : "操作",operateFormat : [
+			   	    {type:"edit",url:"vehicle/afterSales/basicDataMgr/editPreAuthLevelQuery.html",openWidth:"modal-md",doubleClick:true},
+			   	    ]
+			   	  },             
+	                {field : "LEVEL_CODE",title : "授权顺序编号"}, 
+	                {field : "LEVEL_NAME",title : "授权顺序名称"}
+        ]
+             });
+                      });
+</script> 

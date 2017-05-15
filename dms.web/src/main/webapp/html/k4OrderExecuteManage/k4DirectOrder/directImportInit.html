@@ -1,0 +1,95 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+
+				<div class="row ">
+					<div class="form-group">
+						<label class="control-label col-xs-3">1.点击“模版”按钮下载上传文件模版</label>
+						<div class="col-xs-2">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 模版
+							</a>
+						</div>
+						<label class="control-label col-xs-3">文件格式（经销商代码、CPOS代码、车款代码、颜色代码、内饰代码、VIN、车辆用途、执行年月/周、置顶标记）</label>
+					</div>
+				</div>
+
+				<div class="row ">
+					<div class="form-group">
+						<label class="control-label col-xs-4">2.点击“浏览”按钮，确认 Excel 导入文件的格式</label>
+						<div class="col-xs-2">
+							<input id="soNo" name="soNo" class="form-control" type="text" />
+						</div>
+						<div class="col-xs-2">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> ...
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="row ">
+					<label class="control-label col-xs-4">3.选择好文件后，点击“确定”按钮进行数据效验</label>
+					<a href="javascript:;" class="btn blue"> <i
+						class="fa fa-search"></i> 确定
+					</a>
+				</div>
+
+			</div>
+		</div>
+	</form>
+
+</div>
+<script type="text/javascript">
+
+    $(document).one("onload.dms",function(event,container){
+    	new Datatable().initPagination({
+    		src : "production_order_table",
+    		container:container,
+    		   url : dmsCommon.getDmsPath()["vehicle"] + "",
+    		   rowID : "VS_STOCK_ID",
+    			//sortName : "",
+    			//sortOrder : "",
+    			columns : [ 
+    			    {checkbox:true},
+    			    {field : "VS_STOCK_ID",title : "操作",operateFormat : [
+    		                       {type:"edit",url:"vehicle/basedata/InventoryMaintenance/editInventory.html",openWidth:"modal-lg",isShow:function(value, row, index){
+    		                    	   if(row.OWN_STOCK_STATUS=='在库'&&row.DISPATCHED_STATUS=='未配车'){
+    		                    		   return true;
+    		                    	   }else{
+    		                    		   return false;
+    		                    	   } 
+    		                    	   
+    		                       }},
+    		                       {type:"detail",url:"vehicle/basedata/InventoryMaintenance/editInventory.html",openWidth:"modal-lg"},
+    		                       {type:"edit",url:"vehicle/basedata/InventoryMaintenance/inventoryMaintenancePDI.html",openType:"jump",title:"PDI检查",operateIcon:'<i class="fa fa-plus-square"></i>',isShow:function(value, row, index){
+    		                    	   if(row.OWN_STOCK_STATUS=='在库'){
+    		                    		   return true;
+    		                    	   }else{
+    		                    		   return false;
+    		                    	   } 
+    		                       }}
+    		                   ]
+    		                },  
+                   
+    		                {field : "",title : ""},
+    	                    {field : "",title : ""},
+    	                    {field : "",title : ""},
+    	                    {field : "",title : ""},
+    	                    {field : "",title : ""},
+    	                    {field : "",title : ""},
+    	                    {field : "",title : ""},
+    	                    {field : "",title : ""},
+    	                    {field : "",title : ""},//
+    	                    {field : "",title : ""},//含税采购价
+    	                    {field : "",title : ""},
+    	                    {field : "",title : ""},
+    	                    {field : "",title : ""}
+                   
+    			]
+
+    		});
+    });
+
+</script>

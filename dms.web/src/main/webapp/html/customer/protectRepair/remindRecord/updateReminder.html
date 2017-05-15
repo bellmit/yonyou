@@ -1,0 +1,71 @@
+<div class="dms-edit ajaxrest" data-url="/customer/protectRepair/remind/remindedId/{[REMIND_ID]}" data-model="customer">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">提醒记录修改</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">提醒编号</label>
+								<div class="col-xs-8">
+									<input id="remindId" name="remindId" class="form-control"
+										disabled="disabled" type="text" data-fieldName="REMIND_ID" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4">客户反馈</label>
+								<div class="col-xs-8">
+									<input id="customerFeedback" name="customerFeedback"
+										class="form-control required" maxlength="100" type="text"
+										data-fieldName="CUSTOMER_FEEDBACK" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">备注</label>
+								<div class="col-xs-8">
+									<input id="remark" name="remark" class="form-control required"
+										maxlength="100" type="text" data-fieldName="REMARK" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/customer/protectRepair/remind/update/{[REMIND_ID]}" data-model="customer" data-method="PUT"
+				data-callBack="true" class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>保存 </a> <a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				//新增页面的回调函数
+				$("a[data-callBack='true']", container).on(
+						"callBack.dms",
+						function(event, response) {
+							//关闭窗口
+							$("a[data-dismiss='modal']", container).click();
+							//刷新表格
+							$("#dms_reminder", getElementContext()).dmsTable()
+									.refreshTableWithForm();
+						});
+			});
+</script>

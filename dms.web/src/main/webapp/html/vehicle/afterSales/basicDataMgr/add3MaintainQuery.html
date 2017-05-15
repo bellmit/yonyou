@@ -1,0 +1,148 @@
+<div class="dms-add"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">新增保养套餐</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+					
+	<!--              <div class="col-xs-12  col-sm-6" >
+						<div class="form-group">
+								<div class="col-xs-8">
+									<div class="input-group">
+									<label class="control-label col-xs-4">零件代码：</label>
+									<input id="partCode" readonly
+										name="PART_CODE" class="form-control" type="text"
+										data-fieldName="PART_CODE"/> 
+									     <input    type="hidden"   id="packageId" readonly name="PACKAGE_ID" class="form-control" type="text"  	data-fieldName="PACKAGE_ID" />
+										<span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="vehicle/afterSales/basicDataMgr/searchLingJianCode.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+		
+									</div>
+								</div>
+							</div>
+					</div> -->
+					
+					<div class="col-xs-12  col-sm-6" data-tableSelect="true">
+						<div class="form-group">
+								<label class="control-label col-xs-4">零件代码</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+									<input id="partCode" readonly
+										name="PART_CODE" class="form-control" type="text"
+										data-fieldName="PART_CODE" /> 
+										     <input    type="hidden"   id="packageId" readonly name="PACKAGE_ID" class="form-control" type="text"  	data-fieldName="PACKAGE_ID" />
+										<span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="vehicle/afterSales/basicDataMgr/searchLingJianCode.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+					</div>	
+					
+					
+					
+					<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">描述</label>
+							<div class="col-xs-8">
+							<input id="partName" readonly name="PART_NAME" class="form-control" type="text"  	data-fieldName="PART_NAME"/>	
+							</div>
+						</div>
+					</div>
+					
+						<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">处理</label>
+							<div class="col-xs-8">
+						    <select id="dealType" name="DEAL_TYPE" class="bs-select form-control"  data-type="oemDict"  data-dictCode="4003"  	data-fieldName="DEAL_TYPE" ></select>         	                   				
+											</div>
+						</div>
+					</div>
+					
+							<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">数量</label>
+							<div class="col-xs-8">
+						 <input id="amount" readonly name="AMOUNT" class="form-control" type="text"  	data-fieldName="AMOUNT" />         	                   				
+											</div>
+						</div>
+					</div>
+					
+										<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">单价</label>
+							<div class="col-xs-8">
+						  <input id="price" readonly name="PRICE" class="form-control" type="text"  	data-fieldName="PRICE" />
+					         </div>
+						</div>
+					</div>
+					
+						<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">费用</label>
+							<div class="col-xs-8">
+					<input id="fee" readonly name="FEE" class="form-control" type="text"  	data-fieldName="FEE" />
+					         </div>
+						</div>
+					</div>
+					
+					
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-onclickEvent="true" 
+				class="btn blue" ><i
+				class="fa fa-save"></i>保存</a> <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			var row=  $('.form-horizontal',container).serializeFormJson();
+			$("#two_table", getParentModal(container)).dmsTable().appendRow(row);
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+		});
+		
+		
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("a.clear").click();
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	})
+</script>
+

@@ -1,0 +1,52 @@
+<div class="dms-add">
+	<form  class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				
+				<input type="hidden" id="id" name="dealerId">
+				<input type="hidden" id="type" name="uploadType">
+				
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-9 col-lg-10">	
+						<div class="form-group">
+							<label class="control-label  col-xs-4">上传文件</label>
+								<div class="col-xs-8">
+                             		<input type="file" class="importFiles" id="fileupload" name="dmsFile" data-inputName="dmsFileIds">
+                          		</div>
+                            <div class="col-xs-1"></div>
+						</div>
+					</div>
+				</div>
+				<div class="row ">
+				<div class="modal-footer center-block">
+					<div class="query-btn">
+						
+					<a data-url="/queryDealers/uploadFiles" data-model="manage" data-method="POST" data-fileUploadBtn="true"
+					 data-callBack="true"  class="btn blue "data-toggle="confirmation"> <i class="fa fa-save"></i>上传
+					</a> 
+					<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i>清空
+							</a>
+					 <a data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>关闭</a> 
+					</div>
+				</div>
+				</div>
+				
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){debugger;
+		//获取dealerId 和 附件类别  
+		$("#id").val($("#dealerId").val());
+		$("#type").val($("#uploadType").val());
+		
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dmsList"+$("#type").val(),getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	});
+</script>

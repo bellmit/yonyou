@@ -1,0 +1,112 @@
+<div class="dms-edit ajaxrest" data-url="/warn/{[ID]}"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">三包项目预警参数修改</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">项目编码</label>
+							<div class="col-xs-8">
+								<input type="text" readonly id="itemNo" class="form-control"
+									name="itemNo" data-fieldName="ITEM_NO">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">项目名称</label>
+							<div class="col-xs-8">
+								<input type="text" readonly id="itemName" class="form-control "
+									name="itemName" data-fieldName="ITEM_NAME">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">法定标准</label>
+							<div class="col-xs-8">
+								<input type="text" id="legalStandard" name="legalStandard"
+								 class="form-control"	data-fieldName="LEGAL_STANDARD">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">预警标准</label>
+							<div class="col-xs-8">
+								<input type="text" id="warnStandard" name="warnStandard"
+								 class="form-control"	data-fieldName="WARN_STANDARD">
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">黄色标准</label>
+							<div class="col-xs-8">
+								<input type="text" id="yellowStandard" name="yellowStandard"
+								 class="form-control"	data-fieldName="YELLOW_STANDARD">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">橙色标准</label>
+							<div class="col-xs-8">
+								<input type="text" id="orangeStandard" name="orangeStandard"
+								 class="form-control"	data-fieldName="ORANGE_STANDARD">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">红色标准</label>
+							<div class="col-xs-8">
+								<input type="text" id="redStandard" name="redStandard"
+								 class="form-control"	data-fieldName="RED_STANDARD">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal-footer center-block">
+			<a data-url="/warn/{[ID]}" data-model="vehicle" data-method="PUT"
+				data-callBack="true" class="btn blue" data-toggle="confirmation">
+				<i class="fa fa-save"></i>保存
+			</a> <a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	//页面加载后初始化
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				//新增页面的回调函数
+				$("a[data-callBack='true']", container).on(
+						"callBack.dms",
+						function(event, response) {
+							//关闭窗口
+							$("a[data-dismiss='modal']", container).click();
+							//刷新表格
+							$("#dms_table", getElementContext()).dmsTable()
+									.refreshTableWithForm();
+						});
+			});
+</script>

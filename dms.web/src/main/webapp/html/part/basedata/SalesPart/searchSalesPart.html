@@ -1,0 +1,449 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		    <input type="hidden" class="form-control" id="customerCode" name="customerCode"> 
+			<input type="hidden" class="form-control" id="vin" name="vin"> 
+			<input type="hidden" class="form-control" id="tableList" name="tableList">
+			<input type="hidden" class="form-control" id="deleteList" name = "deleteList">
+			<input type="hidden" class="form-control" id="storageCode" name="storageCode">
+			<input type="hidden" class="form-control" id="salesPartNo" name="salesPartNo">
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row ">
+						<div class="col-xs-10 col-sm-5 col-md-2">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">配件销售单号</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input id="salesNo" name="salesNo" class="form-control" type="text" />
+										<span class="input-group-btn">
+											<button class="btn default btn-sm" id="btnSearchRoNo"
+												type="button" data-onclickEvent="true"
+												data-url="part/basedata/SalesPart/searchSalesPartNo.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-10 col-sm-5 col-md-2">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">工单号</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input id="roNo" name="roNo" class="form-control" type="text" />
+										<span class="input-group-btn">
+											<button class="btn default btn-sm" id="btnSearchRoNo"
+												type="button" data-onclickEvent="true"
+												data-url="part/basedata/partMaintainPicking/searchRoNo.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-10 col-sm-5 col-md-2">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销售顾问</label>
+								<div class="col-xs-8 ">
+									<select id="receiptor" name="receiptor"
+											class="bs-select form-control"
+											data-url="/basedata/employees/-1/salesConsultant"
+											data-model="manage" data-labelValue="USER_ID" data-value="{[userInfo.USER_ID]}"
+											data-lableDesc="USER_NAME" >
+										</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-10 col-sm-5 col-md-2">
+						<div class="form-group">
+							<div class="col-xs-8">
+									<div class="input-group">
+										<input type="radio" name="customerRadio" checked="checked"
+							 id="customer0" data-isinit="true"><span>客户</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							 <input type="radio" name="customerRadio"
+							 id="customer1" data-isinit="true"><span>车主</span>
+									</div>
+								</div>
+						</div>
+					</div>
+						<div class="col-xs-10 col-sm-5 col-md-2">
+						<div class="form-group">
+							<label class="control-label col-xs-4 "> 客户名称</label>
+							<div class="col-xs-8">
+									<div class="input-group">
+										<input id="customerName" name="customer" disabled="disabled" class="form-control" type="text" />
+										<span class="input-group-btn">
+											<button class="btn default btn-sm" id="btnChooseUser" type="button" data-Width="modal-lg" data-url="part/basedata/accountPayableManage/searchCustomers.html"
+												data-toggle="modal" >
+												<i class="fa fa-search" />
+											</button>
+										</span>
+									</div>
+								</div>
+						</div>
+					</div>
+
+						<div class="col-xs-10 col-sm-5 col-md-2">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销售订单号</label>
+								<div class="col-xs-8 ">
+									<input type="text" class="form-control" id="saleCode" name="saleCode"
+										disabled="disabled">
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-10 col-sm-5 col-md-2">
+							<div class="form-group">
+								<label class="control-label col-xs-4">备注</label>
+								<div class="col-xs-8 ">
+									<input type="text" class="form-control" id="remark"
+										name="remark" disabled="disabled">
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">配件销售</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="partSalestable"></table>
+					</br>
+					<div class="row ">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销售合计金额</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input type="text" class="form-control" id="edtMoney"
+											name="edtMoney">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">收费合计金额</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input type="text" class="form-control" id="edtFactMoney"
+											name="edtFactMoney">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">折扣率</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input type="text" class="form-control"
+											id="cxCurrencyEditDiscount" name="cxCurrencyEditDiscount">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">选择记录后输入折扣率回车计算金额</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="btnDiv" class="modal-footer center-block">
+			<a class="btn btn-outline" id="btnAdd" data-beforeRequest="true"
+				data-url="part/basedata/SalesPart/addPartStorage.html"
+				data-toggle="modal" data-width="modal-lg"> <i
+				class="fa fa-plus-square"></i> 新增
+			</a> <a class="btn btn-outline" id="btnUpdate" data-beforeRequest="true"
+				data-url="part/basedata/partMaintainPicking/editMaintainPicking.html"
+				data-toggle="modal" data-width="modal-lg"> <i
+				class="fa fa-plus-square"></i> 修改
+			</a> <a class="btn btn-outline" id="btnUpdate" disabled="disabled"
+				data-url="part/basedata/partMaintainPicking/editMaintainPicking.html"
+				data-toggle="modal" data-width="modal-lg"> <i
+				class="fa fa-plus-square"></i> 删除
+			</a><a  disabled="disabled" id="btnReturn" class="btn btn-outline" data-url="part/basedata/partMaintainPicking/backPartsTab.html"
+				 data-toggle="modal" data-width="modal-lg"><i
+				class="fa fa-plus-square"></i>退料</a> <a disabled="disabled"  data-url="part/basedata/partMaintainPicking/borrowMaintainPicking.html"
+				id="btnBorrow" class="btn btn-outline" data-toggle="modal" data-width="modal-lg"><i
+				class="fa fa-plus-square"></i>导出模板</a> <a disabled="disabled"
+				id="btnRepair" class="btn btn-outline" data-url="part/basedata/partMaintainPicking/searchTtRoLabour.html"
+				data-toggle="modal" data-width="modal-lg"><i 
+				class="fa fa-plus-square"></i>导入</a> <a disabled="disabled"
+				id="btnEdit" class="btn btn-outline" data-onclickEvent="true"><i
+				class="fa fa-plus-square"></i>新建</a> <a
+				class="btn btn-outline" data-url="/basedata/ttSalesPart/savePartSales"
+				data-model="part" data-method="POST" data-beforeRequest="true"
+				data-callBack="true" id="btnStockOut" class="btn btn-outline"
+				data-toggle="confirmation"> <i class="fa fa-plus-square"></i>保存
+			</a> <a disabled="disabled"
+				class="btn btn-outline" data-url="/basedata/ttRepairOrder/account"
+				data-model="repair" data-method="POST" data-beforeRequest="true"
+				data-callBack="true" id="btnStockOut" class="btn btn-outline"
+				data-toggle="confirmation"> <i class="fa fa-plus-square"></i>出库
+			</a><a disabled="disabled"
+				class="btn btn-outline" data-url="/basedata/ttRepairOrder/account"
+				data-model="repair" data-method="POST" data-beforeRequest="true"
+				data-callBack="true" id="btnStockOut" class="btn btn-outline"
+				data-toggle="confirmation"> <i class="fa fa-plus-square"></i>EXCEL
+			</a><a disabled="disabled" id="btnCancel" class="btn btn-outline"
+				data-onclickEvent="true"><i class="fa fa-plus-square"></i>取消</a>
+				<a disabled="disabled" id="btnCancel" class="btn btn-outline"
+				data-onclickEvent="true"><i class="fa fa-plus-square"></i>作废</a> <a
+				data-url="/basedata/businessCustomer/export/excel" id="btnPrint"
+				disabled="disabled" data-model="customer" data-method="downLoad"
+				data-onclickEvent="true" data-toggle="confirmation"
+				class="btn btn-outline"><i class="fa fa-download"></i>打印销售单 </a> <a
+				disabled="disabled" id="btnRePrint" data-onclickEvent="true"
+				class="btn btn-outline"><i class="fa fa-plus-square"></i>打印销售结算单</a>
+
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event, container) {
+						//$("#btnAdd",container).setElementReadOnly();
+						
+		$("#customer0", container).change(function(){
+ 		$("#btnChooseUser", container).attr("data-url", "part/basedata/accountPayableManage/searchCustomers.html");
+ 		});
+ 	$("#customer1", container).change(function(){
+ 		$("#btnChooseUser", container).attr("data-url", "part/basedata/PartSaleQuote/searchOwners.html");
+ 	});
+new Datatable().initLocale({
+		src:"partSalestable",
+		container:container,
+	    url : dmsCommon.getDmsPath()['part']+"/basedata/ttSalesQuote/queryPartSalesItem",
+	    rowID:"SALES_PART_NO",
+	    autoHeight : false,
+	    isQueryFirst : false,
+		columns : [ 
+			  {radio : true,sortable : false},
+				{field : "",title : "操作",operateFormat : [ {
+                 type : "localDel",onBeforeEvent:function(value, row, index){
+                	 if($("#isFinished", container).val() == '12781001'){
+                		 dmsCommon.tip({status:"warning",msg:"该报价单已经完成，不能删除！"});
+                		 return false;
+                	 }
+						if (row.UPDATE_STATUS == "R" || row.UPDATE_STATUS == "U"){
+							if($("#deleteList",container).val()!=''){
+								$("#deleteList",container).val($("#deleteList",container).val()+";{itemId:"+row.ITEM_ID+"}");
+							}else{
+								$("#deleteList",container).val("{itemId:"+row.ITEM_ID+"}");
+							}
+						}
+							//$("#partSalestable",container).dmsTable().refreshTableWithForm();
+		            },isShow : function(value,row, index) {return true;}
+				} ]
+				},
+			  {field:"ITEM_UPDATE_STATUS",title:"状态",inputHiddenFormat : {
+					hiddenFieldName : "itemUpdateStatus",
+					hiddenField : "ITEM_UPDATE_STATUS"
+				}},
+		      {field:"STORAGE_CODE",title:"仓库",inputHiddenFormat : {
+					hiddenFieldName : "storageCode",
+					hiddenField : "STORAGE_CODE"
+				}},
+		      {field:"STORAGE_POSITION_CODE",title:"库位",inputHiddenFormat : {
+					hiddenFieldName : "storagePositionCode",
+					hiddenField : "STORAGE_POSITION_CODE"
+				}},
+		      {field:"PART_NO",title:"配件代码",inputHiddenFormat : {
+					hiddenFieldName : "partNo",
+					hiddenField : "PART_NO"
+				}},
+		      {field:"PART_NAME",title:"配件名称",inputHiddenFormat : {
+					hiddenFieldName : "partName",
+					hiddenField : "PART_NAME"
+				}},
+		      {field:"UNIT_CODE",title:"单位",inputHiddenFormat : {
+					hiddenFieldName : "unitCode",
+					hiddenField : "UNIT_CODE"
+				}},
+		      {field:"PART_QUANTITY",title:"数量",inputHiddenFormat : {
+					hiddenFieldName : "partQuantity",
+					hiddenField : "PART_QUANTITY"
+				}},
+		      {field:"PART_SALES_PRICE",title:"配件销售单价",inputHiddenFormat : {
+					hiddenFieldName : "partSalesPrice",
+					hiddenField : "PART_SALES_PRICE"
+				}},
+		      {field:"PART_SALES_AMOUNT",title:"配件销售金额",inputHiddenFormat : {
+					hiddenFieldName : "partSalesAmount",
+					hiddenField : "PART_SALES_AMOUNT"
+				}},
+		      {field:"SALES_DISCOUNT",title:"折扣率",inputHiddenFormat : {
+					hiddenFieldName : "salesDiscount",
+					hiddenField : "SALES_DISCOUNT"
+				}},
+		      {field:"PART_SALES_AMOUNT",title:"配件收费金额",inputHiddenFormat : {
+					hiddenFieldName : "partSalesAmount",
+					hiddenField : "PART_SALES_AMOUNT"
+				}},
+		      {field:"PART_COST_PRICE",title:"配件成本单价",inputHiddenFormat : {
+					hiddenFieldName : "partCostPrice",
+					hiddenField : "PART_COST_PRICE"
+				}},
+		      {field:"PART_COST_AMOUNT",title:"配件成本金额",inputHiddenFormat : {
+					hiddenFieldName : "partCostAmount",
+					hiddenField : "PART_COST_AMOUNT"
+				}},
+		      {field:"IS_DISCOUNT",title:"不可打折",inputHiddenFormat : {
+					hiddenFieldName : "isDiscount",
+					hiddenField : "IS_DISCOUNT"
+				}},
+		      {field:"ADD_RATE",title:"加价率",inputHiddenFormat : {
+					hiddenFieldName : "addRate",
+					hiddenField : "ADD_RATE"
+				}},
+		      {field:"CREATED_BY",title:"制单人",inputHiddenFormat : {
+					hiddenFieldName : "createdBy",
+					hiddenField : "CREATED_BY"
+				}},
+		      {field:"OLD_SALES_PART_NO",title:"原配件销售单号",inputHiddenFormat : {
+					hiddenFieldName : "oldSalesPartNo",
+					hiddenField : "OLD_SALES_PART_NO"
+				}}
+		      ],
+				onLoadSuccess : function() {
+					
+					var row = $("#partSalestable",container).dmsTable().getRowDataByIndex();
+					if (row.length >= 1) {
+						$("#btnAdd").removeAttr("disabled");
+						$("#btnSave").removeAttr("disabled");
+						$("#btnExcel").removeAttr("disabled");
+						$("#btnSearchQuoteNo").attr("disabled", "true");
+						$("input[id^='costPrice']").bindChange(function(obj){
+							
+						});
+					}
+				}
+	});
+	
+						//当点击出库按钮成功后的回调
+						$("a[data-callBack='true']", container).on(
+								"callBack.dms", function(event, response) {
+									$("#btnEdit").removeAttr("disabled");//编辑按钮变为可以点击
+									$("#btnRepair").removeAttr("disabled");
+									$("#btnPrint").removeAttr("disabled");
+									$("#btnRePrint").removeAttr("disabled");
+
+									$("#btnAdd").attr("disabled", "true");
+									$("#btnUpdate").attr("disabled", "true");
+									$("#btnStockOut").attr("disabled", "true");
+									$("#btnBorrow").attr("disabled", "true");
+									$("#btnReturn").attr("disabled", "true");
+								});
+
+						//点击 按钮事件
+						$("button[data-onclickEvent='true']", container).on("dms.click", function(event) {
+									if (this.id == "btnSearchRoNo") {
+
+									}
+								});
+						//点击 按钮事件
+						$("a[data-onclickEvent='true']", container).on("dms.click",function(event) {
+											if (this.id == "btnCancel") {
+												dmsCommon.refreshPageByUrl("part/basedata/partMaintainPicking/searchMaintainPicking.html",container);
+											} else if (this.id == "btnEdit") {
+												$("#btnAdd").removeAttr(
+														"disabled");
+												$("#btnUpdate").removeAttr(
+														"disabled");
+												$("#btnStockOut").removeAttr(
+														"disabled");
+												$("#btnCancel").removeAttr(
+														"disabled");
+												$("#btnReturn").removeAttr(
+														"disabled");
+												$("#btnBorrow").removeAttr(
+														"disabled");
+												$("btnRepair").removeAttr(
+														"disabled");
+
+												$("#btnPrint").attr("disabled",
+														"true");
+												$("#btnRePrint").attr(
+														"disabled", "true");
+												$("#btnEdit").attr("disabled",
+														"true");
+											}
+										});
+
+						//点击出库之前校验
+						$('a[data-beforeRequest="true"]', container).on('beforeRequest.dms',function(event, returnResult) {
+						var parentRow = $("#partSalestable",container).dmsTable().getRowDataByIndex();//获取整个table
+						var selectMasterRow = $("#partSalestable",container).dmsTable().getFirstSelection();
+											//如果是出库按钮
+											if (this.id = 'btnStockOut') {
+												$("#tableList").val(parentRow);
+												returnResult.status = true;
+
+											} else if (this.id = 'btnAdd') {
+												//是索赔类型的工单
+												if (parentRow.length > 0
+														&& parentRow[i].RO_TYPE == '12531004') {
+													//aForm.aIs_RPT_CLAIM := True;
+												} else {
+													//aForm.aIs_RPT_CLAIM := False;
+												}
+												//工单是否有保险公司
+												if (parentRow.length > 0 && parentRow[i].INSURATION_CODE != '') {
+													//aForm.aINSURATION_CODE := True;
+													// aForm.ainsureCode := fcdsOrder.FieldByName('INSURATION_CODE').AsString;
+												} else {
+													//aForm.aINSURATION_CODE := False;
+												}
+											}else if(this.id == 'btnReturn'){
+												
+											}else if(this.id == 'btnUpdate'){
+												if(selectMasterRow){
+													if(selectMasterRow[0]["OLD_SALES_PART_NO"] != ''){
+														dmsCommon.tip({status:"warning",msg:"退料的记录不允许修改！"});
+														returnResult.status = false;
+													}
+												}else{
+													dmsCommon.tip({status:"warning",msg:"请选择一条配件信息！"});
+													returnResult.status = false;
+												}
+												returnResult.status = true;
+											}
+										});
+						
+						//点击出库之前校验
+						$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult) {
+							if(this.id == 'btnReturn'){
+								var selectMasterRow = $("#partSalestable",container).dmsTable().getSelections();
+								if(selectMasterRow){
+									return true;
+								}else{
+									dmsCommon.tip({status:"warning",msg:"请选择一条工单配件信息！"});//总共的状态类型：info、success、error、warning
+									return false;
+								}
+							}
+						});
+
+					});
+</script>

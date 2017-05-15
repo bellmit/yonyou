@@ -1,0 +1,794 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">员工信息新增</div>
+		
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">员工基本信息</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">员工编号</label>
+								<div class="col-xs-8" >
+									  <input id="DICT_IS_YES" name="DICT_IS_YES" class="form-control" type="hidden"  data-valueUrl="/basedata/BasicParameters/2201/GLOBAL"   data-valueType="parameter"/>
+									  <!-- <div class="input-group"> <span class="input-group-addon">{[userInfo.dealerCode]}</span>  </div> -->
+										  <input id="employeeNo"  name="employeeNo" maxlength="4" minlength="4" class="form-control required systemCode" type="text" />
+									 
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">员工姓名</label>
+								<div class="col-xs-8">
+									<input id="employeeName" name="employeeName"
+										class="form-control required" maxlength="30" type="text" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">性别</label>
+								<div class="col-xs-8">
+									<select id="gender" name="gender"
+										class="bs-select form-control" data-dictCode="1006"
+										data-value="10061001" data-existsDefault="false" >
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">部门</label>
+								<div class="col-xs-8">
+								     <div class="input-group">
+										    <input id="orgCode" readonly name="orgCode"class="form-control required" type="hidden" />
+										    <input id="organizationId"  name="organizationId"class="form-control required" type="hidden" />
+										    <input id="orgName" readonly name="orgName"class="form-control required" type="text" data-fieldName="ORG_NAME" />
+											
+											
+											<span class="input-group-btn">
+												<button class="btn default btn-sm" type="button" data-url="manage/basedata/employee/selectDept.html"
+													data-toggle="modal" data-width="modal-md"> <i class="fa fa-sitemap"></i>
+												</button>
+												<button class="btn default input-clear" type="button">
+	                                            	<i class="fa fa-close"></i>
+	                                    		</button>
+										   </span>
+									   </div>
+								</div>
+							</div>
+						</div>
+
+						
+
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">班组</label>
+								<div class="col-xs-8">
+									<select id="workgroupCode" name="workgroupCode"
+										class="bs-select form-control"
+										data-url="/basedata/workgroups/dicts/select" data-model="repair"
+										data-labelValue="WORKGROUP_CODE" data-lableDesc="WORKGROUP_NAME">
+									</select>
+								</div>
+
+							</div>
+						</div>
+						
+						  <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">工种</label>
+								<div class="col-xs-8">
+									<select id="workerTypeCode" name="workerTypeCode"
+										class="bs-select form-control"
+										data-url="/basedata/workerTypes/employees/dicts" data-model="repair"
+										data-labelValue="WORKER_TYPE_CODE"
+										data-lableDesc="WORKER_TYPE_NAME">
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">电话</label>
+								<div class="col-xs-8">
+									<input id="phone" name="phone" type="text" class="form-control  required " maxlength="15"/>
+								</div>
+							</div>
+						</div>
+				
+				
+				     <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">手机</label>
+								<div class="col-xs-8">
+									<input id="mobile" name="mobile" type="text"
+										class="form-control required " />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">职务</label>
+								<div class="col-xs-8">
+									<select id="positionCode" name="positionCode"
+										class="bs-select form-control required"
+										data-url="/basedata/positions/duty/dicts" data-model="manage"
+										data-labelValue="POSITION_CODE" data-lableDesc="POSITION_NAME">
+									</select>
+								</div>
+
+							</div>
+						</div>
+						
+					 <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">身份证号</label>
+								<div class="col-xs-8">
+									<input id="certificateId" name="certificateId"
+										class="form-control IDNumber required" type="text" />
+								</div>
+							</div>
+						</div>
+
+				
+
+						<div class="col-xs-12 col-sm-6  col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">出生日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker" data-date-end-date="+0d" data-orientation="top right">
+										<input id="birthday" name="birthday" readonly
+											class="form-control" type="text" value="" /> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">E_MAIL</label>
+								<div class="col-xs-8">
+									<input id="eMail" name="eMail" type="text" class="form-control email" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否技师</label>
+								<div class="col-xs-8">
+									<select id="isTechnician" name="isTechnician"
+										class="bs-select form-control" data-dictCode="1278"
+										data-value="12781001"  >
+									</select>
+								</div>
+							</div>
+						</div>
+						
+					 <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">技师等级</label>
+								<div class="col-xs-8">
+									<select id="technicianGrade" name="technicianGrade"
+										class="bs-select form-control" data-dictCode="1232"
+										data-value=""  >
+									</select>
+								</div>
+							</div>
+						</div>
+						
+					 <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">主维修工位</label>
+								<div class="col-xs-8">
+									<select id="labourPositionCode" name="labourPositionCode"
+										class="bs-select form-control"
+										data-url="/basedata/repairpositions/employee/dicts" data-model="repair"
+										data-labelValue="LABOUR_POSITION_CODE"
+										data-lableDesc="LABOUR_POSITION_NAME" >
+									</select>
+								</div>
+							</div>
+					</div>
+					
+						 <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否跟踪员</label>
+								<div class="col-xs-8">
+									<select id="isTracer" name="isTracer"
+										class="bs-select form-control" data-dictCode="1278"
+										data-value="12781002"  >
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否试车员</label>
+								<div class="col-xs-8">
+									<select id="isTestDriver" name="isTestDriver"
+										class="bs-select form-control" data-dictCode="1278"
+										data-value="12781002"  >
+									</select>
+								</div>
+							</div>
+						</div>
+						
+					  <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">副维修工位</label>
+								<div class="col-xs-8">
+									<select id="secLabourPositionCode" name="secLabourPositionCode"
+										class="bs-select form-control"
+										data-url="/basedata/repairpositions/employee/dicts" data-model="repair"
+										data-labelValue="LABOUR_POSITION_CODE"
+										data-lableDesc="LABOUR_POSITION_NAME" >
+									</select>
+								</div>
+							</div>
+					    </div>
+					    
+					     <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否可领料</label>
+								<div class="col-xs-8">
+									<select id="isTakePart" name="isTakePart"
+										class="bs-select form-control" data-dictCode="1278"
+										data-value="12781002"  >
+									</select>
+								</div>
+							</div>
+					    </div>
+					    
+					    <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">工时系数</label>
+								<div class="col-xs-8">
+									<input id="labourFactor" name="labourFactor" type="text" class="form-control required " value="1.00"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否客户经理</label>
+								<div class="col-xs-8">
+									<select id="isServiceAdvisor" name="isServiceAdvisor"
+										class="bs-select form-control" data-dictCode="1278"
+										data-value="12781002"  >
+									</select>
+								</div>
+							</div>
+					    </div>
+
+						
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">邮编</label>
+								<div class="col-xs-8">
+									<input id="zipCode" name="zipCode" type="text"
+										class="form-control zipCode" />
+								</div>
+							</div>
+						</div>
+						
+					  <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否保险专员</label>
+								<div class="col-xs-8">
+									<select id="isInsurationAdvisor" name="isInsurationAdvisor"
+										class="bs-select form-control" data-dictCode="1278"
+										data-value=""  >
+									</select>
+								</div>
+							</div>
+					    </div>
+					    
+					   <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否装潢专员</label>
+								<div class="col-xs-8">
+									<select id="isUpholsterAdvisor" name="isUpholsterAdvisor"
+										class="bs-select form-control" data-dictCode="1278"
+										data-value=""  >
+									</select>
+								</div>
+							</div>
+					    </div>
+
+				
+						
+					 <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">入职日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker">
+										<input id="entryDate" name="entryDate" 
+											class="form-control" type="text" value="" /> <span
+											class="input-group-btn">
+											<button  class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button  class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">离职日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker">
+										<input id="dimissionDate" name="dimissionDate" 
+											class="form-control" type="text" value="" /> <span
+											class="input-group-btn">
+											<button  class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                              <button  class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+										</span>
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">建档日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker" id="datetimepicker2"  data-orientation="top right"data-defaultToday="true" >
+										<input id="foundDate" name="foundDate" disabled class="form-control" type="text" /> 
+										<span class="input-group-btn">
+											<button class="btn default date-set" disabled type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+											<button class="btn default date-reset" disabled type="button">
+												<i class="fa fa-times"></i>
+											</button>
+										</span>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">DCRC专员</label>
+								<div class="col-xs-8">
+									<select id="isDcrcAdvisor" name="isDcrcAdvisor"
+										class="bs-select form-control" data-dictCode="1278"
+										data-value=""  >
+									</select>
+								</div>
+							</div>
+					    </div>
+					    
+					   <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">续保专员</label>
+								<div class="col-xs-8">
+									<select id="isInsuranceAdvisor" name="isInsuranceAdvisor"
+										class="bs-select form-control" data-dictCode="1278"
+										data-value=""  >
+									</select>
+								</div>
+							</div>
+					    </div>
+					    
+					   <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">定保专员</label>
+								<div class="col-xs-8">
+									<select id="isMaintainAdvisor" name="isMaintainAdvisor"
+										class="bs-select form-control" data-dictCode="1278"
+										data-value=""  >
+									</select>
+								</div>
+							</div>
+					    </div>
+						
+						<div class="col-xs-12 col-sm-12 col-md-8">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2">地址</label>
+								<div class="col-xs-8 col-sm-10">
+									<input id="address" name="address" type="text"
+										class="form-control" maxlength="180"/>
+								</div>
+							</div>
+						</div>
+						
+					   <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">默认调度组</label>
+								<div class="col-xs-8">
+									<select id="dispatchCode" name="dispatchCode"
+										class="bs-select form-control"
+										data-url="/basedata/employees/queryDispatchInfo/items" data-model="manage"
+										data-labelValue="DISPATCH_CODE" data-lableDesc="DISPATCH_NAME">
+									</select>
+								</div>
+
+							</div>
+						</div>
+						
+						   <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否检验员</label>
+								<div class="col-xs-8">
+									<select id="isChecker" name="isChecker"
+										class="bs-select form-control" data-dictCode="1278"
+										data-value="12781002" data-existsDefault="false" >
+									</select>
+								</div>
+							</div>
+					    </div>
+					    
+					     <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否主修</label>
+								<div class="col-xs-8">
+									<select id="isMajorRepairer" name="isMajorRepairer"
+										class="bs-select form-control" data-dictCode="1278"
+										data-value="" >
+									</select>
+								</div>
+							</div>
+					    </div>
+					   
+					   <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否调度员</label>
+								<div class="col-xs-8">
+									<select id="isDispatcher" name="isDispatcher"
+										class="bs-select form-control" data-dictCode="1278"
+										data-value=""  >
+									</select>
+								</div>
+							</div>
+					    </div>
+					    
+					    <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">默认工序</label>
+								<div class="col-xs-8">
+								
+									<select id="orderCode" name="orderCode"
+										class="bs-select form-control"
+										data-url="/basedata/employees/queryWorkOrder/items" data-model="manage"
+										data-labelValue="ORDER_CODE" data-lableDesc="ORDER_NAME">
+									</select>
+								</div>
+							</div>
+					    </div>
+					    
+					       <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">技师级别</label>
+								<div class="col-xs-8">
+									<select id="techLevelCode" name="techLevelCode"
+										class="bs-select form-control" data-url="/basedata/employees/queryTechLevelr/items" data-model="manage"
+										data-labelValue="TECH_LEVEL_CODE" data-lableDesc="TECH_LEVEL_NAME" data-fieldName="DISPATCH_CODE" >
+									</select>
+								</div>
+							</div>
+					    </div>
+					    
+					   <div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">微信默认客户经理</label>
+								<div class="col-xs-8">
+									<select id="isDefaultManager" name="isDefaultManager"
+										class="bs-select form-control" data-dictCode="1278"
+										data-value="12781002"  >
+									</select>
+								</div>
+							</div>
+					    </div>
+					    
+					   <div class="col-xs-12 col-sm-12 col-md-8 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2 ">个人简历</label>
+								<div class="col-xs-8 col-sm-10">
+									<input id="DICT_IS_YES" name="DICT_IS_YES" class="form-control" type="hidden"  data-valueUrl="/basedata/BasicParameters/2201/GLOBAL"   data-valueType="parameter"/>
+								     <textarea id="resume" name="resume" class="form-control" textAreaLen="100"  rows="3" cols=""  ></textarea>
+								</div>
+						</div>
+				      </div>
+				       <div class="col-xs-12 col-sm-12 col-md-8 hidden" >
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2 " >隐藏</label>
+								<div class="col-xs-8 col-sm-10">
+								     <input id="list" name="list" class="form-control"  />
+								</div>
+						</div>
+				      </div>
+						
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">培训简历</div>
+					<div class="pannel-tools">
+						<a href="javascript:;" class="expand"> <i class="fa fa-chevron-down"></i></a>
+					</div>
+			      <div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<a class="btn btn-outline" href="javascript:;"
+								data-onclickEvent="true"> <i class="fa fa-plus-square"></i>添加
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="listEmpTrain">
+					</table>
+				</div>
+				
+			</div>
+		</div>
+		<div class="modal-footer">
+
+		 <a  data-errorCallBack="true" data-info="saveBefore" data-url="/basedata/employees/employeSaveBefore/{[EMPLOYEE_NO]}" data-callBack="true"   class="btn blue" data-toggle="confirmation" data-model="manage" data-method="GET" data-beforeRequest="true"  data-onclickEvent1='true' ><i class="fa fa-save"></i> 保存
+		</a> 
+		<a data-info="saveBeforeUrl"  data-url="/basedata/employees" data-model="manage" data-method="POST" data-callBack="true"
+				 data-saveBeforeEvent="true" class="btn blue ajaxrest hidden" ><i class="fa fa-save"></i> 保存</a> 			
+				<a data-goback="page" href="manage/basedata/employee/searchEmployee.html"
+				class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	//var checkOrgcode=0;
+	var checkEmployeeNo=0;
+	var checkMobile=0;
+	var checkCertificateId=0;
+	new Datatable().initLocale({
+		src : "listEmpTrain",
+		container:container,
+		columns : [ {title : "操作",operateFormat : [ {type : "localDel",onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){}}]}, 
+		            {field : "TRAINING_TIME",inputField:"trainingTime",title : "培训时间",minWidth:40,inputDateFormat : {validate:{validateClass:"required"}}},
+		            {field : "TRAINING_DEPARTMENT",inputField:"trainingDepartment",title : "培训部门",minWidth:40,inputTextFormat : {validate:{validateAttr:' maxlength="120"'}}},
+		            {field : "TRAINING_TYPE",inputField:"trainingType",title : "培训类型",minWidth:40,inputTextFormat : {validate:{validateAttr:' maxlength="120"'}}},
+		            {field : "TRAINING_COURSE",inputField:"trainingCourse",title : "培训课程",minWidth:40,inputTextFormat : {validate:{validateAttr:' maxlength="120"'}}},
+		            {field : "TRAINING_LEVEL",inputField:"trainingLevel",title : "培训级别",minWidth:40,inputTextFormat : {validate:{validateAttr:' maxlength="120"'}}},
+		            {field : "TRAINING_RESULT",inputField:"trainingResult",title : "培训结果",minWidth:40,inputTextFormat : {validate:{validateAttr:' maxlength="120"'}}},
+		            {field : "REMARK",inputField:"remark",title : "备注",minWidth:40,inputTextFormat : {validate:{validateAttr:' maxlength="120"'}}}
+		         ]
+	});
+	//事件点击
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		$("#listEmpTrain",getElementContext()).dmsTable().appendBlankRow();
+	}); 
+	//新增页面的回调函数
+	$("a[data-info='saveBefore']",container).on("callBack.dms",function(event,response){
+	if($("#isDefaultManager",container).val()=='12781001'){
+		var confirmPostBO=$("a[data-info='saveBeforeUrl']",$(this).parent());
+ 		$("a[data-info='saveBefore']",container).addClass("hidden");
+ 		confirmPostBO.removeClass("hidden");
+ 		if(response.success=="true"){
+				$("a[data-info='saveBeforeUrl']",container).click();
+				$("a[data-info='saveBefore']",container).removeClass("hidden");
+				$("a[data-info='saveBeforeUrl']",container).addClass("hidden");
+			}else{
+				confirmPostBO.confirm("当前默认微信客户经理是"+response.isDefaultManagerResult[0].employee_name+"是否修改成"+$("#employeeName",container).val(),function(confirmObj){
+					$(confirmObj).click();
+					$("a[data-info='saveBefore']",container).removeClass("hidden");
+					$("a[data-info='saveBeforeUrl']",container).addClass("hidden");
+					dmsCommon.refreshPageByUrl("manage/basedata/employee/searchEmployee.html",container); 
+					},function(confirmObj){
+						$("a[data-info='saveBefore']",container).removeClass("hidden");
+						$("a[data-info='saveBeforeUrl']",container).addClass("hidden");
+					}
+				);
+			}
+	}else{
+		$("a[data-info='saveBeforeUrl']",container).click();
+		$("a[data-info='saveBefore']",container).removeClass("hidden");
+		$("a[data-info='saveBeforeUrl']",container).addClass("hidden");
+	}
+
+	});
+
+	$("#phone",container).bindChange(function(obj){
+		if(!isStringNull($("#phone",container).val())){
+			$("#mobile",container).removeClass("required");
+		}else{
+			$("#mobile",container).addClass("required");
+		}
+	});
+	$("#mobile",container).bindChange(function(obj){
+		if(!isStringNull($("#mobile",container).val())){
+			$("#phone",container).removeClass("required");
+		}else{
+			$("#phone",container).addClass("required");
+		}
+	});
+	$("a[data-onclickEvent1='true']",container).on("dms.click",function(event){
+		//CheckEmployeeOrgcode($("#orgCode",container).val());
+		if($("#employeeNo",container).val()!=null&&$("#employeeNo",container).val()!=" "&&$("#employeeNo",container).val()!=0&&$("#employeeNo",container).val()!=undefined){
+			CheckEmployeeNo($("#employeeNo",container).val());
+		}
+		//alert($("#mobile",container).val());
+		if($("#mobile",container).val()!=null&&$("#mobile",container).val()!=" "&&$("#mobile",container).val()!=0&&$("#mobile",container).val()!=undefined){
+			CheckIsMobile($("#mobile",container).val());
+		}
+		if($("#certificateId",container).val()!=null&&$("#certificateId",container).val()!=" "&&$("#certificateId",container).val()!=0&&$("#certificateId",container).val()!=undefined){
+			SearhCertificateId($("#certificateId",container).val());
+		}
+		
+		
+		
+	});
+	 var SearhCertificateId=function(str){
+		 var employeeNo=$("#employeeNo",container).val();
+		 dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["manage"] + "/basedata/employees/certificateId/"+str+"/"+employeeNo,
+				type : 'GET',
+				sucessCallBack : function(data) {
+					checkCertificateId=data;
+					
+				}
+			});
+	 }
+	 var CheckIsMobile=function(str){
+		 var employeeNo=$("#employeeNo",container).val();
+		 dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["manage"] + "/basedata/employees/isMobile/"+str+"/"+employeeNo,
+				type : 'GET',
+				sucessCallBack : function(data) {
+					checkMobile=data;
+					
+				}
+			});
+			
+	 }
+	/*  var CheckEmployeeOrgcode=function(str){
+		 dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["manage"] + "/basedata/employees/isOrgCode/"+str,
+				type : 'GET',
+				sucessCallBack : function(data) {
+					checkOrgcode=data;
+					
+				}
+			});
+			
+	 } */
+	 var CheckEmployeeNo=function(str){
+		 dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["manage"] + "/basedata/employees/isEmployee/"+str,
+				type : 'GET',
+				sucessCallBack : function(data) {
+					checkEmployeeNo=data;
+					
+				}
+			});
+			
+	 }
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+		if($("#isServiceAdvisor",container).val()!="12781001"&&$("#isDefaultManager",container).val()=="12781001"){
+			dmsCommon.tip({status:"warning",msg:"只有客户经理才能设置成默认微信客户经理！"});
+			returnResult.status = false; //定义返回值
+			return;
+		}
+		if($("#isDefaultManager",container)=="12781001"&&isStringNull($("#mobile",container).val())){
+			dmsCommon.tip({status:"warning",msg:"请完善客户经理的手机号，否则将无法收到短信提醒！"})
+			returnResult.status = false; //定义返回值
+			return;
+		}
+		var phone=$("#phone",container).val();
+		var mobile=$("#mobile",container).val();
+		var mang=$("#orgCode").val();
+		
+		if(!isStringNull(phone)){
+			if(!(/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,8}$/.test(phone))){
+				dmsCommon.tip({status:"warning",msg:"请输入正确的电话号码！"})
+				returnResult.status = false; //定义返回值
+				return;
+			}
+		}
+			
+		if(!isStringNull(mobile)){
+			if(!(/^1[34578]\d{9}$/.test(mobile))){
+				dmsCommon.tip({status:"warning",msg:"请输入正确的手机号！"})
+				returnResult.status = false; //定义返回值
+				return;
+			}
+		}
+			
+		/*  if(checkOrgcode>0){
+			dmsCommon.tip({status:"warning",msg:"部门不能选择一级菜单，请重新选择！"})
+			returnResult.status = false; //定义返回值
+			return;
+		}  */
+		 if(checkEmployeeNo>0){
+				dmsCommon.tip({status:"warning",msg:"员工编号在主站/分站中已存在！"})
+				returnResult.status = false; //定义返回值
+				return;
+			} 	
+		 if(checkMobile>0){
+				dmsCommon.tip({status:"warning",msg:"手机号在主站/分站中已存在！"})
+				returnResult.status = false; //定义返回值
+				return;
+			} 
+		
+		 if(checkCertificateId>0){
+				dmsCommon.tip({status:"warning",msg:"身份证号在主站/分站中已存在！"})
+				returnResult.status = false; //定义返回值
+				return;
+			} 
+		
+		
+		
+		
+		
+	/*    if(isStringNull($("#labourPositionCode",container).val())){
+		   dmsCommon.tip({status:"warning",msg:"主维修工位不能为空！"})
+			returnResult.status = false; //定义返回值
+			return; 
+		}  */
+	/*  	if($("#labourPositionCode",container).val()==$("#secLabourPositionCode").val()){
+		   dmsCommon.tip({status:"warning",msg:"主维修工位与副维修工位不能相同！"})
+			returnResult.status = false; //定义返回值
+			return; 
+		}  */
+		if(!isStringNull($("#DICT_IS_YES",container).val())&&$("#DICT_IS_YES",container).val()==12781001){
+			$("#dispatchCode",container).addClass("required");
+			$("#orderCode",container).addClass("required");
+			if(!$("#dispatchCode",container).validateElement()||!$("#orderCode",container).validateElement()){
+				returnResult.status = false;
+				return ;	
+			}
+		}
+		returnResult.status = true; //定义返回值
+	});
+	//新增页面的回调函数
+	 $("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		dmsCommon.refreshPageByUrl("manage/basedata/employee/searchEmployee.html",container); 
+		//刷新表格
+		//$("#empList",getElementContext()).dmsTable().refreshTableWithForm();
+	});  
+});
+
+</script>

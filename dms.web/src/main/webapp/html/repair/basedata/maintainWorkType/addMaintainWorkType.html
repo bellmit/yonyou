@@ -1,0 +1,100 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">维修工位新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">维修工位代码</label>
+						<div class="col-xs-8">
+							<input id="labourPositionCode" name="labourPositionCode" maxlength="4" class="form-control required systemCode" type="text" />
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">维修工位名称</label>
+						<div class="col-xs-8">
+							<input type="text" class="form-control required" maxlength="20" id="labourPositionName" name="labourPositionName">
+					    </div>
+					</div>
+				</div>
+				
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">维修工位类别</label>
+						<div class="col-xs-8">
+							<select  id="labourPositionType" name="labourPositionType"  class="bs-select form-control" data-dictCode="1049">
+							</select>
+						</div>
+					</div>
+				</div>
+                  <div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">班组名称</label>
+						<div class="col-xs-8">
+							<select id="workGroupCode" name="workGroupCode"
+										 class="bs-select form-control"
+										data-url="/basedata/workgroups/dicts/select" data-model="repair"
+										data-labelValue="WORKGROUP_CODE" data-lableDesc="WORKGROUP_NAME">
+									</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">是否多车工位</label>
+						<div class="col-xs-8">
+						<select id="isManyPosition" name="isManyPosition" class="bs-select form-control" data-dictCode="1278">
+							</select>
+					    </div>
+					</div>
+				</div>
+				
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<label class="control-label col-xs-4">工位容量</label>
+						<div class="col-xs-8">
+							<input id="repairCapability" name="repairCapability"  maxlength="4" class="form-control required systemCode" type="text" />
+						</div>
+					</div>
+				</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a data-url="/basedata/maintainWorkType" data-model="repair"
+				data-method="POST" data-callBack="true" class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存</a> <a
+				data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				//新增页面回调函数
+				$("a[data-callBack='true']", container).on(
+						"callBack.dms",
+						function(event, response) {
+							//关闭窗口
+							$("a[data-dismiss='modal']", container).click();
+							//刷新表格
+							$("#dms_table", getElementContext()).dmsTable()
+									.refreshTableWithForm();
+						});
+			});
+</script>

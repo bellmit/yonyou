@@ -1,0 +1,167 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<!-- 国产 -->
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌</label>
+								<div class="col-xs-8">
+									<select id="brandId"
+										class="bs-select form-control" name="brandCode"
+										data-url="/basedata/material/brand/90081002"
+										data-model="manage" data-labelValue="BRAND_ID"
+										data-lableDesc="BRAND_NAME">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系</label>
+								<div class="col-xs-8">
+									<select id="seriesId" parent="brandId"
+										class="bs-select form-control" name="seriesName"
+										data-url="/basedata/material/series/90081002/{[brandId]}"
+										data-model="manage" data-labelValue="SERIES_ID"
+										data-lableDesc="SERIES_NAME">
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车款</label>
+								<div class="col-xs-8">
+									<select id="groupId" parent="seriesId"
+										class="bs-select form-control" name="groupName"
+										data-url="/basedata/material/group/90081002/{[seriesId]}"
+										data-model="manage" data-labelValue="GROUP_ID"
+										data-lableDesc="GROUP_NAME" >
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">PON号</label>
+								<div class="col-xs-8">
+									<input id="soNo" name="soNo" class="form-control" type="text" />
+								</div>
+							</div>
+						</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-2">月份</label>
+							<div class="col-xs-4">
+								<select id="yearId" class="bs-select form-control"
+									name="yearName" data-url="/forecastAudit/getMonthForecastYearList"
+									data-model="manage"
+									data-labelValue="FORECAST_YEAR" data-lableDesc="FORECAST_YEAR"
+									data-alwaysRefresh="true">
+								</select>
+							</div>
+							<label class="control-label col-xs-1">年</label>
+							<div class="col-xs-4">
+								<select id="monthId" class="bs-select form-control"
+									name="monthName" parent="yearId"  data-dictCode="9009">
+								</select>
+							</div>
+							<label class="control-label col-xs-1">月</label>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">任务编号</label>
+							<div class="col-xs-8">
+								<select id="taskCodeId" parent="monthId" name="taskCodeName"
+									class="bs-select form-control" 
+									data-url="/forecastAudit/year/{[yearId]}/month/{[monthId]}/getReportTaskNoList"
+									data-model="manage" data-labelValue="TASK_ID"
+									data-lableDesc="TASK_ID" data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">状态</label>
+							<div class="col-xs-8">
+								<select id="status" class="bs-select form-control"
+									name="status" data-type="oemDict" data-dictCode="2111">
+								</select>
+							</div>
+						</div>
+					</div>
+
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i>查询
+							</a>
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name" >生产订单序列号跟踪(经销商)明细</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+					<a href="javascript:;" data-url="/dlrForecast/OTDfindBySerialNumberDownload/export/excel"
+					 data-model="manage" data-method="downLoad" data-toggle="confirmation"
+						class="btn btn-outline " ><i class="fa fa-download"></i>下载</a> 
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="Dlr_forecast_find_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+
+    $(document).one("onload.dms",function(event,container){
+    	new Datatable().initPagination({
+    		src : "Dlr_forecast_find_table",
+    		container:container,
+    		   url : dmsCommon.getDmsPath()["manage"] + "/dlrForecast/DlrfindBySerialNumber",
+    		   rowID : "TASK_ID",
+    			columns : [ 
+  		            {field : "MONTH",title : "月份"},
+                    {field : "TASK_ID",title : "任务编号"},
+                    {field : "BRAND_NAME",title : "品牌"},
+                    {field : "SERIES_NAME",title : "车系"},
+                    {field : "MODEL_YEAR",title : "年款"},
+                    {field : "GROUP_NAME",title : "车款"},
+                    {field : "COLOR_NAME",title : "颜色"},
+                    {field : "TRIM_NAME",title : "内饰"},
+                    {field : "PON",title : "PON号"},
+                    {field : "STATUS",title : "状态",codeFormat : {type:"oemDict",codeType:"2111"}}
+    			],
+		    	onLoadSuccess : function() {
+					$("#Dlr_forecast_find_table",container).dmsTable().bootstrapTable('resetView');
+				}
+    		});
+    	//绑定回调
+    	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+    	});
+    });
+
+</script>

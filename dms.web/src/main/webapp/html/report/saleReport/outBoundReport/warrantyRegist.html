@@ -1,0 +1,266 @@
+<div class="dms-edit ajaxrest" data-url="/report/OutBoundReport/{[VIN]}"
+	data-model="report">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">用户信息新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pannel-name">用户基本信息</div>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+					
+					<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">客户类型</label>
+								<div class="col-xs-8">
+									<select id="customerType" name="customerType"  data-fieldName="CUSTOMER_TYPE"
+										class="bs-select form-control required" data-dictCode="1018" ></select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">客户名称</label>
+								<div class="col-xs-8">
+									<input id="customerName" name="customerName"  data-fieldName="CUSTOMER_NAME"  class="form-control required"
+										type="text" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系人名称</label>
+								<div class="col-xs-8">
+									<input id="contactorName" name="contactorName"  data-fieldName="CONTACTOR_NAME"  class="form-control required"
+										type="text" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">联系手机</label>
+								<div class="col-xs-8">
+									<input id="contactorMobile" name="contactorMobile"  data-fieldName="CONTACTOR_MOBILE"  class="form-control required"
+										type="text" />
+								</div>
+							</div>
+						</div>
+												
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">性别</label>
+								<div class="col-xs-8">
+									<select id="gender" name="gender"  data-fieldName="GENDER"
+										class="bs-select form-control required" data-dictCode="1006" ></select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">邮编</label>
+								<div class="col-xs-8">
+									<input id="zipCode" name="zipCode"  data-fieldName="ZIP_CODE"  class="form-control "
+										type="text" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">证件类型</label>
+								<div class="col-xs-8">
+									<select id="ctCode" name="ctCode"  data-fieldName="CT_CODE"
+										class="bs-select form-control required" data-dictCode="1239" ></select>
+								</div>
+							</div>
+						</div>		
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">身份证号</label>
+								<div class="col-xs-8">
+									<input id="certificateNo" name="certificateNo"  data-fieldName="CERTIFICATE_NO"  class="form-control required"
+										type="text" />
+								</div>
+							</div>
+						</div>				
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌</label>
+								<div class="col-xs-8">
+									<input id="brand" name="brand"  data-fieldName="BRAND_NAME"  class="form-control " disabled="disabled"
+										type="text" />
+								</div>
+							</div>
+						</div>	
+						
+
+												
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车型</label>
+								<div class="col-xs-8">
+									<input id="modelName" name="modelName"  data-fieldName="MODEL_NAME"  class="form-control " disabled="disabled"
+										type="text" />
+								</div>
+							</div>
+						</div>
+						
+
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系</label>
+								<div class="col-xs-8">
+									<input id="seriesName" name="seriesName"  data-fieldName="SERIES_NAME"  class="form-control " disabled="disabled"
+										type="text" />
+								</div>
+							</div>
+						</div>		
+						
+		
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">配置</label>
+								<div class="col-xs-8">
+									<input id="configName" name="configName"  data-fieldName="CONFIG_NAME"  class="form-control " disabled="disabled"
+										type="text" />
+								</div>
+							</div>
+						</div>	
+						
+
+																
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="form-group">
+								<label class="control-label col-xs-4">颜色</label>
+								<div class="col-xs-8">
+									<select id="colorCode" class="bs-select form-control" data-fieldName="COLOR" 
+										name="colorCode" data-url="/stockManage/safeguard/findColor"
+										data-model="vehicle" data-labelValue="COLOR_CODE"
+										data-lableDesc="COLOR_NAME">
+									</select>
+								</div>
+							</div>
+					</div>				
+						
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">VIN</label>
+								<div class="col-xs-8">
+									<input id="vin" name="vin"  data-fieldName="VIN"  class="form-control " disabled="disabled"
+										type="text" />
+								</div>
+							</div>
+						</div>			
+						
+						<div class="col-sm-8">
+							<div class="form-group">
+								<label class="control-label col-xs-2">地址</label>
+								<div class="col-xs-10">
+									<input id="address" name="address"  data-fieldName="ADDRESS"  class="form-control required"
+										type="text" />
+								</div>
+							</div>
+						</div>	
+						
+						<div class="col-sm-8 ">
+							<div class="form-group">
+								<label class="control-label col-xs-2">邮箱</label>
+								<div class="col-xs-10">
+									<input id="eMail" name="eMail"  data-fieldName="E_MAIL"  class="form-control "
+										type="text" />
+								</div>
+							</div>
+						</div>			
+						
+												<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" hidden="hidden">
+								<label class="control-label col-xs-4">品牌隐藏</label>
+								<div class="col-xs-8">
+									<input id="brand" name="brand"  data-fieldName="BRAND_CODE"  class="form-control " 
+										type="text" />
+								</div>
+							</div>
+						</div>	
+												<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" hidden="hidden">
+								<label class="control-label col-xs-4">车型隐藏</label>
+								<div class="col-xs-8">
+									<input id="modelName" name="modelName"  data-fieldName="MODEL"  class="form-control " 
+										type="text" />
+								</div>
+							</div>
+						</div>				
+											<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" hidden="hidden">
+								<label class="control-label col-xs-4">车系隐藏</label>
+								<div class="col-xs-8">
+									<input id="seriesName" name="seriesName"  data-fieldName="SERIES_CODE"  class="form-control " 
+										type="text" />
+								</div>
+							</div>
+						</div>			
+												<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" hidden="hidden">
+								<label class="control-label col-xs-4">配置隐藏</label>
+								<div class="col-xs-8">
+									<input id="configName" name="configName"  data-fieldName="CONFIG_CODE"  class="form-control " 
+										type="text" />
+								</div>
+							</div>
+						</div>		
+						
+																		<div class="col-xs-12 col-sm-6 col-md-4">
+							<div class="form-group" hidden="hidden">
+								<label class="control-label col-xs-4">SO_NO</label>
+								<div class="col-xs-8">
+									<input id="soNO" name="soNo"  data-fieldName="SO_NO"  class="form-control " 
+										type="text" />
+								</div>
+							</div>
+						</div>	
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal-footer">
+			<a data-url="/report/OutBoundReport/updateCusInfo" data-model="report" data-method="PUT"
+				data-callBack="true" class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>二次提交</a> <a
+				data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+		
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table3",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+
+});
+
+</script>

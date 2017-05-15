@@ -1,0 +1,92 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+			<div class="modal-title">货运单详细</div>
+			<div class="pannel-button">
+				<a href="javascript:;" data-url="/partOrder/deliverOrders/export"
+					data-model="part" data-method="downLoad" data-toggle="confirmation"
+					class="btn btn-outline"><i class="fa fa-download"></i>Excel</a>
+			</div>
+
+
+
+		</div>
+		<div class="panel panel-default panel-primary table-panel">
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="dms_table"></table>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+
+<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document)
+			.one(
+					"onload.dms",
+					function(event, container) {
+						new Datatable()
+								.initLocale({
+									src : "dms_table",
+									container : container,
+									url : dmsCommon.getDmsPath()["part"]
+											+ "/partOrder/deliverOrders/{[ORDER_REGEDIT_NO]}/{[DELIVERY_TIME]}",
+									rowID : "OEM_ORDER_NO",
+									sortName : "OEM_ORDER_NO",
+									sortOrder : "asc",
+									undefinedText : "",
+									autoHeight : false,
+									columns : [ {
+										field : "OEM_ORDER_NO",
+										title : "OEM订单编号"
+									}, {
+										field : "SAP_ORDER_NO",
+										title : "SAP订单编号"
+									}, {
+										field : "PART_NO",
+										title : "配件代码"
+									}, {
+										field : "PART_NAME",
+										title : "配件名称"
+									}, {
+										field : "COUNT",
+										title : "订货数量"
+									}, {
+										field : "SUPPLY_QTY",
+										title : "供应数量"
+									}, {
+										field : "NEED_QUANTITY",
+										title : "累计入库数量"
+									}, {
+										field : "CASE_NO",
+										title : "包装箱号"
+									}, {
+										field : "PLAN_PRICE",
+										title : "采购价"
+									}, {
+										field : "AMOUNT",
+										title : "金额"
+									}, {
+										field : "INSTRUCT_PRICE",
+										title : "建议销售价"
+									}, {
+										field : "SORT",
+										title : "货运单序号"
+									}, {
+										field : "REMARK",
+										title : "备注"
+									},
+
+									]
+								});
+					});
+</script>

@@ -1,0 +1,98 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">批量验收</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12">
+							<input type="hidden" id="entryIds" name="entryIds" value="">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color: red;">*</span>验收结果</label>
+								<div class="col-xs-8">
+									<input type="hidden" name="seNo"/>
+									<input type="hidden" name="vins" id="vins"/>
+									<select id="inspectionResult" name="inspectionResult"
+										class="bs-select form-control required" data-dictCode="1335">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color: red;">*</span>验收人</label>
+								<div class="col-xs-8">
+									<select id="inspectionBY" name="inspectionBY"
+										class="bs-select form-control required"
+										data-url="/basedata/employees/-1/salesConsultant"
+										data-model="manage" data-labelValue="USER_ID" data-value="{[userInfo.userId]}"
+										data-lableDesc="USER_NAME" >
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color: red;">*</span>质损状态</label>
+								<div class="col-xs-8">
+									<select id="trafficMarStatus" name="trafficMarStatus" data-value="13061002"
+										class="bs-select form-control required" data-dictCode="1306">
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/vehicleStock/stockIn/allInspect" data-model="vehicle"
+				data-method="PUT" data-callBack="true" data-beforeRequest="true"
+				class="btn blue" data-toggle="confirmation"><i
+				class="fa fa-save"></i>确定</a> <a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event, container) {
+			$("input[name='seNo']",container).val($("#seNo",getElementContext()).val());
+			
+			//保存前事件
+			$('a[data-beforeRequest="true"]',container).on('beforeRequest.dms',function(event,returnResult){
+				var vins = "";
+				var selectRow = $("#dms_table",getElementContext()).dmsTable().getSelections();
+				$(selectRow).each(function(e){
+					vins += selectRow[e].VIN + ";";
+				});
+				$("#vins",getElementContext()).val(vins);
+				returnResult.status = true;
+			});
+			
+			//验收结果改变事件
+			$("#inspectionResult",container).bindChange(function(obj){
+				var index = $("#inspectionResult",container).val();
+				if(index == '13351001'){//验收未通过
+					$("#trafficMarStatus", container).selectpicker('val',13061001);
+				}else if(index == '13351002'){//验收通过
+					$("#trafficMarStatus", container).selectpicker('val',13061002);
+				}
+			});
+			
+			//新增页面的回调函数
+			$("a[data-callBack='true']", container).on("callBack.dms",function(event, response) {
+					//关闭窗口
+					$("a[data-dismiss='modal']", container).click();
+					//刷新表格
+					$("#dms_table", getElementContext()).dmsTable().refreshTableWithForm();
+			});
+	});
+</script>

@@ -1,0 +1,76 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">年月</label>
+								<div class="col-xs-8">
+									<div class="input-group date month-picker" data-defaultToday = "true">
+										<input id="yearMonth" name="yearMonth" readonly
+											class="form-control" type="text" value="" />
+										 <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+                                            <!-- <button class="btn default date-reset" type="button">
+                                                  <i class="fa fa-times"></i>
+                                            </button> -->
+										</span>
+									</div>
+								</div>
+							</div>
+					</div>			
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn btn-sm blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn btn-sm blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+			</div>
+		</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">转化率信息列表</div>
+				<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+				<a href="javascript:;" data-url="/basedata/conversionRate/export/excel" data-model="report" data-method="downLoad" data-toggle="confirmation"
+								class="btn btn-outline " ><i class="fa fa-download"></i>导出</a>
+				</div>
+		   </div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "dms_table",
+		rowID:"TYPE",
+		container:container,
+	    url : dmsCommon.getDmsPath()["report"] + "/basedata/conversionRate/rateSearch",
+		sortName : "TYPE", 
+		sortOrder : "asc",
+		/* autoHeight : false, */
+		columns : [ 
+                    {field : "TYPE",title : "单店转化率"},
+                    {field : "NOW",title : "MTD（当前）"},
+                    {field : "PAST",title : "上月"},
+                    {field : "EVER",title : "过去3月平均"},
+                    {field : "REMARK",title : "KPI数据来源"}             
+		         ]
+	});
+});		
+</script>

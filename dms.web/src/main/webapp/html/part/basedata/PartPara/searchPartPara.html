@@ -1,0 +1,64 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+	<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >配件订货参数</div>
+				<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+					
+						</div>
+				</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="partList"></table>
+		</div>
+	</div>
+			<div class="form-actions">
+			<a data-url="/partManage/adPartPara" data-model="part" data-method="PUT" data-callBack="true"  
+			   class="btn blue" data-toggle="confirmation" ><i class="fa fa-save"></i>保存</a>
+			<a data-goback="page"  href="dashBoard.html"   class="btn blue ajaxify">
+			<i class="fa fa-reply"></i>取消</a>
+		</div>
+		</form>
+</div>
+<script type="text/javascript">
+
+    $(document).one("onload.dms",function(event,container){
+    	new Datatable().initPagination({
+			src : "partList",
+			container:container,
+			url : dmsCommon.getDmsPath()["part"] + "/partManage/adPartPara",
+			rowID : "PARA_CODE",
+			sortName : "PARA_CODE", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+			sortOrder : "asc",
+			autoHeight:false,
+			columns : [ 
+ 			    {title : "操作",operateFormat : [
+                     {type:"edit",url:"part/basedata/PartPara/editPartPara.html",openWidth:"modal-md"}
+ 			    ]},
+ 			    {field : "PARA_NAME",inputField:"paraCode",title : "参数名",sortable : false,inputHiddenFormat : {hiddenField:"PARA_CODE"}},
+				{field : "PARA_VALUE",inputField:"paraValue",title : "参数值",inputHiddenFormat : {hiddenField:"PARA_VALUE"},numberFormat : {decimal:2},formatter: function (value, row, index) {
+                    return "<a href=\"#\" name=\"UserName\" data-type=\"text\" data-pk=\""+row.PARA_CODE+"\" data-title=\"参数值\">" + value + "</a>";
+                }}, 
+				{field : "REMARK",inputField:"remark",title : "备注",inputHiddenFormat : {hiddenField:"REMARK"}}
+			
+			   ],onLoadSuccess : function() {
+			/* 	     $('#partList a').editable({
+				            type: "text",                //编辑框的类型。支持text|textarea|select|date|checklist等
+				            title: "用户名",              //编辑框的标题
+				            disabled: false,             //是否禁用编辑
+				            emptytext: "空文本",          //空值的默认文本
+				            mode: "inline",              //编辑框的模式：支持popup和inline两种模式，默认是popup
+				            validate: function (value) { //字段验证
+				                if (!$.trim(value)) {
+				                    return '不能为空';
+				                }
+				            }
+				     }); */
+			   }
+		});
+    	
+    });
+
+</script>

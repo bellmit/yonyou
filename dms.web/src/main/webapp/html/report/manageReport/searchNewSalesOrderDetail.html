@@ -1,0 +1,181 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">年月</label>
+							<div class="col-xs-8">
+								<div class="input-group date month-picker"
+									data-defaultToday="true">
+									<input id="yearMonth" name="yearMonth" readonly
+										class="form-control" type="text" value="" /> <span
+										class="input-group-btn">
+										<button class="btn default date-set" type="button">
+											<i class="fa fa-calendar"></i>
+										</button>
+
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				<!--/span-->
+				<div class="col-xs-12 col-sm-6 col-md-4 ">
+					<div class="form-group">
+						<label class="control-label col-xs-4">销售顾问</label>
+						<div class="col-xs-8">
+							 <select id="soldBy" name="soldBy" 
+									class="bs-select form-control"
+									data-url="/basedata/employees/-1/salesConsultant"
+									data-model="manage" data-labelValue="USER_ID" 
+									data-lableDesc="USER_NAME" >
+								</select>
+						</div>
+					</div>
+				</div>
+
+				
+				<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<div class="col-xs-12">
+		                            <input id="isCheck" name="isCheck" type="checkbox"
+										data-dictCode="5033" data-dictLabel="是否选中" data-value="50331001"/>
+							</div>
+						</div>
+				</div>
+				
+
+
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+						
+						 	<a href="javascript:;" class="btn btn-sm blue "> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn btn-sm blue "><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">新增订单简表</div>
+				<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+				<a href="javascript:;" data-url="/report/newSalesOrder/export/excel" data-model="report" data-method="downLoad" data-toggle="confirmation"
+								class="btn btn-outline " ><i class="fa fa-download"></i>导出</a>
+				</div>
+		   </div>
+		</div>
+		<div class="panel-body" id="saletabl">
+			<table class="table table-striped table-bordered table-hover table-responsive" id="dms_table"></table>
+		</div>
+	</div>
+	
+	 <div class="panel panel-default table-panel">
+		<div class="panel-body" id="stocktabl">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table2"></table>
+		</div>
+	</div>
+
+</div>
+<script type="text/javascript">
+ $(document).one("onload.dms",function(event,container){
+	 var Person2 = function(){};
+	 Person2.prototype = new Datatable();
+	 Person2.mergeTotalTable=function(megerCellNumber,megerCellName){
+	 	aler(1);
+	 }
+	var initPagtable=function(){ dmsCommon.ajaxRestRequest({
+			url : dmsCommon.getDmsPath()["report"] + "/keepOrder/remainingOrderDetail/quryModel",
+			type : 'GET',
+			data :"isCheck="+$("[name='isCheck']:checked",container).val(),
+			sucessCallBack : function(data) {
+				var column1=[];
+				column1.push( {field : "USER_NAME",title : "销售顾问",minWidth:20});
+				$.each(data,function(n,value) {
+					column1.push( {field : ''+value.CODE+'',title : ''+value.NAME+'',inputHiddenFormat : {defaultValue:"0"}});
+				 });
+				column1.push( {field : "comm",title : "合计",minWidth:20});
+				new Person2().initPagination({
+					src : "dms_table",
+					rowID:"RO_ID",
+					container:container,
+					url : dmsCommon.getDmsPath()["report"] + "/report/newSalesOrder",
+					sortName : "", 
+					sortOrder : "asc",
+					autoHeight:false,
+					mergeTotal:{
+						megerCellNumber:1,
+						megerCellName:"合计"
+					},
+					columns : column1
+			
+				});
+			}
+		})}; 
+		
+		var initPagtableSerie=function(){ dmsCommon.ajaxRestRequest({
+			url : dmsCommon.getDmsPath()["report"] + "/keepOrder/remainingOrderDetail/quryModel",
+			type : 'GET',
+			data :"isCheck="+$("[name='isCheck']:checked",container).val(),
+			sucessCallBack : function(data) {
+				var column1=[];
+				column1.push( {field : "USER_NAME",title : "销售顾问",minWidth:20});
+				$.each(data,function(n,value) {
+					column1.push( {field : ''+value.CODE+'',title : ''+value.NAME+'',inputHiddenFormat : {defaultValue:"0"}});
+				 });
+				column1.push( {field : "comm",title : "合计",minWidth:20});
+				new Person2().initPagination({
+					src : "dms_table",
+					rowID:"RO_ID",
+					container:container,
+					url : dmsCommon.getDmsPath()["report"] + "/report/newSalesOrder",
+					sortName : "", 
+					sortOrder : "asc",
+					autoHeight:false,
+					mergeTotal:{
+						megerCellNumber:1,
+						megerCellName:"合计"
+					},
+					columns : column1
+				
+				});
+			}
+		})};
+		+function(){
+			initPagtable();
+		}();
+		
+		$("[name='isCheck']",container).bindChange(function(obj){
+	          $("[name^='isCheck']",container).each(function () {
+				  if (this != obj)
+					  if(!$(obj).prop("checked")){
+						  $(this).prop("checked",true)
+					  }
+					 else $(this).prop("checked",false)
+			    });
+				 $("#saletabl",container).children().remove();
+				 $("#saletabl",container).append(' <table class="table table-striped table-bordered table-hover table-responsive" id="dms_table"></table>');
+	          if($("[name='isCheck']:checked",container).val()=='50331001'){
+	        	  initPagtable();
+	        	  $("div.query-btn i.fa-search",container).click();
+	          }else if($("[name='isCheck']:checked",container).val()=='50331002'){
+	        	  initPagtableSerie();
+	        	  $("div.query-btn i.fa-search",container).click();
+	          }else{
+	        	  
+	          }
+	         
+		});
+
+ }); 
+</script>

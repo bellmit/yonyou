@@ -1,0 +1,70 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">跟踪记录新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">跟踪时间</label>
+								<div class="col-xs-8">
+									<div class="input-group input-daterange" data-defaultDays="1"
+										data-date-format="yyyy/mm/dd/hh/mm/ss">
+										<input type="text" class="form-control" readonly
+											name="traceLogDate" id="traceLogDate"> <span
+											class="input-group-btn">
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">描述</label>
+								<div class="col-xs-8">
+									<textarea id="traceLogDesc" name="traceLogDesc" 
+							class="form-control" rows="3" cols=""></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a   class="btn blue"  data-toggle="confirmation"  data-beforeRequest="true">
+				<i class="fa fa-save" ></i>确定</a>
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	 //新增页面的回调函数
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			 //将新增的数据追加到查询页面的表格中
+			 var jsonTr = {};
+			 jsonTr['TRACE_LOG_DATE']=$('#traceLogDate',container).val();//代码
+			 jsonTr['TRACE_LOG_DESC']=$('#traceLogDesc').val();//名称
+			 $("#dms_tms",getElementContext()).dmsTable().appendRow(jsonTr,true);
+			//关闭窗口
+		   $("a[data-dismiss='modal']",container).click();
+		   returnResult.status =true;
+		//刷新表格
+// 		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+});	
+
+</script>

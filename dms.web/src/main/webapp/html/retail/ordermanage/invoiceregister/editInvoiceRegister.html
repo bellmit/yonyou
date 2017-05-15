@@ -1,0 +1,255 @@
+<div class="dms-edit ajaxrest"
+	data-url="/ordermanage/invoiceregisters/{[ITEM_ID]}"
+	data-model="retail" data-pageInitCallBack="true">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">开票信息编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">销售单号</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="soNo"
+										disabled="disabled" name="soNo"
+										data-fieldName="SO_NO" /> <input type="hidden"
+										class="form-control" id="soNoId" name="soNoId"
+										data-fieldName="SO_NO_ID" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">VIN号</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" disabled="disabled" id="vin" name="vin" data-fieldName="vin" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">费用类型</label>
+								<div class="col-xs-8">
+									<select id="invoiceChargeType" name="invoiceChargeType"
+										class="bs-select form-control required" data-dictCode="1318" data-fieldName="INVOICE_CHARGE_TYPE" data-excludeItems="13181001">
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">发票编号</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control required number"  data-autoUpper="false" id="invoiceNo"
+										name="invoiceNo" data-fieldName="invoice_no" maxlength="8"/>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">发票类型</label>
+								<div class="col-xs-8">
+									<select id="invoiceTypeCode" name="invoiceTypeCode" data-fieldName="INVOICE_TYPE_CODE"
+										class="bs-select form-control required" 
+										data-url="/basedata/employees/-1/salesInvoice" data-model="manage"
+									data-labelValue="INVOICE_TYPE_CODE" data-lableDesc="INVOICE_TYPE_NAME">
+									</select>
+									<!-- <select id="invoiceKind" name="invoiceKind"
+										class="bs-select form-control required" data-dictCode="1207" data-fieldName="invoice_kind">
+									</select> -->
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">发票金额</label>
+								<div class="col-xs-8">
+									<input id="invoiceAmount" name="invoiceAmount"
+										class="form-control required number" data-fieldName="invoice_amount" maxDigit="10" maxPrecision="2" type="text"/>
+								</div>
+							</div>
+						</div>
+						    <div class="col-xs-12 col-sm-6">
+							<div class="form-group" >
+								<label class="control-label col-xs-4"><span style="color:Red">*</span>开票人员</label>
+								<div class="col-xs-8">
+								<select id="invoiceWriter" name="invoiceWriter" class="bs-select form-control required" maxlength="30"
+									data-url="/basedata/employees/-1/salesConsultant" data-model="manage"
+									data-labelValue="USER_ID" data-lableDesc="USER_NAME" data-value="{[userInfo.userId]}">
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">开票客户</label>
+								<div class="col-xs-8">
+									<input id="invoiceCustomer" name="invoiceCustomer"
+										class="form-control required"data-fieldName="invoice_customer" maxlength="120" type="text"/>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">开票日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker" data-date-end-date="+0d" data-orientation="top right">
+										<input id="invoiceDate" name="invoiceDate" readonly
+											class="form-control required" type="text" value="" data-fieldName="invoice_date"/> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button">
+												<i class="fa fa-calendar"></i>
+											</button>
+											<button class="btn default date-reset" type="button">
+												<i class="fa fa-times"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经办人</label>
+								<div class="col-xs-8">
+									<select id="transactor" name="transactor" data-fieldName="TRANSACTOR"
+													class="bs-select form-control"
+													data-url=/basedata/employees/-1/salesConsultant
+													data-model="manage" data-labelValue="USER_ID"
+													data-lableDesc="USER_NAME">
+									 </select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group" data-tableSelect="true">
+								<label class="control-label col-xs-4">证件类型</label>
+								<div class="col-xs-8">
+									<select id="ctCode" name="ctCode"
+										class="bs-select form-control" data-dictCode="1239" data-fieldName="CT_CODE">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6" hidden="hidden">
+							<div class="form-group" data-tableSelect="true">
+								<label class="control-label col-xs-4">客户类型</label>
+								<div class="col-xs-8">
+									<select id="cusSource" name="cusSource"
+										class="bs-select form-control" data-dictCode="1311" data-fieldName="CUS_SOURCE">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group" data-tableSelect="true">
+								<label class="control-label col-xs-4">证件号码</label>
+								<div class="col-xs-8">
+									<input id="certificateNo" name="certificateNo"
+										class="form-control" maxlength="120" type="text" data-fieldName="CERTIFICATE_NO">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4"><span style="color:Red">*</span>登记人</label>
+								<div class="col-xs-8">
+								<select id="recorder" name="recorder" class="bs-select form-control required" maxlength="30"
+									data-url="/basedata/employees/-1/salesConsultant" data-model="manage"
+									data-labelValue="USER_ID" data-lableDesc="USER_NAME" data-value="{[userInfo.userId]}">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">发运日期</label>
+								<div class="col-xs-8">
+									<input id="invoiceCustomer" name="invoiceCustomer" disabled="disabled"
+										class="form-control" maxlength="120" type="text" >
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">登记日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date date-picker"
+										data-orientation="top right" data-defaulttoday="true">
+										<input id="recordDate" name="recordDate" disabled= "disabled" data-fieldName="INVOICE_DATE"
+											class="form-control" type="text" value="" /> <span
+											class="input-group-btn">
+											<button class="btn default date-set" type="button" disabled= "disabled">
+												<i class="fa fa-calendar"></i>
+											</button>
+											<button class="btn default date-reset" type="button" disabled= "disabled">
+												<i class="fa fa-times"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-12">
+							<div class="form-group" data-tableSelect="true">
+								<label class="control-label col-xs-2">备注</label>
+								<div class="col-xs-10">
+									<textarea id="remark" name="remark"
+									   class="form-control" maxlength="120"
+										rows="2" cols="" data-fieldName="REMARK"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a data-url="/ordermanage/invoiceregisters/{[ITEM_ID]}" data-model="retail" data-method="PUT" data-callBack="true"  class="btn blue"  data-toggle="confirmation"><i class="fa fa-save"></i>保存</a>
+			<a data-dismiss="modal" class="btn blue" ><i
+				class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+/**
+ * 新增页面的回调函数
+ */
+ $(document).one("onload.dms",function(event,container){
+	 $("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){
+			var cusSource=$("#cusSource",container).val();
+			if(cusSource==13111021){
+				$("#certificateNo",container).attr("disabled","disabled");
+				$("#ctCode",container).attr("disabled","disabled");
+			}else{
+				$("#ctCode",container).removeAttr("disabled");
+				$("#certificateNo",container).removeAttr("disabled");
+			}
+	 });
+	 
+	//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+	});
+</script>

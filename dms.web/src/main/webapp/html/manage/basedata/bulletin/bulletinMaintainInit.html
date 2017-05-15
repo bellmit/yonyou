@@ -1,0 +1,117 @@
+<div class="dms-search">
+ <form class="form-horizontal">
+    <div class="panel panel-default">
+   	   <div class="panel-body">
+   	   		<div class="row">
+	 	   				      	
+		      	<div class="col-xs-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">时间区间</label>
+						<div class="col-xs-8">
+							 <div class="input-group input-daterange" data-opens="right">
+	                             <input type="text" class="form-control" readonly  name="beginDate">
+	                             <span class="input-group-addon">至</span>
+	                             <input type="text" class="form-control" readonly  name="endDate">
+	                             <span class="input-group-btn">
+                                    <button class="btn default input-clear" type="button">
+                                       <i class="fa fa-close"></i>
+                                   </button>
+                                 </span> 
+	                        </div>
+						</div>
+					</div>
+				</div>
+				
+			    <div class="col-xs-3 ">
+			         <div class="form-group">
+			             <label class="control-label col-xs-4">通告类别</label>
+			             <div class="col-xs-8">
+			                 <select class="bs-select form-control" id="typeId" name="typeId" 
+			                 data-url="/bulletin/bulletinMaintain/getAllBulletinType"
+			                  data-model="manage" data-lableDesc ="TYPENAME" data-labelValue="TYPE_ID" >
+			                 </select>
+			             </div>
+			         </div>
+			    </div>
+			    
+		      	<div class="col-xs-3">
+		           <div class="form-group">
+		               <label class="control-label col-xs-4 ">通告主题</label>
+		               <div class="col-xs-8">
+		                   <input type="text"  class="form-control" id="topic" name="topic">
+		               </div>
+		           </div>
+		      	</div>
+				
+				<div class="col-xs-3">
+					<div class="form-group">
+						<label class="control-label col-xs-4">通告紧急程度</label>
+						<div class="col-xs-8" >
+							<div class="radio-list">
+								<label class="radio-inline col-xs-2"><input type="radio" name="level"
+									  data-isinit="true" value="2"><span>高</span>
+								</label>
+								<label class="radio-inline col-xs-2"><input type="radio" name="level"
+									  data-isinit="true" value="1"><span>中</span>
+								</label>
+								<label class="radio-inline col-xs-2"><input type="radio" name="level"
+									  data-isinit="true" value="0"><span>低</span>
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+							
+   	   		</div>
+			<div class="row ">
+			    <div class="col-xs-12 " >
+			      <div class="query-btn">
+			            <a href="javascript:;" class="btn blue" > <i class="fa fa-search"></i>查询</a>
+			            <a href="javascript:;" class="btn blue"><i class="fa fa-undo"></i>重置</a>
+			      </div>
+			    </div>
+			</div>
+   	   </div>
+   	</div>
+	<div class="panel  panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >通告类别列表</div>
+			</div>
+	   		<div class="panel-body">
+				<table class="table table-striped table-bordered table-hover table-responsive"
+					id="dms_table">
+				</table>
+			</div>
+	</div>
+ </form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+ 	new Datatable().initPagination({
+		src:"dms_table",
+		container:container,
+	    url : dmsCommon.getDmsPath()["manage"] + "/bulletin/bulletinMaintain",
+	    rowID:"BULLETIN_ID",
+	    sortName:"CREATE_DATE",
+	    sortOrder:"DESC",
+		columns : [ 
+		      {field:"BULLETIN_ID",title : "操作",operateFormat : [
+                    {type:"edit",url:"manage/basedata/bulletin/bulletinMaintainEdit.html",openWidth:"modal-lg"},
+                    {type:"del",url:"/bulletin/bulletinMaintain/{[BULLETIN_ID]}",model:"manage",callBack:function(response){
+                 	   $("#dms_table",container).dmsTable().refreshTableWithForm();
+                    }}
+                 ]
+              },
+		      {field:"TYPENAME",title:"通告类别名称"},
+		      {field:"TOPIC",title:"通告主题"},
+		      {field:"LEVEL",title:"紧急程度"},
+		      {field:"START_TIME_DATE",title:"开始时间"},
+		      {field:"END_TIME_DATE",title:"结束时间"},
+		      {field:"CREATE_DATE",title:"通告发布时间"},
+		      {field:"NAME",title:"发布人"}
+	      ]
+	});
+ 	
+ 	
+});
+</script>

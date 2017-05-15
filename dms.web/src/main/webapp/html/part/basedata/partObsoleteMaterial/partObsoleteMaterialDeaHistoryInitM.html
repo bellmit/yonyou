@@ -1,0 +1,204 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+				
+				<div class="col-xs-12 col-sm-6 col-md-4  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">大区</label>
+								<div class="col-xs-8">
+									<select id="bigArea"
+										class="bs-select form-control" name="bigArea"
+										data-url="/partObsoleteMaterialDeaHistory/getBigArea"
+										data-model="part" data-labelValue="BIG_AREA_ID" data-value = ""
+										data-lableDesc="BIG_AREA_NAME" data-live-search="fales" data-size="5"  >
+									</select>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">小区</label>
+								<div class="col-xs-8">
+									<select id="smallArea" parent="bigArea"
+										class="bs-select form-control" name="smallArea"
+										data-url="/partObsoleteMaterialDeaHistory/{[bigArea]}/getSmallArea"
+										data-model="part" data-labelValue="SMALL_AREA_ID" data-value = ""
+										data-lableDesc="SMALL_AREA_NAME" data-live-search="fales" data-size="5"  >
+									</select>
+									
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 " data-tableSelect="true">
+						<div class="form-group"> 
+								<label class="control-label col-xs-4">调入经销商</label> 
+ 								<div class="col-xs-8">
+									<div class="input-group">
+									<input id="dealerCode" readonly
+										name="dealerCode" class="form-control" type="text"
+										 /> <span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="part/basedata/partManage/searchDealers3.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4  ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="partsCode" name="partsCode" >
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">配件名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="partsname" name="partsname" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">状态</label>
+								<div class="col-xs-8">
+									<select id="status" 
+										class="bs-select form-control" name="status"
+										data-url="/partObsoleteMaterialDeaHistory/status"
+										data-model="part" data-labelValue="codeId" data-value=""
+										data-lableDesc="typeName"   data-size="5"  >
+									</select>
+									
+								</div>
+							</div>
+						</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 " data-tableSelect="true">
+						<div class="form-group"> 
+								<label class="control-label col-xs-4">调出经销商</label> 
+ 								<div class="col-xs-8">
+									<div class="input-group">
+									<input id="dealerCode_" readonly
+										name="TDdealerCode" class="form-control" type="text"
+										 /> <span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="part/basedata/partManage/searchDealers4.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+					</div>		
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">完成时间</label>
+							<div class="col-xs-8 ">
+								 <div class="input-group input-daterange"  data-opens="right">
+		                             <input type="text" class="form-control" readonly  name="beginDate" id="beginDate">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="endDate" id="endDate">
+		                             <span class="input-group-btn">
+                                         <button class="btn default input-clear" type="button">
+                                            <i class="fa fa-close"></i>
+                                        </button>
+                                      </span> 
+		                        </div>
+							</div>
+						</div>
+					</div>		
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">信息列表 </div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+					<a class="btn btn-outline" href="javascript:;"  data-url="/partObsoleteMaterialDeaHistory/download/{1}" data-model="part" data-method="downLoad" data-toggle="confirmation"> <i
+								class="fa fa-download " ></i> 下载
+							</a> 
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="partList"></table>
+		</div>
+	</div>
+		
+	</form>
+	
+	
+</div>
+<script type="text/javascript">
+ $(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "partList",
+		container:container,
+		url : dmsCommon.getDmsPath()["part"] + "/partObsoleteMaterialDeaHistory/findALL",
+		rowID : "APPLY_DATE",
+		sortName : "APPLY_DATE",
+		sortOrder : "DESC",
+		autoHeight:false,
+		columns : [ 
+				{title: "大区", field: 'ORG_NAME2'},
+				{title: "小区", field: 'ORG_NAME'},
+				{title: "调出经销商代码", field: 'DDEALER_CODE'},
+				{title: "调出经销商名称", field: 'DDEALER_SHORTNAME'},
+				{title: "调入经销商代码", field: 'ADEALER_CODE'},
+				{title: "调入经销商名称", field: 'ADEALER_SHORTNAME'},
+				{title: "仓库", field: 'WAREHOUSE'},
+				{title: "配件代码",field: 'PART_CODE'},
+				{title: "配件名称", field: 'PART_NAME'},
+				{title: "调拨数量", field: 'APPLY_NUMBER'},
+				{title: "单价", field: 'SALES_PRICE'},
+				{title: "金额", field: 'TOTALS'},
+				{title: "申请日期", field: 'APPLY_DATE'},
+				{title: "确认日期", field: 'AFFIRM_DATE'},
+				{title: "出库日期", field: 'OUT_WAREHOUS_DATE'},
+				{title: "入库日期", field: 'PUT_WAREHOUS_DATE'},
+				{title: "状态", field: 'STATUS_NAME'}
+		       
+		    
+		]
+		
+	});
+	
+});
+    
+</script>

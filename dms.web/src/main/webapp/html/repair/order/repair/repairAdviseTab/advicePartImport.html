@@ -1,0 +1,91 @@
+<div class="dms-search">
+
+	<div class="panel panel-default table-panel">
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="advice_part">
+			</table>
+		</div>
+	</div>
+	
+	<div class="modal-footer center-block">
+	<a data-beforeRequest='true' class="btn blue"
+					data-toggle="confirmation"><i class="fa fa-save"></i>确定</a>
+	<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+
+    </div>
+</div>
+<script type="text/javascript">
+          
+	$(document).one("onload.dms", function(event, container) {
+		new Datatable().initPagination({
+			src : "advice_part",
+			container : container,
+ 			url : dmsCommon.getDmsPath()["repair"] + "/repair/advice/queryPartImport/vin"+$("#vin",getElementContext()).val(),
+			rowID : "SUGGEST_MAINTAIN_PART_ID",
+			sortName : "PART_NO", //默认按代码升序排列
+			sortOrder : "asc",
+// 			isQueryFirst:false,
+			undefinedText : "",
+			autoHeight : false,
+			checkboxHeader : false,
+			columns : [
+
+			{checkbox : true,sortable : false},
+			{field : "STORAGE_CODE",title : "仓库代码"},
+			{field : "STORAGE_POSITION_CODE",title : "库位"},
+			{field : "PART_NO",title : "配件代码"},
+			{field : "PART_NAME",title : "配件名称"},
+			{field : "PART_SALES_PRICE",inputHiddenFormat:{defaultValue:"0"},title : "建议销售价"},
+			{field : "SALES_PRICE",inputHiddenFormat:{defaultValue:"0"},title : "销售价"},
+			{field : "PART_QUANTITY",inputHiddenFormat:{defaultValue:"0"},title : "数量"},
+			{field : "PART_SALES_AMOUNT",inputHiddenFormat:{defaultValue:"0"},title : "金额"},
+			{field : "REMARK",title : "备注"}
+			]
+		});
+		
+		
+
+		
+		
+		//新增记录保存后，触发操作，将新增记录的rowKey修改为""
+		$("a[data-callBack='true']", container).on("callBack.dms",function(event, response) {    			
+			var formJson =$("#advice_part",container).dmsTable().getRowDataByIndex();			
+			if (formJson) {
+				$(formJson).each(function(e) {
+                   if(formJson[e].rowKey=="A"){
+                	   $("input[id='rowKey"+e+"']",container).val('')               	   
+                   }
+				
+				});
+			}
+			
+			 myArray=[];
+			 i=0;
+			  $("#advice_part",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()['repair']
+	            +"/repair/advice/queryPart/vin"+$("#vin",getElementContext()).val());//通过url刷新表格
+				$("#advice_part",container).dmsTable().refreshTableWithForm();
+			$("a[id='addSave']",container).attr("disabled","disabled");
+			
+		});
+
+		//确定按钮点击请求前事件，添加配件
+		$("a[data-beforeRequest='true']",container).
+		on("beforeRequest.dms",function(event,returnResult){
+			var selectRow = $("#advice_part",container).dmsTable().getSelections();
+	 		if (selectRow != null) {	 			
+				$.each(selectRow,function(index,row) {
+					row["1"]=false;
+					$("#dms_part",getElementContext()).dmsTable().appendRow(row,true);
+				});  			
+			}  
+
+	 		
+	 		$("a[data-dismiss='modal']",container).click();
+		});
+		
+		
+		
+	});
+</script>

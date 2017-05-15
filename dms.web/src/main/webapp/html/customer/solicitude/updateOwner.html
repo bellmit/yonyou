@@ -1,0 +1,664 @@
+<div class="dms-edit ajaxrest"
+	data-url="/customer/solicitude/{[OWNER_NO]}" data-model="customer"
+	data-pageInitCallBack="true">
+	<div class="dms-add" data-pageInitCallBack="true">
+		<form class="form-horizontal">
+			<div class="modal-header">
+				<div class="modal-title">车主明细</div>
+				<div class="modal-close">
+					<a data-dismiss="modal" class="btn btn-lg"> <i
+						class="fa fa-remove"></i></a>
+				</div>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">车主性质</label>
+							<div class="col-xs-8">
+								<select class="bs-select form-control" name="ownerProperty"
+									id="ownerProperty" data-dictCode="1190"
+									data-fieldName="OWNER_PROPERTY" data-existsDefault="true">
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tabbable-custom " id="tabcontainer">
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#tab_basreceive"
+							data-toggle="tab">详细信息</a></li>
+						<li><a href="#tab_task" data-toggle="tab">车主备注</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane fade in active" id="tab_basreceive">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<div class="pannel-name">基本信息</div>
+									<div class="pannel-tools">
+										<a href="javascript:;" class="expand"> <i
+											class="fa fa-chevron-down"></i></a>
+									</div>
+								</div>
+								<div class="panel-body">
+									<div class="row">
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3">车主编号</label>
+												<div class="col-xs-9">
+													<input id="ownerNo" name="ownerNo"
+														data-fieldName="OWNER_NO" readonly="readonly"
+														class="form-control" type="text" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3"><span
+													style="color: Red">*</span>车主姓名</label>
+												<div class="col-xs-9">
+													<input id="ownerName" name="ownerName"
+														data-fieldName="OWNER_NAME" class="form-control required"
+														maxlength="120" type="text" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3">车主拼音</label>
+												<div class="col-xs-9">
+													<input id="ownerSpell" name="ownerSpell"
+														data-fieldName="OWNER_SPELL" class="form-control"
+														maxlength="120" type="text" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3"><span
+													style="color: Red">*</span>性别</label>
+												<div class="col-xs-9">
+													<select id="gender" name="gender" data-fieldName="GENDER"
+														class="form-control required" data-dictCode="1006">
+													</select>
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3">证件类型</label>
+												<div class="col-xs-9">
+													<select id="ctCode" name="ctCode" data_fieldName="CT_CODE"
+														class="bs-select form-control" data-dictCode="1239">
+													</select>
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3">证件号码</label>
+												<div class="col-xs-9">
+													<input id="certificateNo" name="certificateNo"
+														data_fieldName="CERTIFICATE_NO" class="form-control"
+														type="text" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3">所在省份</label>
+												<div class="col-xs-9">
+													<select id="province" class="bs-select form-control"
+														name="province" data-type="region" data-dictCode="9001"
+														data_fieldName="PROVINCE">
+													</select>
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3">城市</label>
+												<div class="col-xs-9">
+													<select parent="province" class="bs-select form-control"
+														name="city" id="city" data_fieldName="CITY"
+														data-dictCode="9002">
+													</select>
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3">区县</label>
+												<div class="col-xs-9">
+													<select parent="city" id="district"
+														data_fieldName="DISTRICT" class="bs-select form-control"
+														name="district" data-dictCode="9003">
+													</select>
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-12 col-md-8">
+											<div class="form-group">
+												<label class="control-label col-xs-2">地址</label>
+												<div class="col-xs-10">
+													<input id="address" name="address" class="form-control"
+														maxlength="120" type="text" data-fieldName="ADDRESS" />
+
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group" data-campaignSelect="true">
+												<label class="control-label col-xs-3">邮编</label>
+												<div class="col-xs-9">
+													<select id="zipCode" data-fieldName="ZIP_CODE"
+														data-dictCode="9004" class="bs-select form-control"
+														name="zipCode">
+													</select>
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group" data-campaignSelect="true">
+												<label class="control-label col-xs-3">行业大类</label>
+												<div class="col-xs-9">
+													<select id="industryFirst" data-fieldName="INDUSTRY_FIRST"
+														class="bs-select form-control" name="industryFirst"
+														data-dictCode="3001">
+													</select>
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group" data-campaignSelect="true">
+												<label class="control-label col-xs-3">行业小类</label>
+												<div class="col-xs-9">
+													<select id="industrySecond"
+														data-fieldName="INDUSTRY_SECOND"
+														class="bs-select form-control" name="industrySecond"
+														data-dictCode="3002">
+													</select>
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3">税号</label>
+												<div class="col-xs-9">
+													<input id="taxNo" name="taxNo" data-fieldName="TAX_NO"
+														class="form-control" type="text" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3">预收款</label>
+												<div class="col-xs-9">
+													<input id="prePay" name="prePay" data-fieldName="PRE_PAY"
+														class="form-control" type="text" disabled />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3">欠款金额</label>
+												<div class="col-xs-9">
+													<input id="arrearageAmount" name="arrearageAmount"
+														data-fieldName="ARREARAGE_AMOUNT" class="form-control"
+														type="text" readonly="readonly" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group" data-campaignSelect="true">
+												<label class="control-label col-xs-3">客户收款类别</label>
+												<div class="col-xs-9">
+													<select id="cusReceiveSort" data-dictCode="1378"
+														readonly="readonly" class="bs-select form-control"
+														name="cusReceiveSort" data-fieldName="CUS_RECEIVE_SORT">
+													</select>
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<div class="pannel-name">附加信息</div>
+									<div class="pannel-tools">
+										<a href="javascript:;" class="expand"> <i
+											class="fa fa-chevron-down"></i></a>
+									</div>
+								</div>
+								<div class="panel-body">
+									<div class="row">
+										<div class="col-xs-12 col-md-8">
+											<div class="form-group">
+												<label class="control-label col-xs-2">地址二</label>
+												<div class="col-xs-10">
+													<input id="address" name="address" class="form-control"
+														maxlength="120" type="text" data-fieldName="ADDRESS" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3">电话</label>
+												<div class="col-xs-9">
+													<input id="phone" name="phone" data-fieldName="PHONE"
+														class="form-control phone" type="text" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3">E-Mail</label>
+												<div class="col-xs-9">
+													<input id="email" name="email" data-fieldName="E_MAIL"
+														class="form-control email" type="text" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3">生日</label>
+												<div class="col-xs-9">
+													<div class="input-group date date-picker"
+														data-defaultToday="false" data-date-end-date="+0d"
+														data-orientation="top right">
+														<input id="brith" name="brith" class="form-control"
+															type="text" data-fieldName="BRITH" /> <span
+															class="input-group-btn">
+															<button class="btn default date-set" type="button">
+																<i class="fa fa-calendar"></i>
+															</button>
+															<button class="btn default date-reset" type="button">
+																<i class="fa fa-times"></i>
+															</button>
+														</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3">手机</label>
+												<div class="col-xs-9">
+													<input id="mobile" name="mobile" data-fieldName="MOBILE"
+														class="form-control mobile" type="text" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3">家庭月收入</label>
+												<div class="col-xs-9">
+													<select id="familyIncome" name="familyIncome"
+														data-fieldName="FAMILY_INCOME" class="form-control"
+														data-dictCode="1343">
+													</select>
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3">婚姻状况</label>
+												<div class="col-xs-9">
+													<select id="ownerMarriage" name="ownerMarriage"
+														data-fieldName="OWNER_MARRIAGE" class="form-control"
+														data-dictCode="1119">
+													</select>
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3">学历</label>
+												<div class="col-xs-9">
+													<select id="eduLevel" name="eduLevel"
+														data-fieldName="EDU_LEVEL" class="form-control"
+														data-dictCode="1116" data-value="">
+													</select>
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12">
+											<div class="form-group">
+												<label class="control-label col-xs-1">爱好</label>
+												<div class="col-xs-11">
+													<input type="text" class="form-control" id="hobby"
+														name="hobby" data-fieldName="HOBBY">
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<div class="pannel-name">联系人信息</div>
+									<div class="pannel-tools">
+										<a href="javascript:;" class="expand"> <i
+											class="fa fa-chevron-down"></i></a>
+									</div>
+								</div>
+								<div class="panel-body">
+									<!--/span-->
+									<div class="row">
+										<div class="col-xs-12 ">
+											<div class="input-group">
+												<span class="input-group-btn">
+													<button id="tb" class="btn default btn-sm btn-green "
+														type="button">
+														<i class="fa">自动同步车主信息</i>
+													</button>
+												</span>
+
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="row">
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3"><span
+													style="color: Red">*</span>姓名</label>
+												<div class="col-xs-9">
+													<input id="contactorName" name="contactorName"
+														data-fieldName="CONTACTOR_NAME"
+														class="form-control required" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3"><span
+													style="color: Red">*</span>性别</label>
+												<div class="col-xs-9">
+													<select id="contactorGender" name="contactorGender"
+														data-fieldName="CONTACTOR_GENDER"
+														class="form-control required" data-dictCode="1006"
+														data-value="">
+													</select>
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3"><span
+													style="color: Red">*</span>电话</label>
+												<div class="col-xs-9">
+													<input id="contactorPhone" name="contactorPhone"
+														class="form-control phone" type="text"
+														data-fieldName="CONTACTOR_PHONE" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3">E-Mail</label>
+												<div class="col-xs-9">
+													<input id="contactorEmail" name="contactorEmail"
+														data-fieldName="CONTACTOR_EMAIL"
+														class="form-control email" type="text" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3">传真</label>
+												<div class="col-xs-9">
+													<input id="contactorFax" name="contactorFax"
+														class="form-control" data-fieldName="CONTACTOR_FAX"
+														type="text" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3"><span
+													style="color: Red">*</span>手机</label>
+												<div class="col-xs-9">
+													<input id="contactorMobile" name="contactorMobile"
+														data-fieldName="CONTACTOR_MOBILE"
+														class="form-control BOILE" type="text" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3">所在省份</label>
+												<div class="col-xs-9">
+													<select id="contactorProvince"
+														class="bs-select form-control" name="contactorProvince"
+														data-type="region" data-dictCode="9001"
+														data-fieldName="CONTACTOR_PROVINCE">
+													</select>
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3">城市</label>
+												<div class="col-xs-9">
+													<select parent="province" class="bs-select form-control"
+														data-dictCode="9002" name="contactorCity"
+														id="contactorCity" data-fieldName="CONTACTOR_CITY">
+													</select>
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3">区县</label>
+												<div class="col-xs-9">
+													<select parent="city" id="contactorDistrict"
+														data-fieldName="DISTRICT" class="bs-select form-control"
+														name="contactorDistrict" data-dictCode="9003">
+													</select>
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-md-8">
+											<div class="form-group">
+												<label class="control-label col-sm-2">地址</label>
+												<div class="col-sm-10">
+													<input id="contactorAddress" name="contactorAddress"
+														class="form-control" maxlength="120" type="text"
+														data-fieldName="CONTACTOR_ADDRESS" />
+
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3">邮编</label>
+												<div class="col-xs-9">
+													<select id="contactorZipCode"
+														class="bs-select form-control" name="contactorZipCode"
+														data-dictCode="9004" data-fieldName="CONTACTOR_ZIP_CODE" />
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3">喜欢的联络方式</label>
+												<div class="col-xs-9">
+													<select id="contactorHobbyContact"
+														class="bs-select form-control"
+														name="contactorHobbyContact"
+														data-fieldName="CONTACTOR_HOBBY_CONTACT"
+														data-dictCode="1331">
+													</select>
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3">职业</label>
+												<div class="col-xs-9">
+													<select id="contactVocationType"
+														class="bs-select form-control" name="contactVocationType"
+														data-dictCode="1111"
+														data-fieldName="CONTACTOR_VOCATION_TYPE">
+													</select>
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-xs-12 col-sm-6 col-md-4">
+											<div class="form-group">
+												<label class="control-label col-xs-3">职称</label>
+												<div class="col-xs-9">
+													<select id="contactorPosition"
+														class="bs-select form-control" name="contactorPosition"
+														data-dictCode="1110" data-fieldName="CONTACTOR_POSITION">
+													</select>
+												</div>
+											</div>
+										</div>
+										<!--/span-->
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<div class="pannel-name">备注</div>
+									<div class="pannel-tools">
+										<a href="javascript:;" class="expand"> <i
+											class="fa fa-chevron-down"></i></a>
+									</div>
+								</div>
+								<div class="panel-body">
+									<div class="row">
+										<div class="col-xs-12 col-sm-12 col-md-12">
+											<div class="form-group">
+												<label class="control-label col-sm-2">备注</label>
+												<div class="col-xs-10">
+													<input type="text" class="form-control" id="remark"
+														name="remark" data-fieldName="REMARK">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /span----------------------------- -->
+						<div class="tab-pane" id="tab_task">
+							<div class="panel panel-default table-panel">
+								<div class="panel-heading">
+									<div class="pannel-name">车主备注</div>
+									<div class="panel-body">
+										<div class="row">
+											<textarea id="ownerMemo" name="ownerMemo" data-fieldName="MEMO_INFO"
+												 class="form-control" rows="18" cols="12" type="text"/>
+										</div>
+									</div>
+								</div>
+								<div class="panel-body">
+									<table
+										class="table table-striped table-bordered table-hover table-responsive"
+										id="followList">
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer center-block">
+				<a data-url="/customer/solicitude/{[OWNER_NO]}"
+					data-model="customer" data-method="PUT" data-callBack="true"
+					class="btn blue" id="saveBtn" name="saveBtn"
+					data-onclickEvent1='true' data-toggle="confirmation"> <i
+					class="fa fa-save"></i>保存
+				</a> <a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消
+				</a>
+
+			</div>
+		</form>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				//新增页面回调函数
+				$("a[data-callBack='true']", container).on(
+						"callBack.dms",
+						function(event, response) {
+							//关闭窗口
+							$("a[data-dismiss='modal']", container).click();
+							//刷新表格
+							$("#dms_solicitude", getElementContext())
+									.dmsTable().refreshTableWithForm();
+						});
+				$("#tb", container).on(
+						'click',
+						function() {
+							$("#contactorName", container).val(
+									$("#ownerName", container).val());
+							$("#contactorGender", container).val(
+									$("#gender", container).val());
+							$("#contactorPhone", container).val(
+									$("#phone", container).val());
+							$("#contactorMobile", container).val(
+									$("#mobile", container).val());
+							$("#contactorEmail", container).val(
+									$("#email", container).val());
+							$("#contactorProvince", container).selectpicker(
+									'val', $("#province", container).val());
+							$("#contactorCity", container).selectpicker('val',
+									$("#city", container).val());
+							$("#contactorDistrict", container).selectpicker(
+									'val', $("#district", container).val());
+							$("#contactorZipCode", container).selectpicker(
+									'val', $("#zipCode", container).val());
+							$("#contactorAddress", container).val(
+									$("#address", container).val());
+						});
+			});
+</script>

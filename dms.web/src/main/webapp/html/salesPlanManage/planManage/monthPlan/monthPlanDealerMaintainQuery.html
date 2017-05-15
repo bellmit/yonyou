@@ -1,0 +1,154 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+				
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">目标类型</label>
+							<div class="col-xs-8">
+								<select id="planTypeId" class="bs-select form-control"
+									name="planTypeName"  data-existsDefault="false"
+									 data-type="oemDict"
+									data-dictCode="2078">
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">选择时间</label>
+							<div class="col-xs-4">
+								<select id="planYearId" class="bs-select form-control "
+									name="planYearName" data-existsDefault="false"
+									data-url="/monthPlanDealerMaintain/getDealerMonthPlanYearList"
+									data-model="manage" 
+									data-labelValue="PLAN_YEAR" data-lableDesc="PLAN_YEAR"
+									>
+								</select>
+							</div>
+							<div class="col-xs-4">
+								<select id="seasonId" class="bs-select form-control"
+									name="seasonName" data-url="/monthPlanDealerMaintain/getSeasonList"
+									data-model="manage" data-existsDefault="false"
+									data-labelValue="SEASON" data-lableDesc="SEASON"
+									>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="row ">
+						<div class="col-xs-12 ">
+							<div class="query-btn">
+								<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
+									class="fa fa-search" ></i> 查询
+								</a> 
+								<a href="javascript:;" class="btn blue"><i
+									class="fa fa-undo"></i> 重置
+								</a>
+							</div>
+						</div>
+					</div>
+
+	        </div>
+			</div>
+		</div>
+	</form>
+	
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name" >月度任务明细</div>
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+					<a href="javascript:;" data-url="/monthPlanDealerMaintain/monthPlanDealerDownLoad/export/excel"
+					 data-model="manage" data-method="downLoad" data-toggle="confirmation"
+						class="btn btn-outline " ><i class="fa fa-download"></i>下载</a> 
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="month_plan_dealer_query_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+
+    $(document).one("onload.dms",function(event,container){
+    	
+    	//初始化年
+    	dmsCommon.ajaxRestRequest({
+			url : dmsCommon.getDmsPath()["manage"] + "/monthPlanDealerMaintain/getDealerMonthPlanYearList",
+			type : 'GET',
+			sucessCallBack : function(data) {
+				$("#planYearId",container).setDmsValue(data[data.length-1].PLAN_YEAR);
+			}
+		});
+    	
+    	//初始化月
+    	var season = $("#seasonId",container).val();
+    	var one = "", two = "", three = "";
+    	if (season == "第一季度") {
+    		one = "1月";
+    		two = "2月";
+    		three = "3月";
+    	} else if (season == "第二季度") {
+    		one = "4月";
+    		two = "5月";
+    		three = "6月";
+    	} else if (season == "第三季度") {
+    		one = "7月";
+    		two = "8月";
+    		three = "9月";
+    	} else if (season == "第四季度") {
+    		one = "10月";
+    		two = "11月";
+    		three = "12月";
+    	}else{
+    		var date=new Date;
+    		var month=date.getMonth()+1;
+    		if (month == 1 || month == 2 || month == 3 ) {
+        		one = "1月";
+        		two = "2月";
+        		three = "3月";
+        	} else if (month == 4 || month == 5 || month == 6) {
+        		one = "4月";
+        		two = "5月";
+        		three = "6月";
+        	} else if (month == 7 || month == 8 || month == 9 ) {
+        		one = "7月";
+        		two = "8月";
+        		three = "9月";
+        	} else if (month == 10 || month == 11 || month == 12 ) {
+        		one = "10月";
+        		two = "11月";
+        		three = "12月";
+        	}
+    	}
+    	
+    	new Datatable().initPagination({
+    		src : "month_plan_dealer_query_table",
+    		container:container,
+   		   url : dmsCommon.getDmsPath()["manage"] + "/monthPlanDealerMaintain/monthPlanDealerQuery",
+   		   columns : [ 
+ 		            {field : "GROUP_NAME",title : "车系"},
+                   {field : "ONE",title : one},
+                   {field : "TWO",title : two},
+                   {field : "THREE",title : three},
+                   {field : "TOTAL",title : "季度任务汇总"}
+   			],
+	    	onLoadSuccess : function() {
+				$("#month_plan_dealer_query_table",container).dmsTable().bootstrapTable('resetView');
+			}
+   		});
+    	
+    	//绑定查询按钮回调
+    	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+    	});
+    	
+    });
+
+</script>

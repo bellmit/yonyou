@@ -1,0 +1,77 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">金融方案选择</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"><i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >金融方案信息</div>
+			</div>
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="rateList">
+				</table>
+			</div>
+		</div>
+</div>
+<div class="modal-footer center-block">
+	<a class="btn blue" data-onclickEvent="true"><i class="fa fa-save"></i>确定</a>
+	<a data-dismiss="modal" class="btn blue"> <i
+		class="fa fa-undo"></i>取消
+	</a>
+</div>
+</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		/* alert($("#config",getElementContext()).val()); */
+		var str="1"
+	    str = $("#config",getElementContext()).val();
+	 	new Datatable().initPagination({
+			src : "rateList",
+			rowID:"SERIES_CODE",
+			container:container,
+		 	url : dmsCommon.getDmsPath()["retail"] + "/ordermanage/salesOrders/query/allLoanRate/"+str.replace('/','<>')+"/end",
+			sortName : "SERIES_CODE", 
+			sortOrder : "asc",
+			pageSize:5,
+			autoHeight:false,
+			isQueryFirst:true,
+			undefinedText : "",
+			columns : [ 
+			            {radio:true},
+			            {field : "BRAND_NAME",title : "品牌"},
+			            {field : "SERIES_NAME",title : "车系"},
+			            {field : "MODEL_NAME",title : "车型"},
+			           // {field : "SERIES_CODE",title : "车系",minWidth:15,inputSelectFormat : {url:"/basedata/selectSeries",model:"manage",labelValue:"SERIES_CODE",lableDesc:"SERIES_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"}},
+			            //{field : "MODEL_CODE",title : "车型",minWidth:15,inputSelectFormat : {url:"/basedata/intentionModel",model:"manage",labelValue:"MODEL_CODE",lableDesc:"MODEL_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"}},
+			            {field : "CONFIG_NAME",title : "配置"},
+			            {field : "BANK_NAME",title : "贷款银行"},
+			            {field : "LOAN_ORG",title : "贷款银行",minWidth:15,inputSelectFormat : {url:"/basedata/BasicParameters/paying/bank",model:"manage",labelValue:"BANK_CODE",lableDesc:"BANK_NAME",validate:{validateClass:"gfkselect disabled"},attr:"data-existsdefault='false'"},visible:false},
+			            {field : "INSTALLMENT_NUMBER",title : "分期期数",codeFormat : {type:"dict",codeType:"3387"}},
+			            {field : "FIRST_PERMENT_RANGE_S",title : "首付比例开始(%)"},
+			            {field : "FIRST_PERMENT_RANGE_E",title : "首付比例结束(%)"},
+			            {field : "LOAN_RATE",title : "贴息利率(%)"},
+			            {field : "EFFECTIVE_DATE_S",title : "有效日期开始",dateFormat : {format:"YYYY-MM-DD"}},
+			            {field : "EFFECTIVE_DATE_E",title : "有效日期结束",dateFormat : {format:"YYYY-MM-DD"}},
+			            {field : "CREATED_AT",title : "创建日期",dateFormat : {format:"YYYY-MM-DD"}},
+			            {field : "UPDATED_AT",title : "更新日期",dateFormat : {format:"YYYY-MM-DD"}}
+			         ]
+		});
+	 	//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			var selectRow = $("#rateList",container).dmsTable().getFirstSelection();
+			$("div[data-tableAllLoanRateSelect='true']",getElementContext()).initHtmlContent(selectRow);
+			/* $("div[data-tableSelect2='true']",getElementContext()).initHtmlContent(selectRow); */
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+		});
+	});
+
+</script>

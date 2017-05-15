@@ -1,0 +1,77 @@
+<div class="dms-edit ajaxrest" 
+	data-model="manage">
+	<!-- BEGIN FORM-->
+	<form class="form-horizontal">
+		<div class="panel panel-default table-panel">
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="receivedList">
+				</table>
+			</div>	
+		</div>	
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	var roId=$("#roId",getElementContext()).val();
+	new Datatable().initLocale({
+		src : "receivedList",
+		container:container,
+		rowID:"RO_ADD_ITEM_ID",
+		sortName : "RO_ADD_ITEM_ID",
+		sortOrder : "asc",
+		height : 10,
+		columns : [    
+		               {field : "",title : "收费对象代码"},
+		               {field : "CHARGE_PARTITION_NAME",inputField:"chargePartitionCode",inputHiddenFormat : {},title : "收费对象名称"},
+			           {field : "ADD_ITEM_CODE",inputField:"addItemCode",inputHiddenFormat : {},title : "实收工时费"},
+			           {field : "ADD_ITEM_NAME",inputField:"addItemName",inputHiddenFormat : {},title : "实收维修材料费"}, 
+			           {field : "ADD_ITEM_AMOUNT",inputField:"addItemAmount",inputHiddenFormat : {},title : "实收销售材料费"},
+			           {field : "DIS_COUNT_AMOUNT",inputField:"discountAmount",inputHiddenFormat : {},title : "实收附加项目费"}, 
+			           {field : "RECEIVABLE_AMOUNT",inputField:"receivableAmount",inputHiddenFormat : {},title : "实收辅料管理费"},  			           
+			           {field : "DIS_COUNT_AMOUNT",inputField:"discountAmount",inputHiddenFormat : {},title : "实收总金额"}, 
+			           {field : "",title : "税额"},
+			           {field : "",title : "不含税金额"},
+			           {field : "",title : "积分金额"},
+			           {field : "",title : "抵扣金额"},
+			           {field : "",title : "去零金额"},
+			           {field : "",title : "应收账款"},
+			           {field : "",title : "已收账款"},
+			           {field : "",title : "未收账款"},
+			           {field : "",title : "是否结亲"},
+			           {field : "",title : "已开票"},
+			           ]
+	});
+	/* if(roId!=""){
+		$("#bAIDtoList",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["repair"] + "/balance/balanceAccounts/queryAddRoItem/"+roId);
+		var tab=$("#bAIDtoList tbody");
+		var rows=$("tr",tab).length;
+		var zkAmount=0;
+		var afterDiscountAmount=0;
+		for(var i=0;i<rows;i++){
+			var addItemAmount = $("tr:eq("+i+") td:eq(4) input[id^=addItemAmount]",tab).val();
+			var discountAmount = $("tr:eq("+i+") td:eq(5) input[id^=discountAmount]",tab).val();
+			var receivableAmount = $("tr:eq("+i+") td:eq(6) input[id^=receivableAmount]",tab).val(); 
+			if(discountAmount==""||discountAmount==null){
+				discountAmount=0*1;
+			}
+			if(receivableAmount==""||receivableAmount==null){
+				receivableAmount=0*1;
+			}
+			if(addItemAmount==""||addItemAmount==0){
+				addItemAmount=0*1;
+				discountAmount=0*1;
+				receivableAmount=0*1;
+			}
+			zkAmount=parseFloat(zkAmount)+parseFloat(discountAmount);
+			afterDiscountAmount=parseFloat(afterDiscountAmount)+parseFloat(receivableAmount);
+		}
+		$("#zkAmountAddItem",container).setDmsValue(zkAmount);
+		$("#afterDiscountAmountAddItem",container).setDmsValue(afterDiscountAmount);
+		var map={zkAmountAddItem:zkAmount,afterDiscountAmountAddItem:afterDiscountAmount};
+		$("div[data-countAmount='true']",getElementContext()).initHtmlContent(map,false);
+		$("#oldRoId",getElementContext()).setDmsValue(roId);
+	}; */
+});
+</script>		
