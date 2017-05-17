@@ -67,8 +67,13 @@ $(document).one("onload.dms",function(event, container) {
 							type : 'GET',
 							data : {ID:row.ID},
 							sucessCallBack : function(data) {
-								dmsCommon.tip({status:"success",msg:"下发成功！ "});
-								$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+								if(data.btcCode == 1){
+									dmsCommon.tip({status:"success",msg:"下发成功！ "});
+									$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+								}else{
+									dmsCommon.tip({status:"error",msg:"下发失败！ "})
+									$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+								}
 							}
 						});
 					 }

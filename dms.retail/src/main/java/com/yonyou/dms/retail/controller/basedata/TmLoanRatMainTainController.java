@@ -213,7 +213,7 @@ public class TmLoanRatMainTainController extends BaseController {
 			if(result){
 				return null;
 			}else{
-				throw new ServiceBizException("数据导入失败");
+				throw new ServiceBizException("导入数据异常，请检查导入文件数据！");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

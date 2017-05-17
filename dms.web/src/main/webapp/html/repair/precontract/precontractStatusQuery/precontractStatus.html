@@ -45,6 +45,31 @@
 								</div>
 							</div>
 						</div>
+						
+						<div class="col-xs-12  col-xs-6 col-md-6">
+							<div class="form-group">
+							<label class="control-label  col-xs-2">预约进厂时间</label>
+							<div class="col-xs-4 ">
+								<div class="input-group date datetime"  data-defaultNow = "true">
+										<input id="roCreateDate" name="starttime" readonly
+											class="form-control required" type="text" value="" />
+										 <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+					                    <span class="input-group-addon"><span class="fa fa-times"></span></span>
+								</div>
+							</div>
+							<span class="  col-xs-2">至</span> 
+							<div class="col-xs-4 ">
+								<div class="input-group date datetime" data-defaultNow = "true">
+										<input id="endTimeSupposed" name="endtime" readonly
+											class="form-control required" type="text" value="" />
+										 <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+					                    <span class="input-group-addon"><span class="fa fa-times"></span></span>
+									</div>
+							</div>
+							
+							</div>
+						</div>
+						
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
 							<div class="form-group">
 								<label class="control-label col-xs-4">预约来源</label>
@@ -68,21 +93,6 @@
 								</div>
 							</div>
 						</div>
-						
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-							<div class="form-group">
-								<label class="control-label col-xs-4 ">服务专员</label>
-								<div class="col-xs-6">
-									<select id="soldBy" name="Technician"
-										class="bs-select form-control"
-										data-url="/basedata/employees/-1/salesConsultant"
-										data-model="manage" data-labelValue="USER_ID"
-										data-lableDesc="USER_NAME">
-									</select>
-								</div>
-							</div>
-						</div>
-						
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
 							<div class="form-group">
 								<label class="control-label col-xs-4">是否会员</label>
@@ -94,70 +104,55 @@
 								</div>
 							</div>
 						</div>
-					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="col-xs-12 col-sm-6 col-md-3">
 							<div class="form-group">
-								 <label class="control-label col-xs-5">离预约进厂时间</label> 
+								<label class="control-label col-xs-4 ">客户经理</label>
 								<div class="col-xs-8">
-											<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-									<div class="form-group">
-										<div class="col-xs-12">
+									<select id="soldBy" name="Service"
+										class="bs-select form-control"
+										data-url="/precontractSum/queryPreSum/Service/Select"
+										data-model="repair" data-labelValue="employee_no"
+										data-lableDesc="employee_name" data-live-search="true">
+									</select>
+								</div>
+							</div>
+						</div>
+						
+					<div class="col-xs-12 col-sm-6 col-md-3 ">
+							<div class="form-group">
+								 <label class="control-label col-xs-4">离预约进厂时间</label> 
+								<div class="col-xs-8">
+										<div class="col-xs-4">
 											<input id="" name="idea" type="radio"/>
 											<label class="control-label col-xs-6">&nbsp;1小时</label>
 										</div>
-									</div>
-								</div>
-								<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-									<div class="form-group">
-										<div class="col-xs-12">
+										<div class="col-xs-4">
 											<input id="" name="idea" type="radio"/>
 											<label class="control-label col-xs-6">&nbsp;24小时</label>
 										</div>
-									</div>
-								</div>
-								<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-									<div class="form-group">
-										<div class="col-xs-12">
+								
+										<div class="col-xs-4">
 											<input id="" name="idea" type="radio"/>
 											<label class="control-label col-xs-6">&nbsp;72小时</label>
 										</div>
 									</div>
-								</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
-							<div class="form-group">
-								<div class="col-xs-8">
-								<input id="" name="" type="checkbox" data-dictCode="1057" data-dictLabel="合并预约单"/>
-								</div>
-							</div>
-						</div>
-					
-				
-						<div class="col-xs-12 col-sm-6 col-md-4 ">
-							<div class="form-group">
-							<label class="control-label col-xs-5">预约进厂时间</label>
-							<div class="col-xs-8 ">
-								<div class="input-group date datetime"  data-defaultNow = "true">
-										<input id="roCreateDate" name="starttime" readonly
-											class="form-control required"
-											type="text" value="" />
-										 <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
-					                    <span class="input-group-addon"><span class="fa fa-times"></span></span>
-					                    <span class="input-group-addon">至</span> 
-								</div>
 								
-								<div class="input-group date datetime" data-defaultNow = "true">
-										<input id="endTimeSupposed" name="endtime" readonly
-											class="form-control required"
-											type="text" value="" />
-										 <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
-					                    <span class="input-group-addon"><span class="fa fa-times"></span></span>
-									</div>
+								</div>
 							</div>
+							
+							<div class="col-xs-12 col-sm-6  col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">合并预约单</label>
+								<div class="col-xs-8">
+									<input type="checkbox"  id="ifTaxed" name="ifTaxed"  data-onclickEvent='true'
+									data-dictCode="1057"  ><!-- data-value="10571001"  -->
+								</div>
 							</div>
 						</div>
-					</div>
+							
+						</div>
+						
+						
 						<div class="row ">
 							<div class="col-xs-12 ">
 								<div class="query-btn">
@@ -198,92 +193,42 @@
 				new Datatable().initPagination({
 					src : "dms_table",
 					container : container,
-					url : dmsCommon.getDmsPath()["repair"]	+ "/precontractSum/queryPreSum",
+					//url : dmsCommon.getDmsPath()["repair"]	+ "/precontractSum/queryPreSum",
 					rowID : "RO_CREATE_DATE",
 					sortName : "RO_CREATE_DATE",
-					/* selectItemName:"VIN", *///当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
 					sortOrder : "asc",
 					autoHeight : false,
 					undefinedText : "",
 					columns : [ 
+					{checkbox:true,sortable : false},
 					{field : "dealer_code",visible : false},
-					{field : "dealer_shortname",title : "经销商"}, 
-					{
-						field : "RO_CREATE_DATE",
-						title : "开单日期"
-					}, {
-						field : "RO_SERVICE_ADVISOR",
-						title : "开单客户经理"
-					}, {
-						field : "BOOKING_ORDER_NO",
-						title : "预约单号"
-					}, {
-						field : "SERVICE_ADVISOR",
-						title : "预约客户经理"
-					}, {
-						field : "LICENSE",
-						title : "车牌号"
-					}, 
-					{
-						field : "BOOKING_SOURCE",
-						title : "预约来源"
-					}, {
-						field : "BOOKING_TYPE_CODE",
-						title : "预约类别"
-					}, {
-						field : "CREATE_DATE",
-						title : "接受预约日"
-					}, {
-						field : "BOOKING_COME_TIME",
-						title : "预约进厂时间"
-				
-					}, {
-						field : "OWNER_NAME",
-						title : "车主"
-					}, {
-						field : "CONTACTOR_NAME",
-						title : "联系人"
-					}, {
-						field : "CONTACTOR_PHONE",
-						title : "联系人电话"
-					}, {
-						field : "CONTACTOR_MOBILE",
-						title : "联系人手机"
-					}, {
-						field : "BOOKING_ORDER_STATUS",
-						title : "预约单状态"
-					},{
-						field : "REMINDER",
-						title : "提醒人"
-					}, {
-						field : "REMIND_DATE",
-						title : "提醒时间"
-					}, {
-						field : "CHIEF_TECHNICIAN",
-						title : "指定技师"
-					}, {
-						field : "NEED_ASC_DRIVE",
-						title : "是否提车"
-					},{
-						field : "DRIVE_ADD",
-						title : "推荐人"
-					},{
-						field : "RECOMMEND_CUSTOMER_NAME",
-						title : "推荐单位"
-					}, {
-						field : "CANCLE_IN_REASON",
-						title : "取消进厂原因"
-					}, {
-						field : "REMARK",
-						title : "备注"
-					}, {
-						field : "OPERATOR",
-						title : "操作员"
-					},{
-						field : "LOCK_USER",
-						title : "锁定人"
-					},
-
+					{field : "dealer_shortname",title : "经销商简称"}, 
+					{field : "RO_NO",title : "工单号"},
+					{field : "RO_CREATE_DATE",title : "开单日期"},
+					{field : "RO_SERVICE_ADVISOR",title : "开单客户经理"}, 
+					{field : "BOOKING_ORDER_NO",title : "预约单号"},
+					{field : "SERVICE_ADVISOR",title : "预约客户经理"}, 
+					{field : "LICENSE",title : "车牌号"}, 
+					{field : "BOOKING_SOURCE",title : "预约来源"}, 
+					{field : "BOOKING_TYPE_CODE",title : "预约类别"},
+					{field : "CREATE_DATE",	title : "接受预约日"}, 
+					{field : "BOOKING_COME_TIME",title : "预约进厂时间"}, 
+					{field : "OWNER_NAME",	title : "车主"},
+					{field : "CONTACTOR_NAME",	title : "联系人"},
+					{field : "CONTACTOR_PHONE",title : "联系人电话"},
+					{field : "CONTACTOR_MOBILE",title : "联系人手机"}, 
+					{field : "BOOKING_ORDER_STATUS",title : "预约单状态"},
+					{field : "REMINDER",title : "提醒人"}, 
+					{field : "REMIND_DATE",	title : "提醒时间"}, 
+					{field : "CHIEF_TECHNICIAN",title : "指定技师"},
+					{field : "NEED_ASC_DRIVE",title : "是否提车"},
+					{field : "DRIVE_ADD",title : "提车地址"},
+					{field : "DRIVE_ADD",title : "推荐人"},
+					{field : "RECOMMEND_CUSTOMER_NAME",title : "推荐单位"},
+					{field : "CANCLE_IN_REASON",title : "取消进厂原因"},
+					{field : "REMARK",title : "备注"},
+					{field : "OPERATOR",title : "操作员"},
+					{field : "LOCK_USER",title : "锁定人"}
 					]
 				});
 

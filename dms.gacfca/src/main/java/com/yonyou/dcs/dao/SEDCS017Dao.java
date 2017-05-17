@@ -1,6 +1,7 @@
 package com.yonyou.dcs.dao;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -43,7 +44,7 @@ public class SEDCS017Dao extends OemBaseDAO {
 	 * 需要下发的维修工时参数数据
 	 * @return
 	 */
-	public List<SEDCS017DTO> queryAllInfo(int curPage,int groupType) {
+	public LinkedList<SEDCS017DTO> queryAllInfo(int curPage,int groupType) {
 		//一次下发两百条
 		int s=(curPage-1)*200;
 		int e=curPage*200;
@@ -67,7 +68,7 @@ public class SEDCS017Dao extends OemBaseDAO {
 		List<Object> params = new ArrayList<Object>();
 		params.add(groupType);
 		List<Map> maplist=OemDAOUtil.findAll(sql.toString(), params);
-		List<SEDCS017DTO> dtolist = new ArrayList<SEDCS017DTO>();
+		LinkedList<SEDCS017DTO> dtolist = new LinkedList<SEDCS017DTO>();
 		if(null!=maplist&&maplist.size()>0){
 			for(Map map:maplist){
 				SEDCS017DTO dto=new SEDCS017DTO();

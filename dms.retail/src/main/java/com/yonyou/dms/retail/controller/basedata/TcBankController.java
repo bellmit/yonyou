@@ -25,6 +25,7 @@ import com.yonyou.dms.framework.DAO.DAOUtil;
 import com.yonyou.dms.framework.DAO.PageInfoDto;
 import com.yonyou.dms.framework.domain.LoginInfoDto;
 import com.yonyou.dms.framework.util.bean.ApplicationContextHelper;
+import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.retail.domains.DTO.basedata.TcBankDTO;
 import com.yonyou.dms.retail.service.basedata.TcBankService;
 import com.yonyou.f4.mvc.annotation.TxnConn;
@@ -97,16 +98,18 @@ public class TcBankController extends BaseController{
      * @return
      */
     @RequestMapping(value = "/sent", method = RequestMethod.GET)
-    public ResponseEntity<TcBankDTO> doSendEach(@RequestParam Map<String, String> queryParam,UriComponentsBuilder uriCB) {
+    public ResponseEntity<TcBankDTO> doSendEach(@RequestParam Map<String, String> queryParam,UriComponentsBuilder uriCB) throws ServiceBizException{
 		logger.info("合作银行信息下发");
 		/**当前登录信息**/
 		LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
 		String dealerCode = loginInfo.getDealerCode();
 		String id = queryParam.get("ID");
-    	tbservice.doSendEach(Long.valueOf(id),dealerCode);
+    	int msg = tbservice.doSendEach(Long.valueOf(id),dealerCode);
+    	TcBankDTO dto = new TcBankDTO();
+    	dto.setBtcCode(msg);
 		MultiValueMap<String,String> headers = new HttpHeaders();  
 		headers.set("Location", uriCB.path("/TcBankController/{id}").buildAndExpand(id).toUriString());  
-		return new ResponseEntity<TcBankDTO>(headers, HttpStatus.CREATED);
+		return new ResponseEntity<TcBankDTO>(dto,headers, HttpStatus.CREATED);
 	}
     
     /**

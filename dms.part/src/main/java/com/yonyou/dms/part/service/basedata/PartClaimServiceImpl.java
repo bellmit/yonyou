@@ -10,6 +10,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yonyou.dms.common.domains.PO.basedata.TtPtClaimDcsPO;
 import com.yonyou.dms.framework.DAO.PageInfoDto;
 import com.yonyou.dms.framework.domain.LoginInfoDto;
 import com.yonyou.dms.framework.util.bean.ApplicationContextHelper;
@@ -18,7 +19,6 @@ import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.StringUtils;
 import com.yonyou.dms.part.dao.PartClaimManageDao;
 import com.yonyou.dms.part.domains.DTO.basedata.TtptClaimDcsDTO;
-import com.yonyou.dms.part.domains.PO.partBaseInfoManage.TtPtClaimDcsPO;
 import com.yonyou.dms.part.domains.PO.partBaseInfoManage.TtPtClaimHistoryDcsPO;
 
 /**

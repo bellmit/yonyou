@@ -2,11 +2,7 @@ package com.yonyou.dms.DTO.gacfca;
 
 import java.util.Date;
 
-import com.infoservice.dms.cgcsl.vo.BaseVO;
-
-
-@SuppressWarnings("serial")
-public class SA007Dto extends BaseVO{//调拨
+public class SA007Dto {//调拨
 
 	private String inEntityCode;//调入方经销商代码
 	private String outEntityCode;//调出方经销商代码

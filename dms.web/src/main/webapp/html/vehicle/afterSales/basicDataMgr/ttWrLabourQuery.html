@@ -59,11 +59,11 @@
 							<a class="btn btn-outline" data-url="vehicle/afterSales/basicDataMgr/addTtWrLabourQuery.html" data-width="modal-md"data-toggle="modal"> 
 							<i class="fa fa-plus-square"></i> 新增
 							</a> 
-						     <a  class="btn btn-outline" data-url="part/basedata/partManage/partInfoImport.html"  data-toggle="modal" > <i
-								class="fa fa-search" ></i> 导入
+							<a class="btn btn-outline" data-url="vehicle/afterSales/basicDataMgr/ttWrLabourImport.html" data-width="modal-lg" 
+								data-toggle="modal"> <i class="fa fa-upload"></i> 导入
 							</a> 
-							<a class="btn btn-outline" data-url="part/basedata/partManage/partInfoImport.html"  data-toggle="modal" > <i
-								class="fa fa-search" ></i> FIAT工时导入
+							<a class="btn btn-outline" data-url="vehicle/afterSales/basicDataMgr/ttWrLabourFiatImport.html" data-width="modal-lg" 
+								data-toggle="modal"> <i class="fa fa-upload"></i> FIAT工时导入
 							</a> 
 						</div>
 				</div>
@@ -128,7 +128,7 @@ $(document).one("onload.dms",function(event,container){
 		url : dmsCommon.getDmsPath()["vehicle"] + "/wrLabour/labourSearch",
 		rowID : "ID",
 		sortName : "ID",
-		sortOrder : "asc",
+		sortOrder : "desc",
 		
 	columns : [ 
 	   	    {field : "ID",title : "操作",operateFormat : [

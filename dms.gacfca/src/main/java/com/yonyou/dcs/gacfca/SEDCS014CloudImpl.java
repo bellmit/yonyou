@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.javalite.activejdbc.Base;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import com.infoeai.eai.po.TtShowroomFlowPO;
 import com.yonyou.dcs.dao.SEDCS014Dao;
 import com.yonyou.dms.common.domains.DTO.basedata.SA012Dto;
 import com.yonyou.dms.common.domains.DTO.basedata.SA013Dto;
-import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.CommonUtils;
 @Service
 public class SEDCS014CloudImpl extends BaseCloudImpl implements SEDCS014Cloud {
@@ -23,17 +23,21 @@ public class SEDCS014CloudImpl extends BaseCloudImpl implements SEDCS014Cloud {
 	SEDCS014Dao dao ;
 
 	@Override
-	public String receiveDate(List<SA013Dto> dtos) throws Exception {
+	public String handleExecutor(List<SA013Dto> dtos) throws Exception {
 		String msg = "1";
 		logger.info("***************************开始获取展厅流量数据***************************");
-		
+		beginDbService();
 		try {
 			dealData(dtos);
+			dbService.endTxn(true);
 		} catch (Exception e) {
 			logger.error("***************************展厅流量数据接收失败***************************", e);
 			msg = "0";
-			throw new ServiceBizException(e);
-		} 
+			dbService.endTxn(false);
+		} finally{
+			Base.detach();
+			dbService.clean();
+		}
 		logger.info("*************************** 成功获取上报的展厅流量数据******************************");
 		return msg;
 	}

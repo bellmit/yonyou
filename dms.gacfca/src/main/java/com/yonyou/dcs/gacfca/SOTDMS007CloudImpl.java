@@ -17,7 +17,7 @@ import com.yonyou.dms.DTO.gacfca.TiAppNTestDriveDto;
 import com.yonyou.dms.common.domains.PO.basedata.TiAppNCultivatePO;
 import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.CommonUtils;
-import com.yonyou.dms.gacfca.SOTDMS007;
+import com.yonyou.dms.gacfca.SOTDMS007Coud;
 
 @Service
 public class SOTDMS007CloudImpl extends BaseCloudImpl implements SOTDMS007Cloud {
@@ -28,7 +28,7 @@ public class SOTDMS007CloudImpl extends BaseCloudImpl implements SOTDMS007Cloud 
 	TiAppNCultivateDao dao;
 	
 	@Autowired
-	SOTDMS007 sotmds007;
+	SOTDMS007Coud sotmds007;
 
 	@Override
 	public String execute() throws ServiceBizException {

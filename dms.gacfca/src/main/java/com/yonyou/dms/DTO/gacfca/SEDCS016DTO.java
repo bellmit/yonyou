@@ -1,10 +1,8 @@
 package com.yonyou.dms.DTO.gacfca;
 
-import com.infoservice.dms.cgcsl.vo.BaseVO;
 
-public class SEDCS016DTO extends BaseVO  {
+public class SEDCS016DTO {
 	
-	private static final long serialVersionUID = 1L;
 	private String entityCode;//经销商代码
 	private String dealerShortname;//经销商简称
 	private String isRestrict;//是否行管经销商

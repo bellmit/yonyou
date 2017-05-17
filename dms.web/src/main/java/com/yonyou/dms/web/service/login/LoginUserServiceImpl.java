@@ -200,7 +200,7 @@ public class LoginUserServiceImpl implements LoginUserService {
             // 获取该用户接待权限
             loginInfo.setReceptionMaintain((Map) powerMap.get("receptionMaintain"));
             // 获取该用户配件权限
-            loginInfo.setPartsOption((Map) powerMap.get("purchase"));
+            loginInfo.setPartsOption((Map) powerMap.get("partsOption"));
             // 获取该用户结算权限
             loginInfo.setSettleAccounts((Map) powerMap.get("settleAccounts"));
             // 获取该用户系统权限
@@ -328,7 +328,7 @@ public class LoginUserServiceImpl implements LoginUserService {
         }
         StringBuilder sb = new StringBuilder("SELECT OPTION_CODE as CODE_ID FROM TM_AUTH_OPTION WHERE OPTION_TYPE=?");
         // 获取配件参数权限配置下的所有类型
-        List<Map> pl = Base.findAll(sb.toString(), DictCodeConstants.ACCESSORIES);
+        List<Map> pl = Base.findAll(sb.toString(), DictCodeConstants.PARTS_OPTION);
         // 获取维修参数权限配置下的所有类型
         List<Map> rl = Base.findAll(sb.toString(), DictCodeConstants.RECEPTION_MAINTAIN_OPTION);
         List<Map> selt = Base.findAll(sb.toString(), DictCodeConstants.SETTLE_ACCOUNTS_OPTION);

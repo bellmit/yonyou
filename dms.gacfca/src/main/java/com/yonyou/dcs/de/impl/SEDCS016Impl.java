@@ -2,6 +2,7 @@ package com.yonyou.dcs.de.impl;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,9 +11,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.infoservice.dms.cgcsl.vo.SEDCS015VO;
+import com.infoservice.dms.cgcsl.vo.SEDCS016VO;
 import com.yonyou.dcs.dao.SEDCS016Dao;
 import com.yonyou.dcs.de.SEDCS016;
 import com.yonyou.dcs.util.DEUtil;
+import com.yonyou.dms.DTO.gacfca.SEDCS015DTO;
 import com.yonyou.dms.DTO.gacfca.SEDCS016DTO;
 import com.yonyou.dms.function.exception.ServiceBizException;
 @Service
@@ -38,7 +42,7 @@ public class SEDCS016Impl  extends BaseImpl  implements  SEDCS016 {
 				logger.info("====SEDCS016  行管经销商下发结束====,无数据");
 			}else{
 				for(int i =0;i<list.size();i++){
-					List<SEDCS016DTO> dataList = new ArrayList<SEDCS016DTO>();
+					LinkedList<SEDCS016DTO> dataList = new LinkedList<SEDCS016DTO>();
 					
 					SEDCS016DTO dto = list.get(i);
 					
@@ -62,10 +66,12 @@ public class SEDCS016Impl  extends BaseImpl  implements  SEDCS016 {
 	 * @param array
 	 * @throws Exception 
 	 */
-	private String send(List<SEDCS016DTO> dataList, String dmsCodes) throws Exception {
+	private String send(LinkedList<SEDCS016DTO> dataList, String dmsCodes) throws Exception {
 		try {
 			if(null!=dataList && dataList.size()>0){
-				Map<String, Serializable> body = DEUtil.assembleBody(dataList);
+				List<SEDCS016VO> vos = new ArrayList<>();
+				setVos(vos,dataList);
+				Map<String, Serializable> body = DEUtil.assembleBody(vos);
 				if(!"".equals(dmsCodes)){
 					sendAMsg("SEDCS016", dmsCodes, body);
 					logger.info("SEDCS016    行管经销商发送成功======size："+dataList.size());
@@ -80,5 +86,21 @@ public class SEDCS016Impl  extends BaseImpl  implements  SEDCS016 {
 			logger.error(t.getMessage(), t);
 		} 
 		return null;
+	}
+	/**
+	 * 数据转换
+	 * @param vos
+	 * @param dataList
+	 */
+	private void setVos(List<SEDCS016VO> vos, LinkedList<SEDCS016DTO> dataList) {
+		for (int i = 0; i < dataList.size(); i++) {
+			SEDCS016DTO dto = dataList.get(i);
+			SEDCS016VO vo = new SEDCS016VO();
+			vo.setEntityCode(dto.getEntityCode());
+			vo.setDealerShortname(dto.getDealerShortname());
+			vo.setIsRestrict(dto.getIsRestrict());
+			vo.setIsOther(dto.getIsOther());
+			vos.add(vo);
+		}
 	}
 }

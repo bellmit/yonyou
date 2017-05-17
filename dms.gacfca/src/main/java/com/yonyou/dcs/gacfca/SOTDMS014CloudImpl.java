@@ -18,7 +18,7 @@ import com.yonyou.dms.framework.domain.LoginInfoDto;
 import com.yonyou.dms.framework.util.bean.ApplicationContextHelper;
 import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.CommonUtils;
-import com.yonyou.dms.gacfca.SOTDMS014;
+import com.yonyou.dms.gacfca.SOTDMS014Coud;
 
 /**
  * 更新客户信息（置换需求）APP更新
@@ -34,7 +34,7 @@ public class SOTDMS014CloudImpl extends BaseCloudImpl implements SOTDMS014Cloud 
 	TiAppUSwapDao dao;
 	
 	@Autowired
-	SOTDMS014 sotdms014;
+	SOTDMS014Coud sotdms014;
 
 	@Override
 	public String execute() throws ServiceBizException {

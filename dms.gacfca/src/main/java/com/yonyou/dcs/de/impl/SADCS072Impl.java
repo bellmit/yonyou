@@ -15,7 +15,6 @@ import com.infoservice.dms.cgcsl.vo.VehicleCustomerVO;
 import com.yonyou.dcs.dao.SADCS072Dao;
 import com.yonyou.dcs.de.SADCS072;
 import com.yonyou.dcs.util.DEUtil;
-import com.yonyou.dms.DTO.gacfca.VehicleCustomerDTO;
 import com.yonyou.dms.function.exception.ServiceBizException;
 @Service
 public class SADCS072Impl  extends BaseImpl  implements  SADCS072 {
@@ -31,7 +30,7 @@ public class SADCS072Impl  extends BaseImpl  implements  SADCS072 {
 			//下发的经销商
 			List<Map> dealerList= dao.getSendDealer(vin,dealerCode);
 			//下发数据
-			LinkedList<VehicleCustomerDTO> dataList=dao.getDataList(vin);
+			LinkedList<VehicleCustomerVO> dataList=dao.getVoDataList(vin);
 			for (int i=0;i<dealerList.size();i++) {
 				// 可下发的经销商列表
 				dmsCodes.add(dealerList.get(i).get("DMS_CODE").toString());
@@ -48,12 +47,10 @@ public class SADCS072Impl  extends BaseImpl  implements  SADCS072 {
 	 * @param dealerCode
 	 * @throws Exception 
 	 */
-	private String send(LinkedList<VehicleCustomerDTO> dataList, List<String> dmsCodes) throws Exception {
+	private String send(LinkedList<VehicleCustomerVO> dataList, List<String> dmsCodes) throws Exception {
 		try {
 			if(null!=dataList && dataList.size()>0){
-				List<VehicleCustomerVO> vos = new ArrayList<>();
-				setVos(vos,dataList);
-				Map<String, Serializable> body = DEUtil.assembleBody(vos);
+				Map<String, Serializable> body = DEUtil.assembleBody(dataList);
 				if(!"".equals(dmsCodes)){
 					sendMsg("SEDMS072", dmsCodes, body);
 					logger.info("SADCS072  车主资料发送成功======size："+dataList.size());
@@ -69,36 +66,5 @@ public class SADCS072Impl  extends BaseImpl  implements  SADCS072 {
 		} finally {
 		}
 		return null;
-	}
-	/**
-	 * 数据转换
-	 * @param vos
-	 * @param dataList
-	 */
-	private void setVos(List<VehicleCustomerVO> vos, LinkedList<VehicleCustomerDTO> dataList) {
-		for (int i = 0; i < dataList.size(); i++) {
-			VehicleCustomerDTO dto = dataList.get(i);
-			VehicleCustomerVO vo = new VehicleCustomerVO();
-			vo.setOwnerProperty(dto.getOwnerProperty());
-			vo.setOwnerName(dto.getOwnerName());
-			vo.setContactorMobile(dto.getContactorMobile());
-			vo.setContactorPhone(dto.getContactorPhone());
-			vo.setCtCode(dto.getCtCode());
-			vo.setCertificateNo(dto.getCertificateNo());
-			vo.setGender(dto.getGender());
-			vo.setFamilyIncome(dto.getFamilyIncome());
-			vo.setOwnerMarriage(dto.getOwnerMarriage());
-			vo.setProvince(dto.getProvince());
-			vo.setCity(dto.getCity());
-			vo.setDistrict(dto.getDistrict());
-			vo.setAddress(dto.getAddress());
-			vo.setIndustryFirst(dto.getIndustryFirst());
-			vo.setIndustrySecond(dto.getIndustrySecond());
-			vo.setZipCode(dto.getZipCode());
-			vo.setEmail(dto.getEmail());
-			vo.setVin(dto.getVin());
-			vo.setUpDate(dto.getUpDate());
-			vos.add(vo);
-		}
 	}
 }

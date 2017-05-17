@@ -10,7 +10,7 @@ import com.yonyou.dms.function.exception.ServiceBizException;
  * DMS接收到GCS完成召回标示时，取消召回车辆在DMS端召回提示
  * @author xuqinqin 
  */
-public interface SADCS076Cloud {
+public interface SADCS076Cloud  extends BaseCloud{
 
 	public String sendData(List<Map<String, String>> bizParams) throws ServiceBizException;
 	

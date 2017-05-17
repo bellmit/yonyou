@@ -2827,4 +2827,33 @@ public class OemDictCodeConstants {
 	public final static Integer DISPALY_DATA_TEYP2 = 12541002;// 导入成功数据
 	public final static Integer DISPALY_DATA_TEYP3 = 12541003;// 导入失败数据
 
+	
+	/**
+	 * JdPower跟踪性质
+	 */
+	public final static Integer TRACING_PROPERTY=9201;
+	public final static Integer TRACING_PROPERTY_01=92011001;//首次回访
+	public final static Integer TRACING_PROPERTY_02=92011002;//多次回访
+	
+	/**
+	 * JdPower渠道来源
+	 */
+	public final static Integer DITCH_SOURCE=9202;
+	public final static Integer DITCH_SOURCE_01=92021001;//JDpower
+	public final static Integer DITCH_SOURCE_02=92021002;//NPS
+	
+	/**
+	 * JdPower跟踪状态
+	 */
+	public final static Integer TAIL_AFTER_STATUS=9203;
+	public final static Integer TAIL_AFTER_STATUS_01=92031001;//待处理
+	public final static Integer TAIL_AFTER_STATUS_02=92031002;//已结案
+	
+	/**
+	 * JdPower处理结果
+	 */
+	public final static Integer DISPOSE_RESULT=9204;
+	public final static Integer DISPOSE_RESULT_01=92041001;//满意
+	public final static Integer DISPOSE_RESULT_02=92041002;//不满意
+	
 }

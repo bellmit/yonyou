@@ -30,7 +30,7 @@ public class SADCS072CloudImpl extends BaseCloudImpl implements SADCS072Cloud {
 			//下发的经销商
 			List<Map> dealerList= dao.getSendDealer(vin,dealerCode);
 			//下发数据
-			List<VehicleCustomerDTO> dtolist=dao.getDataList(vin);
+			List<VehicleCustomerDTO> dtolist=dao.getDtoDataList(vin);
 			if(null!=dtolist && dtolist.size()>0){
 				for(int i=0;i<dealerList.size();i++){
 					//下发操作

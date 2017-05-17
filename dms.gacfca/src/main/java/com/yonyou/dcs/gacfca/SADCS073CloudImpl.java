@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.javalite.activejdbc.Base;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,16 +32,16 @@ public class SADCS073CloudImpl extends BaseCloudImpl implements SADCS073Cloud {
 	SADCS072Cloud cloud ;
 	
 	@Override
-	public String receiveDate(List<VehicleCustomerDTO> dtos) throws Exception {
+	public String handleExecutor(List<VehicleCustomerDTO> dtos) throws Exception {
 		String msg = "1";
-		
+		beginDbService();
 		try {
 			logger.info("*************** SADCS073Cloud 车主资料接收开始 *******************");
 			for (VehicleCustomerDTO dto : dtos) {
 				insertData(dto);
 			}
 			logger.info("*************** SADCS073Cloud 车主资料接收完成 ********************");
-			
+			dbService.endTxn(true);
 			//SADCS072Cloud 车主资料下发 
 			for (VehicleCustomerDTO dto : dtos) {
 				cloud.sendData(dto.getVin(), dto.getDealerCode());
@@ -48,8 +49,11 @@ public class SADCS073CloudImpl extends BaseCloudImpl implements SADCS073Cloud {
 		} catch (Exception e) {
 			logger.error("*************** SADCS073Cloud 车主资料接收异常 *****************", e);
 			msg = "0";
-			throw new ServiceBizException(e);
-		} 
+			dbService.endTxn(false);
+		} finally{
+			Base.detach();
+			dbService.clean();
+		}
 		return msg;
 	}
 	/**

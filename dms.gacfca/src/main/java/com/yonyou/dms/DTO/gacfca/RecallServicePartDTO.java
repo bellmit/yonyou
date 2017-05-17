@@ -1,9 +1,7 @@
 package com.yonyou.dms.DTO.gacfca;
 
-import com.infoservice.dms.cgcsl.vo.BaseVO;
-
-public class RecallServicePartDTO extends BaseVO  {
-	private static final long serialVersionUID = 1L;
+public class RecallServicePartDTO  {
+	
 	private String partCode; //配件代码
 	private String partName; //配件名称
 	private Long partNum; //配件数量 

@@ -37,7 +37,7 @@ public class SEDCS014  extends BaseImpl  implements DEAction {
 			Map<String, Serializable> bodys = deMsg.getBody();
 			LinkedList<SA013Dto> dtoList = new LinkedList<>();
 			setDTO(dtoList,bodys);
-			cloud.receiveDate(dtoList);
+			cloud.handleExecutor(dtoList);
 		}  catch(Throwable t) {
 			logger.info("*************************** 获取上报的展厅流量数据出错******************************");
 			t.printStackTrace();

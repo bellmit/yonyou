@@ -18,7 +18,7 @@ import com.yonyou.dms.DTO.gacfca.SADCS032Dto;
 import com.yonyou.dms.common.domains.PO.basedata.TtBigCustomerApplyDataPO;
 import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.StringUtils;
-import com.yonyou.dms.gacfca.SADMS032;
+import com.yonyou.dms.gacfca.SADMS032Coud;
 
 @Service
 public class SADCS032CloudImpl extends BaseCloudImpl implements SADCS032Cloud {
@@ -26,7 +26,7 @@ public class SADCS032CloudImpl extends BaseCloudImpl implements SADCS032Cloud {
 	@Autowired
 	SADCS032DAO dao;
 	@Autowired
-	SADMS032 sadms032;
+	SADMS032Coud sadms032;
 	@Autowired
 	DeCommonDao deCommonDao;
 

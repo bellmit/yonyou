@@ -24,6 +24,7 @@ import com.yonyou.dms.function.common.OemDictCodeConstants;
 import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.vehicle.controller.k4Order.DealerCancelOrderAreaAuditController;
 import com.yonyou.dms.vehicle.dao.k4Order.DealerOrderAuditDao;
+import com.yonyou.dms.vehicle.dao.k4Order.OrderRepealQueryDao;
 import com.yonyou.dms.vehicle.domains.DTO.k4Order.K4OrderDTO;
 
 /**
@@ -42,6 +43,8 @@ public class DealerOrderAuditServiceImpl implements DealerOrderAuditService {
 
 	@Autowired
 	private ExcelGenerator excelService;
+	@Autowired
+	private OrderRepealQueryDao dao;
 
 	/**
 	 * 经销商撤单审核查询
@@ -91,15 +94,31 @@ public class DealerOrderAuditServiceImpl implements DealerOrderAuditService {
 
 	@Override
 	public void modifyOderPass11(K4OrderDTO k4OrderDTO) {
-		String[] ids = k4OrderDTO.getIds().split(",");
-		for (int i = 0; i < ids.length; i++) {
-			Long id = Long.parseLong(ids[i]);
-
-			String sql = "update TM_ORDER_PAY_CHANGE set AUDIT_TYPE=" + OemDictCodeConstants.DUTY_TYPE_DEPT
-					+ " , AUDIT_STATUS=" + OemDictCodeConstants.CANCEL_ORDER_APPLY_STATUS_04 + " where ID in(" + id
-					+ ")";
-			OemDAOUtil.execBatchPreparement(sql, new ArrayList<>());
-
+		// String[] ids = k4OrderDTO.getIds().split(",");
+		// for (int i = 0; i < ids.length; i++) {
+		// Long id = Long.parseLong(ids[i]);
+		//
+		// // String sql = "update TM_ORDER_PAY_CHANGE set AUDIT_TYPE=" +
+		// // OemDictCodeConstants.DUTY_TYPE_DEPT
+		// // + " , AUDIT_STATUS=" +
+		// // OemDictCodeConstants.CANCEL_ORDER_APPLY_STATUS_04 + " where ID
+		// // in(" + id
+		// // + ")";
+		// // OemDAOUtil.execBatchPreparement(sql, new ArrayList<>());
+		// }
+		List<Map> list = dao.pass(k4OrderDTO);// 最后一个参数，撤单类型，2.经销商撤单
+		String result = "1";
+		if (list.size() > 0) {
+			Map<String, String> map = list.get(0);
+			if (map.get("ErrorInfo").toString().equals("0")) {
+				result = "0";
+				// 中进接口连接异常,请重试或联系中进
+				throw new ServiceBizException("中进接口连接异常,请重试或联系中进");
+			}
+			if (map.get("ErrorInfo").toString().equals("资源已锁定")) {
+				// 中进接口连接异常,请重试或联系中进
+				throw new ServiceBizException("资源已锁定");
+			}
 		}
 
 	}

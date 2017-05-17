@@ -335,7 +335,7 @@
 		</div>
 		 <div class="panel panel-default">
 						<div class="panel-heading">
-							<div class="pannel-name">附件上传</div>
+							<div class="pannel-name">附件上传1</div>
 						</div>
 						<div class="panel-body">
 							<div class="row">
@@ -357,7 +357,7 @@
 				<a  data-errorCallBack="true" data-info="saveBefore" data-url="/BigCustomer/manage/checkdata" data-callBack="true"  data-beforeRequest="true" data-onclickEvent="true" class="btn blue" data-toggle="confirmation" data-model="customer" data-method="GET" ><i class="fa fa-save"></i> 保存
 			</a>
 			<a  data-info="saveBeforeUrl" data-url="/BigCustomer/manage/{[WS_NO]}/save" data-model="customer"
-				data-method="PUT"  class="btn blue ajaxrest hidden"
+				data-method="PUT"  class="btn blue ajaxrest hidden"  data-fileUploadBtn="true" data-callBack="true"
 				class="btn blue" ><i
 				class="fa fa-save"></i>确认</a> 
 			<a data-dismiss="modal" 
@@ -504,7 +504,6 @@ $(document).one("onload.dms",function(event,container){
 		returnResult.status = true;
 	});
 	$("a[data-info='saveBefore']",container).on("callBack.dms",function(event,response){
-		alert(response.success)
 		if(response.success=="false"){
 			$("a[data-info='saveBeforeUrl']",container).click();
 			$("a[data-info='saveBefore']",container).removeClass("hidden");

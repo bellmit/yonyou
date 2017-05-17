@@ -3,6 +3,7 @@ package com.yonyou.dcs.de.impl;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.infoservice.dms.cgcsl.vo.LimitPriceSeriesVO;
 import com.yonyou.dcs.dao.SADMS024Dao;
 import com.yonyou.dcs.de.SADMS024;
 import com.yonyou.dcs.util.DEUtil;
@@ -30,7 +32,7 @@ public class SADMS024Impl  extends BaseImpl  implements  SADMS024 {
 		try {
 			logger.info("==============SADMS024  限价车辆下发开始================");
 			List<Map> listMap = dao.querySendDmsInfoById(limitId);
-			List<LimitPriceSeriesDTO> dataList = new ArrayList<LimitPriceSeriesDTO>();
+			LinkedList<LimitPriceSeriesDTO> dataList = new LinkedList<LimitPriceSeriesDTO>();
 			//下发的经销商
 			List<String> dealerList= new ArrayList<>();
 			for (Map map : listMap) {
@@ -85,10 +87,12 @@ public class SADMS024Impl  extends BaseImpl  implements  SADMS024 {
 	 * @param dealerCode
 	 * @throws Exception 
 	 */
-	private String send(List<LimitPriceSeriesDTO> dataList, List<String> dmsCodes) throws Exception {
+	private String send(LinkedList<LimitPriceSeriesDTO> dataList, List<String> dmsCodes) throws Exception {
 		try {
 			if(null!=dataList && dataList.size()>0){
-				Map<String, Serializable> body = DEUtil.assembleBody(dataList);
+				List<LimitPriceSeriesVO> vos = new ArrayList<>();
+				setVos(vos,dataList);
+				Map<String, Serializable> body = DEUtil.assembleBody(vos);
 				if(!"".equals(dmsCodes)){
 					sendMsg("SADMS111", dmsCodes, body);
 					logger.info("SADMS024  限价车辆发送成功======size："+dataList.size());
@@ -114,5 +118,24 @@ public class SADMS024Impl  extends BaseImpl  implements  SADMS024 {
 		TmLimiteCposPO.update("DESCEND_STATUS = ? AND DESCEND_DATE = ?", "LIMITED_ID = ?", OemDictCodeConstants.COMMON_RESOURCE_STATUS_02,new Date(),lmId);
 		logger.info("Q##################### 下发DMS车系限价信息更新数据状态################结束#########");
 		
+	}
+	/**
+	 * 数据转换
+	 * @param vos
+	 * @param dataList
+	 */
+	private void setVos(List<LimitPriceSeriesVO> vos, LinkedList<LimitPriceSeriesDTO> dataList) {
+		for (int i = 0; i < dataList.size(); i++) {
+			LimitPriceSeriesDTO dto = dataList.get(i);
+			LimitPriceSeriesVO vo = new LimitPriceSeriesVO();
+			vo.setEntityCode(dto.getEntityCode());
+			vo.setBrandCode(dto.getBrandCode());
+			vo.setSeriesCode(dto.getSeriesCode());
+			vo.setRepairTypeCode(dto.getRepairTypeCode());
+			vo.setLimitPriceRate(dto.getLimitPriceRate());
+			vo.setIsValid(dto.getIsValid());
+			vo.setDownTimestamp(dto.getDownTimestamp());
+			vos.add(vo);
+		}
 	}
 }

@@ -1,5 +1,6 @@
 package com.yonyou.dcs.gacfca;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -75,7 +76,7 @@ public class SEDCS015CloudImpl extends BaseCloudImpl implements SEDCS015Cloud {
 	public void send(String array){
 		//下发的经销商 全网下发
 		List<String> dealerList=dao.getAllDmsCode(1);
-		List<SEDCS015DTO> tlrmvolist = dao.queryMoreInfo(array);
+		LinkedList<SEDCS015DTO> tlrmvolist = dao.queryMoreInfo(array);
 		if(null!=tlrmvolist && tlrmvolist.size()>0&&null!=dealerList && dealerList.size()>0){
 			for(int i=0;i<dealerList.size();i++){
 				//下发操作

@@ -21,8 +21,8 @@ public class SEDCSP02CloudImpl  extends BaseCloudImpl implements SEDCSP02Cloud {
 	SEDCSP02Dao dao;
 	
 	@Override
-	public List<SEDCSP02DTO> receiveData(List<SEDCSP02DTO> dtos) throws Exception {
-		logger.info("***************************SEDCSP01Cloud 同步查询获取经销商可用额度开始******************************");
+	public List<SEDCSP02DTO> handleExecutor(List<SEDCSP02DTO> dtos) throws Exception {
+		logger.info("***************************SEDCSP02Cloud 同步查询获取经销商可用额度开始******************************");
 		List<SEDCSP02DTO> retdtos=new ArrayList<SEDCSP02DTO>();
 		try {
 			for (SEDCSP02DTO dto : dtos) {
@@ -34,7 +34,7 @@ public class SEDCSP02CloudImpl  extends BaseCloudImpl implements SEDCSP02Cloud {
 			throw new ServiceBizException(e);
 		}
 
-		logger.info("***************************SEDCSP01Cloud  成功获取同步查询获取经销商可用额度 ******************************");
+		logger.info("***************************SEDCSP02Cloud  成功获取同步查询获取经销商可用额度 ******************************");
 		return retdtos;
 	}
 

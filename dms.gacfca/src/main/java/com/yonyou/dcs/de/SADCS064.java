@@ -35,7 +35,7 @@ public class SADCS064  extends BaseImpl  implements DEAction{
 			Map<String, Serializable> bodys = deMsg.getBody();
 			LinkedList<TtVehiclePdiResultDTO> dtoList = new LinkedList<>();
 			setDTO(dtoList,bodys);
-			cloud.receiveDate(dtoList);
+			cloud.handleExecutor(dtoList);
 		}  catch(Throwable t) {
 			logger.info("*************************** SADCS064  PDI检查上报数据上传出错******************************");
 			t.printStackTrace();

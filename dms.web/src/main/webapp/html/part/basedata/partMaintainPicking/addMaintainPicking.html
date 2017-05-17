@@ -460,14 +460,13 @@
 							if (row.length >= 1){
 								jsonTr['USEABLE_STOCK'] = row[0].USEABLE_STOCK;
 							}
-							jsonTr['UPDATE_STATUS'] = 'A';
+							jsonTr['ITEM_UPDATE_STATUS'] = 'A';
 							jsonTr['IS_FINISHED']='12781002';
 							jsonTr['STORAGE_CODE']=selectMasterRow['STORAGE_CODE'];
 							jsonTr['STORAGE_NAME']=selectMasterRow['STORAGE_NAME'];
 							jsonTr['STORAGE_POSITION_CODE'] = selectMasterRow['STORAGE_POSITION_CODE'];
 							jsonTr['PART_NO']=selectMasterRow['PART_NO'];
 							jsonTr['PART_NAME']=selectMasterRow['PART_NAME'];
-							jsonTr['PART_QUANTITY']=selectMasterRow['PART_QUANTITY'];
 							jsonTr['USEABLE_STOCK']=selectMasterRow['USEABLE_STOCK'];
 							jsonTr['PART_SALES_PRICE']=selectMasterRow['PART_SALES_PRICE'];
 							jsonTr['PART_SALES_AMOUNT']=selectMasterRow['PART_SALES_AMOUNT'];
@@ -476,6 +475,8 @@
 							jsonTr['RECEIVER']=$("#receiver",container).val();
 							jsonTr['DISCOUNT']= '1';
 							jsonTr['PART_QUANTITY'] = $("#partQuantity",container).val();
+							jsonTr['PART_SALES_PRICE'] = $("#partSalesPrice",container).val();
+							jsonTr['PART_SALES_AMOUNT'] = $("#partSalesAmount",container).val();
 							jsonTr['UNIT_CODE']= selectMasterRow['UNIT_CODE'];
 							jsonTr['PART_COST_PRICE']=selectMasterRow['COST_PRICE'];
 							jsonTr['PART_COST_AMOUNT']=selectMasterRow['COST_AMOUNT'];

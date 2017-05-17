@@ -1,8 +1,5 @@
 package com.yonyou.dms.DTO.gacfca;
 
-import java.util.Date;
-import java.util.LinkedList;
-
 public class SEDCSP03VOPartInfoDTO {
 	private String partCode;//配件代码
 	private String partName;//配件名称

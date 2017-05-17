@@ -21,7 +21,7 @@ import com.infoeai.eai.po.TiEcRevokeOrderPO;
 import com.yonyou.dcs.util.DEConstant;
 import com.yonyou.dms.DTO.gacfca.DCSTODMS003Dto;
 import com.yonyou.dms.function.common.OemDictCodeConstants;
-import com.yonyou.dms.gacfca.DCSTODMS003;
+import com.yonyou.dms.gacfca.DCSTODMS003Coud;
 
 /**
  * @author Administrator
@@ -40,7 +40,7 @@ public class DCSTODMS003ServiceImpl extends BaseService implements DCSTODMS003Se
 	@Autowired
     private  BSUVDCSTODMSDAO dao;
 	
-    private  DCSTODMS003 dcstodms003;
+    private  DCSTODMS003Coud dcstodms003;
 	
 	private Date startTime = new Date();	// 记录接口开始执行的时间
 	private Integer dataSize = 0;	// 数据数量

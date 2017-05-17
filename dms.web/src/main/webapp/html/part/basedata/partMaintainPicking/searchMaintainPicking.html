@@ -112,7 +112,7 @@
 							<div class="form-group">
 								<label class="control-label col-xs-4">开单日期</label>
 								<div class="col-xs-8 ">
-								<div class="input-group date " data-date-format="YYYY-MM-DD" data-maxDays = "30">
+								<div class="input-group date " data-date-format="YYYY-MM-DD HH:mm" data-maxDays = "30">
 									<input type="text" class="form-control" id="roCreateDate"
 										name="roCreateDate" disabled="disabled">
 										</div>
@@ -219,7 +219,7 @@
 				data-url="part/basedata/partMaintainPicking/addMaintainPicking.html"
 				data-toggle="modal" data-width="modal-lg"> <i
 				class="fa fa-plus-square"></i> 新增
-			</a> <a class="btn btn-outline" id="btnUpdate" disabled="disabled"
+			</a> <a class="btn btn-outline" id="btnUpdate" disabled="disabled" data-beforeShowEvent="true"
 				data-url="part/basedata/partMaintainPicking/editMaintainPicking.html"
 				data-toggle="modal" data-width="modal-lg"> <i
 				class="fa fa-plus-square"></i> 修改
@@ -279,14 +279,14 @@
 												operateFormat : [ {
 													type : "localDel",
 													onBeforeEvent:function(value, row, index){
-														if (row.UPDATE_STATUS == "R" || row.UPDATE_STATUS == "U"){
+														if (row.ITEM_UPDATE_STATUS == "R" || row.ITEM_UPDATE_STATUS == "U"){
 															if($("#deleteList",container).val()!=''){
 																$("#deleteList",container).val($("#deleteList",container).val()+";{storageCode:"+row.STORAGE_CODE+",partNo:"+row.PART_NO+"}");
 															}else{
 																$("#deleteList",container).val("{storageCode:"+row.STORAGE_CODE+",partNo:"+row.PART_NO+"}");
 															}
 														}
-															$("#maintainPickingTbl",container).dmsTable().refreshTableWithForm();
+															//$("#maintainPickingTbl",container).dmsTable().refreshTableWithForm();
 										            },
 													isShow : function(value,row, index) {
 														if (row.IS_FINISHED == "12781002") {
@@ -301,17 +301,17 @@
 												field : "IS_FINISHED",
 												title : "是否入账",
 												inputHiddenFormat : {
-													hiddenFieldName : "isFinished,updateStatus,storageCode",
-													hiddenField : "IS_FINISHED,UPDATE_STATUS,STORAGE_CODE"
+													hiddenFieldName : "isFinished,itemUpdateStatus,storageCode",
+													hiddenField : "IS_FINISHED,ITEM_UPDATE_STATUS,STORAGE_CODE"
 												}
 												,codeFormat : {type : "dict",codeType : "1278"}
 											},
 											{
-												field : "CARD_CODE",
-												inputField : "cardCode",
+												field : "CARD_ID",
+												inputField : "cardId",
 												title : "会员卡编号",
 												inputHiddenFormat : {
-													hiddenField : "CARD_CODE"
+													hiddenField : "CARD_ID"
 												}
 											},
 											{
@@ -342,11 +342,8 @@
 											{
 												field : "IS_MAIN_PART",
 												inputField : "isMainPart",
-												title : "主要配件",
-												inputHiddenFormat : {
-													hiddenField : "IS_MAIN_PART"
-												}
-											,codeFormat : {type : "dict",codeType : "1278"}
+												title : "主要配件"
+											,inputCheckBoxFormat : {type : "dict",codeType : "1057"}
 											},
 											{
 												field : "PART_NO",
@@ -637,11 +634,15 @@
 							if(this.id == 'btnReturn'){
 								var selectMasterRow = $("#maintainPickingTbl",container).dmsTable().getSelections();
 								if(selectMasterRow){
-									return true;
+									returnResult.status = true;
 								}else{
 									dmsCommon.tip({status:"warning",msg:"请选择一条工单配件信息！"});//总共的状态类型：info、success、error、warning
-									return false;
+									returnResult.status = false;
 								}
+							}else{
+								var selectMasterRow = $("#maintainPickingTbl",container).dmsTable().getRowDataByIndex();
+								console.log(JSON.stringify(selectMasterRow[1]))
+								returnResult.status = true;
 							}
 						});
 

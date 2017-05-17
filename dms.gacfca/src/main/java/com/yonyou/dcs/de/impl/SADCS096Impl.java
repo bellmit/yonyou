@@ -55,7 +55,6 @@ public class SADCS096Impl extends BaseImpl implements SADCS096{
 			BigCustomerAuthorityApprovalDto dto = new BigCustomerAuthorityApprovalDto();
 			vo = (BigCustomerAuthorityApprovalVO) entry.getValue();
 			dto.setEntityCode(vo.getEntityCode());
-			dto = new BigCustomerAuthorityApprovalDto();
 			BeanUtils.copyProperties(vo, dto);
 			dtoList.add(dto);
 		}

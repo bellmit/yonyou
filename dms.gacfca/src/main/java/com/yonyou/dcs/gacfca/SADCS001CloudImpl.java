@@ -16,7 +16,7 @@ import com.yonyou.dcs.dao.SaleVehicleShippingDao;
 import com.yonyou.dms.DTO.gacfca.VehicleShippingDto;
 import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.StringUtils;
-import com.yonyou.dms.gacfca.SADMS001;
+import com.yonyou.dms.gacfca.SADMS001Coud;
 /**
  * 
 * @ClassName: SADCS001CloudImpl 
@@ -34,7 +34,7 @@ public class SADCS001CloudImpl extends BaseCloudImpl implements SADCS001Cloud {
 	SaleMaterialPriceDao saleMaterialPriceDao ;
 	
 	@Autowired
-	SADMS001 sadms001;
+	SADMS001Coud sadms001;
 	
 	@Autowired
 	SaleVehicleShippingDao saleBaseDao ;

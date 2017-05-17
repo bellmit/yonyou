@@ -1,9 +1,6 @@
 package com.yonyou.dms.DTO.gacfca;
 
-import com.infoservice.dms.cgcsl.vo.BaseVO;
-
-@SuppressWarnings("serial")
-public class SADCS076DTO extends BaseVO{
+public class SADCS076DTO {
 
 	private String recallNo;//召回编号
 	private String recallName;//召回名称

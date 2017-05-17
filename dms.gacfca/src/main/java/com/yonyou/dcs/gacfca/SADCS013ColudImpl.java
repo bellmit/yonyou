@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.yonyou.dcs.dao.SADCS013Dao;
 import com.yonyou.dms.DTO.gacfca.PoCusWholeClryslerDto;
 import com.yonyou.dms.function.exception.ServiceBizException;
-import com.yonyou.dms.gacfca.OSD0401;
+import com.yonyou.dms.gacfca.OSD0401Coud;
 
 @Service
 public class SADCS013ColudImpl implements SADCS013Colud {
@@ -20,7 +20,7 @@ public class SADCS013ColudImpl implements SADCS013Colud {
 	@Autowired
 	SADCS013Dao dao;
 	@Autowired
-	OSD0401 ser;
+	OSD0401Coud ser;
 
 	@Override
 	public String execute(String wsNo, String dealerCode) throws ServiceBizException {

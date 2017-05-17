@@ -2,17 +2,26 @@ package com.yonyou.dms.vehicle.controller.claimManage;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.util.UriComponentsBuilder;
 import com.yonyou.dms.framework.DAO.PageInfoDto;
+import com.yonyou.dms.vehicle.domains.DTO.claimManage.ClaimApplyDTO;
 import com.yonyou.dms.vehicle.service.claimManage.FriendlyClaimApplyService;
 import com.yonyou.f4.mvc.annotation.TxnConn;
 
@@ -188,6 +197,175 @@ public class FriendlyClaimApplyController {
     	PageInfoDto pageInfoDto = fcaService.claimAuditQueryDetail(claimId);   	
         return pageInfoDto;               
     }
+	
+	/**
+	 * 维修工单列表 查询
+	 * @param queryParam
+	 * @return
+	 */
+	@RequestMapping(value="/query/repairOrder",method = RequestMethod.GET)
+    @ResponseBody
+    public PageInfoDto queryRepairOrderInfo(@RequestParam Map<String, String> queryParam) {
+    	logger.info("============ 查询维修工单列表   04==============");
+    	PageInfoDto pageInfoDto =  fcaService.queryRepairOrderList(queryParam);	
+        return pageInfoDto;               
+    }
+	
+	/**
+	 * 查询预授权单信息 查询
+	 * @param queryParam
+	 * @return
+	 */
+	@RequestMapping(value="/query/foreOrder",method = RequestMethod.GET)
+    @ResponseBody
+    public PageInfoDto queryForeApprovalInfo(@RequestParam Map<String, String> queryParam) {
+    	logger.info("============ 查询预授权单信息   04==============");
+    	PageInfoDto pageInfoDto =  fcaService.queryForeApprovalInfo(queryParam);	
+        return pageInfoDto;               
+    }
+	/**
+	 * 查询工单下的维修工时列表
+	 * @param queryParam
+	 * @return
+	 */
+	@RequestMapping(value="/query/repairLabour/{REPAIR_ID}",method = RequestMethod.GET)
+    @ResponseBody
+    public PageInfoDto queryRepairOrderClaimLabour(@PathVariable("REPAIR_ID") Long repairId, @RequestParam Map<String, String> queryParam) {
+    	logger.info("============ 查询工单下的维修工时列表   04==============");
+    	PageInfoDto pageInfoDto =  fcaService.queryRepairOrderClaimLabour(queryParam);	
+        return pageInfoDto;               
+    }
+	/**
+	 * 查询工单下的维修零部件列表
+	 * @param queryParam
+	 * @return
+	 */
+	@RequestMapping(value="/query/repairPart/{REPAIR_ID}",method = RequestMethod.GET)
+    @ResponseBody
+    public PageInfoDto queryRepairOrderClaimPart(@PathVariable("REPAIR_ID") Long repairId,@RequestParam Map<String, String> queryParam) {
+    	logger.info("============ 查询工单下的维修零部件列表  04==============");
+    	PageInfoDto pageInfoDto =  fcaService.queryRepairOrderClaimPart(queryParam);	
+        return pageInfoDto;               
+    }
+	/**
+	 * 查询工单下的其他项目列表
+	 * @param queryParam
+	 * @return
+	 */
+	@RequestMapping(value="/query/repairOther/{REPAIR_ID}",method = RequestMethod.GET)
+    @ResponseBody
+    public PageInfoDto queryRepairOrderClaimOther(@PathVariable("REPAIR_ID") Long repairId,@RequestParam Map<String, String> queryParam) {
+    	logger.info("============ 查询工单下的其他项目列表   04==============");
+    	PageInfoDto pageInfoDto = fcaService.queryRepairOrderClaimOther(queryParam);	
+        return pageInfoDto;               
+    }
+	
+	/**
+	 * 善意索赔申请  新增保存
+	 */
+	@RequestMapping(value = "/saveOrder", method = RequestMethod.POST)
+	@ResponseBody
+    public ResponseEntity<String> saveClaimOrderInfo(@RequestBody @Valid ClaimApplyDTO applyDto,
+    		@RequestParam Map<String, String> queryParam,
+    		UriComponentsBuilder uriCB) {
+    	logger.info("============善意索赔申请单 新增保存  04===============");
+    	fcaService.saveClaimOrderInfo(applyDto);    
+    	
+    	MultiValueMap<String, String> headers = new HttpHeaders();
+        headers.set("Location", uriCB.path("/friendlyClaimApply/saveOrder").buildAndExpand().toUriString());
+        return new ResponseEntity<String>( headers, HttpStatus.CREATED);
+    	
+    }
+	/**
+	 * 善意索赔申请 新增提报
+	 */
+	@RequestMapping(value = "/submitOrder", method = RequestMethod.POST)
+	@ResponseBody
+    public ResponseEntity<String> submitClaimOrderInfo(@RequestBody @Valid ClaimApplyDTO applyDto,
+    		@RequestParam Map<String, String> queryParam,
+    		UriComponentsBuilder uriCB) {
+    	logger.info("============善意索赔申请单 新增提报  04===============");
+    	    	
+    	MultiValueMap<String, String> headers = new HttpHeaders();
+        headers.set("Location", uriCB.path("/friendlyClaimApply/submitOrder").buildAndExpand().toUriString());
+        return new ResponseEntity<String>( headers, HttpStatus.CREATED);
+    	
+    }
+	/**
+	 * 查询经销商CODE和NAME
+	 * @param queryParam
+	 * @return
+	 */
+	@RequestMapping(value="/queryDealer",method = RequestMethod.GET)
+    @ResponseBody
+    public Map queryDealerCodeAndName(@RequestParam Map<String, String> queryParam) {
+    	logger.info("============ 查询当前登录经销商  04==============");
+    	Map map = fcaService.queryDealerCodeAndName(queryParam);
+        return map;               
+    }
+	/**
+	 * 查询修改页面回显信息
+	 * @param claimId
+	 * @param queryParam
+	 * @return
+	 */
+	@RequestMapping(value="/queryEditMap/{CLAIM_ID}",method = RequestMethod.GET)
+    @ResponseBody
+    public Map queryEditMessage(@PathVariable("CLAIM_ID") Long claimId,@RequestParam Map<String, String> queryParam) {
+    	logger.info("============ 查询当前登录经销商  04==============");
+    	Map map = fcaService.queryEditMessage(claimId, queryParam);
+        return map;               
+    }
+	
+	/**
+	 * 善意索赔申请  修改保存
+	 * @param applyDto
+	 * @param queryParam
+	 * @param uriCB
+	 * @return
+	 */
+	@RequestMapping(value = "/updateOrder/{CLAIM_ID}", method = RequestMethod.POST)
+	@ResponseBody
+    public ResponseEntity<String> updateClaimOrderInfo(@PathVariable("CLAIM_ID") Long claimId,
+    		@RequestBody @Valid ClaimApplyDTO applyDto,
+    		@RequestParam Map<String, String> queryParam,
+    		UriComponentsBuilder uriCB) {
+    	logger.info("============善意索赔申请单 修改页面保存  04===============");
+    	fcaService.updateClaimOrderInfo(claimId, applyDto);
+    	
+    	
+    	MultiValueMap<String, String> headers = new HttpHeaders();
+        headers.set("Location", uriCB.path("/friendlyClaimApply/updateOrder").buildAndExpand().toUriString());
+        return new ResponseEntity<String>( headers, HttpStatus.CREATED);
+    	
+    }
+	/**
+	 * 善意索赔申请 修改和按钮提报
+	 */
+	@RequestMapping(value = "/submitOrderUpdate/{CLAIM_ID}", method = RequestMethod.POST)
+	@ResponseBody
+    public ResponseEntity<String> submitUpdateClaimOrderInfo(@PathVariable("CLAIM_ID") Long claimId,
+    		@RequestBody @Valid ClaimApplyDTO applyDto,
+    		@RequestParam Map<String, String> queryParam,
+    		UriComponentsBuilder uriCB) {
+    	logger.info("============善意索赔申请单 修改页面提报  04===============");
+    	fcaService.submitClaimOrderInfo(applyDto, claimId);
+    	MultiValueMap<String, String> headers = new HttpHeaders();
+        headers.set("Location", uriCB.path("").buildAndExpand().toUriString());
+        return new ResponseEntity<String>( headers, HttpStatus.CREATED);
+    	
+    }
+	
+	/**
+	 * 删除 索赔申请
+	 * @param claimId
+	 * @param uriCB
+	 */
+	@RequestMapping(value = "/deleteClaim/{CLAIM_ID}", method = RequestMethod.DELETE)
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteClaimInfo(@PathVariable("CLAIM_ID") Long claimId, UriComponentsBuilder uriCB) {
+	fcaService.deleteClaimInfo(claimId);      
+	} 
 	
 }
 

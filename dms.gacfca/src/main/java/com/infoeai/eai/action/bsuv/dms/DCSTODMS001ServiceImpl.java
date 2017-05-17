@@ -21,7 +21,7 @@ import com.infoeai.eai.po.TiEcHitSinglePO;
 import com.infoeai.eai.wsServer.bsuv.lms.DCSTODMS001VO;
 import com.yonyou.dcs.util.DEConstant;
 import com.yonyou.dms.function.common.OemDictCodeConstants;
-import com.yonyou.dms.gacfca.DCSTODMS001;
+import com.yonyou.dms.gacfca.DCSTODMS001Coud;
 
 /**
  * @author Administrator
@@ -43,7 +43,7 @@ public class DCSTODMS001ServiceImpl extends BaseService implements DCSTODMS001Se
     private  BSUVDCSTODMSDAO dao;
 	
 	@Autowired
-    private  DCSTODMS001 dcstodms001;
+    private  DCSTODMS001Coud dcstodms001;
 
 	private Date startTime = new Date();	// 记录接口开始执行的时间
 	@SuppressWarnings("unused")

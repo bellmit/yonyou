@@ -2,9 +2,7 @@ package com.yonyou.dms.DTO.gacfca;
 
 import java.util.Date;
 
-import com.infoservice.dms.cgcsl.vo.BaseVO;
-
-public class LimitPriceSeriesDTO extends BaseVO{
+public class LimitPriceSeriesDTO {
 
 	private String entityCode;
 

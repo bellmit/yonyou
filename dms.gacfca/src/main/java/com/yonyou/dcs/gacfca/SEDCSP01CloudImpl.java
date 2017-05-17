@@ -21,7 +21,7 @@ public class SEDCSP01CloudImpl  extends BaseCloudImpl implements SEDCSP01Cloud {
 	SEDCSP01Dao dao;
 	
 	@Override
-	public List<SEDCSP01DTO> receiveData(List<SEDCSP01DTO> dtos) throws Exception {
+	public List<SEDCSP01DTO> handleExecutor(List<SEDCSP01DTO> dtos) throws Exception {
 		logger.info("***************************SEDCSP01Cloud 同步查询获取配件清单信息开始******************************");
 		List<SEDCSP01DTO> retdtos=new ArrayList<SEDCSP01DTO>();
 		try {

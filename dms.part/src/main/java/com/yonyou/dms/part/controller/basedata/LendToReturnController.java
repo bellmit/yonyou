@@ -105,7 +105,11 @@ public class LendToReturnController extends BaseController {
 	@RequestMapping(value = "/updateByLocker/{lendNo}", method = RequestMethod.POST)
 	@ResponseBody
 	public Integer updateLocker(@PathVariable(value="lendNo") String id){
-		int locker = Utility.updateByLocker("TT_PART_LEND", FrameworkUtil.getLoginInfo().getUserId().toString(), "LEND_NO", id, "LOCK_USER");
+		String[] split = id.split(",");
+		int locker = 0;
+		for (int i = 0; i < split.length; i++) {
+			locker = Utility.updateByLocker("TT_PART_LEND", FrameworkUtil.getLoginInfo().getUserId().toString(), "LEND_NO", split[i], "LOCK_USER");
+		}
 		return locker;
 	}
 	
@@ -118,7 +122,7 @@ public class LendToReturnController extends BaseController {
 	@RequestMapping(value = "/updateUnLocker/{lendNo}", method = RequestMethod.POST)
 	@ResponseBody
 	public String updateUnLocker(@PathVariable(value="lendNo") String id){
-		String[] noValue = {id};
+		String[] noValue = id.split(",");
 		String locker = Utility.updateByUnLock("TT_PART_LEND", FrameworkUtil.getLoginInfo().getUserId().toString(), "LEND_NO", noValue , "LOCK_USER");
 		return locker;
 	}

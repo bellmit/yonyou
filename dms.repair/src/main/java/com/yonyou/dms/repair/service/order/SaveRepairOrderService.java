@@ -46,4 +46,10 @@ public interface SaveRepairOrderService {
 	 */
 	void occurInsuranceAbout(Map<String, String> param);
 
+	/**
+	 * 保存工单时存入赔付、旧件处理信息
+	 * @param param
+	 */
+	void saveSettlementOldpart(Map<String, String> param);
+
 }

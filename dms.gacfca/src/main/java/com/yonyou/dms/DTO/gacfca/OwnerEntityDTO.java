@@ -1,9 +1,8 @@
 package com.yonyou.dms.DTO.gacfca;
 
-import com.infoservice.dms.cgcsl.vo.BaseVO;
 
-public class OwnerEntityDTO extends BaseVO{
-	private static final long serialVersionUID = 1L;
+public class OwnerEntityDTO {
+	
 	private String entityCode;
 	private String vin;
 	private Integer isOwner;//12781001 是 12781002否

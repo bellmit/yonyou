@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.javalite.activejdbc.Base;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ import com.yonyou.dms.common.domains.PO.basedata.TmVehiclePO;
 import com.yonyou.dms.common.domains.PO.basedata.TtVsVehicleTransferPO;
 import com.yonyou.dms.common.domains.PO.basedata.TtVsVhclChngPO;
 import com.yonyou.dms.function.common.OemDictCodeConstants;
-import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.CommonUtils;
 @Service
 public class SA03CloudImpl extends BaseCloudImpl implements SA03Cloud {
@@ -25,21 +25,24 @@ public class SA03CloudImpl extends BaseCloudImpl implements SA03Cloud {
 	ActivityResultDao dao ;
 
 	@Override
-	public String receiveDate(List<VsStockEntryItemDto> dtos) throws Exception {
+	public String handleExecutor(List<VsStockEntryItemDto> dtos) throws Exception {
 		String msg = "1";
-		
+		beginDbService();
 		try {
 			logger.info("*************** SA03调拨入库数据上传接收开始 *******************");
 			for (VsStockEntryItemDto dto : dtos) {
 				allocateStorage(dto);
 			}
 			logger.info("*************** SA03调拨入库数据上报完成 ********************");
-			
+			dbService.endTxn(true);
 		} catch (Exception e) {
 			logger.error("*************** SA03调拨入库数据上报异常 *****************", e);
 			msg = "0";
-			throw new ServiceBizException(e);
-		} 
+			dbService.endTxn(false);
+		} finally{
+			Base.detach();
+			dbService.clean();
+		}
 		return msg;
 	}
 	/**

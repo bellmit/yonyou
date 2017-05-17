@@ -107,9 +107,9 @@ public class RetailUimportServiceImpl implements RetailUimportService{
 			}
 		}
 		if(!StringUtils.isNullOrEmpty(po.getString("FIRST_PERMENT_RATIO"))){
-			String numStr = isPercent(po.getString("FIRST_PERMENT_RATIO").trim());
+			String numStr = isPercent(po.getString("FIRST_PERMENT_RATIO").replace("%", " ").trim());
 			if(po.getString("FIRST_PERMENT_RATIO").indexOf(".")>0){//如果是小数			
-				if (numStr.split("\\.")[1].length() > 2 || numStr.split("\\.")[1].length()< 1){
+				if (numStr.split("\\.")[1].length() > 4 || numStr.split("\\.")[1].length()< 1){
 					TmRetalDiscountImportTempDTO rowDto=new TmRetalDiscountImportTempDTO();
 					rowDto.setRowNO(Integer.parseInt(po.getLong("ROW_NO").toString()));
 					rowDto.setErrorMsg("首付比例：  数据不是一位小数或两位小数格式。");
@@ -135,9 +135,9 @@ public class RetailUimportServiceImpl implements RetailUimportService{
 			
 		}
 		if(!StringUtils.isNullOrEmpty(po.getString("INTEREST_RATE"))){
-			String numStr = isPercent(po.getString("INTEREST_RATE").trim());
+			String numStr = isPercent(po.getString("INTEREST_RATE").replace("%", " ").trim());
 			if(po.getString("INTEREST_RATE").indexOf(".")>0){//如果是小数			
-				if (numStr.split("\\.")[1].length()>2 || numStr.split("\\.")[1].length()<1){
+				if (numStr.split("\\.")[1].length()>4 || numStr.split("\\.")[1].length()<1){
 					TmRetalDiscountImportTempDTO rowDto=new TmRetalDiscountImportTempDTO();
 					rowDto.setRowNO(Integer.parseInt(po.getLong("ROW_NO").toString()));
 					rowDto.setErrorMsg("原利率：  数据不是一位小数或两位小数格式。");
@@ -180,12 +180,12 @@ public class RetailUimportServiceImpl implements RetailUimportService{
 				err.add(rowDto);
 			}
 		}
-		if(CommonUtils.checkNull(po.getString("MERCHAN_FEES_RATE")).equals("")){
+		if(CommonUtils.checkNull(po.getString("MERCHANT_FEES_RATE")).equals("")){
 		
 		}else{
-			String numStr = isPercent(po.getString("MERCHAN_FEES_RATE").trim());
-			if(po.getString("MERCHAN_FEES_RATE").indexOf(".")>0){//如果是小数			
-				if (numStr.split("\\.")[1].length()>2 || numStr.split("\\.")[1].length()< 1){
+			String numStr = isPercent(po.getString("MERCHANT_FEES_RATE").replace("%", " ").trim());
+			if(po.getString("MERCHANT_FEES_RATE").indexOf(".")>0){//如果是小数			
+				if (numStr.split("\\.")[1].length()>4 || numStr.split("\\.")[1].length()< 1){
 					TmRetalDiscountImportTempDTO rowDto=new TmRetalDiscountImportTempDTO();
 					rowDto.setRowNO(Integer.parseInt(po.getLong("ROW_NO").toString()));
 					rowDto.setErrorMsg("商户手续费率：  数据不是一位小数或两位小数格式。");
@@ -212,12 +212,12 @@ public class RetailUimportServiceImpl implements RetailUimportService{
 		}
 		
 
-		if(CommonUtils.checkNull(po.getString("POLOCY_RATE")).equals("")){
+		if(CommonUtils.checkNull(po.getString("POLICY_RATE")).equals("")){
 			
 		}else{
-			String numStr = isPercent(po.getString("POLOCY_RATE").trim());
-			if(po.getString("POLOCY_RATE").indexOf(".")>0){//如果是小数				
-				if (numStr.split("\\.")[1].length()> 2 || numStr.split("\\.")[1].length()< 1){
+			String numStr = isPercent(po.getString("POLICY_RATE").replace("%", " ").trim());
+			if(po.getString("POLICY_RATE").indexOf(".")>0){//如果是小数				
+				if (numStr.split("\\.")[1].length()> 4 || numStr.split("\\.")[1].length()< 1){
 					TmRetalDiscountImportTempDTO rowDto=new TmRetalDiscountImportTempDTO();
 					rowDto.setRowNO(Integer.parseInt(po.getLong("ROW_NO").toString()));
 					rowDto.setErrorMsg("政策费率： 数据不是一位小数或两位小数格式。");
@@ -285,7 +285,7 @@ public class RetailUimportServiceImpl implements RetailUimportService{
 			Double dou2 = 100.0;
 			BigDecimal b1 = new BigDecimal(Double.toString(dou.doubleValue()));  
 			BigDecimal b2 = new BigDecimal(Double.toString(dou2.doubleValue()));
-			Double bou3 = b1.multiply(b2).doubleValue();
+			Double bou3 = b1.divide(b2).doubleValue();
 			String valu = String.valueOf(bou3);
 			return valu;
 		}

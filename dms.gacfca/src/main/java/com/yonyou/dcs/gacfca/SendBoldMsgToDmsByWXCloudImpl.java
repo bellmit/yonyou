@@ -17,7 +17,7 @@ import com.yonyou.dms.framework.util.bean.ApplicationContextHelper;
 import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.CommonUtils;
 import com.yonyou.dms.function.utils.common.StringUtils;
-import com.yonyou.dms.gacfca.CLDMS013;
+import com.yonyou.dms.gacfca.CLDMS013Coud;
 
 @Service
 public class SendBoldMsgToDmsByWXCloudImpl extends BaseCloudImpl implements SendBoldMsgToDmsByWXCloud {
@@ -28,7 +28,7 @@ public class SendBoldMsgToDmsByWXCloudImpl extends BaseCloudImpl implements Send
 	SaleVehicleSaleDao saleDao;
 	
 	@Autowired
-	CLDMS013 cldms013;
+	CLDMS013Coud cldms013;
 
 	@Override
 	public String handleExecutor(List<OutBoundReturnDTO> dtoList) throws ServiceBizException {

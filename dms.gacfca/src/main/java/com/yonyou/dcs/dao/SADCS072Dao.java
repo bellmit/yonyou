@@ -1,12 +1,12 @@
 package com.yonyou.dcs.dao;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.infoservice.dms.cgcsl.vo.VehicleCustomerVO;
 import com.yonyou.dms.DTO.gacfca.VehicleCustomerDTO;
 import com.yonyou.dms.common.Util.CheckUtil;
 import com.yonyou.dms.framework.DAO.OemBaseDAO;
@@ -42,12 +42,7 @@ public class SADCS072Dao extends OemBaseDAO {
 		list = OemDAOUtil.findAll(sql.toString(), null);
 		return list;
 	}
-	/**
-	 * 查询车主资料
-	 * @param ctmId
-	 * @return
-	 */
-	public LinkedList<VehicleCustomerDTO> getDataList(String vin){
+	private String getSql(String vin){
 		StringBuffer sql = new StringBuffer("\n");
 		sql.append("SELECT T5.DMS_CODE, \n");//DMS经销商
 		sql.append("       T2.CTM_TYPE, \n");//客户类型
@@ -100,8 +95,17 @@ public class SADCS072Dao extends OemBaseDAO {
 		sql.append("    LEFT JOIN TM_INDUSTRY_DCS T6 ON T2.INDUSTRY_FIRST = T6.INDUSTRY_NAME \n");
 		sql.append("    LEFT JOIN TM_INDUSTRY_DCS T7 ON T2.INDUSTRY_SECOND = T7.INDUSTRY_NAME \n");
 		sql.append("    WHERE T3.VIN = '"+vin+"'\n");
+		return sql.toString();
+	}
+	/**
+	 * 查询车主资料 DTO
+	 * @param ctmId
+	 * @return
+	 */
+	public LinkedList<VehicleCustomerDTO> getDtoDataList(String vin){
 		
-		List<Map> listMap=OemDAOUtil.findAll(sql.toString(), null);
+		String sql=getSql(vin);
+		List<Map> listMap=OemDAOUtil.findAll(sql, null);
 		LinkedList<VehicleCustomerDTO> dtoList=null;
 		VehicleCustomerDTO dto=null;
 		if(null!=listMap&&listMap.size()>0){
@@ -130,9 +134,52 @@ public class SADCS072Dao extends OemBaseDAO {
 				dto.setVin(CommonUtils.checkNull(listMap.get(i).get("VIN")));
 				String upDate=CommonUtils.checkNull(listMap.get(i).get("MAINTAIN_DATE"));
 				dto.setUpDate(CommonUtils.parseDate(upDate));
+				dtoList.add(dto);
 			}
 		}
 		
 		return dtoList;
+	}
+	/**
+	 * 查询车主资料 VO(供DE接口调用)
+	 * @param ctmId
+	 * @return
+	 */
+	public LinkedList<VehicleCustomerVO> getVoDataList(String vin){
+		
+		String sql=getSql(vin);
+		List<Map> listMap=OemDAOUtil.findAll(sql, null);
+		LinkedList<VehicleCustomerVO> voList=null;
+		VehicleCustomerVO vo=null;
+		if(null!=listMap&&listMap.size()>0){
+			voList=new LinkedList<VehicleCustomerVO>();
+			for(int i=0;i<listMap.size();i++){
+				vo=new VehicleCustomerVO();
+				vo.setOwnerProperty(Integer.parseInt(CommonUtils.checkNull(listMap.get(i).get("CTM_TYPE"))));
+				vo.setOwnerName(CommonUtils.checkNull(listMap.get(i).get("CTM_NAME")));
+				vo.setContactorPhone(CommonUtils.checkNull(listMap.get(i).get("OTHER_PHONE")));//电话
+				vo.setContactorMobile(CommonUtils.checkNull(listMap.get(i).get("MAIN_PHONE")));//手机
+				vo.setCtCode(Integer.parseInt(CommonUtils.checkNull(listMap.get(i).get("CARD_TYPE"))));
+				vo.setCertificateNo(CommonUtils.checkNull(listMap.get(i).get("CARD_NUM")));
+				vo.setGender(Integer.parseInt(CommonUtils.checkNull(listMap.get(i).get("SEX"))));
+				vo.setFamilyIncome(Integer.parseInt(CommonUtils.checkNull(listMap.get(i).get("INCOME"))));
+				vo.setBirthday(CommonUtils.parseDate(CommonUtils.checkNull(listMap.get(i).get(("BIRTHDAY")))));
+				vo.setOwnerMarriage(Integer.parseInt(CommonUtils.checkNull(listMap.get(i).get("IS_MARRIED"))));
+				vo.setProvince(Integer.parseInt(CommonUtils.checkNull(listMap.get(i).get("PROVINCE"))));
+				vo.setCity(Integer.parseInt(CommonUtils.checkNull(listMap.get(i).get("CITY"))));
+				vo.setDistrict(Integer.parseInt(CommonUtils.checkNull(listMap.get(i).get("TOWN"))));
+				vo.setAddress(CommonUtils.checkNull(listMap.get(i).get("ADDRESS")));
+				vo.setIndustryFirst(Integer.parseInt(CommonUtils.checkNull(listMap.get(i).get("INDUSTRY_FIRST"))));
+				vo.setIndustrySecond(Integer.parseInt(CommonUtils.checkNull(listMap.get(i).get("INDUSTRY_SECOND"))));
+				vo.setZipCode(CommonUtils.checkNull(listMap.get(i).get("POST_CODE")));
+				vo.setEmail(CommonUtils.checkNull(listMap.get(i).get("EMAIL")));
+				vo.setVin(CommonUtils.checkNull(listMap.get(i).get("VIN")));
+				String upDate=CommonUtils.checkNull(listMap.get(i).get("MAINTAIN_DATE"));
+				vo.setUpDate(CommonUtils.parseDate(upDate));
+				voList.add(vo);
+			}
+		}
+		
+		return voList;
 	}
 }

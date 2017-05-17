@@ -275,6 +275,8 @@
 						}
 // 						alert(heads[0]);
 						//循环将表数据刷新进对应的车系表格
+						var index = 0;
+						var tableIndex = [];
 						for (var x = 0; x < dqList.length; x++) {
 	    	
 							var dqMap = dqList[x];
@@ -291,7 +293,7 @@
 													var gapMap = gapList[m];
 													if (gapMap["ORG_ID2"] == dlrMap["ORG_ID2"] &&
 														gapMap["ORG_NAME"] == dlrMap["ORG_NAME"] &&
-														gapMap["GROUP_ID"] == dlrMap["SERIES_ID"] &&
+														gapMap["SERIES_ID"] == dlrMap["SERIES_ID"] &&
 														gapMap["DEALER_NAME"] == dlrMap["DEALER_NAME"]) {
 														//定义table字段
 														var dms_table = gapMap;
@@ -303,26 +305,138 @@
 																for (var n = 0; n < result.length; n++) {
 																	
 																	var rMap = result[n];
-																	if (rMap["SERIES_ID"] == gapMap["GROUP_ID"] &&
+																	if (rMap["SERIES_ID"] == gapMap["SERIES_ID"] &&
 																		rMap["DEALER_NAME"] == gapMap["DEALER_NAME"] &&
 																		rMap["GROUP_ID"] == temp_heads.split("_")[0] &&
 																		rMap["GROUP_NAME"] == temp_heads.split("_")[1] &&
 																		rMap["COLOR_NAME"] == temp_heads.split("_")[2]) {
 																		str = rMap["NUM"];
+																		break;
 																	}
 																}
 																dms_table[temp_heads] = str;
 															}
 														}
+// 														$("tr[data-index='"+index+"']",container).attr("class","warning");
+														tableIndex[index] = "EEEED1";
 														$("#"+tableName,container).dmsTable().appendRow(dms_table);
+														index++;
 													}
 												}
 											}
 										}
+										//小区汇总
+										var dms_tablexq = null;
+										for (var m = 0; m < gapList.length; m++) {
+											var gapMap = gapList[m];				
+											if (gapMap["ORG_ID2"] == xqMap["ORG_ID2"] &&
+												gapMap["SERIES_ID"] == xqMap["SERIES_ID"] &&
+												gapMap["ORG_ID"] == xqMap["ORG_ID"] &&
+												gapMap["SERIES_NAME"] == "ORG_TOTAL") {
+												gapMap.DEALER_NAME = xqMap["ORG_NAME"];
+												dms_tablexq = gapMap;
+												break;
+											}
+										}
+										if (heads) {
+											for (var b = 0; b < heads.length; b++) {
+												var temp_heads = heads[b];
+												var str = 0;
+												for (var n = 0; n < cList2.length; n++) {
+													var cMap = cList2[n];
+													if (cMap["SERIES_ORG_TOTAL"] == "ORG_TOTAL" &&
+														cMap["ORG_ID2"] == xqMap["ORG_ID2"] &&
+														cMap["SERIES_ID"] == xqMap["SERIES_ID"] &&
+														cMap["ORG_ID"] == xqMap["ORG_ID"] &&
+														cMap["GROUP_ID"] == temp_heads.split("_")[0] &&
+														cMap["GROUP_NAME"] == temp_heads.split("_")[1] &&
+														cMap["COLOR_NAME"] == temp_heads.split("_")[2]) {
+														str = cMap["ORG_COLOR_TOTAL"];
+														break;
+													}
+												}
+												dms_tablexq[temp_heads] = str;
+											}
+										}
+										$("#"+tableName,container).dmsTable().appendRow(dms_tablexq);
+// 										$("#"+tableName+" tbody tr[data-index='"+index+"']",container).attr("class","danger");
+										tableIndex[index] = "C6E2FF";
+										index++;
 									}
 								}
+								//大区汇总
+								var dms_tabledq = null;
+								for (var m = 0; m < gapList.length; m++) {
+									var gapMap = gapList[m];		
+									if (gapMap["SERIES_ID"] == dqMap["SERIES_ID"] && 
+										gapMap["ORG_ID2"] == dqMap["ORG_ID2"] &&
+										gapMap["SERIES_NAME"] == "BIG_ORG_TOTAL") {
+										gapMap.DEALER_NAME = dqMap["ORG_NAME2"];
+										dms_tabledq = gapMap;
+										break;
+									}
+								}
+								if (heads) {
+									for (var b = 0; b < heads.length; b++) {
+										var temp_heads = heads[b];
+										var str = 0;
+										for (var n = 0; n < cList_big.length; n++) {
+											
+											var cMap = cList_big[n];
+											if (cMap["SERIES_BIG_ORG_TOTAL"] == "ORG_TOTAL" &&
+												cMap["SERIES_ID"] == xqMap["SERIES_ID"] &&
+												cMap["ORG_ID2"] == dqMap["ORG_ID2"] &&
+												cMap["GROUP_ID"] == temp_heads.split("_")[0] &&
+												cMap["GROUP_NAME"] == temp_heads.split("_")[1]) {
+												
+												str = cMap["ORG_COLOR_TOTAL"];
+												break;
+											}
+										}
+										dms_tabledq[temp_heads] = str;
+									}
+								}
+								$("#"+tableName,container).dmsTable().appendRow(dms_tabledq);
+// 								$("#"+tableName+" tbody tr[data-index='"+index+"']",container).attr("class","add8e6");
+								tableIndex[index] = "ADD8E6";
+								index++;
+								//车系汇总
+								var dms_tablecx = null;
+								for (var m = 0; m < gapList.length; m++) {
+									var gapMap = gapList[m];
+									if (gapMap["SERIES_ID"] == sMap["SERIES_ID"] && gapMap["SERIES_NAME"] == "TOTAL") {
+										gapMap.DEALER_NAME = "汇总";
+										dms_tablecx = gapMap;
+										break;
+									}
+								}
+								if (heads) {
+									for (var b = 0; b < heads.length; b++) {
+										var temp_heads = heads[b];
+										var str = 0;
+										for (var n = 0; n < cList.length; n++) {
+											
+											var cMap = cList[n];
+											if (cMap["SERIES_TOTAL"] == "TOTAL" &&
+												cMap["SERIES_ID"] == dqMap["SERIES_ID"] &&
+												cMap["GROUP_ID"] == temp_heads.split("_")[0] &&
+												cMap["GROUP_NAME"] == temp_heads.split("_")[1]) {
+												
+												str = cMap["COLOR_TOTAL"];
+											}
+										}
+										dms_tablecx[temp_heads] = str;
+									}
+								}
+								$("#"+tableName,container).dmsTable().appendRow(dms_tablecx);
+								tableIndex[index] = "FFFFFF";
+// 								$("#"+tableName+" tbody tr[data-index='"+index+"']",container).attr("class","danger");
 							}
 						}
+			              var tableId = document.getElementById(tableName);   
+			              for(var z=2;z<tableId.rows.length;z++) {   
+			                     tableId.rows[z].setAttribute("style","background: #"+tableIndex[z-2]+";");
+			                }   
 						heads.splice(0,heads.length);
 					}
 				}

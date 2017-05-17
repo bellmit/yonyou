@@ -34,8 +34,8 @@
 				   
 			        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 						<div class="form-group">
-							<label class="control-label col-xs-4 col-sm-2">政策适用日期</label>
-							<div class="col-xs-8 col-sm-10">
+							<label class="control-label col-xs-12 col-sm-4">政策适用日期</label>
+							<div class="col-xs-6 col-sm-8">
 								 <div class="input-group input-daterange" data-maxDays = "30" data-opens="right">
 		                             <input type="text" class="form-control" readonly  name="beginDate">
 		                             <span class="input-group-addon">-</span>
@@ -82,7 +82,7 @@
 					</div>
 				 </div>
 			</div>
-	</div>
+	  </div>
 	
 	
     
@@ -91,16 +91,9 @@
 		<div class="panel-heading">
 				<div class="pannel-button">
 						<div class="btn-group btn-group-sm">
-						    <a class="btn btn-outline" data-url="/rebateSum/export/excel"
+						    <a class="btn btn-outline" data-url="/rebateSum/export/excel/drl"
 									data-model="retail" data-method="downLoad" data-toggle="confirmation" ><i
 									class="fa fa-download"></i>下载</a> 
-						    <a class="btn btn-outline" data-url="" data-beforeRequest="true" id='tt'
-									data-model="retail" data-method="downLoad" data-toggle="confirmation" ><i
-									class="fa fa-download"></i>下载明细</a> 
-							<a class="btn btn-outline"
-							data-url="retail/rebate/jsum/searchRebateJSumMX.html"
-							data-width="modal-lg" data-toggle="modal"> <i
-							class="fa fa-plus-square"></i> 明细</a>
 						</div>
 				</div>
 		</div>
@@ -123,16 +116,15 @@ $(document).one("onload.dms",function(event,container){
 	   new Datatable().initPagination({
 			src : "dms_table",
 			container:container,
-			url :dmsCommon.getDmsPath()["retail"] + "/rebateSum",
+			url :dmsCommon.getDmsPath()["retail"] + "/rebateSum/drl",
 			rowID : "LOG_ID",
 			sortName : "t.LOG_ID  ", 
 			sortOrder : "asc",	
 			autoHeight : false,
 			columns:[
-				       {radio:true,sortable : false},
+				      /*  {radio:true,sortable : false}, */
 					   {field:"LOG_ID",title : "操作",operateFormat : [
 			                    {type:"detail",url:"retail/rebate/jsum/searchRebateJSum1.html",openType:"jump"}
-			                    
 			                 ]
 			            },
                         {field:"BUSINESS_POLICY_NAME",title:"商务政策"},

@@ -16,7 +16,7 @@ import com.yonyou.dms.common.domains.PO.basedata.TiAppNSwapPO;
 import com.yonyou.dms.framework.domain.LoginInfoDto;
 import com.yonyou.dms.framework.util.bean.ApplicationContextHelper;
 import com.yonyou.dms.function.exception.ServiceBizException;
-import com.yonyou.dms.gacfca.SOTDMS005;
+import com.yonyou.dms.gacfca.SOTDMS005Coud;
 
 @Service
 public class SOTDMS005CloudImpl extends BaseCloudImpl implements SOTDMS005Cloud {
@@ -27,7 +27,7 @@ public class SOTDMS005CloudImpl extends BaseCloudImpl implements SOTDMS005Cloud 
 	TiAppNSwapDao dao;
 	
 	@Autowired
-	SOTDMS005 sotdms005;
+	SOTDMS005Coud sotdms005;
 
 	@Override
 	public String execute() throws ServiceBizException {

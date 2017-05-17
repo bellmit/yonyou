@@ -68,11 +68,11 @@
 			<div class="pannel-name">生产订单任务下发车款颜色内饰明细</div>
 			<div class="pannel-button">
 				<div class="btn-group btn-group-sm">
-					<a class="btn btn-outline" data-url="dialog/showCar1.html" data-width="modal-lg"
+					<a class="btn btn-outline" data-url="salesPlanManage/forecastManage/forecastIssueAdd.html" data-width="modal-lg"
 						data-toggle="modal"> <i class="fa fa-plus-square" ></i> 新增
 					</a>
 					<a data-url="/forecastImport/retailforecastIssued" data-model="manage" data-method="POST"
-						data-callBack="true" class="btn btn-outline" data-toggle="confirmation">
+						data-callBack="true" class="btn btn-outline" data-toggle="confirmation" data-beforeRequest="true">
 						 <i class="fa fa-plus-square"></i>任务下发
 					</a> 
 				</div>
@@ -120,12 +120,25 @@
 	   		 $("#monthId",container).setDmsValue(90091012);
 	   	 }
 		
-			new Datatable().initPagination({
+		new Datatable().initPagination({
 				src : "queryByMaterialid1_table",
 				container : container,
 				rowID : "MATERIAL_ID",
 				url : dmsCommon.getDmsPath()["manage"] + "/forecastImport/queryByMaterialid1",
 				columns : [
+					{field : "BIG_CUSTOMER_APPLY_ID",title : "操作",operateFormat : [
+				        {type:"del",url:"/forecastImport/delColorAndTrim/{[MATERIAL_ID]}",model:"manage",callBack:function(response){
+	                    	   $("#queryByMaterialid1_table",container).dmsTable().refreshTableWithForm();
+	                       },isShow:function(value, row, index){	                    		
+	                  		  if(row.MATERIAL_ID=="0"){
+	                  			  return false;
+	                  		  }else{
+	                  			  return true;
+	                  		  }
+	                 	  	}
+	                      }
+				   	    ]
+				   	 }, 
 					{field : "BRAND_NAME",title : "品牌"},
                     {field : "SERIES_NAME",title : "车系"},
                     {field : "MODEL_YEAR",title : "年款"},
@@ -143,10 +156,31 @@
 			});
 			//新增页面的回调函数
 			$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+				dmsCommon.tip({status:"success",msg:response.errorMsg});
 				//关闭窗口
 				$("a[data-dismiss='modal']",container).click();
 				//刷新表格
 				$("#queryByMaterialid1_table",getElementContext()).dmsTable().refreshTableWithForm();
 			});
+			
+		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			if($("#lastStockInDateFrom").val() == "" || $("#lastStockInDateTo").val() == ""){
+				dmsCommon.tip({status:"warning",msg:"上报日期不能为空!"});
+				returnResult.status = false;
+				return;
+			}
+			if(new Date($("#lastStockInDateFrom").val()) < new Date()){
+				dmsCommon.tip({status:"warning",msg:"生产订单任务下发上报开始日期不能小于当前日期!"});
+				returnResult.status = false;
+				return;
+			}
+			if($("#monthId").val().substring(6,8) < $("#lastStockInDateTo").val().split("-")[1]){
+				dmsCommon.tip({status:"warning",msg:"生产订单任务下发月份不能小于预测上报结束日期!"});
+				returnResult.status = false;
+				return;
+			}
+			returnResult.status = true;
+		});
+		
 		});
 </script>

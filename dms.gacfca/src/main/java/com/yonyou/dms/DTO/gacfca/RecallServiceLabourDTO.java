@@ -1,9 +1,7 @@
 package com.yonyou.dms.DTO.gacfca;
 
-import com.infoservice.dms.cgcsl.vo.BaseVO;
-
-public class RecallServiceLabourDTO extends BaseVO  {
-	private static final long serialVersionUID = 1L;
+public class RecallServiceLabourDTO {
+	
 	private String labourCode; //工时代码  
 	private String labourName; //工时名称
 	private Double stdLabourHour; //工时数

@@ -38,6 +38,7 @@ import com.yonyou.dms.common.domains.PO.basedata.TtMemberLabourFlowPO;
 import com.yonyou.dms.common.domains.PO.basedata.TtMemberLabourPO;
 import com.yonyou.dms.common.domains.PO.basedata.TtMemberPartFlowPO;
 import com.yonyou.dms.common.domains.PO.basedata.TtMemberPartPO;
+import com.yonyou.dms.common.domains.PO.basedata.TtOccurInsuranceRegisterPO;
 import com.yonyou.dms.common.domains.PO.basedata.TtPartPeriodReportPO;
 import com.yonyou.dms.common.domains.PO.basedata.TtRoLabourPO;
 import com.yonyou.dms.common.domains.PO.basedata.TtRoRepairPartPO;
@@ -65,20 +66,19 @@ public class SaveRepairOrderServiceImpl implements SaveRepairOrderService {
 
 	private static final Logger logger = LoggerFactory.getLogger(SaveRepairOrderServiceImpl.class);
 
-	private static List<Map> ttTripleInfo = new ArrayList<Map>();//预警信息
-	
-	
+	private static List<Map> ttTripleInfo = new ArrayList<Map>();// 预警信息
+
 	/**
 	 * 工单保存主方法
 	 */
 	@Override
 	public void btnSave(RepairOrderDetailsDTO dto) {
-		//删除PART_CODE为空的ttTripleInfo
-		if(!CommonUtils.isNullOrEmpty(ttTripleInfo)){
+		// 删除PART_CODE为空的ttTripleInfo
+		if (!CommonUtils.isNullOrEmpty(ttTripleInfo)) {
 			Iterator<Map> it = ttTripleInfo.iterator();
-			while(it.hasNext()){
+			while (it.hasNext()) {
 				Map x = it.next();
-				if(StringUtils.isNullOrEmpty(x.get("PART_CODE"))){
+				if (StringUtils.isNullOrEmpty(x.get("PART_CODE"))) {
 					it.remove();
 				}
 			}
@@ -97,6 +97,8 @@ public class SaveRepairOrderServiceImpl implements SaveRepairOrderService {
 		List<Map> checkShortPart = checkShortPart(dto);
 		updateBookingOrderStatusByRepairOrder(dto);
 		checkLabourAmount(dto);
+		//加锁
+		Utility.updateByLocker("TT_REPAIR_ORDER", FrameworkUtil.getLoginInfo().getUserId().toString(), "RO_NO", dto.getRoNo(), "LOCK_USER");
 	}
 
 	/**
@@ -2084,8 +2086,22 @@ public class SaveRepairOrderServiceImpl implements SaveRepairOrderService {
 	 * @return
 	 */
 	public Boolean ckeckFieldNotNull(List<Map<String, String>> list, String field) {
-		StringBuffer sb = new StringBuffer();
+		StringBuffer sb = new StringBuffer("");
 		for (Map<String, String> map : list) {
+			if (!StringUtils.isNullOrEmpty(map.get(field))) {
+				sb.append(map.get(field)).append(" ");
+			}
+		}
+		if (!"".equals(sb.toString())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public Boolean ckeckFieldNotNull2(List<Map> list, String field) {
+		StringBuffer sb = new StringBuffer("");
+		for (Map map : list) {
 			if (!StringUtils.isNullOrEmpty(map.get(field))) {
 				sb.append(map.get(field)).append(" ");
 			}
@@ -3489,7 +3505,7 @@ public class SaveRepairOrderServiceImpl implements SaveRepairOrderService {
 				if (alarm.equals("1")) {
 					//// 标示三包预警
 					List<Map> listAccredit = queryEntityTriple();
-					Integer Accredit =  (Integer)listAccredit.get(0).get("ACURA_GHAS_TYPE");
+					Integer Accredit = (Integer) listAccredit.get(0).get("ACURA_GHAS_TYPE");
 					if (Accredit != null && Accredit.equals(10791001)) {
 						// 授权经销商
 						result.put("tripleResult", "1");
@@ -3513,6 +3529,7 @@ public class SaveRepairOrderServiceImpl implements SaveRepairOrderService {
 
 	/**
 	 * 校验经销商是不是授权经销商（三包）
+	 * 
 	 * @return
 	 */
 	public List<Map> queryEntityTriple() {
@@ -3635,6 +3652,107 @@ public class SaveRepairOrderServiceImpl implements SaveRepairOrderService {
 
 	@Override
 	public void occurInsuranceAbout(Map<String, String> param) {
-		
+		List<Object> params = new ArrayList<Object>();
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select A.* from TT_OCCUR_INSURANCE_REGISTER A where A.DEALER_CODE=? ");
+		sql.append(" and A.VIN=?"); // 需求变了 要都查出来，已关联工单的是默认勾上
+		String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
+		params.add(dealerCode);
+		params.add(param.get("vin"));
+		if ((!StringUtils.isNullOrEmpty(param.get("RONO")))) {
+			sql.append(" and (A.RO_NO=? or A.ro_no is null or a.ro_no='' )");
+			params.add(param.get("RONO"));
+		} else {
+			sql.append(" and (A.ro_no is null or a.ro_no='' )");
+		}
+		List<Map> findAll = DAOUtil.findAll(sql.toString(), params);
+		String isRepairOrder = "";
+		if (findAll.size() > 0
+				|| (!StringUtils.isNullOrEmpty(param.get("no2")) && StringUtils.isNullOrEmpty(param.get("no1")))) {
+			for (Map map : findAll) {
+				map.put("TRACE_STATUS", "16061003");
+				map.put("DEAL_STATUS", "16071001");
+			}
+			isRepairOrder = "Y";// 传一个标志 是工单界面的修改
+		}
+		// 如果是工单界面的保存，先把原来关联过的单子的状态 重置回去，再把这次关联的改成次工单的
+		if (Utility.testString(isRepairOrder)) {
+			TtOccurInsuranceRegisterPO registerNew = TtOccurInsuranceRegisterPO.findFirst(
+					"VIN = ? AND RO_NO = ? AND DEALER_CPDE = ? AND D_KEY = ?", param.get("vin"), param.get("roNo"),
+					FrameworkUtil.getLoginInfo().getDealerCode(), CommonConstants.D_KEY);
+			if (!StringUtils.isNullOrEmpty(registerNew)) {
+				registerNew.setString("RO_NO", "");
+				registerNew.setInteger("TRACE_STATUS",
+						Integer.parseInt(DictCodeConstants.DICT_OUT_DANGER_TRACE_STATUS_TREATING));
+				registerNew.saveIt();
+			}
+		}
+		if (ckeckFieldNotNull2(findAll, "OCCUR_INSURANCE_NO")) {
+			logger.debug("执行更新操作");
+			for (Map map : findAll) {
+				if (!StringUtils.isNullOrEmpty(map.get("OCCUR_INSURANCE_NO"))) {
+					TtOccurInsuranceRegisterPO register = TtOccurInsuranceRegisterPO.findByCompositeKeys(
+							map.get("OCCUR_INSURANCE_NO"), FrameworkUtil.getLoginInfo().getDealerCode());
+					if (!StringUtils.isNullOrEmpty(register)) {
+						register.setString("LICENSE", map.get("LICENSE").toString());
+						register.setString("VIN", map.get("VIN").toString());
+						register.setString("BRAND", map.get("BRAND").toString());
+						register.setString("SERIES", map.get("SERIES").toString());
+						register.setString("MODEL", map.get("MODEL").toString());
+						register.setInteger("MODEL_YEAR", Integer.parseInt(map.get("MODEL_YEAR").toString()));
+						register.setString("ENGINE_NO", map.get("ENGINE_NO").toString());
+						register.setString("RECORD_MAN", map.get("RECORD_MAN").toString());
+						register.setString("OWNER_NAME", map.get("OWNER_NAME").toString());
+						register.setString("PHONE", map.get("PHONE").toString());
+						register.setString("MOBILE", map.get("MOBILE").toString());
+						register.setLong("SERVICE_ADVISOR", Long.parseLong(map.get("SERVICE_ADVISOR").toString()));
+						register.set("OCCUR_TIME", map.get("OCCUR_TIME"));
+						register.set("OCCUR_SITE", map.get("OCCUR_SITE").toString());
+						register.setString("REPORT_MAN", map.get("REPORT_MAN").toString());
+						register.setString("REPORT_MAN_PHONE", map.get("REPORT_MAN_PHONE").toString());
+						register.setString("REPORT_MAN_MOBILE", map.get("REPORT_MAN_MOBILE").toString());
+						register.setInteger("ACCIDENT_TYPE", Integer.parseInt(map.get("ACCIDENT_TYPE").toString()));
+						register.setInteger("IS_REPORTED", Integer.parseInt(map.get("IS_REPORTED").toString()));
+						register.setInteger("IS_SELF_INSURANCE",
+								Integer.parseInt(map.get("IS_SELF_INSURANCE").toString()));
+						register.setInteger("IS_OUT_DATE", Integer.parseInt(map.get("IS_OUT_DATE").toString()));
+						register.setString("INSURANCE_COMPANY", map.get("INSURANCE_COMPANY").toString());
+						register.set("REPORT_TIME", map.get("REPORT_TIME"));
+						register.set("PRECONTRACT_TIME", map.get("PRECONTRACT_TIME"));
+						register.setString("ACCIDENT_PROCESS", map.get("ACCIDENT_PROCESS"));
+						register.setInteger("CUS_SOURCE", Integer.parseInt(map.get("CUS_SOURCE").toString()));
+						register.setString("RO_NO", map.get("RO_NO").toString());
+						register.setInteger("PAYMENT", Integer.parseInt(map.get("PAYMENT").toString()));
+						register.setInteger("TRACE_STATUS", Integer.parseInt(map.get("TRACE_STATUS").toString()));
+						if (!StringUtils.isNullOrEmpty(map.get("INSURANCE_STYLE"))) {
+							register.setString("INSURANCE_STYLE", map.get("INSURANCE_STYLE").toString());
+						}
+						if (!StringUtils.isNullOrEmpty(map.get("IS_SELF_COMPANY_INSURANCE"))) {
+							register.setInteger("IS_SELF_COMPANY_INSURANCE",
+									Integer.parseInt(map.get("IS_SELF_COMPANY_INSURANCE").toString()));
+						}
+						if (!StringUtils.isNullOrEmpty(map.get("INSURATION_CODE"))) {
+							register.setString("INSURATION_CODE", map.get("INSURATION_CODE").toString());
+						}
+						if (!StringUtils.isNullOrEmpty(map.get("INSURATION_REPAIR_TYPE"))) {
+							register.setInteger("INSURATION_REPAIR_TYPE",Integer.parseInt(map.get("INSURATION_REPAIR_TYPE").toString()));
+						}
+						if (!StringUtils.isNullOrEmpty(map.get("INSURANCE_TYPE_CODE"))) {
+							register.setString("INSURANCE_TYPE_CODE_SELECTED",map.get("INSURANCE_TYPE_CODE").toString());
+						}
+						register.setString("OCCUR_INSURANCE_NO",map.get("OCCUR_INSURANCE_NO").toString());
+						register.setString("DEALER_CODE",FrameworkUtil.getLoginInfo().getDealerCode());
+						register.setInteger("D_KEY",CommonConstants.D_KEY);
+						register.saveIt();
+					}
+				}
+			}
+		}
+	}
+
+	@Override
+	public void saveSettlementOldpart(Map<String, String> param) {
+		/*QUERY_SETTLEMENT_AND_OLD_PART_INFO
+		SAVE_SETTLEMENT_OLDPART*/
 	}
 }

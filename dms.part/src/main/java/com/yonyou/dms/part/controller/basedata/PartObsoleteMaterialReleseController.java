@@ -1,5 +1,7 @@
 package com.yonyou.dms.part.controller.basedata;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -146,7 +148,15 @@ public class PartObsoleteMaterialReleseController extends BaseController{
 		logger.info("==================取消发布================");
 		TtObsoleteMaterialReleaseDcsPO updatePo = TtObsoleteMaterialReleaseDcsPO.findById(id);
 		updatePo.setInteger("STATUS",OemDictCodeConstants.PART_OBSOLETE_RELESE_STATUS_02);//修改成下架状态
-		updatePo.setDate("END_DATE",new Date());
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		long time= System.currentTimeMillis();
+		try {
+			Date date = sdf.parse(sdf.format(new Date(time)));
+			java.sql.Timestamp st = new java.sql.Timestamp(date.getTime());
+			updatePo.setTimestamp("END_DATE",st);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} 
 		updatePo.setInteger("CANCEL_TYPE",1);//下架类型改为取消发布下架
 		boolean flag = false;
 		flag = updatePo.saveIt();

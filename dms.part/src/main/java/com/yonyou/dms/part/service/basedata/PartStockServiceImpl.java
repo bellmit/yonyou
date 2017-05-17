@@ -461,7 +461,7 @@ public class PartStockServiceImpl implements PartStockService {
 
     /**
      * 查询配件信息
-     *  @author wantao
+     *  @author 
      * @date 2017年4月21日
      * @param param
      * @return
@@ -471,44 +471,67 @@ public class PartStockServiceImpl implements PartStockService {
 
     @Override
     public PageInfoDto pageInfoList(Map<String, String> param) throws ServiceBizException{
-        StringBuilder sb=new StringBuilder("SELECT ts.DEALER_CODE,ts.ADVICE_SALE_PRICE,ts.MAX_STOCK,ts.MIN_STOCK,");
-        sb.append("ts.PART_STOCK_ID,ts.PART_CODE,ts.LIMIT_PRICE,ts.CLAIM_PRICE,"+DictCodeConstants.SALES_PRICE+" as SALES_PRICE_TYPE,");       
-        sb.append("ts.PART_NAME,ts.STORAGE_CODE,ts.BORROW_QUANTITY,ts.LEND_QUANTITY,ts.LOCKED_QUANTITY,ts.LAST_STOCK_IN,ts.LAST_STOCK_OUT,ts.REMARK,"); 
-        sb.append("ts.STORAGE_POSITION_CODE,ts.STOCK_QUANTITY,ts.COST_AMOUNT,"); 
-        sb.append("ts.SALES_PRICE,ts.COST_PRICE,tm.PART_GROUP_CODE,ms.STORAGE_NAME,");
-        sb.append("(ts.STOCK_QUANTITY-ts.LOCKED_QUANTITY+ts.BORROW_QUANTITY-ts.LEND_QUANTITY) as CAN_NUM,tm.OPTION_NO "); 
-        sb.append("FROM tt_part_stock ts left join tm_part_info tm on ts.PART_CODE=tm.PART_NO and (ts.DEALER_CODE=tm.DEALER_CODE or tm.DEALER_CODE = '-1') ");        
-        sb.append("inner join tm_storage ms on ts.STORAGE_CODE=ms.STORAGE_CODE and ts.DEALER_CODE=ms.DEALER_CODE ");
-        sb.append("where 1=1 and ms.STORAGE_TYPE in (70041001,70041002,70041003) and ts.PART_STATUS=? ");
-        List<Object> queryParam=new ArrayList<Object>();
-        queryParam.add(DictCodeConstants.DICT_IS_NO);
+        List<Object> list=new ArrayList<Object>();
+        double rate = 1 + Utility.getDouble(Utility.getDefaultValue("2034"));
+        StringBuilder sb=new StringBuilder("SELECT B.OPTION_NO,A.COST_PRICE*"+rate);
+        sb.append(" AS NET_COST_PRICE,A.COST_AMOUNT*"+rate);       
+        sb.append(" AS NET_COST_AMOUNT,B.ORI_PRO_CODE,A.IS_SUGGEST_ORDER,A.PART_MODEL_GROUP_CODE_SET,A.PART_MAIN_TYPE,A.PART_SPE_TYPE,A.DEALER_CODE, A.PART_NO, A.FOUND_DATE, A.STORAGE_CODE, TS.STORAGE_NAME, A.STORAGE_POSITION_CODE, A.PART_NAME,"); 
+        sb.append(" A.SPELL_CODE, A.PART_GROUP_CODE, A.UNIT_CODE, A.STOCK_QUANTITY, A.SALES_PRICE,"); 
+        sb.append(" A.CLAIM_PRICE, A.LIMIT_PRICE, A.LATEST_PRICE, A.COST_PRICE*1.0000 COST_PRICE, A.COST_AMOUNT*1.0000 COST_AMOUNT, A.MAX_STOCK,");
+        sb.append(" A.MIN_STOCK, A.BORROW_QUANTITY, A.LEND_QUANTITY, A.LOCKED_QUANTITY,TS.CJ_TAG, A.PART_STATUS,  "); 
+        sb.append(" A.LAST_STOCK_IN, A.LAST_STOCK_OUT, A.REMARK, A.VER, ");        
+        sb.append(" A.JAN_MODULUS,A.FEB_MODULUS,A.MAR_MODULUS,A.APR_MODULUS,A.MAY_MODULUS,A.JUN_MODULUS,A.JUL_MODULUS,A.AUG_MODULUS, ");
+        sb.append(" A.SEP_MODULUS,A.OCT_MODULUS,A.NOV_MODULUS,A.DEC_MODULUS,A.MONTHLY_QTY_FORMULA, ");
+        sb.append(" B.PRODUCTING_AREA, B.BRAND, B.MIN_PACKAGE,B.DOWN_TAG,B.FROM_ENTITY,");
+        sb.append(" D.OPTION_STOCK,A.INSURANCE_PRICE,B.INSTRUCT_PRICE, (A.STOCK_QUANTITY + A.BORROW_QUANTITY - A.LEND_QUANTITY - A.LOCKED_QUANTITY) AS USEABLE_STOCK,A.NODE_PRICE");
+        if (!StringUtils.isNullOrEmpty(Utility.getDefaultValue("1180"))&&Utility.getDefaultValue("1180").equals(DictCodeConstants.DICT_IS_YES)) {
+            sb.append(",B.PART_INFIX,F.POS_CODE,E.POS_NAME");
+        }else {
+            sb.append(",'' as PART_INFIX,'' as POS_CODE,'' as POS_NAME");
+        }
+        sb.append(" FROM TM_PART_STOCK A LEFT OUTER JOIN ("+CommonConstants.VM_PART_INFO+") B ON ( A.DEALER_CODE = B.DEALER_CODE AND A.PART_NO= B.PART_NO  )");
+        sb.append(" LEFT OUTER JOIN (select DEALER_CODE, part_no, sum(C.STOCK_QUANTITY) AS OPTION_STOCK FROM TM_PART_STOCK C ");
+        sb.append(" WHERE DEALER_CODE= ? AND D_KEY= ? GROUP BY DEALER_CODE,PART_NO ) D ");
+        sb.append(" ON ( A.DEALER_CODE = D.DEALER_CODE AND A.PART_NO= D.PART_NO AND B.PART_NO = D.PART_NO )");
+        if (!StringUtils.isNullOrEmpty(Utility.getDefaultValue("1180"))&&Utility.getDefaultValue("1180").equals(DictCodeConstants.DICT_IS_YES)) {
+            sb.append(" LEFT JOIN TW_POS_INFIX_RELATION F ON A.DEALER_CODE = F.DEALER_CODE AND B.PART_INFIX  = F.PART_INFIX AND F.IS_VALID = " +DictCodeConstants.DICT_IS_YES );
+            sb.append(" LEFT JOIN TW_MALFUNCTION_POSITION E ON e.is_valid="+DictCodeConstants.DICT_IS_YES+" and A.DEALER_CODE = E.DEALER_CODE AND F.POS_CODE = E.POS_CODE ");
+        }
+        sb.append(" LEFT JOIN TM_STORAGE TS ON A.DEALER_CODE = TS.DEALER_CODE AND A.STORAGE_CODE=TS.STORAGE_CODE ");
+        sb.append(" WHERE A.DEALER_CODE = ? " + " AND A.D_KEY = ? ");
+        list.add(FrameworkUtil.getLoginInfo().getDealerCode());
+        list.add(CommonConstants.D_KEY);
+        list.add(FrameworkUtil.getLoginInfo().getDealerCode());
+        list.add(CommonConstants.D_KEY);
         if(!StringUtils.isNullOrEmpty(param.get("partCode"))){
             sb.append("and ts.PART_NO like ? ");
-            queryParam.add("%"+param.get("partCode")+"%");
+            list.add("%"+param.get("partCode")+"%");
         }
         if(!StringUtils.isNullOrEmpty(param.get("partName"))){
             sb.append(" and ts.PART_NAME like ? ");
-            queryParam.add("%"+param.get("partName")+"%");
+            list.add("%"+param.get("partName")+"%");
         }
-        
+        if(!StringUtils.isNullOrEmpty(param.get("spellCode"))){
+            sb.append("and ts.SPELL_CODE like ? ");
+            list.add("%"+param.get("spellCode")+"%");
+        }
+        if(!StringUtils.isNullOrEmpty(param.get("PART_MODEL_GROUP_CODE_SET"))){
+            sb.append("and ts.PART_MODEL_GROUP_CODE_SET = ? ");
+            list.add(param.get("PART_MODEL_GROUP_CODE_SET"));
+        }
         if(!StringUtils.isNullOrEmpty(param.get("storageCode"))){
             sb.append(" and ts.STORAGE_CODE = ? ");
-            queryParam.add(param.get("storageCode"));
+            list.add(param.get("storageCode"));
         }
-        
-        if(!StringUtils.isNullOrEmpty(param.get("inventory"))){
-            sb.append(" and ts.STOCK_QUANTITY > 0");
+        if(!StringUtils.isNullOrEmpty(param.get("PART_SPE_TYPE"))){
+            sb.append(" and ts.PART_SPE_TYPE = ? ");
+            list.add(Integer.parseInt(param.get("PART_SPE_TYPE")));
         }
-        if(!StringUtils.isNullOrEmpty(param.get("partGroupCode"))){
-            sb.append(" and tm.PART_GROUP_CODE = ? ");
-            queryParam.add(Integer.parseInt(param.get("partGroupCode")));
+        if(!StringUtils.isNullOrEmpty(param.get("brand"))){
+            sb.append(" and tm.brand = ?");
+            list.add(param.get("brand"));
         }
-        //替代配件
-        if(!StringUtils.isNullOrEmpty(param.get("optionNo"))){
-            sb.append(" and tm.OPTION_NO = ?");
-            queryParam.add(param.get("optionNo"));
-        }
-        return DAOUtil.pageQuery(sb.toString(), queryParam);
+        return DAOUtil.pageQuery(sb.toString(), list);
     }
 
 

@@ -34,7 +34,7 @@ public class HMCISE05  extends BaseImpl  implements DEAction {
 			Map<String, Serializable> bodys = deMsg.getBody();
 			LinkedList<ActivityResultDTO> dtoList = new LinkedList<>();
 			setDTO(dtoList,bodys);
-			cloud.receiveData(dtoList);
+			cloud.handleExecutor(dtoList);
 		}  catch(Throwable t) {
 			logger.info("*************************** HMCISE05获取上报的活动车辆完工数据出错******************************");
 			t.printStackTrace();

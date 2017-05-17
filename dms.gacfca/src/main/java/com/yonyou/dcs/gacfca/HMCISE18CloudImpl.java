@@ -19,7 +19,7 @@ public class HMCISE18CloudImpl extends BaseCloudImpl implements HMCISE18Cloud {
 	RepairOrderResultStatusDao dao ;
 
 	@Override
-	public List<RepairOrderReStatusDTO> receiveData(List<RepairOrderReStatusDTO> vos) throws Exception {
+	public List<RepairOrderReStatusDTO> handleExecutor(List<RepairOrderReStatusDTO> vos) throws Exception {
 		List<RepairOrderReStatusDTO> retdtos=new ArrayList<RepairOrderReStatusDTO>();
 		try {
 			logger.info("*************************** 同步查询工单取消结算状态上报信息开始******************************");

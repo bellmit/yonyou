@@ -1,0 +1,532 @@
+<div class="dms-search" data-pageInitCallBack="true">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="pannel-name">查询条件</div>
+						<div class="pannel-tools">
+							<a href="javascript:;" class=collapse> <i
+								class="fa fa-chevron-down"></i></a>
+						</div>
+					</div>
+					<div class="panel-body">
+						<!-- /span -->
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">日期</label>
+									<div class="col-xs-8">
+										<select id="queryDateType" class="bs-select form-control"
+											name="queryDateType" data-dictCode="">
+										</select>
+									</div>
+								</div>
+							</div>
+							<!-- /span -->
+							<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+								<div class="col-xs-10">
+									<div class="input-group input-daterange">
+										<input type="text" class="form-control" readonly
+											name="beginTime" id="beginTime" value="" /> <span
+											class="input-group-addon">至</span> <input type="text"
+											class="form-control" readonly name="endTime" id="endTime"
+											value="" /> <span class="input-group-btn">
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+								<div class="col-xs-2"></div>
+							</div>
+							<!-- /span -->
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+								<div class="form-group">
+									<label class="control-label col-xs-4">品牌</label>
+									<div class="col-xs-8">
+										<select id="brand" class="bs-select form-control"
+											data-ajaxSync="true" name="brand"
+											data-url="/basedata/brandsdict" data-model="manage"
+											data-labelValue="BRAND_CODE" data-lableDesc="BRAND_NAME"
+											data-alwaysRefresh="true">
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /span -->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车系</label>
+							<div class="col-xs-8">
+								<select id="series" class="bs-select form-control"
+									name="series" data-url="/basedata/selectSeries"
+									data-model="manage" data-labelValue="SERIES_CODE"
+									data-lableDesc="SERIES_NAME" data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!-- /span -->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">车型</label>
+							<div class="col-xs-8">
+								<select id="model" class="bs-select form-control"
+									name="model" data-url="/basedata/selectModel"
+									data-model="manage" data-labelValue="MODEL_CODE"
+									data-lableDesc="MODEL_NAME" data-alwaysRefresh="true">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">车牌号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="license"
+									name="license"> <input type="hidden"
+									class="form-control" id="license2" name="license">
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">VIN</label>
+							<div class="col-xs-8">
+								<input type="hidden" id="vin2" /> <input type="text"
+									class="form-control" id="vin" name="vin" />
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" data-seldate2='true'>
+						<div class="form-group">
+							<label class="control-label col-xs-4">车主编号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="ownerNo"
+									name="ownerNo" data-fieldName="OWNER_NO" >
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" data-seldate2='true'>
+							<div class="input-group">
+										   <input id="ownerName2" name="ownerName2" readonly="readonly"
+											data-fieldName="OWNER_NAME" class="form-control" type="text" />
+											<span class="input-group-btn">
+												<button class="btn default btn-sm" type="button" data-url="repair/claimRepairOrder/searchOwner.html"
+													data-toggle="modal" data-width="modal-lg"
+													id="ownerNameBtn"> <i class="fa icon-search"></i>
+												</button>
+										   	</span>
+									   </div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">维修类型</label>
+							<div class="col-xs-8">
+								<select id="repairTypeCode" class="bs-select form-control"
+									name="repairTypeCode">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">车主姓名</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="ownerName"
+									name="ownerName">
+							</div>
+						</div>
+					</div>
+
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">客户经理</label>
+							<div class="col-xs-8">
+								<select id="serviceAdvisor" name="serviceAdvisor"
+									class="bs-select form-control "
+									data-url="/basedata/employees/-1/salesConsultant"
+									data-model="manage" data-labelValue="USER_ID" data-value=""
+									data-lableDesc="USER_NAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row ">
+						<div class="col-xs-12 ">
+							<div class="query-btn">
+								<a href="javascript:;" class="btn btn-sm blue"> <i
+									class="fa fa-search"></i> 查询
+								</a> <a href="javascript:;" class="btn btn-sm blue"><i
+									class="fa fa-undo"></i> 重置</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="panel panel-default table-panel">
+						<div class="panel-heading">
+							<div class="pannel-name">未结算索赔工单查询</div>
+							<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+							<!--/span-->
+							<a id="123" data-toggle="modal" data-beforeShowEvent="true"
+								data-url="repair/claimRepairOrder/waitingReasonDo.html" data-width="modal-lg"
+								data-callBack="true" class="btn btn-outline"><i class="fa fa-edit" />超时原因填写
+							</a>
+							<!--/span-->
+							<a href="javascript:;" data-url="/repair/claimRepairOrder/export"
+								data-model="repair" data-method="downLoad" id="excel" 
+								data-toggle="confirmation" class="btn btn-outline "> <i
+								class="fa fa-download"></i>导出
+							</a>
+						</div>
+					</div>
+						</div>
+						<div class="panel-body">
+							<table
+								class="table table-striped table-bordered table-hover table-responsive"
+								id="dms_claim">
+							</table>
+						</div>
+					</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms", function(event, container) {
+		
+		dmsRepair.initRepairType1(container);
+		dmsRepair.initQueryDateType(container);
+		new Datatable().initPagination({
+			src : "dms_claim",
+			rowID : "VIN",
+			container : container,
+			url : dmsCommon.getDmsPath()["repair"] + "/repair/claimRepairOrder",
+			sortName : "VIN",
+			sortOrder : "asc",
+			checkboxHeader : true, //全选框
+			autoHeight : false,
+			undefinedText : "",
+			columns : [ {
+				checkbox : true,
+				sortable : false
+			}, {
+				field : "dealer_shortname",
+				title : "经销商"
+			}, {
+				field : "RO_CREATE_DATE",
+				title : "工单开单日期",
+				dateFormat : {
+					format : "YYYY-MM-DD"
+				}
+			}, {
+				field : "RO_NO",
+				title : "工单号"
+			}, {
+				field : "RO_TYPE",
+				title : "工单类型",
+				codeFormat : {
+					type : "dict",
+					codeType : "1253"
+				}
+			}, {
+				field : "RO_STATUS",
+				title : "工单状态",
+				codeFormat : {
+					type : "dict",
+					codeType : "1255"
+				}
+			}, {
+				field : "RO_CLAIM_STATUS",
+				title : "提报状态",
+			codeFormat : {
+					type : "dict",
+					codeType : "1430"
+							}
+			}, {
+				field : "SERVICE_ADVISOR_NAME",
+				title : "客户经理"
+			}, {
+				field : "BALANCE_CLOSE",
+				title : "是否关单",
+				codeFormat : {
+					type : "dict",
+					codeType : "1278"
+				}
+			}, {
+				field : "IS_ABANDON_ACTIVITY",
+				title : "是否放弃活动",
+				codeFormat : {
+					type : "dict",
+					codeType : "1278"
+				}
+			}, {
+				field : "DELIVERY_TAG",
+				title : "交车标识",
+				codeFormat : {
+					type : "dict",
+					codeType : "1258"
+				}
+			}, {
+				field : "PAY_OFF",
+				title : "是否结清",
+				codeFormat : {
+					type : "dict",
+					codeType : "1278"
+				}
+			}, {
+				field : "LABOUR_NAME_UNITE",
+				title : "维修项目名称"
+			}, {
+				field : "CHIEF_TECHNICIAN",
+				title : "指定技师"
+			}, {
+				field : "TECHNICIAN_UNITE",
+				title : "维修技师"
+			}, {
+				field : "LICENSE",
+				title : "车牌号"
+			}, {
+				field : "REPAIR_TYPE_CODE",
+				title : "维修类型"
+			// 				,
+			// 				codeFormat : {
+			// 					type : "dict",
+			// 					codeType : "1278"
+			// 				}
+			}, {
+				field : "BALANCE_HANDLER",
+				title : "结算员"
+			}, {
+				field : "brand_name",
+				title : "品牌",
+			}, {
+				field : "series_name",
+				title : "车系"
+			}, {
+				field : "MODEL_NAME",
+				title : "车型"
+			}, {
+				field : "OWNER_NO",
+				title : "车主编号"
+			}, {
+				field : "OWNER_NAME",
+				title : "车主"
+			}, {
+				field : "RECOMMEND_CUSTOMER_NAME",
+				title : "推荐单位"
+			}, {
+				field : "OWNER_PROPERTY",
+				title : "车主性质",
+				codeFormat : {
+					type : "dict",
+					codeType : "1190"
+				}
+			}, {
+				field : "REPAIR_AMOUNT",
+				title : "维修金额"
+			}, {
+				field : "FOR_BALANCE_TIME",
+				title : "提交结算时间",
+				dateFormat : {
+					format : "YYYY-MM-DD"
+				}
+			}, {
+				field : "DELIVERY_DATE",
+				title : "交车日期",
+				dateFormat : {
+					format : "YYYY-MM-DD HH:mm:ss"
+				}
+			}, {
+				field : "COMPLETE_TAG",
+				title : "是否竣工",
+				codeFormat : {
+					type : "dict",
+					codeType : "1278"
+				}
+			}, {
+				field : "COMPLETE_TIME",
+				title : "竣工时间",
+				dateFormat : {
+					format : "YYYY-MM-DD"
+				}
+			}, {
+				field : "WAIT_INFO_TAG",
+				title : "是否待信",
+				codeFormat : {
+					type : "dict",
+					codeType : "1278"
+				}
+			}, {
+				field : "WAIT_PART_TAG",
+				title : "是否待料",
+				codeFormat : {
+					type : "dict",
+					codeType : "1278"
+				}
+			}, {
+				field : "COMPLETE_ON_TIME",
+				title : "是否准时完工",
+				codeFormat : {
+					type : "dict",
+					codeType : "1278"
+				}
+			}, {
+				field : "IN_MILEAGE",
+				title : "进厂行驶里程"
+			}, {
+				field : "OUT_MILEAGE",
+				title : "出厂行驶里程"
+			}, {
+				field : "END_TIME_SUPPOSED",
+				title : "预交车时间",
+				dateFormat : {
+					format : "YYYY-MM-DD"
+				}
+			}, {
+				field : "VIN",
+				title : "VIN"
+			}, {
+				field : "DELIVERER_PHONE",
+				title : "送修人电话"
+			}, {
+				field : "DELIVERER_MOBILE",
+				title : "送修人手机"
+			}, {
+				field : "DELIVERER",
+				title : "送修人"
+			}, {
+				field : "INSURATION_CODE",
+				title : "保险公司"
+			}, {
+				field : "REMARK",
+				title : "备注"
+			}, {
+				field : "REMARK1",
+				title : "备注1"
+			}, {
+				field : "VIP_NO",
+				title : "VIP编号"
+			}, {
+				field : "HAVE_CLAIM_TAG",
+				title : "是否索赔",
+				codeFormat : {
+					type : "dict",
+					codeType : "1278"
+				}
+			}, {
+				field : "IS_UPDATE_END_TIME_SUPPOSED",
+				title : "是否修改预交车日期",
+				codeFormat : {
+					type : "dict",
+					codeType : "1278"
+				}
+			}, {
+				field : "SALES_DATE",
+				title : "车辆销售日期",
+				dateFormat : {
+					format : "YYYY-MM-DD"
+				}
+			}, {
+				field : "ADDRESS",
+				title : "地址"
+			}, {
+				field : "ZIP_CODE",
+				title : "邮编"
+			}, {
+				field : "E_MAIL",
+				title : "E_MAIL"
+			}, {
+				field : "PROVINCE",
+				title : "省份",
+				codeFormat : {
+					type : "dict",
+					codeType : "9001"
+				}
+			}, {
+				field : "CITY",
+				title : "城市",
+				codeFormat : {
+					type : "dict",
+					codeType : "9002"
+				}
+			}, {
+				field : "DISTRICT",
+				title : "区县",
+				codeFormat : {
+					type : "dict",
+					codeType : "9003"
+				}
+			}, {
+				field : "PRINT_BALANCE_TIME",
+				title : "结算打印时间",
+				dateFormat : {
+					format : "YYYY-MM-DD"
+				}
+			}, {
+				field : "MODIFY_NUM",
+				title : "工单修改次数"
+			}, {
+				field : "RO_TROUBLE_DESC",
+				title : "故障描述"
+			}, {
+				field : "CERTIFICATE_NO",
+				title : "证件号码"
+			}, {
+				field : "CT_CODE",
+				title : "证件类型"
+			// 				,
+			// 				codeFormat : {
+			// 					type : "dict",
+			// 					codeType : "1278"
+			// 				}
+			}, {
+				field : "LAST_MAINTENANCE_DATE",
+				title : "上次保养日期",
+				dateFormat : {
+					format : "YYYY-MM-DD"
+				}
+			}, {
+				field : "EWORKSHOP_REMARK",
+				title : "车间反馈"
+			}, {
+				field : "SCHEME_STATUS",
+				title : "三包状态"
+			// 				,
+			// 				codeFormat : {
+			// 					type : "dict",
+			// 					codeType : "1278"
+			// 				}
+			}, {
+				field : "IS_TIMEOUT_SUBMIT",
+				title : "是否超时上报",
+				codeFormat : {
+					type : "dict",
+					codeType : "1278"
+				}
+			} ]
+		});
+		$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+			var selectRow = $("#dms_claim",container).dmsTable().getSelections();
+			 
+			 if(!selectRow){
+					dmsCommon.tip({status:"warning",msg:"请选择表格数据"});
+					returnResult.status = false;
+					return ;
+				}
+				$(this).data("pageData",{RO_NO:selectRow[0].RO_NO});//传递3个值
+				returnResult.status = true;
+
+		});
+		
+	});
+</script>

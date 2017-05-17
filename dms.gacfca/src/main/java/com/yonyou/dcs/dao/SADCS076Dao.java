@@ -1,6 +1,7 @@
 package com.yonyou.dcs.dao;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -121,7 +122,7 @@ public class SADCS076Dao extends OemBaseDAO {
 	/**
 	 * 查询召回车辆
 	 */
-	public List<SADCS076DTO> queryVehicle(String Service){
+	public LinkedList<SADCS076DTO> queryVehicle(String Service){
 		StringBuffer sql = new StringBuffer();
 		sql.append(" select s.RECALL_NO,s.RECALL_NAME,v.VIN,D.DEALER_SHORTNAME    \n");
 		sql.append(" from TT_RECALL_VEHICLE v, TT_RECALL_SERVICE s, TM_DEALER D \n");
@@ -132,9 +133,9 @@ public class SADCS076Dao extends OemBaseDAO {
 		sql.append("  and s.RECALL_NO = '"+Service+"' \n");
 		sql.append(" FETCH FIRST 1000 ROW ONLY \n");
 		List<Map> listmap=OemDAOUtil.findAll(sql.toString(), null);
-		List<SADCS076DTO> dtolist=null;
+		LinkedList<SADCS076DTO> dtolist=null;
 		if(null!=listmap&&listmap.size()>0){
-			dtolist=new ArrayList<>();
+			dtolist=new LinkedList<>();
 			for(int i=0;i<listmap.size();i++){
 				SADCS076DTO dto = new SADCS076DTO();
 				dto.setRecallNo(CommonUtils.checkNull(listmap.get(i).get("RECALL_NO")));//召回编号

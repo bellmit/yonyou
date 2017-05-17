@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.javalite.activejdbc.Base;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,18 +38,22 @@ public class SEDCS112CloudImpl extends BaseCloudImpl implements SEDCS112Cloud {
 	SEDCS112Dao dao ;
 
 	@Override
-	public String receiveData(List<OpRepairOrderDTO> dtos) throws Exception {
+	public String handleExecutor(List<OpRepairOrderDTO> dtos) throws Exception {
 		String msg = "1";
-		
+		beginDbService();
 		try {
 			logger.info("====未结算工单接收上报开始====");
 			saveTiTable(dtos);
 			logger.info("====未结算工单接收上报结束====");
+			dbService.endTxn(true);
 		} catch (Exception e) {
 			logger.error("开始获取二手车置换意向明细接收失败", e);
 			msg = "0";
-			throw new ServiceBizException(e);
-		} 
+			dbService.endTxn(false);
+		} finally{
+			Base.detach();
+			dbService.clean();
+		}
 		logger.info("*************************** 成功获取上报的未结算工单******************************");
 		return msg;
 	}

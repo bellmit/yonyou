@@ -14,7 +14,7 @@ import com.yonyou.dcs.dao.TmMarketActivityDao;
 import com.yonyou.dms.DTO.gacfca.TmMarketActivityDto;
 import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.StringUtils;
-import com.yonyou.dms.gacfca.CLDMS004;
+import com.yonyou.dms.gacfca.CLDMS004Coud;
 import com.yonyou.f4.common.database.DBService;
 /**
  * 
@@ -36,7 +36,7 @@ public class CLDCS004CloudImpl extends BaseCloudImpl implements CLDCS004Cloud {
 	TmMarketActivityDao tmMarketActivityDao ;
 	
 	@Autowired
-	CLDMS004 cldms004 ;
+	CLDMS004Coud cldms004 ;
 	
 	@Autowired
 	DeCommonDao deCommonDao;

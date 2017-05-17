@@ -2,6 +2,7 @@ package com.yonyou.dcs.dao;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,7 +38,7 @@ public class SEDCS020Dao extends OemBaseDAO {
 	 * 需要下发的召回活动数据
 	 * @return
 	 */
-	public List<RecallServiceClearDTO> queryAllInfo(String recallId) {
+	public LinkedList<RecallServiceClearDTO> queryAllInfo(String recallId) {
 		StringBuffer sql = new StringBuffer();
 		sql.append("select     \n");
 		sql.append("   	TRS.RECALL_NO,  --召回活动编号  \n");
@@ -48,9 +49,9 @@ public class SEDCS020Dao extends OemBaseDAO {
 		List<Object> parame=new ArrayList<Object>();
 		parame.add(recallId);
 		List<Map> listmap=OemDAOUtil.findAll(sql.toString(), parame);
-		List<RecallServiceClearDTO> dtolist = null;
+		LinkedList<RecallServiceClearDTO> dtolist = null;
 		if(null!=listmap&&listmap.size()>0){
-			dtolist=new ArrayList<RecallServiceClearDTO>();
+			dtolist=new LinkedList<RecallServiceClearDTO>();
 			for(Map map:listmap){
 				RecallServiceClearDTO dto=wrapperDTO(map);
 				dtolist.add(dto);

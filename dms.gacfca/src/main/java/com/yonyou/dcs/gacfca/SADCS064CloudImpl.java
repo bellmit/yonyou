@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.javalite.activejdbc.Base;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,21 +26,24 @@ public class SADCS064CloudImpl extends BaseCloudImpl implements SADCS064Cloud {
 	ActivityResultDao dao ;
 	
 	@Override
-	public String receiveDate(List<TtVehiclePdiResultDTO> dtos) throws Exception {
+	public String handleExecutor(List<TtVehiclePdiResultDTO> dtos) throws Exception {
 		String msg = "1";
-		
+		beginDbService();
 		try {
 			logger.info("*************** SADCS064Cloud PDI检查上报接收开始 *******************");
 			for (TtVehiclePdiResultDTO dto : dtos) {
 				insertData(dto);
 			}
 			logger.info("*************** SADCS064Cloud PDI检查上报完成 ********************");
-			
+			dbService.endTxn(true);
 		} catch (Exception e) {
 			logger.error("*************** SADCS064Cloud PDI检查上报异常 *****************", e);
 			msg = "0";
-			throw new ServiceBizException(e);
-		} 
+			dbService.endTxn(false);
+		} finally{
+			Base.detach();
+			dbService.clean();
+		}
 		return msg;
 	}
 	/**

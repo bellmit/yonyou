@@ -104,17 +104,47 @@ $(document).one("onload.dms",function(event,container){
 			columns : [ 
 			   {field : "ID",title : "操作",operateFormat :[
 			   	                      {type:"edit",url:"vehicle/afterSales/partMgr/partCeilingPriceMdf.html",openWidth:"modal-lg",doubleClick:true,isShow:function(value, row, index){
-			   	                       if(row.CEILING_PRICE_SCOPE=="10051002"&&row.IS_DOWN=="10041003"){
+			   	                       if(row.CEILING_PRICE_SCOPE=="10051001"&&row.IS_DOWN=="10041003"){
 			                    		   return true;
-			                    	   }else{
+			                    	   }
+			   	                       else if(row.IS_DOWN=="10041001"&&row.CEILING_PRICE_SCOPE=="10051002"){
+			                    		   return true;
+			                    	   }  else if(row.IS_DOWN=="10041002"&&row.CEILING_PRICE_SCOPE=="10051001"){
+			                    		   return true;
+			                    	   }
+			   	                       
+			   	                       else{
 			                    		   return  false;
 			                    	   }                  		  
 			   	           	  
 			   	                      }},
-			   	                   {type:"del",url:"/partCeilingPrice/{[ID]}",model:"vehicle",isShow:function(value, row, index){
-			   	                       if(row.CEILING_PRICE_SCOPE=="10051002"&&row.IS_DOWN=="10041003"){
+			   	                      
+			   	                   {type:"edit",title:"导入", url:"vehicle/afterSales/partMgr/partCeilingPriceMdf.html",openWidth:"modal-lg",doubleClick:true,isShow:function(value, row, index){
+			   	                       if(row.CEILING_PRICE_SCOPE=="10051001"&&row.IS_DOWN=="10041003"){
 			                    		   return true;
-			                    	   }else{
+			                    	   } 
+			   	                       else if(row.IS_DOWN=="10041001"&&row.CEILING_PRICE_SCOPE=="10051002"){
+			                    		   return true;
+			                    	   }else if(row.IS_DOWN=="10041002"&&row.CEILING_PRICE_SCOPE=="10051001"){
+			                    		   return true;
+			                    	   }
+			   	                       
+			   	                       else{
+			                    		   return  false;
+			                    	   }                  		  
+			   	           	  
+			   	                      }},
+			   	                      
+			   	                   {type:"del",url:"/partCeilingPrice/{[ID]}",model:"vehicle",isShow:function(value, row, index){
+			   	                       if(row.CEILING_PRICE_SCOPE=="10051001"&&row.IS_DOWN=="10041003"){
+			                    		   return true;
+			                    	   }
+			   	                     else if(row.IS_DOWN=="10041001"&&row.CEILING_PRICE_SCOPE=="10051002"){
+			                    		   return true;
+			                    	   } else if(row.IS_DOWN=="10041002"&&row.CEILING_PRICE_SCOPE=="10051001"){
+			                    		   return true;
+			                    	   }
+			   	                       else{
 			                    		   return  false;
 			                    	   }                  			  
 			   	                      },callBack:function(response){
@@ -122,8 +152,6 @@ $(document).one("onload.dms",function(event,container){
 			   	                      	               }},
 			   	                     {type:"detail",title:"明细",url:"vehicle/afterSales/partMgr/partCeilingPriceMxDetail.html",openWidth:"modal-lg",doubleClick:true,isShow:function(value, row, index){
 			   	                    	 if(row.IS_DOWN=="10041001"){
-				                    		   return true;
-				                    	   } else if(row.IS_DOWN=="10041002"&&row.CEILING_PRICE_SCOPE=="10051002"){
 				                    		   return true;
 				                    	   }else{
 				                    		   return false;
@@ -133,7 +161,14 @@ $(document).one("onload.dms",function(event,container){
 			   	                     {type:"del",title:"下发",url:"/partCeilingPrice/xiafa/{[ID]}",model:"vehicle",isShow:function(value, row, index){
 			   	                      if(row.CEILING_PRICE_SCOPE=="10051002"&&row.IS_DOWN=="10041002"){
 			                    		   return true;
-			                    	   }else{
+			                    	   }else if(row.IS_DOWN=="10041002"&&row.CEILING_PRICE_SCOPE=="10051001"){
+			                    		   return true;
+			                    	   }else if(row.IS_DOWN=="10041001"&&row.CEILING_PRICE_SCOPE=="10051002"){
+			                    		   return true;
+			                    	   }else if(row.IS_DOWN=="10041003"&&row.CEILING_PRICE_SCOPE=="10051001"){
+			                    		   return true;
+			                    	   }
+			   	                      else{
 			                    		   return  false;
 			                    	   }                  		
 			   	                     },

@@ -1,9 +1,6 @@
 package com.yonyou.dms.DTO.gacfca;
 
-import com.infoservice.dms.cgcsl.vo.BaseVO;
-
-@SuppressWarnings("serial")
-public class SEDCS017DTO extends BaseVO  {
+public class SEDCS017DTO {
 	
 	private String mmhCodeOne;//分类代码
 	private String mmhNameOne;//分类名称

@@ -13,6 +13,15 @@ public class TtActivityResultDto {
 									// 上端：ACTIVITY_NAME VARCHAR (200)
 	private String dealerName; // 经销商名称
 	private String entityCode; // 下端：经销商代码 CHAR(8) 上端：
+	private String dealerCode;
+
+	public String getDealerCode() {
+		return dealerCode;
+	}
+
+	public void setDealerCode(String dealerCode) {
+		this.dealerCode = dealerCode;
+	}
 
 	public String getEntityCode() {
 		return entityCode;

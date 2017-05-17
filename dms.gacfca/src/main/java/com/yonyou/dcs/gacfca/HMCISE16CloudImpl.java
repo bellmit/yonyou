@@ -10,8 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.infoservice.dms.cgcsl.vo.ClaimRejectedImpVO;
-import com.infoservice.dms.cgcsl.vo.ClaimRejectedVO;
 import com.yonyou.dcs.dao.ClaimRejectedSendDao;
 import com.yonyou.dms.DTO.gacfca.ClaimRejectedDTO;
 import com.yonyou.dms.DTO.gacfca.ClaimRejectedImpDTO;

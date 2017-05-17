@@ -213,7 +213,8 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 		sqlsb.append(
 				" A.dealer_code, A.PART_NO, A.STORAGE_CODE, A.STORAGE_POSITION_CODE, A.PART_NAME,  A.SPELL_CODE, ");
 		sqlsb.append(" A.UNIT_CODE, A.STOCK_QUANTITY, A.SALES_PRICE, A.CLAIM_PRICE, ");
-		sqlsb.append(" A.PART_GROUP_CODE,  B.LIMIT_PRICE, A.LATEST_PRICE, A.COST_PRICE AS COST_PRICE,A.COST_PRICE*"+rate +" as NET_COST_PRICE, ");
+		sqlsb.append(" A.PART_GROUP_CODE,  B.LIMIT_PRICE, A.LATEST_PRICE, A.COST_PRICE AS COST_PRICE,A.COST_PRICE*"
+				+ rate + " as NET_COST_PRICE, ");
 		sqlsb.append(
 				" A.COST_AMOUNT, A.MAX_STOCK,B.DOWN_TAG,  A.BORROW_QUANTITY, A.LEND_QUANTITY, A.LOCKED_QUANTITY, ");
 		sqlsb.append(" A.LAST_STOCK_IN, A.PART_STATUS,  A.LAST_STOCK_OUT, A.REMARK, A.VER, A.MIN_STOCK,   ");
@@ -579,7 +580,7 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 				.append("A.IS_TRIPLE_GUARANTEE,A.WORKSHOP_STATUS ")
 				.append(",A.OCCUR_INSURANCE_NO,A.IS_TRIPLE_GUARANTEE_BEF, A.IS_ABANDON_ACTIVITY, ")
 				.append(" A.SCHEME_STATUS,A.SERIOUS_SAFETY_STATUS ")
-				.append(" from TT_REPAIR_ORDER A LEFT JOIN ("+CommonConstants.VM_VEHICLE+") B")
+				.append(" from TT_REPAIR_ORDER A LEFT JOIN (" + CommonConstants.VM_VEHICLE + ") B")
 				.append(" ON A.VIN=B.VIN AND A.DEALER_CODE=B.DEALER_CODE LEFT JOIN TT_ESTIMATE_ORDER C ON A.RO_NO=C.RO_NO AND A.DEALER_CODE=C.DEALER_CODE WHERE ")
 				.append(" A.RO_NO=? AND A.D_KEY=").append(CommonConstants.D_KEY);
 		List queryParam = new ArrayList();
@@ -592,9 +593,14 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 		StringBuffer sql = new StringBuffer();
 		String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
 		List<Object> params = new ArrayList<Object>();
-		sql.append(" select distinct b.*,e.CARD_TYPE_NAME from ("+CommonConstants.VM_MEMBER_CARD+") b left join  ("+CommonConstants.VM_MEMBER+") a on b.DEALER_CODE = a.DEALER_CODE and b.member_no=a.member_no left join  ");
-		sql.append(" ("+CommonConstants.VM_MEMBER_VEHICLE+") c on b.DEALER_CODE = c.DEALER_CODE and b.card_id = c.card_id left join ("+CommonConstants.VM_MEMBER_ACCOUNT+") d on d.CARD_ID=b.CARD_ID and d.DEALER_CODE=b.DEALER_CODE ");
-		sql.append(" LEFT JOIN ("+CommonConstants.VM_CARD_TYPE+") e ON b.card_type_code=e.card_type_code and b.DEALER_CODE=e.DEALER_CODE where a.DEALER_CODE= ? ");
+		sql.append(" select distinct b.*,e.CARD_TYPE_NAME from (" + CommonConstants.VM_MEMBER_CARD + ") b left join  ("
+				+ CommonConstants.VM_MEMBER
+				+ ") a on b.DEALER_CODE = a.DEALER_CODE and b.member_no=a.member_no left join  ");
+		sql.append(" (" + CommonConstants.VM_MEMBER_VEHICLE
+				+ ") c on b.DEALER_CODE = c.DEALER_CODE and b.card_id = c.card_id left join ("
+				+ CommonConstants.VM_MEMBER_ACCOUNT + ") d on d.CARD_ID=b.CARD_ID and d.DEALER_CODE=b.DEALER_CODE ");
+		sql.append(" LEFT JOIN (" + CommonConstants.VM_CARD_TYPE
+				+ ") e ON b.card_type_code=e.card_type_code and b.DEALER_CODE=e.DEALER_CODE where a.DEALER_CODE= ? ");
 		params.add(dealerCode);
 		sql.append(" and a.member_status= ? ");
 		params.add(DictCodeConstants.DICT_MEMBER_STATUS_NORMAL);
@@ -634,1133 +640,1310 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 	public Map queryRepairOrderExists(Map param) {
 		StringBuffer sql = new StringBuffer();
 		String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
-		sql.append(" select * from TT_REPAIR_ORDER where RO_STATUS = 12251001 and DEALER_CODE = "+ dealerCode + " and vin = " + param.get("vin"));
+		sql.append(" select * from TT_REPAIR_ORDER where RO_STATUS = 12251001 and DEALER_CODE = " + dealerCode
+				+ " and vin = " + param.get("vin"));
 		List<Map> map = DAOUtil.findAll(sql.toString(), null);
 		return map.get(0);
 	}
 
-//	@Override
-//	public Map checkIsHaveAduitingOrder(Map param) {
-//		StringBuffer sql = new StringBuffer();
-//		String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
-//		List<Object> params = new ArrayList<Object>();
-//		String  defautParam = Utility.getDefaultValue("1314");
-//		sql.append("  ");
-//		sql.append("  ");
-//		sql.append("  ");
-//		sql.append("");
-//		return null;
-//	}
-	//车主车辆监控(所有)
-		@SuppressWarnings("deprecation")
-		@Override
-		public List<Map> retriveByControl(Map<String, String> queryParam) throws Exception {
-				StringBuffer sql = new StringBuffer();
-				String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
-			    LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
-				String groupCodeVehicle = Utility.getGroupEntity(loginInfo.getDealerCode(), "TM_VEHICLE");
-				String vin=null;
-				String license=null;
-				if ((!StringUtils.isNullOrEmpty(queryParam.get("vin")))) {
-				 vin =queryParam.get("vin").toString();}
-				if ((!StringUtils.isNullOrEmpty(queryParam.get("LICENSE")))) {
-				 license =queryParam.get("LICENSE").toString();}
-				List<Map> monitorVehicleList = null;
-				// 监控车主车辆
-				if ((!StringUtils.isNullOrEmpty(queryParam.get("vin"))) ||(!StringUtils.isNullOrEmpty(queryParam.get("engineNo")))|| (!StringUtils.isNullOrEmpty(queryParam.get("ownerNo")))|| (!StringUtils.isNullOrEmpty(queryParam.get("LICENSE")))) {
-				sql.append(  "SELECT '监控车主车辆' Flag,AA.MESSAGE,AA.MONITOR_ID,AA.IS_VALID, AA.OWNER_CONSUME_AMOUNT_MIN,");
-				sql.append( " AA.OWNER_CONSUME_AMOUNT_MAX,Case when (VIN='')or(VIN is null) then '_________________' else VIN end as  VIN, 'no'  as num");
-				sql.append( "  FROM ("+CommonConstants.VT_MONITOR_VEHICLE+") AA WHERE d_key = ? AND DEALER_CODE =? ");
-				sql.append( " and (ENGINE_NO='' or ENGINE_NO=? and (OWNER_NO='' or OWNER_NO=?  ) and (LICENSE='' or LICENSE=?) and REPAIR_ORDER_TAG=?  ");
-				sql.append(  " and ? between begin_date and end_date ");
-				if (!StringUtils.isNullOrEmpty(queryParam.get("SALES_DATE"))) {
-					sql.append( "  and ((SALES_DATE_BEGIN is null) " );
-					Utility.getDateCondsOR("", "SALES_DATE_BEGIN",queryParam.get("SALES_DATE"), "<=");
-					sql.append( " and ((SALES_DATE_END is null) " );
-					Utility.getDateCondsOR("", "SALES_DATE_END", queryParam.get("SALES_DATE"), ">=");
-			
+	// @Override
+	// public Map checkIsHaveAduitingOrder(Map param) {
+	// StringBuffer sql = new StringBuffer();
+	// String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
+	// List<Object> params = new ArrayList<Object>();
+	// String defautParam = Utility.getDefaultValue("1314");
+	// sql.append(" ");
+	// sql.append(" ");
+	// sql.append(" ");
+	// sql.append("");
+	// return null;
+	// }
+	// 车主车辆监控(所有)
+	@SuppressWarnings("deprecation")
+	@Override
+	public List<Map> retriveByControl(Map<String, String> queryParam) throws Exception {
+		StringBuffer sql = new StringBuffer();
+		String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
+		LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
+		String groupCodeVehicle = Utility.getGroupEntity(loginInfo.getDealerCode(), "TM_VEHICLE");
+		String vin = null;
+		String license = null;
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("vin")))) {
+			vin = queryParam.get("vin").toString();
+		}
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("LICENSE")))) {
+			license = queryParam.get("LICENSE").toString();
+		}
+		List<Map> monitorVehicleList = null;
+		// 监控车主车辆
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("vin")))
+				|| (!StringUtils.isNullOrEmpty(queryParam.get("engineNo")))
+				|| (!StringUtils.isNullOrEmpty(queryParam.get("ownerNo")))
+				|| (!StringUtils.isNullOrEmpty(queryParam.get("LICENSE")))) {
+			sql.append("SELECT '监控车主车辆' Flag,AA.MESSAGE,AA.MONITOR_ID,AA.IS_VALID, AA.OWNER_CONSUME_AMOUNT_MIN,");
+			sql.append(
+					" AA.OWNER_CONSUME_AMOUNT_MAX,Case when (VIN='')or(VIN is null) then '_________________' else VIN end as  VIN, 'no'  as num");
+			sql.append("  FROM (" + CommonConstants.VT_MONITOR_VEHICLE + ") AA WHERE d_key = ? AND DEALER_CODE =? ");
+			sql.append(
+					" and (ENGINE_NO='' or ENGINE_NO=? and (OWNER_NO='' or OWNER_NO=?  ) and (LICENSE='' or LICENSE=?) and REPAIR_ORDER_TAG=?  ");
+			sql.append(" and ? between begin_date and end_date ");
+			if (!StringUtils.isNullOrEmpty(queryParam.get("SALES_DATE"))) {
+				sql.append("  and ((SALES_DATE_BEGIN is null) ");
+				Utility.getDateCondsOR("", "SALES_DATE_BEGIN", queryParam.get("SALES_DATE"), "<=");
+				sql.append(" and ((SALES_DATE_END is null) ");
+				Utility.getDateCondsOR("", "SALES_DATE_END", queryParam.get("SALES_DATE"), ">=");
+
+			}
+			sql.append(" and IS_VALID=? ");
+			List<Object> params = new ArrayList<Object>();
+
+			params.add(DictCodeConstants.D_KEY);
+			params.add(dealerCode);
+			params.add(queryParam.get("engineNo"));
+			params.add(queryParam.get("ownerNo"));
+			params.add(queryParam.get("LICENSE"));
+			params.add(DictCodeConstants.DICT_IS_YES);
+			params.add(new Timestamp(System.currentTimeMillis()));
+			params.add(DictCodeConstants.DICT_IS_YES);
+			monitorVehicleList = DAOUtil.findAll(sql.toString(), params);
+
+			String filterStr = " 1=2 ";
+			double amountMin = 0;
+			double amountMax = 0;
+			StringBuffer sql1 = new StringBuffer();
+			sql1.append(
+					"SELECT sum(A.REAL_TOTAL_AMOUNT) FROM  TT_BALANCE_PAYOBJ A  LEFT JOIN TT_BALANCE_ACCOUNTS B ON B.BALANCE_NO = A.BALANCE_NO AND B.DEALER_CODE = A.DEALER_CODE");
+			sql1.append(" AND B.D_KEY = A.D_KEY LEFT JOIN TT_REPAIR_ORDER C ON C.DEALER_CODE = A.DEALER_CODE");
+			sql1.append(" AND C.RO_NO = A.RO_NO  AND C.D_KEY = A.D_KEY ");
+			sql1.append(" LEFT JOIN ( SELECT DEALER_CODE, OWNER_NO AS CUSTOMER_CODE,");
+			sql1.append(" CUS_RECEIVE_SORT FROM (" + CommonConstants.VM_OWNER + ") UNION SELECT DEALER_CODE,");
+			sql1.append(" CUSTOMER_CODE, CUS_RECEIVE_SORT FROM (" + CommonConstants.VM_PART_CUSTOMER + ") ");
+			sql1.append(" ) E ON E.DEALER_CODE = A.DEALER_CODE AND E.CUSTOMER_CODE = A.PAYMENT_OBJECT_CODE");
+			sql1.append(" WHERE A.DEALER_CODE = ? and vin = ? AND E.CUS_RECEIVE_SORT =?");
+			List<Object> params1 = new ArrayList<Object>();
+
+			params1.add(dealerCode);
+			params1.add(queryParam.get("vin"));
+			params1.add(DictCodeConstants.DICT_CUS_RECEIVE_SORT_CUSTOMER_PAY);
+			// MOD BY zhl 增加条件，只查询客户付费的总金额
+			Double totalAmount = (Double) DAOUtil.findAll(sql1.toString(), params1).get(0).get("real_total_amount");
+			for (int i = 0; i < monitorVehicleList.size(); i++) {
+				Map db = monitorVehicleList.get(i);
+				amountMax = (double) db.get("OWNER_CONSUME_AMOUNT_MAX");
+				amountMin = (double) db.get("OWNER_CONSUME_AMOUNT_MIN");
+				// add by zhl 增加条件总消费金额在监控范围内
+				if ((totalAmount == null) || ((amountMax + amountMin) == 0)
+						|| (amountMax + amountMin) > 0 && (totalAmount >= amountMin) && (totalAmount <= amountMax))
+					if (("no".equals(db.get("NUM")) && strsame(db.get("VIN").toString(), queryParam.get("vin")))
+							|| "pass".equals(db.get("NUM"))) {
+						filterStr = filterStr + " or MONITOR_ID=" + db.get("MONITOR_ID");// 监控ID有可能数据类型溢出,所以改为get方法
+					}
+			}
+			StringBuffer sql2 = new StringBuffer();
+			List<Object> params2 = new ArrayList<Object>();
+			sql2.append(" select '监控车主车辆' Flag,MESSAGE,MONITOR_ID,IS_VALID from (" + CommonConstants.VT_MONITOR_VEHICLE
+					+ ") where DEALER_CODE=? and (" + filterStr + ")");
+			sql2.append("  and IS_VALID=?");
+			params2.add(dealerCode);
+			params2.add(DictCodeConstants.DICT_IS_YES);
+			System.out.println(sql2.toString());
+			monitorVehicleList = DAOUtil.findAll(sql.toString(), params2);
+
+		}
+
+		// 监控保修起始日期
+		int aOpenDays = -1; // 建档日期或者上牌日期没有
+		Date createDate = new Date();
+		Date wrtBeginDate = new Date();
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("createDate")))) {
+			createDate = new Date(queryParam.get("createDate"));
+		}
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("wrtBeginDate")))) {
+			wrtBeginDate = new Date(queryParam.get("wrtBeginDate"));
+		}
+		if ((!StringUtils.isNullOrEmpty(createDate))) {
+			aOpenDays = (int) ((createDate.getTime() - wrtBeginDate.getTime()) / 3600000 / 24);
+		}
+		if ((aOpenDays < 1) || (aOpenDays > 9999)) {
+			aOpenDays = 3;
+		}
+		List<Map> monitorWarrantyDateList = null;
+		StringBuffer monitorWarrantyDate = new StringBuffer();
+		monitorWarrantyDate.append("SELECT '监控保修起始日期' Flag,AA.MESSAGE,AA.MONITOR_ID,AA.IS_VALID FROM ("
+				+ CommonConstants.VT_MONITOR_WARRANTY_DATE + ") AA ");
+		monitorWarrantyDate
+				.append("WHERE d_key = ? and AA.DEALER_CODE =? AND (?  between AA.OPEN_DAYS and AA.CLOSE_DAYS)  ");
+		monitorWarrantyDate.append(" and AA.REPAIR_ORDER_TAG=?");
+		monitorWarrantyDate.append(" and ? between AA.begin_date and AA.end_date ");
+		monitorWarrantyDate.append(" and AA.IS_VALID=? ");
+		List<Object> params4 = new ArrayList<Object>();
+		params4.add(DictCodeConstants.D_KEY);
+		params4.add(dealerCode);
+		params4.add(aOpenDays);
+		params4.add(DictCodeConstants.DICT_IS_YES);
+		params4.add(new Timestamp(System.currentTimeMillis()));
+		params4.add(DictCodeConstants.DICT_IS_YES);
+		monitorWarrantyDateList = DAOUtil.findAll(monitorWarrantyDate.toString(), params4);
+
+		// 监控行驶里程
+		List<Map> monitorMileageList = null;
+		StringBuffer monitorMileage = new StringBuffer();
+		monitorMileage.append("SELECT '监控行驶里程' Flag,AA.MESSAGE,AA.MONITOR_ID,AA.IS_VALID FROM ("
+				+ CommonConstants.VT_MONITOR_MILEAGE + ") AA ");
+		monitorMileage.append(
+				" WHERE (? between AA.BEGIN_MILEAGE and AA.END_MILEAGE) and AA.DEALER_CODE =? AND AA.D_KEY = ? ");
+		monitorMileage.append(" and AA.REPAIR_ORDER_TAG=?");
+		monitorMileage.append(" and ? between AA.begin_date and AA.end_date ");
+		monitorMileage.append(" and AA.IS_VALID=? ");
+		List<Object> params5 = new ArrayList<Object>();
+		params5.add(queryParam.get("OPEN_DAYS"));
+		params5.add(dealerCode);
+		params5.add(DictCodeConstants.D_KEY);
+		params5.add(DictCodeConstants.DICT_IS_YES);
+		params5.add(new Timestamp(System.currentTimeMillis()));
+		params5.add(DictCodeConstants.DICT_IS_YES);
+		monitorMileageList = DAOUtil.findAll(monitorMileage.toString(), params5);
+
+		// 监控工单号
+		List monitorRoList = null;
+		StringBuffer monitorRo = new StringBuffer();
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("RO_NO")))) {
+			String roNO = queryParam.get("RO_NO").toString();
+			monitorRo.append("SELECT '监控工单' Flag,AA.MESSAGE,AA.MONITOR_ID,AA.IS_VALID FROM ("
+					+ CommonConstants.VT_MONITOR_RO + ") AA ");
+			monitorRo.append("WHERE AA.d_key = ? AND AA.DEALER_CODE =?  ");
+			monitorRo.append(" and last_number=SubStr(?,?-Length(Last_number)+1,Length(Last_number))");
+			monitorRo.append(" and AA.REPAIR_ORDER_TAG=?");
+			monitorRo.append(" and ? between AA.begin_date and AA.end_date ");
+			monitorRo.append(" and AA.IS_VALID=? ");
+			List<Object> params6 = new ArrayList<Object>();
+			params6.add(DictCodeConstants.D_KEY);
+			params6.add(dealerCode);
+			params6.add(roNO);
+			params6.add(roNO.length());
+			params6.add(DictCodeConstants.DICT_IS_YES);
+			params6.add(new Timestamp(System.currentTimeMillis()));
+			params6.add(DictCodeConstants.DICT_IS_YES);
+			monitorRoList = DAOUtil.findAll(monitorRo.toString(), params6);
+		}
+
+		// 车辆欠款
+		List vehicleList = null;
+		StringBuffer vehicle = new StringBuffer();
+		vehicle.append(" SELECT AA.ARREARAGE_AMOUNT MESSAGE FROM (" + CommonConstants.VM_VEHICLE + ") AA WHERE ");
+		vehicle.append(" AA.DEALER_CODE = ? AND AA.LICENSE = ? AND AA.VIN = ? AND AA.ARREARAGE_AMOUNT <> 0");
+
+		List<Object> params7 = new ArrayList<Object>();
+		params7.add(dealerCode);
+		params7.add(queryParam.get("license"));
+		params7.add(queryParam.get("vin"));
+		vehicleList = DAOUtil.findAll(vehicle.toString(), params7);
+
+		// 车主欠款
+		List ownerList = null;
+		StringBuffer owner = new StringBuffer();
+		owner.append("SELECT A.ARREARAGE_AMOUNT MESSAGE FROM (" + CommonConstants.VM_OWNER + ") A ");
+		owner.append(" LEFT JOIN (" + CommonConstants.VM_VEHICLE
+				+ ") B ON A.DEALER_CODE = B.DEALER_CODE AND A.OWNER_NO = B.OWNER_NO ");
+		owner.append(" WHERE A.DEALER_CODE = ? AND B.LICENSE = ? AND B.VIN = ? AND A.ARREARAGE_AMOUNT <> 0");
+		List<Object> params8 = new ArrayList<Object>();
+		params8.add(dealerCode);
+		params8.add(queryParam.get("license"));
+		params8.add(queryParam.get("vin"));
+		ownerList = DAOUtil.findAll(owner.toString(), params8);
+
+		// XXX天未进场提醒,是否接受回访,保险到期提醒
+		String insDate = null;
+		int days = -1;
+		int isTrace = 0;
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("vin")))) {
+
+			List<Map> allMonitorVehicle = new LinkedList();
+			StringBuilder sql1111 = new StringBuilder("SELECT A.* FROM  tm_vehicle  A WHERE A.DEALER_CODE = ?  ");
+			List<Object> queryList111 = new ArrayList<Object>();
+			queryList111.add(dealerCode);
+			if (!StringUtils.isNullOrEmpty(queryParam.get("vin"))) {// 车系
+				sql.append(" and A.VIN = ?");
+				queryList111.add(queryParam.get("vin"));
+			}
+			allMonitorVehicle = DAOUtil.findAll(sql1111.toString(), queryList111);
+			allMonitorVehicle = Utility.getVehicleSubclassList(dealerCode, allMonitorVehicle);
+			insDate = queryByInsVin(queryParam.get("vin"), dealerCode);
+			if (allMonitorVehicle.size() > 0) {
+				Map vpo = allMonitorVehicle.get(0);
+				isTrace = (int) vpo.get("IS_TRACE");
+				Date lastInDate = (Date) vpo.get("LAST_MAINTAIN_DATE");
+				if (lastInDate != null) {
+					days = getDaysBetween(lastInDate, new Date());
 				}
-				sql.append(" and IS_VALID=? ");
-				List<Object> params = new ArrayList<Object>();
-			
-				params.add(DictCodeConstants.D_KEY);
-				params.add(dealerCode);
-				params.add(queryParam.get("engineNo"));
-				params.add(queryParam.get("ownerNo"));
+			}
+		}
+		// 车主是否绑定微信
+		int isBinding = 0;
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("vin")))) {
+			List<Map> allMonitorVehicle = new LinkedList();
+			StringBuilder sql1111 = new StringBuilder("SELECT A.* FROM  tm_vehicle  A WHERE  A.DEALER_CODE = ?  ");
+			List<Object> queryList111 = new ArrayList<Object>();
+			queryList111.add(dealerCode);
+			if (!StringUtils.isNullOrEmpty(queryParam.get("vin"))) {// 车系
+				sql.append(" and A.VIN = ?");
+				queryList111.add(queryParam.get("vin"));
+			}
+			allMonitorVehicle = DAOUtil.findAll(sql1111.toString(), queryList111);
+			allMonitorVehicle = Utility.getVehicleSubclassList(dealerCode, allMonitorVehicle);
+			if (allMonitorVehicle.size() > 0) {
+				Map vpo = allMonitorVehicle.get(0);
+				isBinding = (int) vpo.get("IS_BINDING");
+			}
+		}
+
+		// 建议维修项目、配件
+		List suggestMaintainLabourList = null;
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("vin")))) {
+			StringBuffer suggestMaintainLabour = new StringBuffer();
+			suggestMaintainLabour.append(
+					"select SUGGEST_MAINTAIN_LABOUR_ID, DEALER_CODE, VIN, RO_NO, LABOUR_CODE, LABOUR_NAME, STD_LABOUR_HOUR, LABOUR_PRICE, LABOUR_AMOUNT, REASON, ");
+			suggestMaintainLabour.append(
+					" SUGGEST_DATE, IS_VALID, REMARK, D_KEY, VER,MODEL_LABOUR_CODE from TT_SUGGEST_MAINTAIN_LABOUR where DEALER_CODE= ? ");
+			suggestMaintainLabour.append("  and d_key = ?  AND IS_VALID = ?   AND VIN =? ");
+			List<Object> params9 = new ArrayList<Object>();
+			params9.add(dealerCode);
+			params9.add(DictCodeConstants.D_KEY);
+			params9.add(DictCodeConstants.DICT_IS_YES);
+			params9.add(queryParam.get("vin"));
+			suggestMaintainLabourList = DAOUtil.findAll(suggestMaintainLabour.toString(), params9);
+		}
+
+		// 车主是否在本店投保
+		int isInsProposal = 0;
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("vin")))) {
+
+			List<Map> allProposalq = new LinkedList();
+			StringBuilder sql1111 = new StringBuilder(
+					"SELECT A.* FROM  Tm_Ins_Proposal  A WHERE A.DEALER_CODE = ?   and A.FORM_STATUS= ? ");
+			List<Object> queryList111 = new ArrayList<Object>();
+			queryList111.add(dealerCode);
+			queryList111.add(DictCodeConstants.DICT_INS_FORMS_STATUS_CLOSED);
+			if (!StringUtils.isNullOrEmpty(queryParam.get("vin"))) {// 车系
+				sql1111.append(" and A.VIN = ?");
+				queryList111.add(queryParam.get("vin"));
+			}
+			allProposalq = DAOUtil.findAll(sql1111.toString(), queryList111);
+			allProposalq = Utility.getVehicleSubclassList(dealerCode, allProposalq);
+			if (allProposalq != null && allProposalq.size() > 0) {
+				isInsProposal = Integer.parseInt(CommonConstants.DICT_IS_YES);
+			}
+		}
+
+		// 建议维修配件
+		List suggestMaintainPartList = null;
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("vin")))) {
+			StringBuffer suggestMaintainPart = new StringBuffer();
+			suggestMaintainPart.append(
+					"select SUGGEST_MAINTAIN_PART_ID, DEALER_CODE, VIN, RO_NO, PART_NO, PART_NAME, SUGGEST_DATE, SALES_PRICE, QUANTITY, AMOUNT, REASON, IS_VALID, REMARK, ");
+			suggestMaintainPart.append(" D_KEY, VER  from TT_SUGGEST_MAINTAIN_PART where   DEALER_CODE= ? ");
+			suggestMaintainPart.append("  and d_key = ?  AND IS_VALID = ?   AND VIN =? ");
+			List<Object> params10 = new ArrayList<Object>();
+			params10.add(dealerCode);
+			params10.add(DictCodeConstants.D_KEY);
+			params10.add(DictCodeConstants.DICT_IS_YES);
+			params10.add(queryParam.get("vin"));
+			suggestMaintainPartList = DAOUtil.findAll(suggestMaintainPart.toString(), params10);
+		}
+
+		// 特殊保修
+		List specialWarrantyList = null;
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("vin")))) {
+			StringBuffer specialWarranty = new StringBuffer();
+			specialWarranty.append(
+					"SELECT VIN,BEGIN_DATE,END_DATE,special_warranty_type as TYPE,GIVE_TIMES,USED_TIMES,remark FROM tm_special_warranty  ");
+			specialWarranty.append(" where   DEALER_CODE= ?     AND VIN =? ");
+			List<Object> params11 = new ArrayList<Object>();
+			params11.add(dealerCode);
+			params11.add(queryParam.get("vin"));
+			specialWarrantyList = DAOUtil.findAll(specialWarranty.toString(), params11);
+		}
+
+		// 最近一次回访结果
+		List traceTaskList = null;
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("vin")))) {
+			StringBuffer traceTask = new StringBuffer();
+			traceTask.append(
+					"	SELECT IS_SELF_COMPANY,SALES_AGENT_NAME,RO_NO,RO_CREATE_DATE,DELIVERY_DATE,OWNER_NO,VIN,LICENSE,BRAND,SERIES,MODEL,COLOR,OWNER_NAME,DELIVERER, ");
+			traceTask.append(
+					" DELIVERER_PHONE,TRANCER,REMARK,OPINION,INPUTER,INPUT_DATE,TRACE_STATUS,CHAR_DELIVERY_DATE,CYCLE_NO,RO_TYPE,REPAIR_TYPE_CODE,RO_CHARGE_TYPE,BALANCE_NO, ");
+			traceTask.append(
+					" SERVICE_ADVISOR,DELIVERER_MOBILE,TRACE_GROUP_ID,IN_MILEAGE,CHIEF_TECHNICIAN,IS_ACTIVITY,BOOKING_ORDER_NO,TASK_REMARK,SALES_DATE,ADDRESS,is_customer_in_asc,VER,IS_TRACE_VEHICLE, ");
+			traceTask.append(
+					" TRACE_COUNT,DELIVERER_GENDER,NEXT_REPAIR_REMIND,TRACE_TIME,TECHNICIAN_LIST,LABOUR_UNITE, IS_BOOKING_CUSTOMER,IS_CSI FROM ( SELECT VE.IS_SELF_COMPANY,VE.SALES_AGENT_NAME,a.RO_NO, ");
+			traceTask.append("  a.RO_CREATE_DATE,  a.DELIVERY_DATE,  TRO.OWNER_NO, ");
+			traceTask.append(
+					" a.VIN,  a.LICENSE,  a.BRAND, a.SERIES,  a.MODEL,  A.COLOR, a.OWNER_NAME,  a.DELIVERER,  a.DELIVERER_PHONE, A.TRANCER,  ");
+			traceTask.append(
+					" a.REMARK,  OPINION,  A.INPUTER,  case when a.INPUT_DATE is null then '1899-1-1 00:00:00' else a.INPUT_DATE end INPUT_DATE,  ");
+			traceTask.append(" A.TRACE_STATUS, a.CHAR_DELIVERY_DATE, a.CYCLE_NO, a.RO_TYPE,  a.REPAIR_TYPE_CODE,  ");
+			traceTask.append(
+					" a.RO_CHARGE_TYPE, a.BALANCE_NO,  A.SERVICE_ADVISOR, A.DELIVERER_MOBILE,A.TRACE_GROUP_ID, TRO.IN_MILEAGE,TRO.CHIEF_TECHNICIAN, ");
+			traceTask.append(
+					" TRO.IS_ACTIVITY , TRO.BOOKING_ORDER_NO, A.TASK_REMARK,VE.SALES_DATE, ORR.ADDRESS,tro.is_customer_in_asc, A.VER, ");
+			traceTask.append(
+					" VE.IS_TRACE AS IS_TRACE_VEHICLE, TRACE_COUNT.TRACE_COUNT,  A.DELIVERER_GENDER,  A.NEXT_REPAIR_REMIND,(CASE WHEN TRO.IS_TRACE = 12781001 ");
+			traceTask.append(
+					" THEN  TRO.TRACE_TIME ELSE NULL END) AS TRACE_TIME ,TECH.TECHNICIAN AS TECHNICIAN_LIST,TECH.LABOUR_NAME AS LABOUR_UNITE ,");
+			traceTask.append(
+					" (CASE WHEN (TRO.BOOKING_ORDER_NO IS NOT NULL AND TRO.BOOKING_ORDER_NO !='') THEN  12781001 ELSE 12781002 END) AS IS_BOOKING_CUSTOMER, ");
+			traceTask.append(
+					" CASE WHEN M.VIN IS NOT NULL THEN 12781001 ELSE 12781002 END IS_CSI  FROM   TT_TRACE_TASK A  ");
+			traceTask
+					.append(" LEFT JOIN TT_REPAIR_ORDER  TRO ON A.DEALER_CODE = TRO.DEALER_CODE AND TRO.RO_NO = A.RO_NO LEFT JOIN ("
+							+ CommonConstants.VM_VEHICLE + ") VE ON VE.VIN=A.VIN AND VE.DEALER_CODE=A.DEALER_CODE ");
+			traceTask.append(
+					" LEFT JOIN Tt_Technician_I TECH ON TECH.DEALER_CODE=TRO.DEALER_CODE AND TECH.RO_NO=TRO.RO_NO AND TECH.D_KEY= ? ");
+			traceTask.append(" LEFT JOIN (" + CommonConstants.VM_OWNER
+					+ ")  ORR ON A.DEALER_CODE = ORR.DEALER_CODE AND TRO.OWNER_NO = ORR.OWNER_NO LEFT JOIN (   SELECT DEALER_CODE,RO_NO,D_KEY,COUNT(1) AS TRACE_COUNT FROM TT_TRACE_TASK_LOG GROUP BY DEALER_CODE,RO_NO,D_KEY  ");
+			traceTask.append(
+					" ) TRACE_COUNT ON TRACE_COUNT.DEALER_CODE = A.DEALER_CODE AND TRACE_COUNT.RO_NO = A.RO_NO AND TRACE_COUNT.D_KEY = A.D_KEY ");
+			traceTask.append(
+					"  LEFT JOIN (SELECT DISTINCT CQV1.VIN FROM TM_VEHICLE_MESSAGE CQV1 LEFT JOIN TM_VEHICLE_ACTIVITY_MESSAGE CQ1 ON CQV1.ACTIVITY_CODE = CQ1.ACTIVITY_CODE  ");
+			traceTask.append(
+					"  AND CQV1.DEALER_CODE = CQ1.DEALER_CODE WHERE CURRENT TIMESTAMP BETWEEN CQ1.BEGIN_DATE AND CQ1.END_DATE) M ON A.VIN=M.VIN  ");
+			traceTask.append(
+					"  WHERE A.D_KEY =? AND A.DEALER_CODE = ?  AND NOT EXISTS( SELECT 1 FROM TT_REPAIR_ORDER TROR WHERE TROR.DEALER_CODE = A.DEALER_CODE AND TROR.RO_NO = A.RO_NO AND TROR.RO_TYPE= ? AND TROR.IS_CUSTOMER_IN_ASC =? AND TROR.RO_STATUS =? )");
+			Utility.getLikeCond("A", "LICENSE", license, "AND");
+			Utility.getLikeCond("VE", "LICENSE", license, "AND");
+			Utility.getLikeCond("VE", "VIN", vin, "AND");
+			Utility.getLikeCond("A", "VIN", vin, "AND");
+			traceTask.append("  ORDER BY A.DELIVERY_DATE ) SA  ");
+
+			List<Object> params11 = new ArrayList<Object>();
+			params11.add(DictCodeConstants.D_KEY);
+			params11.add(DictCodeConstants.D_KEY);
+			params11.add(dealerCode);
+			params11.add(DictCodeConstants.DICT_RPT_REPAIR);
+			params11.add(DictCodeConstants.DICT_IS_NO);
+			params11.add(DictCodeConstants.DICT_RO_STATUS_TYPE_ON_REPAIR);
+			specialWarrantyList = DAOUtil.findAll(traceTask.toString(), params11);
+		}
+
+		// 代金券
+		List vouchersTaskList = null;
+		List couponList = null;
+
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("vin")))) {
+			String today = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+			StringBuffer vouchersTask = new StringBuffer();
+			vouchersTask.append("SELECT VIN,BEGIN_DATE,END_DATE,AMOUNT,REMARK FROM TM_ACTIVITY_VOUCHERS   ");
+			vouchersTask.append(" where   DEALER_CODE= ?    AND IS_VALID = ?  AND VIN =? ");
+			Utility.getDateConds("", "BEGIN_DATE", today, "<=");
+			Utility.getDateConds("", "END_DATE", today, ">=");
+			List<Object> params12 = new ArrayList<Object>();
+			params12.add(dealerCode);
+			params12.add(DictCodeConstants.DICT_IS_YES);
+			params12.add(queryParam.get("vin"));
+			specialWarrantyList = DAOUtil.findAll(vouchersTask.toString(), params12);
+		}
+
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("vin")))) {
+			String roNO = queryParam.get("RO_NO").toString();
+			StringBuffer coupon = new StringBuffer();
+			coupon.append(
+					"select a.card_no from TM_VEHICLE_INSURANCE_COUPON A left join TT_REPAIR_ORDER B ON A.DEALER_CODE=B.DEALER_CODE AND ");
+			coupon.append(
+					" A.REPAIR_TYPE_CODE=B.REPAIR_TYPE_CODE and a.vin=b.vin WHERE A.DEALER_CODE =?  AND A.VIN=? AND A.USE_STATUS=? and b.ro_No=? and  A.START_DATE< CURRENT TIMESTAMP AND CURRENT TIMESTAMP<A.END_DATE ");
+			coupon.append(" union all ");
+			coupon.append("select a.card_no from  TM_WECHAT_BOOKING_CARD_MESSAGE a ");
+			coupon.append(
+					" LEFT JOIN Tt_Booking_Order C ON A.DEALER_CODE=C.DEALER_CODE AND A.RESERVE_ID=C.RESERVATION_ID");
+			coupon.append(
+					" left join tt_repair_order b on C.DEALER_CODE=b.DEALER_CODE and C.booking_order_no=b.booking_order_no ");
+			coupon.append(" where b.ro_no=? and  a.DEALER_CODE=?  and b.booking_order_no is not null");
+
+			List<Object> params12 = new ArrayList<Object>();
+			params12.add(dealerCode);
+			params12.add(queryParam.get("vin"));
+			params12.add(DictCodeConstants.DICT_OLD_PART_STATUS_ASC_HOLD);
+			params12.add(roNO);
+			params12.add(roNO);
+			params12.add(dealerCode);
+			couponList = DAOUtil.findAll(coupon.toString(), params12);
+		}
+
+		List monitorAll = new ArrayList();
+
+		List remindAll = new ArrayList();
+		// 构造右边
+		addToMonitor(monitorAll, monitorVehicleList);
+		addToMonitor(monitorAll, monitorWarrantyDateList);
+		addToMonitor(monitorAll, monitorMileageList);
+		addToMonitor(monitorAll, monitorRoList);
+		// 提醒，界面左边那块
+		addArrearageToRemind(remindAll, vehicleList, ownerList); // 欠款
+		addVehicleNotInToRemind(remindAll, days); // XXX天未进场提醒
+		addIsTraceToRemind(remindAll, isTrace); // 是否接受回访
+		addIsBindingToRemind(remindAll, isBinding);// 是否绑定微信
+		addIsInsProposal(remindAll, isInsProposal);// 是否有保单信息
+		addTraceTaskToRemind(remindAll, traceTaskList); // 最近一次回访结果
+		addInsDateToRemind(remindAll, insDate); // 保险到期提醒
+		addSpecialToRemind(remindAll, specialWarrantyList); // 特殊保修
+		addVourchersToRemind(remindAll, vouchersTaskList);
+		addSuggestToRemind(remindAll, suggestMaintainLabourList, suggestMaintainPartList); // 建议维修项目和配件
+		addCouponRemind(remindAll, couponList); // 最近一次回访结果
+		/* return monitorAll; */
+		return remindAll;
+
+	}
+
+	private void addArrearageToRemind(List remindAll, List vehicleList, List ownerList) {
+		String message = "";
+		if (ownerList != null && ownerList.size() > 0) {
+			List<Map> dynaBean = (List<Map>) ownerList.get(0);
+			message += "车主欠款:[" + dynaBean.get(0).get("MESSAGE") + "]";
+			if (vehicleList != null && vehicleList.size() > 0) {
+				List<Map> dynaBean2 = (List<Map>) vehicleList.get(0);
+				message += "，其中该车欠款:[" + dynaBean2.get(0).get("MESSAGE") + "]";
+			}
+		} else if (vehicleList != null && vehicleList.size() > 0) {
+			List<Map> dynaBean = (List<Map>) vehicleList.get(0);
+			message += "该车欠款:[" + dynaBean.get(0).get("MESSAGE") + "]";
+		}
+		if (!"".equals(message)) {
+			addToRemind(remindAll, message);
+		}
+	}
+
+	private void addVehicleNotInToRemind(List remindAll, int days) {
+		String message = "";
+		if (days > 90) {
+			message += "该车已经" + days + "天未进厂！";
+		} else if (days == -1) {
+			message += "该车首次进厂！";
+		}
+		if (!"".equals(message)) {
+			addToRemind(remindAll, message);
+		}
+	}
+
+	private void addIsBindingToRemind(List remindAll, int isBinding) {
+		String message = "";
+		if (isBinding == Integer.parseInt(DictCodeConstants.DICT_IS_YES)) {
+			message += "已绑定微信！";
+		} else {
+			message += "未绑定微信！";
+		}
+		if (!"".equals(message)) {
+			addToRemind(remindAll, message);
+		}
+	}
+
+	private void addIsTraceToRemind(List remindAll, int isTrace) {
+		String message = "";
+		if (isTrace == Integer.parseInt(DictCodeConstants.DICT_IS_NO)) {
+			message += "车主不接受回访！";
+		}
+		if (!"".equals(message)) {
+			addToRemind(remindAll, message);
+		}
+	}
+
+	private void addIsInsProposal(List remindAll, int isBinding) {
+		String message = "";
+		if (isBinding == Integer.parseInt(DictCodeConstants.DICT_IS_YES)) {
+			message += "已有保单信息！";
+		} else {
+			message += "无保单信息 ！";
+		}
+		if (!"".equals(message)) {
+			addToRemind(remindAll, message);
+		}
+
+	}
+
+	private void addTraceTaskToRemind(List remindAll, List traceTaskList) {
+		String message = "";
+		if (traceTaskList != null && traceTaskList.size() > 0) {
+			Date inputDate = null;
+			String nextRepairRemind = null;
+			for (int i = 0; i < traceTaskList.size(); i++) {
+				List<Map> dynaBean = (List<Map>) traceTaskList.get(i);
+				if (inputDate == null || inputDate.before((Date) dynaBean.get(0).get("INPUT_DATE"))) {
+					inputDate = (Date) dynaBean.get(0).get("INPUT_DATE");
+					nextRepairRemind = dynaBean.get(0).get("NEXT_REPAIR_REMIND").toString();
+				}
+			}
+			if (nextRepairRemind != null && !"".equals(nextRepairRemind.trim())) {
+				message += "最近一次回访结果:" + nextRepairRemind;
+			}
+		}
+		if (!"".equals(message)) {
+			addToRemind(remindAll, message);
+		}
+	}
+
+	private void addCouponRemind(List remindAll, List couponList) {
+		String message = "";
+		if (couponList != null && couponList.size() > 0) {
+			message += "该车已有可以使用的优惠券";
+			if (!"".equals(message)) {
+				addToRemind(remindAll, message);
+			}
+		}
+	}
+
+	private void addInsDateToRemind(List remindAll, String insDate) throws Exception {
+		String message = "";
+		if (insDate != null && insDate.length() > 9) {
+			insDate = insDate.substring(0, 10);
+			Date date = new SimpleDateFormat("yyyy-MM-dd").parse(insDate);
+			int days = getDaysBetween(new Date(), date);
+			if (days > 0 && days < 91) {
+				message += "注意：该车主保险到期日期为:" + insDate;
+			}
+		}
+		if (!"".equals(message)) {
+			addToRemind(remindAll, message);
+		}
+	}
+
+	private void addSpecialToRemind(List remindAll, List specialWarranty) {
+		String message = "";
+		if (specialWarranty != null && specialWarranty.size() > 0) {
+			for (int i = 0; i < specialWarranty.size(); i++) {
+				List<Map> dynaBean = (List<Map>) specialWarranty.get(i);
+				int type = (int) dynaBean.get(0).get("TYPE");
+				if (type == Integer.parseInt(DictCodeConstants.DICT_ESPECIAL_MAINTAIN_TERM)) {
+					message += "延长保修：" + dynaBean.get(0).get("REMARK");
+				} else if (type == Integer.parseInt(DictCodeConstants.DICT_LARGESS_MAINTAIN)) {
+					message += "赠送的保养次数：" + dynaBean.get(0).get("GIVE_TIMES") + "  已使用的保养次数："
+							+ dynaBean.get(0).get("USED_TIMES");
+				} else if (type == Integer.parseInt(DictCodeConstants.DICT_CANCEL_THREE_CONTRACT)) {
+					message += "取消三包索赔：" + dynaBean.get(0).get("REMARK");
+				} else if (type == Integer.parseInt(DictCodeConstants.DICT_CANCEL_PURCHASE_MAINTENANCE)) {
+					message += "购买保养：" + dynaBean.get(0).get("GIVE_TIMES") + "  已使用的保养次数："
+							+ dynaBean.get(0).get("USED_TIMES") + "  " + dynaBean.get(0).get("REMARK");
+				}
+			}
+		}
+		if (!"".equals(message)) {
+			addToRemind(remindAll, message);
+		}
+	}
+
+	private void addVourchersToRemind(List remindAll, List vouchersTaskList) {
+		String message = "";
+		if (vouchersTaskList != null && vouchersTaskList.size() > 0) {
+			for (int i = 0; i < vouchersTaskList.size(); i++) {
+				List<Map> dynaBean = (List<Map>) vouchersTaskList.get(i);
+				message += "您有" + dynaBean.get(0).get("AMOUNT") + "元代金卷可使用";
+			}
+		}
+		if (!"".equals(message)) {
+			addToRemind(remindAll, message);
+		}
+	}
+
+	private void addSuggestToRemind(List remindAll, List suggestMaintainLabourList, List suggestMaintainPartList) {
+		String message = "";
+		if (suggestMaintainLabourList != null && suggestMaintainLabourList.size() > 0) {
+			message += "建议维修项目：";
+			for (int i = 0; i < suggestMaintainLabourList.size(); i++) {
+				List<Map> dynaBean = (List<Map>) suggestMaintainLabourList.get(i);
+				message += dynaBean.get(0).get("LABOUR_NAME");
+				if (i != suggestMaintainLabourList.size() - 1) {
+					message += "，";
+				}
+			}
+		}
+		if (!"".equals(message)) {
+			addToRemind(remindAll, message);
+		}
+		message = "";
+		if (suggestMaintainPartList != null && suggestMaintainPartList.size() > 0) {
+			message += "建议配件：";
+			for (int i = 0; i < suggestMaintainPartList.size(); i++) {
+				List<Map> dynaBean = (List<Map>) suggestMaintainPartList.get(i);
+				message += dynaBean.get(0).get("PART_NAME");
+				if (i != suggestMaintainPartList.size() - 1) {
+					message += "，";
+				}
+			}
+		}
+		if (!"".equals(message)) {
+			addToRemind(remindAll, message);
+		}
+	}
+
+	private void addToMonitor(List monitorAll, List list) throws Exception {
+		if (list == null || list.size() == 0) {
+			return;
+		}
+		for (int i = 0; i < list.size(); i++) {
+			List<Map> dynaBean2 = (List<Map>) list.get(i);
+			Map<String, Object> dynaBean = new HashMap<String, Object>();
+			dynaBean.put("MESSAGE", dynaBean2.get(0).get("MESSAGE"));
+			dynaBean.put("MONITOR_ID", dynaBean2.get(0).get("MONITOR_ID"));
+			dynaBean.put("IS_VALID", dynaBean2.get(0).get("IS_VALID"));
+			dynaBean.put("FLAG", dynaBean2.get(0).get("FLAG"));
+			monitorAll.add(dynaBean);
+		}
+	}
+
+	private void addToRemind(List remindAll, String message) {
+		int i = remindAll.size() + 1;
+		Map<String, Object> dynaBean = new HashMap<String, Object>();
+		dynaBean.put("REMIND_ID", i);
+		dynaBean.put("MESSAGE", message);
+		remindAll.add(dynaBean);
+	}
+
+	private int getDaysBetween(Date lastInDate, Date date) {
+		long milliseconds = date.getTime() - lastInDate.getTime();
+		int dayMillisecond = 1000 * 60 * 60 * 24;
+		int days = (int) (milliseconds % dayMillisecond == 0 ? milliseconds / dayMillisecond
+				: milliseconds / dayMillisecond + 1);
+		return days;
+	}
+
+	/**
+	 * 查询该vin的车 保险到期日期
+	 * 
+	 * @param ZHL
+	 * @return
+	 * @throws Exception
+	 */
+
+	private String queryByInsVin(String vin, String dealerCode) {
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT max(s) as END_DATE FROM (select max(END_DATE) as s from TM_INS_PROPOSAL_LIST a  ");
+		sql.append(
+				" left join  TM_INS_PROPOSAL b on a.PROPOSAL_CODE = b.PROPOSAL_CODE and a.DEALER_CODE = b.DEALER_CODE");
+		sql.append(" where b.vin =? AND a.DEALER_CODE = ?  and b.FORM_STATUS= ?)");
+		List<Object> params = new ArrayList<Object>();
+		params.add(vin);
+		params.add(dealerCode);
+		params.add(DictCodeConstants.DICT_INS_FORMS_STATUS_CLOSED);
+		String endDate = null;
+		if (DAOUtil.findAll(sql.toString(), params).size() > 0) {
+			endDate = DAOUtil.findAll(sql.toString(), params).get(0).get("END_DATE").toString();
+		}
+		return endDate;
+	}
+
+	/**
+	 * 
+	 * 功能描述：比较字符串
+	 * 
+	 * @param str1
+	 * @param str2
+	 * 
+	 */
+	public boolean strsame(String str1, String str2) throws Exception {
+		String strtemp = "";
+		if ((str1 == null) || (str2 == null))
+			return false;
+		if ((str1.length() == 0) || (str2.length() == 0)) {
+			return false;
+		}
+		int j = str2.length();
+		if (j > str1.length())
+			j = str1.length();
+		for (int i = 0; i < j; i++) {
+			strtemp = str1.substring(i, i + 1);
+			if (!"_".equals(strtemp)) {
+				if (!strtemp.equals(str2.substring(i, i + 1)))
+					return false;
+			}
+		}
+		return true;
+
+	}
+
+	@Override
+	public PageInfoDto queryBookingOrder(Map<String, String> queryParam) throws Exception {
+		StringBuffer sql = new StringBuffer();
+		List<Object> params = new ArrayList<Object>();
+		sql.append(
+				"SELECT VIN,DEALER_CODE,  BOOKING_ORDER_NO, CONTACTOR_NAME,  BOOKING_TYPE_CODE,BOOKING_ORDER_STATUS,RO_TROUBLE_DESC,"); // add
+																																		// by
+																																		// sf
+																																		// 2010-08-16
+																																		// RO_TROUBLE_DESC
+		sql.append(
+				"BOOKING_COME_TIME,LOCK_USER,CREATED_AT ,REMARK,CHIEF_TECHNICIAN,RECOMMEND_EMP_NAME,RECOMMEND_CUSTOMER_NAME  FROM TT_BOOKING_ORDER  ");
+		sql.append("WHERE DEALER_CODE=? AND D_KEY=?");
+		String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
+		params.add(dealerCode);
+		params.add(DictCodeConstants.D_KEY);
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("vin")))
+				|| (!StringUtils.isNullOrEmpty(queryParam.get("LICENSE")))) {
+			sql.append(" AND(");
+			if ((!StringUtils.isNullOrEmpty(queryParam.get("vin")))) {
+				sql.append("  VIN=?  or ");
+				params.add(queryParam.get("vin"));
+			}
+			if ((!StringUtils.isNullOrEmpty(queryParam.get("LICENSE")))
+					&& !DictCodeConstants.CON_LICENSE_NULL.equals(queryParam.get("LICENSE"))) {
+				sql.append("  LICENSE=? )");
 				params.add(queryParam.get("LICENSE"));
-				params.add(DictCodeConstants.DICT_IS_YES);
-				params.add(new Timestamp(System.currentTimeMillis()));
-				params.add(DictCodeConstants.DICT_IS_YES);
-				monitorVehicleList = DAOUtil.findAll(sql.toString(),params);
-					
-			    String	filterStr=" 1=2 ";
-				double amountMin = 0;
-				double amountMax = 0;
-				StringBuffer sql1 = new StringBuffer();
-				sql1.append("SELECT sum(A.REAL_TOTAL_AMOUNT) FROM  TT_BALANCE_PAYOBJ A  LEFT JOIN TT_BALANCE_ACCOUNTS B ON B.BALANCE_NO = A.BALANCE_NO AND B.DEALER_CODE = A.DEALER_CODE");
-				sql1.append(" AND B.D_KEY = A.D_KEY LEFT JOIN TT_REPAIR_ORDER C ON C.DEALER_CODE = A.DEALER_CODE");
-				sql1.append(" AND C.RO_NO = A.RO_NO  AND C.D_KEY = A.D_KEY ");
-				sql1.append(" LEFT JOIN ( SELECT DEALER_CODE, OWNER_NO AS CUSTOMER_CODE,");
-				sql1.append(" CUS_RECEIVE_SORT FROM ("+CommonConstants.VM_OWNER+") UNION SELECT DEALER_CODE,");
-				sql1.append( " CUSTOMER_CODE, CUS_RECEIVE_SORT FROM ("+CommonConstants.VM_PART_CUSTOMER+") ");
-				sql1.append(" ) E ON E.DEALER_CODE = A.DEALER_CODE AND E.CUSTOMER_CODE = A.PAYMENT_OBJECT_CODE" );
-				sql1.append( " WHERE A.DEALER_CODE = ? and vin = ? AND E.CUS_RECEIVE_SORT =?" );
-				List<Object> params1 = new ArrayList<Object>();
+			}
+		}
+		sql.append(" AND BOOKING_ORDER_STATUS=?");
+		params.add(DictCodeConstants.DICT_BOS_NOT_ENTER);
+		PageInfoDto pageInfoDto = DAOUtil.pageQuery(sql.toString(), params);
+		return pageInfoDto;
 
-				params1.add(dealerCode);
-				params1.add(queryParam.get("vin"));
-				params1.add(DictCodeConstants.DICT_CUS_RECEIVE_SORT_CUSTOMER_PAY);
-				// MOD BY zhl 增加条件，只查询客户付费的总金额
-				Double totalAmount = (Double) DAOUtil.findAll(sql1.toString(),params1).get(0).get("real_total_amount");
-					for(int i=0;i<monitorVehicleList.size();i++){
-					 Map db = monitorVehicleList.get(i);
-						amountMax=	 (double) db.get("OWNER_CONSUME_AMOUNT_MAX");
-						amountMin =(double) db.get("OWNER_CONSUME_AMOUNT_MIN");
-						// add by zhl 增加条件总消费金额在监控范围内
-						if ( (totalAmount==null) || ((amountMax+amountMin)==0) ||
-								(amountMax+amountMin)>0&& (totalAmount>=amountMin) &&(totalAmount <=amountMax) )
-						if(("no".equals(db.get("NUM")) &&strsame(db.get("VIN").toString(),queryParam.get("vin"))) || "pass".equals(db.get("NUM"))){
-							filterStr=filterStr+" or MONITOR_ID="+ db.get("MONITOR_ID");//监控ID有可能数据类型溢出,所以改为get方法
-						}	
-					}
-					StringBuffer sql2 = new StringBuffer();
-					List<Object> params2 = new ArrayList<Object>();
-					sql2.append( " select '监控车主车辆' Flag,MESSAGE,MONITOR_ID,IS_VALID from ("+CommonConstants.VT_MONITOR_VEHICLE+") where DEALER_CODE=? and ("+filterStr+")");
-					sql2.append("  and IS_VALID=?" );
-					params2.add(dealerCode);
-					params2.add(DictCodeConstants.DICT_IS_YES);
-					System.out.println(sql2.toString());
-					monitorVehicleList = DAOUtil.findAll(sql.toString(),params2);
-					
-					}
-				
+	}
 
-				// 监控保修起始日期
-				int aOpenDays=-1; //建档日期或者上牌日期没有
-				Date createDate=new Date ();
-				Date wrtBeginDate=new Date ();
-				if((!StringUtils.isNullOrEmpty(queryParam.get("createDate")))){
-				 createDate=new Date(queryParam.get("createDate"));}
-				if((!StringUtils.isNullOrEmpty(queryParam.get("wrtBeginDate")))){
-				 wrtBeginDate=new Date(queryParam.get("wrtBeginDate"));}
-				if((!StringUtils.isNullOrEmpty(createDate))){
-					aOpenDays =(int) ((createDate.getTime() - wrtBeginDate.getTime())/ 3600000 / 24);}
-				 if ((aOpenDays<1) || (aOpenDays>9999)) {
-					 aOpenDays=3; }
-				List<Map> monitorWarrantyDateList = null;
-				StringBuffer monitorWarrantyDate = new StringBuffer();
-				monitorWarrantyDate.append( "SELECT '监控保修起始日期' Flag,AA.MESSAGE,AA.MONITOR_ID,AA.IS_VALID FROM ("+CommonConstants.VT_MONITOR_WARRANTY_DATE+") AA ");
-				monitorWarrantyDate.append(  "WHERE d_key = ? and AA.DEALER_CODE =? AND (?  between AA.OPEN_DAYS and AA.CLOSE_DAYS)  ");
-				monitorWarrantyDate.append(  " and AA.REPAIR_ORDER_TAG=?");
-				monitorWarrantyDate.append( " and ? between AA.begin_date and AA.end_date ");
-				monitorWarrantyDate.append(" and AA.IS_VALID=? ");
-				List<Object> params4 = new ArrayList<Object>();
-				params4.add(DictCodeConstants.D_KEY);
-				params4.add(dealerCode);
-				params4.add(aOpenDays);
-				params4.add(DictCodeConstants.DICT_IS_YES);
-				params4.add(new Timestamp(System.currentTimeMillis()));
-				params4.add(DictCodeConstants.DICT_IS_YES);
-				monitorWarrantyDateList = DAOUtil.findAll(monitorWarrantyDate.toString(),params4);
-			
-				// 监控行驶里程
-				List<Map>  monitorMileageList = null;
-				StringBuffer monitorMileage = new StringBuffer();
-				monitorMileage.append( "SELECT '监控行驶里程' Flag,AA.MESSAGE,AA.MONITOR_ID,AA.IS_VALID FROM ("+CommonConstants.VT_MONITOR_MILEAGE+") AA ");
-				monitorMileage.append( " WHERE (? between AA.BEGIN_MILEAGE and AA.END_MILEAGE) and AA.DEALER_CODE =? AND AA.D_KEY = ? ");
-				monitorMileage.append(  " and AA.REPAIR_ORDER_TAG=?");
-				monitorMileage.append( " and ? between AA.begin_date and AA.end_date ");
-				monitorMileage.append(" and AA.IS_VALID=? ");
-				List<Object> params5 = new ArrayList<Object>();
-				params5.add(queryParam.get("OPEN_DAYS"));
-				params5.add(dealerCode);
-				params5.add(DictCodeConstants.D_KEY);
-				params5.add(DictCodeConstants.DICT_IS_YES);
-				params5.add(new Timestamp(System.currentTimeMillis()));
-				params5.add(DictCodeConstants.DICT_IS_YES);
-				monitorMileageList = DAOUtil.findAll(monitorMileage.toString(),params5);
-				
-				// 监控工单号
-				List monitorRoList = null;
-				StringBuffer monitorRo = new StringBuffer();
-				if((!StringUtils.isNullOrEmpty(queryParam.get("RO_NO")))){
-				String roNO = queryParam.get("RO_NO").toString();
-				monitorRo.append( "SELECT '监控工单' Flag,AA.MESSAGE,AA.MONITOR_ID,AA.IS_VALID FROM ("+CommonConstants.VT_MONITOR_RO+") AA ");
-				monitorRo.append( "WHERE AA.d_key = ? AND AA.DEALER_CODE =?  ");
-				monitorRo.append(  " and last_number=SubStr(?,?-Length(Last_number)+1,Length(Last_number))");
-				monitorRo.append(  " and AA.REPAIR_ORDER_TAG=?");
-				monitorRo.append( " and ? between AA.begin_date and AA.end_date ");
-				monitorRo.append(" and AA.IS_VALID=? ");
-				List<Object> params6 = new ArrayList<Object>();
-				params6.add(DictCodeConstants.D_KEY);
-				params6.add(dealerCode);
-				params6.add(roNO);
-				params6.add(roNO.length());
-				params6.add(DictCodeConstants.DICT_IS_YES);
-				params6.add(new Timestamp(System.currentTimeMillis()));
-				params6.add(DictCodeConstants.DICT_IS_YES);
-				monitorRoList = DAOUtil.findAll(monitorRo.toString(),params6);
-				}
-				
-				// 车辆欠款
-				List vehicleList = null;
-				StringBuffer vehicle = new StringBuffer();
-				vehicle.append(" SELECT AA.ARREARAGE_AMOUNT MESSAGE FROM ("+CommonConstants.VM_VEHICLE+") AA WHERE ");
-				vehicle.append( " AA.DEALER_CODE = ? AND AA.LICENSE = ? AND AA.VIN = ? AND AA.ARREARAGE_AMOUNT <> 0");
-						
-				List<Object> params7 = new ArrayList<Object>();
-				params7.add(dealerCode);
-				params7.add(queryParam.get("license"));
-				params7.add(queryParam.get("vin"));
-				vehicleList = DAOUtil.findAll(vehicle.toString(),params7);
-				
-				// 车主欠款
-				List ownerList = null;
-				StringBuffer owner = new StringBuffer();
-				owner.append("SELECT A.ARREARAGE_AMOUNT MESSAGE FROM ("+CommonConstants.VM_OWNER+") A ");
-				owner.append( " LEFT JOIN ("+CommonConstants.VM_VEHICLE+") B ON A.DEALER_CODE = B.DEALER_CODE AND A.OWNER_NO = B.OWNER_NO ");
-				owner.append( " WHERE A.DEALER_CODE = ? AND B.LICENSE = ? AND B.VIN = ? AND A.ARREARAGE_AMOUNT <> 0");
-				List<Object> params8 = new ArrayList<Object>();
-				params8.add(dealerCode);
-				params8.add(queryParam.get("license"));
-				params8.add(queryParam.get("vin"));
-				ownerList = DAOUtil.findAll(owner.toString(),params8);
-				
-				// XXX天未进场提醒,是否接受回访,保险到期提醒
-				String insDate = null;
-				int days = -1;
-				int isTrace = 0;
-				if((!StringUtils.isNullOrEmpty(queryParam.get("vin")))){
-					
-					List<Map> allMonitorVehicle = new LinkedList();
-				    StringBuilder sql1111 = new StringBuilder("SELECT A.* FROM  tm_vehicle  A WHERE A.DEALER_CODE = ?  ");
-			        List<Object> queryList111 = new ArrayList<Object>();
-			        queryList111.add(dealerCode);
-			        if (!StringUtils.isNullOrEmpty(queryParam.get("vin"))) {// 车系
-			            sql.append(" and A.VIN = ?");
-			            queryList111.add(queryParam.get("vin"));
-			        }   
-			        allMonitorVehicle =DAOUtil.findAll(sql1111.toString(),queryList111);
-					allMonitorVehicle = Utility.getVehicleSubclassList(dealerCode, allMonitorVehicle);
-					insDate = queryByInsVin(queryParam.get("vin"), dealerCode);
-					if (allMonitorVehicle.size() > 0) {
-						Map vpo = allMonitorVehicle.get(0);
-						isTrace = (int) vpo.get("IS_TRACE");
-						Date lastInDate = (Date) vpo.get("LAST_MAINTAIN_DATE");
-						if (lastInDate != null) {
-							days = getDaysBetween(lastInDate, new Date());
-						}
-					}
-				}	
-				//		车主是否绑定微信
-				int isBinding  = 0;
-				if((!StringUtils.isNullOrEmpty(queryParam.get("vin")))){
-					List<Map>  allMonitorVehicle = new LinkedList();
-				    StringBuilder sql1111 = new StringBuilder("SELECT A.* FROM  tm_vehicle  A WHERE  A.DEALER_CODE = ?  ");
-			        List<Object> queryList111 = new ArrayList<Object>();
-			        queryList111.add(dealerCode);
-			        if (!StringUtils.isNullOrEmpty(queryParam.get("vin"))) {// 车系
-			            sql.append(" and A.VIN = ?");
-			            queryList111.add(queryParam.get("vin"));
-			        }   
-			        allMonitorVehicle =DAOUtil.findAll(sql1111.toString(),queryList111);
-					allMonitorVehicle = Utility.getVehicleSubclassList(dealerCode, allMonitorVehicle);
-					if (allMonitorVehicle.size() > 0) {
-						Map vpo =  allMonitorVehicle.get(0);
-						isBinding = (int) vpo.get("IS_BINDING");
-					}
-				}
-				
-				// 建议维修项目、配件
-				List suggestMaintainLabourList = null;
-				if((!StringUtils.isNullOrEmpty(queryParam.get("vin")))){
-				StringBuffer suggestMaintainLabour = new StringBuffer();
-				suggestMaintainLabour.append("select SUGGEST_MAINTAIN_LABOUR_ID, DEALER_CODE, VIN, RO_NO, LABOUR_CODE, LABOUR_NAME, STD_LABOUR_HOUR, LABOUR_PRICE, LABOUR_AMOUNT, REASON, ");
-				suggestMaintainLabour.append( " SUGGEST_DATE, IS_VALID, REMARK, D_KEY, VER,MODEL_LABOUR_CODE from TT_SUGGEST_MAINTAIN_LABOUR where DEALER_CODE= ? ");
-				suggestMaintainLabour.append( "  and d_key = ?  AND IS_VALID = ?   AND VIN =? ");
-				List<Object> params9 = new ArrayList<Object>();
-				params9.add(dealerCode);
-				params9.add(DictCodeConstants.D_KEY);
-				params9.add(DictCodeConstants.DICT_IS_YES);
-				params9.add(queryParam.get("vin"));
-				suggestMaintainLabourList = DAOUtil.findAll(suggestMaintainLabour.toString(),params9);
-				}
-				
-				//		车主是否在本店投保
-				int isInsProposal  = 0;
-				if((!StringUtils.isNullOrEmpty(queryParam.get("vin")))){
-				
-					List<Map>  allProposalq = new LinkedList();
-				    StringBuilder sql1111 = new StringBuilder("SELECT A.* FROM  Tm_Ins_Proposal  A WHERE A.DEALER_CODE = ?   and A.FORM_STATUS= ? ");
-			        List<Object> queryList111 = new ArrayList<Object>();
-					queryList111.add(dealerCode);
-					queryList111.add(DictCodeConstants.DICT_INS_FORMS_STATUS_CLOSED);
-			        if (!StringUtils.isNullOrEmpty(queryParam.get("vin"))) {// 车系
-			        	sql1111.append(" and A.VIN = ?");
-			            queryList111.add(queryParam.get("vin"));
-			        }   
-			        allProposalq =DAOUtil.findAll(sql1111.toString(),queryList111);
-			        allProposalq = Utility.getVehicleSubclassList(dealerCode, allProposalq);
-			        if(allProposalq!=null&&allProposalq.size()>0){
-						isInsProposal=Integer.parseInt(CommonConstants.DICT_IS_YES);
-					}
-				}
-				
-				// 建议维修配件
-				List suggestMaintainPartList = null;
-				if((!StringUtils.isNullOrEmpty(queryParam.get("vin")))){
-				StringBuffer suggestMaintainPart = new StringBuffer();
-				suggestMaintainPart.append("select SUGGEST_MAINTAIN_PART_ID, DEALER_CODE, VIN, RO_NO, PART_NO, PART_NAME, SUGGEST_DATE, SALES_PRICE, QUANTITY, AMOUNT, REASON, IS_VALID, REMARK, ");
-				suggestMaintainPart.append( " D_KEY, VER  from TT_SUGGEST_MAINTAIN_PART where   DEALER_CODE= ? ");
-				suggestMaintainPart.append( "  and d_key = ?  AND IS_VALID = ?   AND VIN =? ");
-				List<Object> params10 = new ArrayList<Object>();
-				params10.add(dealerCode);
-				params10.add(DictCodeConstants.D_KEY);
-				params10.add(DictCodeConstants.DICT_IS_YES);
-				params10.add(queryParam.get("vin"));
-				suggestMaintainPartList = DAOUtil.findAll(suggestMaintainPart.toString(),params10);
-				}
-				
-				// 特殊保修
-				List specialWarrantyList = null;
-				if((!StringUtils.isNullOrEmpty(queryParam.get("vin")))){
-				StringBuffer specialWarranty = new StringBuffer();
-				specialWarranty.append("SELECT VIN,BEGIN_DATE,END_DATE,special_warranty_type as TYPE,GIVE_TIMES,USED_TIMES,remark FROM tm_special_warranty  ");
-				specialWarranty.append( " where   DEALER_CODE= ?     AND VIN =? ");
-				List<Object> params11 = new ArrayList<Object>();
-				params11.add(dealerCode);
-				params11.add(queryParam.get("vin"));
-				specialWarrantyList = DAOUtil.findAll(specialWarranty.toString(),params11);
-				}
-				
-				// 最近一次回访结果
-				List traceTaskList = null;
-				if((!StringUtils.isNullOrEmpty(queryParam.get("vin")))){
-				StringBuffer traceTask = new StringBuffer();
-				traceTask.append("	SELECT IS_SELF_COMPANY,SALES_AGENT_NAME,RO_NO,RO_CREATE_DATE,DELIVERY_DATE,OWNER_NO,VIN,LICENSE,BRAND,SERIES,MODEL,COLOR,OWNER_NAME,DELIVERER, ");
-				traceTask.append(" DELIVERER_PHONE,TRANCER,REMARK,OPINION,INPUTER,INPUT_DATE,TRACE_STATUS,CHAR_DELIVERY_DATE,CYCLE_NO,RO_TYPE,REPAIR_TYPE_CODE,RO_CHARGE_TYPE,BALANCE_NO, ");
-				traceTask.append(" SERVICE_ADVISOR,DELIVERER_MOBILE,TRACE_GROUP_ID,IN_MILEAGE,CHIEF_TECHNICIAN,IS_ACTIVITY,BOOKING_ORDER_NO,TASK_REMARK,SALES_DATE,ADDRESS,is_customer_in_asc,VER,IS_TRACE_VEHICLE, ");
-				traceTask.append(" TRACE_COUNT,DELIVERER_GENDER,NEXT_REPAIR_REMIND,TRACE_TIME,TECHNICIAN_LIST,LABOUR_UNITE, IS_BOOKING_CUSTOMER,IS_CSI FROM ( SELECT VE.IS_SELF_COMPANY,VE.SALES_AGENT_NAME,a.RO_NO, ");
-				traceTask.append("  a.RO_CREATE_DATE,  a.DELIVERY_DATE,  TRO.OWNER_NO, ");
-				traceTask.append(" a.VIN,  a.LICENSE,  a.BRAND, a.SERIES,  a.MODEL,  A.COLOR, a.OWNER_NAME,  a.DELIVERER,  a.DELIVERER_PHONE, A.TRANCER,  ");
-				traceTask.append(" a.REMARK,  OPINION,  A.INPUTER,  case when a.INPUT_DATE is null then '1899-1-1 00:00:00' else a.INPUT_DATE end INPUT_DATE,  ");
-				traceTask.append(" A.TRACE_STATUS, a.CHAR_DELIVERY_DATE, a.CYCLE_NO, a.RO_TYPE,  a.REPAIR_TYPE_CODE,  ");
-				traceTask.append(" a.RO_CHARGE_TYPE, a.BALANCE_NO,  A.SERVICE_ADVISOR, A.DELIVERER_MOBILE,A.TRACE_GROUP_ID, TRO.IN_MILEAGE,TRO.CHIEF_TECHNICIAN, ");
-				traceTask.append(" TRO.IS_ACTIVITY , TRO.BOOKING_ORDER_NO, A.TASK_REMARK,VE.SALES_DATE, ORR.ADDRESS,tro.is_customer_in_asc, A.VER, ");
-				traceTask.append(" VE.IS_TRACE AS IS_TRACE_VEHICLE, TRACE_COUNT.TRACE_COUNT,  A.DELIVERER_GENDER,  A.NEXT_REPAIR_REMIND,(CASE WHEN TRO.IS_TRACE = 12781001 ");
-				traceTask.append(" THEN  TRO.TRACE_TIME ELSE NULL END) AS TRACE_TIME ,TECH.TECHNICIAN AS TECHNICIAN_LIST,TECH.LABOUR_NAME AS LABOUR_UNITE ,");
-				traceTask.append(" (CASE WHEN (TRO.BOOKING_ORDER_NO IS NOT NULL AND TRO.BOOKING_ORDER_NO !='') THEN  12781001 ELSE 12781002 END) AS IS_BOOKING_CUSTOMER, ");
-				traceTask.append(" CASE WHEN M.VIN IS NOT NULL THEN 12781001 ELSE 12781002 END IS_CSI  FROM   TT_TRACE_TASK A  ");
-				traceTask.append(" LEFT JOIN TT_REPAIR_ORDER  TRO ON A.DEALER_CODE = TRO.DEALER_CODE AND TRO.RO_NO = A.RO_NO LEFT JOIN ("+CommonConstants.VM_VEHICLE+") VE ON VE.VIN=A.VIN AND VE.DEALER_CODE=A.DEALER_CODE ");
-				traceTask.append(" LEFT JOIN Tt_Technician_I TECH ON TECH.DEALER_CODE=TRO.DEALER_CODE AND TECH.RO_NO=TRO.RO_NO AND TECH.D_KEY= ? ");
-				traceTask.append(" LEFT JOIN ("+CommonConstants.VM_OWNER+")  ORR ON A.DEALER_CODE = ORR.DEALER_CODE AND TRO.OWNER_NO = ORR.OWNER_NO LEFT JOIN (   SELECT DEALER_CODE,RO_NO,D_KEY,COUNT(1) AS TRACE_COUNT FROM TT_TRACE_TASK_LOG GROUP BY DEALER_CODE,RO_NO,D_KEY  ");
-				traceTask.append(" ) TRACE_COUNT ON TRACE_COUNT.DEALER_CODE = A.DEALER_CODE AND TRACE_COUNT.RO_NO = A.RO_NO AND TRACE_COUNT.D_KEY = A.D_KEY ");
-				traceTask.append("  LEFT JOIN (SELECT DISTINCT CQV1.VIN FROM TM_VEHICLE_MESSAGE CQV1 LEFT JOIN TM_VEHICLE_ACTIVITY_MESSAGE CQ1 ON CQV1.ACTIVITY_CODE = CQ1.ACTIVITY_CODE  ");
-				traceTask.append("  AND CQV1.DEALER_CODE = CQ1.DEALER_CODE WHERE CURRENT TIMESTAMP BETWEEN CQ1.BEGIN_DATE AND CQ1.END_DATE) M ON A.VIN=M.VIN  ");
-				traceTask.append("  WHERE A.D_KEY =? AND A.DEALER_CODE = ?  AND NOT EXISTS( SELECT 1 FROM TT_REPAIR_ORDER TROR WHERE TROR.DEALER_CODE = A.DEALER_CODE AND TROR.RO_NO = A.RO_NO AND TROR.RO_TYPE= ? AND TROR.IS_CUSTOMER_IN_ASC =? AND TROR.RO_STATUS =? )");
-				Utility.getLikeCond("A", "LICENSE", license, "AND");
-				Utility.getLikeCond("VE", "LICENSE", license, "AND");
-				Utility.getLikeCond("VE", "VIN", vin, "AND");
-				Utility.getLikeCond("A", "VIN", vin, "AND");
-				traceTask.append("  ORDER BY A.DELIVERY_DATE ) SA  ");
-				
-				List<Object> params11 = new ArrayList<Object>();
-				params11.add(DictCodeConstants.D_KEY);
-				params11.add(DictCodeConstants.D_KEY);
-				params11.add(dealerCode);
-				params11.add(DictCodeConstants.DICT_RPT_REPAIR);
-				params11.add(DictCodeConstants.DICT_IS_NO);
-				params11.add(DictCodeConstants.DICT_RO_STATUS_TYPE_ON_REPAIR);
-				specialWarrantyList = DAOUtil.findAll(traceTask.toString(),params11);
-				}
-				
-				// 代金券
-				List vouchersTaskList = null;
-				List couponList = null;
-				
-				if((!StringUtils.isNullOrEmpty(queryParam.get("vin")))){
-				 String today= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-					StringBuffer vouchersTask = new StringBuffer();
-					vouchersTask.append("SELECT VIN,BEGIN_DATE,END_DATE,AMOUNT,REMARK FROM TM_ACTIVITY_VOUCHERS   ");
-					vouchersTask.append( " where   DEALER_CODE= ?    AND IS_VALID = ?  AND VIN =? ");
-					Utility.getDateConds("", "BEGIN_DATE", today, "<=");
-					Utility.getDateConds("", "END_DATE", today, ">=");
-					List<Object> params12 = new ArrayList<Object>();
-					params12.add(dealerCode);
-					params12.add(DictCodeConstants.DICT_IS_YES);
-					params12.add(queryParam.get("vin"));
-					specialWarrantyList = DAOUtil.findAll(vouchersTask.toString(),params12);
-				}
-				
-				if((!StringUtils.isNullOrEmpty(queryParam.get("vin")))){
-						String roNO = queryParam.get("RO_NO").toString();
-						StringBuffer coupon = new StringBuffer();
-						coupon.append("select a.card_no from TM_VEHICLE_INSURANCE_COUPON A left join TT_REPAIR_ORDER B ON A.DEALER_CODE=B.DEALER_CODE AND " );
-						coupon.append(" A.REPAIR_TYPE_CODE=B.REPAIR_TYPE_CODE and a.vin=b.vin WHERE A.DEALER_CODE =?  AND A.VIN=? AND A.USE_STATUS=? and b.ro_No=? and  A.START_DATE< CURRENT TIMESTAMP AND CURRENT TIMESTAMP<A.END_DATE " );
-						coupon.append(" union all " );
-						coupon.append(	"select a.card_no from  TM_WECHAT_BOOKING_CARD_MESSAGE a " );
-						coupon.append(	" LEFT JOIN Tt_Booking_Order C ON A.DEALER_CODE=C.DEALER_CODE AND A.RESERVE_ID=C.RESERVATION_ID" );
-						coupon.append(	" left join tt_repair_order b on C.DEALER_CODE=b.DEALER_CODE and C.booking_order_no=b.booking_order_no " );
-						coupon.append(	" where b.ro_no=? and  a.DEALER_CODE=?  and b.booking_order_no is not null");
-						
-						List<Object> params12 = new ArrayList<Object>();
-						params12.add(dealerCode);
-						params12.add(queryParam.get("vin"));
-						params12.add(DictCodeConstants.DICT_OLD_PART_STATUS_ASC_HOLD);
-						params12.add(roNO);
-						params12.add(roNO);
-						params12.add(dealerCode);
-						couponList = DAOUtil.findAll(coupon.toString(),params12);
-				}
-		
-			
+	@Override
+	public List<Map> queryActivityValid(Map<String, String> queryParam) throws Exception {
+		StringBuffer sql = new StringBuffer();
+		List list = null;
+		String vinSix = null, vin = null, model = null, license = null, brand = null, series = null, configCode = null,
+				salesdate = null, mileage = null, cardTypeCode = null, isRecallActivity = null;
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("vin")))) {
+			vin = queryParam.get("vin").toString();
+		}
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("MODEL")))) {
+			model = queryParam.get("MODEL").toString();
+		}
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("LICENSE")))) {
+			license = queryParam.get("LICENSE").toString();
+		}
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("BRAND")))) {
+			brand = queryParam.get("BRAND").toString();
+		}
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("SERIES")))) {
+			series = queryParam.get("SERIES").toString();
+		}
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("CONFIG_CODE")))) {
+			configCode = queryParam.get("CONFIG_CODE").toString();
+		}
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("SALES_DATE")))) {
+			salesdate = queryParam.get("SALES_DATE").toString();
+		}
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("MILEAGE")))) {
+			mileage = queryParam.get("MILEAGE").toString();
+		}
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("CARD_TYPE_CODE")))) {
+			cardTypeCode = queryParam.get("CARD_TYPE_CODE").toString();
+		}
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("IS_RECALL_ACTIVITY")))) {
+			isRecallActivity = queryParam.get("IS_RECALL_ACTIVITY").toString();
+		}
 
-				List monitorAll = new ArrayList();
-			
-				List remindAll = new ArrayList();
-				// 构造右边
-				addToMonitor(monitorAll, monitorVehicleList);
-				addToMonitor(monitorAll, monitorWarrantyDateList);
-				addToMonitor(monitorAll, monitorMileageList);
-				addToMonitor(monitorAll, monitorRoList);
-				// 提醒，界面左边那块
-				addArrearageToRemind(remindAll, vehicleList, ownerList); // 欠款
-				addVehicleNotInToRemind(remindAll, days); // XXX天未进场提醒
-				addIsTraceToRemind(remindAll, isTrace); // 是否接受回访
-				addIsBindingToRemind(remindAll,isBinding);//是否绑定微信
-				addIsInsProposal(remindAll,isInsProposal);//是否有保单信息
-				addTraceTaskToRemind(remindAll, traceTaskList); // 最近一次回访结果
-				addInsDateToRemind(remindAll, insDate); // 保险到期提醒
-				addSpecialToRemind(remindAll, specialWarrantyList); // 特殊保修
-				addVourchersToRemind(remindAll, vouchersTaskList);
-				addSuggestToRemind(remindAll, suggestMaintainLabourList, suggestMaintainPartList); // 建议维修项目和配件
-				addCouponRemind(remindAll, couponList); // 最近一次回访结果
-			/*	return monitorAll;*/
-				return remindAll;
-			
-					
-				}	
+		String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("vin")))) {
+			if (vin.length() == 17) {
+				vinSix = vin.substring(11, 17);
+			}
+		}
+		LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
+		String groupCodeVehicle = Utility.getGroupEntity(loginInfo.getDealerCode(), "TM_VEHICLE");
+		List listVehicle = null;
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("vin")))) {
+			StringBuffer Vehicle = new StringBuffer();
+			Vehicle.append("SELECT DEALER_CODE,1 FROM  (" + CommonConstants.VT_ACTIVITY_VEHICLE
+					+ ") AA  WHERE AA.DEALER_CODE = ? and AA.D_Key=?");
+			Vehicle.append(" and aa.vin=?");
+			Vehicle.append("  LIMIT 1 ");
+			List<Object> params = new ArrayList<Object>();
+			params.add(dealerCode);
+			params.add(DictCodeConstants.D_KEY);
+			params.add(queryParam.get("vin"));
+			listVehicle = DAOUtil.findAll(Vehicle.toString(), params);
+		}
 
-		
-		
-			
-			
-			private void addArrearageToRemind(List remindAll, List vehicleList, List ownerList) {
-				String message = "";
-				if (ownerList != null && ownerList.size() > 0) {
-					List<Map> dynaBean =  (List<Map>) ownerList.get(0);
-					message += "车主欠款:[" + dynaBean.get(0).get("MESSAGE") + "]";
-					if (vehicleList != null && vehicleList.size() > 0) {
-						List<Map> dynaBean2 = (List<Map>)  vehicleList.get(0);
-						message += "，其中该车欠款:[" + dynaBean2.get(0).get("MESSAGE") + "]";
-					}
-				} else if (vehicleList != null && vehicleList.size() > 0) {
-					List<Map> dynaBean = (List<Map>) vehicleList.get(0);
-					message += "该车欠款:[" + dynaBean.get(0).get("MESSAGE") + "]";
-				}
-				if (!"".equals(message)) {
-					addToRemind(remindAll, message);
-				}
+		if (listVehicle != null && listVehicle.size() > 0) {
+			StringBuffer sql2 = new StringBuffer();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			String sqlSalesdate = "";
+			if (salesdate != null && !salesdate.equals("")) {
+				Date date = formatter.parse(salesdate);
+				String dateString = formatter.format(date);
+				sqlSalesdate = " or (SALES_DATE_BEGIN<='" + dateString + " 00:00:00' and SALES_DATE_END>='" + dateString
+						+ " 00:00:00') ";
 			}
+			sql.append("select a.IS_CLAIM,");
+			sql.append(
+					" a.IS_REPEAT_ATTEND,a.IS_PART_ACTIVITY,A.ACTIVITY_KIND,A.PARTS_IS_MODIFY,a.IS_RECALL_ACTIVITY,a.DEALER_CODE, a.ACTIVITY_CODE, a.ACTIVITY_NAME, a.ACTIVITY_TYPE, a.BEGIN_DATE, a.END_DATE, a.RELEASE_DATE,  ");
+			sql.append(
+					"a.RELEASE_TAG, a.LABOUR_AMOUNT, a.ADD_ITEM_AMOUNT,a.FROM_ENTITY, a.DOWN_TAG, a.DOWN_TIMESTAMP, a.REPAIR_PART_AMOUNT, a.ACTIVITY_AMOUNT, a.IS_VALID,a.VER , ");
+			sql.append(
+					"a.BRAND,a.SERIES,a.MODEL,a.MILEAGE_BEGIN,a.MILEAGE_END,a.MEMBER_LEVEL_ALLOWED,'' AS LABOUR_CODE,'' AS PART_CODE, A.ACTIVITY_PROPERTY   from( select distinct ");
+			sql.append(
+					"a.IS_REPEAT_ATTEND,a.IS_PART_ACTIVITY,A.ACTIVITY_KIND,A.PARTS_IS_MODIFY,a.DEALER_CODE, a.ACTIVITY_CODE, a.ACTIVITY_NAME, a.ACTIVITY_TYPE, a.BEGIN_DATE, a.END_DATE, a.RELEASE_DATE,  ");
+			sql.append(
+					"a.RELEASE_TAG, a.LABOUR_AMOUNT, a.ADD_ITEM_AMOUNT,a.FROM_ENTITY, a.DOWN_TAG, a.DOWN_TIMESTAMP, a.REPAIR_PART_AMOUNT, a.ACTIVITY_AMOUNT, a.IS_VALID,a.VER , ");
+			sql.append(
+					"coalesce(a.BRAND,'') as BRAND,a.IS_RECALL_ACTIVITY ,coalesce(a.SERIES,'') as SERIES,coalesce(a.MODEL,'') as MODEL,coalesce(a.MILEAGE_BEGIN,0) as MILEAGE_BEGIN,coalesce(a.MILEAGE_END,0) as MILEAGE_END, ");
+			sql.append(
+					"a.SALES_DATE_BEGIN,a.SALES_DATE_END,A.MEMBER_LEVEL_ALLOWED,A.MODEL_YEAR,A.MAINTAIN_BEGIN_DAY,A.MAINTAIN_END_DAY,A.CONFIG_CODE, A.ACTIVITY_PROPERTY,A.IS_CLAIM ");
+			sql.append("from (" + CommonConstants.VT_ACTIVITY
+					+ ") A  where  a.DEALER_CODE=? and IS_PART_ACTIVITY= ? AND RELEASE_TAG = ?  AND IS_VALID =? ");
+			sql.append(
+					" AND ? BETWEEN BEGIN_DATE AND END_DATE  AND ( a.VEHICLE_PURPOSE is null OR a.VEHICLE_PURPOSE = 0");
+			sql.append(" OR   EXISTS ( SELECT 1 FROM (" + CommonConstants.VM_VEHICLE
+					+ ") v WHERE VIN = ? AND v.VEHICLE_PURPOSE = a.VEHICLE_PURPOSE ) ) ");
+			sql.append(" and ( not exists (select 1 from (" + CommonConstants.VT_ACTIVITY_VEHICLE
+					+ ") c where a.DEALER_CODE = c.DEALER_CODE and   a.activity_Code = c.activity_code ");
+			sql.append(" and c.DEALER_CODE=?  or exists (select 1 from (" + CommonConstants.VT_ACTIVITY_VEHICLE
+					+ ") c where a.DEALER_CODE = c.DEALER_CODE and  a.activity_Code = c.activity_code ");
+			sql.append(" and c.DEALER_CODE=? and c.VIN = ?) )");
+			sql.append(" and (A.MODEL_YEAR='' or A.MODEL_YEAR IS NULL OR EXISTS(SELECT 1 FROM ("
+					+ CommonConstants.VM_VEHICLE + ") V WHERE VIN=? AND V.MODEL_YEAR=A.MODEL_YEAR)) ");
+			sql.append(
+					" )a where ((BRAND ='' or BRAND=?)and( SERIES ='' or SERIES=? )and( CONFIG_CODE =''  OR CONFIG_CODE IS NULL  or CONFIG_CODE=?)and(MODEL ='' or MODEL=? ')) and (((MILEAGE_BEGIN  =0 and MILEAGE_END  =0) or ( ");
+			if (Utility.testString(mileage)) {
+				sql.append(" MILEAGE_BEGIN<=" + mileage + " and MILEAGE_END>=" + mileage + " ");
+			} else {
+				sql.append(" 1=1 ");
+			}
+			sql.append(" ))");
+			sql.append(
+					" and (((A.MAINTAIN_BEGIN_DAY IS NULL OR A.MAINTAIN_BEGIN_DAY=0.00) AND (A.MAINTAIN_END_DAY IS NULL OR A.MAINTAIN_END_DAY=0.00)) OR ");
+			sql.append(" EXISTS(SELECT 1 FROM (" + CommonConstants.VM_VEHICLE
+					+ ") V WHERE VIN=? AND V.SALES_DATE IS NOT NULL AND DAYS(CURRENT DATE)-DAYS(V.SALES_DATE)>=A.MAINTAIN_BEGIN_DAY AND DAYS(CURRENT DATE)-DAYS(V.SALES_DATE)<=A.MAINTAIN_END_DAY))) ");
+			sql.append(" and(SALES_DATE_BEGIN is null or SALES_DATE_END is null ");
+			sql.append(" ?  ) and ( ( IS_REPEAT_ATTEND=?) or (not exists( select 1 from TT_REPAIR_ORDER AA");
+			sql.append(
+					" left join TT_RO_LABOUR BB on AA.DEALER_CODE=BB.DEALER_CODE and AA.RO_NO=BB.RO_NO and BB.activity_code<>'' ");
+			sql.append(
+					"  where bb.ACTIVITY_CODE=a.ACTIVITY_CODE  and AA.DEALER_CODE=? and VIN=? and IS_ACTIVITY =? UNION ALL ");
+			sql.append(
+					"select 1 from TT_REPAIR_ORDER  AA  left join TT_RO_REPAIR_PART BB on AA.DEALER_CODE=BB.DEALER_CODE and AA.RO_NO=BB.RO_NO and BB.activity_code<>'' ");
+			sql.append(
+					" where bb.ACTIVITY_CODE=a.ACTIVITY_CODE and  AA.DEALER_CODE=? and VIN=?  and IS_ACTIVITY =?  UNION ALL");
+			sql.append(
+					" select 1 from TT_REPAIR_ORDER  AA  left join TT_RO_ADD_ITEM BB on AA.DEALER_CODE=BB.DEALER_CODE and AA.RO_NO=BB.RO_NO and BB.activity_code<>'' ");
+			sql.append(" where bb.ACTIVITY_CODE=a.ACTIVITY_CODE and  AA.DEALER_CODE=?  and VIN=?  ) ) )");
+			sql.append(" and NOT EXISTS( select 1 from (" + CommonConstants.VT_ACTIVITY_RESULT
+					+ ") WHERE VIN=? and activity_code=a.activity_code) ");
+			if (Utility.testString(cardTypeCode)) {
+				sql.append(
+						" and  ( (a.MEMBER_LEVEL_ALLOWED IS NOT NULL AND a.MEMBER_LEVEL_ALLOWED!='' AND a.MEMBER_LEVEL_ALLOWED LIKE '%"
+								+ cardTypeCode
+								+ "%' OR (a.MEMBER_LEVEL_ALLOWED IS NULL OR a.MEMBER_LEVEL_ALLOWED='') )  ");
+			} else {
+				sql.append(" and (a.MEMBER_LEVEL_ALLOWED IS NULL OR a.MEMBER_LEVEL_ALLOWED='') ");
+			}
+			if (Utility.testString(isRecallActivity)) {
+				sql.append(" and a.IS_RECALL_ACTIVITY=?");
+			}
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			String currentDate = df.format(Utility.getCurrentDateTime());
+			List<Object> params = new ArrayList<Object>();
+			params.add(dealerCode);
+			params.add(DictCodeConstants.DICT_IS_NO);
+			params.add(DictCodeConstants.DICT_ACTIVITY_RELEASE_TAG_RELEASED);
+			params.add(DictCodeConstants.DICT_IS_YES);
+			params.add(Utility.getTimeStamp(currentDate));
+			params.add(vin);
+			params.add(dealerCode);
+			params.add(dealerCode);
+			params.add(vin);
+			params.add(brand);
+			params.add(series);
+			params.add(configCode);
+			params.add(model);
+			params.add(vin);
+			params.add(sqlSalesdate);
+			params.add(DictCodeConstants.DICT_IS_YES);
+			params.add(dealerCode);
+			params.add(vin);
+			params.add(DictCodeConstants.DICT_IS_YES);
+			params.add(dealerCode);
+			params.add(vin);
+			params.add(DictCodeConstants.DICT_IS_YES);
+			params.add(dealerCode);
+			params.add(vin);
+			params.add(vin);
+			params.add(isRecallActivity);
+			list = DAOUtil.findAll(sql.toString(), params);
+		} else {
+			StringBuffer sqlmodel = new StringBuffer();
+			sqlmodel.append(
+					"SELECT 1 FROM (" + CommonConstants.VT_ACTIVITY_MODEL + ")  WHERE DEALER_CODE = ? and D_Key=?");
+			sqlmodel.append(
+					" and MODEL_CODE=? AND SERIES_CODE =?  AND CONFIG_CODE =?  AND ?  BETWEEN BEGIN_VIN AND END_VIN ");
+			sqlmodel.append(" AND CURRENT TIMESTAMP  BETWEEN MANUFACTURE_DATE_BEGIN AND MANUFACTURE_DATE_END ");
+			sqlmodel.append(" fetch first 1 rows only ");
+			List<Object> params = new ArrayList<Object>();
+			params.add(dealerCode);
+			params.add(DictCodeConstants.D_KEY);
+			params.add(queryParam.get("vin"));
+			params.add(model);
+			params.add(series);
+			params.add(configCode);
+			params.add(vinSix);
+			List listModel = DAOUtil.findAll(sqlmodel.toString(), params);
 
-			private void addVehicleNotInToRemind(List remindAll, int days) {
-				String message = "";
-				if (days > 90) {
-					message += "该车已经" + days + "天未进厂！";
-				} else if (days == -1) {
-					message += "该车首次进厂！";
+			if (listModel != null && listModel.size() > 0) {
+				StringBuffer sql2 = new StringBuffer();
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				String sqlSalesdate = "";
+				if (salesdate != null && !salesdate.equals("")) {
+					Date date = formatter.parse(salesdate);
+					String dateString = formatter.format(date);
+					sqlSalesdate = " or (SALES_DATE_BEGIN<='" + dateString + " 00:00:00' and SALES_DATE_END>='"
+							+ dateString + " 00:00:00') ";
 				}
-				if (!"".equals(message)) {
-					addToRemind(remindAll, message);
-				}
-			}
+				sql.append("select a.IS_CLAIM,");
+				sql.append(
+						" a.IS_REPEAT_ATTEND,a.IS_PART_ACTIVITY,A.ACTIVITY_KIND,A.PARTS_IS_MODIFY,a.IS_RECALL_ACTIVITY,a.DEALER_CODE, a.ACTIVITY_CODE, a.ACTIVITY_NAME, a.ACTIVITY_TYPE, a.BEGIN_DATE, a.END_DATE, a.RELEASE_DATE,  ");
+				sql.append(
+						"a.RELEASE_TAG, a.LABOUR_AMOUNT, a.ADD_ITEM_AMOUNT,a.FROM_ENTITY, a.DOWN_TAG, a.DOWN_TIMESTAMP, a.REPAIR_PART_AMOUNT, a.ACTIVITY_AMOUNT, a.IS_VALID,a.VER , ");
+				sql.append(
+						"a.BRAND,a.SERIES,a.MODEL,a.MILEAGE_BEGIN,a.MILEAGE_END,a.MEMBER_LEVEL_ALLOWED,'' AS LABOUR_CODE,'' AS PART_CODE, A.ACTIVITY_PROPERTY   from( select distinct ");
+				sql.append(
+						"a.IS_REPEAT_ATTEND,a.IS_PART_ACTIVITY,A.ACTIVITY_KIND,A.PARTS_IS_MODIFY,a.DEALER_CODE, a.ACTIVITY_CODE, a.ACTIVITY_NAME, a.ACTIVITY_TYPE, a.BEGIN_DATE, a.END_DATE, a.RELEASE_DATE,  ");
+				sql.append(
+						"a.RELEASE_TAG, a.LABOUR_AMOUNT, a.ADD_ITEM_AMOUNT,a.FROM_ENTITY, a.DOWN_TAG, a.DOWN_TIMESTAMP, a.REPAIR_PART_AMOUNT, a.ACTIVITY_AMOUNT, a.IS_VALID,a.VER , ");
+				sql.append(
+						"coalesce(a.BRAND,'') as BRAND,a.IS_RECALL_ACTIVITY ,coalesce(a.SERIES,'') as SERIES,coalesce(a.MODEL,'') as MODEL,coalesce(a.MILEAGE_BEGIN,0) as MILEAGE_BEGIN,coalesce(a.MILEAGE_END,0) as MILEAGE_END, ");
+				sql.append(
+						"a.SALES_DATE_BEGIN,a.SALES_DATE_END,A.MEMBER_LEVEL_ALLOWED,A.MODEL_YEAR,A.MAINTAIN_BEGIN_DAY,A.MAINTAIN_END_DAY,A.CONFIG_CODE, A.ACTIVITY_PROPERTY,A.IS_CLAIM ");
+				sql.append("from (" + CommonConstants.VT_ACTIVITY
+						+ ")  A  where  a.DEALER_CODE=? and IS_PART_ACTIVITY= ? AND RELEASE_TAG = ?  AND IS_VALID =? ");
+				sql.append(
+						" AND ? BETWEEN BEGIN_DATE AND END_DATE  AND ( a.VEHICLE_PURPOSE is null OR a.VEHICLE_PURPOSE = 0");
+				sql.append(" OR   EXISTS ( SELECT 1 FROM (" + CommonConstants.VM_VEHICLE
+						+ ") v WHERE VIN = ? AND v.VEHICLE_PURPOSE = a.VEHICLE_PURPOSE ) ) ");
+				sql.append(" and ( not exists (select 1 from (" + CommonConstants.VT_ACTIVITY_MODEL
+						+ ")  b where a.DEALER_CODE = b.DEALER_CODE and a.activity_Code = b.activity_code ");
+				sql.append(" and b.DEALER_CODE=?) or exists (select 1 from TT_ACTIVITY_MODEL b,("
+						+ CommonConstants.VT_ACTIVITY
+						+ ")  A where a.entity_code = b.entity_code and  a.activity_Code = b.activity_code ");
+				sql.append("and b.DEALER_CODE=? and b.MODEL_CODE=? AND B.SERIES_CODE  = ?");
+				sql.append(
+						" AND (? BETWEEN B.BEGIN_VIN AND B.END_VIN OR (B.BEGIN_VIN IS NULL AND B.END_VIN IS NULL) )");
+				sql.append(
+						" AND (CURRENT TIMESTAMP  BETWEEN B.MANUFACTURE_DATE_BEGIN AND B.MANUFACTURE_DATE_END OR (B.MANUFACTURE_DATE_BEGIN IS NULL AND B.MANUFACTURE_DATE_END IS NULL))  ))");
 
-			private void addIsBindingToRemind(List remindAll, int isBinding) {
-				String message = "";
-				if (isBinding == Integer.parseInt(DictCodeConstants.DICT_IS_YES)) {
-					message += "已绑定微信！";
-				}else{
-					message += "未绑定微信！";
-				}
-				if (!"".equals(message)) {
-					addToRemind(remindAll, message);
-				}	
-			}
-			
-			private void addIsTraceToRemind(List remindAll, int isTrace) {
-				String message = "";
-				if (isTrace == Integer.parseInt(DictCodeConstants.DICT_IS_NO)) {
-					message += "车主不接受回访！";
-				}
-				if (!"".equals(message)) {
-					addToRemind(remindAll, message);
-				}
-			}
-			
-			
-			private void addIsInsProposal(List remindAll, int isBinding) {
-				String message = "";
-				if (isBinding == Integer.parseInt(DictCodeConstants.DICT_IS_YES)) {
-					message += "已有保单信息！";
-				}else{
-					message += "无保单信息 ！";
-				}
-				if (!"".equals(message)) {
-					addToRemind(remindAll, message);
-				}
-				
-			}
-			private void addTraceTaskToRemind(List remindAll, List traceTaskList) {
-				String message = "";
-				if (traceTaskList != null && traceTaskList.size() > 0) {
-					Date inputDate = null;
-					String nextRepairRemind = null;
-					for (int i = 0; i < traceTaskList.size(); i++) {
-						List<Map> dynaBean =  (List<Map>) traceTaskList.get(i);
-						if (inputDate == null || inputDate.before((Date) dynaBean.get(0).get("INPUT_DATE"))) {
-							inputDate = (Date) dynaBean.get(0).get("INPUT_DATE");
-							nextRepairRemind = dynaBean.get(0).get("NEXT_REPAIR_REMIND").toString();
-						}
-					}
-					if (nextRepairRemind != null && !"".equals(nextRepairRemind.trim())) {
-						message += "最近一次回访结果:" + nextRepairRemind;
-					}
-				}
-				if (!"".equals(message)) {
-					addToRemind(remindAll, message);
-				}
-			}
-			private void addCouponRemind(List remindAll, List couponList) {
-				String message = "";
-				if (couponList != null && couponList.size() > 0) {
-					message += "该车已有可以使用的优惠券";
-					if (!"".equals(message)) {
-						addToRemind(remindAll, message);
-					}
-				}
-			}
-			private void addInsDateToRemind(List remindAll, String insDate) throws Exception {
-				String message = "";
-				if (insDate != null && insDate.length() > 9) {
-					insDate = insDate.substring(0, 10);
-					Date date = new SimpleDateFormat("yyyy-MM-dd").parse(insDate);
-					int days = getDaysBetween(new Date(), date);
-					if (days > 0 && days < 91) {
-						message += "注意：该车主保险到期日期为:" + insDate;
-					}
-				}
-				if (!"".equals(message)) {
-					addToRemind(remindAll, message);
-				}
-			}
-			
-			
-			private void addSpecialToRemind(List remindAll, List specialWarranty) {
-				String message = "";
-				if (specialWarranty != null && specialWarranty.size() > 0) {
-					for (int i = 0; i < specialWarranty.size(); i++) {
-						List<Map> dynaBean =  (List<Map>) specialWarranty.get(i);
-						int type = (int) dynaBean.get(0).get("TYPE");
-						if (type == Integer.parseInt(DictCodeConstants.DICT_ESPECIAL_MAINTAIN_TERM)) {
-							message += "延长保修：" + dynaBean.get(0).get("REMARK");
-						} else if (type == Integer.parseInt(DictCodeConstants.DICT_LARGESS_MAINTAIN)) {
-							message += "赠送的保养次数：" + dynaBean.get(0).get("GIVE_TIMES") + "  已使用的保养次数：" + dynaBean.get(0).get("USED_TIMES");
-						} else if (type == Integer.parseInt(DictCodeConstants.DICT_CANCEL_THREE_CONTRACT)) {
-							message += "取消三包索赔：" + dynaBean.get(0).get("REMARK");
-						} else if (type == Integer.parseInt(DictCodeConstants.DICT_CANCEL_PURCHASE_MAINTENANCE)) {
-							message += "购买保养：" + dynaBean.get(0).get("GIVE_TIMES") + "  已使用的保养次数：" + dynaBean.get(0).get("USED_TIMES") +"  "+ dynaBean.get(0).get("REMARK");
-						}
-					}
-				}
-				if (!"".equals(message)) {
-					addToRemind(remindAll, message);
-				}
-			}
-			
-			private void addVourchersToRemind(List remindAll, List vouchersTaskList) {
-				String message = "";
-				if (vouchersTaskList != null && vouchersTaskList.size() > 0) {
-					for (int i = 0; i < vouchersTaskList.size(); i++) {
-						List<Map> dynaBean = (List<Map>) vouchersTaskList.get(i);
-						message += "您有" + dynaBean.get(0).get("AMOUNT") + "元代金卷可使用";
-					}
-				}
-				if (!"".equals(message)) {
-					addToRemind(remindAll, message);
-				}
-			}
-
-			private void addSuggestToRemind(List remindAll, List suggestMaintainLabourList, List suggestMaintainPartList) {
-				String message = "";
-				if (suggestMaintainLabourList != null && suggestMaintainLabourList.size() > 0) {
-					message += "建议维修项目：";
-					for (int i = 0; i < suggestMaintainLabourList.size(); i++) {
-						List<Map> dynaBean =  (List<Map>) suggestMaintainLabourList.get(i);
-						message += dynaBean.get(0).get("LABOUR_NAME");
-						if (i != suggestMaintainLabourList.size() - 1) {
-							message += "，";
-						}
-					}
-				}
-				if (!"".equals(message)) {
-					addToRemind(remindAll, message);
-				}
-				message = "";
-				if (suggestMaintainPartList != null && suggestMaintainPartList.size() > 0) {
-					message += "建议配件：";
-					for (int i = 0; i < suggestMaintainPartList.size(); i++) {
-						List<Map>  dynaBean =  (List<Map>) suggestMaintainPartList.get(i);
-						message += dynaBean.get(0).get("PART_NAME");
-						if (i != suggestMaintainPartList.size() - 1) {
-							message += "，";
-						}
-					}
-				}
-				if (!"".equals(message)) {
-					addToRemind(remindAll, message);
-				}
-			}
-
-
-			
-			private void addToMonitor(List monitorAll, List list) throws Exception {
-				if (list == null || list.size() == 0) {
-					return;
-				}
-				for (int i = 0; i < list.size(); i++) {
-					List<Map> dynaBean2 = (List<Map>) list.get(i);
-					Map<String, Object> dynaBean = new HashMap<String, Object>();
-					dynaBean.put("MESSAGE", dynaBean2.get(0).get("MESSAGE"));
-					dynaBean.put("MONITOR_ID", dynaBean2.get(0).get("MONITOR_ID"));
-					dynaBean.put("IS_VALID", dynaBean2.get(0).get("IS_VALID"));
-					dynaBean.put("FLAG", dynaBean2.get(0).get("FLAG"));
-					monitorAll.add(dynaBean);
-				}
-			}
-		
-			
-			private void addToRemind(List remindAll, String message) {
-				int i = remindAll.size() + 1;
-				Map<String, Object> dynaBean = new HashMap<String, Object>();
-				dynaBean.put("REMIND_ID", i);
-				dynaBean.put("MESSAGE", message);
-				remindAll.add(dynaBean);
-			}
-			private int getDaysBetween(Date lastInDate, Date date) {
-				long milliseconds = date.getTime() - lastInDate.getTime();
-				int dayMillisecond = 1000 * 60 * 60 * 24;
-				int days = (int) (milliseconds % dayMillisecond == 0 ? milliseconds / dayMillisecond : milliseconds / dayMillisecond + 1);
-				return days;
-			}
-			
-			/**
-			 * 查询该vin的车 保险到期日期
-			 * 
-			 * @param ZHL
-			 * @return
-			 * @throws Exception
-			 */
-
-			private String queryByInsVin(String vin, String dealerCode) {
-				StringBuffer sql = new StringBuffer();
-				sql.append("SELECT max(s) as END_DATE FROM (select max(END_DATE) as s from TM_INS_PROPOSAL_LIST a  ");
-				sql.append(" left join  TM_INS_PROPOSAL b on a.PROPOSAL_CODE = b.PROPOSAL_CODE and a.DEALER_CODE = b.DEALER_CODE");
-				sql.append(" where b.vin =? AND a.DEALER_CODE = ?  and b.FORM_STATUS= ?)");
-				List<Object> params = new ArrayList<Object>();
-				params.add(vin);
-				params.add(dealerCode);
-				params.add(DictCodeConstants.DICT_INS_FORMS_STATUS_CLOSED);
-				String endDate=null;
-				if(DAOUtil.findAll(sql.toString(),params).size()>0){
-				endDate=DAOUtil.findAll(sql.toString(),params).get(0).get("END_DATE").toString();
-				}
-				return endDate;
-			}
-
-			/**
-			 * 
-			 * 功能描述：比较字符串
-			 * 
-			 * @param str1
-			 * @param str2
-
-			 */
-			public boolean strsame(String str1, String str2) throws Exception {
-				String strtemp="";
-				if ((str1==null)||(str2 ==null)) return false;	
-				if ((str1.length()==0) || (str2.length()==0)) 
-				{return false;			}
-				int j=str2.length();
-				if (j>str1.length())j=str1.length();
-				for (int i=0;i<j;i++){
-					strtemp=str1.substring(i, i+1);
-					if (!"_".equals(strtemp)){
-						if (!strtemp.equals(str2.substring(i, i+1))  )return false;					
-					}			
-				}		
-				return true;
-				
-			}
-
-			@Override
-			public PageInfoDto queryBookingOrder(Map<String, String> queryParam) throws Exception {
-				StringBuffer sql = new StringBuffer();
-				List<Object> params = new ArrayList<Object>();
-				sql.append("SELECT VIN,DEALER_CODE,  BOOKING_ORDER_NO, CONTACTOR_NAME,  BOOKING_TYPE_CODE,BOOKING_ORDER_STATUS,RO_TROUBLE_DESC,");		// add by sf 2010-08-16 RO_TROUBLE_DESC
-				sql.append("BOOKING_COME_TIME,LOCK_USER,CREATED_AT ,REMARK,CHIEF_TECHNICIAN,RECOMMEND_EMP_NAME,RECOMMEND_CUSTOMER_NAME  FROM TT_BOOKING_ORDER  ");
-				sql.append("WHERE DEALER_CODE=? AND D_KEY=?");
-				String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
-				params.add(dealerCode);
-				params.add(DictCodeConstants.D_KEY);
-				if ((!StringUtils.isNullOrEmpty(queryParam.get("vin")))||(!StringUtils.isNullOrEmpty(queryParam.get("LICENSE")))) {
-				  sql.append(" AND(");
-				  if ((!StringUtils.isNullOrEmpty(queryParam.get("vin")))) {
-					sql.append("  VIN=?  or ");
-					params.add(queryParam.get("vin"));
-				  }
-				  if ((!StringUtils.isNullOrEmpty(queryParam.get("LICENSE"))) && !DictCodeConstants.CON_LICENSE_NULL.equals(queryParam.get("LICENSE")) ){
-					sql.append("  LICENSE=? )");
-					params.add(queryParam.get("LICENSE"));
-				  }		
-				}
-				sql.append(" AND BOOKING_ORDER_STATUS=?");
-				params.add(DictCodeConstants.DICT_BOS_NOT_ENTER);
-				PageInfoDto pageInfoDto = DAOUtil.pageQuery(sql.toString(), params);
-				return pageInfoDto;
-				
-			}
-
-			@Override
-			public List<Map> queryActivityValid(Map<String, String> queryParam) throws Exception {
-				StringBuffer sql = new StringBuffer();
-				List list = null;
-				String vinSix= null,vin = null,model= null,license= null,brand = null,
-					series= null,configCode= null,salesdate = null,mileage = null,cardTypeCode= null,isRecallActivity= null;
-				if((!StringUtils.isNullOrEmpty(queryParam.get("vin")))){
-				  vin =queryParam.get("vin").toString();}
-				if((!StringUtils.isNullOrEmpty(queryParam.get("MODEL")))){
-				model = queryParam.get("MODEL").toString();}
-				if((!StringUtils.isNullOrEmpty(queryParam.get("LICENSE")))){
-				license =queryParam.get("LICENSE").toString();}
-				if((!StringUtils.isNullOrEmpty(queryParam.get("BRAND")))){
-				brand =queryParam.get("BRAND").toString();}
-				if((!StringUtils.isNullOrEmpty(queryParam.get("SERIES")))){
-				series = queryParam.get("SERIES").toString();}
-				if((!StringUtils.isNullOrEmpty(queryParam.get("CONFIG_CODE")))){
-				configCode =queryParam.get("CONFIG_CODE").toString();}
-				if((!StringUtils.isNullOrEmpty(queryParam.get("SALES_DATE")))){
-				salesdate = queryParam.get("SALES_DATE").toString();}
-				if((!StringUtils.isNullOrEmpty(queryParam.get("MILEAGE")))){
-				mileage =queryParam.get("MILEAGE").toString();}
-				if((!StringUtils.isNullOrEmpty(queryParam.get("CARD_TYPE_CODE")))){
-				cardTypeCode =queryParam.get("CARD_TYPE_CODE").toString();}
-				if((!StringUtils.isNullOrEmpty(queryParam.get("IS_RECALL_ACTIVITY")))){
-				isRecallActivity =queryParam.get("IS_RECALL_ACTIVITY").toString();}
-				
-				
-				String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
-				if((!StringUtils.isNullOrEmpty(queryParam.get("vin")))){
-					if(vin.length() == 17){
-						vinSix = vin.substring(11, 17);
-					}
-				}
-				LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
-				String groupCodeVehicle = Utility.getGroupEntity(loginInfo.getDealerCode(), "TM_VEHICLE");
-				List listVehicle = null;
-				if((!StringUtils.isNullOrEmpty(queryParam.get("vin")))){
-					StringBuffer Vehicle  = new StringBuffer();
-					Vehicle.append("SELECT DEALER_CODE,1 FROM  ("+CommonConstants.VT_ACTIVITY_VEHICLE+") AA  WHERE AA.DEALER_CODE = ? and AA.D_Key=?");
-					Vehicle.append(" and aa.vin=?");
-					Vehicle.append("  LIMIT 1 ");
-					List<Object> params = new ArrayList<Object>();
-					params.add(dealerCode);
-					params.add(DictCodeConstants.D_KEY);
-					params.add(queryParam.get("vin"));
-					listVehicle = DAOUtil.findAll(Vehicle.toString(),params);
-				}
-				
-				if(listVehicle != null && listVehicle.size() > 0){
-						StringBuffer sql2  = new StringBuffer();
-						SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-						String sqlSalesdate = "";
-						if (salesdate != null && !salesdate.equals(""))
-						{
-							Date date = formatter.parse(salesdate);
-							String dateString = formatter.format(date);
-							sqlSalesdate = " or (SALES_DATE_BEGIN<='" + dateString+ " 00:00:00' and SALES_DATE_END>='" + dateString + " 00:00:00') ";
-						}
-						sql.append("select a.IS_CLAIM," );
-						sql.append(" a.IS_REPEAT_ATTEND,a.IS_PART_ACTIVITY,A.ACTIVITY_KIND,A.PARTS_IS_MODIFY,a.IS_RECALL_ACTIVITY,a.DEALER_CODE, a.ACTIVITY_CODE, a.ACTIVITY_NAME, a.ACTIVITY_TYPE, a.BEGIN_DATE, a.END_DATE, a.RELEASE_DATE,  ");
-						sql.append( "a.RELEASE_TAG, a.LABOUR_AMOUNT, a.ADD_ITEM_AMOUNT,a.FROM_ENTITY, a.DOWN_TAG, a.DOWN_TIMESTAMP, a.REPAIR_PART_AMOUNT, a.ACTIVITY_AMOUNT, a.IS_VALID,a.VER , ");
-						sql.append("a.BRAND,a.SERIES,a.MODEL,a.MILEAGE_BEGIN,a.MILEAGE_END,a.MEMBER_LEVEL_ALLOWED,'' AS LABOUR_CODE,'' AS PART_CODE, A.ACTIVITY_PROPERTY   from( select distinct ");
-						sql.append("a.IS_REPEAT_ATTEND,a.IS_PART_ACTIVITY,A.ACTIVITY_KIND,A.PARTS_IS_MODIFY,a.DEALER_CODE, a.ACTIVITY_CODE, a.ACTIVITY_NAME, a.ACTIVITY_TYPE, a.BEGIN_DATE, a.END_DATE, a.RELEASE_DATE,  ");
-						sql.append("a.RELEASE_TAG, a.LABOUR_AMOUNT, a.ADD_ITEM_AMOUNT,a.FROM_ENTITY, a.DOWN_TAG, a.DOWN_TIMESTAMP, a.REPAIR_PART_AMOUNT, a.ACTIVITY_AMOUNT, a.IS_VALID,a.VER , ");
-						sql.append("coalesce(a.BRAND,'') as BRAND,a.IS_RECALL_ACTIVITY ,coalesce(a.SERIES,'') as SERIES,coalesce(a.MODEL,'') as MODEL,coalesce(a.MILEAGE_BEGIN,0) as MILEAGE_BEGIN,coalesce(a.MILEAGE_END,0) as MILEAGE_END, ");
-						sql.append("a.SALES_DATE_BEGIN,a.SALES_DATE_END,A.MEMBER_LEVEL_ALLOWED,A.MODEL_YEAR,A.MAINTAIN_BEGIN_DAY,A.MAINTAIN_END_DAY,A.CONFIG_CODE, A.ACTIVITY_PROPERTY,A.IS_CLAIM ");
-						sql.append("from ("+CommonConstants.VT_ACTIVITY+") A  where  a.DEALER_CODE=? and IS_PART_ACTIVITY= ? AND RELEASE_TAG = ?  AND IS_VALID =? ");
-			            sql.append(" AND ? BETWEEN BEGIN_DATE AND END_DATE  AND ( a.VEHICLE_PURPOSE is null OR a.VEHICLE_PURPOSE = 0");
-			            sql.append(" OR   EXISTS ( SELECT 1 FROM ("+CommonConstants.VM_VEHICLE+") v WHERE VIN = ? AND v.VEHICLE_PURPOSE = a.VEHICLE_PURPOSE ) ) ");
-			            sql.append(" and ( not exists (select 1 from ("+CommonConstants.VT_ACTIVITY_VEHICLE+") c where a.DEALER_CODE = c.DEALER_CODE and   a.activity_Code = c.activity_code ");
-			            sql.append(" and c.DEALER_CODE=?  or exists (select 1 from ("+CommonConstants.VT_ACTIVITY_VEHICLE+") c where a.DEALER_CODE = c.DEALER_CODE and  a.activity_Code = c.activity_code " );
-			            sql.append(" and c.DEALER_CODE=? and c.VIN = ?) )" );                  	
-			            sql.append(" and (A.MODEL_YEAR='' or A.MODEL_YEAR IS NULL OR EXISTS(SELECT 1 FROM ("+CommonConstants.VM_VEHICLE+") V WHERE VIN=? AND V.MODEL_YEAR=A.MODEL_YEAR)) "); 
-			            sql.append(" )a where ((BRAND ='' or BRAND=?)and( SERIES ='' or SERIES=? )and( CONFIG_CODE =''  OR CONFIG_CODE IS NULL  or CONFIG_CODE=?)and(MODEL ='' or MODEL=? ')) and (((MILEAGE_BEGIN  =0 and MILEAGE_END  =0) or ( ");
-		                if(Utility.testString(mileage)){
-		                  	sql.append(" MILEAGE_BEGIN<=" + mileage + " and MILEAGE_END>=" + mileage + " ");
-		                }else{
-		                  	sql.append(" 1=1 ");
-		                 }
-			            sql.append(" ))");
-			            sql.append(" and (((A.MAINTAIN_BEGIN_DAY IS NULL OR A.MAINTAIN_BEGIN_DAY=0.00) AND (A.MAINTAIN_END_DAY IS NULL OR A.MAINTAIN_END_DAY=0.00)) OR ");
-			            sql.append(" EXISTS(SELECT 1 FROM ("+CommonConstants.VM_VEHICLE+") V WHERE VIN=? AND V.SALES_DATE IS NOT NULL AND DAYS(CURRENT DATE)-DAYS(V.SALES_DATE)>=A.MAINTAIN_BEGIN_DAY AND DAYS(CURRENT DATE)-DAYS(V.SALES_DATE)<=A.MAINTAIN_END_DAY))) ");
-			            sql.append(" and(SALES_DATE_BEGIN is null or SALES_DATE_END is null ");
-			          	sql.append(" ?  ) and ( ( IS_REPEAT_ATTEND=?) or (not exists( select 1 from TT_REPAIR_ORDER AA");
-			         	sql.append(" left join TT_RO_LABOUR BB on AA.DEALER_CODE=BB.DEALER_CODE and AA.RO_NO=BB.RO_NO and BB.activity_code<>'' "    );                            
-			         	sql.append("  where bb.ACTIVITY_CODE=a.ACTIVITY_CODE  and AA.DEALER_CODE=? and VIN=? and IS_ACTIVITY =? UNION ALL ");
-			         	sql.append("select 1 from TT_REPAIR_ORDER  AA  left join TT_RO_REPAIR_PART BB on AA.DEALER_CODE=BB.DEALER_CODE and AA.RO_NO=BB.RO_NO and BB.activity_code<>'' ");
-			         	sql.append(" where bb.ACTIVITY_CODE=a.ACTIVITY_CODE and  AA.DEALER_CODE=? and VIN=?  and IS_ACTIVITY =?  UNION ALL");
-			         	sql.append(" select 1 from TT_REPAIR_ORDER  AA  left join TT_RO_ADD_ITEM BB on AA.DEALER_CODE=BB.DEALER_CODE and AA.RO_NO=BB.RO_NO and BB.activity_code<>'' ");
-			         	sql.append(" where bb.ACTIVITY_CODE=a.ACTIVITY_CODE and  AA.DEALER_CODE=?  and VIN=?  ) ) )");
-			         	sql.append(" and NOT EXISTS( select 1 from ("+CommonConstants.VT_ACTIVITY_RESULT+") WHERE VIN=? and activity_code=a.activity_code) ");
-						if(Utility.testString(cardTypeCode)){
-							sql.append(" and  ( (a.MEMBER_LEVEL_ALLOWED IS NOT NULL AND a.MEMBER_LEVEL_ALLOWED!='' AND a.MEMBER_LEVEL_ALLOWED LIKE '%"+cardTypeCode+"%' OR (a.MEMBER_LEVEL_ALLOWED IS NULL OR a.MEMBER_LEVEL_ALLOWED='') )  ");
-						}else{
-							sql.append(" and (a.MEMBER_LEVEL_ALLOWED IS NULL OR a.MEMBER_LEVEL_ALLOWED='') ");
-						}
-						if(Utility.testString(isRecallActivity)){
-			            	sql.append(" and a.IS_RECALL_ACTIVITY=?");
-			            }
-						SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
-						String currentDate=df.format(Utility.getCurrentDateTime());
-						List<Object> params = new ArrayList<Object>();
-						params.add(dealerCode);
-						params.add(DictCodeConstants.DICT_IS_NO);
-						params.add(DictCodeConstants.DICT_ACTIVITY_RELEASE_TAG_RELEASED);
-						params.add(DictCodeConstants.DICT_IS_YES);
-						params.add(Utility.getTimeStamp(currentDate));
-						params.add(vin);
-						params.add(dealerCode);
-						params.add(dealerCode);
-						params.add(vin);
-						params.add(brand);
-						params.add(series);
-						params.add(configCode);
-						params.add(model);
-						params.add(vin);
-						params.add(sqlSalesdate);
-						params.add(DictCodeConstants.DICT_IS_YES);
-						params.add(dealerCode);
-						params.add(vin);
-						params.add(DictCodeConstants.DICT_IS_YES);
-						params.add(dealerCode);
-						params.add(vin);
-						params.add(DictCodeConstants.DICT_IS_YES);
-						params.add(dealerCode);
-						params.add(vin);
-						params.add(vin);
-						params.add(isRecallActivity);
-						list = DAOUtil.findAll(sql.toString(),params);
-				}
-				else{
-					StringBuffer sqlmodel  = new StringBuffer();
-					sqlmodel.append("SELECT 1 FROM ("+CommonConstants.VT_ACTIVITY_MODEL+")  WHERE DEALER_CODE = ? and D_Key=?");
-					sqlmodel.append( " and MODEL_CODE=? AND SERIES_CODE =?  AND CONFIG_CODE =?  AND ?  BETWEEN BEGIN_VIN AND END_VIN ");
-					sqlmodel.append(" AND CURRENT TIMESTAMP  BETWEEN MANUFACTURE_DATE_BEGIN AND MANUFACTURE_DATE_END ");
-					sqlmodel.append(" fetch first 1 rows only ");
-					List<Object> params = new ArrayList<Object>();
-					params.add(dealerCode);
-					params.add(DictCodeConstants.D_KEY);
-					params.add(queryParam.get("vin"));
-					params.add(model);
-					params.add(series);
-					params.add(configCode);
-					params.add(vinSix);
-					List listModel =  DAOUtil.findAll(sqlmodel.toString(),params);
-				
-					if(listModel != null && listModel.size() > 0){
-						StringBuffer sql2  = new StringBuffer();
-						SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-						String sqlSalesdate = "";
-						if (salesdate != null && !salesdate.equals(""))
-						{
-							Date date = formatter.parse(salesdate);
-							String dateString = formatter.format(date);
-							sqlSalesdate = " or (SALES_DATE_BEGIN<='" + dateString+ " 00:00:00' and SALES_DATE_END>='" + dateString + " 00:00:00') ";
-						}
-						sql.append("select a.IS_CLAIM," );
-						sql.append(" a.IS_REPEAT_ATTEND,a.IS_PART_ACTIVITY,A.ACTIVITY_KIND,A.PARTS_IS_MODIFY,a.IS_RECALL_ACTIVITY,a.DEALER_CODE, a.ACTIVITY_CODE, a.ACTIVITY_NAME, a.ACTIVITY_TYPE, a.BEGIN_DATE, a.END_DATE, a.RELEASE_DATE,  ");
-						sql.append( "a.RELEASE_TAG, a.LABOUR_AMOUNT, a.ADD_ITEM_AMOUNT,a.FROM_ENTITY, a.DOWN_TAG, a.DOWN_TIMESTAMP, a.REPAIR_PART_AMOUNT, a.ACTIVITY_AMOUNT, a.IS_VALID,a.VER , ");
-						sql.append("a.BRAND,a.SERIES,a.MODEL,a.MILEAGE_BEGIN,a.MILEAGE_END,a.MEMBER_LEVEL_ALLOWED,'' AS LABOUR_CODE,'' AS PART_CODE, A.ACTIVITY_PROPERTY   from( select distinct ");
-						sql.append("a.IS_REPEAT_ATTEND,a.IS_PART_ACTIVITY,A.ACTIVITY_KIND,A.PARTS_IS_MODIFY,a.DEALER_CODE, a.ACTIVITY_CODE, a.ACTIVITY_NAME, a.ACTIVITY_TYPE, a.BEGIN_DATE, a.END_DATE, a.RELEASE_DATE,  ");
-						sql.append("a.RELEASE_TAG, a.LABOUR_AMOUNT, a.ADD_ITEM_AMOUNT,a.FROM_ENTITY, a.DOWN_TAG, a.DOWN_TIMESTAMP, a.REPAIR_PART_AMOUNT, a.ACTIVITY_AMOUNT, a.IS_VALID,a.VER , ");
-						sql.append("coalesce(a.BRAND,'') as BRAND,a.IS_RECALL_ACTIVITY ,coalesce(a.SERIES,'') as SERIES,coalesce(a.MODEL,'') as MODEL,coalesce(a.MILEAGE_BEGIN,0) as MILEAGE_BEGIN,coalesce(a.MILEAGE_END,0) as MILEAGE_END, ");
-						sql.append("a.SALES_DATE_BEGIN,a.SALES_DATE_END,A.MEMBER_LEVEL_ALLOWED,A.MODEL_YEAR,A.MAINTAIN_BEGIN_DAY,A.MAINTAIN_END_DAY,A.CONFIG_CODE, A.ACTIVITY_PROPERTY,A.IS_CLAIM ");
-						sql.append("from ("+CommonConstants.VT_ACTIVITY+")  A  where  a.DEALER_CODE=? and IS_PART_ACTIVITY= ? AND RELEASE_TAG = ?  AND IS_VALID =? ");
-			            sql.append(" AND ? BETWEEN BEGIN_DATE AND END_DATE  AND ( a.VEHICLE_PURPOSE is null OR a.VEHICLE_PURPOSE = 0");
-			            sql.append(" OR   EXISTS ( SELECT 1 FROM ("+CommonConstants.VM_VEHICLE+") v WHERE VIN = ? AND v.VEHICLE_PURPOSE = a.VEHICLE_PURPOSE ) ) ");
-			           	sql.append(" and ( not exists (select 1 from ("+CommonConstants.VT_ACTIVITY_MODEL+")  b where a.DEALER_CODE = b.DEALER_CODE and a.activity_Code = b.activity_code ");
-			           	sql.append(" and b.DEALER_CODE=?) or exists (select 1 from TT_ACTIVITY_MODEL b,("+CommonConstants.VT_ACTIVITY+")  A where a.entity_code = b.entity_code and  a.activity_Code = b.activity_code ");
-			           	sql.append("and b.DEALER_CODE=? and b.MODEL_CODE=? AND B.SERIES_CODE  = ?");
-			           	sql.append(" AND (? BETWEEN B.BEGIN_VIN AND B.END_VIN OR (B.BEGIN_VIN IS NULL AND B.END_VIN IS NULL) )" );
-			           	sql.append(" AND (CURRENT TIMESTAMP  BETWEEN B.MANUFACTURE_DATE_BEGIN AND B.MANUFACTURE_DATE_END OR (B.MANUFACTURE_DATE_BEGIN IS NULL AND B.MANUFACTURE_DATE_END IS NULL))  ))");
-	                       	
-			            sql.append(" and (A.MODEL_YEAR='' or A.MODEL_YEAR IS NULL OR EXISTS(SELECT 1 FROM ("+CommonConstants.VM_VEHICLE+") V WHERE VIN=? AND V.MODEL_YEAR=A.MODEL_YEAR)) "); 
-			            sql.append(" )a where ((BRAND ='' or BRAND=?)and( SERIES ='' or SERIES=? )and( CONFIG_CODE =''  OR CONFIG_CODE IS NULL  or CONFIG_CODE=?)and(MODEL ='' or MODEL=? )) and (((MILEAGE_BEGIN  =0 and MILEAGE_END  =0) or ( ");
-		                if(Utility.testString(mileage)){
-		                  	sql.append(" MILEAGE_BEGIN<=" + mileage + " and MILEAGE_END>=" + mileage + " ");
-		                }else{
-		                  	sql.append(" 1=1 ");
-		                 }
-			            sql.append(" ))");
-			            sql.append(" and (((A.MAINTAIN_BEGIN_DAY IS NULL OR A.MAINTAIN_BEGIN_DAY=0.00) AND (A.MAINTAIN_END_DAY IS NULL OR A.MAINTAIN_END_DAY=0.00)) OR ");
-			            sql.append(" EXISTS(SELECT 1 FROM ("+CommonConstants.VM_VEHICLE+") V WHERE VIN=? AND V.SALES_DATE IS NOT NULL AND DAYS(CURRENT DATE)-DAYS(V.SALES_DATE)>=A.MAINTAIN_BEGIN_DAY AND DAYS(CURRENT DATE)-DAYS(V.SALES_DATE)<=A.MAINTAIN_END_DAY))) ");
-			            sql.append(" and(SALES_DATE_BEGIN is null or SALES_DATE_END is null ");
-			          	sql.append(" ?  ) and ( ( IS_REPEAT_ATTEND=?) or (not exists( select 1 from TT_REPAIR_ORDER AA");
-			         	sql.append(" left join TT_RO_LABOUR BB on AA.DEALER_CODE=BB.DEALER_CODE and AA.RO_NO=BB.RO_NO and BB.activity_code<>'' "    );                            
-			         	sql.append("  where bb.ACTIVITY_CODE=a.ACTIVITY_CODE  and AA.DEALER_CODE=? and VIN=? and IS_ACTIVITY =? UNION ALL ");
-			         	sql.append("select 1 from TT_REPAIR_ORDER  AA  left join TT_RO_REPAIR_PART BB on AA.DEALER_CODE=BB.DEALER_CODE and AA.RO_NO=BB.RO_NO and BB.activity_code<>'' ");
-			         	sql.append(" where bb.ACTIVITY_CODE=a.ACTIVITY_CODE and  AA.DEALER_CODE=? and VIN=?  and IS_ACTIVITY =?  UNION ALL");
-			         	sql.append(" select 1 from TT_REPAIR_ORDER  AA  left join TT_RO_ADD_ITEM BB on AA.DEALER_CODE=BB.DEALER_CODE and AA.RO_NO=BB.RO_NO and BB.activity_code<>'' ");
-			         	sql.append(" where bb.ACTIVITY_CODE=a.ACTIVITY_CODE and  AA.DEALER_CODE=?  and VIN=?  ) ) )");
-			         	sql.append(" and NOT EXISTS( select 1 from ("+CommonConstants.VT_ACTIVITY_RESULT+") WHERE VIN=? and activity_code=a.activity_code) ");
-						if(Utility.testString(cardTypeCode)){
-							sql.append(" and  ( (a.MEMBER_LEVEL_ALLOWED IS NOT NULL AND a.MEMBER_LEVEL_ALLOWED!='' AND a.MEMBER_LEVEL_ALLOWED LIKE '%"+cardTypeCode+"%' OR (a.MEMBER_LEVEL_ALLOWED IS NULL OR a.MEMBER_LEVEL_ALLOWED='') )  ");
-						}else{
-							sql.append(" and (a.MEMBER_LEVEL_ALLOWED IS NULL OR a.MEMBER_LEVEL_ALLOWED='') ");
-						}
-						if(Utility.testString(isRecallActivity)){
-			            	sql.append(" and a.IS_RECALL_ACTIVITY=?");
-			            }
-						SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
-						String currentDate=df.format(Utility.getCurrentDateTime());
-						List<Object> params1 = new ArrayList<Object>();
-						params1.add(dealerCode);
-						params1.add(DictCodeConstants.DICT_IS_NO);
-						params1.add(DictCodeConstants.DICT_ACTIVITY_RELEASE_TAG_RELEASED);
-						params1.add(DictCodeConstants.DICT_IS_YES);
-						params1.add(Utility.getTimeStamp(currentDate));
-						params1.add(vin);
-						params1.add(dealerCode);
-						params1.add(dealerCode);
-						params1.add(model);
-						params1.add(series);
-						params1.add(vinSix);
-						params.add(brand);
-						params1.add(series);
-						params1.add(configCode);
-						params1.add(model);
-						params1.add(vin);
-						params1.add(sqlSalesdate);
-						params1.add(DictCodeConstants.DICT_IS_YES);
-						params1.add(dealerCode);
-						params1.add(vin);
-						params1.add(DictCodeConstants.DICT_IS_YES);
-						params1.add(dealerCode);
-						params1.add(vin);
-						params1.add(DictCodeConstants.DICT_IS_YES);
-						params1.add(dealerCode);
-						params1.add(vin);
-						params1.add(vin);
-						params1.add(isRecallActivity);
-						list = DAOUtil.findAll(sql.toString(),params1);
-					}	
-					else{
-						StringBuffer sql2  = new StringBuffer();
-						SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-						String sqlSalesdate = "";
-						if (salesdate != null && !salesdate.equals(""))
-						{
-							Date date = formatter.parse(salesdate);
-							String dateString = formatter.format(date);
-							sqlSalesdate = " or (SALES_DATE_BEGIN<='" + dateString+ " 00:00:00' and SALES_DATE_END>='" + dateString + " 00:00:00') ";
-						}
-						sql.append("select a.IS_CLAIM," );
-						sql.append(" a.IS_REPEAT_ATTEND,a.IS_PART_ACTIVITY,A.ACTIVITY_KIND,A.PARTS_IS_MODIFY,a.IS_RECALL_ACTIVITY,a.DEALER_CODE, a.ACTIVITY_CODE, a.ACTIVITY_NAME, a.ACTIVITY_TYPE, a.BEGIN_DATE, a.END_DATE, a.RELEASE_DATE,  ");
-						sql.append( "a.RELEASE_TAG, a.LABOUR_AMOUNT, a.ADD_ITEM_AMOUNT,a.FROM_ENTITY, a.DOWN_TAG, a.DOWN_TIMESTAMP, a.REPAIR_PART_AMOUNT, a.ACTIVITY_AMOUNT, a.IS_VALID,a.VER , ");
-						sql.append("a.BRAND,a.SERIES,a.MODEL,a.MILEAGE_BEGIN,a.MILEAGE_END,a.MEMBER_LEVEL_ALLOWED,'' AS LABOUR_CODE,'' AS PART_CODE, A.ACTIVITY_PROPERTY   from( select distinct ");
-						sql.append("a.IS_REPEAT_ATTEND,a.IS_PART_ACTIVITY,A.ACTIVITY_KIND,A.PARTS_IS_MODIFY,a.DEALER_CODE, a.ACTIVITY_CODE, a.ACTIVITY_NAME, a.ACTIVITY_TYPE, a.BEGIN_DATE, a.END_DATE, a.RELEASE_DATE,  ");
-						sql.append("a.RELEASE_TAG, a.LABOUR_AMOUNT, a.ADD_ITEM_AMOUNT,a.FROM_ENTITY, a.DOWN_TAG, a.DOWN_TIMESTAMP, a.REPAIR_PART_AMOUNT, a.ACTIVITY_AMOUNT, a.IS_VALID,a.VER , ");
-						sql.append("coalesce(a.BRAND,'') as BRAND,a.IS_RECALL_ACTIVITY ,coalesce(a.SERIES,'') as SERIES,coalesce(a.MODEL,'') as MODEL,coalesce(a.MILEAGE_BEGIN,0) as MILEAGE_BEGIN,coalesce(a.MILEAGE_END,0) as MILEAGE_END, ");
-						sql.append("a.SALES_DATE_BEGIN,a.SALES_DATE_END,A.MEMBER_LEVEL_ALLOWED,A.MODEL_YEAR,A.MAINTAIN_BEGIN_DAY,A.MAINTAIN_END_DAY,A.CONFIG_CODE, A.ACTIVITY_PROPERTY,A.IS_CLAIM ");
-						sql.append("from ("+CommonConstants.VT_ACTIVITY+") A  where  a.DEALER_CODE=? and IS_PART_ACTIVITY= ? AND RELEASE_TAG = ?  AND IS_VALID =? ");
-			            sql.append(" AND ? BETWEEN BEGIN_DATE AND END_DATE  AND ( a.VEHICLE_PURPOSE is null OR a.VEHICLE_PURPOSE = 0");
-			            sql.append(" OR   EXISTS ( SELECT 1 FROM ("+CommonConstants.VM_VEHICLE+") v WHERE VIN = ? AND v.VEHICLE_PURPOSE = a.VEHICLE_PURPOSE ) ) ");
-			           
-			            sql.append(" and ( not exists (select 1 from ("+CommonConstants.VT_ACTIVITY_MODEL+")   b where a.DEALER_CODE = b.DEALER_CODE and a.activity_Code = b.activity_code ");
-			           	sql.append(" and b.DEALER_CODE=?) or exists (select 1 from TT_ACTIVITY_MODEL b,("+CommonConstants.VT_ACTIVITY+") A where a.entity_code = b.entity_code and  a.activity_Code = b.activity_code ");
-			           	sql.append("and b.DEALER_CODE=? and b.MODEL_CODE=? AND B.SERIES_CODE  = ?");
-			           	sql.append(" AND (? BETWEEN B.BEGIN_VIN AND B.END_VIN OR (B.BEGIN_VIN IS NULL AND B.END_VIN IS NULL) )" );
-			           	sql.append(" AND (CURRENT TIMESTAMP  BETWEEN B.MANUFACTURE_DATE_BEGIN AND B.MANUFACTURE_DATE_END OR (B.MANUFACTURE_DATE_BEGIN IS NULL AND B.MANUFACTURE_DATE_END IS NULL))  ))");
-	                       	
-			            sql.append(" and ( not exists (select 1 from ("+CommonConstants.VT_ACTIVITY_VEHICLE+") c where a.DEALER_CODE = c.DEALER_CODE and   a.activity_Code = c.activity_code ");
-			            sql.append(" and c.DEALER_CODE=?  or exists (select 1 from ("+CommonConstants.VT_ACTIVITY_VEHICLE+") c where a.DEALER_CODE = c.DEALER_CODE and  a.activity_Code = c.activity_code " );
-			            sql.append(" and c.DEALER_CODE=? and c.VIN = ?) )" );  
-			            
-			            sql.append(" and (A.MODEL_YEAR='' or A.MODEL_YEAR IS NULL OR EXISTS(SELECT 1 FROM ("+CommonConstants.VM_VEHICLE+") V WHERE VIN=? AND V.MODEL_YEAR=A.MODEL_YEAR)) "); 
-			            sql.append(" )a where ((BRAND ='' or BRAND=?)and( SERIES ='' or SERIES=? )and( CONFIG_CODE =''  OR CONFIG_CODE IS NULL  or CONFIG_CODE=?)and(MODEL ='' or MODEL=? ')) and (((MILEAGE_BEGIN  =0 and MILEAGE_END  =0) or ( ");
-		                if(Utility.testString(mileage)){
-		                  	sql.append(" MILEAGE_BEGIN<=" + mileage + " and MILEAGE_END>=" + mileage + " ");
-		                }else{
-		                  	sql.append(" 1=1 ");
-		                 }
-			            sql.append(" ))");
-			            sql.append(" and (((A.MAINTAIN_BEGIN_DAY IS NULL OR A.MAINTAIN_BEGIN_DAY=0.00) AND (A.MAINTAIN_END_DAY IS NULL OR A.MAINTAIN_END_DAY=0.00)) OR ");
-			            sql.append(" EXISTS(SELECT 1 FROM ("+CommonConstants.VM_VEHICLE+") V WHERE VIN=? AND V.SALES_DATE IS NOT NULL AND DAYS(CURRENT DATE)-DAYS(V.SALES_DATE)>=A.MAINTAIN_BEGIN_DAY AND DAYS(CURRENT DATE)-DAYS(V.SALES_DATE)<=A.MAINTAIN_END_DAY))) ");
-			            sql.append(" and(SALES_DATE_BEGIN is null or SALES_DATE_END is null ");
-			          	sql.append(" ?  ) and ( ( IS_REPEAT_ATTEND=?) or (not exists( select 1 from TT_REPAIR_ORDER AA");
-			         	sql.append(" left join TT_RO_LABOUR BB on AA.DEALER_CODE=BB.DEALER_CODE and AA.RO_NO=BB.RO_NO and BB.activity_code<>'' "    );                            
-			         	sql.append("  where bb.ACTIVITY_CODE=a.ACTIVITY_CODE  and AA.DEALER_CODE=? and VIN=? and IS_ACTIVITY =? UNION ALL ");
-			         	sql.append("select 1 from TT_REPAIR_ORDER  AA  left join TT_RO_REPAIR_PART BB on AA.DEALER_CODE=BB.DEALER_CODE and AA.RO_NO=BB.RO_NO and BB.activity_code<>'' ");
-			         	sql.append(" where bb.ACTIVITY_CODE=a.ACTIVITY_CODE and  AA.DEALER_CODE=? and VIN=?  and IS_ACTIVITY =?  UNION ALL");
-			         	sql.append(" select 1 from TT_REPAIR_ORDER  AA  left join TT_RO_ADD_ITEM BB on AA.DEALER_CODE=BB.DEALER_CODE and AA.RO_NO=BB.RO_NO and BB.activity_code<>'' ");
-			         	sql.append(" where bb.ACTIVITY_CODE=a.ACTIVITY_CODE and  AA.DEALER_CODE=?  and VIN=?  ) ) )");
-			         	sql.append(" and NOT EXISTS( select 1 from ("+CommonConstants.VT_ACTIVITY_RESULT+") WHERE VIN=? and activity_code=a.activity_code) ");
-						if(Utility.testString(cardTypeCode)){
-							sql.append(" and  ( (a.MEMBER_LEVEL_ALLOWED IS NOT NULL AND a.MEMBER_LEVEL_ALLOWED!='' AND a.MEMBER_LEVEL_ALLOWED LIKE '%"+cardTypeCode+"%' OR (a.MEMBER_LEVEL_ALLOWED IS NULL OR a.MEMBER_LEVEL_ALLOWED='') )  ");
-						}else{
-							sql.append(" and (a.MEMBER_LEVEL_ALLOWED IS NULL OR a.MEMBER_LEVEL_ALLOWED='') ");
-						}
-						if(Utility.testString(isRecallActivity)){
-			            	sql.append(" and a.IS_RECALL_ACTIVITY=?");
-			            }
-						SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
-						String currentDate=df.format(Utility.getCurrentDateTime());
-						List<Object> params1 = new ArrayList<Object>();
-						params1.add(dealerCode);
-						params1.add(DictCodeConstants.DICT_IS_NO);
-						params1.add(DictCodeConstants.DICT_ACTIVITY_RELEASE_TAG_RELEASED);
-						params1.add(DictCodeConstants.DICT_IS_YES);
-						params1.add(Utility.getTimeStamp(currentDate));
-						params1.add(vin);
-						params1.add(dealerCode);
-						params1.add(dealerCode);
-						params1.add(model);
-						params1.add(series);
-						params1.add(vinSix);
-						params1.add(dealerCode);
-						params1.add(dealerCode);
-						params1.add(vin);
-						params1.add(brand);
-						params1.add(series);
-						params1.add(configCode);
-						params1.add(model);
-						params1.add(vin);
-						params1.add(sqlSalesdate);
-						params1.add(DictCodeConstants.DICT_IS_YES);
-						params1.add(dealerCode);
-						params1.add(vin);
-						params1.add(DictCodeConstants.DICT_IS_YES);
-						params1.add(dealerCode);
-						params1.add(vin);
-						params1.add(DictCodeConstants.DICT_IS_YES);
-						params1.add(dealerCode);
-						params1.add(vin);
-						params1.add(vin);
-						params1.add(isRecallActivity);
-						list = DAOUtil.findAll(sql.toString(),params1);
-					}
-				}
-				//1、判断list中的服务活动中是否有活动车辆和活动车型，都没则该活动适用所有车；
-				//2、有活动车辆而建工单的车辆不属于该活动，则该车辆不适用这个活动；
-				//3、没有活动车辆，但有活动车型，则判断建工单的车的车型，车型，配置，vinsix是否满足该活动及当前时间是否在该活动车辆中的生产日期范围
-				//  是则适用，否则不适用。
-				List<Map> list1 = new ArrayList<Map>();
-				if(list!=null && list.size()>0){
-					for(int i=0; i<list.size(); i++){
-						List<Map> bean = (List<Map>) list.get(i);
-						String activityCode = (String) bean.get(0).get("ACTIVITY_CODE");
-					    String 	sqla = " and activity_code='"+activityCode+"' ";
-						List vehicleList = this.queryVehicleStyle(dealerCode, "("+CommonConstants.VT_ACTIVITY_VEHICLE+")", sqla);
-						List modelList = this.queryVehicleStyle( dealerCode, "("+CommonConstants.VT_ACTIVITY_MODEL+")", sqla);
-						//是否有活动车辆，有则：
-						if(vehicleList!=null && vehicleList.size()>0){
-							//判断车辆是否属于该活动车辆中
-							sqla = " and activity_code='"+activityCode+"' and vin='"+vin+"' ";
-							List flag = this.queryVehicleStyle( dealerCode, "("+CommonConstants.VT_ACTIVITY_VEHICLE+")" , sqla);
-							if(flag!=null && flag.size()>0){
-								list1.add((Map) bean);
-							}
-							//判断是否有活动车型，有则：
-						}else if(modelList!=null && modelList.size()>0){
-							//判断该车是否满足该活动的车型 
-							sqla = " and activity_code='"+activityCode+"' and MODEL_CODE='"+model+"' AND SERIES_CODE ='"+series+"' " +
-							" AND '"+vinSix+"' BETWEEN value(BEGIN_VIN,'000000') AND VALUE(END_VIN,'999999')  ";
-							List listModel = this.queryVehicleStyle( dealerCode,"("+CommonConstants.VT_ACTIVITY_MODEL+")" ,sqla);
-							if(listModel!=null && listModel.size()>0){
-								list1.add((Map) bean);
-							}
-						}else{
-							list1.add((Map) bean);
-						}
-					}
-				}
-				return list1;
-			}
-
-			private List queryVehicleStyle(String dealerCode, String tableName, String sqla) {
-				StringBuffer sql = new StringBuffer();
-				sql.append("SELECT 1 FROM ? WHERE DEALER_CODE = ?and D_Key= ?");
-				sql.append(sqla);
-				sql.append(" fetch first 1 rows onlyf ");
-				List<Object> params = new ArrayList<Object>();
-				params.add(tableName);
-				params.add(dealerCode);
-				params.add(DictCodeConstants.D_KEY);
-				return DAOUtil.findAll(sql.toString(), params);
-			}
-			
-			
-			/**
-			 * 查询参于活动的记录
-			 * 
-			 * @param conn
-			 * @param entityCode
-			 * @param VIN
-			 */
-			@Override
-			public PageInfoDto queryActivityResult(Map<String, String> queryParam) throws Exception {
-				StringBuffer sql = new StringBuffer();
-				sql.append( "select aa.ACTIVITY_CODE,AA.ACTIVITY_NAME,AA.VIN,AA.DEALER_NAME,AA.DEALER_CODE,AA.CAMPAIGN_DATE  from   ("+CommonConstants.VT_ACTIVITY_RESULT+") AA where AA.DEALER_CODE=? and AA.VIN=?" );
-				
-				String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
-				List<Object> params = new ArrayList<Object>();
-				params.add(dealerCode);
-				params.add(queryParam.get("vin"));
-				PageInfoDto pageInfoDto = DAOUtil.pageQuery(sql.toString(), params);
-				return pageInfoDto;
-			}
-			
-			
-			/**
-			 * 根据车牌号或者VIN，查询出出险信息，用于开工单时，选择出险信息
-			 * @param conn
-			 * @param entityCode
-			 * @param occurInsuranceNo
-			 * @return
-			 * @throws Exception
-			 */
-			@Override
-			public PageInfoDto QueryOccurInsuranceByLicenseOrVin(Map<String, String> queryParam) throws Exception {
-				List<Object> params = new ArrayList<Object>();
-				StringBuffer sql = new StringBuffer();
-				sql.append(" select A.* from TT_OCCUR_INSURANCE_REGISTER A where A.DEALER_CODE=? ");
-				sql.append(" and A.VIN=?");     //需求变了 要都查出来，已关联工单的是默认勾上
-				String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
-				params.add(dealerCode);
-				params.add(queryParam.get("vin"));
-				if((!StringUtils.isNullOrEmpty(queryParam.get("RONO")))){
-					sql.append(" and (A.RO_NO=? or A.ro_no is null or a.ro_no='' )");
-					params.add(queryParam.get("RONO"));
+				sql.append(" and (A.MODEL_YEAR='' or A.MODEL_YEAR IS NULL OR EXISTS(SELECT 1 FROM ("
+						+ CommonConstants.VM_VEHICLE + ") V WHERE VIN=? AND V.MODEL_YEAR=A.MODEL_YEAR)) ");
+				sql.append(
+						" )a where ((BRAND ='' or BRAND=?)and( SERIES ='' or SERIES=? )and( CONFIG_CODE =''  OR CONFIG_CODE IS NULL  or CONFIG_CODE=?)and(MODEL ='' or MODEL=? )) and (((MILEAGE_BEGIN  =0 and MILEAGE_END  =0) or ( ");
+				if (Utility.testString(mileage)) {
+					sql.append(" MILEAGE_BEGIN<=" + mileage + " and MILEAGE_END>=" + mileage + " ");
 				} else {
-					sql.append(" and (A.ro_no is null or a.ro_no='' )");
+					sql.append(" 1=1 ");
 				}
-		
-				PageInfoDto pageInfoDto = DAOUtil.pageQuery(sql.toString(), params);
-				return pageInfoDto;
+				sql.append(" ))");
+				sql.append(
+						" and (((A.MAINTAIN_BEGIN_DAY IS NULL OR A.MAINTAIN_BEGIN_DAY=0.00) AND (A.MAINTAIN_END_DAY IS NULL OR A.MAINTAIN_END_DAY=0.00)) OR ");
+				sql.append(" EXISTS(SELECT 1 FROM (" + CommonConstants.VM_VEHICLE
+						+ ") V WHERE VIN=? AND V.SALES_DATE IS NOT NULL AND DAYS(CURRENT DATE)-DAYS(V.SALES_DATE)>=A.MAINTAIN_BEGIN_DAY AND DAYS(CURRENT DATE)-DAYS(V.SALES_DATE)<=A.MAINTAIN_END_DAY))) ");
+				sql.append(" and(SALES_DATE_BEGIN is null or SALES_DATE_END is null ");
+				sql.append(" ?  ) and ( ( IS_REPEAT_ATTEND=?) or (not exists( select 1 from TT_REPAIR_ORDER AA");
+				sql.append(
+						" left join TT_RO_LABOUR BB on AA.DEALER_CODE=BB.DEALER_CODE and AA.RO_NO=BB.RO_NO and BB.activity_code<>'' ");
+				sql.append(
+						"  where bb.ACTIVITY_CODE=a.ACTIVITY_CODE  and AA.DEALER_CODE=? and VIN=? and IS_ACTIVITY =? UNION ALL ");
+				sql.append(
+						"select 1 from TT_REPAIR_ORDER  AA  left join TT_RO_REPAIR_PART BB on AA.DEALER_CODE=BB.DEALER_CODE and AA.RO_NO=BB.RO_NO and BB.activity_code<>'' ");
+				sql.append(
+						" where bb.ACTIVITY_CODE=a.ACTIVITY_CODE and  AA.DEALER_CODE=? and VIN=?  and IS_ACTIVITY =?  UNION ALL");
+				sql.append(
+						" select 1 from TT_REPAIR_ORDER  AA  left join TT_RO_ADD_ITEM BB on AA.DEALER_CODE=BB.DEALER_CODE and AA.RO_NO=BB.RO_NO and BB.activity_code<>'' ");
+				sql.append(" where bb.ACTIVITY_CODE=a.ACTIVITY_CODE and  AA.DEALER_CODE=?  and VIN=?  ) ) )");
+				sql.append(" and NOT EXISTS( select 1 from (" + CommonConstants.VT_ACTIVITY_RESULT
+						+ ") WHERE VIN=? and activity_code=a.activity_code) ");
+				if (Utility.testString(cardTypeCode)) {
+					sql.append(
+							" and  ( (a.MEMBER_LEVEL_ALLOWED IS NOT NULL AND a.MEMBER_LEVEL_ALLOWED!='' AND a.MEMBER_LEVEL_ALLOWED LIKE '%"
+									+ cardTypeCode
+									+ "%' OR (a.MEMBER_LEVEL_ALLOWED IS NULL OR a.MEMBER_LEVEL_ALLOWED='') )  ");
+				} else {
+					sql.append(" and (a.MEMBER_LEVEL_ALLOWED IS NULL OR a.MEMBER_LEVEL_ALLOWED='') ");
+				}
+				if (Utility.testString(isRecallActivity)) {
+					sql.append(" and a.IS_RECALL_ACTIVITY=?");
+				}
+				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+				String currentDate = df.format(Utility.getCurrentDateTime());
+				List<Object> params1 = new ArrayList<Object>();
+				params1.add(dealerCode);
+				params1.add(DictCodeConstants.DICT_IS_NO);
+				params1.add(DictCodeConstants.DICT_ACTIVITY_RELEASE_TAG_RELEASED);
+				params1.add(DictCodeConstants.DICT_IS_YES);
+				params1.add(Utility.getTimeStamp(currentDate));
+				params1.add(vin);
+				params1.add(dealerCode);
+				params1.add(dealerCode);
+				params1.add(model);
+				params1.add(series);
+				params1.add(vinSix);
+				params.add(brand);
+				params1.add(series);
+				params1.add(configCode);
+				params1.add(model);
+				params1.add(vin);
+				params1.add(sqlSalesdate);
+				params1.add(DictCodeConstants.DICT_IS_YES);
+				params1.add(dealerCode);
+				params1.add(vin);
+				params1.add(DictCodeConstants.DICT_IS_YES);
+				params1.add(dealerCode);
+				params1.add(vin);
+				params1.add(DictCodeConstants.DICT_IS_YES);
+				params1.add(dealerCode);
+				params1.add(vin);
+				params1.add(vin);
+				params1.add(isRecallActivity);
+				list = DAOUtil.findAll(sql.toString(), params1);
+			} else {
+				StringBuffer sql2 = new StringBuffer();
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				String sqlSalesdate = "";
+				if (salesdate != null && !salesdate.equals("")) {
+					Date date = formatter.parse(salesdate);
+					String dateString = formatter.format(date);
+					sqlSalesdate = " or (SALES_DATE_BEGIN<='" + dateString + " 00:00:00' and SALES_DATE_END>='"
+							+ dateString + " 00:00:00') ";
+				}
+				sql.append("select a.IS_CLAIM,");
+				sql.append(
+						" a.IS_REPEAT_ATTEND,a.IS_PART_ACTIVITY,A.ACTIVITY_KIND,A.PARTS_IS_MODIFY,a.IS_RECALL_ACTIVITY,a.DEALER_CODE, a.ACTIVITY_CODE, a.ACTIVITY_NAME, a.ACTIVITY_TYPE, a.BEGIN_DATE, a.END_DATE, a.RELEASE_DATE,  ");
+				sql.append(
+						"a.RELEASE_TAG, a.LABOUR_AMOUNT, a.ADD_ITEM_AMOUNT,a.FROM_ENTITY, a.DOWN_TAG, a.DOWN_TIMESTAMP, a.REPAIR_PART_AMOUNT, a.ACTIVITY_AMOUNT, a.IS_VALID,a.VER , ");
+				sql.append(
+						"a.BRAND,a.SERIES,a.MODEL,a.MILEAGE_BEGIN,a.MILEAGE_END,a.MEMBER_LEVEL_ALLOWED,'' AS LABOUR_CODE,'' AS PART_CODE, A.ACTIVITY_PROPERTY   from( select distinct ");
+				sql.append(
+						"a.IS_REPEAT_ATTEND,a.IS_PART_ACTIVITY,A.ACTIVITY_KIND,A.PARTS_IS_MODIFY,a.DEALER_CODE, a.ACTIVITY_CODE, a.ACTIVITY_NAME, a.ACTIVITY_TYPE, a.BEGIN_DATE, a.END_DATE, a.RELEASE_DATE,  ");
+				sql.append(
+						"a.RELEASE_TAG, a.LABOUR_AMOUNT, a.ADD_ITEM_AMOUNT,a.FROM_ENTITY, a.DOWN_TAG, a.DOWN_TIMESTAMP, a.REPAIR_PART_AMOUNT, a.ACTIVITY_AMOUNT, a.IS_VALID,a.VER , ");
+				sql.append(
+						"coalesce(a.BRAND,'') as BRAND,a.IS_RECALL_ACTIVITY ,coalesce(a.SERIES,'') as SERIES,coalesce(a.MODEL,'') as MODEL,coalesce(a.MILEAGE_BEGIN,0) as MILEAGE_BEGIN,coalesce(a.MILEAGE_END,0) as MILEAGE_END, ");
+				sql.append(
+						"a.SALES_DATE_BEGIN,a.SALES_DATE_END,A.MEMBER_LEVEL_ALLOWED,A.MODEL_YEAR,A.MAINTAIN_BEGIN_DAY,A.MAINTAIN_END_DAY,A.CONFIG_CODE, A.ACTIVITY_PROPERTY,A.IS_CLAIM ");
+				sql.append("from (" + CommonConstants.VT_ACTIVITY
+						+ ") A  where  a.DEALER_CODE=? and IS_PART_ACTIVITY= ? AND RELEASE_TAG = ?  AND IS_VALID =? ");
+				sql.append(
+						" AND ? BETWEEN BEGIN_DATE AND END_DATE  AND ( a.VEHICLE_PURPOSE is null OR a.VEHICLE_PURPOSE = 0");
+				sql.append(" OR   EXISTS ( SELECT 1 FROM (" + CommonConstants.VM_VEHICLE
+						+ ") v WHERE VIN = ? AND v.VEHICLE_PURPOSE = a.VEHICLE_PURPOSE ) ) ");
+
+				sql.append(" and ( not exists (select 1 from (" + CommonConstants.VT_ACTIVITY_MODEL
+						+ ")   b where a.DEALER_CODE = b.DEALER_CODE and a.activity_Code = b.activity_code ");
+				sql.append(" and b.DEALER_CODE=?) or exists (select 1 from TT_ACTIVITY_MODEL b,("
+						+ CommonConstants.VT_ACTIVITY
+						+ ") A where a.entity_code = b.entity_code and  a.activity_Code = b.activity_code ");
+				sql.append("and b.DEALER_CODE=? and b.MODEL_CODE=? AND B.SERIES_CODE  = ?");
+				sql.append(
+						" AND (? BETWEEN B.BEGIN_VIN AND B.END_VIN OR (B.BEGIN_VIN IS NULL AND B.END_VIN IS NULL) )");
+				sql.append(
+						" AND (CURRENT TIMESTAMP  BETWEEN B.MANUFACTURE_DATE_BEGIN AND B.MANUFACTURE_DATE_END OR (B.MANUFACTURE_DATE_BEGIN IS NULL AND B.MANUFACTURE_DATE_END IS NULL))  ))");
+
+				sql.append(" and ( not exists (select 1 from (" + CommonConstants.VT_ACTIVITY_VEHICLE
+						+ ") c where a.DEALER_CODE = c.DEALER_CODE and   a.activity_Code = c.activity_code ");
+				sql.append(" and c.DEALER_CODE=?  or exists (select 1 from (" + CommonConstants.VT_ACTIVITY_VEHICLE
+						+ ") c where a.DEALER_CODE = c.DEALER_CODE and  a.activity_Code = c.activity_code ");
+				sql.append(" and c.DEALER_CODE=? and c.VIN = ?) )");
+
+				sql.append(" and (A.MODEL_YEAR='' or A.MODEL_YEAR IS NULL OR EXISTS(SELECT 1 FROM ("
+						+ CommonConstants.VM_VEHICLE + ") V WHERE VIN=? AND V.MODEL_YEAR=A.MODEL_YEAR)) ");
+				sql.append(
+						" )a where ((BRAND ='' or BRAND=?)and( SERIES ='' or SERIES=? )and( CONFIG_CODE =''  OR CONFIG_CODE IS NULL  or CONFIG_CODE=?)and(MODEL ='' or MODEL=? ')) and (((MILEAGE_BEGIN  =0 and MILEAGE_END  =0) or ( ");
+				if (Utility.testString(mileage)) {
+					sql.append(" MILEAGE_BEGIN<=" + mileage + " and MILEAGE_END>=" + mileage + " ");
+				} else {
+					sql.append(" 1=1 ");
+				}
+				sql.append(" ))");
+				sql.append(
+						" and (((A.MAINTAIN_BEGIN_DAY IS NULL OR A.MAINTAIN_BEGIN_DAY=0.00) AND (A.MAINTAIN_END_DAY IS NULL OR A.MAINTAIN_END_DAY=0.00)) OR ");
+				sql.append(" EXISTS(SELECT 1 FROM (" + CommonConstants.VM_VEHICLE
+						+ ") V WHERE VIN=? AND V.SALES_DATE IS NOT NULL AND DAYS(CURRENT DATE)-DAYS(V.SALES_DATE)>=A.MAINTAIN_BEGIN_DAY AND DAYS(CURRENT DATE)-DAYS(V.SALES_DATE)<=A.MAINTAIN_END_DAY))) ");
+				sql.append(" and(SALES_DATE_BEGIN is null or SALES_DATE_END is null ");
+				sql.append(" ?  ) and ( ( IS_REPEAT_ATTEND=?) or (not exists( select 1 from TT_REPAIR_ORDER AA");
+				sql.append(
+						" left join TT_RO_LABOUR BB on AA.DEALER_CODE=BB.DEALER_CODE and AA.RO_NO=BB.RO_NO and BB.activity_code<>'' ");
+				sql.append(
+						"  where bb.ACTIVITY_CODE=a.ACTIVITY_CODE  and AA.DEALER_CODE=? and VIN=? and IS_ACTIVITY =? UNION ALL ");
+				sql.append(
+						"select 1 from TT_REPAIR_ORDER  AA  left join TT_RO_REPAIR_PART BB on AA.DEALER_CODE=BB.DEALER_CODE and AA.RO_NO=BB.RO_NO and BB.activity_code<>'' ");
+				sql.append(
+						" where bb.ACTIVITY_CODE=a.ACTIVITY_CODE and  AA.DEALER_CODE=? and VIN=?  and IS_ACTIVITY =?  UNION ALL");
+				sql.append(
+						" select 1 from TT_REPAIR_ORDER  AA  left join TT_RO_ADD_ITEM BB on AA.DEALER_CODE=BB.DEALER_CODE and AA.RO_NO=BB.RO_NO and BB.activity_code<>'' ");
+				sql.append(" where bb.ACTIVITY_CODE=a.ACTIVITY_CODE and  AA.DEALER_CODE=?  and VIN=?  ) ) )");
+				sql.append(" and NOT EXISTS( select 1 from (" + CommonConstants.VT_ACTIVITY_RESULT
+						+ ") WHERE VIN=? and activity_code=a.activity_code) ");
+				if (Utility.testString(cardTypeCode)) {
+					sql.append(
+							" and  ( (a.MEMBER_LEVEL_ALLOWED IS NOT NULL AND a.MEMBER_LEVEL_ALLOWED!='' AND a.MEMBER_LEVEL_ALLOWED LIKE '%"
+									+ cardTypeCode
+									+ "%' OR (a.MEMBER_LEVEL_ALLOWED IS NULL OR a.MEMBER_LEVEL_ALLOWED='') )  ");
+				} else {
+					sql.append(" and (a.MEMBER_LEVEL_ALLOWED IS NULL OR a.MEMBER_LEVEL_ALLOWED='') ");
+				}
+				if (Utility.testString(isRecallActivity)) {
+					sql.append(" and a.IS_RECALL_ACTIVITY=?");
+				}
+				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+				String currentDate = df.format(Utility.getCurrentDateTime());
+				List<Object> params1 = new ArrayList<Object>();
+				params1.add(dealerCode);
+				params1.add(DictCodeConstants.DICT_IS_NO);
+				params1.add(DictCodeConstants.DICT_ACTIVITY_RELEASE_TAG_RELEASED);
+				params1.add(DictCodeConstants.DICT_IS_YES);
+				params1.add(Utility.getTimeStamp(currentDate));
+				params1.add(vin);
+				params1.add(dealerCode);
+				params1.add(dealerCode);
+				params1.add(model);
+				params1.add(series);
+				params1.add(vinSix);
+				params1.add(dealerCode);
+				params1.add(dealerCode);
+				params1.add(vin);
+				params1.add(brand);
+				params1.add(series);
+				params1.add(configCode);
+				params1.add(model);
+				params1.add(vin);
+				params1.add(sqlSalesdate);
+				params1.add(DictCodeConstants.DICT_IS_YES);
+				params1.add(dealerCode);
+				params1.add(vin);
+				params1.add(DictCodeConstants.DICT_IS_YES);
+				params1.add(dealerCode);
+				params1.add(vin);
+				params1.add(DictCodeConstants.DICT_IS_YES);
+				params1.add(dealerCode);
+				params1.add(vin);
+				params1.add(vin);
+				params1.add(isRecallActivity);
+				list = DAOUtil.findAll(sql.toString(), params1);
 			}
-			
-	
-	
-	
+		}
+		// 1、判断list中的服务活动中是否有活动车辆和活动车型，都没则该活动适用所有车；
+		// 2、有活动车辆而建工单的车辆不属于该活动，则该车辆不适用这个活动；
+		// 3、没有活动车辆，但有活动车型，则判断建工单的车的车型，车型，配置，vinsix是否满足该活动及当前时间是否在该活动车辆中的生产日期范围
+		// 是则适用，否则不适用。
+		List<Map> list1 = new ArrayList<Map>();
+		if (list != null && list.size() > 0) {
+			for (int i = 0; i < list.size(); i++) {
+				List<Map> bean = (List<Map>) list.get(i);
+				String activityCode = (String) bean.get(0).get("ACTIVITY_CODE");
+				String sqla = " and activity_code='" + activityCode + "' ";
+				List vehicleList = this.queryVehicleStyle(dealerCode, "(" + CommonConstants.VT_ACTIVITY_VEHICLE + ")",
+						sqla);
+				List modelList = this.queryVehicleStyle(dealerCode, "(" + CommonConstants.VT_ACTIVITY_MODEL + ")",
+						sqla);
+				// 是否有活动车辆，有则：
+				if (vehicleList != null && vehicleList.size() > 0) {
+					// 判断车辆是否属于该活动车辆中
+					sqla = " and activity_code='" + activityCode + "' and vin='" + vin + "' ";
+					List flag = this.queryVehicleStyle(dealerCode, "(" + CommonConstants.VT_ACTIVITY_VEHICLE + ")",
+							sqla);
+					if (flag != null && flag.size() > 0) {
+						list1.add((Map) bean);
+					}
+					// 判断是否有活动车型，有则：
+				} else if (modelList != null && modelList.size() > 0) {
+					// 判断该车是否满足该活动的车型
+					sqla = " and activity_code='" + activityCode + "' and MODEL_CODE='" + model + "' AND SERIES_CODE ='"
+							+ series + "' " + " AND '" + vinSix
+							+ "' BETWEEN value(BEGIN_VIN,'000000') AND VALUE(END_VIN,'999999')  ";
+					List listModel = this.queryVehicleStyle(dealerCode, "(" + CommonConstants.VT_ACTIVITY_MODEL + ")",
+							sqla);
+					if (listModel != null && listModel.size() > 0) {
+						list1.add((Map) bean);
+					}
+				} else {
+					list1.add((Map) bean);
+				}
+			}
+		}
+		return list1;
+	}
+
+	private List queryVehicleStyle(String dealerCode, String tableName, String sqla) {
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT 1 FROM ? WHERE DEALER_CODE = ?and D_Key= ?");
+		sql.append(sqla);
+		sql.append(" fetch first 1 rows onlyf ");
+		List<Object> params = new ArrayList<Object>();
+		params.add(tableName);
+		params.add(dealerCode);
+		params.add(DictCodeConstants.D_KEY);
+		return DAOUtil.findAll(sql.toString(), params);
+	}
+
+	/**
+	 * 查询参于活动的记录
+	 * 
+	 * @param conn
+	 * @param entityCode
+	 * @param VIN
+	 */
+	@Override
+	public PageInfoDto queryActivityResult(Map<String, String> queryParam) throws Exception {
+		StringBuffer sql = new StringBuffer();
+		sql.append(
+				"select aa.ACTIVITY_CODE,AA.ACTIVITY_NAME,AA.VIN,AA.DEALER_NAME,AA.DEALER_CODE,AA.CAMPAIGN_DATE  from   ("
+						+ CommonConstants.VT_ACTIVITY_RESULT + ") AA where AA.DEALER_CODE=? and AA.VIN=?");
+
+		String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
+		List<Object> params = new ArrayList<Object>();
+		params.add(dealerCode);
+		params.add(queryParam.get("vin"));
+		PageInfoDto pageInfoDto = DAOUtil.pageQuery(sql.toString(), params);
+		return pageInfoDto;
+	}
+
+	/**
+	 * 根据车牌号或者VIN，查询出出险信息，用于开工单时，选择出险信息
+	 * 
+	 * @param conn
+	 * @param entityCode
+	 * @param occurInsuranceNo
+	 * @return
+	 * @throws Exception
+	 */
+	@Override
+	public PageInfoDto QueryOccurInsuranceByLicenseOrVin(Map<String, String> queryParam) throws Exception {
+		List<Object> params = new ArrayList<Object>();
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select A.* from TT_OCCUR_INSURANCE_REGISTER A where A.DEALER_CODE=? ");
+		sql.append(" and A.VIN=?"); // 需求变了 要都查出来，已关联工单的是默认勾上
+		String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
+		params.add(dealerCode);
+		params.add(queryParam.get("vin"));
+		if ((!StringUtils.isNullOrEmpty(queryParam.get("RONO")))) {
+			sql.append(" and (A.RO_NO=? or A.ro_no is null or a.ro_no='' )");
+			params.add(queryParam.get("RONO"));
+		} else {
+			sql.append(" and (A.ro_no is null or a.ro_no='' )");
+		}
+
+		PageInfoDto pageInfoDto = DAOUtil.pageQuery(sql.toString(), params);
+		return pageInfoDto;
+	}
+
+	@Override
+	public List<Map> queryVinByVin(Map<String, String> query) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("SELECT A.*,B.OWNER_NAME,B.OWNER_PROPERTY,C.MEMO_INFO ").append(" FROM VM_VEHICLE A")
+				.append(" LEFT JOIN VM_OWNER B ON A.DEALER_CODE = B. DEALER_CODE AND A.OWNER_NO = B.OWNER_NO ")
+				.append(" LEFT JOIN TM_VEHICLE_MEMO C ON C.DEALER_CODE = A.DEALER_CODE AND C.VIN = A.VIN")
+				.append(" WHERE A.VIN = '").append(query.get("vin")).append("' AND A.DEALER_CODE = '")
+				.append(FrameworkUtil.getLoginInfo().getDealerCode()).append("' ");
+		List<Map> findAll = DAOUtil.findAll(sb.toString(), null);
+		String vipNo = null;
+		String insuranceBillNo = null;
+		String zipCode = null;
+		List<Map> result = new ArrayList<Map>();
+		for (Map db : findAll) {
+			vipNo = db.get("VIP_NO")==null?"":db.get("VIP_NO").toString();
+			db.put("VIP_NO", vipNo);
+			insuranceBillNo = db.get("INSURANCE_BILL_NO")==null?"":db.get("INSURANCE_BILL_NO").toString();
+			db.put("INSURANCE_BILL_NO", insuranceBillNo);
+			zipCode = db.get("ZIP_CODE")==null?"":db.get("ZIP_CODE").toString();
+			db.put("ZIP_CODE", zipCode);
+			result.add(db);
+		}
+		return result;
+	}
 
 }

@@ -3,7 +3,7 @@
  <div class="panel panel-default">
   <div class="panel-body">
 	<div class="row" >
-	     <div class="col-xs-12 col-sm-6 col-md-4 " data-tableSelect="true">
+	     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 " data-tableSelect="true">
 						<div class="form-group">
 								<label class="control-label col-xs-4">选择经销商</label>
 								<div class="col-xs-8">
@@ -25,7 +25,7 @@
 								</div>
 							</div>
 					</div>	
-	  				<div class="col-xs-12 col-sm-6 col-md-4 " >
+	  				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 " >
 							<div class="form-group">
 								<label class="control-label col-xs-4">销售大区</label>
 								<div class="col-xs-8">
@@ -39,7 +39,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
 							<div class="form-group">
 								<label class="control-label col-xs-4">销售小区</label>
 								<div class="col-xs-8">
@@ -54,7 +54,7 @@
 							</div>
 						</div>
     
-		      <div class="col-xs-12 col-sm-6 col-md-4 ">
+		      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
 		         <div class="form-group">
 		             <label class="control-label col-xs-4">商务政策名称</label>
 		                 <div class="col-xs-8">
@@ -68,7 +68,7 @@
 		         </div>
 		     </div>
      
-      			<div class="col-xs-12 col-sm-6 col-md-4 ">
+      			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
 			         <div class="form-group">
 			             <label class="control-label col-xs-4">商务政策类型</label>
 			             <div class="col-xs-8">
@@ -79,10 +79,10 @@
 			         </div>
 			      </div> 
      
-			        <div class="col-xs-12 col-sm-6 col-md-4 ">
+			        <div class="ccol-xs-12 col-sm-6 col-md-4 col-lg-3 ">
 						<div class="form-group">
-							<label class="control-label col-xs-4 ">政策适用日期</label>
-							<div class="col-xs-8 ">
+							<label class="control-label col-xs-12 col-sm-4 ">政策适用日期</label>
+							<div class="col-xs-6 col-xs-8 ">
 								 <div class="input-group input-daterange" data-maxDays = "30" data-opens="right">
 		                             <input type="text" class="form-control" readonly  name="beginDate">
 		                             <span class="input-group-addon">-</span>
@@ -142,6 +142,11 @@
 			sortName : "t.LOG_ID  ", 
 			sortOrder : "asc",		
 			columns:[
+					    {field : "LOG_ID",title : "操作",operateFormat : [
+		                   /*  {type:"edit",title : "明细",url:"retail/rebate/sum/rebCalSumDetail.html",openType:"jump"},
+		                    {type:"edit",title : "明细下载",url:"retail/rebate/sum/rebCalSumDetailDownLoad.html",openType:"jump",operateIcon:'<i class="fa fa-download"></i>',title:"明细下载"}, */
+		                    {type:"detail",url:"retail/rebate/sum/rebCalSumDetail.html",openType:"jump"}]
+					    },
                         {field:"BUSINESS_POLICY_NAME",title:"商务政策"},
 						{field:"BUSINESS_POLICY_TYPE",title:"商务政策类型"},
 						{field:"APPLICABLE_TIME",title:"适用时段"},
@@ -154,11 +159,8 @@
 						{field:"SPECIAL_BONUS",title:"特批奖金"},	
 						{field:"BACK_BONUSES_EST",title:"追溯奖金（估算）"},
 						{field:"BACK_BONUSES_DOWN",title:"追溯奖金（下发）"},
-						{field:"NEW_INCENTIVES",title:"新经销商返利"},
-						{field : "LOG_ID",title : "操作",operateFormat : [
-                               {type:"edit",title : "明细",url:"retail/rebate/sum/rebCalSumDetail.html",openType:"jump"},
-                               {type:"edit",title : "明细下载",url:"retail/rebate/sum/rebCalSumDetailDownLoad.html",openType:"jump",operateIcon:'<i class="fa fa-download"></i>',title:"明细下载"},
-                         ]}
+						{field:"NEW_INCENTIVES",title:"新经销商返利"}
+						
 					  ]			
 		});	
 	   

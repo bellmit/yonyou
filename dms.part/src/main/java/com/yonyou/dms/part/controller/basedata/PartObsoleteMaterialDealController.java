@@ -1,5 +1,6 @@
 package com.yonyou.dms.part.controller.basedata;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -80,8 +81,16 @@ public class PartObsoleteMaterialDealController extends BaseController{
 		if(applyId!=null){
 			TtObsoleteMaterialApplyDcsPO maPO = TtObsoleteMaterialApplyDcsPO.findById(Long.parseLong(applyId));
 			String OUT_WAREHOUS_NO="O"+formatter.format(currentTime_1)+applyId.substring(applyId.length()-5,applyId.length());//生成出库单号
+			SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			maPO.setInteger("STATUS",OemDictCodeConstants.PART_OBSOLETE_APPLY_STATUS_02);
-			maPO.setDate("AFFIRM_DATE",new Date());
+			long time= System.currentTimeMillis();
+			try {
+				Date date = sdf.parse(sdf.format(new Date(time)));
+				java.sql.Timestamp st = new java.sql.Timestamp(date.getTime());
+				maPO.setTimestamp("AFFIRM_DATE",st);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			} 
 			maPO.setString("OUT_WAREHOUS_NO",OUT_WAREHOUS_NO);
 			//调用配件调拨出库单下发接口
 			//SEDMS066 se=new SEDMS066();
@@ -116,7 +125,15 @@ public class PartObsoleteMaterialDealController extends BaseController{
 		if(applyId!=null && applyId!=""){
 			TtObsoleteMaterialApplyDcsPO maPO = TtObsoleteMaterialApplyDcsPO.findById(Long.parseLong(applyId));
 			maPO.setInteger("STATUS",OemDictCodeConstants.PART_OBSOLETE_APPLY_STATUS_05);
-			maPO.setDate("REJECT_DATE",new Date());
+			SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			long time= System.currentTimeMillis();
+			try {
+				Date date = sdf.parse(sdf.format(new Date(time)));
+				java.sql.Timestamp st = new java.sql.Timestamp(date.getTime());
+				maPO.setTimestamp("REJECT_DATE",st);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			} 
 			flag = maPO.saveIt();
 			if(flag){			
 			}else{

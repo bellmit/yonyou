@@ -165,14 +165,17 @@ public class ClaimStatusSearchDealerDao extends OemBaseDAO{
 
 	}
 	/**
-	 * 
+	 * 索赔状态查询
 	 * @param queryParam
 	 * @return
 	 */
-	public List<Map> getQueryClaimTypeList() {
+	public List<Map> getQueryClaimTypeList(Integer type) {
 		List<Object> params = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer("\n");
-		sql.append("  SELECT * FROM TT_WR_CLAIMTYPE_DCS   \n");
+		sql.append("  SELECT * FROM TT_WR_CLAIMTYPE_DCS  WHERE 1=1 \n");
+		if(type == 1){
+			sql.append(" AND CLAIM_TYPE_CODE = 'G'	\n");
+		}
 		List<Map> resultList = OemDAOUtil.findAll(sql.toString(), params);
 		return resultList;
 

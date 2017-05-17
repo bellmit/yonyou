@@ -46,13 +46,15 @@ public class TcBankServiceImpl implements TcBankService{
 	}
 
 	@Override
-	public void doSendEach(Long id,String dealerCode) throws ServiceBizException {
+	public int doSendEach(Long id,String dealerCode) throws ServiceBizException {
+		int msg = 1;
 		try {
 			// 调用下发接口 Start //接口为完成，作者:王鑫
-			osc.sendData(id,dealerCode);
+			msg = osc.sendData(id,dealerCode);
 		} catch (Exception e) {
-			logger.error(e.toString());
+			throw new ServiceBizException("下发异常，请联系管理员");
 		}
+		return msg;
 	}
 
 	@Override

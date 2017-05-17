@@ -1,8 +1,6 @@
 package com.yonyou.dms.retail.dao.basedata;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -18,13 +16,9 @@ import com.yonyou.dms.framework.DAO.PageInfoDto;
 import com.yonyou.dms.framework.domain.LoginInfoDto;
 import com.yonyou.dms.framework.util.bean.ApplicationContextHelper;
 import com.yonyou.dms.function.common.OemDictCodeConstants;
-import com.yonyou.dms.function.domains.DTO.ImportResultDto;
 import com.yonyou.dms.function.exception.ServiceBizException;
-import com.yonyou.dms.function.utils.common.CommonUtils;
 import com.yonyou.dms.function.utils.common.StringUtils;
-import com.yonyou.dms.retail.domains.DTO.basedata.TmRetailDiscountBankImportDTO;
 import com.yonyou.dms.retail.domains.DTO.basedata.TmRetailDiscountBankImportTempDTO;
-import com.yonyou.dms.retail.domains.PO.basedata.TmRetailDiscountBankImportPO;
 import com.yonyou.dms.retail.domains.PO.basedata.TmRetailDiscountBankImportTempPO;
 
 /**
@@ -390,7 +384,7 @@ public class RetailBankDao extends OemBaseDAO {
 		List<Object> queryParam = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();
 		sql.append(
-				"  SELECT GROUP_CONCAT(T.ROW_NO SEPARATOR ',') AS SAME_DATA, T.DEALER_CODE,T.VIN,T.BANK,T.CUSTOMER,T.APPLY_DATE   , COUNT(1) flag  \n");
+				"  SELECT GROUP_CONCAT((T.ROW_NO+1) SEPARATOR ',') AS SAME_DATA, T.DEALER_CODE,T.VIN,T.BANK,T.CUSTOMER,T.APPLY_DATE   , COUNT(1) flag  \n");
 		sql.append("  from TM_RETAIL_DISCOUNT_BANK_IMPORT_TEMP T \n");
 		sql.append("  group by T.DEALER_CODE,T.VIN,T.BANK,T.CUSTOMER,T.APPLY_DATE ");
 		sql.append("  having count(*) > 1 \n");

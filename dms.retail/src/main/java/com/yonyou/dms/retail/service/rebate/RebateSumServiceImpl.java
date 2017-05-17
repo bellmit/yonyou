@@ -41,7 +41,16 @@ public class RebateSumServiceImpl implements RebateSumService{
 	public PageInfoDto getRebateSum(Map<String, String> queryParam) {
 		return dao.findRebateSum(queryParam);
 	}
-
+	
+	/**
+	 * 经销商端查询
+	 */
+	@Override
+	public PageInfoDto getRebateSum1(Map<String, String> queryParam, String dealerCode) throws ServiceBizException {
+		
+		return dao.findRebateSum1(queryParam,dealerCode);
+	}
+	
 	@Override
 	public List<Map> queryEmpInfoforExport(Map<String, String> queryParam) throws Exception {
 	
@@ -186,5 +195,17 @@ public class RebateSumServiceImpl implements RebateSumService{
 		PageInfoDto pageInfoDto = dao.pageQueryDetailDownSt(logId, drlFlag, dealerCode, logonUser);
 		return pageInfoDto;
 	}
+	
+	/**
+	 * 经销商返利核算汇总查询(DRL)
+	 */
+	@Override
+	public List<Map> queryEmpInfoforExport1(Map<String, String> queryParam, String dealerCode)
+			throws ServiceBizException {
+		
+		return dao.queryEmpInfoforExport(queryParam,dealerCode);
+	}
+
+	
 
 }

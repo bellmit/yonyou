@@ -1,15 +1,28 @@
 <div class ="dms-search">
-
+  <form class="form-horizontal">
 	<div class="panel panel-default table-panel">
 		<div class="panel-heading">
 			<div class="pannel-name" >返利核算汇总查询</div>
-			
+			<div class="pannel-button">
+				<div class="btn-group btn-group-sm">
+				       <a class="btn btn-outline" data-url="/rebateSum/export/downDetailFile/{[LOG_ID]}/Deatil/{[DEALER_CODE]}"  
+							data-model="retail" data-method="downLoad" data-toggle="confirmation" ><i
+							class="fa fa-download"></i>下载明细</a> 
+				</div>
+			</div>
 		</div>
 		<div class="panel-body">
 			<table class="table table-striped table-bordered table-hover table-responsive"
 				id="dms_table"></table>
 		</div>
 	</div>
+	
+	<div class="modal-footer">
+		<a data-goback="page"  href="retail/rebate/jsum/searchRebateJSum.html"
+			class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>
+    </div>
+    
+  </form>
 </div>
 <script type="text/javascript">
 	$(document).one("onload.dms",function(event,container){

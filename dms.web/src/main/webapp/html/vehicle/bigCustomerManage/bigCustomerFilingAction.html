@@ -98,10 +98,10 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 						<div class="form-group">
-							<label class="control-label col-xs-4 col-sm-2">上报日期</label>
-							<div class="col-xs-8 ">
+							<label class="control-label col-xs-12 col-sm-4">上报日期</label>
+							<div class="col-xs-6 col-sm-8">
 								 <div class="input-group input-daterange" data-maxDays = "30" data-opens="right">
 		                             <input type="text" class="form-control" readonly  name="reportedStartDate">
 		                             <span class="input-group-addon">至</span>
@@ -252,6 +252,10 @@
 			   autoHeight:false,
 			   isQueryFirst:false,
 			   columns : [ 
+				   {field :"DEALER_ID",title : "操作",operateFormat : [
+				     	{type:"edit",title : "明细",url:"vehicle/bigCustomerManage/bigcustomerfiling2.html",openType:"jump",doubleClick:false}
+				       ]
+				    } ,
 				            {field : "BIG_ORG_NAME",title : "大区"},
 				            {field : "ORG_NAME",title : "小区"},
 				            {field : "DEALER_CODE",title : "经销商代码"},
@@ -266,11 +270,8 @@
 				            {field : "ESTIMATE_APPLY_TIME",title : "预计申请时间"},
 				            {field : "SEND_EMAIL",title : "已发送邮件", codeFormat : {type:"oemDict",codeType:"1004"}},
 				            {field : "REPORT_APPROVAL_DATE",title : "审核日期"},
-				            {field : "REPORT_APPROVAL_STATUS",title : "审核结果", codeFormat : {type:"oemDict",codeType:"1598"}},
-				            {field :"DEALER_ID",title : "操作",operateFormat : [
-						     	{type:"edit",title : "明细",url:"vehicle/bigCustomerManage/bigcustomerfiling2.html",openType:"jump",doubleClick:false}
-						       ]
-						    } 
+				            {field : "REPORT_APPROVAL_STATUS",title : "审核结果", codeFormat : {type:"oemDict",codeType:"1598"}}
+				            
 				]
 				
 			});
@@ -284,6 +285,11 @@
 			   autoHeight:false,
 			   isQueryFirst:false,
 			   columns : [ 
+				   
+		            {field :"DEALER_ID",title : "操作",operateFormat : [
+				                                                      {type:"edit",title : "明细",url:"vehicle/bigCustomerManage/bigcustomerfiling2.html",openType:"jump",doubleClick:false}
+				                                                      ]
+				    } ,
 				            {field : "BIG_ORG_NAME",title : "大区"},
 				            {field : "ORG_NAME",title : "小区"},
 				            {field : "DEALER_CODE",title : "经销商代码"},
@@ -295,11 +301,7 @@
 				            {field : "CUSTOMER_SUB_TYPE",title : "客户细分类别",codeFormat : {type:"oemDict",codeType:"1097"}},
 				            {field : "REPORT_DATE",title : "上报日期"},
 				            {field : "PS_SOURCE_APPLY_NUM_COUNT",title : "报备数量"},
-				            {field : "ESTIMATE_APPLY_TIME",title : "预计申请时间"},
-				            {field :"DEALER_ID",title : "操作",operateFormat : [
-						                                                      {type:"edit",title : "明细",url:"vehicle/bigCustomerManage/bigcustomerfiling2.html",openType:"jump",doubleClick:false}
-						                                                      ]
-						    } 
+				            {field : "ESTIMATE_APPLY_TIME",title : "预计申请时间"}
 				]
 			
 			});

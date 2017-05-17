@@ -2,8 +2,8 @@
 	<form class="form-horizontal">
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<div class="hidden" data-tableSelect="true">
-					<input type="text" class="form-control" id="inventoryNo" data-fieldName="INVENTORY_NO" />
+				<div class="text" data-tableSelect="true">
+					<input type="hidden" class="form-control" id="inventoryNo" data-fieldName="INVENTORY_NO" />
 				</div>
 				<div class="row" data-seldate='true'>
 					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
@@ -18,9 +18,6 @@
 											data-toggle="modal" data-width="modal-lg" data-beforeShowEvent="true">
 											<i class="fa fa-list-alt"></i>
 										</button>
-										<button class="btn default input-clear" type="button" id="clearA">
-	                              			<i class="fa fa-close"></i>
-	                      				</button>
                       				</span>
 								</div>
 							</div>
@@ -91,7 +88,7 @@
 				<div class="pannel-button">
 					<div class="btn-group btn-group-sm">
 						<a id="add" class="btn btn-outline" data-beforeShowEvent="true"
-							data-url="part/stockmanage/partprofit/profitPartSlct.html"
+							data-url="part/stockmanage/partprofit2/profitPartSlct.html"
 							data-toggle="modal" data-width="modal-lg"><i
 							class="fa fa-plus-square"></i>添加 </a>
 					</div>
@@ -110,10 +107,16 @@
 						class="fa fa-plus-square"></i>新建</a> 
 					<a id="save" data-url="/basedata/reportPayOff/btnSave" data-model="part" data-beforeRequest="true"
 						data-callBack="true" data-method="POST" class="btn blue ajaxrest"><i class="fa fa-save"></i>保存 </a> 
+					<a id="delete" data-model="part" data-beforeRequest="true"
+						data-callBack="true" class="btn blue ajaxrest"><i class="fa fa-save"></i>作废 </a> 
 					<a id="finish" data-url="/basedata/reportPayOff/btnAccount" data-model="part" data-method="POST" data-errorCallBack="true" data-beforeRequest="true"
 						data-callBack="true" class="btn blue ajaxrest"> <i
 						class="fa fa-save"></i> 入账
 					</a>
+					<a id="print" class="btn blue" data-toggle="modal" data-beforeShowEvent="true" 
+						data-url="" 
+						data-width="modal-lg"> <i class="fa fa-print"></i> 打印
+					</a> 
 					<a id="exit" class="btn blue"><i
 						class="fa fa-print"></i> 取消
 					</a>
@@ -125,6 +128,18 @@
 <script type="text/javascript">
 $(document).one("onload.dms",function(event,container){
 	$("#orderDate", container).setElementReadOnly();
+	$("#add",container).setElementReadOnly();
+	$("#save", container).attr('disabled','disabled');
+	$("#delete", container).attr('disabled','disabled');
+	$("#finish", container).attr('disabled','disabled');
+	$("#print", container).attr('disabled','disabled');
+	$("#exit", container).attr('disabled','disabled');
+	
+	$("#create",container).click(function(){
+		$("#create", container).attr('disabled','disabled');
+		$("#add",container).removeElementReadOnly();
+		$("#exit", container).removeAttr('disabled');
+	});
 	
 	var index = dmsCommon.getSystemParamInfo("8016","8016");//显示或隐藏进货批号
 	if(index == 12781001){//显示
@@ -152,16 +167,30 @@ $(document).one("onload.dms",function(event,container){
 		
 		//盘点单号值改变事件
 		$("#inventoryNo", container).bindChange(function(obj){
-			$("#add", container).setElementReadOnly();
-			$("#partProfitItemList",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["part"]
-				+ "/basedata/reportPayOff/findItemByInventroy/"+$("input[name='inventoryNo1']",container).val());
+			if(!isStringNull($("input[id='inventoryNo']",container).val())){
+				$("#create", container).attr('disabled','disabled');
+				$("#save", container).removeAttr('disabled','disabled');
+				$("#add", container).setElementReadOnly();
+				$("#partProfitItemList",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["part"]
+					+ "/basedata/reportPayOff/findItemByInventroy/"+$("input[id='inventoryNo']",container).val());
+			}else{
+				dmsCommon.tip({status:"warning",msg:"无法获取盘点单号！"});
+			}
 			//$("#partProfitItemList", getElementContext()).dmsTable().refreshTableWithForm();
 		});
 		
 		//报溢单号值改变事件
 		$("#profitNo", container).bindChange(function(obj){
-			$("#partProfitItemList",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["part"]
-				+ "/basedata/reportPayOff/findItemByPartProfit/"+$("input[name='profitNo']",container).val());
+			if(!isStringNull($("input[name='profitNo']",container).val())){
+				$("#create", container).attr('disabled','disabled');
+				$("#add",container).removeElementReadOnly();
+				$("#delete", container).removeAttr('disabled');
+				$("#finish", container).removeAttr('disabled');
+				$("#partProfitItemList",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["part"]
+					+ "/basedata/reportPayOff/findItemByPartProfit/"+$("input[name='profitNo']",container).val());
+			}else{
+				dmsCommon.tip({status:"warning",msg:"无法获取报溢单号！"});
+			}
 			//$("#partProfitItemList", getElementContext()).dmsTable().refreshTableWithForm();
 		});
 	
@@ -174,45 +203,56 @@ $(document).one("onload.dms",function(event,container){
 			    if(id=='save'){
 			    	/* $(container).data("pageData",{PROFIT_NO:response});
 			    	dmsCommon.refreshPageByUrl("part/stockmanage/partprofit/updatePartProfit.html",container); */
+			    	$("#profitNo",container).setDmsValue(response);
+			    	$("#save", container).attr('disabled','disabled');
+			    	$("#finish", container).removeAttr('disabled');
+			    	$("#delete", container).removeAttr('disabled');
 			    	$("#partProfitItemList",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["part"]
 						+ "/basedata/reportPayOff/findItemByPartProfit/"+response);
-			    }else{
+			    }else if(id=='finish'){
 			    	/* dmsCommon.refreshPageByUrl("part/stockmanage/partprofit/searchPartProfit.html",container); */
+					$("#finish", container).attr('disabled','disabled');
+					$("#print", container).removeAttr('disabled');			    	
 			    	$("#partProfitItemList",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["part"]
 						+ "/basedata/reportPayOff/findItemByPartProfit/"+response);
+			    }else if(id=='delete'){
+			    	$("#delete", container).attr('disabled','disabled');
+			    	dmsCommon.refreshPageByUrl("part/stockmanage/partprofit2/mainPage.html",container);
 			    }
 		 });
 		 
 		//取消按钮
 		$("#clear", container).click(function(){
-			dmsCommon.ajaxRestRequest({
-				url:dmsCommon.getDmsPath()["part"] +"/basedata/reportPayOff/updateUnLockerI/"+$("#inventoryNo1",container).val(),
-				type:"POST",
-				sucessCallBack : function(data) {
-					if(data==""){
-						dmsCommon.refreshPageByUrl("part/stockmanage/partprofit/addPartProfit.html",container);
-					}else{
-						dmsCommon.tip({status:"warning",msg:"此单号["+$("#inventoryNo1",container).val()+"].解锁失败!"});
+			if(!isStringNull($("#inventoryNo1",container).val())){
+				dmsCommon.ajaxRestRequest({
+					url:dmsCommon.getDmsPath()["part"] +"/basedata/reportPayOff/updateUnLockerI/"+$("#inventoryNo1",container).val(),
+					type:"POST",
+					sucessCallBack : function(data) {
+						if(data==""){
+							dmsCommon.refreshPageByUrl("part/stockmanage/partprofit2/mainPage.html",container);
+						}else{
+							dmsCommon.tip({status:"warning",msg:"此单号["+$("#inventoryNo1",container).val()+"].解锁失败!"});
+						}
 					}
-				}
-			});
-			
+				});
+			}
 		});
 		
 		//取消按钮
 		$("#clearA,#exit", container).click(function(){
-			dmsCommon.ajaxRestRequest({
-				url:dmsCommon.getDmsPath()["part"] +"/basedata/reportPayOff/updateUnLocker/"+$("#profitNo",container).val(),
-				type:"POST",
-				sucessCallBack : function(data) {
-					if(data==""){
-						dmsCommon.refreshPageByUrl("part/stockmanage/partprofit2/mainPage.html",container);
-					}else{
-						dmsCommon.tip({status:"warning",msg:"此单号["+$("#profitNo",container).val()+"].解锁失败!"});
+			if(!isStringNull($("#profitNo",container).val())){
+				dmsCommon.ajaxRestRequest({
+					url:dmsCommon.getDmsPath()["part"] +"/basedata/reportPayOff/updateUnLocker/"+$("#profitNo",container).val(),
+					type:"POST",
+					sucessCallBack : function(data) {
+						if(data==""){
+							dmsCommon.refreshPageByUrl("part/stockmanage/partprofit2/mainPage.html",container);
+						}else{
+							dmsCommon.tip({status:"warning",msg:"此单号["+$("#profitNo",container).val()+"].解锁失败!"});
+						}
 					}
-				}
-			});
-			
+				});
+			}
 		});
 		
 		//入账前校验
@@ -241,7 +281,16 @@ $(document).one("onload.dms",function(event,container){
 					dmsCommon.tip({status:"warning",msg:"请添加数据到列表！"});
 					returnResult.status = false;
 				}
-			}		
+			}else if(id=='delete'){
+				if(!isStringNull($("#profitNo",container).val())){
+					$(this).attr("data-method","DELETE");
+					$(this).attr("data-url","/basedata/reportPayOff/"+$("#profitNo",container).val());
+					returnResult.status=true;
+				}else{
+					dmsCommon.tip({status:"warning",msg:"单号不能为空！"});
+					returnResult.status = false;
+				}
+			}	
 		});
 		 
 		//触发点击事件
@@ -269,7 +318,7 @@ $(document).one("onload.dms",function(event,container){
 	
 	var view1 = [ {
 		title :"操作",operateFormat : [ {type : "localDel",onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){
-		}},{type:"edit",title:'修改',url:"part/stockmanage/partprofit/editPartProfit.html",openWidth:"modal-lg"} ]}, 
+		}},{type:"edit",title:'修改',url:"part/stockmanage/partprofit2/editPartProfit.html",openWidth:"modal-lg"} ]}, 
         {field : "STORAGE_NAME",title : "仓库",inputHiddenFormat : {hiddenField:"STORAGE_CODE"}},
         {field : "STORAGE_POSITION_CODE",title : "库位代码",inputHiddenFormat : {}},
         {field : "PART_NO",title : "配件代码",inputHiddenFormat : {}},
@@ -279,13 +328,12 @@ $(document).one("onload.dms",function(event,container){
         {field : "PROFIT_PRICE",title : "报溢单价",inputHiddenFormat : {},numberFormat : {decimal : 4}},
         {field : "PROFIT_AMOUNT",title : "盘盈金额 ",inputHiddenFormat : {hiddenField:"PROFIT_AMOUNT"},numberFormat : {decimal : 2}},,
         {field : "PART_BATCH_NO",title : "进货批号",inputHiddenFormat : {}},
-        {field : "PROFIT_AMOUNT2",title : "盘盈金额2",numberFormat : {decimal : 2},visible:false},
-        {field : "IS_BACK",title : "是否追溯件",visible:false}
+        {field : "PROFIT_AMOUNT2",title : "盘盈金额2",numberFormat : {decimal : 2},visible:false}
      ];
 	
 	var view2 = [ {
 		title :"操作",operateFormat : [{type : "localDel",onAfterEvent:function(value, row, index){},onBeforeEvent:function(value, row, index){
-		}},{type:"edit",title:'修改',url:"part/stockmanage/partprofit/editPartProfit.html",openWidth:"modal-lg"}]}, 
+		}},{type:"edit",title:'修改',url:"part/stockmanage/partprofit2/editPartProfit.html",openWidth:"modal-lg"}]}, 
         {field : "STORAGE_NAME",title : "仓库",inputHiddenFormat : {hiddenField:"STORAGE_CODE"}},
         {field : "STORAGE_POSITION_CODE",title : "库位代码",inputHiddenFormat : {}},
         {field : "PART_NO",title : "配件代码",inputHiddenFormat : {}},
@@ -294,7 +342,6 @@ $(document).one("onload.dms",function(event,container){
         {field : "PROFIT_QUANTITY",title : "报溢数量",inputHiddenFormat : {},numberFormat : {decimal : 2}},
         {field : "PROFIT_PRICE",title : "报溢单价",inputHiddenFormat : {},numberFormat : {decimal : 4}},
         {field : "PROFIT_AMOUNT",title : "盘盈金额 ",inputHiddenFormat : {},numberFormat : {decimal : 2}},
-        {field : "PROFIT_AMOUNT2",title : "盘盈金额2",numberFormat : {decimal : 2},visible:false},
-        {field : "IS_BACK",title : "是否追溯件",visible:false}
+        {field : "PROFIT_AMOUNT2",title : "盘盈金额2",numberFormat : {decimal : 2},visible:false}
      ];
 </script>

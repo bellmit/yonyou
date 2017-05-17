@@ -79,7 +79,31 @@ public class BigCustomerDTO {
 
         private String dmsFileIds;
         
+        private String dmsFileIds1;
         
+        
+        
+        /**
+         * @return the dmsFileIds1
+         */
+        public String getDmsFileIds1() {
+            return dmsFileIds1;
+        }
+
+
+
+
+        
+        /**
+         * @param dmsFileIds1 the dmsFileIds1 to set
+         */
+        public void setDmsFileIds1(String dmsFileIds1) {
+            this.dmsFileIds1 = dmsFileIds1;
+        }
+
+
+
+
         public String getDmsFileIds() {
             return dmsFileIds;
         }

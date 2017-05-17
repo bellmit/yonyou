@@ -10,6 +10,6 @@ import com.yonyou.dms.DTO.gacfca.VehicleCustomerDTO;
  * 接收经销商修改后的车主资料 
  * @author xuqinqin
  */
-public interface SADCS073Cloud {
-	public String receiveDate(List<VehicleCustomerDTO> dtos) throws Exception;
+public interface SADCS073Cloud  extends BaseCloud{
+	public String handleExecutor(List<VehicleCustomerDTO> dtos) throws Exception;
 }

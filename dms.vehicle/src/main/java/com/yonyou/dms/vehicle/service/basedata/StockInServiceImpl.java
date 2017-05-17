@@ -72,7 +72,7 @@ import com.yonyou.dms.function.common.CommonConstants;
 import com.yonyou.dms.function.common.DictCodeConstants;
 import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.StringUtils;
-import com.yonyou.dms.gacfca.SADMS002;
+import com.yonyou.dms.gacfca.SADMS002Coud;
 import com.yonyou.dms.vehicle.domains.DTO.basedata.InspectionAboutDTO;
 import com.yonyou.dms.vehicle.domains.DTO.basedata.InspectionMarDTO;
 import com.yonyou.dms.vehicle.domains.DTO.stockManage.StockInDTO;
@@ -91,7 +91,7 @@ public class StockInServiceImpl implements StockInService {
 
 	private static final Logger logger = LoggerFactory.getLogger(StockInServiceImpl.class);
     @Autowired
-    SADMS002 SADMS002;
+    SADMS002Coud SADMS002;
 	@Autowired
 	private CommonNoService commonNoService;
 	@Autowired

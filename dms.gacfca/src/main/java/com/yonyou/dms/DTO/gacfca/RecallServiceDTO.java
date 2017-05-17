@@ -3,11 +3,8 @@ package com.yonyou.dms.DTO.gacfca;
 import java.util.Date;
 import java.util.LinkedList;
 
-import com.infoservice.dms.cgcsl.vo.BaseVO;
-
-public class RecallServiceDTO extends BaseVO  {
+public class RecallServiceDTO {
 	
-	private static final long serialVersionUID = 1L;
 	private String recallNo;//召回编号
 	private String recallName;//召回名称
 	private Integer recallTheme;//召回类别 70411001 RT快速反应、70411002 Recall召回

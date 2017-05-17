@@ -12,7 +12,7 @@ import com.yonyou.dcs.dao.DealersVehicleTransferDao;
 import com.yonyou.dms.DTO.gacfca.SA007Dto;
 import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.StringUtils;
-import com.yonyou.dms.gacfca.SADMS007;
+import com.yonyou.dms.gacfca.SADMS007Coud;
 import com.yonyou.f4.common.database.DBService;
 
 /**
@@ -32,7 +32,7 @@ public class SADCS007CloudImpl implements SADCS007Cloud {
 	@Autowired
 	DealersVehicleTransferDao dao ;
 	
-	@Autowired SADMS007 sadms007 ;
+	@Autowired SADMS007Coud sadms007 ;
 	
 	@Autowired DBService dbService;
 	

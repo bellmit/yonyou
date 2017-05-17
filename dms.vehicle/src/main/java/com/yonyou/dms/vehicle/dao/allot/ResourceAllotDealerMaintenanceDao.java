@@ -41,7 +41,7 @@ public class ResourceAllotDealerMaintenanceDao extends OemBaseDAO {
 		StringBuffer sql = new StringBuffer();
 		sql.append("  select * from ( ");
 		sql.append(
-				"select tp.DEALER_ID, tp.DEALER_CODE,tp.DEALER_SHORTNAME,tp.COMPANY_NAME,tp.DEALER_TYPE,tp.BIG_AREA,tp.SMALL_AREA,tp.STATUS,	\n");
+				"select tp.DEALER_ID,tp.ID ,tp.DEALER_CODE,tp.DEALER_SHORTNAME,tp.COMPANY_NAME,tp.DEALER_TYPE,tp.BIG_AREA,tp.SMALL_AREA,tp.STATUS,	\n");
 		sql.append(
 				"	(case  WHEN tp.TJ_PORT_LEVEL is null THEN 100 else tp.TJ_PORT_LEVEL END) as TJ_PORT_LEVEL,	\n");
 		sql.append(
@@ -50,7 +50,7 @@ public class ResourceAllotDealerMaintenanceDao extends OemBaseDAO {
 		sql.append(
 				"			select tm.DEALER_ID, tm.DEALER_CODE,tm.DEALER_SHORTNAME,tm.COMPANY_NAME,tm.DEALER_TYPE,tm.BIG_AREA,tm.SMALL_AREA,tm.STATUS,	\n");
 		sql.append("				max((case  WHEN tdm.VPC_PORT = " + OemDictCodeConstants.VPC_PORT_01
-				+ " THEN tdm.PORT_LEVEL END)) as TJ_PORT_LEVEL,	\n");
+				+ " THEN tdm.PORT_LEVEL END)) as TJ_PORT_LEVEL,tdm.ID,	\n");
 		sql.append("				max((case  WHEN tdm.VPC_PORT = " + OemDictCodeConstants.VPC_PORT_02
 				+ " THEN tdm.PORT_LEVEL END)) as SH_PORT_LEVEL	\n");
 		sql.append(
@@ -256,9 +256,9 @@ public class ResourceAllotDealerMaintenanceDao extends OemBaseDAO {
 	public Map findByid(Long id) {
 		StringBuffer strBuff = new StringBuffer();
 		strBuff.append(
-				"select 	max((case  WHEN tdm.VPC_PORT = 13921001 THEN tdm.PORT_LEVEL END)) as TJ_PORT_LEVEL,	\n");
+				"select 	max((case  WHEN tdm.VPC_PORT = 13921001 THEN tdm.PORT_LEVEL END)) as TJ_PORT_LEVEL,	tdm.VPC_PORT,tdm.id,\n");
 		strBuff.append(
-				"max((case  WHEN tdm.VPC_PORT = 13921002 THEN tdm.PORT_LEVEL END)) as SH_PORT_LEVEL,t1.DEALER_SHORTNAME,t1.DEALER_ID	\n");
+				"max((case  WHEN tdm.VPC_PORT = 13921002 THEN tdm.PORT_LEVEL END)) as SH_PORT_LEVEL,tdm.VPC_PORT, t1.DEALER_SHORTNAME,t1.DEALER_ID	\n");
 		strBuff.append(" from TM_DEALER_MAINTENANCE tdm,tm_dealer t1 WHERE tdm.DEALER_ID=t1.DEALER_ID AND t1.DEALER_ID="
 				+ id + "\n");
 		System.out.println(strBuff.toString());

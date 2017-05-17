@@ -11,7 +11,7 @@ import com.yonyou.dcs.dao.SADMS021DAO;
 import com.yonyou.dms.DTO.gacfca.SADMS021Dto;
 import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.CommonUtils;
-import com.yonyou.dms.gacfca.SADMS021;
+import com.yonyou.dms.gacfca.SADMS021Coud;
 
 @Service
 public class SADCS021CluodImpl extends BaseCloudImpl implements SADCS021Cloud {
@@ -19,7 +19,7 @@ public class SADCS021CluodImpl extends BaseCloudImpl implements SADCS021Cloud {
 	@Autowired
 	SADMS021DAO dao;
 	@Autowired
-	SADMS021 sadms021;
+	SADMS021Coud sadms021;
 
 	@Override
 	public String handleExecute() throws ServiceBizException {
@@ -103,6 +103,17 @@ public class SADCS021CluodImpl extends BaseCloudImpl implements SADCS021Cloud {
 			logger.info("=================SADCS021一对一客户经理绑定修改下发结束下发异常（ ）====================");
 		}
 		return "1";
+	}
+
+	@Override
+	public LinkedList<SADMS021Dto> getDataList(String param) throws ServiceBizException {
+		LinkedList<SADMS021Dto> vos = new LinkedList<>();
+		if(param!=""&&param!=null){
+			vos=dao.queryInfo(param);
+		}else{
+			vos=dao.queryInfo("");
+		}
+		return vos;
 	}
 
 }

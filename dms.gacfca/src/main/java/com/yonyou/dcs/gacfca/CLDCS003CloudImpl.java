@@ -16,7 +16,7 @@ import com.yonyou.dms.DTO.gacfca.ProductModelPriceDTO;
 import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.CommonUtils;
 import com.yonyou.dms.function.utils.common.StringUtils;
-import com.yonyou.dms.gacfca.CLDMS003;
+import com.yonyou.dms.gacfca.CLDMS003Coud;
 
 /**
  * 
@@ -35,7 +35,7 @@ public class CLDCS003CloudImpl extends BaseCloudImpl implements CLDCS003Cloud{
 	SaleMaterialPriceDao saleMaterialPriceDao ;
 	
 	@Autowired
-	CLDMS003 cldms003 ;
+	CLDMS003Coud cldms003 ;
 	
 	@Autowired 
 	SaleMaterialGroupDao dao;

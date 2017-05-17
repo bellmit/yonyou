@@ -14,7 +14,7 @@ import com.yonyou.dcs.dao.SADCS020DAO;
 import com.yonyou.dms.DTO.gacfca.SADMS020Dto;
 import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.CommonUtils;
-import com.yonyou.dms.gacfca.SADMS020;
+import com.yonyou.dms.gacfca.SADMS020Coud;
 
 @Service
 public class SADCS020CloudImpl extends BaseCloudImpl implements SADCS020Cloud {
@@ -23,7 +23,7 @@ public class SADCS020CloudImpl extends BaseCloudImpl implements SADCS020Cloud {
 	@Autowired
 	SADCS020DAO dao;
 	@Autowired
-	SADMS020 sadms020;
+	SADMS020Coud sadms020;
 	@Autowired
 	DeCommonDao deCommonDao;
 

@@ -1,9 +1,7 @@
 package com.yonyou.dms.DTO.gacfca;
 
-import com.infoservice.dms.cgcsl.vo.BaseVO;
 
-public class SEDCSP02DTO extends BaseVO{
-	private static final long serialVersionUID = 1L;
+public class SEDCSP02DTO {
 	//TB_IN
 	private String iwerks;			   //Plant (Own or External)  3210
 	private String izzcliente;         //特约店7位编码 

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.yonyou.dcs.dao.SADCS017Dao;
 import com.yonyou.dms.DTO.gacfca.SADMS017Dto;
 import com.yonyou.dms.function.exception.ServiceBizException;
-import com.yonyou.dms.gacfca.SADMS017;
+import com.yonyou.dms.gacfca.SADMS017Coud;
 
 @Service
 public class SADCS017CloudImpl implements SADCS017Cloud {
@@ -21,7 +21,7 @@ public class SADCS017CloudImpl implements SADCS017Cloud {
 	@Autowired
 	SADCS017Dao dao;
 	@Autowired
-	SADMS017 sadms017;
+	SADMS017Coud sadms017;
 
 	@Override
 	public String execute(String replaceApplyNo) throws ServiceBizException {

@@ -57,11 +57,11 @@ import com.yonyou.dms.function.common.DictCodeConstants;
 import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.DateUtil;
 import com.yonyou.dms.function.utils.common.StringUtils;
-import com.yonyou.dms.gacfca.SADMS008;
-import com.yonyou.dms.gacfca.SADMS008add;
-import com.yonyou.dms.gacfca.SADMS095;
-import com.yonyou.dms.gacfca.SEDMS022;
-import com.yonyou.dms.gacfca.SOTDCS015ND;
+import com.yonyou.dms.gacfca.SADMS008Coud;
+import com.yonyou.dms.gacfca.SADMS008addCoud;
+import com.yonyou.dms.gacfca.SADMS095Coud;
+import com.yonyou.dms.gacfca.SEDMS022Coud;
+import com.yonyou.dms.gacfca.SOTDCS015NDCoud;
 import com.yonyou.dms.retail.domains.DTO.ordermanage.InvoiceRegisterDTO;
 
 /**
@@ -73,15 +73,15 @@ import com.yonyou.dms.retail.domains.DTO.ordermanage.InvoiceRegisterDTO;
 public class InvoiceRegisterServiceImpl implements InvoiceRegisterService{
     private static final Logger logger = LoggerFactory.getLogger(InvoiceRegisterServiceImpl.class);
     @Autowired
-    SADMS008 SADMS008;
+    SADMS008Coud SADMS008;
     @Autowired
-    SADMS008add SADMS008add;
+    SADMS008addCoud SADMS008add;
     @Autowired
-    SOTDCS015ND SOTDCS015ND;
+    SOTDCS015NDCoud SOTDCS015ND;
     @Autowired
-    SEDMS022 SEDMS022;
+    SEDMS022Coud SEDMS022;
     @Autowired
-    SADMS095 SADMS095;
+    SADMS095Coud SADMS095;
     @Autowired
     private CommonNoService     commonNoService;
     @Autowired

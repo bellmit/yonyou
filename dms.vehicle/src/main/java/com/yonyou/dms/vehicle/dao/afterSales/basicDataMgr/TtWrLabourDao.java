@@ -66,13 +66,23 @@ public class TtWrLabourDao extends OemBaseDAO{
 	//通过group_code查询得到group_id
 	public List<Map> getGroupId(String group_code) throws ServiceBizException {
 		StringBuffer sql = new StringBuffer();
-		sql.append(" SELECT group_id FROM TT_WR_LABOUR WHERE_DCS  iS_del=0  ");
+		sql.append(" SELECT group_id FROM TT_WR_LABOUR_dcs WHERE  iS_del=0  ");
 		  if (!StringUtils.isNullOrEmpty(group_code)) {
 				sql.append("AND group_code  like  '%"+group_code+"%'  \n");
 			}	
 		System.out.println(sql.toString());
 		return OemDAOUtil.findAll(sql.toString(), null);
 	}
+	
+	public List<Map> getGroupByCode(String groupCode){
+		StringBuffer sql= new StringBuffer();
+		sql.append(" SELECT tvmg.GROUP_ID, tvmg.GROUP_CODE, tvmg.GROUP_NAME \n" );
+		sql.append(" FROM TM_VHCL_MATERIAL_GROUP tvmg \n" );
+		sql.append(" WHERE tvmg.GROUP_LEVEL=2 and tvmg.is_del = 0");
+		sql.append(" and tvmg.GROUP_CODE = '"+groupCode+"'");
+		System.out.println(sql.toString());
+		return OemDAOUtil.findAll(sql.toString(), null);
+	}		
 	
 	
 	

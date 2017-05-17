@@ -1,6 +1,7 @@
 package com.yonyou.dcs.dao;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +36,7 @@ public class SEDCS071Dao extends OemBaseDAO {
 		return listJJ;
 	}
 	
-	public List<DiscountCouponDTO> queryVehicleDto(String vin,int countNum) throws Exception {
+	public LinkedList<DiscountCouponDTO> queryVehicleDto(String vin,int countNum) throws Exception {
 		StringBuffer sql = new StringBuffer("\n");
 		sql.append("SELECT \n");
 		sql.append("  CARD_NO,CARD_NAME,CARD_TYPE,SUBTYPE,CARD_VALUE,BUY_AMOUNT, \n");
@@ -55,9 +56,9 @@ public class SEDCS071Dao extends OemBaseDAO {
 			sql.append("  AND VIN ='"+vin+"' \n");
 		} 
 		List<Map> listmap=OemDAOUtil.findAll(sql.toString(), null);
-		List<DiscountCouponDTO> dtolist=null;
+		LinkedList<DiscountCouponDTO> dtolist=null;
 		if(null!=listmap&&listmap.size()>0){
-			dtolist=new ArrayList<DiscountCouponDTO>();
+			dtolist=new LinkedList<DiscountCouponDTO>();
 			for(Map map:listmap){
 				DiscountCouponDTO dto = new DiscountCouponDTO();
 				dto.setCardNo(CommonUtils.checkNull(map.get("CARD_NO")));

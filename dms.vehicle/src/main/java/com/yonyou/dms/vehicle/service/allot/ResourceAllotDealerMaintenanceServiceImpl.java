@@ -397,25 +397,27 @@ public class ResourceAllotDealerMaintenanceServiceImpl implements ResourceAllotD
 		if (s2.equals("2")) {
 			// s2 = "13931002";
 			// 港口优先级（天津
-			s2 = OemDictCodeConstants.VPC_PORT_02;
+			s2 = OemDictCodeConstants.PORT_LEVELTJ2;
 		}
 		if (s2.equals("1")) {
 			// s2 = "13931001";
-			s2 = OemDictCodeConstants.VPC_PORT_01;
+			s2 = OemDictCodeConstants.PORT_LEVELTJ1;
 		}
 		if (s.equals("2")) {
 			// s = "13931004";
 			// 港口优先级（上海）
-			s = OemDictCodeConstants.VPC_PORT_04;
+			s = OemDictCodeConstants.PORT_LEVELSH2;
 		}
 		if (s.equals("1")) {
 			// s = "13931003";
-			s = OemDictCodeConstants.VPC_PORT_03;
+			s = OemDictCodeConstants.PORT_LEVELSH1;
 		}
 		m.put("SH_PORT_LEVEL", s);
+		m.put("VPC_PORT", map.get("VPC_PORT"));
 		m.put("TJ_PORT_LEVEL", s2);
 		m.put("DEALER_SHORTNAME", s3);
 		m.put("DEALER_ID", s4);
+		m.put("ID", map.get("id"));
 		return m;
 	}
 
@@ -432,102 +434,99 @@ public class ResourceAllotDealerMaintenanceServiceImpl implements ResourceAllotD
 		String date = formatter.format(currentTime);
 
 		if (!portLevelSH.equals("")) {
-			if (portLevelSH.equals(OemDictCodeConstants.VPC_PORT_03)) {
-				// portLevelSH = OemDictCodeConstants.VPC_PORT_02;
+			if (portLevelSH.equals(OemDictCodeConstants.PORT_LEVELSH1)) {
+				portLevelSH = "1";
+				String sql = "SELECT ID ,PORT_LEVEL,VPC_PORT FROM TM_DEALER_MAINTENANCE WHERE DEALER_ID=" + dealerId
+						+ "  AND PORT_LEVEL=" + portLevelSH;
+				Map map = OemDAOUtil.findFirst(sql, null);
 
-				LazyList<TmDealerMaintenancePO> list = TmDealerMaintenancePO
-						.findBySQL("select * from Tm_Dealer_Maintenance where DEALER_ID=?", dealerId);
-				if (list.size() > 0) {
-					for (TmDealerMaintenancePO tdmp : list) {
-						tdmp.setInteger("VPC_PORT", portLevelSH);
-						tdmp.setInteger("PORT_LEVEL", 1);
-						tdmp.setLong("DEALER_ID", dealerId);
-						tdmp.setLong("Update_By", loginInfo.getUserId());
-						tdmp.setTimestamp("UPDATE_DATE", date);
-						tdmp.saveIt();
-					}
+				TmDealerMaintenancePO tdmp = TmDealerMaintenancePO.findFirst("ID=? and VPC_PORT", map.get("ID"),
+						map.get("VPC_PORT"));
+				if (tdmp != null && map.get("VPC_PORT").equals(OemDictCodeConstants.VPC_PORT_01)) {
+					tdmp.setInteger("VPC_PORT", OemDictCodeConstants.VPC_PORT_01);
+					tdmp.setInteger("PORT_LEVEL", portLevelSH);
+					tdmp.setLong("DEALER_ID", dealerId);
+					tdmp.setLong("Update_By", loginInfo.getUserId());
+					tdmp.setTimestamp("UPDATE_DATE", date);
+					tdmp.saveIt();
+
 				} else {
-					TmDealerMaintenancePO tdm = new TmDealerMaintenancePO();
-					tdm.setInteger("VPC_PORT", portLevelSH);
-					tdm.setInteger("PORT_LEVEL", 1);
-					tdm.setLong("DEALER_ID", dealerId);
-					tdm.setLong("CREATE_BY", loginInfo.getUserId());
-					tdm.setTimestamp("CREATE_DATE", date);
-					tdm.saveIt();
+					if (portLevelSH.equals(OemDictCodeConstants.PORT_LEVELSH2)) {
+						portLevelSH = "2";
+						// String sql1 = "SELECT Id ,PORT_LEVEL,VPC_PORT FROM
+						// TM_DEALER_MAINTENANCE WHERE DEALER_ID="
+						// + dealerId + " and PORT_LEVEL=" + portLevelSH + "";
+						// Map map1 = OemDAOUtil.findFirst(sql1, null);
+						TmDealerMaintenancePO tdmp1 = TmDealerMaintenancePO.findFirst("ID=?", dto.getId());
+						if (tdmp1 != null && tdmp.get("PORT_LEVEL").equals(1)) {
+
+							tdmp1.setInteger("VPC_PORT", OemDictCodeConstants.VPC_PORT_02);
+							tdmp1.setInteger("PORT_LEVEL", portLevelSH);
+							tdmp1.setLong("DEALER_ID", dealerId);
+							tdmp1.setLong("Update_By", loginInfo.getUserId());
+							tdmp1.setTimestamp("UPDATE_DATE", date);
+							tdmp1.saveIt();
+
+						} else {
+							TmDealerMaintenancePO tdm = new TmDealerMaintenancePO();
+							tdm.setInteger("VPC_PORT", OemDictCodeConstants.VPC_PORT_02);
+							tdm.setInteger("PORT_LEVEL", portLevelSH);
+							tdm.setLong("DEALER_ID", dealerId);
+							tdm.setLong("CREATE_BY", loginInfo.getUserId());
+							tdm.setTimestamp("CREATE_DATE", date);
+							tdm.saveIt();
+						}
+					}
+
 				}
 			}
-			if (portLevelSH.equals(OemDictCodeConstants.VPC_PORT_04)) {
-				// portLevelSH = OemDictCodeConstants.VPC_PORT_02;
 
-				LazyList<TmDealerMaintenancePO> list = TmDealerMaintenancePO
-						.findBySQL("select * from Tm_Dealer_Maintenance where DEALER_ID=?", dealerId);
-				if (list.size() > 0) {
-					for (TmDealerMaintenancePO tdmp : list) {
-						tdmp.setInteger("VPC_PORT", portLevelSH);
-						tdmp.setInteger("PORT_LEVEL", 2);
-						tdmp.setLong("DEALER_ID", dealerId);
-						tdmp.setLong("Update_By", loginInfo.getUserId());
-						tdmp.setTimestamp("UPDATE_DATE", date);
-						tdmp.saveIt();
-					}
-				} else {
-					TmDealerMaintenancePO tdm = new TmDealerMaintenancePO();
-					tdm.setInteger("VPC_PORT", portLevelSH);
-					tdm.setInteger("PORT_LEVEL", 2);
-					tdm.setLong("DEALER_ID", dealerId);
-					tdm.setLong("CREATE_BY", loginInfo.getUserId());
-					tdm.setTimestamp("CREATE_DATE", date);
-					tdm.saveIt();
-				}
-			}
 		}
 		if (!portLevelTJ.equals("")) {
-			if (portLevelTJ.equals(OemDictCodeConstants.VPC_PORT_01)) {
-				// portLevelTJ = OemDictCodeConstants.VPC_PORT_01;
-				LazyList<TmDealerMaintenancePO> list = TmDealerMaintenancePO
-						.findBySQL("select * from Tm_Dealer_Maintenance where DEALER_ID=?", dealerId);
-				if (list.size() > 0) {
-					for (TmDealerMaintenancePO tdmp : list) {
-						tdmp.setInteger("VPC_PORT", portLevelTJ);
-						tdmp.setInteger("PORT_LEVEL", 1);
-						tdmp.setLong("DEALER_ID", dealerId);
-						tdmp.setLong("Update_By", loginInfo.getUserId());
-						tdmp.setTimestamp("UPDATE_DATE", date);
-						tdmp.saveIt();
-					}
-				} else {
-					TmDealerMaintenancePO tdm = new TmDealerMaintenancePO();
-					tdm.setInteger("VPC_PORT", portLevelTJ);
-					tdm.setInteger("PORT_LEVEL", 1);
-					tdm.setLong("DEALER_ID", dealerId);
-					tdm.setLong("CREATE_BY", loginInfo.getUserId());
-					tdm.setTimestamp("CREATE_DATE", date);
-					tdm.saveIt();
-				}
-			}
-			if (portLevelTJ.equals(OemDictCodeConstants.VPC_PORT_01)) {
-				// portLevelTJ = OemDictCodeConstants.VPC_PORT_01;
-				LazyList<TmDealerMaintenancePO> list = TmDealerMaintenancePO
-						.findBySQL("select * from Tm_Dealer_Maintenance where DEALER_ID=?", dealerId);
-				if (list.size() > 0) {
-					for (TmDealerMaintenancePO tdmp : list) {
-						tdmp.setInteger("VPC_PORT", portLevelTJ);
-						tdmp.setInteger("PORT_LEVEL", 2);
-						tdmp.setLong("DEALER_ID", dealerId);
-						tdmp.setLong("Update_By", loginInfo.getUserId());
-						tdmp.setTimestamp("UPDATE_DATE", date);
-						tdmp.saveIt();
-					}
+			if (portLevelTJ.equals(OemDictCodeConstants.PORT_LEVELTJ1)) {
+				portLevelTJ = "1";
+				// String sql = "SELECT Id ,PORT_LEVEL,VPC_PORT FROM
+				// TM_DEALER_MAINTENANCE WHERE DEALER_ID=" + dealerId
+				// + " and PORT_LEVEL=" + portLevelTJ + "";
+				// Map map = OemDAOUtil.findFirst(sql, null);
+				TmDealerMaintenancePO tdmp = TmDealerMaintenancePO.findFirst("ID=?", dto.getId());
+				if (tdmp != null && tdmp.get("PORT_LEVEL").equals(1)) {
 
-				} else {
-					TmDealerMaintenancePO tdm = new TmDealerMaintenancePO();
-					tdm.setInteger("VPC_PORT", portLevelTJ);
-					tdm.setInteger("PORT_LEVEL", 2);
-					tdm.setLong("DEALER_ID", dealerId);
-					tdm.setLong("CREATE_BY", loginInfo.getUserId());
-					tdm.setTimestamp("CREATE_DATE", date);
-					tdm.saveIt();
+					tdmp.setInteger("VPC_PORT", OemDictCodeConstants.VPC_PORT_01);
+					tdmp.setInteger("PORT_LEVEL", portLevelTJ);
+					tdmp.setLong("DEALER_ID", dealerId);
+					tdmp.setLong("Update_By", loginInfo.getUserId());
+					tdmp.setTimestamp("UPDATE_DATE", date);
+					tdmp.saveIt();
 				}
+
+			} else {
+				if (portLevelTJ.equals(OemDictCodeConstants.PORT_LEVELTJ2)) {
+					portLevelTJ = "2";
+					String sql = "SELECT Id ,PORT_LEVEL,VPC_PORT FROM TM_DEALER_MAINTENANCE WHERE DEALER_ID=" + dealerId
+							+ " and  PORT_LEVEL=" + portLevelTJ + "";
+					Map map = OemDAOUtil.findFirst(sql, null);
+					TmDealerMaintenancePO tdmp = TmDealerMaintenancePO.findFirst("ID=?", dto.getId());
+					if (tdmp != null && tdmp.get("PORT_LEVEL").equals("1")) {
+
+						tdmp.setInteger("VPC_PORT", OemDictCodeConstants.VPC_PORT_02);
+						tdmp.setInteger("PORT_LEVEL", portLevelTJ);
+						tdmp.setLong("DEALER_ID", dealerId);
+						tdmp.setLong("Update_By", loginInfo.getUserId());
+						tdmp.setTimestamp("UPDATE_DATE", date);
+						tdmp.saveIt();
+
+					} else {
+						TmDealerMaintenancePO tdm = new TmDealerMaintenancePO();
+						tdm.setInteger("VPC_PORT", OemDictCodeConstants.VPC_PORT_01);
+						tdm.setInteger("PORT_LEVEL", portLevelTJ);
+						tdm.setLong("DEALER_ID", dealerId);
+						tdm.setLong("CREATE_BY", loginInfo.getUserId());
+						tdm.setTimestamp("CREATE_DATE", date);
+						tdm.saveIt();
+					}
+				}
+
 			}
 		}
 

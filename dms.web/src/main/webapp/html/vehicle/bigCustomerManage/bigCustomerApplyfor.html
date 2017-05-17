@@ -100,10 +100,10 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 						<div class="form-group">
-							<label class="control-label col-xs-4 col-sm-2">上报日期</label>
-							<div class="col-xs-8 ">
+							<label class="control-label col-xs-12 col-sm-4">上报日期</label>
+							<div class="col-xs-6 col-sm-8 ">
 								 <div class="input-group input-daterange" data-maxDays = "30" data-opens="right">
 		                             <input type="text" class="form-control" readonly  name="reportedStartDate">
 		                             <span class="input-group-addon">至</span>
@@ -248,6 +248,10 @@
 			   pageSize:5,
 			   autoHeight:false,
 			   columns : [ 
+				   {field :"WS_NO",title : "操作",operateFormat : [
+                       {type:"edit",title:"审批",url:"vehicle/bigCustomerManage/bigcustomerRebate.html",openType:"jump",doubleClick:false}
+                    ]
+                   } ,
 			              {title: "大区", field:'BIG_ORG_NAME', align:'center'},
 							{title: "小区", field:'ORG_NAME', align:'center'},
 							{title: "经销商代码", field:'DEALER_CODE', align:'center'},
@@ -258,11 +262,8 @@
 							{title: "政策类别", field: 'PS_TYPE'},
 							{title: "客户类型", field: 'EMPLOYEE_TYPE'},
 							{title: "客户细分类别", field: 'CUSTOMER_SUB_TYPE'},
-							{title: "上报日期", field: 'REPORT_DATE'},
-				            {field :"WS_NO",title : "操作",operateFormat : [
-						                                                      {type:"edit",title:"审批",url:"vehicle/bigCustomerManage/bigcustomerRebate.html",openType:"jump",doubleClick:false}
-						                                                      ]
-						    } 
+							{title: "上报日期", field: 'REPORT_DATE'}
+				           
 				           
 				           
 				        
@@ -278,7 +279,11 @@
 			   pageSize:5,
 			   autoHeight:false,
 			   isQueryFirst:false,
-			   columns : [ 
+			   columns : [  
+				   {field :"WS_NO",title : "操作",operateFormat : [
+                       {type:"edit",url:"vehicle/bigCustomerManage/bigcustomerRebate1.html",openType:"jump",doubleClick:false}
+                       ]
+                    } ,
 				            {field : "BIG_ORG_NAME",title : "大区"},
 				            {field : "ORG_NAME",title : "小区"},
 				            {field : "DEALER_CODE",title : "经销商代码"},
@@ -291,11 +296,8 @@
 				            {field : "CUSTOMER_SUB_TYPE",title : "客户细分类别" ,codeFormat : {type:"oemDict",codeType:"1097"}},
 				            {field : "REPORT_DATE",title : "上报日期"},
 				            {field : "REBATE_APPROVAL_DATE",title : "审核日期"},
-				            {field : "REBATE_APPROVAL_STATUS",title : "审核结果",codeFormat : {type:"oemDict",codeType:"1595"}},
-				            {field :"WS_NO",title : "操作",operateFormat : [
-						                                                      {type:"edit",url:"vehicle/bigCustomerManage/bigcustomerRebate1.html",openType:"jump",doubleClick:false}
-						                                                      ]
-						    } 
+				            {field : "REBATE_APPROVAL_STATUS",title : "审核结果",codeFormat : {type:"oemDict",codeType:"1595"}}
+				           
 				           
 				        
 				]
@@ -311,6 +313,10 @@
 			   autoHeight:false,
 			   isQueryFirst:false,
 			   columns : [ 
+				   {field :"WS_NO",title : "操作",operateFormat : [
+                       {type:"detail",url:"vehicle/bigCustomerManage/bigcustomerRebate2.html",openType:"jump",doubleClick:false}
+                       ]
+                     } ,
 				            {field : "BIG_ORG_NAME",title : "大区"},
 				            {field : "ORG_NAME",title : "小区"},
 				            {field : "DEALER_CODE",title : "经销商代码"},
@@ -323,11 +329,8 @@
 				            {field : "CUSTOMER_SUB_TYPE",title : "客户细分类别" ,codeFormat : {type:"oemDict",codeType:"1097"}},
 				            {field : "REPORT_DATE",title : "上报日期"},
 				            {field : "REBATE_APPROVAL_DATE",title : "审核日期"},
-				            {field : "REBATE_APPROVAL_STATUS",title : "审核结果",codeFormat : {type:"oemDict",codeType:"1595"}},
-				            {field :"WS_NO",title : "操作",operateFormat : [
-						                                                      {type:"detail",url:"vehicle/bigCustomerManage/bigcustomerRebate2.html",openType:"jump",doubleClick:false}
-						                                                      ]
-						    } 
+				            {field : "REBATE_APPROVAL_STATUS",title : "审核结果",codeFormat : {type:"oemDict",codeType:"1595"}}
+				           
 				           
 				        
 				]
@@ -343,6 +346,10 @@
 			   autoHeight:false,
 			   isQueryFirst:false,
 			   columns : [ 
+				   {field :"WS_NO",title : "操作",operateFormat : [
+                       {type:"detail",url:"vehicle/bigCustomerManage/bigcustomerRebate3.html",openType:"jump",doubleClick:false}
+                       ]
+					}, 
 				            {field : "BIG_ORG_NAME",title : "大区"},
 				            {field : "ORG_NAME",title : "小区"},
 				            {field : "DEALER_CODE",title : "经销商代码"},
@@ -355,11 +362,8 @@
 				            {field : "CUSTOMER_SUB_TYPE",title : "客户细分类别" ,codeFormat : {type:"oemDict",codeType:"1097"}},
 				            {field : "REPORT_DATE",title : "上报日期"},
 				            {field : "REBATE_APPROVAL_DATE",title : "审核日期"},
-				            {field : "REBATE_APPROVAL_STATUS",title : "审核结果",codeFormat : {type:"oemDict",codeType:"1595"}},
-				            {field :"WS_NO",title : "操作",operateFormat : [
-						                                                      {type:"detail",url:"vehicle/bigCustomerManage/bigcustomerRebate3.html",openType:"jump",doubleClick:false}
-						                                                      ]
-						    } 
+				            {field : "REBATE_APPROVAL_STATUS",title : "审核结果",codeFormat : {type:"oemDict",codeType:"1595"}}
+				           
 				           
 				        
 				]
@@ -375,6 +379,10 @@
 			   autoHeight:false,
 			   isQueryFirst:false,
 			   columns : [ 
+				   {field :"WS_NO",title : "操作",operateFormat : [
+                       {type:"edit",url:"vehicle/bigCustomerManage/bigcustomerRebate3.html",openType:"jump",doubleClick:false}
+                       ]
+				 } ,
 				            {field : "BIG_ORG_NAME",title : "大区"},
 				            {field : "ORG_NAME",title : "小区"},
 				            {field : "DEALER_CODE",title : "经销商代码"},
@@ -387,11 +395,8 @@
 				            {field : "CUSTOMER_SUB_TYPE",title : "客户细分类别" ,codeFormat : {type:"oemDict",codeType:"1097"}},
 				            {field : "REPORT_DATE",title : "上报日期"},
 				            {field : "REBATE_APPROVAL_DATE",title : "审核日期"},
-				            {field : "REBATE_APPROVAL_STATUS",title : "审核结果",codeFormat : {type:"oemDict",codeType:"1595"}},
-				            {field :"WS_NO",title : "操作",operateFormat : [
-						                                                      {type:"edit",url:"vehicle/bigCustomerManage/bigcustomerRebate3.html",openType:"jump",doubleClick:false}
-						                                                      ]
-						    } 
+				            {field : "REBATE_APPROVAL_STATUS",title : "审核结果",codeFormat : {type:"oemDict",codeType:"1595"}}
+				           
 				           
 				        
 				]

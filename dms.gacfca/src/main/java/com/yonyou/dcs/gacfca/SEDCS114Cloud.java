@@ -9,8 +9,8 @@ import com.yonyou.dms.DTO.gacfca.OwnerEntityDTO;
  * @Description:车辆实销上报私自调拨验收(DMS->DCS->DMS)
  * @author xuqinqin 
  */
-public interface SEDCS114Cloud {
+public interface SEDCS114Cloud extends BaseCloud {
 	
-	public List<OwnerEntityDTO> receiveData(List<OwnerEntityDTO> dtos) throws Exception;
+	public List<OwnerEntityDTO> handleExecutor(List<OwnerEntityDTO> dtos) throws Exception;
 	
 }

@@ -1146,4 +1146,9 @@ public class CommonConstants {
 	public static final String VM_MEMBER_PART_FLOW = ViewConstants.getVmMemberPartFlow();
 	
 	public static final String VM_MEM_CARD_ACTI_DETAIL = ViewConstants.getVmMemCardActiDetail();
+	
+	public static final String VM_MEMBER_CARD_ACTIVITY = ViewConstants.getVmMemberCardActivity();
+	
+	public static final String VM_MEMBER_ACTIVITY = ViewConstants.getVmMemberActivity();
+	
 }

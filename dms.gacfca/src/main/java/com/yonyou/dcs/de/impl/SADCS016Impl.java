@@ -55,7 +55,6 @@ public class SADCS016Impl extends BaseImpl implements SADCS016 {
 			UcReplaceRebateApplyDto dto = new UcReplaceRebateApplyDto();
 			vo = (UcReplaceRebateApplyVO)entry.getValue();
 			dto.setDealerCode(vo.getDealerCode());
-			dto = new UcReplaceRebateApplyDto();
 			BeanUtils.copyProperties(vo, dto);
 			dtoList.add(dto);
 		}

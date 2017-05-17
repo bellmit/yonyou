@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.itextpdf.text.log.SysoLogger;
 import com.yonyou.dms.common.domains.PO.basedata.TtBigCustomerReportApprovalPO;
 import com.yonyou.dms.framework.DAO.OemBaseDAO;
 import com.yonyou.dms.framework.DAO.OemDAOUtil;
@@ -151,7 +152,7 @@ public class BigCustomerManageAaDao extends OemBaseDAO{
 					break;
 			}
 	        
-	        System.err.println(pasql.toString());
+	      
 	        
 			return pasql.toString();
 	}
@@ -811,8 +812,7 @@ public class BigCustomerManageAaDao extends OemBaseDAO{
 				default:
 					break;
 			}
-	       
-	    
+	        System.err.println(pasql.toString());
 			return pasql.toString();
 	}
 	
@@ -937,7 +937,83 @@ public class BigCustomerManageAaDao extends OemBaseDAO{
 		}
 		return null;
 	}
-
+	
+	/**
+	 * 大客户申请审批显示信息
+	 * @param wsno
+	 * @param flag
+	 * @return
+	 */
+	public Map<String, Object> QueryCustomer1(String wsno, int flag) {
+		Long week = getDayOfWeek();
+		String sql = getQueryCustomerSql1(wsno,week,flag);
+		List<Map> list = OemDAOUtil.findAll(sql, null);
+		if(list!=null && list.size()!=0){
+			return list.get(0);
+		}
+		return null;
+	}
+	
+	private String getQueryCustomerSql1(String wsno, Long week, int flag) {
+		StringBuffer pasql = new StringBuffer();
+	    pasql.append(" SELECT * from ( \n");
+        pasql.append(" SELECT TOR2.ORG_DESC BIG_ORG_NAME,TOR3.ORG_DESC ORG_NAME ,\n");
+        pasql.append(" TM.DEALER_SHORTNAME AS DEALER_NAME,TM.DEALER_CODE,\n");
+		pasql.append(" TUC.CUSTOMER_COMPANY_CODE,TUC.CUSTOMER_COMPANY_NAME,TUC.COMPANY_NAME,TUC.CUSTOMER_COMPANY_TYPE, \n");
+		pasql.append(" TBCFIB.PS_TYPE,TBCRA.WS_NO,TBCRA.REBATE_APPROVAL_STATUS,date_format(TBCRA.REPORT_DATE,'%Y-%m-%d') REPORT_DATE ");
+        pasql.append(" ,date_format(TBCRA.REBATE_APPROVAL_DATE,'%Y-%m-%d') REBATE_APPROVAL_DATE,TBCFIB.EMPLOYEE_TYPE\n");
+        pasql.append(" ,TBCFIB.PS_TYPE||'('||ifnull(TBCFIB.EMPLOYEE_TYPE,'99999999')||')' PS_TYPE1,TBCRA.AMOUNT \n");
+        pasql.append(" ,TBCFIB.CUSTOMER_SUB_TYPE \n");
+        pasql.append("  FROM TT_UC_CUSTOMER TUC \n");
+        pasql.append(" INNER JOIN TM_DEALER TM ON TUC.DEALER_CODE = TM.DEALER_CODE \n");
+        //pasql.append(" INNER JOIN TM_ORG TOG ON TM.COMPANY_ID = TOG.COMPANY_ID \n");
+        pasql.append(" INNER JOIN TM_DEALER_ORG_RELATION TDOR ON TDOR.DEALER_ID = TM.DEALER_ID \n");
+        pasql.append(" INNER JOIN TM_ORG  TOR3 ON (TOR3.ORG_ID = TDOR.ORG_ID AND TOR3.ORG_LEVEL = 3)\n");
+        pasql.append(" INNER JOIN TM_ORG TOR2 ON (TOR3.PARENT_ORG_ID = TOR2.ORG_ID AND TOR2.ORG_LEVEL = 2 ) \n");
+        pasql.append(" INNER JOIN TT_BIG_CUSTOMER_REBATE_APPROVAL TBCRA ON TBCRA.BIG_CUSTOMER_CODE = TUC.CUSTOMER_COMPANY_CODE \n");
+        pasql.append(" LEFT JOIN TT_BIG_CUSTOMER_FILING_BASE_INFO TBCFIB ON TBCFIB.CUSTOMER_COMPANY_CODE = TUC.CUSTOMER_COMPANY_CODE\n");
+        
+       
+        pasql.append(" WHERE 1=1 \n");
+        pasql.append(" AND TBCRA.ENABLE = '"+OemDictCodeConstants.STATUS_ENABLE+"' \n");
+        if (!StringUtils.isNullOrEmpty(wsno)) {
+            pasql.append(" AND TBCRA.WS_NO LIKE '"+wsno+"' "); //报备单号
+           
+        }
+        pasql.append(" AND TUC.CUSTOMER_BUSINESS_TYPE = '"+OemDictCodeConstants.IF_TYPE_YES+"' \n");
+        switch (flag) {
+			case 1:
+				pasql.append(" AND TBCRA.REBATE_APPROVAL_STATUS = '"+OemDictCodeConstants.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_UNAPPROVED+"' ");
+			
+				break;
+			case 2:
+				pasql.append(" AND TBCRA.REBATE_APPROVAL_STATUS = '"+OemDictCodeConstants.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_PASS+"' ");
+				
+				break;
+			case 3:
+				pasql.append(" AND TBCRA.REBATE_APPROVAL_STATUS = '"+OemDictCodeConstants.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_OVER+"' ");
+				break;
+			case 4:
+				pasql.append(" AND ( TBCRA.REBATE_APPROVAL_STATUS = '"+OemDictCodeConstants.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_RUS+"'  OR TBCRA.REBATE_APPROVAL_STATUS = '"+OemDictCodeConstants.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_SYSTEM_RUS+"'  OR TBCRA.REBATE_APPROVAL_STATUS = '"+OemDictCodeConstants.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_OVER_RUS+"' ) ");
+				
+				break;
+			case 5:
+				pasql.append(" AND TBCRA.REBATE_APPROVAL_STATUS = '"+OemDictCodeConstants.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_COMPLETE_INFORMATION+"'");
+				break;
+			default:
+				break;
+		}
+        pasql.append("	GROUP BY TOR2.ORG_DESC,TOR3.ORG_DESC ,TM.DEALER_SHORTNAME,TM.DEALER_CODE, \n");
+        pasql.append("		TUC.CUSTOMER_COMPANY_CODE,TUC.CUSTOMER_COMPANY_NAME,TUC.COMPANY_NAME,TUC.CUSTOMER_COMPANY_TYPE,  \n");
+        pasql.append("	 	TBCFIB.PS_TYPE,TBCRA.WS_NO,TBCRA.REBATE_APPROVAL_STATUS,TBCRA.REPORT_DATE  \n");
+        pasql.append("	 	,TBCRA.REBATE_APPROVAL_DATE,TBCFIB.EMPLOYEE_TYPE \n");
+        pasql.append("	 	,TBCFIB.PS_TYPE,TBCRA.AMOUNT,TBCFIB.CUSTOMER_SUB_TYPE \n");
+        pasql.append(" ORDER BY TBCRA.REPORT_DATE DESC \n");
+        pasql.append(" ) dcs \n");
+        
+		return pasql.toString();
+	}
+	
 	private String getQueryCustomerSql(String wsno, Long week, int flag) {
 		 StringBuffer pasql = new StringBuffer("  SELECT distinct TBCFIB.WS_NO,"+week+" as curr_wk,TOR2.ORG_DESC BIG_ORG_NAME,TOR3.ORG_DESC ORG_NAME ," +
 	        		" TM.DEALER_SHORTNAME AS DEALER_NAME,TM.DEALER_CODE," +
@@ -989,7 +1065,7 @@ public class BigCustomerManageAaDao extends OemBaseDAO{
 				default:
 					break;
 			}
-	        System.err.println(pasql.toString());
+			
 			return pasql.toString();
 	}
 
@@ -1052,7 +1128,7 @@ public class BigCustomerManageAaDao extends OemBaseDAO{
     	pasql.append(" AND RA.WS_NO = ? ");
     	params.add(customerCode);
     	params.add(wsno);
-    	System.err.println(pasql.toString());
+    	
 		return OemDAOUtil.pageQuery(pasql.toString(), params);
 	}
 

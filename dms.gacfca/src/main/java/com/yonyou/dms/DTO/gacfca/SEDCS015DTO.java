@@ -1,10 +1,8 @@
 package com.yonyou.dms.DTO.gacfca;
 
-import com.infoservice.dms.cgcsl.vo.BaseVO;
 
-public class SEDCS015DTO extends BaseVO  {
+public class SEDCS015DTO {
 	
-	private static final long serialVersionUID = 1L;
 	private String manhourCode;//工时代码
 	private String manhourName;//工时中文名称
 	private String manhourEnglishName;//工时英文名称

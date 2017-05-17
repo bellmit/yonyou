@@ -1,7 +1,6 @@
 package com.yonyou.dcs.gacfca;
 
 import java.util.LinkedList;
-import java.util.List;
 
 import com.yonyou.dms.DTO.gacfca.TiAppNCustomerInfoDto;
 import com.yonyou.dms.function.exception.ServiceBizException;

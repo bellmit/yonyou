@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.infoservice.dms.cgcsl.vo.SA007VO;
 import com.yonyou.dcs.dao.RepairOrderResultStatusDao;
 import com.yonyou.dcs.de.SADCS007_BAK;
 import com.yonyou.dcs.gacfca.SADCS007_BAKCloud;
@@ -91,7 +92,9 @@ public class SADCS007_BAKImpl extends BaseImpl implements SADCS007_BAK {
 		try {
 
 			if(null!=dataList && dataList.size()>0){
-				Map<String, Serializable> body = DEUtil.assembleBody(dataList);
+				List<SA007VO> vos = new ArrayList<>();
+				setVos(vos,dataList);
+				Map<String, Serializable> body = DEUtil.assembleBody(vos);
 				if(!"".equals(dmsCodes)){
 					sendMsg("SADMS007", dmsCodes, body);
 					logger.info("SADCS007_BAK发送成功=====entityCode"+dmsCodes+"===size："+dataList.size());
@@ -107,5 +110,26 @@ public class SADCS007_BAKImpl extends BaseImpl implements SADCS007_BAK {
 		} finally {
 		}
 	}
-	
+	/**
+	 * 数据转换
+	 * @param vos
+	 * @param dataList
+	 */
+	private void setVos(List<SA007VO> vos, LinkedList<SA007Dto> dataList) {
+		for (int i = 0; i < dataList.size(); i++) {
+			SA007Dto dto = dataList.get(i);
+			SA007VO vo = new SA007VO();
+			vo.setInEntityCode(dto.getInEntityCode());
+			vo.setOutEntityCode(dto.getOutEntityCode());
+			vo.setProductCode(dto.getProductCode());
+			vo.setEngineNo(dto.getEngineNo());
+			vo.setVin(dto.getVin());
+			vo.setManufactureDate(dto.getManufactureDate());
+			vo.setHasCertificate(dto.getHasCertificate());
+			vo.setCertificateNumber(dto.getCertificateNumber());
+			vo.setFactoryDate(dto.getFactoryDate());
+			vo.setVehiclePrice(dto.getVehiclePrice());
+			vos.add(vo);
+		}
+	}
 }

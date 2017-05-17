@@ -10,5 +10,5 @@ import com.yonyou.dms.DTO.gacfca.TiCoOverTotalReportDTO;
  * @author xuqinqin
  */
 public interface SADCS034Cloud {
-	public String receiveDate(List<TiCoOverTotalReportDTO> dtos) throws Exception;
+	public String handleExecutor(List<TiCoOverTotalReportDTO> dtos) throws Exception;
 }

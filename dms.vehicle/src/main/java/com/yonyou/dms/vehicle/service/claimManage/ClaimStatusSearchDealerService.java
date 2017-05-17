@@ -28,7 +28,7 @@ public interface ClaimStatusSearchDealerService {
 	public PageInfoDto accessoryQueryList(Long claimId) throws ServiceBizException;
 	
 	//获取索赔类型列表
-	public List<Map> queryClaimTypeList() throws ServiceBizException;
+	public List<Map> queryClaimTypeList(Integer type) throws ServiceBizException;
 	
 			
 		

@@ -589,11 +589,29 @@ public class OemBaseDAO {
 		Map map = OemDAOUtil.findFirst(sql.toString(), null);
 		return map;
 	}
+	
+	/**
+	 * 获取所有经销商的下端经销商代码
+	 * @return
+	 * @throws ServiceBizException
+	 */
+	public static List<Map> getDmsDealerCode() throws ServiceBizException {
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT distinct C.DMS_CODE,B.COMPANY_SHORTNAME\n");
+		sql.append("FROM TM_DEALER A, TM_COMPANY B, TI_DEALER_RELATION C\n");
+		sql.append("WHERE A.COMPANY_ID = B.COMPANY_ID\n");
+		sql.append("AND B.COMPANY_CODE = C.DCS_CODE\n");
+		sql.append("AND C.STATUS=" + OemDictCodeConstants.STATUS_ENABLE + "\n");
+
+		List<Map> map = OemDAOUtil.findAll(sql.toString(), null);
+		return map;
+	}
 
 	/**
 	 * 
 	 * @Title: getAllDmsCode
 	 * @Description: (查询下端所有的entityCode)
+	 * sendType 0：新接口，1：老接口
 	 */
 	public static List<String> getAllDmsCode(Integer sendType) {
 		List<String> list = new ArrayList<>();
@@ -615,6 +633,7 @@ public class OemBaseDAO {
 	 * 
 	 * @Title: getAllDcsCode
 	 * @Description: (查询上端所有的DealerCode)
+	 * sendType 0：新接口，1：老接口
 	 */
 	public static List<String> getAllDcsCode(Integer sendType) {
 		List<String> list = new ArrayList<>();
@@ -858,6 +877,24 @@ public class OemBaseDAO {
 		String brandCode = (String) map.get(0).get("GROUP_CODE");
 		return brandCode;
 
+	}
+	/**
+	 * 获取经销商发送接口
+	 * 0：新接口，1：老接口
+	 * @param groupId
+	 * @return
+	 */
+	public Integer getSendType(String dealerCode) {
+		List<Object> params = new ArrayList<Object>();
+		StringBuffer sql = new StringBuffer();
+		sql.append(" SELECT SEND_TYPE FROM  ti_dealer_relation WHERE dcs_code = ? AND STATUS = ").append(OemDictCodeConstants.STATUS_ENABLE);
+		params.add(dealerCode.replace("A", ""));
+		List<Map> map = OemDAOUtil.findAll(sql.toString(), params);
+		if(null != map && map.size()>0){
+			return -1;
+		}else{
+			return Integer.parseInt(map.get(0).get("SEND_TYPE").toString());
+		}
 	}
 
 }

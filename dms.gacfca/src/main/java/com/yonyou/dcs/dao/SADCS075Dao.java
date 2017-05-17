@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.infoservice.dms.cgcsl.vo.VoucherVO;
 import com.yonyou.dms.DTO.gacfca.VoucherDTO;
 import com.yonyou.dms.framework.DAO.OemBaseDAO;
 import com.yonyou.dms.framework.DAO.OemDAOUtil;
@@ -16,11 +17,7 @@ import com.yonyou.dms.function.utils.common.CommonUtils;
 public class SADCS075Dao extends OemBaseDAO {
 	
 
-	/**
-	 * 查询下发数据
-	 * @return
-	 */
-	public List<VoucherDTO> queryVoucherDTO(String actId) {
+	private String getSql(String actId){
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT  \n");
 		sql.append("  TA.ACTIVITY_CODE, \n");//活动编号
@@ -48,12 +45,19 @@ public class SADCS075Dao extends OemBaseDAO {
 		sql.append("WHERE TA.IS_DEL <>'1' AND TV.IS_DEL <>'1'\n");
 		sql.append(" AND TA.ID='"+actId+"' \n");//活动主键
 		sql.append(" AND TA.RELEASE_STATUS in('"+OemDictCodeConstants.RELEASE_STATUS_01+"','"+OemDictCodeConstants.RELEASE_STATUS_02+"') OR TA.RELEASE_STATUS IS NULL \n");//未下发、已发布
-		
-		List<Map> listmap=OemDAOUtil.findAll(sql.toString(), null);
+		return sql.toString();
+	}
+	/**
+	 * 查询下发数据 DTO
+	 * @return
+	 */
+	public List<VoucherDTO> queryVoucherDTO(String actId) {
+		String sql=getSql(actId);
+		List<Map> listmap=OemDAOUtil.findAll(sql, null);
 		List<VoucherDTO> dtolist=null;
 		if(null!=listmap&&listmap.size()>0){
 			dtolist=new ArrayList<>();
-			for(int i=0;i<dtolist.size();i++){
+			for(int i=0;i<listmap.size();i++){
 				VoucherDTO dto = new VoucherDTO();
 				dto.setActivityCode(CommonUtils.checkNull(listmap.get(i).get("ACTIVITY_CODE")));//活动编号
 				dto.setActivityName(CommonUtils.checkNull(listmap.get(i).get("ACTIVITY_NAME")));//活动名称
@@ -80,5 +84,43 @@ public class SADCS075Dao extends OemBaseDAO {
 		}
 		
 		return dtolist;
+	}
+	/**
+	 * 查询下发数据 VO(供DE接口调用)
+	 * @return
+	 */
+	public List<VoucherVO> queryVoucherVO(String actId) {
+		String sql=getSql(actId);
+		List<Map> listmap=OemDAOUtil.findAll(sql, null);
+		List<VoucherVO> volist=null;
+		if(null!=listmap&&listmap.size()>0){
+			volist=new ArrayList<>();
+			for(int i=0;i<listmap.size();i++){
+				VoucherVO vo = new VoucherVO();
+				vo.setActivityCode(CommonUtils.checkNull(listmap.get(i).get("ACTIVITY_CODE")));//活动编号
+				vo.setActivityName(CommonUtils.checkNull(listmap.get(i).get("ACTIVITY_NAME")));//活动名称
+				vo.setActivityStartDate(CommonUtils.parseDate(CommonUtils.checkNull(listmap.get(i).get("ACTIVITY_START_DATE"))));//活动开始日期
+				vo.setActivityEndDate(CommonUtils.parseDate(CommonUtils.checkNull(listmap.get(i).get("ACTIVITY_END_DATE"))));//活动结束日期
+				vo.setActivityIssueNumber(Integer.parseInt(CommonUtils.checkNull(listmap.get(i).get("ACTIVITY_ISSUE_NUMBER"))));//活动发放卡券数量上限
+				vo.setReleaseStatus(Integer.parseInt(CommonUtils.checkNull(listmap.get(i).get("RELEASE_STATUS")))==OemDictCodeConstants.RELEASE_STATUS_01?OemDictCodeConstants.RELEASE_STATUS_02:OemDictCodeConstants.RELEASE_STATUS_03);//发布状态
+				vo.setInsuranceCompanyCode(CommonUtils.checkNull(listmap.get(i).get("INSURANCE_COMPANY_CODE")));//保险公司code
+				vo.setInsuranceCompanyName(CommonUtils.checkNull(listmap.get(i).get("INSURANCE_COMPANY_NAME")));//保险公司简称
+				
+				vo.setVoucherNo(CommonUtils.checkNull(listmap.get(i).get("VOUCHER_NO")));//卡券类型ID
+				vo.setVoucherName(CommonUtils.checkNull(listmap.get(i).get("VOUCHER_NAME")));//卡券类型名称
+				vo.setVoucherType(Integer.parseInt(CommonUtils.checkNull(listmap.get(i).get("VOUCHER_TYPE"))));//卡券类型
+				vo.setSingleAmount(Float.parseFloat(CommonUtils.checkNull(listmap.get(i).get("SINGLE_AMOUNT"))));//单张抵扣金额
+				vo.setIssueNumberLimit(Integer.parseInt(CommonUtils.checkNull(listmap.get(i).get("ISSUE_NUMBER_LIMIT"))));//单次最多发放数量
+				vo.setStartDate(CommonUtils.parseDate(CommonUtils.checkNull(listmap.get(i).get("START_DATE"))));//开始日期
+				vo.setEndDate(CommonUtils.parseDate(CommonUtils.checkNull(listmap.get(i).get("END_DATE"))));//结束日期
+				vo.setVoucherStandard(Integer.parseInt(CommonUtils.checkNull(listmap.get(i).get("VOUCHER_STANDARD"))));//发券标准
+				vo.setUseRange(Integer.parseInt(CommonUtils.checkNull(listmap.get(i).get("USE_RANGE"))));//使用范围
+				vo.setRepairType(CommonUtils.checkNull(listmap.get(i).get("REPAIR_TYPE")));//维修类型代码
+				vo.setRepairTypeName(CommonUtils.checkNull(listmap.get(i).get("REPAIR_TYPE_NAME")));//维修类型名称
+				volist.add(vo);
+			}
+		}
+		
+		return volist;
 	}
 }

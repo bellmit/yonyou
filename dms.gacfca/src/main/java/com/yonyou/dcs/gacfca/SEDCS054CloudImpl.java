@@ -16,7 +16,7 @@ import com.yonyou.dms.DTO.gacfca.SEDMS054DTO;
 import com.yonyou.dms.common.domains.PO.basedata.TtMysteriousDatePO;
 import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.CommonUtils;
-import com.yonyou.dms.gacfca.SEDMS054;
+import com.yonyou.dms.gacfca.SEDMS054Coud;
 import com.yonyou.f4.common.database.DBService;
 
 /**
@@ -41,7 +41,7 @@ public class SEDCS054CloudImpl extends BaseCloudImpl implements SEDCS054Cloud {
 	DeCommonDao deCommonDao;
 	
 	@Autowired
-	SEDMS054 cldms;
+	SEDMS054Coud cldms;
 	
 	/**
 	 * 执行下发动作

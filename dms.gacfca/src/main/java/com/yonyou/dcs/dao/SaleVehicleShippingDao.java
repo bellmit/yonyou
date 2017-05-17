@@ -12,7 +12,6 @@ import com.yonyou.dms.DTO.gacfca.VehicleShippingDetailDto;
 import com.yonyou.dms.DTO.gacfca.VehicleShippingDto;
 import com.yonyou.dms.framework.DAO.OemBaseDAO;
 import com.yonyou.dms.framework.DAO.OemDAOUtil;
-import com.yonyou.dms.function.common.CommonConstants;
 import com.yonyou.dms.function.common.OemDictCodeConstants;
 import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.CommonUtils;
@@ -139,5 +138,41 @@ public class SaleVehicleShippingDao extends OemBaseDAO{
 		}
 		//TmVehiclePO.update(" IS_SEND = 1 ", " IS_DEL = 0 AND (IS_SEND = 0 or IS_SEND IS NULL) AND (NODE_STATUS = ' ? ' OR NODE_STATUS = '?' OR    NODE_STATUS = ' ? ' OR    NODE_STATUS = ' ? ')  AND DEALER_ID = ' ? '  AND VEHICLE_ID = ' ? ' ", OemDictCodeConstants.VEHICLE_NODE_12, OemDictCodeConstants.K4_VEHICLE_NODE_16, OemDictCodeConstants.K4_VEHICLE_NODE_17,OemDictCodeConstants.K4_VEHICLE_NODE_18,dealerId,vehicleId);
 	}
+	/**
+	 * 获得经销商信息为下发数据
+	 * @param condition
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Map> getSentDealerList() throws Exception {
+		
+		StringBuffer sql = new StringBuffer();
+		sql.append(" \n");
+		sql.append("SELECT V.VEHICLE_ID, -- 车辆ID \n");
+		sql.append("       V.DEALER_ID, -- 经销商ID \n");
+		sql.append("       D.DEALER_CODE -- 经销商代码 \n");
+		sql.append("  FROM TM_VEHICLE_DEC V \n");
+		sql.append(" INNER JOIN TT_VS_ORDER O ON O.VIN = V.VIN \n");
+		sql.append(" INNER JOIN TM_DEALER D ON D.DEALER_ID = O.DEALER_ID \n");
+		sql.append(" WHERE V.IS_DEL = 0 \n");
+		sql.append("   AND O.IS_DEL<>1 \n");
+		sql.append("   AND V.DEALER_ID <> 0 AND V.DEALER_ID IS NOT NULL \n");
+		sql.append("   AND (V.IS_SEND = 0 OR V.IS_SEND IS NULL) \n");
+		sql.append("   AND D.DEALER_TYPE = '" + OemDictCodeConstants.DEALER_TYPE_DVS + "' \n");
+		sql.append("   AND ((V.NODE_STATUS = '" + OemDictCodeConstants.VEHICLE_NODE_12 + "' AND \n");
+		sql.append("        (O.ORDER_STATUS BETWEEN '" + OemDictCodeConstants.ORDER_STATUS_01 + "' AND '" + OemDictCodeConstants.ORDER_STATUS_07 + "')) OR \n");
+		sql.append("       ((V.NODE_STATUS BETWEEN '" + OemDictCodeConstants.K4_VEHICLE_NODE_16 + "' AND '" + OemDictCodeConstants.K4_VEHICLE_NODE_18 + "') AND \n");
+		sql.append("        (O.ORDER_STATUS BETWEEN '" + OemDictCodeConstants.SALE_ORDER_TYPE_07 + "' AND '" + OemDictCodeConstants.SALE_ORDER_TYPE_11 + "'))) \n");
+		
+		// UpdateDate 20160301 By MaXiang 菲亚特车辆不下发 Begin..
+//		sql.append("   AND NOT EXISTS (SELECT * FROM TMP_SDS_MATERIAL_MAPPING SMM WHERE SMM.MATERIAL_ID = V.MATERIAL_ID) \n");
+		// UpdateDate 20160301 By MaXiang 菲亚特车辆不下发 End..
+		
+		sql.append(" limit 0, 400 \n");
 
+		List<Map>  ps = OemDAOUtil.findAll(sql.toString(), null);
+		
+		return ps;
+		
+	}
 }

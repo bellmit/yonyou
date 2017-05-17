@@ -88,7 +88,7 @@ public class StockResourceDao extends OemBaseDAO {
 		sql.append("	       TM_VEHICLE_dec       V, \n");
 		sql.append("	       (" + getVwMaterialSql() + ")       VM \n");
 		sql.append("	 WHERE  R.VEHICLE_ID = V.VEHICLE_ID \n");
-		sql.append("	   AND R.RESOURCE_SCOPE IN (  " + loginInfo.getOrgId() + "  ," + loginInfo.getDealerId() + ","
+		sql.append("	   AND R.RESOURCE_SCOPE IN (  " + loginInfo.getOrgId() + "," + loginInfo.getUserId() + ","
 				+ loginInfo.getOemCompanyId() + ")\n");
 		sql.append("  AND R.COMMON_ID = D.COMMON_ID \n");
 		sql.append("   AND V.MATERIAL_ID = VM.MATERIAL_ID \n");
@@ -156,7 +156,8 @@ public class StockResourceDao extends OemBaseDAO {
 		sql.append("	 WHERE  1=1 AND o.IS_DEL <> '1' AND O.VIN = V.VIN \n");
 		sql.append("	 AND  V.MATERIAL_ID = vm.MATERIAL_ID   \n");
 		sql.append("	   AND  VM.GROUP_TYPE=" + DictCodeConstants.GROUP_TYPE_IMPORT + "\n");
-		sql.append("			 AND  o.DEALER_ID =1 AND  o.order_type!=" + OemDictCodeConstants.ORDER_TYPE_01 + "\n");
+		sql.append("			 AND  o.DEALER_ID =" + loginInfo.getDealerId() + " AND  o.order_type!="
+				+ OemDictCodeConstants.ORDER_TYPE_01 + "\n");
 		sql.append("			 AND  o.order_status = " + OemDictCodeConstants.ORDER_STATUS_07 + "\n");
 		sql.append("			 AND  vm.MODEL_YEAR>'2012'");
 		if (brandId != null && !"".equals(brandId)) {
@@ -279,9 +280,8 @@ public class StockResourceDao extends OemBaseDAO {
 						+ OemDictCodeConstants.TARGET_TYPE_01 + " and DEALER_ID=" + loginInfo.getDealerId() + ")\n");
 		sql.append(" 	   				and  TVMP.DEALER_ID=" + loginInfo.getDealerId() + ")   t2\n");
 		sql.append("	on t1.PARENT_GROUP_ID=t2.MATERIAL_GROUPID\n");
-
-		Map list = OemDAOUtil.findFirst(sql.toString(), null);
-
+		System.out.println(sql.toString());
+		List<Map> list = OemDAOUtil.findAll(sql.toString(), null);
 		Date now = new Date();
 		StringBuffer sql2 = new StringBuffer();
 		sql2.append("select count(*) TOTAL\n");
@@ -291,10 +291,6 @@ public class StockResourceDao extends OemBaseDAO {
 		sql2.append("  		  TM_VHCL_MATERIAL_GROUP     TVMG3,\n");
 		sql2.append("  		  TM_VHCL_MATERIAL_GROUP     TVMG4\n");
 		sql2.append("   where TVO.IS_DEL <> '1' AND TVO.VIN = TV.VIN\n");// 逻辑删除过滤条件IS_DEL
-																			// <>
-																			// '1'
-																			// by
-																			// wangJian
 		sql2.append(" 	  AND TV.MATERIAL_ID = VM.MATERIAL_ID\n");
 		sql2.append("  	  AND TVMG4.PARENT_GROUP_ID = TVMG3.GROUP_ID\n");
 		sql2.append(" 	  AND VM.GROUP_ID = TVMG4.GROUP_ID\n");
@@ -308,8 +304,8 @@ public class StockResourceDao extends OemBaseDAO {
 						+ OemDictCodeConstants.ORDER_STATUS_07 + ")\n");
 		sql2.append("     AND TVO.ORDER_DATE >= date_format('" + DateUtil.getFirstDayOfMonth(now) + "','%y-%m-%d')\n");
 		sql2.append("     AND TVO.ORDER_DATE <= date_format('" + DateUtil.getLastDayOfMonth(now)
-				+ " 23:59:59','%y-%m-%d %H:%i:%S')\n");
-		sql2.append("     AND TVMG3.PARENT_GROUP_ID=" + list.get("PARENT_GROUP_ID") + "\n");
+				+ " 23:59:59','%y-%m-%d %h:%i:%s')\n");
+		sql2.append("     AND TVMG3.PARENT_GROUP_ID=" + list.get(0).get("PARENT_GROUP_ID") + "\n");
 		sql2.append("     AND  TVO.ORDER_TYPE =" + OemDictCodeConstants.ORDER_TYPE_01 + "\n");
 
 		Map map = OemDAOUtil.findFirst(sql2.toString(), null);

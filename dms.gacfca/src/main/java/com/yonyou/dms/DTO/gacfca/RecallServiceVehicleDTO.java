@@ -1,10 +1,8 @@
 package com.yonyou.dms.DTO.gacfca;
 
-import com.infoservice.dms.cgcsl.vo.BaseVO;
 
-public class RecallServiceVehicleDTO extends BaseVO  {
+public class RecallServiceVehicleDTO {
 	
-	private static final long serialVersionUID = 1L;
 	private Integer goupNo;//组合编号
 	private String brandCode;//品牌
 	private String seriesCode;//车系

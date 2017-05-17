@@ -2,10 +2,8 @@ package com.yonyou.dms.DTO.gacfca;
 
 import java.util.Date;
 
-import com.infoservice.dms.cgcsl.vo.BaseVO;
-
-public class DiscountCouponDTO extends BaseVO  {
-	private static final long serialVersionUID = 1L;
+public class DiscountCouponDTO  {
+	
 	private String cardNo;//卡券编号
 	private String cardName;//卡券名称
 	private Integer cardType;//卡券类型

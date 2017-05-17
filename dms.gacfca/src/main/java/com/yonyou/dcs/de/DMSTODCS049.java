@@ -34,7 +34,7 @@ public class DMSTODCS049  extends BaseImpl  implements DEAction {
 			Map<String, Serializable> bodys = deMsg.getBody();
 			LinkedList<SADCS049Dto> dtoList = new LinkedList<>();
 			setDTO(dtoList,bodys);
-			cloud049.receiveData(dtoList);
+			cloud049.handleExecutor(dtoList);
 		}  catch(Throwable t) {
 			logger.info("*************************** 获取上报的二手车置换意向明细数据出错******************************");
 			t.printStackTrace();

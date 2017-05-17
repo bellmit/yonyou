@@ -8,16 +8,13 @@ import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.infoservice.dms.cgcsl.vo.RepairOrderReStatusVO;
 import com.yonyou.dcs.dao.RepairOrderResultStatusDao;
-import com.yonyou.dcs.de.HMCISE18;
 import com.yonyou.dcs.de.impl.BaseImpl;
 import com.yonyou.dcs.util.DEUtil;
-import com.yonyou.dms.DTO.gacfca.RepairOrderReStatusDTO;
 import com.yonyou.f4.de.DEMessage;
 import com.yonyou.f4.de.executer.DEAction;
 /**

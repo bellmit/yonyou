@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.javalite.activejdbc.Base;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,9 @@ public class SADCS034CloudImpl extends BaseCloudImpl implements SADCS034Cloud {
 	ActivityResultDao dao ;
 	
 	@Override
-	public String receiveDate(List<TiCoOverTotalReportDTO> dtos) throws Exception {
+	public String handleExecutor(List<TiCoOverTotalReportDTO> dtos) throws Exception {
 		String msg = "1";
-		
+		beginDbService();
 		try {
 			logger.info("*************** SADCS034Cloud超过90,60天未交车订单且未交车原因为空接收开始 *******************");
 			//先做删除，再做插入
@@ -35,12 +36,15 @@ public class SADCS034CloudImpl extends BaseCloudImpl implements SADCS034Cloud {
 				insertData(dto);
 			}
 			logger.info("*************** SADCS034Cloud超过90,60天未交车订单且未交车原因为空上报完成 ********************");
-			
+			dbService.endTxn(true);
 		} catch (Exception e) {
 			logger.error("*************** SADCS034Cloud超过90,60天未交车订单且未交车原因为空上报异常 *****************", e);
 			msg = "0";
-			throw new ServiceBizException(e);
-		} 
+			dbService.endTxn(false);
+		} finally{
+			Base.detach();
+			dbService.clean();
+		}
 		return msg;
 	}
 	/**

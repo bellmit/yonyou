@@ -35,7 +35,7 @@ public class SADCS063  extends BaseImpl  implements DEAction {
 			Map<String, Serializable> bodys = deMsg.getBody();
 			LinkedList<SADMS063Dto> dtoList = new LinkedList<>();
 			setDTO(dtoList,bodys);
-			cloud.receiveDate(dtoList);
+			cloud.handleExecutor(dtoList);
 		}  catch(Throwable t) {
 			logger.info("*************************** SADCS063  留存订单上报数据上传出错******************************");
 			t.printStackTrace();

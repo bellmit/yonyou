@@ -9,8 +9,8 @@ import com.yonyou.dms.DTO.gacfca.DiscountCouponDTO;
  * @Description:获取可用卡券信息同步(DMS->DCS->DMS)
  * @author xuqinqin 
  */
-public interface SEDCS071Cloud {
+public interface SEDCS071Cloud  extends BaseCloud{
 	
-	public List<DiscountCouponDTO> receiveData(List<DiscountCouponDTO> dtos) throws Exception;
+	public List<DiscountCouponDTO> handleExecutor(List<DiscountCouponDTO> dtos) throws Exception;
 	
 }

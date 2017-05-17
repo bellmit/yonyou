@@ -39,7 +39,7 @@ public class SADCS073  extends BaseImpl  implements DEAction{
 			Map<String, Serializable> bodys = deMsg.getBody();
 			LinkedList<VehicleCustomerDTO> dtoList = new LinkedList<>();
 			setDTO(dtoList,bodys);
-			cloud.receiveDate(dtoList);
+			cloud.handleExecutor(dtoList);
 			logger.info("*************************** SADCS073  成功获取车主资料******************************");
 			//SADCS072 车主资料下发 
 			for (Entry<String, Serializable> entry : bodys.entrySet()) {

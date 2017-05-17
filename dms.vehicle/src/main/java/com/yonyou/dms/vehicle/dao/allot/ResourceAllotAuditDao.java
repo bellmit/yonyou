@@ -199,7 +199,7 @@ public class ResourceAllotAuditDao extends OemBaseDAO {
 	public List<Map> findTotalGapListBySeries(String groupId, String parOrgId, String orgId, String allotDate,
 			String allotMonthDate, String auditType, LoginInfoDto loginInfo) {
 		StringBuffer sql = new StringBuffer();
-		sql.append("select t.*,(case when t.SALE_AMOUNT>0 then  round((t.NUM1+t.NUM2+t.NUM3+t.NUM4+t.NUM5+t.ALLOT_NUM)*100/t.SALE_AMOUNT,2) else 0 end) RATE,(case when t.SALE_AMOUNT>0 then round((t.SALE_AMOUNT-t.GAP)*100/t.SALE_AMOUNT,2) else 0 end) DRATE\n");
+		sql.append("select t.GROUP_ID SERIES_ID,t.SERIES_NAME,t.ORG_ID2,t.ORG_ID,t.ORG_NAME,t.DEALER_ID,t.DEALER_NAME,t.SALE_AMOUNT,t.NUM1,t.NUM2,t.NUM22,t.NUM3,t.NUM33,t.NUM4,t.NUM5,t.GAP,t.ALLOT_NUM,t.ALLOT_MONTH_NUM,(case when t.SALE_AMOUNT>0 then  round((t.NUM1+t.NUM2+t.NUM3+t.NUM4+t.NUM5+t.ALLOT_NUM)*100/t.SALE_AMOUNT,2) else 0 end) RATE,(case when t.SALE_AMOUNT>0 then round((t.SALE_AMOUNT-t.GAP)*100/t.SALE_AMOUNT,2) else 0 end) DRATE\n");
 		sql.append("  from \n");
 		sql.append("(select tt1.GROUP_ID,tt1.SERIES_NAME,TT1.ORG_ID2,tt1.ORG_ID,tt1.ORG_NAME,tt1.DEALER_ID,tt1.DEALER_NAME, tt1.SALE_AMOUNT,NUM1,IFNULL(tt1.NUM2,0) NUM2,IFNULL(tt1.NUM22,0) NUM22,IFNULL(tt1.NUM3,0) NUM3,IFNULL(tt1.NUM33,0) NUM33,IFNULL(tt1.NUM4,0) NUM4,IFNULL(tt1.NUM5,0) NUM5,tt1.GAP,IFNULL(tt1.ALLOT_NUM,0) ALLOT_NUM,tt2.ALLOT_MONTH_NUM\n");
 		sql.append(" from (select t1.GROUP_ID,t1.SERIES_NAME,T1.ORG_ID2,t1.ORG_ID,t1.ORG_NAME,t1.DEALER_ID,t1.DEALER_NAME, t1.SALE_AMOUNT,IFNULL(t1.NUM1,0) NUM1,IFNULL(t1.NUM2,0) NUM2,IFNULL(t1.NUM22,0) NUM22,IFNULL(t1.NUM3,0) NUM3,IFNULL(t1.NUM33,0) NUM33,IFNULL(t1.NUM4,0) NUM4,IFNULL(t1.NUM5,0) NUM5,t1.GAP,IFNULL(t2.ALLOT_NUM,0) ALLOT_NUM \n");
@@ -632,7 +632,7 @@ public class ResourceAllotAuditDao extends OemBaseDAO {
 
 	public List<Map> findResourceAllotListBySeries(String conditionWhere, String auditType, LoginInfoDto loginInfo) {
 		StringBuffer sql = new StringBuffer();
-		sql.append("select tvmg2.GROUP_ID,tvmg2.GROUP_NAME,sum(tar.ADJUST_NUM) SER_NUM\n");
+		sql.append("select tvmg2.GROUP_ID SERIES_ID,tvmg2.GROUP_NAME,sum(tar.ADJUST_NUM) SER_NUM\n");
 		sql.append("   from TM_ALLOT_RESOURCE_DCS     	   tar,\n");
 		sql.append("        TM_VHCL_MATERIAL_GROUP     tvmg4,\n");
 		sql.append("        TM_VHCL_MATERIAL_GROUP     tvmg3,\n");

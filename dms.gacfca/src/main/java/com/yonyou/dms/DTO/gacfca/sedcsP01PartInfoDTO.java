@@ -1,10 +1,7 @@
 package com.yonyou.dms.DTO.gacfca;
 
-import com.infoservice.dms.cgcsl.vo.BaseVO;
 
-public class sedcsP01PartInfoDTO extends BaseVO{
-	
-	private static final long serialVersionUID = 1L;
+public class sedcsP01PartInfoDTO {
 	
 	private String imatnr;//物料号
 	private Double iqtyreq;//需求量

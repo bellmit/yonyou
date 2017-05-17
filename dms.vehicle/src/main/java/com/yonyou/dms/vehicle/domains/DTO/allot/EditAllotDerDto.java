@@ -5,6 +5,34 @@ public class EditAllotDerDto {
 	private String portLevelSH;
 	private String dealerShortNmae;
 	private String dealerId;
+	private String shport;
+	private String id;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getShport() {
+		return shport;
+	}
+
+	public void setShport(String shport) {
+		this.shport = shport;
+	}
+
+	public String getTjport() {
+		return tjport;
+	}
+
+	public void setTjport(String tjport) {
+		this.tjport = tjport;
+	}
+
+	private String tjport;
 
 	public String getDealerId() {
 		return dealerId;

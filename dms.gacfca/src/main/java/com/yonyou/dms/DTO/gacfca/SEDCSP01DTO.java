@@ -3,10 +3,7 @@ package com.yonyou.dms.DTO.gacfca;
 import java.util.Date;
 import java.util.LinkedList;
 
-import com.infoservice.dms.cgcsl.vo.BaseVO;
-
-public class SEDCSP01DTO extends BaseVO{
-	private static final long serialVersionUID = 1L;
+public class SEDCSP01DTO {
 	//TB_IN
 	private String iwerks;			//Plant (Own or External)
 	private String izzcliente;		//特约店7位编码

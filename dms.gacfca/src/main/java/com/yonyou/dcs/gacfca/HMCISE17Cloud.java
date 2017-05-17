@@ -13,7 +13,7 @@ import com.yonyou.dms.function.exception.ServiceBizException;
  * @author xuqinqin 
  * @date 2017年5月5日 
  */
-public interface HMCISE17Cloud {
+public interface HMCISE17Cloud extends BaseCloud{
 
 	public String sendAllData(TtWrClaimDcsDTO dto) throws ServiceBizException;
 	

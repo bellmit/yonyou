@@ -98,11 +98,11 @@ public class ClaimStatusSearchDealerController {
 	 * @param queryParam
 	 * @return
 	 */
-	@RequestMapping(value="/claimType",method = RequestMethod.GET)
+	@RequestMapping(value="/claimType/{TYPE}",method = RequestMethod.GET)
     @ResponseBody
-    public List<Map> queryClaimTypeList(@RequestParam Map<String, String> queryParam) {
+    public List<Map> queryClaimTypeList(@PathVariable("TYPE") Integer type,@RequestParam Map<String, String> queryParam) {
     	logger.info("============索赔申请单状态跟踪  审核历史 查询04==============");
-    	List<Map> resultMap = cssdService.queryClaimTypeList();   	
+    	List<Map> resultMap = cssdService.queryClaimTypeList(type);   	
         return resultMap;               
     }
 	

@@ -3,34 +3,27 @@ package com.yonyou.dcs.gacfca;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.javalite.activejdbc.Base;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.infoeai.eai.action.bsuv.common.CommonBSUV;
-import com.infoeai.eai.po.TiRoAddItemPO;
 import com.yonyou.dcs.util.DEConstant;
-import com.yonyou.dms.DTO.gacfca.SEDCSP03DTO;
-import com.yonyou.dms.DTO.gacfca.SEDCSP03VOPartInfoDTO;
 import com.yonyou.dms.DTO.gacfca.TtPtOrderDTO;
 import com.yonyou.dms.common.Util.MailSender;
 import com.yonyou.dms.common.Util.Utility;
 import com.yonyou.dms.common.domains.PO.basedata.TtPtDeliverDetailDcsPO;
 import com.yonyou.dms.common.domains.PO.basedata.TtPtDeliverPO;
-import com.yonyou.dms.common.domains.PO.basedata.TtPtOrderAttDcsPO;
 import com.yonyou.dms.common.domains.PO.basedata.TtPtOrderDcsPO;
-import com.yonyou.dms.common.domains.PO.basedata.TtPtOrderDetailDcsPO;
-import com.yonyou.dms.common.domains.PO.basedata.TtPtPartBaseDcsPO;
 import com.yonyou.dms.framework.DAO.OemDAOUtil;
 import com.yonyou.dms.framework.DAO.PartCommonDao;
 import com.yonyou.dms.function.common.OemDictCodeConstants;
-import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.CommonUtils;
 @Service
 public class SEDCSP04CloudImpl extends BaseCloudImpl implements SEDCSP04Cloud {
@@ -47,14 +40,14 @@ public class SEDCSP04CloudImpl extends BaseCloudImpl implements SEDCSP04Cloud {
 		String excString="";
 		int num = 0; //经销商配件个数
 		Integer ifType=1;   // 默认成功
-		
+		beginDbService();
 		try {
-//			com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.ZLVSDWS_GF21_IN_BindingStub stub = 
-//					new com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.ZLVSDWS_GF21_IN_BindingStub();
-//			com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.ZLVSDWS_GF21_IN_Service lmsService = 
-//					new com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.ZLVSDWS_GF21_IN_ServiceLocator();
-//			stub = (com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.ZLVSDWS_GF21_IN_BindingStub)lmsService.getZLVSDWS_GF21_IN();
-//			logger.info("----------------调用对方服务地址："+lmsService.getZLVSDWS_GF21_INAddress()+"----------------");
+			com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.ZLVSDWS_GF21_IN_BindingStub stub = 
+					new com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.ZLVSDWS_GF21_IN_BindingStub();
+			com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.ZLVSDWS_GF21_IN_Service lmsService = 
+					new com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.ZLVSDWS_GF21_IN_ServiceLocator();
+			stub = (com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.ZLVSDWS_GF21_IN_BindingStub)lmsService.getZLVSDWS_GF21_IN();
+			logger.info("----------------调用对方服务地址："+lmsService.getZLVSDWS_GF21_INAddress()+"----------------");
 			resultList = getPartOrderReportInfo();
 			
 			List<TtPtOrderDTO> dtolist = new ArrayList<TtPtOrderDTO>();
@@ -146,47 +139,47 @@ public class SEDCSP04CloudImpl extends BaseCloudImpl implements SEDCSP04Cloud {
 						logger.info("====SEDCSP04 is IRefNumber===="+IRefNumber);
 						
 						
-//						com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.holders.TableOfZbapiret11Holder tbBapireturn = new 
-//								com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.holders.TableOfZbapiret11Holder();
-//						com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.holders.TableOfZlvsdwsGf21InHolder tbInput = 
-//								new com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.holders.TableOfZlvsdwsGf21InHolder();
+						com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.holders.TableOfZbapiret11Holder tbBapireturn = new 
+								com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.holders.TableOfZbapiret11Holder();
+						com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.holders.TableOfZlvsdwsGf21InHolder tbInput = 
+								new com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.holders.TableOfZlvsdwsGf21InHolder();
 						
 						String sql="select * from tt_pt_order_detail_dcs where order_id = "+dto.getOrderId();
 						
 						List<Map> listOrderDetailPO = OemDAOUtil.findAll(sql, null);
 						
 						if(listOrderDetailPO.size() > 0) {
-//							com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.ZlvsdwsGf21In Gf21In[] = 
-//									new com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.ZlvsdwsGf21In[listOrderDetailPO.size()];
+							com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.ZlvsdwsGf21In Gf21In[] = 
+									new com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.ZlvsdwsGf21In[listOrderDetailPO.size()];
 							for(int k = 0;k<listOrderDetailPO.size();k++) {
 								Map dPO = listOrderDetailPO.get(k);
-//								com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.ZlvsdwsGf21In in = 
-//										new com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.ZlvsdwsGf21In();
+								com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.ZlvsdwsGf21In in = 
+										new com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.ZlvsdwsGf21In();
 								String PartNo = CommonUtils.checkNull(dPO.get("PART_CODE")) ;//物料号
 								if (PartNo !=null && PartNo.length() > 18){
 									PartNo = PartNo.substring(0,18);
 								}								
-//								in.setPartNo(PartNo);//物料号
+								in.setPartNo(PartNo);//物料号
 								String ReqQty = CommonUtils.checkNull(dPO.get("ORDER_NUM"));//需求量
 								if (ReqQty !=null && ReqQty.length() > 4){
 									ReqQty ="9999";
 								}
-//								in.setReqQty(ReqQty);//需求量
-//								Gf21In[k] = in;
+								in.setReqQty(ReqQty);//需求量
+								Gf21In[k] = in;
 								logger.info("====SEDCSP04 is PartNo===="+CommonUtils.checkNull(dPO.get("PART_CODE")));
 								logger.info("====SEDCSP04 is ReqQty===="+CommonUtils.checkNull(dPO.get("ORDER_NUM")));
 							}
-//							tbInput.value = Gf21In;
+							tbInput.value = Gf21In;
 						}
-//						com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.holders.TableOfZlvsdwsGf21PriHolder tbOutput = new 
-//								com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.holders.TableOfZlvsdwsGf21PriHolder();
-//						com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.holders.TableOfBapiret1Holder tbReturn = new 
-//								com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.holders.TableOfBapiret1Holder();
+						com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.holders.TableOfZlvsdwsGf21PriHolder tbOutput = new 
+								com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.holders.TableOfZlvsdwsGf21PriHolder();
+						com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.holders.TableOfBapiret1Holder tbReturn = new 
+								com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.holders.TableOfBapiret1Holder();
 						String vbeln = null;
 						
-//						vbeln = stub.zlvsdwsGf21In(IChange,IDealerUsr,IElecCode, IEmerg,IKeyCode,IMarca, 
-//						    	IMechCode,IName1,INote,IOrderType,IRefNumber,ISigni,ITel,IVinCode,IWerks,IYj,IZzcliente, 
-//						    	tbBapireturn,tbInput,tbOutput,tbReturn);
+						vbeln = stub.zlvsdwsGf21In(IChange,IDealerUsr,IElecCode, IEmerg,IKeyCode,IMarca, 
+						    	IMechCode,IName1,INote,IOrderType,IRefNumber,ISigni,ITel,IVinCode,IWerks,IYj,IZzcliente, 
+						    	tbBapireturn,tbInput,tbOutput,tbReturn);
 						
 						if (null != vbeln && !vbeln.equals("")) {//成功
 						
@@ -236,7 +229,7 @@ public class SEDCSP04CloudImpl extends BaseCloudImpl implements SEDCSP04Cloud {
 									ttPtDeliverPO.insert();
 									
 									//明细
-//									if (tbOutput != null && tbOutput.value.length > 0) {
+									if (tbOutput != null && tbOutput.value.length > 0) {
 										//订单明细
 										if (null != listOrderDetailPO && listOrderDetailPO.size() > 0) {
 											//新增明细
@@ -253,21 +246,21 @@ public class SEDCSP04CloudImpl extends BaseCloudImpl implements SEDCSP04Cloud {
 												dPo.setBigDecimal("CREATE_BY",DEConstant.DE_CREATE_BY);
 												dPo.setTimestamp("CREATE_DATE",new Date(System.currentTimeMillis()));
 												dPo.setString("ORDER_NO",vbeln);
-//												for(int k=0;k<tbOutput.value.length;k++) {
-//													com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.ZlvsdwsGf21Pri in = tbOutput.value[k];
-//													if (in.getMatnr().equals(partCode)) {
-//														logger.info("====SEDCSP04 is NetPrice===="+in.getNetwr().doubleValue());
-//														logger.info("====SEDCSP04 is DeliverAmount(===="+in.getKbetr().doubleValue());
-//														dPo.setDouble("NET_PRICE",in.getKbetr().doubleValue());//净价
-//														dPo.setDouble("INSTIR_PRICE",in.getKbetr().doubleValue());//入库单价
-//														dPo.setDouble("DELIVER_AMOUNT",in.getNetwr().doubleValue());//运单总额
-//													}
-//												}
+												for(int k=0;k<tbOutput.value.length;k++) {
+													com.infoeai.eai.wsClient.parts.lvmPartsOrderCreation.ZlvsdwsGf21Pri in = tbOutput.value[k];
+													if (in.getMatnr().equals(partCode)) {
+														logger.info("====SEDCSP04 is NetPrice===="+in.getNetwr().doubleValue());
+														logger.info("====SEDCSP04 is DeliverAmount(===="+in.getKbetr().doubleValue());
+														dPo.setDouble("NET_PRICE",in.getKbetr().doubleValue());//净价
+														dPo.setDouble("INSTIR_PRICE",in.getKbetr().doubleValue());//入库单价
+														dPo.setDouble("DELIVER_AMOUNT",in.getNetwr().doubleValue());//运单总额
+													}
+												}
 												dPo.insert();
 											}
 									
 										}
-//									} else {//如SAP未返回明细则用订单明细填充
+									} else {//如SAP未返回明细则用订单明细填充
 										//订单明细
 										if (null != listOrderDetailPO && listOrderDetailPO.size() > 0) {
 											//新增明细
@@ -291,17 +284,16 @@ public class SEDCSP04CloudImpl extends BaseCloudImpl implements SEDCSP04Cloud {
 											}
 											
 										}
-//									}
+									}
 								}
 							}
 						} else {//失败
-//							logger.info("========SEDCSP04 执行异常=====订单【"+IRefNumber+"】上报SAP异常：==========="+tbReturn.value[0].getMessage());
-//							errorInfo = tbReturn.value[0].getType() + ":" +tbReturn.value[0].getMessage() + "\n";
-							
-//							newpo.setString("DCS_SEND_MSG",tbReturn.value[0].getMessage());
+							logger.info("========SEDCSP04 执行异常=====订单【"+IRefNumber+"】上报SAP异常：==========="+tbReturn.value[0].getMessage());
+							errorInfo = tbReturn.value[0].getType() + ":" +tbReturn.value[0].getMessage() + "\n";
+							upSqlV.append("DCS_SEND_MSG = ?");
+							params.add(tbReturn.value[0].getMessage());
 							upSqlV.append("DCS_SEND_RESULT = ?");
 							params.add(OemDictCodeConstants.IF_TYPE_NO);
-//							ttPtOrderPO.setString("DCS_SEND_MSG",tbReturn.value[0].getMessage());
 							//失败自动重传
 							upSqlV.append("IS_DCS_SEND");
 							params.add(OemDictCodeConstants.IF_TYPE_NO);
@@ -310,7 +302,7 @@ public class SEDCSP04CloudImpl extends BaseCloudImpl implements SEDCSP04Cloud {
 							props.load(Thread.currentThread().getContextClassLoader()
 									.getResourceAsStream("mail.properties"));
 							MailSender tt = MailSender.INSTANCE;
-//							tt.sendMail(props.getProperty("partmail"), MAIL_TITLE, "订单【"+IRefNumber+"】上报SAP异常："+tbReturn.value[0].getMessage()+"\n 该邮件为系统自动发出，无需回复。", null);
+							tt.sendMail(props.getProperty("partmail"), MAIL_TITLE, "订单【"+IRefNumber+"】上报SAP异常："+tbReturn.value[0].getMessage()+"\n 该邮件为系统自动发出，无需回复。", null);
 						}
 						upSqlV.append("DCS_SEND_DATE = ?");
 						params.add(new Date(System.currentTimeMillis()));//DCS传到SAP的时间
@@ -365,15 +357,29 @@ public class SEDCSP04CloudImpl extends BaseCloudImpl implements SEDCSP04Cloud {
 				}
 				
 			}
+			dbService.endTxn(true);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			excString=CommonBSUV.getErrorInfoFromException(e);
 			ifType=2;
+			dbService.endTxn(false);
 		}finally{
+			Base.detach();
+			dbService.clean();
 			logger.info("====PartOrderReportSAP is finish====");
+			beginDbService();
 			if(num >0){
-				CommonBSUV.insertTiEcInterfaceHistory("SEDCSP04", "经销商批售推送SAP","(DCS -> SAP)",excString,num,ifType);
+				try{
+					CommonBSUV.insertTiEcInterfaceHistory("SEDCSP04", "经销商批售推送SAP","(DCS -> SAP)",excString,num,ifType);
+					dbService.endTxn(true);
+				}catch(Exception e) {
+					dbService.endTxn(false);
+				}finally{
+					Base.detach();
+					dbService.clean();
+				}
 			}
+			
 		}
 		return null;
 	}

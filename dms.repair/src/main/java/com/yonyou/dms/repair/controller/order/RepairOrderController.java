@@ -313,6 +313,12 @@ public class RepairOrderController extends BaseController {
 		return saveRepairOrderService.getAllEnterableActivityInfo(query);
 	}
 	
+	@RequestMapping(value="/queryVinByVin", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Map> queryVinByVin(@RequestParam Map<String, String> query){
+		return orderService.queryVinByVin(query);
+	}
+	
 	/**
 	 * 三包授权操作
 	 * @author yangjie

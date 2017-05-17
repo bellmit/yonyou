@@ -425,6 +425,9 @@ public class ReportPayOffServiceImpl implements ReportPayOffService {
 
 	@Override
 	public String btnAccount(ReportPayOffDTO dto) throws ServiceBizException {
+		String[] users = {dto.getProfitNo()};
+		//解锁
+		Utility.updateByUnLock("Tt_Part_Profit", FrameworkUtil.getLoginInfo().getUserId().toString(), "PROFIT_NO", users, "LOCK_USER");
 		String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
 		Map<String, String> para = new HashMap<String, String>();
 		for (Map map : dto.getPartProfitItemList()) {

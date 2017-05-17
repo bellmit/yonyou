@@ -11,10 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.infoservice.dms.cgcsl.vo.SEDCSP01VO;
 import com.yonyou.dcs.dao.SEDCSP01Dao;
 import com.yonyou.dcs.de.impl.BaseImpl;
 import com.yonyou.dcs.util.DEUtil;
-import com.yonyou.dms.DTO.gacfca.SEDCSP01DTO;
 import com.yonyou.f4.de.DEMessage;
 import com.yonyou.f4.de.executer.DEAction;
 /**
@@ -34,9 +34,9 @@ public class SEDCSP01  extends BaseImpl  implements DEAction {
 		try {
 			Map<String, Serializable> bodys = deMsg.getBody();
 			for (Entry<String, Serializable> entry : bodys.entrySet()) {
-				SEDCSP01DTO dto = new SEDCSP01DTO();
-				dto = (SEDCSP01DTO) entry.getValue();
-				List<SEDCSP01DTO> list = dao.querySedcsP01DTO(dto);
+				SEDCSP01VO dto = new SEDCSP01VO();
+				dto = (SEDCSP01VO) entry.getValue();
+				List<SEDCSP01VO> list = dao.querySedcsP01VO(dto);
 				if (list == null || list.size() <= 0) {
 					return wrapperMsg(list);
 				}
@@ -57,7 +57,7 @@ public class SEDCSP01  extends BaseImpl  implements DEAction {
 	 * @param msg
 	 * @return
 	 */
-	private DEMessage wrapperMsg(List<SEDCSP01DTO> dtos) {
+	private DEMessage wrapperMsg(List<SEDCSP01VO> dtos) {
 		if (dtos != null && dtos.size() > 0) {
 			HashMap<String, Serializable> body = DEUtil.assembleBody(dtos);
 			if (body != null && body.size() > 0) {

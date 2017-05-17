@@ -35,7 +35,7 @@ public class SADCS034  extends BaseImpl  implements DEAction {
 			Map<String, Serializable> bodys = deMsg.getBody();
 			LinkedList<TiCoOverTotalReportDTO> dtoList = new LinkedList<TiCoOverTotalReportDTO>();
 			setDTO(dtoList,bodys);
-			cloud.receiveDate(dtoList);
+			cloud.handleExecutor(dtoList);
 		}  catch(Throwable t) {
 			logger.info("*************************** SADCS034   超过90,60天未交车订单且未交车原因为空上传出错******************************");
 			t.printStackTrace();

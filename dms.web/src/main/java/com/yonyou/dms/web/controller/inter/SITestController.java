@@ -97,7 +97,7 @@ import com.yonyou.dcs.gacfca.SendBoldMsgToDmsCloud;
 import com.yonyou.dms.common.domains.DTO.SiTestDto;
 import com.yonyou.dms.common.domains.DTO.basedata.OutBoundReturnDTO;
 import com.yonyou.dms.function.exception.ServiceBizException;
-import com.yonyou.dms.gacfca.SADMS016;
+import com.yonyou.dms.gacfca.SADMS016Coud;
 import com.yonyou.f4.mvc.annotation.TxnConn;
 import com.yonyou.f4.mvc.controller.BaseController;
 
@@ -261,7 +261,7 @@ public class SITestController extends BaseController {
 	SendBoldMsgToDmsByWXCloud wx;
 
 	@Autowired
-	SADMS016 sadms016;
+	SADMS016Coud sadms016;
 
 	@Autowired
 	SADCS003ForeCloud SADCS003Fore;

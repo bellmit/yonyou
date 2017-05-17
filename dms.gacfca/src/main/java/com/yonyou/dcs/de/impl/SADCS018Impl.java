@@ -55,7 +55,6 @@ public class SADCS018Impl implements SADCS018 {
 			ProperServiceManageDto dto = new ProperServiceManageDto();
 			vo = (ProperServiceManageVO)entry.getValue();
 			dto.setDealerCode(vo.getDealerCode());
-			dto = new ProperServiceManageDto();
 			BeanUtils.copyProperties(vo, dto);
 			dtoList.add(dto);
 		}

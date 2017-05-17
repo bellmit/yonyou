@@ -118,6 +118,7 @@
 							<div class="col-xs-8">								
 								<input type="text" class="form-control" id="vin" name="vin">
 								<input id="ids" name="ids" type="hidden"/>
+								<input id="vins" name="vins" type="hidden"/>
 							</div>
 						</div>
 					</div>
@@ -294,6 +295,7 @@
 			}
 			if(selectRow.length > 0){
 				var ids = "";
+				var vins = "";
 				
 				for(var i = 0 ;i<selectRow.length;i++){
 					if(ids=="" ){ //第一次循环为空值
@@ -302,8 +304,15 @@
 						ids = ids+","+selectRow[i]["ID"];
 					}
 					
+					if(vins=="" ){ //第一次循环为空值
+						vins = selectRow[i]["VIN"];
+					}else{
+						vins = vins+","+selectRow[i]["VIN"];
+					}
+					
 				}
 				$("#ids",getElementContext()).setDmsValue(ids);
+				$("#vins",getElementContext()).setDmsValue(vins);
 				
 			}
 			returnResult.status = true;

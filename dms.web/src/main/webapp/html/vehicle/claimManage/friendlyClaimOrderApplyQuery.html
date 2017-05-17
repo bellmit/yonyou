@@ -4,41 +4,31 @@
 			<div class="panel-body">
 				<div class="row ">
 				
-					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
 						<div class="form-group">
 							<label class="control-label col-xs-4 ">索赔单号</label>
 							<div class="col-xs-8">
-								<div class="input-group">
+								
 									<input type="text" class="form-control" id="claimNo" name="claimNo">
-									<span class="input-group-btn">
-	                                         <button class="btn default input-clear" type="button">
-	                                            <i class="fa fa-close"></i>
-	                                        </button>
-	                                 </span>
-                                 </div>
+							
 							</div>
 						</div>
 					</div>
 
 				
 					
-					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
 						<div class="form-group">
 							<label class="control-label col-xs-4 ">工单号</label>
 							<div class="col-xs-8">
-								<div class="input-group">
+
 									<input type="text" class="form-control" id="repairNo" name="repairNo">
-									<span class="input-group-btn">
-	                                         <button class="btn default input-clear" type="button">
-	                                            <i class="fa fa-close"></i>
-	                                        </button>
-	                                 </span>
-                                 </div>
+								
 							</div>
 						</div>
 					</div>
 
-					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
 						<div class="form-group">
 							<label class="control-label col-xs-4">索赔状态</label>
 							<div class="col-xs-8">
@@ -48,10 +38,10 @@
 						</div>
 					</div>	
 
-					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-6">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
 					<div class="form-group">
-						<label class="control-label col-xs-4 col-sm-2">索赔申请日期</label>
-						<div class="col-xs-8 col-sm-10">
+						<label class="control-label col-xs-4 col-sm-4">索赔申请日期</label>
+						<div class="col-xs-8 col-sm-8">
 							 <div class="input-group input-daterange" data-opens="right">
 	                             <input type="text" class="form-control" readonly  name="claimStartDate">
 	                             <span class="input-group-addon">至</span>
@@ -124,7 +114,7 @@
 			},
 			columns : [ 
 			    {field : "CLAIM_ID",title : "操作",inputField:"CLAIM_ID", operateFormat : [
-						{type:"del", title:"提报", url:"", model:"vehicle",callBack:function(response){
+						{type:"del", title:"提报", url:"/friendlyClaimApply/submitOrderUpdate/{[CLAIM_ID]}", model:"vehicle", method:"POST", callBack:function(response){
 	  						 $("#orderList",container).dmsTable().refreshTableWithForm();
 						},isShow:function(value, row, index){                   	   	   						
 							 if(row.STATUS=="40081001"){
@@ -133,14 +123,14 @@
 	               		   			return  false;
 	               	   			} 	  						                 	   
 						}},                       
-                       {type:"edit", title:"修改", url:"",openWidth:"modal-lg",doubleClick:true,isShow:function(value, row, index){                   	   
+                       {type:"edit", title:"修改", url:"vehicle/claimManage/friendlyClaimOrderApplyEdit.html",openWidth:"modal-lg",doubleClick:true,isShow:function(value, row, index){                   	   
                     	   if( row.STATUS=="40081001" || row.SMALL_AREA_APPROVAL_STATUS== "90011003"){
                		  	 		return true;
                	   			}else{
                		   			return  false;
                	   			}                     	   
                        },attr:'data-validateUrl="" data-validateMethod="" data-validateModel=""'}, //默认不支持双击操作
-                       {type:"del", title:"删除", url:"", model:"vehicle",callBack:function(response){
+                       {type:"del", title:"删除", url:"/friendlyClaimApply/deleteClaim/{[CLAIM_ID]}", model:"vehicle",callBack:function(response){
                     	   $("#orderList",container).dmsTable().refreshTableWithForm();
                        },isShow:function(value, row, index){                   	   
                     	   if(row.STATUS=="40081001"){
@@ -170,8 +160,8 @@
 			    {field : "VIN",title : "VIN"},
 			    {field : "SUBMIT_COUNT",title : "提交次数"},
 			    {field : "APPLY_DATE",title : "申请日期"},
-			    {field : "STATUS",title : "申请状态"},
-			    {field : "SMALL_AREA_APPROVAL_STATUS",title : "小区审批状态"}
+			    {field : "STATUS",title : "申请状态",codeFormat : {type:"oemDict",codeType:"4008"}},
+			    {field : "SMALL_AREA_APPROVAL_STATUS",title : "小区审批状态",codeFormat : {type:"oemDict",codeType:"9001"}}
 				
 			],
 			onLoadSuccess : function() {

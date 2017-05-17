@@ -14,7 +14,7 @@ import com.yonyou.dms.common.domains.PO.basedata.TiAppNCustomerInfoPO;
 import com.yonyou.dms.framework.domain.LoginInfoDto;
 import com.yonyou.dms.framework.util.bean.ApplicationContextHelper;
 import com.yonyou.dms.function.exception.ServiceBizException;
-import com.yonyou.dms.gacfca.SOTDMS003;
+import com.yonyou.dms.gacfca.SOTDMS003Coud;
 
 /**
  * DCS->DMS
@@ -31,7 +31,7 @@ public class SOTDMS003CloudImpl extends BaseCloudImpl implements SOTDMS003Cloud 
 	TiAppNCustomerInfoDao dao;
 	
 	@Autowired
-	SOTDMS003 sotdms003;
+	SOTDMS003Coud sotdms003;
 
 	@Override
 	public String execute() throws ServiceBizException {

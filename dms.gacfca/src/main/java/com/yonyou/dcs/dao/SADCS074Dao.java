@@ -1,6 +1,7 @@
 package com.yonyou.dcs.dao;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +19,7 @@ public class SADCS074Dao extends OemBaseDAO {
 	/**
 	 * 查询data ： vin，开票日期
 	 */
-	public List<SADCS074DTO> queryInvoiceDateSend(String vin,String invoiceDae){
+	public LinkedList<SADCS074DTO> queryInvoiceDateSend(String vin,String invoiceDae){
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT SR.INVOICE_DATE,TV.VIN\n");
 		sql.append("FROM TT_VS_SALES_REPORT SR LEFT JOIN TM_VEHICLE_DEC TV\n");
@@ -27,10 +28,10 @@ public class SADCS074Dao extends OemBaseDAO {
 		sql.append("AND to_char(SR.INVOICE_DATE,'yyyy-MM-dd')= to_char('"+invoiceDae+"','yyyy-MM-dd')\n");
 
 		List<Map> listMap=OemDAOUtil.findAll(sql.toString(), null);
-		List<SADCS074DTO> dtoList=null;
+		LinkedList<SADCS074DTO> dtoList=null;
 		SADCS074DTO dto=null;
 		if(null!=listMap&&listMap.size()>0){
-			dtoList=new ArrayList<SADCS074DTO>();
+			dtoList=new LinkedList<SADCS074DTO>();
 			for(int i=0;i<listMap.size();i++){
 				dto=new SADCS074DTO();
 				dto.setInvoiceDate(CommonUtils.parseDate(CommonUtils.checkNull(listMap.get(i).get("INVOICE_DATE"))));

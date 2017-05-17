@@ -1,6 +1,8 @@
 package com.yonyou.dcs.de.impl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.infoservice.dms.cgcsl.vo.SEDCS017VO;
 import com.yonyou.dcs.dao.SEDCS017Dao;
 import com.yonyou.dcs.de.SEDCS017;
 import com.yonyou.dcs.util.DEUtil;
@@ -38,12 +41,12 @@ public class SEDCS017Impl  extends BaseImpl  implements  SEDCS017 {
 			}else{
 				if(f == 0){
 					for(int i=0;i<j;i++){
-						List<SEDCS017DTO> tlrmvolist = dao.queryAllInfo(i+1,groupType);
+						LinkedList<SEDCS017DTO> tlrmvolist = dao.queryAllInfo(i+1,groupType);
 						send(tlrmvolist);
 					}
 				}else{
 					for(int d=0;d<j+1;d++){
-						List<SEDCS017DTO> tlrmvolist = dao.queryAllInfo(d+1,groupType);
+						LinkedList<SEDCS017DTO> tlrmvolist = dao.queryAllInfo(d+1,groupType);
 						send(tlrmvolist);
 					}
 				}
@@ -61,10 +64,12 @@ public class SEDCS017Impl  extends BaseImpl  implements  SEDCS017 {
 	 * @param array
 	 * @throws Exception 
 	 */
-	private String send(List<SEDCS017DTO> dataList) throws Exception {
+	private String send(LinkedList<SEDCS017DTO> dataList) throws Exception {
 		try {
 			if(null!=dataList && dataList.size()>0){
-				Map<String, Serializable> body = DEUtil.assembleBody(dataList);
+				List<SEDCS017VO> vos = new ArrayList<>();
+				setVos(vos,dataList);
+				Map<String, Serializable> body = DEUtil.assembleBody(vos);
 				sendAllMsg("SEDCS017", body);
 				logger.info("SEDCS017  维修工时参数发送成功======size："+dataList.size());
 			}else{
@@ -75,5 +80,30 @@ public class SEDCS017Impl  extends BaseImpl  implements  SEDCS017 {
 			logger.error(t.getMessage(), t);
 		} 
 		return null;
+	}
+	/**
+	 * 数据转换
+	 * @param vos
+	 * @param dataList
+	 */
+	private void setVos(List<SEDCS017VO> vos, LinkedList<SEDCS017DTO> dataList) {
+		for (int i = 0; i < dataList.size(); i++) {
+			SEDCS017DTO dto = dataList.get(i);
+			SEDCS017VO vo = new SEDCS017VO();
+			vo.setMmhCodeOne(dto.getMmhCodeOne());
+			vo.setMmhNameOne(dto.getMmhNameOne());
+			vo.setMmhStatusOne(dto.getMmhStatusOne());
+			vo.setMmhCodeTwo(dto.getMmhCodeTwo());
+			vo.setMmhNameTwo(dto.getMmhNameTwo());
+			vo.setMmhStatusTwo(dto.getMmhStatusTwo());
+			vo.setMmhCodeThree(dto.getMmhCodeThree());
+			vo.setMmhNameThree(dto.getMmhNameThree());
+			vo.setMmhStatusThree(dto.getMmhStatusThree());
+			vo.setMmhCodeFour(dto.getMmhCodeFour());
+			vo.setMmhNameFour(dto.getMmhNameFour());
+			vo.setMmhStatusFour(dto.getMmhStatusFour());
+			vo.setGroupType(dto.getGroupType());
+			vos.add(vo);
+		}
 	}
 }

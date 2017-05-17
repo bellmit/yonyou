@@ -43,6 +43,7 @@
 							<div class="pannel-name">借出单号选择</div>
 						</div>
 						<div class="panel-body">
+							<input type="hidden" id="userId" value="{[userInfo.userId]}"/>
 							<table class="table table-striped table-bordered table-hover table-responsive"
 								id="dms_vehicle"></table>
 						</div>
@@ -83,6 +84,7 @@
 				{field : "HANDLER",title : "经手人"},
 				{field : "BORROWER_TAG",title : "借用人标识",codeFormat : {type : "dict",codeType : "1285"}},
 				{field : "LOCK_USER",title : "锁定人"},
+				{field : "USER_ID",title : "锁定人2",visible:false},
 				{field : "SO_NO",title : "装潢单号"},
 				{field : "VIN",title : "VIN"}
 			]
@@ -91,24 +93,54 @@
   
 		$("a[data-onclickEvent='true']",container).on("dms.click",function(event,container){
 			var selectRow = $("#dms_vehicle",container).dmsTable().getSelections();
-			var item;
-			dmsCommon.ajaxRestRequest({
-				url:dmsCommon.getDmsPath()["part"] +"/basedata/return/updateByLocker/"+selectRow[0].LEND_NO,
-				type:"POST",
-				sucessCallBack : function(data) {
-					if(data==1){
-						$.each(selectRow,function(index,row){
-							row["1"] = false;
-							$("#dms_show",getElementContext()).dmsTable().appendRow(row);
-							$("div[data-seldate='true']",getElementContext()).initHtmlContent(row);
-						});
-						$("#save",getElementContext()).removeAttr('disabled');
-						$("a[data-dismiss='modal']",container).click();
+			var customer = selectRow[0].CUSTOMER_CODE;
+			var item = '';
+			var bool = true;
+			var item2 = '';
+			var bool2 = true;
+			$.each(selectRow,function(index,row){
+				if(row.CUSTOMER_CODE==customer){//表示同一个客户代码
+					if(item!=''){
+						item = item + ',' + row.LEND_NO;
 					}else{
-						dmsCommon.tip({status:"warning",msg:"此单号["+selectRow[0].LEND_NO+"].已被加锁,请选择其他订单!"});
+						item = row.LEND_NO;
 					}
+				}else{
+					bool = false;
+				}
+				if($("#userId",container).val()!=row.USER_ID&&!isStringNull(row.USER_ID)){
+					if(item2!=''){
+						item2 = item2 + ',' + row.LEND_NO;
+					}else{
+						item2 = row.LEND_NO;
+					}
+					bool2 = false;
 				}
 			});
+			if(bool2){
+				if(bool){
+					if(!isStringNull(item)){
+						dmsCommon.ajaxRestRequest({
+							url:dmsCommon.getDmsPath()["part"] +"/basedata/return/updateByLocker/"+item,
+							type:"POST",
+							sucessCallBack : function(data) {
+								if(data==1){
+									selectRow[0].LEND_NO = item;
+									$("div[data-seldate='true']",getElementContext()).initHtmlContent(selectRow[0]);
+									$("#save",getElementContext()).removeAttr('disabled');
+									$("a[data-dismiss='modal']",container).click();
+								}else{
+									dmsCommon.tip({status:"warning",msg:"此单号["+selectRow[0].LEND_NO+"].已被加锁,请选择其他订单!"});
+								}
+							}
+						});
+					}
+				}else{
+					dmsCommon.tip({status:"warning",msg:"请选择相同的客户代码!"});
+				}
+			}else{
+				dmsCommon.tip({status:"warning",msg:"单号["+item2+"]已被他人锁定!"});
+			}
 		});
 	});
 </script>

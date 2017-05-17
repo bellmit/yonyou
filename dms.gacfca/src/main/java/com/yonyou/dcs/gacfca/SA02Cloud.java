@@ -9,7 +9,7 @@ import com.yonyou.dms.function.exception.ServiceBizException;
  * @Description: TODO(调拨审批结果下发) 
  * @author xuqinqin
  */
-public interface SA02Cloud {
+public interface SA02Cloud extends BaseCloud{
 	
 	public String sendData(List<String> dealerCodes, SalesorderShoppingDTO vo) throws ServiceBizException;
 	

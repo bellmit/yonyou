@@ -99,7 +99,7 @@ $(document).one("onload.dms",function(event,container){
 				$("div[data-tableSelect='true']",getElementContext()).initHtmlContent(selectRow);
 				$("a[data-dismiss='modal']",container).click();
 			}else{
-				dmsCommon.tip({status:"warning",msg:"此订单已锁定!"});
+				dmsCommon.tip({status:"warning",msg:"此订单已被["+selectRow.LOCK_USER+"]锁定!"});
 				return;
 			}
 		});

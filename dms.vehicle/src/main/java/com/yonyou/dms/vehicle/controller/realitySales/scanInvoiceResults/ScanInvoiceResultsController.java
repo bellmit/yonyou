@@ -83,6 +83,7 @@ public class ScanInvoiceResultsController {
 	 * @param response
 	 * @throws Exception
 	 */
+	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/export/excel", method = RequestMethod.GET)
 	@ResponseBody
 	public void scanInvoiceResultsDownLoadList(@RequestParam Map<String, String> queryParam, HttpServletRequest request,
@@ -108,7 +109,7 @@ public class ScanInvoiceResultsController {
 	    exportColumnList.add(new ExcelExportColumn("INVOICE_DATE","上报数据"));//开票日期
 	    exportColumnList.add(new ExcelExportColumn("IS_INVOICE_DATE","OCR结果"));
 	    
-	    exportColumnList.add(new ExcelExportColumn("SALES_DATE","扫描日期"));
+	    exportColumnList.add(new ExcelExportColumn("SALES_DATE1","扫描日期"));
 	    exportColumnList.add(new ExcelExportColumn("ONE_DAY_SCAN","72小时内扫描"));
 	    exportColumnList.add(new ExcelExportColumn("TWO_DAY_SCAN","120小时内扫描"));
 	    exportColumnList.add(new ExcelExportColumn("CTM_NAME","客户姓名/公司名称"));

@@ -63,7 +63,7 @@ public class RebateDetailDao extends OemBaseDAO{
 		sql.append("  		trc.DEALER_CODE, trc.DEALER_NAME, trc.VIN, trc.MODEL_NAME, trc.COUNT,  \n");
 		sql.append("  		trc.NOMAL_BONUS, trc.SPECIAL_BONUS, trc.BACK_BONUSES_EST, trc.BACK_BONUSES_DOWN,  \n");
 		sql.append("  		trc.NEW_INCENTIVES, trc.OEM_COMPANY_ID, \n");
-		sql.append("  	    trc.CREATE_BY, trc.CREATE_DATE, trc.UPDATE_BY, trc.UPDATE_DATE \n");
+		sql.append("  	    trc.CREATE_BY, trc.CREATE_DATE, trc.UPDATE_BY, trc.UPDATE_DATE,vm.BRAND_CODE,vm.SERIES_CODE \n");
 		sql.append("from TT_REBATE_CALCULATE trc  \n");
 		sql.append("left join TT_REBATE_CALCULATE_MANAGE trcm on trc.LOG_ID= trcm.LOG_ID\n");
 		/* add sumin by 查询品牌，车系通过vin关联 start */
@@ -92,12 +92,13 @@ public class RebateDetailDao extends OemBaseDAO{
         }
         //品牌
   		if (!StringUtils.isNullOrEmpty(queryParam.get("brandCode"))) {
-  			sql.append(" and vm.BRAND_CODE = ? ");
+  			sql.append(" and vm.BRAND_ID = ? ");
+  			System.err.println(queryParam.get("brandCode"));
   			params.add(queryParam.get("brandCode"));
   		}
   	    //车系
   		if (!StringUtils.isNullOrEmpty(queryParam.get("seriesName"))) {
-  			sql.append(" and vm.SERIES_CODE = ? ");
+  			sql.append(" and vm.SERIES_ID = ? ");
   			params.add(queryParam.get("seriesName"));
   		}
   		//商务政策类型

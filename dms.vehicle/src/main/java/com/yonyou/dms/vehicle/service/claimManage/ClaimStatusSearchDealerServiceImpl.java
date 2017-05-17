@@ -94,8 +94,8 @@ public class ClaimStatusSearchDealerServiceImpl implements ClaimStatusSearchDeal
 	 * 获取索赔类型列表
 	 */
 	@Override
-	public List<Map> queryClaimTypeList() throws ServiceBizException {
-		List<Map> resultList = cssdDao.getQueryClaimTypeList();
+	public List<Map> queryClaimTypeList(Integer type) throws ServiceBizException {
+		List<Map> resultList = cssdDao.getQueryClaimTypeList( type);
 		return resultList;
 	}
 	

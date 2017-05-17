@@ -167,22 +167,55 @@
 			dmsCommon.ajaxRestRequest({
 				url : dmsCommon.getDmsPath()["manage"] + "/yearPlanImport/checkImportData/"+$("#year").val(),
 				type : 'GET',
+				async: false,
 				sucessCallBack : function(data) {
-					/* if(data.FLAG == 0){
-						if(confirm("确定要导入吗？")){
+					if(data.FLAG == 0){
+						/* $(this).confirmation({
+				        	container: 'body', 
+				        	btnOkClass: 'btn btn-sm btn-success', 
+				        	btnCancelClass: 'btn btn-sm btn-info',
+				        	title:"确定要导入吗？",
+				        	btnCancelLabel:"取消",
+				        	btnOkLabel:"确认",
+				        	placement:"top",
+				        	onConfirm:function(event, element){
+				        		returnResult.status = true;
+				        	},
+				        	onCancel:function(event, element){
+				        		returnResult.status = false;
+								return ;
+				        	}
+						}); */
+						/* if(confirm("确定要导入吗？")){
 							returnResult.status = true;
 						}else{
 							returnResult.status = false;
 							return;
-						}
+						} */
 					}else if(data.FLAG == 1){
-						if(confirm("导入数据在数据库中已存在,是否生成新的版本？")){
+						/* $(this).confirmation({
+				        	container: 'body', 
+				        	btnOkClass: 'btn btn-sm btn-success', 
+				        	btnCancelClass: 'btn btn-sm btn-info',
+				        	title:"导入数据在数据库中已存在,是否生成新的版本？",
+				        	btnCancelLabel:"取消",
+				        	btnOkLabel:"确认",
+				        	placement:"top",
+				        	onConfirm:function(event, element){
+				        		returnResult.status = true;
+				        	},
+				        	onCancel:function(event, element){
+				        		returnResult.status = false;
+								return ;
+				        	}
+						});  */
+						/* if(confirm("导入数据在数据库中已存在,是否生成新的版本？")){
 							returnResult.status = true;
 						}else{
 							returnResult.status = false;
 							return ;
-						}
-					}  */
+						} */ 
+					}  
 			 	}  
 			});
 			returnResult.status = true;
@@ -192,6 +225,7 @@
 		$("#yearPlanImportId[data-callBack='true']",container).on("callBack.dms",function(event,response){
 			$("#errorInfoPanpel",container).hide();
 			$("#yearPlanPanpel",container).hide();
+			dmsCommon.tip({status:"success",msg:$("#year").val()+"年 年度计划导入已完成 ,版本号为"+response.aprAmt});
 			dmsCommon.refreshPageByUrl("salesPlanManage/planManage/yearPlan/yearPlanImport.html",container);
 		});
 		

@@ -45,7 +45,43 @@ public class RebateSumController  extends BaseController{
 	
 	@Autowired
 	ExcelGenerator excelService;
-	
+		
+		/**
+		 * 返利核算汇总查询(DRL)
+		 * @param queryParam
+		 * @param request
+		 * @param response
+		 * @throws Exception
+		 */
+		@RequestMapping(value = "/export/excel/drl", method = RequestMethod.GET)
+		public void exportCarownerInfo1(@RequestParam Map<String, String> queryParam, HttpServletRequest request,
+				HttpServletResponse response) throws Exception {
+			//获取当前用户
+			LoginInfoDto logonUser = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
+			String dealerCode = logonUser.getDealerCode();
+			List<Map> resultList = rservice.queryEmpInfoforExport1(queryParam,dealerCode);
+			Map<String, List<Map>> excelData = new HashMap<String, List<Map>>();
+			excelData.put("经销商返利汇总信息管理", resultList);
+			// 生成excel 文件
+			List<ExcelExportColumn> exportColumnList = new ArrayList<ExcelExportColumn>();
+			exportColumnList.add(new ExcelExportColumn("BUSINESS_POLICY_NAME", "商务政策"));
+			exportColumnList.add(new ExcelExportColumn("BUSINESS_POLICY_TYPE", "商务政策类型"));
+			exportColumnList.add(new ExcelExportColumn("APPLICABLE_TIME", "适用时段"));
+			exportColumnList.add(new ExcelExportColumn("RELEASE_DATE", "发布时间"));
+			exportColumnList.add(new ExcelExportColumn("START_MONTH", "起始月"));
+			exportColumnList.add(new ExcelExportColumn("END_MONTH", "结束月"));
+			exportColumnList.add(new ExcelExportColumn("DEALER_CODE", "经销商代码"));
+			exportColumnList.add(new ExcelExportColumn("DEALER_NAME", "经销商名称"));
+			exportColumnList.add(new ExcelExportColumn("NOMAL_BONUS", "常规奖金"));
+			exportColumnList.add(new ExcelExportColumn("SPECIAL_BONUS", "特批奖金"));
+			exportColumnList.add(new ExcelExportColumn("BACK_BONUSES_EST", "追溯奖金（估算）"));
+			exportColumnList.add(new ExcelExportColumn("BACK_BONUSES_DOWN", "追溯奖金（下发）"));
+			exportColumnList.add(new ExcelExportColumn("NEW_INCENTIVES", "新经销商返利"));
+			excelService.generateExcel(excelData, exportColumnList, "经销商返利汇总信息管理.xls", request, response);
+
+		}
+		
+		
 		@RequestMapping(value = "/export/excel", method = RequestMethod.GET)
 		public void exportCarownerInfo(@RequestParam Map<String, String> queryParam, HttpServletRequest request,
 				HttpServletResponse response) throws Exception {
@@ -70,7 +106,6 @@ public class RebateSumController  extends BaseController{
 			excelService.generateExcel(excelData, exportColumnList, "经销商返利汇总信息管理.xls", request, response);
 
 		}
-		
 		/**
 		 * 
 		* @Title: queryDefeatReason 
@@ -89,6 +124,19 @@ public class RebateSumController  extends BaseController{
 	        return pageInfoDto;
 	    }
 	    
+	    /**
+	     *返利核算汇总查询(DRL)
+	     */
+	    @RequestMapping(value = "/drl",method = RequestMethod.GET)
+	    @ResponseBody
+	    public PageInfoDto queryDefeatReason1(@RequestParam Map<String, String> queryParam) throws Exception {
+	    	logger.info("查询经销商返利汇总信息");
+	    	//获取当前用户
+			LoginInfoDto logonUser = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
+			String dealerCode = logonUser.getDealerCode();
+	        PageInfoDto pageInfoDto=rservice.getRebateSum1(queryParam,dealerCode);
+	        return pageInfoDto;
+	    }
 	    
 		@RequestMapping(value = "/export/excelmx", method = RequestMethod.GET)
 		public void exportMX(@RequestParam Map<String, String> queryParam, HttpServletRequest request,
@@ -169,6 +217,7 @@ public class RebateSumController  extends BaseController{
 			
 			//获取当前用户
 			LoginInfoDto logonUser = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
+			
 			String drlFlag = "1002";
 			//静态
         	List<Map> sList = rservice.queryDetailDownSt(logId,drlFlag,dealerCode,logonUser);

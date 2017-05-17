@@ -1,6 +1,7 @@
 package com.yonyou.dms.vehicle.dao.claimManage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import com.yonyou.dms.framework.DAO.OemDAOUtil;
 import com.yonyou.dms.framework.DAO.PageInfoDto;
 import com.yonyou.dms.framework.domain.LoginInfoDto;
 import com.yonyou.dms.framework.util.bean.ApplicationContextHelper;
+import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.StringUtils;
 
 /**
@@ -367,6 +369,232 @@ public class FriendlyClaimApplyDao extends OemBaseDAO{
 	}
 	
 	
+	public PageInfoDto getQueryRepairOrderList(Map<String, String> queryParam) {
+		//获取当前用户
+		LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
+		
+		List<Object> params = new ArrayList<Object>();
+		StringBuffer sql = new StringBuffer("\n");
+		sql.append("SELECT TWR.REPAIR_ID, TWR.REPAIR_NO, TWR.CLAIM_NUMBER, TV.VIN, TV.ENGINE_NO,TV.LICENSE_NO, DATE_FORMAT(TV.PURCHASE_DATE,'%Y-%c-%d') PURCHASE_DATE, \n");
+		sql.append("		TWR.REPAIR_TYPE, TWR.STATUS, TWR.MAIN_PART,TWR.BETWEEN_DAYS,TWR.PACKAGE_CODE,TWR.PACKAGE_NAME, \n");
+		sql.append("		TWR.CUSTOMER_NAME,TWR.CUSTOMER_TEL,TWR.CUSTOMER_ADDR,TWR.TEL,TWR.REPORT_MAN,TWR.MILLEAGE, \n");
+		sql.append("		TWR.DEALER_CODE,  TWR.DEALER_NAME, \n");
+		sql.append("		COALESCE (TWR.MAINTAIN_HOUR, 0) MAINTAIN_HOUR,COALESCE (TWR.PART_FEE, 0) PART_FEE, \n");
+		sql.append("		COALESCE (TWR.LABOR_FEE, 0) LABOR_FEE,COALESCE (TWR.OTHER_FEE, 0) OTHER_FEE,COALESCE (TWR.LAB_PAY, 0) LAB_PAY, \n");
+		sql.append("		DATE_FORMAT (TWR.MAKE_DATE, '%Y-%c-%d') MAKE_DATE,MAKE_MAN, \n");
+		sql.append("		DATE_FORMAT (TWR.REPAIR_DATE, '%Y-%c-%d') REPAIR_DATE, \n");
+		sql.append("		DATE_FORMAT (TWR.BALANCE_DATE, '%Y-%c-%d') BALANCE_DATE, \n");
+		//sql.append("		DATE_FORMAT (TWR.BALANCE_DATE, '%Y-%c-%d') BALANCE_DATE, \n");
+		sql.append("		DATE_FORMAT (TWR.FAULT_DATE, '%Y-%c-%d') FAULT_DATE, \n");
+		sql.append("		TVM.BRAND_CODE,TVM.BRAND_NAME,TVM.SERIES_CODE,TVM.SERIES_NAME,TVM.MODEL_CODE,TVM.MODEL_NAME,TV.MODEL_YEAR \n");
+		sql.append(" FROM TT_WR_REPAIR_DCS TWR, TM_VEHICLE_DEC TV \n");
+		sql.append("	left join  ("+getVwMaterialSql()+") TVM  on TV.MATERIAL_ID = TVM.MATERIAL_ID \n");
+		sql.append(" WHERE  TWR.VIN = TV.VIN  \n");
+		sql.append("        AND TWR.IS_DEL = 0 \n");
+		sql.append("        AND TWR.IS_CLAIM = 10041001 \n");
+		sql.append("        AND TWR.STATUS = 40021002 			 \n");
+		//	#条件 
+		//工单号
+		if(!StringUtils.isNullOrEmpty(queryParam.get("repairNo"))){
+			sql.append("		AND TWR.REPAIR_NO like'%"+queryParam.get("repairNo")+"%' \n");
+		}
+		//工单日期开始
+		if(!StringUtils.isNullOrEmpty(queryParam.get("roStartDate"))){
+			sql.append("		AND TWR.REPAIR_DATE >= DATE_FORMAT('"+queryParam.get("roStartDate")+"','%Y-%c-%d')  \n");
+		}
+		//工单日期结束
+		if(!StringUtils.isNullOrEmpty(queryParam.get("roEndtDate"))){
+			sql.append("		AND TWR.BALANCE_DATE <= DATE_FORMAT('"+queryParam.get("roEndtDate")+" 23:59:59','%Y-%c-%d %H:%i:%s')  \n");
+		}
+		//购车日期
+		if(!StringUtils.isNullOrEmpty(queryParam.get("purchase"))){
+			sql.append("		AND TV.PURCHASE_DATE = DATE_FORMAT('"+queryParam.get("purchase")+"','%Y-%c-%d')  \n");
+		}
+		//vin
+		if(!StringUtils.isNullOrEmpty(queryParam.get("VIN"))){
+			sql.append("		AND TWR.VIN like'%"+queryParam.get("VIN")+"%' \n");
+		}
+		//里程
+		if(!StringUtils.isNullOrEmpty(queryParam.get("inMilleage"))){
+			sql.append("		AND  TWR.MILLEAGE ='"+queryParam.get("inMilleage")+"' \n");
+		}
+		
+		sql.append("		AND TWR.OEM_COMPANY_ID = "+loginInfo.getOemCompanyId()+" \n");
+		sql.append("        AND TWR.DEALER_ID = "+loginInfo.getDealerId()+" \n");
+
+		sql.append(" AND  TWR.CLAIM_NUMBER ='5AS0J2'  ");  //限制减少数据
+		PageInfoDto pageInfoDto = OemDAOUtil.pageQuery(sql.toString(), params);
+		return pageInfoDto;
+
+	}
+	/**
+	 * 查询预授权单信息
+	 * @param queryParam
+	 * @return
+	 */
+	public PageInfoDto getQueryforeOrderList(Map<String, String> queryParam) {
+		//获取当前用户
+		LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
+		List<Object> params = new ArrayList<Object>();
+		StringBuffer sql = new StringBuffer("\n");
+		sql.append("SELECT FORE.ID,FORE.FORE_NO,FORE.REPAIR_NO,DATE_FORMAT(FORE.START_DATE,'%Y-%c-%d') START_DATE, \n");
+		sql.append("    DATE_FORMAT(FORE.INTO_DATE,'%Y-%c-%d') INTO_DATE,FORE.INTO_MILEAGE,FORE.VIN,FORE.BRAND, \n");
+		sql.append("    FORE.SERIES,FORE.MODEL,FORE.PLATE_NO,FORE.ENGINE_NO, \n");
+		sql.append("    FORE.LINK_TEL,DATE_FORMAT(FORE.APPLY_DATE,'%Y-%c-%d') APPLY_DATE,FORE.APPLY_MAN \n");
+		sql.append("     FROM TT_WR_FOREAPPROVAL_DCS FORE \n");
+		sql.append("     WHERE    FORE.IS_DEL = 0 \n");
+		sql.append("       AND FORE.STATUS =  11691004 \n");
+		//	   #条件 
+		//预授权单号
+		if(!StringUtils.isNullOrEmpty(queryParam.get("foreNo"))){
+			sql.append("	   AND FORE.FORE_NO LIKE'%"+queryParam.get("foreNo")+"%' \n");
+		}
+		//维修单号
+		if(!StringUtils.isNullOrEmpty(queryParam.get("repairNo"))){
+			sql.append("	   AND FORE.REPAIR_NO LIKE'%"+queryParam.get("repairNo")+"%' \n");
+		}
+		//申请日期
+		if(!StringUtils.isNullOrEmpty(queryParam.get("applyDate"))){
+			sql.append("	   AND FORE.APPLY_DATE = DATE_FORMAT('"+queryParam.get("applyDate")+"','Y-%c-%d')  \n");
+		}
+		//VIN
+		if(!StringUtils.isNullOrEmpty(queryParam.get("vin"))){
+			sql.append("	   AND FORE.VIN LIKE'%"+queryParam.get("vin")+"%' \n");
+		}
+		
+		sql.append("      AND FORE.OEM_COMPANY_ID  = "+loginInfo.getOemCompanyId()+" \n");
+		sql.append("      AND FORE.DEALER_ID = "+loginInfo.getDealerId()+" \n");
+		//sql.append(" ORDER BY FORE.ID DESC \n");
+
+		PageInfoDto pageInfoDto = OemDAOUtil.pageQuery(sql.toString(), params);
+		return pageInfoDto;
+
+	}
+	
+	/**
+	 * 查询工单下的其他项目列表:
+	 * @param repairId
+	 * @return
+	 */
+	public PageInfoDto getQueryRepairOrderClaimOther(Map<String, String> queryParam) {
+		//校验repairId是否存在
+		if(StringUtils.isNullOrEmpty(queryParam.get("repairId"))){
+			throw new ServiceBizException("无法获取维修工单号,请联系管理员!");
+		}		
+		List<Object> params = new ArrayList<Object>();
+		StringBuffer sql = new StringBuffer("\n");
+		sql.append("SELECT TWRO.DETAIL_ID,TWRO.REPAIR_ID,TWRO.ITEM_CODE OTHER_FEE_CODE,TWRO.ITEM_NAME OTHER_FEE_NAME, \n");
+		sql.append("		COALESCE(TWRO.ITEM_FEE,0) AMOUNT,TWRO.REMARK,twro.ACTIVITY_CODE  \n");
+		sql.append("	FROM TT_WR_REPAIR_DCS TWR,TT_WR_REPAIR_OTHERITEM_DCS TWRO , TT_WR_OTHERFEE_DCS TWO \n");
+		sql.append("	WHERE  TWR.REPAIR_ID = TWRO.REPAIR_ID  AND TWRO.REPAIR_ID="+queryParam.get("repairId")+"  AND TWO.OTHER_FEE_CODE = TWRO.ITEM_CODE AND TWO.IS_DEL =0 \n");
+		//sql.append("	ORDER BY TWRO.DETAIL_ID \n");
+		
+		PageInfoDto pageInfoDto = OemDAOUtil.pageQuery(sql.toString(), params);
+		return pageInfoDto;
+
+	}
+	/**
+	 * 查询工单下的维修零部件列表:
+	 * @param repairId
+	 * @return
+	 */
+	public PageInfoDto getQueryRepairOrderClaimPart(Map<String, String> queryParam) {
+
+		//校验repairId是否存在
+		if(StringUtils.isNullOrEmpty(queryParam.get("repairId"))){
+			throw new ServiceBizException("无法获取维修工单号,请联系管理员!");
+		}		
+		List<Object> params = new ArrayList<Object>();
+		StringBuffer sql = new StringBuffer("\n");
+		sql.append(" select * from ( SELECT TWRP.IS_MAIN,TWRP.PART_CODE,TWRP.PART_NAME, \n");
+		sql.append("		COALESCE (tppb.dnp_price, 0) PRICE,SUM(COALESCE(TWRP.QUANTITY,0)) QUANTITY,TWRP.ACTIVITY_CODE,TWRP.REMARK \n");
+		sql.append("		,(SELECT COUNT(*) FROM tt_pt_part_relation_DCS WHERE PARTNOOLD = twrp.part_code ) NEWPART_CODE  \n");
+		sql.append("	FROM TT_WR_REPAIR_DCS TWR, TT_WR_REPAIR_PART_DCS TWRP , tt_pt_part_base_DCS tppb \n");
+		sql.append("	WHERE  TWR.REPAIR_ID = TWRP.REPAIR_ID  AND TWR.REPAIR_ID = "+queryParam.get("repairId")+" AND tppb.part_code = twrp.part_code AND tppb.is_del = 0 \n");
+		sql.append("	GROUP BY TWRP.PART_CODE,TWRP.IS_MAIN,TWRP.PART_NAME,DNP_PRICE,TWRP.ACTIVITY_CODE,TWRP.REMARK \n");
+		sql.append("	) tt \n");
+
+		PageInfoDto pageInfoDto = OemDAOUtil.pageQuery(sql.toString(), params);
+		return pageInfoDto;
+
+	}
+	/**
+	 * 查询工单下的维修项目列表:
+	 * @param repairId
+	 * @return
+	 */
+	public PageInfoDto getQueryRepairOrderClaimLabour(Map<String, String> queryParam) {
+		//校验repairId是否存在
+		if(StringUtils.isNullOrEmpty(queryParam.get("repairId"))){
+			throw new ServiceBizException("无法获取维修工单号,请联系管理员!");
+		}
+		List<Object> params = new ArrayList<Object>();
+		StringBuffer sql = new StringBuffer("\n");
+		sql.append("SELECT * FROM (SELECT t1.LABOUR_CODE,t1.LABOUR_NAME,t1.ACTIVITY_CODE,t1.REMARK,IFNULL(twl.LABOUR_NUM,0) LABOUR_NUM FROM ( SELECT TWRI.LABOUR_CODE,TWRI.LABOUR_NAME,COALESCE(TWRI.LABOUR_NUM,0) LABOUR_NUM,TWRI.ACTIVITY_CODE,TWRI.REMARK \n");
+		sql.append("	     FROM TT_WR_REPAIR_DCS TWR,TT_WR_REPAIR_ITEM_DCS TWRI  \n");
+		sql.append("	     WHERE  TWR.REPAIR_ID = TWRI.REPAIR_ID  AND TWR.REPAIR_ID = "+queryParam.get("repairId")+" ) t1 \n");
+		sql.append("	     LEFT JOIN TT_WR_LABOUR_DCS TWL ON TWL.LABOUR_CODE = CONCAT('2013',SUBSTR(t1.LABOUR_CODE,5)) AND TWL.IS_DEL = 0 AND GROUP_CODE = 'COMPASS 2.4' ) a \n");
+		sql.append(" \n");		
+		
+		PageInfoDto pageInfoDto = OemDAOUtil.pageQuery(sql.toString(), params);
+		return pageInfoDto;
+
+	}
+	
+	/**
+	 * 修改页面数据回显
+	 * @param claimId
+	 * @param queryParam
+	 * @return
+	 */
+	public Map getQueryEditMessage(Long claimId,Map<String, String> queryParam) {
+		
+		List<Object> params = new ArrayList<Object>();
+		StringBuffer sql = new StringBuffer("\n");
+		sql.append("SELECT TWC.SMALL_AREA_APPROVAL_STATUS,TWR.REPAIR_ID,TWC.CLAIM_ID,TWC.CLAIM_NO,TWC.CLAIM_TYPE,TWC.RO_NO REPAIR_NO, TWR.REPAIR_ID, TWC.DEALER_ID,TWC.VIN,TWC.ACTIVITY_CODE,TWC.STATUS, \n");
+		sql.append("		TWC.CUSTOMER_COMPLAIN, TWC.CHECK_REPAIR_PROCEDURES, TWC.DEAL_SCHEME, TWC.APPLY_REASONS, \n");
+		sql.append("		TWC.CUSTOMER_BEAR_FEE_PART, TWC.DEALER_BEAR_FEE_PART, TWC.OEM_BEAR_FEE_PART, \n");
+		sql.append("		TWC.CUSTOMER_BEAR_FEE_LABOR, TWC.DEALER_BEAR_FEE_LABOR, TWC.OEM_BEAR_FEE_LABOR, \n");
+		sql.append("		TWC.CUSTOMER_BEAR_FEE_OTHER, TWC.DEALER_BEAR_FEE_OTHER, TWC.OEM_BEAR_FEE_OTHER, \n");
+		sql.append("		REPLACE(TWC.REMARK,'<br/>','') REMARK, \n");
+		sql.append("		COALESCE(TWC.LABOUR_PICE,0) LABOUR_PICE, \n");
+		sql.append("		COALESCE(TWC.OTHER_AMOUNT,0) OTHER_AMOUNT, \n");
+		sql.append("		COALESCE(TWC.ALL_AMOUNT,0) ALL_AMOUNT,COALESCE(TWC.PART_FEE,0) PART_FEE,COALESCE(TWC.MILLEAGE,0) MILLEAGE,  \n");
+		sql.append("		COALESCE(TWC.LABOUR_FEE,0) LABOUR_FEE, \n");
+		sql.append("		DATE_FORMAT(TWR.BALANCE_DATE,'%Y-%c-%d') BALANCE_DATE,DATE_FORMAT(TWC.APPLY_DATE,'%Y-%c-%d') APPLY_DATE, \n");
+		sql.append("		TWC.DEALER_CODE,(SELECT TD.DEALER_NAME FROM TM_DEALER TD WHERE TD.DEALER_CODE=TWC.DEALER_CODE) DEALER_NAME, \n");
+		sql.append("		TWC.RO_STARTDATE,TWC.RO_ENDDATE,TWC.FOREAPPROVAL_NO,TWC.SERVE_ADVISOR, \n");
+		sql.append("		TWC.VIN,TWC.PLATE_NO,TWC.ENGINE_NO,TWC.BRAND,TWC.SERIES,TWC.MODEL,TWC.PRE_CLAIM_NO,TWC.CONTINUE_FLAG, \n");
+		sql.append("		TWC.LASTRO_NO,DATE_FORMAT(TWC.LASTRO_DATE,'%Y-%c-%d') LASTRO_DATE,TWC.LASTRO_MILLEAGE,TWC.SERVICE_CONTRACT_NO, \n");
+		sql.append("		DATE_FORMAT(TWC.ARRIVAL_TIME,'%Y-%c-%d') ARRIVAL_TIME,TWC.SHIP_NO,TWC.IS_MAIN_FAULT,TWC.DAMAGE_TYPE,TWC.DAMAGE_AREA,TWC.DAMAGE_DEGREE \n");
+		sql.append("		,TWC.TAX_RATE,TWC.PART_PAY,TWC.WARRANTY_DATE \n");
+		sql.append("		FROM TT_WR_CLAIM_DCS TWC,TT_WR_REPAIR_DCS TWR \n");
+		sql.append("		WHERE TWC.RO_NO=TWR.REPAIR_NO \n");
+		sql.append("		AND TWC.CLAIM_ID = "+claimId+" \n");
+
+		Map map = OemDAOUtil.findFirst(sql.toString(), params);				
+		return map;
+
+	}
+	/**
+	 * 新增页面基础数据加载
+	 * @return
+	 */
+	public Map getClaimBaseParamByDealer() {
+		//获取当前用户
+		LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
+		List<Object> params = new ArrayList<Object>();
+		StringBuffer sql = new StringBuffer("\n");
+		sql.append("SELECT TWBP.LABOUR_PRICE,TWBP.TAX_RATE,TWBP.PART_MANGEFEE,TWBP.VALID_DAYS,TD.DEALER_CODE,TD.DEALER_SHORTNAME  DEALER_NAME \n");
+		sql.append("		FROM TT_WR_BASIC_PARA_DCS TWBP \n");
+		sql.append("		LEFT JOIN TM_DEALER TD ON  TWBP.DEALER_ID=TD.DEALER_ID \n");
+		sql.append("		WHERE TWBP.IS_DEL=0 \n");
+		sql.append("		AND TWBP.DEALER_ID="+loginInfo.getDealerId()+" AND TWBP.OEM_COMPANY_ID="+loginInfo.getOemCompanyId()+" \n");
+	
+		Map map = OemDAOUtil.findFirst(sql.toString(), params);				
+		return map;
+
+	}
 	
 }
 

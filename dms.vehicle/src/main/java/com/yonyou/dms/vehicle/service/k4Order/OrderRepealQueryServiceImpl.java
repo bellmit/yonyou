@@ -1,9 +1,6 @@
 package com.yonyou.dms.vehicle.service.k4Order;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,27 +8,16 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.javalite.activejdbc.LazyList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.infoeai.eai.action.ctcai.SI25;
-import com.yonyou.dms.common.domains.PO.basedata.TmCactAllotPO;
-import com.yonyou.dms.common.domains.PO.basedata.TmOrderPayChangePO;
-import com.yonyou.dms.common.domains.PO.basedata.TtResourceRemarkPO;
-import com.yonyou.dms.common.domains.PO.basedata.TtVsMatchCheckPO;
-import com.yonyou.dms.framework.DAO.OemDAOUtil;
-import com.yonyou.dms.framework.domain.LoginInfoDto;
 import com.yonyou.dms.framework.service.excel.ExcelDataType;
 import com.yonyou.dms.framework.service.excel.ExcelExportColumn;
 import com.yonyou.dms.framework.service.excel.ExcelGenerator;
-import com.yonyou.dms.framework.util.bean.ApplicationContextHelper;
 import com.yonyou.dms.function.common.OemDictCodeConstants;
 import com.yonyou.dms.function.exception.ServiceBizException;
-import com.yonyou.dms.function.utils.common.CommonUtils;
 import com.yonyou.dms.vehicle.dao.k4Order.OrderRepealQueryDao;
 import com.yonyou.dms.vehicle.domains.DTO.k4Order.K4OrderDTO;
-import com.yonyou.dms.vehicle.domains.PO.k4Order.TmpCactAllotPO;
 
 /**
  * @author liujiming
@@ -45,8 +31,8 @@ public class OrderRepealQueryServiceImpl implements OrderRepealQueryService {
 
 	@Autowired
 	private OrderRepealQueryDao orderReQuDao;
-	@Autowired
-	SI25 si25;
+	// @Autowired
+	// SI25 si25;
 
 	/**
 	 * 整车撤单撤单下载
@@ -220,224 +206,7 @@ public class OrderRepealQueryServiceImpl implements OrderRepealQueryService {
 
 	@Override
 	public void queryPass(K4OrderDTO k4OrderDTO) {
-
-		String dealerCode = CommonUtils.checkNull(k4OrderDTO.getDealerCode());
-		String isAllot = CommonUtils.checkNull(k4OrderDTO.getIsEc());
-		String vins = CommonUtils.checkNull(k4OrderDTO.getVins());
-		String zdrrVins = CommonUtils.checkNull(k4OrderDTO.getZdrrVins());
-		String arrOrderIds = "";
-
-		if (!vins.equals("")) {
-			vins = "'" + vins.replace(",", "','") + "'";
-		}
-		if (!zdrrVins.equals("")) {
-			zdrrVins = "'" + zdrrVins.replace(",", "','") + "'";
-		}
-		String lokVins = "";
-		if (!vins.equals("") && zdrrVins.equals("")) {
-			lokVins = vins;
-		} else if (vins.equals("") && !zdrrVins.equals("")) {
-			lokVins = zdrrVins;
-		} else {
-			lokVins = vins + "," + zdrrVins;
-		}
-		List<Map> reList = new ArrayList<Map>();
-		List<Map> lokList = orderReQuDao.findLockVins(lokVins);
-		if (lokList.size() > 0) {
-			for (int i = 0; i < lokList.size(); i++) {
-				Map<String, String> map = lokList.get(i);
-				String vin1 = map.get("VIN").toString();
-				// map.put("StateCode", "0");
-				// map.put("ErrorInfo", "资源已锁定");
-
-				throw new ServiceBizException(vin1 + "资源已锁定");
-			}
-		}
-		String result = "";
-		if (zdrrVins.length() > 0) {
-			// 调用WSDL文件,只传ZDRR的订单
-
-			try {
-				result = si25.doCtcaiMethod(zdrrVins);
-			} catch (Exception e) {
-			}
-		}
-		List<Map> tmList = new ArrayList<Map>();
-		List<Map> tpList = new ArrayList<Map>();
-		List<Map> tcList = new ArrayList<Map>();
-		if (!zdrrVins.equals("")) {
-			tmList = orderReQuDao.selectZDRR(zdrrVins);
-		}
-		if (!vins.equals("")) {
-			tpList = orderReQuDao.selectZRL1(vins);
-			tcList = orderReQuDao.selectForZbil(vins);
-		}
-		Map<String, String> reMap = new HashMap<String, String>();
-		LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String format = df.format(new Date());
-		// ZDRR撤单,中进返回接收结果后预撤单
-		if (result.equals("1")) {
-			// 确认中进收到以后再修改撤单审核状态
-			if (!arrOrderIds.equals("")) {
-				OemDAOUtil.execBatchPreparement("update TM_ORDER_PAY_CHANGE set AUDIT_STATUS="
-						+ OemDictCodeConstants.CANCEL_ORDER_APPLY_STATUS_04 + ",IS_SUC=3 where ID in(" + arrOrderIds
-						+ ")", null);
-			}
-
-			reMap.put("ErrorInfo", "1");
-
-			for (int i = 0; i < tmList.size(); i++) {
-				Map<String, Object> map = tmList.get(i);
-
-				TtVsMatchCheckPO mcPo = new TtVsMatchCheckPO();
-				mcPo.setInteger("ORDER_ID", new Long(map.get("ORDER_ID").toString()));
-				mcPo.setInteger("OLD_VEHICLE_ID", new Long(map.get("VEHICLE_ID").toString()));// 原车辆ID
-				mcPo.setInteger("CHG_VEHICLE_ID", new Long(map.get("VEHICLE_ID").toString()));
-				mcPo.setInteger("UPDATE_BY", loginInfo.getUserId());// 操作人
-				mcPo.setTimestamp("UPDATE_DATE", format);// 操作时间
-				mcPo.setInteger("CANCEL_TYPE", 1003);// 1001订单取消 1002 订单撤单//
-														// 1003撤单中
-				mcPo.setString("CANCEL_REASON", "撤单中");
-				mcPo.setInteger("OTYPE", 1);// 撤单类型，1.OTD撤单，2.经销商撤单
-				mcPo.saveIt();
-
-				TmCactAllotPO tcPO = new TmCactAllotPO();
-				tcPO.setString("VIN", map.get("VIN").toString());
-				tcPO.setInteger("STATUS", OemDictCodeConstants.STATUS_ENABLE);
-				LazyList<TmCactAllotPO> tcaList = TmCactAllotPO.findBySQL(
-						"select * from Tm_Cact_Allot where vin=? and STATUS=?", map.get("VIN").toString(),
-						OemDictCodeConstants.STATUS_ENABLE);
-				if (tcaList.size() == 0) {
-					if (isAllot.equals(OemDictCodeConstants.IF_TYPE_YES)) {
-						if (zdrrVins.indexOf(",") < 0) {
-							tcPO.setString("DEALER_CODE", dealerCode);
-						} else {
-							TmpCactAllotPO tmpPO = new TmpCactAllotPO();
-							LazyList<TmpCactAllotPO> tmcList = TmpCactAllotPO
-									.findBySQL("select * from Tm_Cact_Allot where vin=? ", map.get("VIN").toString());
-							if (tmcList.size() > 0) {
-								tmpPO = tmcList.get(0);
-							}
-							tcPO.set("DEALER_CODE", tmpPO.get("DEALER_CODE") != null ? tmpPO.get("DEALER_CODE") : "");
-						}
-					}
-					tcPO.setInteger("MATCH_CHECK_ID", mcPo.getId());
-					tcPO.setInteger("CREATE_BY", new Long(loginInfo.getUserId()));
-					tcPO.setTimestamp("CREATE_DATE", format);
-					tcPO.saveIt();
-
-					// 删除已处理的记录
-					TmpCactAllotPO tmpPO = new TmpCactAllotPO();
-					TmpCactAllotPO.delete("vin=?", tcPO.get("VIN").toString());
-				}
-				LazyList<TtResourceRemarkPO> list = TtResourceRemarkPO
-						.findBySQL("select * from Tt_Resource_Remark where vin=?", tcPO.get("VIN").toString());
-				if (list.size() > 0) {
-					for (TtResourceRemarkPO valuePO : list) {
-						// valuePO.setRemark(new Integer(0));
-						valuePO.setInteger("IS_LOCK", new Integer(1));
-						valuePO.setInteger("UPDATE_BY", loginInfo.getUserId());
-						valuePO.setTimestamp("UPDATE_DATE", format);
-						valuePO.saveIt();
-					}
-				} else {
-					TtResourceRemarkPO trrPO = new TtResourceRemarkPO();
-					// trrPO.setRemark(new Integer(0));
-					trrPO.setString("VIN", tcPO.get("VIN"));
-					trrPO.setInteger("IS_LOCK", new Integer(1));
-					trrPO.setInteger("UPDATE_BY", loginInfo.getUserId());
-					trrPO.setInteger("CREATE_BY", loginInfo.getUserId());
-					trrPO.setTimestamp("CREATE_DATE", format);
-					trrPO.setTimestamp("UPDATE_DATE", format);
-					trrPO.saveIt();
-				}
-				// 如果在撤单申请中存在撤单审核中的数据，则修改为撤单中状态
-				TmOrderPayChangePO topc2 = TmOrderPayChangePO.findFirst(
-						"select * from tm_order_pay_change where vin=? and AUDIT_STATUS=?", tcPO.get("VIN").toString(),
-						OemDictCodeConstants.CANCEL_ORDER_APPLY_STATUS_01);
-				topc2.setInteger("AUDIT_STATUS", OemDictCodeConstants.CANCEL_ORDER_APPLY_STATUS_04);
-				topc2.setInteger("IS_SUC", 3);
-				topc2.saveIt();
-			}
-		} else {
-			reMap.put("ErrorInfo", "0");
-		}
-		reList.add(reMap);
-
-		// ZRL1撤单 撤回ZBIL---指派订单
-		if (tpList.size() > 0) {
-			for (int i = 0; i < tpList.size(); i++) {
-				String orderId = tpList.get(i).get("ORDER_ID").toString();
-				String vin = tpList.get(i).get("VIN").toString();
-				String dealerId = tpList.get(i).get("DEALER_ID").toString();
-				// 更改订单表为已撤单
-				OemDAOUtil
-						.execBatchPreparement(
-								"update TT_VS_ORDER set COMMONALITY_ID=0,ORDER_STATUS="
-										+ OemDictCodeConstants.ORDER_STATUS_09 + " where ORDER_ID=" + orderId + "",
-								new ArrayList<Object>());
-
-				// 更新车辆表状态为ZBIL
-				OemDAOUtil.execBatchPreparement("update TM_VEHICLE_DEC set NODE_STATUS="
-						+ OemDictCodeConstants.VEHICLE_NODE_08 + ",DEALER_ID=0 where VIN='" + vin + "'",
-						new ArrayList<Object>());
-				// 记录日志
-				OemDAOUtil.execBatchPreparement(
-						"insert into TT_VS_MATCH_CHECK(ORDER_ID,CHG_VEHICLE_ID,UPDATE_BY,UPDATE_DATE,CANCEL_TYPE,CANCEL_REASON)\n"
-								+ "select \n" + orderId + ",\n" + "tv.VEHICLE_ID,\n" + loginInfo.getUserId() + ",'"
-								+ format + "'," + "1001," + "'订单取消'" + " from TM_VEHICLE_DEC tv " + " where tv.vin='"
-								+ vin + "'",
-						new ArrayList<Object>());
-
-				// 记录详细车籍
-				OemDAOUtil
-						.execBatchPreparement(
-								"insert into TT_VS_VHCL_CHNG(VEHICLE_ID,CHANGE_CODE,CHANGE_DATE,CHANGE_DESC,CREATE_BY,CREATE_DATE,RESOURCE_TYPE,RESOURCE_ID)\n"
-										+ "select \n" + "tv.VEHICLE_ID,\n" + "20211019,'" + format + "'," + "'订单取消',"
-										+ loginInfo.getUserId() + ",'" + format + "'," + "10191002," + dealerId
-										+ " from TM_VEHICLE_DEC tv " + " where tv.vin='" + vin + "'",
-								new ArrayList<Object>());
-			}
-		}
-		// ZRL1撤单 撤回ZBIL---期货、现货的订单
-		if (tcList.size() > 0) {
-			for (int i = 0; i < tcList.size(); i++) {
-				Map<String, Object> map = tcList.get(i);
-				String vin = map.get("VIN").toString();
-				String commonId = map.get("COMMON_ID").toString();
-				// 设置公共已取消
-				OemDAOUtil.execBatchPreparement("update TT_VS_COMMON_RESOURCE set UPDATE_BY=" + loginInfo.getUserId()
-						+ ",UPDATE_DATE='" + format + "',STATUS=" + OemDictCodeConstants.COMMON_RESOURCE_STATUS_03
-						+ " where COMMON_ID=" + commonId, new ArrayList<Object>());
-
-				// 公共资源明细设为无效
-				OemDAOUtil.execBatchPreparement("update TT_VS_COMMON_RESOURCE_DETAIL set STATUS="
-						+ OemDictCodeConstants.STATUS_DISABLE + " where COMMON_ID=" + commonId,
-						new ArrayList<Object>());
-
-				// 更新车辆表状态为ZBIL
-				OemDAOUtil.execBatchPreparement("update TM_VEHICLE_DEC set NODE_STATUS="
-						+ OemDictCodeConstants.VEHICLE_NODE_08 + ",DEALER_ID=0 where  VIN='" + vin + "'",
-						new ArrayList<Object>());
-
-				// 记录日志
-				OemDAOUtil.execBatchPreparement(
-						"insert into TT_VS_MATCH_CHECK(CHG_VEHICLE_ID,UPDATE_BY,UPDATE_DATE,CANCEL_TYPE,CANCEL_REASON)\n"
-								+ "select \n" + "tv.VEHICLE_ID,\n" + loginInfo.getUserId() + ",'" + format + "',"
-								+ "1001," + "'订单取消'" + " from TM_VEHICLE_DEC tv " + " where tv.vin='" + vin + "'",
-						new ArrayList<Object>());
-
-				// 记录详细车籍
-				OemDAOUtil.execBatchPreparement(
-						"insert into TT_VS_VHCL_CHNG(VEHICLE_ID,CHANGE_CODE,CHANGE_DATE,CHANGE_DESC,CREATE_BY,CREATE_DATE)\n"
-								+ "select \n" + "tv.VEHICLE_ID,\n" + "20211019,'" + format + "'," + "'订单取消',"
-								+ loginInfo.getUserId() + ",'" + format + "' from TM_VEHICLE_DEC tv "
-								+ " where tv.vin='" + vin + "'",
-						new ArrayList<Object>());
-			}
-		}
-
+		orderReQuDao.pass(k4OrderDTO);
 	}
 
 }

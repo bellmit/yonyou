@@ -2,6 +2,7 @@ package com.yonyou.dcs.de.impl;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.infoservice.dms.cgcsl.vo.RecallServiceClearVO;
 import com.yonyou.dcs.dao.SEDCS020Dao;
 import com.yonyou.dcs.de.SEDCS020;
 import com.yonyou.dcs.util.DEUtil;
@@ -28,7 +30,7 @@ public class SEDCS020Impl  extends BaseImpl  implements  SEDCS020 {
 		try {
 			logger.info("====SEDCS020      召回活动取消下发开始====");
 			//下发数据查询
-			List<RecallServiceClearDTO> datalist = dao.queryAllInfo(recallId);
+			LinkedList<RecallServiceClearDTO> datalist = dao.queryAllInfo(recallId);
 			//要发数据的经销商列表
 			List<Map<String, Object>> listdealer = dao.queryDealer(recallId);
 			List<String> dealerCodes = new ArrayList<String>();
@@ -83,10 +85,12 @@ public class SEDCS020Impl  extends BaseImpl  implements  SEDCS020 {
 	 * @param array
 	 * @throws Exception 
 	 */
-	private String send(List<RecallServiceClearDTO> dataList,List<String> dmsCodes) throws Exception {
+	private String send(LinkedList<RecallServiceClearDTO> dataList,List<String> dmsCodes) throws Exception {
 		try {
 			if(null!=dataList && dataList.size()>0){
-				Map<String, Serializable> body = DEUtil.assembleBody(dataList);
+				List<RecallServiceClearVO> vos = new ArrayList<>();
+				setVos(vos,dataList);
+				Map<String, Serializable> body = DEUtil.assembleBody(vos);
 					
 				sendMsg("SEDMS020",dmsCodes, body);
 				logger.info("SEDCS020  召回活动取消发送成功======size："+dataList.size());
@@ -98,5 +102,20 @@ public class SEDCS020Impl  extends BaseImpl  implements  SEDCS020 {
 			logger.error(t.getMessage(), t);
 		} 
 		return null;
+	}
+	/**
+	 * 数据转换
+	 * @param vos
+	 * @param dataList
+	 */
+	private void setVos(List<RecallServiceClearVO> vos, LinkedList<RecallServiceClearDTO> dataList) {
+		for (int i = 0; i < dataList.size(); i++) {
+			RecallServiceClearDTO dto = dataList.get(i);
+			RecallServiceClearVO vo = new RecallServiceClearVO();
+			vo.setRecallNo(dto.getRecallNo());
+			vo.setRecallName(dto.getRecallName());
+			vo.setRecallStatus(dto.getRecallStatus());
+			vos.add(vo);
+		}
 	}
 }

@@ -21,7 +21,8 @@ import com.yonyou.dms.common.domains.PO.basedata.TmLoanRatMaintainPO;
 import com.yonyou.dms.framework.domain.LoginInfoDto;
 import com.yonyou.dms.framework.util.bean.ApplicationContextHelper;
 import com.yonyou.dms.function.exception.ServiceBizException;
-import com.yonyou.dms.gacfca.SADMS022;
+import com.yonyou.dms.function.utils.common.StringUtils;
+import com.yonyou.dms.gacfca.SADMS022Coud;
 
 @Service
 public class SADCS022CluodImpl extends BaseCloudImpl implements SADCS022Cluod {
@@ -76,7 +77,7 @@ public class SADCS022CluodImpl extends BaseCloudImpl implements SADCS022Cluod {
 	}
 
 	@Autowired
-	SADMS022 ser;
+	SADMS022Coud ser;
 
 	private int sendData(List<SADMS022Dto> vos, String dmsCode) {
 		try {
@@ -223,7 +224,16 @@ public class SADCS022CluodImpl extends BaseCloudImpl implements SADCS022Cluod {
 	public List<SADMS022Dto> getDataList(String param) throws ServiceBizException {
 		List<SADMS022Dto> tlrmvolist = new ArrayList<>();
 		try {
-			tlrmvolist = dao.queryLoanRatMaintainInfo();
+			if(StringUtils.isNullOrEmpty(param)){
+				tlrmvolist = dao.queryLoanRatMaintainInfo();
+			}else{
+				String[] id = param.split(",");
+				if(id.length>1){
+					tlrmvolist = dao.queryLoanRatMaintainInfoMore(param);	
+				}else{
+					tlrmvolist = dao.queryLoanRatMaintainInfoEach(param);
+				}
+			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

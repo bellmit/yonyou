@@ -78,7 +78,7 @@ public class RetailBankServiceImpl implements RetailBankService {
 		if(nullDataList.size()>0){
 			for(Map<String, Object> m:nullDataList){
 				TmRetailDiscountBankImportTempDTO err = new TmRetailDiscountBankImportTempDTO();
-				err.setRowNO(Integer.parseInt(m.get("ROW_NO").toString()));
+				err.setRowNO(Integer.parseInt(m.get("ROW_NO").toString())+1);
 				err.setErrorMsg(m.get("ERR_DESC").toString());
 				errorList.add(err);
 			}
@@ -90,7 +90,7 @@ public class RetailBankServiceImpl implements RetailBankService {
 				 String er="";
 				 TmRetailDiscountBankImportTempDTO err = new TmRetailDiscountBankImportTempDTO();
 				 er="经销商"+m.get("DEALER_CODE").toString()+"不存在";
-				 err.setRowNO(Integer.valueOf(m.get("ROW_NO").toString()));
+				 err.setRowNO(Integer.valueOf(m.get("ROW_NO").toString())+1);
 				 err.setErrorMsg(er);
 				 errorList.add(err);
 			}
@@ -102,7 +102,7 @@ public class RetailBankServiceImpl implements RetailBankService {
 				 String er="";
 				 TmRetailDiscountBankImportTempDTO err=new TmRetailDiscountBankImportTempDTO();
 				 er="车架号："+m.get("VIN").toString()+"不存在";
-				 err.setRowNO(Integer.valueOf(m.get("ROW_NO").toString()));
+				 err.setRowNO(Integer.valueOf(m.get("ROW_NO").toString())+1);
 				 err.setErrorMsg(er);
 				 errorList.add(err);
 			}
@@ -122,7 +122,7 @@ public class RetailBankServiceImpl implements RetailBankService {
 		if(liRight.size()>0){
 			for(Map<String, Object> p:liRight){
 				 TmRetailDiscountBankImportTempDTO err=new TmRetailDiscountBankImportTempDTO();
-				 err.setRowNO(Integer.valueOf(p.get("ROW_NO").toString()));
+				 err.setRowNO(Integer.valueOf(p.get("ROW_NO").toString())+1);
 				 err.setErrorMsg(p.get("ERR_DATA").toString());
 				 errorList.add(err);
 			}

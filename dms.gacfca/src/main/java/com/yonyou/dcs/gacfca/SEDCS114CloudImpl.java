@@ -21,7 +21,7 @@ public class SEDCS114CloudImpl  extends BaseCloudImpl implements SEDCS114Cloud {
 	SEDCS114Dao dao ;
 	
 	@Override
-	public List<OwnerEntityDTO> receiveData(List<OwnerEntityDTO> dtos) throws Exception {
+	public List<OwnerEntityDTO> handleExecutor(List<OwnerEntityDTO> dtos) throws Exception {
 		logger.info("***************************SEDCS114Cloud 开始获取车辆实销上报私自调拨验收信息******************************");
 		List<OwnerEntityDTO> retdtos=new ArrayList<OwnerEntityDTO>();
 		try {

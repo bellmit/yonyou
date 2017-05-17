@@ -1,7 +1,9 @@
 package com.yonyou.dcs.de;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -11,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.infoservice.dms.cgcsl.vo.DiscountCouponVO;
 import com.yonyou.dcs.dao.SEDCS071Dao;
 import com.yonyou.dcs.de.impl.BaseImpl;
 import com.yonyou.dcs.util.DEUtil;
@@ -36,8 +39,8 @@ public class SEDCS071  extends BaseImpl  implements DEAction {
 		try {
 			Map<String, Serializable> bodys = deMsg.getBody();
 			for (Entry<String, Serializable> entry : bodys.entrySet()) {
-				DiscountCouponDTO dto = new DiscountCouponDTO();
-				dto = (DiscountCouponDTO) entry.getValue();
+				DiscountCouponVO dto = new DiscountCouponVO();
+				dto = (DiscountCouponVO) entry.getValue();
 				
 				//查询DCS端经销商是否存在
 				Map<String, Object> dcsDealer = null;
@@ -55,14 +58,14 @@ public class SEDCS071  extends BaseImpl  implements DEAction {
 				int countNum = listCount.size();
 				
 				//当countNum大于1时，下发使用中的卡券，否则下发未使用的卡券
-				List<DiscountCouponDTO> list = dao.queryVehicleDto(vin,countNum);
-				if (list == null || list.size() <= 0) {
+				LinkedList<DiscountCouponDTO> dataList = dao.queryVehicleDto(vin,countNum);
+				if (dataList == null || dataList.size() <= 0) {
 					logger.info("没有卡券信息");
-					return wrapperMsg(list);
+					return wrapperMsg(dataList);
 				}
 				
 				logger.info("存在卡券信息，下发");
-				DEMessage rmsg = wrapperMsg(list);
+				DEMessage rmsg = wrapperMsg(dataList);
 				logger.info("====获取可用卡券信息结束====");
 				return rmsg;
 			}		
@@ -78,9 +81,11 @@ public class SEDCS071  extends BaseImpl  implements DEAction {
 	 * @param msg
 	 * @return
 	 */
-	private DEMessage wrapperMsg(List<DiscountCouponDTO> dtos) {
-		if (dtos != null && dtos.size() > 0) {
-			HashMap<String, Serializable> body = DEUtil.assembleBody(dtos);
+	private DEMessage wrapperMsg(LinkedList<DiscountCouponDTO> dataList) {
+		if (dataList != null && dataList.size() > 0) {
+			List<DiscountCouponVO> vos = new ArrayList<>();
+			setVos(vos,dataList);
+			HashMap<String, Serializable> body = DEUtil.assembleBody(vos);
 			if (body != null && body.size() > 0) {
 				DEUtil de = new DEUtil();
 				DEMessage rmsg = null;
@@ -95,5 +100,32 @@ public class SEDCS071  extends BaseImpl  implements DEAction {
 			}
 		}
 		return null;
+	}
+	/**
+	 * 数据转换
+	 * @param vos
+	 * @param dataList
+	 */
+	private void setVos(List<DiscountCouponVO> vos, LinkedList<DiscountCouponDTO> dataList) {
+		for (int i = 0; i < dataList.size(); i++) {
+			DiscountCouponDTO dto = dataList.get(i);
+			DiscountCouponVO vo = new DiscountCouponVO();
+			vo.setCardNo(dto.getCardNo());
+			vo.setCardName(dto.getCardName());
+			vo.setCardType(dto.getCardType());
+			vo.setSubType(dto.getSubType());
+			vo.setCardValue(dto.getCardValue());
+			vo.setIssueDate(dto.getIssueDate());
+			vo.setStartDate(dto.getStartDate());
+			vo.setEndDate(dto.getEndDate());
+			vo.setUseDealer(dto.getUseDealer());
+			vo.setUseProject(dto.getUseProject());
+			vo.setUseStatus(dto.getUseStatus());
+			vo.setSameOverlapCount(dto.getSameOverlapCount());
+			vo.setIsDifferentOverlap(dto.getIsDifferentOverlap());
+			vo.setEntityCode(dto.getEntityCode());
+			vo.setVin(dto.getVin());
+			vos.add(vo);
+		}
 	}
 }

@@ -28,7 +28,7 @@ public class SOTDCS015CloudImpl extends BaseCloudImpl implements SOTDCS015Cloud 
 	public String handleExecutor(LinkedList<TiDmsUCustomerStatusDto> dtoList) throws Exception {
 		String msg = "1";
 		logger.info("====更新客户信息(休眠，订单，交车客户状态数据传递)DMS更新接收开始====");
-		beginDbService();
+		dbService();
 		try {
 			for(TiDmsUCustomerStatusDto dto:dtoList){
 				try {
@@ -50,6 +50,7 @@ public class SOTDCS015CloudImpl extends BaseCloudImpl implements SOTDCS015Cloud 
 		}finally {
 			Base.detach();
 			dbService.clean();
+			beginDbService();
 		}
 		return msg;
 		

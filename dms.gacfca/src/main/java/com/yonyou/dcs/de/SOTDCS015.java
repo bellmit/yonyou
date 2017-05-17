@@ -44,9 +44,9 @@ public class SOTDCS015 extends BaseImpl implements DEAction {
 	
 	private void setDTO(LinkedList<TiDmsUCustomerStatusDto> dtoList, Map<String, Serializable> bodys){
 		for (Entry<String, Serializable> entry : bodys.entrySet()) {
-			TiDmsUCustomerStatusVO vo = new TiDmsUCustomerStatusVO();
+			TiDmsUCustomerStatusVO vo = (TiDmsUCustomerStatusVO)entry.getValue();
 			TiDmsUCustomerStatusDto dto = new TiDmsUCustomerStatusDto();
-			vo = (TiDmsUCustomerStatusVO)entry.getValue();
+			dto.setDealerCode(vo.getEntityCode());
 			BeanUtils.copyProperties(vo, dto);
 			dtoList.add(dto);
 		}

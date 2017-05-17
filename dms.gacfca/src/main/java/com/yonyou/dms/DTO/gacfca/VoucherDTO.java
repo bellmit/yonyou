@@ -2,10 +2,7 @@ package com.yonyou.dms.DTO.gacfca;
 
 import java.util.Date;
 
-import com.infoservice.dms.cgcsl.vo.BaseVO;
-
-@SuppressWarnings("serial")
-public class VoucherDTO extends BaseVO{
+public class VoucherDTO {
 
 	private String activityCode;//活动编号
 	private String activityName;//活动名称

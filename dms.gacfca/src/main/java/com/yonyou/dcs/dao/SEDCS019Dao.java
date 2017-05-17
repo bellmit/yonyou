@@ -40,10 +40,10 @@ public class SEDCS019Dao extends OemBaseDAO {
 	}
 	
 	/**
-	 * 需要下发的召回活动数据
+	 * 需要下发的召回活动数据DTO
 	 * @return
 	 */
-	public List<RecallServiceDTO> queryAllInfo(String recallId) {
+	public LinkedList<RecallServiceDTO> queryAllInfo(String recallId) {
 		StringBuffer sql = new StringBuffer();
 		sql.append("select  RECALL_ID, \n");
 		sql.append("   	RECALL_NO,  \n");//召回活动编号
@@ -64,9 +64,9 @@ public class SEDCS019Dao extends OemBaseDAO {
 		List<Object> parame=new ArrayList<Object>();
 		parame.add(recallId);
 		List<Map> listmap=OemDAOUtil.findAll(sql.toString(), parame);
-		List<RecallServiceDTO> dtolist=null;
+		LinkedList<RecallServiceDTO> dtolist=null;
 		if(null!=listmap&&listmap.size()>0){
-			dtolist=new ArrayList<RecallServiceDTO>();
+			dtolist=new LinkedList<RecallServiceDTO>();
 			for(Map map:listmap){
 				RecallServiceDTO dto=wrapperDTO(map);
 				dtolist.add(dto);

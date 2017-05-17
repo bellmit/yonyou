@@ -34,7 +34,7 @@ public class SA03  extends BaseImpl  implements DEAction {
 			Map<String, Serializable> bodys = deMsg.getBody();
 			LinkedList<VsStockEntryItemDto> dtoList = new LinkedList<>();
 			setDTO(dtoList,bodys);
-			cloud.receiveDate(dtoList);
+			cloud.handleExecutor(dtoList);
 		}  catch(Throwable t) {
 			logger.info("*************************** SA03调拨入库数据上传出错******************************");
 			t.printStackTrace();

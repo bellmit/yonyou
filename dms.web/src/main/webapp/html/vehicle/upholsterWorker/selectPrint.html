@@ -47,7 +47,7 @@
 		$("a[data-onclickEvent2='true']",container).on("dms.click",function(obj){
 			var soNo = "{[SO_NO]}";
 			var customerNo=$("#technician",container).val();
-			alert(customerNo)
+			
 			$(container).data("pageData",{EMPLOYEE_NO:customerNo,SO_NO:soNo});
 	        dmsCommon.refreshPageByUrl("vehicle/upholsterWorker/printUpholsterWorker.html",container);  
 		    changeFormal(obj); 

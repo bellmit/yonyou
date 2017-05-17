@@ -54,7 +54,7 @@ import com.yonyou.dms.framework.service.excel.ExcelExportColumn;
 import com.yonyou.dms.framework.service.excel.ExcelGenerator;
 import com.yonyou.dms.framework.util.FrameworkUtil;
 import com.yonyou.dms.function.utils.common.StringUtils;
-import com.yonyou.dms.gacfca.SADMS095;
+import com.yonyou.dms.gacfca.SADMS095Coud;
 import com.yonyou.dms.retail.domains.DTO.ordermanage.InvoiceRegisterDTO;
 import com.yonyou.dms.retail.service.ordermanage.InvoiceRegisterService;
 import com.yonyou.f4.mvc.annotation.TxnConn;
@@ -75,7 +75,7 @@ public class InvoiceRegisterController extends BaseController{
     @Autowired
     private ExcelGenerator excelService; 
     @Autowired
-    private SADMS095 sadms095;
+    private SADMS095Coud sadms095;
     
     
     /**

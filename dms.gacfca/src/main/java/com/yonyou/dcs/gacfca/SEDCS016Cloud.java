@@ -7,7 +7,7 @@ import com.yonyou.dms.function.exception.ServiceBizException;
  * 总部下发经销商是否有行管标签及它牌车维修控制标签 
  * @author xuqinqin 
  */
-public interface SEDCS016Cloud {
+public interface SEDCS016Cloud  extends BaseCloud{
 	
 	public String doSend() throws ServiceBizException;
 	

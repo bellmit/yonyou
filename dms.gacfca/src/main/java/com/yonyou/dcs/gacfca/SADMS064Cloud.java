@@ -4,7 +4,7 @@ import com.yonyou.dms.function.exception.ServiceBizException;
 
 public interface SADMS064Cloud {
 	
-	public void sendData(Long bankId,String dealerCode) throws Exception;
+	public int sendData(Long bankId,String dealerCode) throws ServiceBizException;
 
 	public String handleExecute() throws ServiceBizException;
 

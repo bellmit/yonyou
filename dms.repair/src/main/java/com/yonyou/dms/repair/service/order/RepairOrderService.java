@@ -132,6 +132,14 @@ public interface RepairOrderService {
 	List<Map> retriveByControl(Map<String, String> queryParam) throws Exception;
 
 	List<Map> queryActivityValid(Map<String, String> queryParam) throws Exception;
+
+	/**
+	 * 通过VIN获取车辆信息
+	 * @author yangjie
+	 * @param query
+	 * @return
+	 */
+	public List<Map> queryVinByVin(Map<String, String> query);
 	
 
 }

@@ -12,7 +12,7 @@ import com.yonyou.dcs.dao.SADCS015Dao;
 import com.yonyou.dcs.dao.SaleMaterialPriceDao;
 import com.yonyou.dms.DTO.gacfca.PoCusWholeRepayClryslerDto;
 import com.yonyou.dms.function.exception.ServiceBizException;
-import com.yonyou.dms.gacfca.OSD0402;
+import com.yonyou.dms.gacfca.OSD0402Coud;
 import com.yonyou.f4.common.database.DBService;
 
 @Service
@@ -26,7 +26,7 @@ public class SADCS015CloudImpl implements SADCS015Cloud {
 	@Autowired
 	DBService dbService;
 	@Autowired
-	OSD0402 osd0402;
+	OSD0402Coud osd0402;
 
 	@Override
 	public String execute(String wsNo, String dealerCode) throws ServiceBizException {

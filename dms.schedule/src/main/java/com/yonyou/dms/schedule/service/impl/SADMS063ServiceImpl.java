@@ -76,7 +76,7 @@ public class SADMS063ServiceImpl implements SADMS063Service{
                     resultList.add(dto);
                 }   
             }
-            SADCS063Cloud.receiveDate(resultList);
+            SADCS063Cloud.handleExecutor(resultList);
             return resultList;
         
         } catch (Exception e) {

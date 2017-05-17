@@ -53,7 +53,6 @@ import com.yonyou.f4.mvc.controller.BaseController;
 @TxnConn
 @RequestMapping("/import")
 public class RetailBankUController extends BaseController {
-	private static final Logger logger = LoggerFactory.getLogger(DAOUtil.class);
 
 	@Autowired
 	SystemParamService paramService;
@@ -125,7 +124,7 @@ public class RetailBankUController extends BaseController {
 					ruservice.insertTmpVsYearlyPlan(rowDto);
 				}
 				// 校验临时表数据
-				ImportResultDto<TmRetalDiscountImportTempDTO> importResultList = ruservice .checkData();
+				ImportResultDto<TmRetalDiscountImportTempDTO> importResultList = ruservice.checkData();
 				if(importResultList.getErrorList() != null && importResultList.getErrorList().size() > 0){
 					throw new ServiceBizException("导入出错,请见错误列表", importResultList.getErrorList());
 				}else{

@@ -9,8 +9,8 @@ import com.yonyou.dms.DTO.gacfca.SEDCSP01DTO;
  * @Description:同步查询获取配件清单信息(DMS->DCS->SAP->DCS->DMS)
  * @author xuqinqin 
  */
-public interface SEDCSP01Cloud {
+public interface SEDCSP01Cloud extends BaseCloud {
 	
-	public List<SEDCSP01DTO> receiveData(List<SEDCSP01DTO> dtos) throws Exception;
+	public List<SEDCSP01DTO> handleExecutor(List<SEDCSP01DTO> dtos) throws Exception;
 	
 }

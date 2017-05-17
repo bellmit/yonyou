@@ -79,11 +79,11 @@ import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.CommonUtils;
 import com.yonyou.dms.function.utils.common.DateUtil;
 import com.yonyou.dms.function.utils.common.StringUtils;
-import com.yonyou.dms.gacfca.DMSTODCS004;
-import com.yonyou.dms.gacfca.SEDMS058Impl;
-import com.yonyou.dms.gacfca.SEDMS060;
-import com.yonyou.dms.gacfca.SEDMS061;
-import com.yonyou.dms.gacfca.SOTDCS015NO;
+import com.yonyou.dms.gacfca.DMSTODCS004Coud;
+import com.yonyou.dms.gacfca.SEDMS058CoudImpl;
+import com.yonyou.dms.gacfca.SEDMS060Coud;
+import com.yonyou.dms.gacfca.SEDMS061Coud;
+import com.yonyou.dms.gacfca.SOTDCS015NOCoud;
 import com.yonyou.dms.retail.domains.DTO.ordermanage.SalesOrderDTO;
 import com.yonyou.dms.retail.domains.DTO.ordermanage.SoDecrodateDTO;
 import com.yonyou.dms.retail.domains.DTO.ordermanage.SoDecrodatePartDTO;
@@ -103,20 +103,20 @@ import com.yonyou.dms.retail.domains.PO.ordermanage.SoServicesPO;
 public class SalesOrderServiceImp implements SalesOrderService {
     private static final Logger logger = LoggerFactory.getLogger(SalesOrderServiceImp.class);
     @Autowired
-    SEDMS058Impl SEDMS058Impl;
+    SEDMS058CoudImpl SEDMS058Impl;
     @Autowired
-    SOTDCS015NO SOTDCS015NO;
+    SOTDCS015NOCoud SOTDCS015NO;
     @Autowired
     private CommonNoService    commonNoService;
 
     @Autowired
     private OrgDeptService orgdeptservice;
     @Autowired
-    SEDMS060 SEDMS060;
+    SEDMS060Coud SEDMS060;
     @Autowired
-    DMSTODCS004 DMSTODCS004;
+    DMSTODCS004Coud DMSTODCS004;
     @Autowired
-    SEDMS061 SEDMS061;
+    SEDMS061Coud SEDMS061;
     
 
     /**

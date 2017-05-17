@@ -196,80 +196,79 @@ var dmsRepair = function() {
 		return flag;
 	}
 
-	//未结算索赔工单查询页面 加载维修类型下拉框
+	// 未结算索赔工单查询页面 加载维修类型下拉框
 	var initRepairType1 = function(container) {
 		var selectData = new Array();
-				selectData.push({
-					id : "SCBY",
-					name : "首次保养"
-				});
-				selectData.push({
-					id : "BXIU",
-					name : "保修"
-				});
-				selectData.push({
-					id : "SHYX",
-					name : "善意维修"
-				});
-				selectData.push({
-					id : "SBWS",
-					name : "三包维修"
-				});
-				selectData.push({
-					id : "YXYX",
-					name : "营销活动"
-				});
-				selectData.push({
-					id : "FUWU",
-					name : "服务活动"
-				});
-				selectData.push({
-					id : "SQWX",
-					name : "PDI检查"
-				});
-		dmsDict.refreshSelectByData($("#repairTypeCode", container), selectData,
-				"id", "name");
+		selectData.push({
+			id : "SCBY",
+			name : "首次保养"
+		});
+		selectData.push({
+			id : "BXIU",
+			name : "保修"
+		});
+		selectData.push({
+			id : "SHYX",
+			name : "善意维修"
+		});
+		selectData.push({
+			id : "SBWS",
+			name : "三包维修"
+		});
+		selectData.push({
+			id : "YXYX",
+			name : "营销活动"
+		});
+		selectData.push({
+			id : "FUWU",
+			name : "服务活动"
+		});
+		selectData.push({
+			id : "SQWX",
+			name : "PDI检查"
+		});
+		dmsDict.refreshSelectByData($("#repairTypeCode", container),
+				selectData, "id", "name");
 	}
-	//未结算索赔工单查询页面 加载日期类型
+	// 未结算索赔工单查询页面 加载日期类型
 	var initQueryDateType = function(container) {
 		var selectData = new Array();
-				selectData.push({
-					id : "RO_CREATE_DATE",
-					name : "工单开单日期"
-				});
-				selectData.push({
-					id : "FOR_BALANCE_TIME",
-					name : "提交结算日期"
-				});
-				selectData.push({
-					id : "COMPLETE_TIME",
-					name : "竣工日期"
-				});
-				selectData.push({
-					id : "DELIVERY_DATE",
-					name : "交车日期"
-				});
-				selectData.push({
-					id : "BALANCE_CLOSE_TIME",
-					name : "关单日期"
-				});
-				selectData.push({
-					id : "BALANCE_TIME",
-					name : "结算时间"
-				});
-				selectData.push({
-					id : "PRINT_RO_TIME",
-					name : "工单打印时间"
-				});
-				selectData.push({
-					id : "PRINT_BALANCE_TIME",
-					name : "结算单打印时间"
-				});
+		selectData.push({
+			id : "RO_CREATE_DATE",
+			name : "工单开单日期"
+		});
+		selectData.push({
+			id : "FOR_BALANCE_TIME",
+			name : "提交结算日期"
+		});
+		selectData.push({
+			id : "COMPLETE_TIME",
+			name : "竣工日期"
+		});
+		selectData.push({
+			id : "DELIVERY_DATE",
+			name : "交车日期"
+		});
+		selectData.push({
+			id : "BALANCE_CLOSE_TIME",
+			name : "关单日期"
+		});
+		selectData.push({
+			id : "BALANCE_TIME",
+			name : "结算时间"
+		});
+		selectData.push({
+			id : "PRINT_RO_TIME",
+			name : "工单打印时间"
+		});
+		selectData.push({
+			id : "PRINT_BALANCE_TIME",
+			name : "结算单打印时间"
+		});
 		dmsDict.refreshSelectByData($("#queryDateType", container), selectData,
 				"id", "name");
 	}
 
-	
 	var CheckRepairLabourCodeList = function(repairLabourCode, repairPart) {
 		$.each(repairItem,
 				function(i, j) {
@@ -299,14 +298,15 @@ var dmsRepair = function() {
 			}
 		});
 	}
-	
-	var iniInfo = [];//预警信息JSON数据
+
+	var iniInfo = [];// 预警信息JSON数据
 
 	/**
 	 * 保存按钮校验
 	 */
 	var checkSave = function(obj, container, returnResult) {
-		if(isStringNull($("#checkFlag",container).val())||$("#checkFlag",container).val()==''){
+		if (isStringNull($("#checkFlag", container).val())
+				|| $("#checkFlag", container).val() == '') {
 			var activityItem = new Array();// 表示还未参加的服务活动编号
 			var repairItem = $("#dms_table", container).dmsTable()
 					.getRowDataByIndex();
@@ -450,8 +450,8 @@ var dmsRepair = function() {
 						});
 						dmsCommon.ajaxRestRequest({
 							url : dmsCommon.getDmsPath()["repair"]
-									+ "/basedata/queryByLinsence/queryOEMTAG" + "/"
-									+ $("#vin", container).val(),
+									+ "/basedata/queryByLinsence/queryOEMTAG"
+									+ "/" + $("#vin", container).val(),
 							type : 'GET',
 							data : {
 								'labourCode' : aLabourCode,
@@ -497,121 +497,233 @@ var dmsRepair = function() {
 				}
 			}
 			// 计算预计下次保养日期
-			if(dmsCommon.getSystemParamInfo("1074", "1074")=='12781001'){
+			if (dmsCommon.getSystemParamInfo("1074", "1074") == '12781001') {
 				nextMaintain(container);
 			}
 			// 如果本地存在工单号则为编辑工单，执行UpdateRepairOrder，如果没，执行新增工单AddRepairOrder；
 			// 工单服务活动必填检验逻辑
 			var aModel = '';
-		    var brand = '';
-		    var series = '';
-		    var configCode = '';
-		    var salesdate = '';
-		    var mileage = '';
-		    var i = 0;
-		    var j = 0;
-		    var k = 0;
-		    var listActCod = GetActivityCodes2(repairItem,repairPart,addItem);
-		    // 新增开关：是否必选下发服务活动
-		    if(dmsCommon.getSystemParamInfo("3421", "3421")=='12781001'){
-		    	if(!isStringNull($("#model",container).val())) aModel = $("#model",container).val();
-		    	if(!isStringNull($("#brand",container).val())) brand = $("#brand",container).val();
-		    	if(!isStringNull($("#series",container).val())) series = $("#series",container).val();
-		    	if(!isStringNull($("#config",container).val())) configCode = $("#config",container).val();
-		    	if(!isStringNull($("#salesDate",container).val())) salesdate = $("#salesDate",container).val();
-		    	if(!isStringNull($("#toTalChangeMileage",container).val())) i = parseInt($("#toTalChangeMileage",container).val());
-		    	if(!isStringNull($("#inMileage",container).val())) i = i + parseInt($("#inMileage",container).val());
-		    	mileage = new String(i);
-		    	activityItem = GetAllEnterableActivityInfo($("#roNo",container).val(),$("#license",container).val(),$("#vin",container).val(),aModel,brand,series,salesdate,mileage,$("#cardTypeCode",container).val(),configCode);
-		    	if(!isEmpty(activityItem)){
-		    		var choose = false;
-		    		if(listActCod.split(',').length>0){
-		    			for(var i = 0; i < activityItem.length; i++){
-		    				if(listActCod.split(',').indexOf(activityItem[i])==-1){// 表示未参加此服务活动
-		    					choose = true;
-		    				}
-		    			}
-		    			if(choose){
-		    				dmsCommon.tip({
-		    					status : "warning",
-		    					msg : "该车辆存在必选的服务活动，请点击【服务活动】选择！"
-		    				});
-		    				returnResult.status = false;
-		    			}
-		    		}else{
-		    			dmsCommon.tip({
-	    					status : "warning",
-	    					msg : "该车辆存在必选的服务活动，请点击【服务活动】选择！"
-	    				});
-	    				returnResult.status = false;
-		    		}
-		    	}
-		    }
-		    SetModifyNum(repairItem,repairItemCount,repairPart,repairPartCount,container);
+			var brand = '';
+			var series = '';
+			var configCode = '';
+			var salesdate = '';
+			var mileage = '';
+			var i = 0;
+			var j = 0;
+			var k = 0;
+			var listActCod = GetActivityCodes2(repairItem, repairPart, addItem);
+			// 新增开关：是否必选下发服务活动
+			if (dmsCommon.getSystemParamInfo("3421", "3421") == '12781001') {
+				if (!isStringNull($("#model", container).val()))
+					aModel = $("#model", container).val();
+				if (!isStringNull($("#brand", container).val()))
+					brand = $("#brand", container).val();
+				if (!isStringNull($("#series", container).val()))
+					series = $("#series", container).val();
+				if (!isStringNull($("#config", container).val()))
+					configCode = $("#config", container).val();
+				if (!isStringNull($("#salesDate", container).val()))
+					salesdate = $("#salesDate", container).val();
+				if (!isStringNull($("#toTalChangeMileage", container).val()))
+					i = parseInt($("#toTalChangeMileage", container).val());
+				if (!isStringNull($("#inMileage", container).val()))
+					i = i + parseInt($("#inMileage", container).val());
+				mileage = new String(i);
+				activityItem = GetAllEnterableActivityInfo(
+						$("#roNo", container).val(), $("#license", container)
+								.val(), $("#vin", container).val(), aModel,
+						brand, series, salesdate, mileage, $("#cardTypeCode",
+								container).val(), configCode);
+				if (!isEmpty(activityItem)) {
+					var choose = false;
+					if (listActCod.split(',').length > 0) {
+						for (var i = 0; i < activityItem.length; i++) {
+							if (listActCod.split(',').indexOf(activityItem[i]) == -1) {// 表示未参加此服务活动
+								choose = true;
+							}
+						}
+						if (choose) {
+							dmsCommon.tip({
+								status : "warning",
+								msg : "该车辆存在必选的服务活动，请点击【服务活动】选择！"
+							});
+							returnResult.status = false;
+						}
+					} else {
+						dmsCommon.tip({
+							status : "warning",
+							msg : "该车辆存在必选的服务活动，请点击【服务活动】选择！"
+						});
+						returnResult.status = false;
+					}
+				}
+			}
+			SetModifyNum(repairItem, repairItemCount, repairPart,
+					repairPartCount, container);
 		}
-		if(CheckTripleInfo(container)){
+		if (CheckTripleInfo(container)) {
 			/*
 			 * { 0 代表 不需要预警。 1 代表 当前经销商是授权经销商。 2 代表 当前经销商不是授权经销商。 3 代表
 			 * 当前车辆不属于三包车辆。 }
 			 */
-			switch(parseInt(GetTripleInfoFromDCS($("#vin",container).val(),repairPart))){
-				case 0:
-					$("#schemeStatus",container).setDmsValue("22021006");// 方案状态“未达预警”
-					break;
-				case 1:
-					if(isStringNull($("#checkFlag",container).val())||$("#checkFlag",container).val()==''){// 表示第一次进方法,需要校验权限
-						// 如果当前用户没有授权权限，那么需要获取到别人的权限
-						if(!dmsCommon.getBusinessPurview("10470000")){
-							$("#3BaoFlag",container).setDmsValue("3bao");
-							// 获取别的用户的权限。如果获取不成功，那么就不能保存
-							$("#discountAuthorizeBtn",container).click();
-							returnResult.status = false;
-						}
-					}
-					$("#checkFlag",container).setDmsValue("");
-					$("#schemeStatus",container).setDmsValue("22021005");// 方案状态“授权维修”
-					break;
-				case 2:
-					// 当前经销商不是授权经销商，要生成方案时，当前DMS的提示不友好，需修改为"该车已经达到警戒标准，请联系厂方解锁"
-					if(isStringNull($("#checkFlag",container).val())||$("#checkFlag",container).val()==''){// 表示第一次进方法,需要校验权限
-						obj.confirm('该车已经达到警戒标准，请联系厂方解锁！', function(
-								confirmObj) {
-						}, function(confirmObj) {
-							returnResult.status = false;
-						});
-						$("#clOpinion",container).click();
+			switch (parseInt(GetTripleInfoFromDCS($("#vin", container).val(),
+					repairPart))) {
+			case 0:
+				$("#schemeStatus", container).setDmsValue("22021006");// 方案状态“未达预警”
+				break;
+			case 1:
+				if (isStringNull($("#checkFlag", container).val())
+						|| $("#checkFlag", container).val() == '') {// 表示第一次进方法,需要校验权限
+					// 如果当前用户没有授权权限，那么需要获取到别人的权限
+					if (!dmsCommon.getBusinessPurview("10470000")) {
+						$("#3BaoFlag", container).setDmsValue("3bao");
+						// 获取别的用户的权限。如果获取不成功，那么就不能保存
+						$("#discountAuthorizeBtn", container).click();
 						returnResult.status = false;
 					}
-					$("#checkFlag",container).setDmsValue("");
-					$("#schemeStatus",container).setDmsValue("22021001");// 方案状态“授权维修”
-					break;
-				default:
-					$("#schemeStatus",container).setDmsValue("0");
-					break;
+				}
+				$("#checkFlag", container).setDmsValue("");
+				$("#schemeStatus", container).setDmsValue("22021005");// 方案状态“授权维修”
+				break;
+			case 2:
+				// 当前经销商不是授权经销商，要生成方案时，当前DMS的提示不友好，需修改为"该车已经达到警戒标准，请联系厂方解锁"
+				if (isStringNull($("#checkFlag", container).val())
+						|| $("#checkFlag", container).val() == '') {// 表示第一次进方法,需要校验权限
+					obj.confirm('该车已经达到警戒标准，请联系厂方解锁！', function(confirmObj) {
+					}, function(confirmObj) {
+						returnResult.status = false;
+					});
+					$("#clOpinion", container).click();
+					returnResult.status = false;
+				}
+				$("#checkFlag", container).setDmsValue("");
+				$("#schemeStatus", container).setDmsValue("22021001");// 方案状态“授权维修”
+				break;
+			default:
+				$("#schemeStatus", container).setDmsValue("0");
+				break;
 			}
-		}else{
-			$("#schemeStatus",container).setDmsValue("0");
+		} else {
+			$("#schemeStatus", container).setDmsValue("0");
 		}
-		if(isStringNull($("#roNO",container).val())){
-			AddRepairOrder();
-		}else{
-			UpdateRepairOrder();
+		if (isStringNull($("#roNO", container).val())) {
+			$(this).attr("data-method", "PUT");
+			$(this).attr("data-url", "/order/repair/btnSaveForAdd");
+		} else {
+			$(this).attr("data-method", "POST");
+			$(this).attr("data-url", "/order/repair/btnSaveForUpdate");
 		}
-		//出险单相关
-		occurInsuranceAbout($("#insuranceNo",container).val(),$("#occurInsuranceNo",container).val(),$("#vin",container).val(),$("#roNo",container).val(),returnResult);
+		// 出险单相关
+		occurInsuranceAbout($("#insuranceNo", container).val(), $(
+				"#occurInsuranceNo", container).val(), $("#vin", container)
+				.val(), $("#roNo", container).val(), returnResult);
+		if (!isStringNull($("#IActivityRo", container).val())
+				&& !isStringNull($("#roNo", container).val())) {
+			activityResult($("#vin", container).val(), $("#roNo", container)
+					.val());
+		}
+		if (!isStringNull($("#roNo", container).val())
+				&& !isStringNull($("#insuranceNo", container).val())
+				&& !isStringNull($("#occurInsuranceNo", container).val())) {
+			var insuranceNo = $("#insuranceNo", container).val();
+			if (insuranceNo.length > 194)
+				insuranceNo = insuranceNo.substr(0, 194);
+			dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["repair"]
+						+ "/order/repair/saveSettlementOldpart",
+				type : 'GET',
+				data : {
+					'roNo' : $("#roNo", container).val(),
+					'occurInsuranceNo' : insuranceNo
+				},
+				async : false,
+				sucessCallBack : function(data) {
+				},
+				errorCallBack : function(data) {
+					dmsCommon.tip({
+						status : "warning",
+						msg : data
+					});
+					returnResult.status = false;
+				}
+			});
+		}
+		$("#save", container).attr('disabled', 'disabled');
+		returnResult.status = true;
 	}
-	
+
 	// 为空判断
 	function isEmpty(value) {
-		return (Array.isArray(value) && value.length === 0) || (Object.prototype.isPrototypeOf(value) && Object.keys(value).length === 0);
+		return (Array.isArray(value) && value.length === 0)
+				|| (Object.prototype.isPrototypeOf(value) && Object.keys(value).length === 0);
 	}
-	
-	//工单保存成功后，如果该工单关联了出险信息，则将工单号 保存到所关联的出险信息中,并将出险单的跟踪状态更新为‘已来厂’
-	//另外还要将该出险单的处理状态更新为‘维修中’
-	function occurInsuranceAbout(no1,no2,vin,roNo,returnResult){
+
+	// 工单号回车事件
+	var roNoKeyUp = function(obj, container) {
+		$("#roNo", getParentModal(container)).setDmsValue(
+				$("#roNo", container).val());
+		$("#openRoNo", container).click();
+	}
+
+	// vin号回车事件
+	// VIN号直接回车，只有是新建车辆的时候VIN号才可以编辑，其他时候都是点击？选择VIN号。
+	// 回车的时候执行DE，去OEM查询车辆信息。
+	var vinKeyUp = function(obj, container) {
+		if (isStringNull($("#vin", container).attr("disabled"))
+				|| $("#vin", container).attr("disabled") != "disabled") {
+			// 从本地查找车辆信息。如果没有通过DE调用OEM的车辆信息。
+			dmsCommon.ajaxRestRequest({
+				url : dmsCommon.getDmsPath()["repair"]
+						+ "/order/repair/queryVinByVin",
+				type : 'GET',
+				data : {
+					'vin' : $("#vin", container).val(),
+				},
+				async : false,
+				sucessCallBack : function(data) {
+					if (data.length == 1) {
+						// 接受返回的车辆信息。 need to do DE 设置afcds的字段。否则不能获取到字段值。
+						SetVehicleInfo(data, false, true, false);
+					}
+				},
+				errorCallBack : function(data) {
+					dmsCommon.tip({
+						status : "warning",
+						msg : data
+					});
+				}
+			});
+		}
+	}
+
+	function activityResult(vin, roNo) {
 		dmsCommon.ajaxRestRequest({
 			url : dmsCommon.getDmsPath()["repair"]
-					+ "",
+					+ "/order/repair/queryActivityResult",
+			type : 'GET',
+			data : {
+				'vin' : vin,
+				'activityRo' : roNo
+			},
+			async : false,
+			sucessCallBack : function(data) {
+				return data;
+			},
+			errorCallBack : function(data) {
+				dmsCommon.tip({
+					status : "warning",
+					msg : data
+				});
+			}
+		});
+	}
+
+	// 工单保存成功后，如果该工单关联了出险信息，则将工单号 保存到所关联的出险信息中,并将出险单的跟踪状态更新为‘已来厂’
+	// 另外还要将该出险单的处理状态更新为‘维修中’
+	function occurInsuranceAbout(no1, no2, vin, roNo, returnResult) {
+		dmsCommon.ajaxRestRequest({
+			url : dmsCommon.getDmsPath()["repair"]
+					+ "/order/repair/occurInsuranceAbout",
 			type : 'GET',
 			data : {
 				'no1' : no1,
@@ -622,7 +734,7 @@ var dmsRepair = function() {
 			async : false,
 			sucessCallBack : function(data) {
 			},
-			errorCallBack : function(data){
+			errorCallBack : function(data) {
 				dmsCommon.tip({
 					status : "warning",
 					msg : data
@@ -631,7 +743,7 @@ var dmsRepair = function() {
 			}
 		});
 	}
-	
+
 	/*
 	 * 功能说明： b）满足三包条件之后，需要开发一个同步接口来到DCS系统中查询三包预警。对返回的预警结果进行如下判断：
 	 * b1）如果返回的预警结果达到三包预警级别，那么判断当前经销商是否授权。 如果当前经销商是授权，那么判断当前用户是否有授权开单？
@@ -641,7 +753,7 @@ var dmsRepair = function() {
 	 * b12）如果生成方案，那么保存工单（方案状态为"等待审核"），同时上报工单以及其明细信息。 返回函数值： 0 代表 不需要预警。 1 代表
 	 * 当前经销商是授权经销商。 2 代表 当前经销商不是授权经销商。 3 代表 当前车辆不属于三包车辆。
 	 */
-	function GetTripleInfoFromDCS(vin,repairPart){
+	function GetTripleInfoFromDCS(vin, repairPart) {
 		dmsCommon.ajaxRestRequest({
 			url : dmsCommon.getDmsPath()["repair"]
 					+ "/order/repair/getTripleInfo",
@@ -653,148 +765,175 @@ var dmsRepair = function() {
 			},
 			async : false,
 			sucessCallBack : function(data) {
-				if(data!=null){
+				if (data != null) {
 					iniInfo = data.ttTripleInfo;
-					$("#pre3BaoWarm",container).click();
+					$("#pre3BaoWarm", container).click();
 					return data.tripleResult;
 				}
 			}
 		});
 		return "999";
 	}
-	
+
 	/*
 	 * 弹出预警信息表格初始化
 	 */
-	function initPre3BaoWarm(srca){
+	function initPre3BaoWarm(srca) {
 		new Datatable().initPagination({
-    		src : srca,
-    		data : iniInfo,
-   			rowID : "PART_CODE",
-   			sortName : "PART_CODE",
-   			sortOrder : "asc",
-   			autoHeight:false,
-   			undefinedText : "",
-   			columns : [     
-   	            {field : "PART_CODE",title : "零件编码"},
-   	         	{field : "PTMUM",title : "零件次数"},
-   	            {field : "WARN_ITEM_NAME",title : "项目"},
-   	            {field : "WARNTIMES",title : "项目次数/总天数"},
-                {field : "WARN_STANDARD",title : "预警次数"},
-   	            {field : "LEGAL_STANDARD",title : "法定标准"},
-   	            {field : "YELLOW_STANDARD",title : "黄色标准"},
-   	            {field : "ORANGE_STANDARD",title : "橙色标准"},
-                {field : "RED_STANDARD",title : "红色标准"}
-   			]
-   		});
+			src : srca,
+			data : iniInfo,
+			rowID : "PART_CODE",
+			sortName : "PART_CODE",
+			sortOrder : "asc",
+			autoHeight : false,
+			undefinedText : "",
+			columns : [ {
+				field : "PART_CODE",
+				title : "零件编码"
+			}, {
+				field : "PTMUM",
+				title : "零件次数"
+			}, {
+				field : "WARN_ITEM_NAME",
+				title : "项目"
+			}, {
+				field : "WARNTIMES",
+				title : "项目次数/总天数"
+			}, {
+				field : "WARN_STANDARD",
+				title : "预警次数"
+			}, {
+				field : "LEGAL_STANDARD",
+				title : "法定标准"
+			}, {
+				field : "YELLOW_STANDARD",
+				title : "黄色标准"
+			}, {
+				field : "ORANGE_STANDARD",
+				title : "橙色标准"
+			}, {
+				field : "RED_STANDARD",
+				title : "红色标准"
+			} ]
+		});
 	}
-	
-	function findActivityCode(repairPart){
+
+	function findActivityCode(repairPart) {
 		var code = "";
-		$.each(repairPart,function(i,j){
+		$.each(repairPart, function(i, j) {
 			code = code + "," + j.ACTIVITY_CODE;
 		});
 		return code;
 	}
-	
-	function findPartNo(repairPart){
+
+	function findPartNo(repairPart) {
 		var code = "";
-		$.each(repairPart,function(i,j){
+		$.each(repairPart, function(i, j) {
 			code = code + "," + j.PART_NO;
 		});
 		return code;
 	}
-	
-	var CheckTripleInfo = function(container){
-		if(!checkBrandIsOem(container)){
+
+	var CheckTripleInfo = function(container) {
+		if (!checkBrandIsOem(container)) {
 			return false;
 		}
-		if(isStringNull($("#salesDate",container).val())){
+		if (isStringNull($("#salesDate", container).val())) {
 			return false;
 		}
 		// 1、三包预警开关
 		// 2、是否索赔工单
-		if(dmsCommon.getSystemParamInfo("1180", "1180")=='12781002'&&$("#roType",container).val()!="12531004"){
+		if (dmsCommon.getSystemParamInfo("1180", "1180") == '12781002'
+				&& $("#roType", container).val() != "12531004") {
 			return false;
 		}
 		// 几种维修类型 不做三包预警 首次保养 常规保养 定期保养
-		var repairType = $("#repairType",container).val();
-		if(repairType=='SCBY'||repairType=='CGBY'||repairType=='DQBY'){
+		var repairType = $("#repairType", container).val();
+		if (repairType == 'SCBY' || repairType == 'CGBY'
+				|| repairType == 'DQBY') {
 			return false;
 		}
 		// 进厂里程和当前日期是否在三包期内
-		if(!checkRule(container)){
+		if (!checkRule(container)) {
 			return false;
 		}
 		return true;
 	}
-	var checkRule = function(container){
+	var checkRule = function(container) {
 		var v_fDateDis = 0;
 		var v_fMiliageDis = 0.0;
-		var deDate = $("#salesDate",container).val();
-		var afMilage = $("#inMileage",container).val();
+		var deDate = $("#salesDate", container).val();
+		var afMilage = $("#inMileage", container).val();
 		var v_sCurr = new Date();
-		if(!isStringNull(dmsCommon.getSystemParamInfo("1903", "1903"))){
+		if (!isStringNull(dmsCommon.getSystemParamInfo("1903", "1903"))) {
 			v_fDateDis = parseInt(dmsCommon.getSystemParamInfo("1903", "1903"));
-		}else{
+		} else {
 			v_fDateDis = 2;
 		}
-		if(!isStringNull(dmsCommon.getSystemParamInfo("1904", "1904"))){
-			v_fMiliageDis = parseInt(dmsCommon.getSystemParamInfo("1904", "1904"));
-		}else{
+		if (!isStringNull(dmsCommon.getSystemParamInfo("1904", "1904"))) {
+			v_fMiliageDis = parseInt(dmsCommon.getSystemParamInfo("1904",
+					"1904"));
+		} else {
 			v_fMiliageDis = 50000;
 		}
 		var ddate = new Date(deDate);
 		var dyear = ddate.getFullYear();
 		ddate.setFullYear(dyear + v_fDateDis);
-		if((new Date(deDate).getTime()<=v_sCurr.getTime())&&(v_sCurr.getTime()<=ddate.getTime())&&(afMilage <= v_fMiliageDis)){
+		if ((new Date(deDate).getTime() <= v_sCurr.getTime())
+				&& (v_sCurr.getTime() <= ddate.getTime())
+				&& (afMilage <= v_fMiliageDis)) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
-	
-	var checkBrandIsOem = function(container){
+
+	var checkBrandIsOem = function(container) {
 		// 非OEM品牌不校验三包规则
-		var text = dmsDict.getSelectedOptionData($("#brand",container)).OEM_TAG;
-		if(text=='12781001'){
+		var text = dmsDict.getSelectedOptionData($("#brand", container)).OEM_TAG;
+		if (text == '12781001') {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
-	
-	var SetModifyNum = function(repairItem,repairItemCount,repairPart,repairPartCount,container){
+
+	var SetModifyNum = function(repairItem, repairItemCount, repairPart,
+			repairPartCount, container) {
 		// 查询维修项目和维修配件是否发生了值的改变
-	    if(parseInt(repairItemCount)!=parseInt(repairItem.length)||parseInt(repairPartCount)!=parseInt(repairPart.length)){
-	    	if(!isStringNull($("#printRoTime",container).val())){
-	    		$("#modifyNum",container).setDmsValue(parseInt($("#modifyNum",container).val())+1);
-	    		return ;
-	    	}
-	    }
-	    // 判断维修项目和维修配件
-	    if(checkItemIsModify(repairItem)||checkItemIsModify(repairPart)){
-	    	$("#modifyNum",container).setDmsValue(parseInt($("#modifyNum",container).val())+1);
-    		return ;
-	    }
+		if (parseInt(repairItemCount) != parseInt(repairItem.length)
+				|| parseInt(repairPartCount) != parseInt(repairPart.length)) {
+			if (!isStringNull($("#printRoTime", container).val())) {
+				$("#modifyNum", container).setDmsValue(
+						parseInt($("#modifyNum", container).val()) + 1);
+				return;
+			}
+		}
+		// 判断维修项目和维修配件
+		if (checkItemIsModify(repairItem) || checkItemIsModify(repairPart)) {
+			$("#modifyNum", container).setDmsValue(
+					parseInt($("#modifyNum", container).val()) + 1);
+			return;
+		}
 	}
-	
+
 	// 工单判断表格字段是否发生变化
-	var checkItemIsModify =function(item){
+	var checkItemIsModify = function(item) {
 		var result = false;
 		var flags = new Array();
 		flags.push("A");
 		flags.push("U");
-		$.each(item,function(i,j){
-			if(flags.indexOf(j.rowKey)>0){// 表示做了修改
+		$.each(item, function(i, j) {
+			if (flags.indexOf(j.rowKey) > 0) {// 表示做了修改
 				result = true;
 			}
 		});
 		return result;
 	}
-	
+
 	// 工单保存获取必须参加还没参加的所有服务活动编号
-	var GetAllEnterableActivityInfo = function(aRoNo,aLicense,aVin,aModel,brand,series,salesdate,mileage,cardTypeCode,configCode){
+	var GetAllEnterableActivityInfo = function(aRoNo, aLicense, aVin, aModel,
+			brand, series, salesdate, mileage, cardTypeCode, configCode) {
 		var infoItem = new Array();// 获取可参加的服务活动数组(field只有一个活动编号)
 		var couldItem = new Array();// 获取还未参加的可参加的服务活动数组(field只有一个活动编号)
 		var Enterable = null;// 可参加的服务活动
@@ -817,11 +956,11 @@ var dmsRepair = function() {
 			},
 			async : false,
 			sucessCallBack : function(data) {
-				if(data!=null){
+				if (data != null) {
 					Enterable = data;
 				}
 			},
-			errorCallBack : function(data){
+			errorCallBack : function(data) {
 				dmsCommon.tip({
 					status : "warning",
 					msg : data
@@ -837,63 +976,64 @@ var dmsRepair = function() {
 		 * function(data){ dmsCommon.tip({ status : "warning", msg : data });
 		 * returnResult.status = false; } });
 		 */
-		if(Enterable!=null){
-			$.each(Enterable,function(i,j){
+		if (Enterable != null) {
+			$.each(Enterable, function(i, j) {
 				// 活动性质必填,下发
-				if(j.ACTIVITY_PROPERTY=='11961001'&&j.DOWN_TAG=='12781001'){
+				if (j.ACTIVITY_PROPERTY == '11961001'
+						&& j.DOWN_TAG == '12781001') {
 					infoItem.push(j.ACTIVITY_CODE);
 				}
 			});
 			infoItem = filterArray(infoItem);
 		}
-		if(isable!=null&&infoItem!=null){
-			$.each(isable,function(i,j){
-				if(infoItem.indexOf(j.ACTIVITY_CODE)==-1){// 表示没有参加此项服务活动
+		if (isable != null && infoItem != null) {
+			$.each(isable, function(i, j) {
+				if (infoItem.indexOf(j.ACTIVITY_CODE) == -1) {// 表示没有参加此项服务活动
 					couldItem.push(j.ACTIVITY_CODE);
 				}
 			});
-		}else{
+		} else {
 			couldItem = infoItem;
 		}
 		return couldItem;
 	}
-	
+
 	// 删除数组指定元素
 	function removeByValue(arr, val) {
-		for(var i=0; i<arr.length; i++) {
-			if(arr[i] == val) {
+		for (var i = 0; i < arr.length; i++) {
+			if (arr[i] == val) {
 				arr.splice(i, 1);
 				break;
 			}
 		}
 	}
-	
+
 	// 去除数组重复项
-	function filterArray(receiveArray){  
+	function filterArray(receiveArray) {
 		var arrResult = new Array(); // 定义一个返回结果数组.
-	    for (var i=0; i<receiveArray.length; ++i) {   
-	        if(check(arrResult,receiveArray[i]) == -1) {  
-	            // 在这里做i元素与所有判断相同与否
-	            arrResult.push(receiveArray[i]);
-	            // 添加该元素到新数组。如果if内判断为false（即已添加过），
-	            // 则不添加。
-	        }  
-	    }  
-	    return arrResult;  
-	}  
-	
-	function check(receiveArray,checkItem){  
-	    var index = -1; // 函数返回值用于布尔判断
-	    for(var i=0; i<receiveArray.length; ++i){  
-	        if(receiveArray[i]==checkItem){  
-	            index = i;  
-	            break;  
-	            }  
-	        }  
-	    return index;  
-	}  
-	
-	var GetActivityCodes2 = function(repairItem,repairPart,addItem){
+		for (var i = 0; i < receiveArray.length; ++i) {
+			if (check(arrResult, receiveArray[i]) == -1) {
+				// 在这里做i元素与所有判断相同与否
+				arrResult.push(receiveArray[i]);
+				// 添加该元素到新数组。如果if内判断为false（即已添加过），
+				// 则不添加。
+			}
+		}
+		return arrResult;
+	}
+
+	function check(receiveArray, checkItem) {
+		var index = -1; // 函数返回值用于布尔判断
+		for (var i = 0; i < receiveArray.length; ++i) {
+			if (receiveArray[i] == checkItem) {
+				index = i;
+				break;
+			}
+		}
+		return index;
+	}
+
+	var GetActivityCodes2 = function(repairItem, repairPart, addItem) {
 		var item = '';
 		// 维修项目
 		$.each(repairItem, function(i, j) {
@@ -913,7 +1053,7 @@ var dmsRepair = function() {
 				}
 			}
 		});
-		$.each(addItem,function(i,j){
+		$.each(addItem, function(i, j) {
 			if (!isStringNull(j.ACTIVITY_CODE)) {
 				var reg = new RegExp(j.ACTIVITY_CODE);
 				if (!reg.test(item)) {
@@ -923,7 +1063,7 @@ var dmsRepair = function() {
 		});
 	}
 
-	var HaveOtherItem = function(repairItem,repairPart) {
+	var HaveOtherItem = function(repairItem, repairPart) {
 		$.each(repairItem, function(i, j) {
 			if (isStringNull(j.ACTIVITY_CODE)) {
 				return true;
@@ -1435,8 +1575,7 @@ var dmsRepair = function() {
 								msg : "此车辆还没有做实销上报，不能开工单！"
 							});
 							return;
-						}
-						if (!isStringNull(data.VIN)
+						} else if (!isStringNull(data.VIN)
 								&& CheckIsHaveAduitingOrder(data.VIN)) {
 							dmsCommon.tip({
 								status : "warning",
@@ -1472,14 +1611,71 @@ var dmsRepair = function() {
 							if (!isStringNull(aVinTmp)) {
 								if (QueryROByLicense(aVinTmp)) {
 									// 如果存在在修车辆，提示“此车牌存在在修车辆，是否继续新建工单？”
-									obj.confirm('重复的维修组合选择，是否继续新增？', function(
-											confirmObj) {
-									}, function(confirmObj) {
-										return;
-									});
+									obj
+											.confirm(
+													'重复的维修组合选择，是否继续新增？',
+													function(confirmObj) {
+														SetVehicleInfo(data,
+																false, false,
+																false);
+														// 根据车牌号查询工单的监控信息。
+
+														if (data.length > 0) {
+															if (!isStringNull(data.TRACE_TIME)) {
+																$("#traceTime",
+																		container)
+																		.setDmsValue(
+																				data.TRACE_TIME);
+															} else if ($(
+																	"#traceTime",
+																	container)
+																	.attr(
+																			"disabled")
+																	&& $(
+																			"#traceTime",
+																			container)
+																			.val() == "0") {
+																$("#traceTime",
+																		container)
+																		.setDmsValue(
+																				11251004);
+															}
+														} else {
+															if ($("#traceTime",
+																	container)
+																	.attr(
+																			"disabled")
+																	&& $(
+																			"#traceTime",
+																			container)
+																			.val() == "0") {
+																$("#traceTime",
+																		container)
+																		.setDmsValue(
+																				11251004);
+															}
+														}
+														var tt = dmsCommon
+																.getSystemParamInfo(
+																		"1063",
+																		"1063");// 预交车时间为当前时间延迟xx小时
+														var ttt = parseFloat(tt) * 60 * 60 * 1000;
+														var tttt = Number(new Date()
+																.getTime())
+																+ Number(ttt);
+														$("#endTimeSupposed",
+																container)
+																.setDmsValue(
+																		dateByType(
+																				tttt,
+																				"1"));// 预交车时间
+														$("#calculate",
+																container)
+																.click();// 计算预计下次保修
+													}, function(confirmObj) {
+														return;
+													});
 								}
-								SetVehicleInfo(data, false, false, false);
-								// 根据车牌号查询工单的监控信息。
 							}
 						} else {// 表示没查到数据
 							// 针对跨店维修的车辆-召回活动，监控信息也要显示
@@ -1578,33 +1774,113 @@ var dmsRepair = function() {
 																	}
 																}
 															});
-												}, function(confirmObj) {
+													if (data.length > 0) {
+														if (!isStringNull(data.TRACE_TIME)) {
+															$("#traceTime",
+																	container)
+																	.setDmsValue(
+																			data.TRACE_TIME);
+														} else if ($(
+																"#traceTime",
+																container)
+																.attr(
+																		"disabled")
+																&& $(
+																		"#traceTime",
+																		container)
+																		.val() == "0") {
+															$("#traceTime",
+																	container)
+																	.setDmsValue(
+																			11251004);
+														}
+													} else {
+														if ($("#traceTime",
+																container)
+																.attr(
+																		"disabled")
+																&& $(
+																		"#traceTime",
+																		container)
+																		.val() == "0") {
+															$("#traceTime",
+																	container)
+																	.setDmsValue(
+																			11251004);
+														}
+													}
+													var tt = dmsCommon
+															.getSystemParamInfo(
+																	"1063",
+																	"1063");// 预交车时间为当前时间延迟xx小时
+													var ttt = parseFloat(tt) * 60 * 60 * 1000;
+													var tttt = Number(new Date()
+															.getTime())
+															+ Number(ttt);
+													$("#endTimeSupposed",
+															container)
+															.setDmsValue(
+																	dateByType(
+																			tttt,
+																			"1"));// 预交车时间
+													$("#calculate", container)
+															.click();// 计算预计下次保修
+												},
+												function(confirmObj) {
+													if (data.length > 0) {
+														if (!isStringNull(data.TRACE_TIME)) {
+															$("#traceTime",
+																	container)
+																	.setDmsValue(
+																			data.TRACE_TIME);
+														} else if ($(
+																"#traceTime",
+																container)
+																.attr(
+																		"disabled")
+																&& $(
+																		"#traceTime",
+																		container)
+																		.val() == "0") {
+															$("#traceTime",
+																	container)
+																	.setDmsValue(
+																			11251004);
+														}
+													} else {
+														if ($("#traceTime",
+																container)
+																.attr(
+																		"disabled")
+																&& $(
+																		"#traceTime",
+																		container)
+																		.val() == "0") {
+															$("#traceTime",
+																	container)
+																	.setDmsValue(
+																			11251004);
+														}
+													}
+													var tt = dmsCommon
+															.getSystemParamInfo(
+																	"1063",
+																	"1063");// 预交车时间为当前时间延迟xx小时
+													var ttt = parseFloat(tt) * 60 * 60 * 1000;
+													var tttt = Number(new Date()
+															.getTime())
+															+ Number(ttt);
+													$("#endTimeSupposed",
+															container)
+															.setDmsValue(
+																	dateByType(
+																			tttt,
+																			"1"));// 预交车时间
+													$("#calculate", container)
+															.click();// 计算预计下次保修
 												});
 							}
 						}
-						if (data.length > 0) {
-							if (!isStringNull(data.TRACE_TIME)) {
-								$("#traceTime", container).setDmsValue(
-										data.TRACE_TIME);
-							} else if ($("#traceTime", container).attr(
-									"disabled")
-									&& $("#traceTime", container).val() == "0") {
-								$("#traceTime", container)
-										.setDmsValue(11251004);
-							}
-						} else {
-							if ($("#traceTime", container).attr("disabled")
-									&& $("#traceTime", container).val() == "0") {
-								$("#traceTime", container)
-										.setDmsValue(11251004);
-							}
-						}
-						var tt = dmsCommon.getSystemParamInfo("1063", "1063");// 预交车时间为当前时间延迟xx小时
-						var ttt = parseFloat(tt) * 60 * 60 * 1000;
-						var tttt = Number(new Date().getTime()) + Number(ttt);
-						$("#endTimeSupposed", container).setDmsValue(
-								dateByType(tttt, "1"));// 预交车时间
-						$("#calculate", container).click();// 计算预计下次保修
 					}
 				});
 	}
@@ -2181,14 +2457,20 @@ var dmsRepair = function() {
 		checkSave : function(container, returnResult) {
 			checkSave(container, returnResult);
 		},
-		initRepairType1 : function(container){
-					initRepairType1(container);
-				},
-		initQueryDateType : function(container){
-					initQueryDateType(container);
-				},
-		initPre3BaoWarm : function(srca){
-				initPre3BaoWarm(srca);
+		initRepairType1 : function(container) {
+			initRepairType1(container);
+		},
+		initQueryDateType : function(container) {
+			initQueryDateType(container);
+		},
+		initPre3BaoWarm : function(srca) {
+			initPre3BaoWarm(srca);
+		},
+		roNoKeyUp : function(obj, container) {
+			roNoKeyUp(obj, container);
+		},
+		vinKeyUp : function(obj, container) {
+			vinKeyUp(obj, container);
 		}
 	};
 

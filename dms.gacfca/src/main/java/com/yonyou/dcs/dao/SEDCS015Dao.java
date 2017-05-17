@@ -1,6 +1,6 @@
 package com.yonyou.dcs.dao;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -50,7 +50,7 @@ public class SEDCS015Dao extends OemBaseDAO {
 	 * 需要下发的维修工时数据
 	 * @return
 	 */
-	public List<SEDCS015DTO> queryMoreInfo(String array) {
+	public LinkedList<SEDCS015DTO> queryMoreInfo(String array) {
 		StringBuffer sql = new StringBuffer();
 		sql.append("select distinct TMMH.MMH_ID,   \n");
 		sql.append("    decode(TMMH.GROUP_TYPE,'70391001',VM.SERIES_CODE,vm2.SERIES_CODE ) SERIES_CODE,  \n");//车系  
@@ -80,7 +80,7 @@ public class SEDCS015Dao extends OemBaseDAO {
 			sql.append("   limit 1000 ");
 		}
 		List<Map> list=OemDAOUtil.findAll(sql.toString(), null);
-		List<SEDCS015DTO> dtolist = new ArrayList<>();
+		LinkedList<SEDCS015DTO> dtolist = new LinkedList<>();
 		if(null!=list&&list.size()>0){
 			for(Map map:list){
 				SEDCS015DTO dto=new SEDCS015DTO();

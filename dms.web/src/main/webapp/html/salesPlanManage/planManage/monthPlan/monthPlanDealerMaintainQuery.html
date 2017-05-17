@@ -89,7 +89,7 @@
 		});
     	
     	//初始化月
-    	var season = $("#seasonId",container).val();
+    	/* var season = $("#seasonId",container).val();
     	var one = "", two = "", three = "";
     	if (season == "第一季度") {
     		one = "1月";
@@ -127,7 +127,7 @@
         		two = "11月";
         		three = "12月";
         	}
-    	}
+    	} */
     	
     	new Datatable().initPagination({
     		src : "month_plan_dealer_query_table",
@@ -135,13 +135,35 @@
    		   url : dmsCommon.getDmsPath()["manage"] + "/monthPlanDealerMaintain/monthPlanDealerQuery",
    		   columns : [ 
  		            {field : "GROUP_NAME",title : "车系"},
-                   {field : "ONE",title : one},
-                   {field : "TWO",title : two},
-                   {field : "THREE",title : three},
+                   {field : "ONE",title : "1月"},
+                   {field : "TWO",title : "2月"},
+                   {field : "THREE",title : "3月"},
                    {field : "TOTAL",title : "季度任务汇总"}
    			],
 	    	onLoadSuccess : function() {
 				$("#month_plan_dealer_query_table",container).dmsTable().bootstrapTable('resetView');
+				var season = $("#seasonId",container).val();
+		    	var one = "", two = "", three = "";
+		    	if (season == "第一季度") {
+		    		one = "1月";
+		    		two = "2月";
+		    		three = "3月";
+		    	} else if (season == "第二季度") {
+		    		one = "4月";
+		    		two = "5月";
+		    		three = "6月";
+		    	} else if (season == "第三季度") {
+		    		one = "7月";
+		    		two = "8月";
+		    		three = "9月";
+		    	} else if (season == "第四季度") {
+		    		one = "10月";
+		    		two = "11月";
+		    		three = "12月";
+		    	}
+		    	$("#month_plan_dealer_query_table th[data-field='ONE'] div.th-inner").html(one);
+		    	$("#month_plan_dealer_query_table th[data-field='TWO'] div.th-inner").html(two);
+		    	$("#month_plan_dealer_query_table th[data-field='THREE'] div.th-inner").html(three);
 			}
    		});
     	

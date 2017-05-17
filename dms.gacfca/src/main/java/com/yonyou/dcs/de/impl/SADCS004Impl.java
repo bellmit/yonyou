@@ -54,7 +54,6 @@ public class SADCS004Impl extends BaseImpl implements DEAction,SADCS004{
 			SameToDccDto dto = new SameToDccDto();
 			vo = (SameToDccVO)entry.getValue();
 			dto.setDealerCode(vo.getEntityCode());
-			dto = new SameToDccDto();
 			BeanUtils.copyProperties(vo, dto);
 			dtoList.add(dto);
 		}

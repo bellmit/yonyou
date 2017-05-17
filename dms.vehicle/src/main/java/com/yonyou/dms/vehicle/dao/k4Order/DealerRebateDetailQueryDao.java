@@ -82,7 +82,7 @@ public class DealerRebateDetailQueryDao extends OemBaseDAO {
 				s = s + "'" + dealer + "'" + ",";
 			}
 			String ss = s.substring(0, s.length() - 1);
-			sql.append(" and t.DEALER_CODE in(" + ss + ") \n");
+			sql.append(" and t1.DEALER_CODE in(" + ss + ") \n");
 			// params.add(queryParam.get("dealerCode"));
 		}
 		// 返利类型

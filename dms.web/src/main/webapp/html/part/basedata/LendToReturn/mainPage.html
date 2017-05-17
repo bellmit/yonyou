@@ -69,7 +69,7 @@
 		</div>
 		<div class="modal-footer center-block">
 			<a  id="finish" data-model="part" data-method="POST" data-url="/basedata/return/returnList"
-				class="btn blue" data-onclickEvent='true'  data-toggle="confirmation" data-callBack="true">归还入账</a>
+				class="btn blue" data-toggle="confirmation" data-callBack="true">归还入账</a>
 			<a  id="exit" class="btn blue" >取消</a>
 			<a id="print" class="btn blue" data-toggle="modal" data-target="print"
 				data-url="vehicle/stockManage/stockIn/editStockInPrint.html" 
@@ -80,6 +80,7 @@
 </div>
 <script type="text/javascript">
 	$(document).one("onload.dms",function(event, container) {
+		$("#print",container).attr('disabled','disabled');
 				new Datatable().initLocale({
 					src : "dms_show",
 					container:container,
@@ -88,7 +89,7 @@
 					isQueryFirst : false,
 					checkboxHeader : true, //全选框
 					columns : [
-						{field : "STORAGE_NAME",title : "仓库",inputHiddenFormat : {hiddenField:"STORAGE_CODE"}}, 
+						{field : "STORAGE_NAME",title : "仓库",inputHiddenFormat : {hiddenField:"STORAGE_CODE,LEND_NO",hiddenFieldName:"storageCode,lendNo"}}, 
 						{field : "STORAGE_POSITION_CODE",title : "库位",inputHiddenFormat : {}}, 
 						{field : "PART_NO",title : "配件代码",inputHiddenFormat : {}}, 
 						{field : "PART_NAME",title : "配件名称",inputHiddenFormat : {}}, 
@@ -113,8 +114,9 @@
 				//成功回调方法
 			 	$("a[data-callBack='true']", container).on("callBack.dms",function(event, response) {
 			 		$("#dms_show",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["part"] + "/basedata/return/findAllDetails/forLocale/"+$('#lendNo',container).val());
-					$("#dms_show", container).dmsTable().refreshTableWithForm();
-					$("#RETURN_NO",contaienr).val(response);
+					$("#RETURN_NO").setDmsValue(response);
+					$("#finish").attr('disabled','disabled');
+					$("#print").removeAttr('disabled');
 			 	});
 				
 			 	$("#exit,#clear", container).click(function(){

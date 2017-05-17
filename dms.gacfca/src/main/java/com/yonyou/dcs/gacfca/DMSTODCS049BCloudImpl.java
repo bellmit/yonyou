@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.javalite.activejdbc.Base;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +30,13 @@ public class DMSTODCS049BCloudImpl extends BaseCloudImpl implements DMSTODCS049B
 	DMSTODCS049BDao dao ;
 
 	@Override
-	public String receiveData(List<SADCS049Dto> dtos) throws Exception {
+	public String handleExecutor(List<SADCS049Dto> dtos) throws Exception {
 		String msg = "1";
-		logger.info("====开始获取二手车置换意向明细接收开始====");
-		saveTiTable(dtos);
+		beginDbService();
 		try {
+			logger.info("====开始获取二手车置换意向明细接收开始====");
+			saveTiTable(dtos);
+			
 			logger.info("##################### 二手车置换意向groupId:####"+groupId+"##########################");
 			//从接口表抽取本次接口数据集
 			List<TiUsedCarReplacementIntentionDetailBDTO> datalist = dao.queryTiUsedData(groupId);
@@ -54,11 +57,15 @@ public class DMSTODCS049BCloudImpl extends BaseCloudImpl implements DMSTODCS049B
 					insertTtTable(dto);
 				}
 			}
+			dbService.endTxn(true);
 		} catch (Exception e) {
 			logger.error("开始获取二手车置换意向明细接收失败", e);
 			msg = "0";
-			throw new ServiceBizException(e);
-		} 
+			dbService.endTxn(false);
+		} finally{
+			Base.detach();
+			dbService.clean();
+		}
 		logger.info("*************************** 成功获取上报的二手车置换意向明细数据******************************");
 		return msg;
 	}

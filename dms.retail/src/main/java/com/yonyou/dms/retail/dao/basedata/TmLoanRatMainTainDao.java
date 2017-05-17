@@ -336,6 +336,12 @@ public class TmLoanRatMainTainDao extends OemBaseDAO {
 		return flag;
 	}
 
+	/**
+	 * 国产化判断
+	 * @param groupCode
+	 * @return
+	 * @throws Exception
+	 */
 	public List<Map> isLocalization(String groupCode) throws Exception {
 		List<Object> params = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer();

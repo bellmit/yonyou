@@ -101,9 +101,9 @@ public class TmRetailController extends BaseController{
      * @return
      */
 
-    @RequestMapping(value="/{id}",method = RequestMethod.GET)
+    @RequestMapping(value="/sun/{id}",method = RequestMethod.GET)
     @ResponseBody
-    public Map<String,Object> findById(@PathVariable(value = "ID") Long id) throws Exception{
+    public Map<String,Object> findById(@PathVariable(value = "id") Long id) throws Exception{
     	Map<String,Object> map = trservice.findById(id);
         return map;
     }

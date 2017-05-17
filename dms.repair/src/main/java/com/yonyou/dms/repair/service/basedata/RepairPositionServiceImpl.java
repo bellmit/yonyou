@@ -207,9 +207,9 @@ public class RepairPositionServiceImpl implements RepairPositionService {
      */
     @Override
     public List<Map> findAllRepairPosition() throws ServiceBizException{
-        StringBuilder sb=new StringBuilder("SELECT DEALER_CODE,LABOUR_POSITION_CODE,LABOUR_POSITION_NAME from tm_repair_position where IS_VALID=? ");
+        StringBuilder sb=new StringBuilder("SELECT DEALER_CODE,LABOUR_POSITION_CODE,LABOUR_POSITION_NAME from tm_repair_position where 1=1");
         List<Object> param=new ArrayList<Object>();
-        param.add(DictCodeConstants.STATUS_IS_YES);
+       // param.add(DictCodeConstants.STATUS_IS_YES);
         return DAOUtil.findAll(sb.toString(), param);
     }
 

@@ -8,10 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.infoservice.dms.cgcsl.vo.PoCusWholeRepayClryslerVO;
 import com.yonyou.dcs.dao.SADCS015Dao;
 import com.yonyou.dms.DTO.gacfca.PoCusWholeRepayClryslerDto;
 import com.yonyou.dms.function.exception.ServiceBizException;
-import com.yonyou.dms.gacfca.OSD0402;
+import com.yonyou.dms.gacfca.OSD0402Coud;
 
 @Service
 public class SADCS015_1CloudImpl extends BaseCloudImpl implements SADCS015_1Cloud {
@@ -22,12 +23,12 @@ public class SADCS015_1CloudImpl extends BaseCloudImpl implements SADCS015_1Clou
 	SADCS015Dao dao;
 	
 	@Autowired
-	OSD0402 osd0402;
+	OSD0402Coud osd0402;
 
 	@Override
 	public String sendData(String wsNo, String dealerCode) throws ServiceBizException {
 		logger.info("===============大客户报备返利审批数据下发执行开始（SADCS015_1Cloud）====================");
-		List<PoCusWholeRepayClryslerDto> vos = getDataList(wsNo, dealerCode);
+		List<PoCusWholeRepayClryslerDto> vos = getDtoDataList(wsNo, dealerCode);
 		if (vos != null && !vos.isEmpty()) {
 			for (int i = 0; i < vos.size(); i++) {
 				send(vos.get(i),dealerCode);
@@ -61,7 +62,18 @@ public class SADCS015_1CloudImpl extends BaseCloudImpl implements SADCS015_1Clou
 	}
 
 	@Override
-	public List<PoCusWholeRepayClryslerDto> getDataList(String wsNo, String dealerCode) throws ServiceBizException {
+	public List<PoCusWholeRepayClryslerVO> getVoDataList(String wsNo, String dealerCode) throws ServiceBizException {
+		List<PoCusWholeRepayClryslerVO> vos = new ArrayList<>();
+		try {
+			String remark = dao.queryRemark(wsNo, dealerCode);
+			dao.SetRemark(remark);
+			vos = dao.queryBigCustomerRebateApprovalVoInfo(wsNo, dealerCode);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return vos;
+	}
+	public List<PoCusWholeRepayClryslerDto> getDtoDataList(String wsNo, String dealerCode) throws ServiceBizException {
 		List<PoCusWholeRepayClryslerDto> vos = new ArrayList<>();
 		try {
 			String remark = dao.queryRemark(wsNo, dealerCode);

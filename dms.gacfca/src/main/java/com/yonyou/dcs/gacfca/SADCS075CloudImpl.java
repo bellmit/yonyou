@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.infoservice.dms.cgcsl.vo.VoucherVO;
 import com.yonyou.dcs.dao.SADCS075Dao;
 import com.yonyou.dms.DTO.gacfca.VoucherDTO;
 import com.yonyou.dms.function.exception.ServiceBizException;
@@ -30,7 +31,7 @@ public class SADCS075CloudImpl extends BaseCloudImpl implements SADCS075Cloud {
 			//下发的经销商 全网下发
 			List<String> dealerList= dao.getAllDmsCode(0);
 			//下发的数据
-			List<VoucherDTO> dtolist=getSendData(actId);
+			List<VoucherDTO> dtolist=dao.queryVoucherDTO(actId);
 			if(null!=dtolist && dtolist.size()>0){
 				for(int i=0;i<dealerList.size();i++){
 					//下发操作
@@ -52,8 +53,8 @@ public class SADCS075CloudImpl extends BaseCloudImpl implements SADCS075Cloud {
 	}
 
 	@Override
-	public List<VoucherDTO> getSendData(String actId) throws ServiceBizException {
-		return dao.queryVoucherDTO(actId);
+	public List<VoucherVO> getSendData(String actId) throws ServiceBizException {
+		return dao.queryVoucherVO(actId);
 	}
 
 }

@@ -2,13 +2,18 @@ package com.yonyou.dms.DTO.gacfca;
 
 import java.util.Date;
 
-import com.infoservice.dms.cgcsl.vo.BaseVO;
-
-@SuppressWarnings("serial")
-public class SADCS074DTO extends BaseVO {
+public class SADCS074DTO {
+	
+	private String dealerCode;
 	private String vin; //底盘号
 	private Date invoiceDate; //开票日期
 	
+	public String getDealerCode() {
+		return dealerCode;
+	}
+	public void setDealerCode(String dealerCode) {
+		this.dealerCode = dealerCode;
+	}
 	public String getVin() {
 		return vin;
 	}

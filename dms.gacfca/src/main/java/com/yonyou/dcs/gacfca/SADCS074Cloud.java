@@ -7,7 +7,7 @@ import com.yonyou.dms.function.exception.ServiceBizException;
  * 总部修改车辆开票日期后，下发所有存有车辆信息的经销商
  * @author xuqinqin 
  */
-public interface SADCS074Cloud {
+public interface SADCS074Cloud  extends BaseCloud{
 
 	public String sendData(String vin,String dealerCode) throws ServiceBizException;
 	

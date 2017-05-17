@@ -3,6 +3,7 @@ package com.yonyou.dcs.gacfca;
 import java.util.List;
 import java.util.Map;
 
+import org.javalite.activejdbc.Base;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import com.yonyou.dcs.util.DEConstant;
 import com.yonyou.dms.DTO.gacfca.ActivityResultDTO;
 import com.yonyou.dms.common.domains.PO.basedata.TtWrActivityVehicleCompleteDcsPO;
 import com.yonyou.dms.function.common.OemDictCodeConstants;
-import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.CommonUtils;
 @Service
 public class HMCISE05CloudImpl extends BaseCloudImpl implements HMCISE05Cloud {
@@ -22,21 +22,24 @@ public class HMCISE05CloudImpl extends BaseCloudImpl implements HMCISE05Cloud {
 	ActivityResultDao dao ;
 	
 	@Override
-	public String receiveData(List<ActivityResultDTO> dtos) throws Exception {
+	public String handleExecutor(List<ActivityResultDTO> dtos) throws Exception {
 		String msg = "1";
-		
+		beginDbService();
 		try {
 			logger.info("*************** HMCISE05活动车辆完工上报接收开始 *******************");
 			for (ActivityResultDTO vo : dtos) {
 				insertData(vo);
 			}
 			logger.info("*************** HMCISE05活动车辆完工上报完成 ********************");
-			
+			dbService.endTxn(true);
 		} catch (Exception e) {
 			logger.error("*************** HMCISE05活动车辆完工上报异常 *****************", e);
 			msg = "0";
-			throw new ServiceBizException(e);
-		} 
+			dbService.endTxn(false);
+		} finally{
+			Base.detach();
+			dbService.clean();
+		}
 		return msg;
 	}
 	/**

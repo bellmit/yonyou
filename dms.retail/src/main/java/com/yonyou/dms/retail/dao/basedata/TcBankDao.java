@@ -1,6 +1,7 @@
 package com.yonyou.dms.retail.dao.basedata;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,8 @@ import com.yonyou.dms.common.domains.PO.basedata.TcBankPO;
 import com.yonyou.dms.framework.DAO.OemBaseDAO;
 import com.yonyou.dms.framework.DAO.OemDAOUtil;
 import com.yonyou.dms.framework.DAO.PageInfoDto;
+import com.yonyou.dms.framework.domains.PO.baseData.OemDictPO;
+import com.yonyou.dms.function.common.OemDictCodeConstants;
 import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.StringUtils;
 import com.yonyou.dms.retail.domains.DTO.basedata.TcBankDTO;
@@ -60,6 +63,7 @@ public class TcBankDao extends OemBaseDAO {
 	 * @return
 	 * @throws ServiceBizException
 	 */
+	@SuppressWarnings("rawtypes")
 	public long addTcBank(TcBankDTO tcbdto) throws ServiceBizException {
 		StringBuffer sb = new StringBuffer("select bank_name from tc_bank where 1=1 and bank_name=?");
 		List<Object> list = new ArrayList<Object>();
@@ -68,11 +72,27 @@ public class TcBankDao extends OemBaseDAO {
 		if (map.size() > 0) {
 			throw new ServiceBizException("银行名称不能重复！");
 		} else {
-			TcBankPO lap = new TcBankPO();
-			lap.setString("BANK_NAME", tcbdto.getBankName());
-			lap.setInteger("status", tcbdto.getStatus());
-			lap.saveIt();
-			return (Long) lap.getLongId();
+			OemDictPO tcCodePO=new OemDictPO();
+			int maxCodeId=getBtcMaxCode();//查询最在TC_CODE_ID
+			int maxCode=maxCodeId+1;
+			tcCodePO.setString("TYPE", "3388");
+			tcCodePO.setString("TYPE_NAME", "付款银行");
+			tcCodePO.setString("CODE_ID", String.valueOf(maxCode));
+			tcCodePO.setString("CODE_DESC", tcbdto.getBankName());
+			tcCodePO.setTimestamp("CREATE_DATE", new Date());
+			tcCodePO.setLong("CREATE_BY", -1L);
+			tcCodePO.setInteger("STATUS", OemDictCodeConstants.STATUS_ENABLE);
+			tcCodePO.insert();
+			TcBankPO bank = new TcBankPO();
+			bank.setString("BANK_NAME", tcbdto.getBankName());
+			bank.setInteger("STATUS", tcbdto.getStatus());
+			bank.setInteger("BTC_CODE", maxCode);
+			bank.setLong("CREATE_BY", 12123123L);
+			bank.setTimestamp("CREATE_DATE", new Date());
+			bank.setInteger("IS_SEND", 0);
+			bank.setInteger("UPDATE_STATUS", OemDictCodeConstants.IF_TYPE_NO);
+			bank.saveIt();
+			return (Long) bank.getLongId();
 		}
 	}
 
@@ -107,4 +127,18 @@ public class TcBankDao extends OemBaseDAO {
 	public void doSendEach(Long id, TcBankDTO tcdto) {
 
 	}
+	
+	/**
+     * 获取tc_code中的code_id最大值
+     */
+	@SuppressWarnings("rawtypes")
+	public int  getBtcMaxCode(){
+    	StringBuffer sql=new StringBuffer();
+    	sql.append("SELECT max(CODE_ID) AS CODE_ID FROM TC_CODE_DCS "
+    			+ "WHERE TYPE=  "+OemDictCodeConstants.PAY_BANK);
+    	List<Map> map = OemDAOUtil.findAll(sql.toString(), null);
+    	String max = map.get(0).get("CODE_ID").toString();
+    	Integer.valueOf(max);
+    	return Integer.valueOf(max);
+    }
 }

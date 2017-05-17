@@ -28,7 +28,7 @@ import com.yonyou.dms.DTO.gacfca.CLDMS009Dto;
 import com.yonyou.dms.framework.DAO.PageInfoDto;
 import com.yonyou.dms.framework.domain.LoginInfoDto;
 import com.yonyou.dms.framework.util.bean.ApplicationContextHelper;
-import com.yonyou.dms.gacfca.CLDMS009;
+import com.yonyou.dms.gacfca.CLDMS009Coud;
 import com.yonyou.dms.vehicle.controller.materialManager.MaterialController;
 import com.yonyou.dms.vehicle.dao.basicManage.CompeteModelMaintainDao;
 import com.yonyou.dms.vehicle.domains.DTO.basicManage.TmCompeteBrandDTO;
@@ -50,7 +50,7 @@ public class CompeteModelMaintainController {
 	private CompeteModelMaintainDao dao;
 	
 	@Autowired
-	private CLDMS009 cldms009;
+	private CLDMS009Coud cldms009;
 	
 	/**
 	 * 竞品品牌查询

@@ -30,6 +30,7 @@ import com.yonyou.dms.framework.util.Utility;
 import com.yonyou.dms.function.common.CommonConstants;
 import com.yonyou.dms.function.common.DictCodeConstants;
 import com.yonyou.dms.function.exception.ServiceBizException;
+import com.yonyou.dms.function.utils.common.CommonUtils;
 import com.yonyou.dms.function.utils.common.StringUtils;
 import com.yonyou.dms.part.domains.DTO.basedata.LendToReturnDTO;
 
@@ -49,7 +50,7 @@ public class LendToReturnServiceImpl implements LendToReturnService {
 		StringBuffer sb = new StringBuffer();
 		sb.append("select A.DEALER_CODE,A.LEND_NO,A.CUSTOMER_CODE,A.CUSTOMER_NAME,A.COST_AMOUNT,");
 		sb.append("A.OUT_AMOUNT,A.HANDLER,A.LEND_DATE,A.IS_FINISHED,A.FINISHED_DATE,A.PAY_OFF,A.BORROWER_TAG,");
-		sb.append("tu.USER_NAME as LOCK_USER ,A.SHEET_CREATE_DATE,B.SO_NO,B.VIN from TT_PART_LEND A left join TT_SALES_ORDER B on");
+		sb.append("tu.USER_NAME as LOCK_USER,tu.USER_ID ,A.SHEET_CREATE_DATE,B.SO_NO,B.VIN from TT_PART_LEND A left join TT_SALES_ORDER B on");
 		sb.append(" A.SO_NO=B.SO_NO AND A.DEALER_CODE=B.DEALER_CODE LEFT JOIN TM_USER tu ON A.DEALER_CODE=tu.DEALER_CODE AND A.LOCK_USER = tu.USER_ID ");
 		sb.append(" where A.PAY_OFF=" + DictCodeConstants.IS_NOT);
 		sb.append(" and A.D_KEY=" + CommonConstants.D_KEY);
@@ -112,6 +113,7 @@ public class LendToReturnServiceImpl implements LendToReturnService {
 				// 子表
 				if (dto.getDms_show().size() > 0) {
 					for (Map<String, String> map : dto.getDms_show()) {
+						map.put("STORAGE_CODE", map.get("storageCode"));
 						costAmountBeforeA = 0; // 批次表入账前成本
 						costAmountBeforeB = 0; // 库存表入账前成本
 						costAmountAfterA = 0; // 批次表入账后成本
@@ -125,8 +127,8 @@ public class LendToReturnServiceImpl implements LendToReturnService {
 							if (!StringUtils.isNullOrEmpty(map.get("STORAGE_POSITION_CODE"))) {
 								lendReturnItemPO.setString("STORAGE_POSITION_CODE", map.get("STORAGE_POSITION_CODE"));
 							}
-							if (!StringUtils.isNullOrEmpty(dto.getLendNo())) {
-								lendReturnItemPO.setString("LEND_NO", dto.getLendNo());
+							if (!StringUtils.isNullOrEmpty(map.get("lendNo").toString())) {
+								lendReturnItemPO.setString("LEND_NO", map.get("lendNo").toString());
 							}
 							if (!StringUtils.isNullOrEmpty(map.get("STORAGE_CODE"))) {
 								lendReturnItemPO.setString("STORAGE_CODE", map.get("STORAGE_CODE"));
@@ -160,7 +162,7 @@ public class LendToReturnServiceImpl implements LendToReturnService {
 						StringBuffer sb = new StringBuffer();
 						sb.append("SELECT * FROM TT_PART_LEND_ITEM WHERE 1=1");
 						sb.append(" AND D_KEY = ? ");
-						Utility.sqlToEquals(sb, dto.getLendNo(), "LEND_NO", null);
+						Utility.sqlToEquals(sb, map.get("lendNo").toString(), "LEND_NO", null);
 						Utility.sqlToEquals(sb, map.get("PART_NO"), "PART_NO", null);
 						Utility.sqlToEquals(sb, map.get("STORAGE_CODE"), "STORAGE_CODE", null);
 						List queryParam = new ArrayList();
@@ -180,7 +182,7 @@ public class LendToReturnServiceImpl implements LendToReturnService {
 							// 更新借出登记单明细里核销数量
 							// 根据借出单号.配件代码.仓库更新明细里核销数量字段
 							List<TtPartLendItemPO> list = new ArrayList<TtPartLendItemPO>();
-							if (StringUtils.isNullOrEmpty(dto.getLendNo())
+							if (StringUtils.isNullOrEmpty(map.get("lendNo").toString())
 									&& StringUtils.isNullOrEmpty(map.get("STORAGE_CODE"))
 									&& StringUtils.isNullOrEmpty(map.get("PART_NO"))) {
 								list = TtPartLendItemPO.findBySQL(
@@ -189,7 +191,7 @@ public class LendToReturnServiceImpl implements LendToReturnService {
 							} else {
 								list = TtPartLendItemPO.findBySQL(
 										"SELECT * FROM TT_PART_LEND_ITEM WHERE DEALER_CODE = ? AND D_KEY = ? AND LEND_NO = ? AND STORAGE_CODE = ? AND PART_NO = ?",
-										entityCode, CommonConstants.D_KEY, dto.getLendNo(), map.get("STORAGE_CODE"),
+										entityCode, CommonConstants.D_KEY, map.get("lendNo").toString(), map.get("STORAGE_CODE"),
 										map.get("PART_NO"));
 							}
 							for (TtPartLendItemPO ttPartLendItemPO : list) {
@@ -246,7 +248,7 @@ public class LendToReturnServiceImpl implements LendToReturnService {
 						partFlowPO.setString("PART_NO", map.get("PART_NO"));
 						partFlowPO.setString("PART_BATCH_NO", map.get("PART_BATCH_NO"));
 						partFlowPO.setString("PART_NAME", map.get("PART_NAME"));
-						partFlowPO.setString("SHEET_NO", dto.getLendNo());
+						partFlowPO.setString("SHEET_NO", map.get("lendNo").toString());
 						partFlowPO.setInteger("IN_OUT_TYPE",
 								Integer.parseInt(DictCodeConstants.DICT_IN_OUT_TYPE_LEND_RETURN));// 出入库类型
 						partFlowPO.setLong("IN_OUT_TAG", DictCodeConstants.IS_NOT);
@@ -332,7 +334,7 @@ public class LendToReturnServiceImpl implements LendToReturnService {
 					}
 				}
 				//解锁
-				String[] noValue = {dto.getLendNo()};
+				String[] noValue = dto.getLendNo().split(",");
 				Utility.updateByUnLock("TT_PART_LEND", FrameworkUtil.getLoginInfo().getUserId().toString(), "LEND_NO", noValue , "LOCK_USER");
 				return id;
 			} else {
@@ -433,16 +435,24 @@ public class LendToReturnServiceImpl implements LendToReturnService {
 		TtPartLendPO ttPartLendPO = new TtPartLendPO();
 //		int flag = Utility.updateByLocker(TtPartLendPO.getMetaModel(), FrameworkUtil.getLoginInfo().getUserId().toString(), "LEND_NO", id, "LOCK_USER");
 //		if (flag>0) {
-			StringBuffer sb = new StringBuffer();
-			sb.append(
-					"select A.VER,A.ITEM_ID,A.LEND_NO,A.DEALER_CODE,A.STORAGE_CODE,ts.STORAGE_NAME as STORAGE_NAME,A.STORAGE_POSITION_CODE,A.PART_BATCH_NO,A.PART_NO,A.PART_NAME,");
-			sb.append(" tun.UNIT_NAME as UNIT_CODE,A.OUT_QUANTITY,A.WRITE_OFF_QUANTITY,A.COST_PRICE,A.COST_AMOUNT,A.OUT_PRICE,OUT_QUANTITY-WRITE_OFF_QUANTITY AS NOTIN_QUANTITY,");
-			sb.append(
-					" A.OUT_AMOUNT,B.DOWN_TAG from TT_PART_LEND_ITEM  A LEFT JOIN TM_UNIT tun ON tun.UNIT_CODE=A.UNIT_CODE AND tun.DEALER_CODE=A.DEALER_CODE LEFT JOIN TM_STORAGE ts ON ts.DEALER_CODE=A.DEALER_CODE AND ts.STORAGE_CODE = A.STORAGE_CODE LEFT JOIN TM_PART_INFO B ON A.DEALER_CODE = B.DEALER_CODE AND A.PART_NO = B.PART_NO where A.DEALER_CODE= '"
-							+ FrameworkUtil.getLoginInfo().getDealerCode());
-			sb.append("' and A.d_key= " + CommonConstants.D_KEY);
-			Utility.sqlToLike(sb, id, "LEND_NO", "A");
-			return DAOUtil.findAll(sb.toString(), null);
+			List<Map> fullList = new ArrayList<Map>();
+			String[] split = id.split(",");
+			for (int i = 0; i < split.length; i++) {
+				StringBuffer sb = new StringBuffer();
+				sb.append(
+						"select A.VER,A.ITEM_ID,A.LEND_NO,A.DEALER_CODE,A.STORAGE_CODE,ts.STORAGE_NAME as STORAGE_NAME,A.STORAGE_POSITION_CODE,A.PART_BATCH_NO,A.PART_NO,A.PART_NAME,");
+				sb.append(" tun.UNIT_NAME as UNIT_CODE,A.OUT_QUANTITY,A.WRITE_OFF_QUANTITY,A.COST_PRICE,A.COST_AMOUNT,A.OUT_PRICE,OUT_QUANTITY-WRITE_OFF_QUANTITY AS NOTIN_QUANTITY,");
+				sb.append(
+						" A.OUT_AMOUNT,B.DOWN_TAG from TT_PART_LEND_ITEM  A LEFT JOIN TM_UNIT tun ON tun.UNIT_CODE=A.UNIT_CODE AND tun.DEALER_CODE=A.DEALER_CODE LEFT JOIN TM_STORAGE ts ON ts.DEALER_CODE=A.DEALER_CODE AND ts.STORAGE_CODE = A.STORAGE_CODE LEFT JOIN TM_PART_INFO B ON A.DEALER_CODE = B.DEALER_CODE AND A.PART_NO = B.PART_NO where A.DEALER_CODE= '"
+								+ FrameworkUtil.getLoginInfo().getDealerCode());
+				sb.append("' and A.d_key= " + CommonConstants.D_KEY);
+				Utility.sqlToLike(sb, split[i], "LEND_NO", "A");
+				List<Map> findAll = DAOUtil.findAll(sb.toString(), null);
+				if(!CommonUtils.isNullOrEmpty(findAll)){
+					fullList.addAll(findAll);
+				}
+			}
+			return fullList;
 //		} else {
 //			throw new ServiceBizException("单号[" + id + "]加锁失败!");
 //		}

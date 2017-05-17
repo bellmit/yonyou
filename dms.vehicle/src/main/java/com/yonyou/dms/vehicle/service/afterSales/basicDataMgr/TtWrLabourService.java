@@ -31,5 +31,11 @@ public interface TtWrLabourService {
 	
 	public List<Map> getBy(TtWrLabourDTO ptdto) throws ServiceBizException ;
 
+	//将数据导入到表中
+	void insertTtWrLabourDcs(TtWrLabourDTO rowDto);
+	
+	
+	List<TtWrLabourDTO> checkData(TtWrLabourDTO rowDto, String flag);
+
 
 }

@@ -14,7 +14,7 @@ import com.yonyou.dcs.dao.SADMS024Dao;
 import com.yonyou.dms.DTO.gacfca.LimitPriceSeriesDTO;
 import com.yonyou.dms.common.domains.PO.basedata.TmLimiteCposPO;
 import com.yonyou.dms.function.common.OemDictCodeConstants;
-import com.yonyou.dms.gacfca.SADMS111;
+import com.yonyou.dms.gacfca.SADMS111Coud;
 @Service
 public class SADMS024CloudImpl extends BaseCloudImpl implements SADMS024Cloud {
 	
@@ -24,7 +24,7 @@ public class SADMS024CloudImpl extends BaseCloudImpl implements SADMS024Cloud {
 	SADMS024Dao dao;
 	
 	@Autowired
-	SADMS111 sadms111;
+	SADMS111Coud sadms111;
 	/**
 	 * 下发数据方法
 	 * @param list

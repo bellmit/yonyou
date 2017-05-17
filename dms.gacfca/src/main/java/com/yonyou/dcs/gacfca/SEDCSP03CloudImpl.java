@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.javalite.activejdbc.Base;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,6 @@ import com.yonyou.dms.common.domains.PO.basedata.TtPtPartBaseDcsPO;
 import com.yonyou.dms.framework.DAO.OemDAOUtil;
 import com.yonyou.dms.framework.DAO.PartCommonDao;
 import com.yonyou.dms.function.common.OemDictCodeConstants;
-import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.CommonUtils;
 @Service
 public class SEDCSP03CloudImpl extends BaseCloudImpl implements SEDCSP03Cloud {
@@ -33,18 +33,22 @@ public class SEDCSP03CloudImpl extends BaseCloudImpl implements SEDCSP03Cloud {
 	PartCommonDao dao ;
 
 	@Override
-	public String receiveData(List<SEDCSP03DTO> dtos) throws Exception {
+	public String handleExecutor(List<SEDCSP03DTO> dtos) throws Exception {
 		String msg = "1";
-		
+		beginDbService();
 		try {
 			logger.info("====配件订货上报DCS开始====");
 			saveTable(dtos);
 			logger.info("====配件订货上报DCS结束====");
+			dbService.endTxn(true);
 		} catch (Exception e) {
 			logger.error("配件订货上报DCS失败", e);
 			msg = "0";
-			throw new ServiceBizException(e);
-		} 
+			dbService.endTxn(false);
+		} finally{
+			Base.detach();
+			dbService.clean();
+		}
 		logger.info("*************************** 成功获取上报的配件订货信息******************************");
 		return msg;
 	}

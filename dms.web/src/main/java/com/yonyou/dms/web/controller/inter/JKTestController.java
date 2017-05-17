@@ -23,17 +23,17 @@ import com.yonyou.dms.common.domains.DTO.SiTestDto;
 import com.yonyou.dms.common.domains.DTO.basedata.InvoiceRefundDTO;
 import com.yonyou.dms.common.domains.PO.basedata.TtCustomerVehicleListPO;
 import com.yonyou.dms.function.exception.ServiceBizException;
-import com.yonyou.dms.gacfca.DMSTODCS004;
-import com.yonyou.dms.gacfca.DSO0302;
-import com.yonyou.dms.gacfca.DSO0401;
-import com.yonyou.dms.gacfca.SADMS002;
-import com.yonyou.dms.gacfca.SADMS008;
-import com.yonyou.dms.gacfca.SADMS008add;
-import com.yonyou.dms.gacfca.SADMS049;
-import com.yonyou.dms.gacfca.SADMS095;
-import com.yonyou.dms.gacfca.SADMS096;
-import com.yonyou.dms.gacfca.SEDMS058;
-import com.yonyou.dms.gacfca.SalesReturnUpload;
+import com.yonyou.dms.gacfca.DMSTODCS004Coud;
+import com.yonyou.dms.gacfca.DSO0302Coud;
+import com.yonyou.dms.gacfca.DSO0401Coud;
+import com.yonyou.dms.gacfca.SADMS002Coud;
+import com.yonyou.dms.gacfca.SADMS008Coud;
+import com.yonyou.dms.gacfca.SADMS008addCoud;
+import com.yonyou.dms.gacfca.SADMS049Coud;
+import com.yonyou.dms.gacfca.SADMS095Coud;
+import com.yonyou.dms.gacfca.SADMS096Coud;
+import com.yonyou.dms.gacfca.SEDMS058Coud;
+import com.yonyou.dms.gacfca.SalesReturnUploadCoud;
 import com.yonyou.f4.mvc.annotation.TxnConn;
 import com.yonyou.f4.mvc.controller.BaseController;
 
@@ -48,27 +48,27 @@ import com.yonyou.f4.mvc.controller.BaseController;
 public class JKTestController extends BaseController {
 	private static final Logger logger = LoggerFactory.getLogger(JKTestController.class);
 	
-	@Autowired SEDMS058 SEDMS058;
+	@Autowired SEDMS058Coud SEDMS058;
 	
-	@Autowired SADMS095 SADMS095;
+	@Autowired SADMS095Coud SADMS095;
 	
-	@Autowired DMSTODCS004 DMSTODCS004;
+	@Autowired DMSTODCS004Coud DMSTODCS004;
 	
-	@Autowired SADMS096 SADMS096;
+	@Autowired SADMS096Coud SADMS096;
 	
-	@Autowired SADMS049 SADMS049;
+	@Autowired SADMS049Coud SADMS049;
 	
-	@Autowired DSO0302 DSO0302;
+	@Autowired DSO0302Coud DSO0302;
 	
-	@Autowired SalesReturnUpload SalesReturnUpload;
+	@Autowired SalesReturnUploadCoud SalesReturnUpload;
 	
-	@Autowired SADMS002 SADMS002;
+	@Autowired SADMS002Coud SADMS002;
 	
-	@Autowired SADMS008add SADMS008add;
+	@Autowired SADMS008addCoud SADMS008add;
 	
-	@Autowired SADMS008 SADMS008;
+	@Autowired SADMS008Coud SADMS008;
 	
-	@Autowired DSO0401 DSO0401;
+	@Autowired DSO0401Coud DSO0401;
 	
 	@RequestMapping(value = "/{jkName}", method = RequestMethod.PUT)
 	public ResponseEntity<SiTestDto> jkTest(@PathVariable("jkName") String jkName, @RequestBody @Valid SiTestDto dto,

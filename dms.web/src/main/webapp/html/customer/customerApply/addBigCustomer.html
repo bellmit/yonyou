@@ -356,6 +356,7 @@
 								</div>
 							</div>
 						</div>
+				
 		</div> 
 	</div>
 		</div>
@@ -598,6 +599,7 @@ $(document).one("onload.dms",function(event,container){
 			$("a[data-info='saveBeforeUrl']",container).click();
 			$("a[data-info='saveBefore']",container).removeClass("hidden");
 			$("a[data-info='saveBeforeUrl']",container).addClass("hidden");
+			//$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
 			$("a[data-dismiss='modal']",container).click();
 		}else{
 			var confirmPostBO=$("a[data-info='saveBeforeUrl']",$(this).parent());
@@ -607,7 +609,9 @@ $(document).one("onload.dms",function(event,container){
 				$(confirmObj).click();
 				$("a[data-info='saveBefore']",container).removeClass("hidden");
 				$("a[data-info='saveBeforeUrl']",container).addClass("hidden");
+				//$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
 				$("a[data-dismiss='modal']",container).click();
+				
 				},function(confirmObj){
 					$("a[data-info='saveBefore']",container).removeClass("hidden");
 					$("a[data-info='saveBeforeUrl']",container).addClass("hidden");
@@ -615,6 +619,14 @@ $(document).one("onload.dms",function(event,container){
 			);
 		}
 	});
+	
+/* 	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+	//关闭窗口
+	//$("a[data-dismiss='modal']",container).click();
+	//刷新表格
+	$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});  */
 	
 });		
 </script>

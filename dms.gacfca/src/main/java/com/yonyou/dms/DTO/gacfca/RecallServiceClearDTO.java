@@ -1,9 +1,7 @@
 package com.yonyou.dms.DTO.gacfca;
 
-import com.infoservice.dms.cgcsl.vo.BaseVO;
-
-public class RecallServiceClearDTO extends BaseVO  {
-	private static final long serialVersionUID = 1L;
+public class RecallServiceClearDTO {
+	
 	private String recallNo;//召回编号
 	private String recallName;//召回名称
 	private String recallStatus;//召回状态

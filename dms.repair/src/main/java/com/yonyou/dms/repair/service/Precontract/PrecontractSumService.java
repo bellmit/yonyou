@@ -25,6 +25,7 @@
 	
 package com.yonyou.dms.repair.service.Precontract;
 
+import java.util.List;
 import java.util.Map;
 
 import com.yonyou.dms.framework.DAO.PageInfoDto;
@@ -38,6 +39,9 @@ import com.yonyou.dms.function.exception.ServiceBizException;
 
 public interface PrecontractSumService {
     
-    public  PageInfoDto QueryPrecontractSum(Map<String, String> queryParam)throws ServiceBizException;
+    public  List<Map> QueryPrecontractSum(Map<String, String> queryParam)throws ServiceBizException;
+    public List<Map> queryToExport(Map<String, String> queryParam)throws ServiceBizException;
+    public List<Map> getAllServiceSelect()throws ServiceBizException;
+    public List<Map> getAllTechnicianSelect()throws ServiceBizException;
 
 }

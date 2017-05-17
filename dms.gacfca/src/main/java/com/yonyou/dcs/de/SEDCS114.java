@@ -12,10 +12,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.infoservice.dms.cgcsl.vo.OwnerEntityVO;
 import com.yonyou.dcs.dao.SEDCS114Dao;
 import com.yonyou.dcs.de.impl.BaseImpl;
 import com.yonyou.dcs.util.DEUtil;
-import com.yonyou.dms.DTO.gacfca.OwnerEntityDTO;
 import com.yonyou.f4.de.DEMessage;
 import com.yonyou.f4.de.executer.DEAction;
 
@@ -34,11 +34,11 @@ public class SEDCS114  extends BaseImpl  implements DEAction {
 	public DEMessage execute(DEMessage deMsg) {
 		logger.info("*************************** 开始获取车辆实销上报私自调拨验收信息******************************");
 		try {
-			List<OwnerEntityDTO> list=new ArrayList<OwnerEntityDTO>();
+			List<OwnerEntityVO> list=new ArrayList<OwnerEntityVO>();
 			Map<String, Serializable> bodys = deMsg.getBody();
 			for (Entry<String, Serializable> entry : bodys.entrySet()) {
-				OwnerEntityDTO dto = new OwnerEntityDTO();
-				dto = (OwnerEntityDTO) entry.getValue();
+				OwnerEntityVO dto = new OwnerEntityVO();
+				dto = (OwnerEntityVO) entry.getValue();
 				list.add(dto);
 			}	
 			DEMessage rmsg = wrapperMsg(list);
@@ -55,7 +55,7 @@ public class SEDCS114  extends BaseImpl  implements DEAction {
 	 * @param msg
 	 * @return
 	 */
-	private DEMessage wrapperMsg(List<OwnerEntityDTO> dtos) {
+	private DEMessage wrapperMsg(List<OwnerEntityVO> dtos) {
 		if (dtos != null && dtos.size() > 0) {
 			HashMap<String, Serializable> body = DEUtil.assembleBody(dtos);
 			if (body != null && body.size() > 0) {

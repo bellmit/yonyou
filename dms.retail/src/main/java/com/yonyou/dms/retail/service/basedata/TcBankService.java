@@ -14,7 +14,7 @@ public interface TcBankService {
 
 	public void modifyTcBank(Long id, TcBankDTO tcdto) throws ServiceBizException;
 
-	public void doSendEach(Long id,String dealerCode) throws ServiceBizException;
+	public int doSendEach(Long id,String dealerCode) throws ServiceBizException;
 	
 	public TcBankPO findById(Long id) throws ServiceBizException;
 }

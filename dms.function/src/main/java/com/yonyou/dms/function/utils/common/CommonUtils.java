@@ -419,4 +419,19 @@ public class CommonUtils {
 	    }
 		return ret;
 	}
+	/** Checks to see if the passed string is a empty string <code>""</code> or a null string.
+	 * @param s The passed String 
+	 * @return if the passed String if not A <code>""</code> String then return true.
+	 */
+	public static boolean isEmpty(String str) {
+		return str == null || str.trim().length() == 0;
+	}
+	/**
+	 * @param str
+	 * @return val=null or val = "" return true
+	 * added by wangwenhu 2010-03-18
+	 */
+	public static boolean notNull(String str){
+		return !(str== null || "".equals(str.trim()));
+	}
 }

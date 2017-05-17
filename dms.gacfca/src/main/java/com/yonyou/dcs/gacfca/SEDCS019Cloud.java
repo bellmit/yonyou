@@ -6,7 +6,7 @@ import com.yonyou.dms.function.exception.ServiceBizException;
  * @Description:召回活动下发接口（DCS -> DMS）
  * @author xuqinqin 
  */
-public interface SEDCS019Cloud {
+public interface SEDCS019Cloud  extends BaseCloud{
 	
 	public String doSend(String recallId) throws ServiceBizException;
 	

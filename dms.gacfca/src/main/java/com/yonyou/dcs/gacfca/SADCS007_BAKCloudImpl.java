@@ -14,7 +14,7 @@ import com.yonyou.dcs.dao.RepairOrderResultStatusDao;
 import com.yonyou.dms.DTO.gacfca.SA007Dto;
 import com.yonyou.dms.framework.DAO.OemDAOUtil;
 import com.yonyou.dms.function.utils.common.CommonUtils;
-import com.yonyou.dms.gacfca.SADMS007;
+import com.yonyou.dms.gacfca.SADMS007Coud;
 
 @Service
 public class SADCS007_BAKCloudImpl extends BaseCloudImpl implements SADCS007_BAKCloud {
@@ -25,7 +25,7 @@ public class SADCS007_BAKCloudImpl extends BaseCloudImpl implements SADCS007_BAK
 	RepairOrderResultStatusDao dao ;
 
 	@Autowired
-	SADMS007 sadms007;
+	SADMS007Coud sadms007;
 	
 	@Override
 	public String sendData(){

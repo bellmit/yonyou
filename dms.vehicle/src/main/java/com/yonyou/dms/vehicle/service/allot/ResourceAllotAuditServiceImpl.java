@@ -107,7 +107,7 @@ public class ResourceAllotAuditServiceImpl implements ResourceAllotAuditService 
 			    List<Map<String, Object>> gapList_30 = new ArrayList<Map<String, Object>>();
 				for(int i=0;i<gapList.size();i++){
 					Map<String, Object> bean = gapList.get(i);	
-					if(bean.get("GROUP_ID").toString().equals(grand30)){
+					if(bean.get("SERIES_ID").toString().equals(grand30)){
 						gapList_30.add(bean);
 						Map map30=new HashMap();
 						Map tMap30=new HashMap();
@@ -135,7 +135,7 @@ public class ResourceAllotAuditServiceImpl implements ResourceAllotAuditService 
 							otList30.add(otMap30);
 						}
 					}
-					if(bean.get("GROUP_ID").toString().equals(grand36)){
+					if(bean.get("SERIES_ID").toString().equals(grand36)){
 						Map map36=new HashMap();
 						Map tMap36=new HashMap();
 						Map otMap36=new HashMap();
@@ -172,14 +172,14 @@ public class ResourceAllotAuditServiceImpl implements ResourceAllotAuditService 
 							total=Integer.parseInt(map30.get("ALLOT_MONTH_NUM").toString())+Integer.parseInt(map36.get("ALLOT_MONTH_NUM").toString());
 							for(int j=0;j<gapList.size();j++){
 								Map<String, Object> bean1 = gapList.get(j);
-								if(bean1.get("GROUP_ID").toString().equals(grand36)&&map36.get("ORG_ID").toString().equals(bean1.get("ORG_ID").toString())
+								if(bean1.get("SERIES_ID").toString().equals(grand36)&&map36.get("ORG_ID").toString().equals(bean1.get("ORG_ID").toString())
 										&&bean1.get("DEALER_ID").toString().equals(map36.get("DEALER_ID").toString())
 										&&!(map36.get("ORG_ID").toString().equals("0"))&&map36.get("DEALER_ID").toString().equals("0")){																					
 									bean1.put("ALLOT_MONTH_NUM", total);	
 									bean1.put("ALLOT_NUM", (Integer.parseInt(map30.get("ALLOT_NUM").toString())+Integer.parseInt(map36.get("ALLOT_NUM").toString())));
 
-								if(bean1.get("GROUP_ID").toString().equals(grand30)){
-									bean1.remove("GROUP_ID");
+								if(bean1.get("SERIES_ID").toString().equals(grand30)){
+									bean1.remove("SERIES_ID");
 								}
 								}
 							}
@@ -196,14 +196,14 @@ public class ResourceAllotAuditServiceImpl implements ResourceAllotAuditService 
 							total=Integer.parseInt(map30.get("ALLOT_MONTH_NUM").toString())+Integer.parseInt(map36.get("ALLOT_MONTH_NUM").toString());
 							for(int j=0;j<gapList.size();j++){
 								Map<String, Object> bean1 = gapList.get(j);
-								if(bean1.get("GROUP_ID").toString().equals(grand36)&&map36.get("ORG_ID").toString().equals(bean1.get("ORG_ID").toString())
+								if(bean1.get("SERIES_ID").toString().equals(grand36)&&map36.get("ORG_ID").toString().equals(bean1.get("ORG_ID").toString())
 								&&map36.get("DEALER_ID").toString().equals(bean1.get("DEALER_ID").toString())
 								        &&!(bean1.get("ORG_ID").toString().equals("0"))&&!(bean1.get("DEALER_ID").toString().equals("0"))){																					
 									bean1.put("ALLOT_MONTH_NUM", total);	
 									bean1.put("ALLOT_NUM", (Integer.parseInt(map30.get("ALLOT_NUM").toString())+Integer.parseInt(map36.get("ALLOT_NUM").toString())));
 
-								if(bean1.get("GROUP_ID").toString().equals(grand30)){
-									bean1.remove("GROUP_ID");
+								if(bean1.get("SERIES_ID").toString().equals(grand30)){
+									bean1.remove("SERIES_ID");
 								}
 								}
 							}
@@ -219,11 +219,11 @@ public class ResourceAllotAuditServiceImpl implements ResourceAllotAuditService 
 							total=Integer.parseInt(tMap30.get("ALLOT_MONTH_NUM").toString())+Integer.parseInt(tMap36.get("ALLOT_MONTH_NUM").toString());
 							for(int j=0;j<gapList.size();j++){
 								Map<String, Object> bean1 = gapList.get(j);
-								if(bean1.get("GROUP_ID").toString().equals(grand36)&&tMap36.get("ORG_ID").toString().equals(bean1.get("ORG_ID").toString())&&(tMap36.get("ORG_ID").toString().equals("0"))){
+								if(bean1.get("SERIES_ID").toString().equals(grand36)&&tMap36.get("ORG_ID").toString().equals(bean1.get("ORG_ID").toString())&&(tMap36.get("ORG_ID").toString().equals("0"))){
 										bean1.put("ALLOT_MONTH_NUM", total);
 										bean1.put("ALLOT_NUM", (Integer.parseInt(tMap30.get("ALLOT_NUM").toString())+Integer.parseInt(tMap36.get("ALLOT_NUM").toString())));
-								if(bean1.get("GROUP_ID").toString().equals(grand30)){
-										bean1.remove("GROUP_ID");
+								if(bean1.get("SERIES_ID").toString().equals(grand30)){
+										bean1.remove("SERIES_ID");
 									}
 								}
 							}
@@ -234,11 +234,11 @@ public class ResourceAllotAuditServiceImpl implements ResourceAllotAuditService 
 				//将大切诺基3.0的数据加到3.6上
 				for(int i=0;i<gapList.size();i++){
 					Map<String, Object> bean36 = gapList.get(i);
-					if(bean36.get("GROUP_ID").toString().equals(grand36)){
+					if(bean36.get("SERIES_ID").toString().equals(grand36)){
 //						int rateNum = 0;
 						for(int j=0;j<gapList.size();j++){
 							Map<String, Object> bean30 = gapList.get(j);
-							if(bean30.get("GROUP_ID").toString().equals(grand30)&&bean30.get("ORG_ID").toString().equals(bean36.get("ORG_ID").toString())&&bean30.get("DEALER_ID").toString().equals(bean36.get("DEALER_ID").toString())){
+							if(bean30.get("SERIES_ID").toString().equals(grand30)&&bean30.get("ORG_ID").toString().equals(bean36.get("ORG_ID").toString())&&bean30.get("DEALER_ID").toString().equals(bean36.get("DEALER_ID").toString())){
 								gapList.get(i).put("NUM1", new Integer(bean36.get("NUM1").toString())+new Integer(bean30.get("NUM1").toString()));
 								gapList.get(i).put("NUM2", new Integer(bean36.get("NUM2").toString())+new Integer(bean30.get("NUM2").toString()));
 								gapList.get(i).put("NUM3", new Integer(bean36.get("NUM3").toString())+new Integer(bean30.get("NUM3").toString()));
@@ -267,10 +267,10 @@ public class ResourceAllotAuditServiceImpl implements ResourceAllotAuditService 
 			//大切诺基-分配比例
 			for(int i=0;i<serGroup.size();i++){
 				Map<String, Object> bean36 = serGroup.get(i);
-				if(bean36.get("GROUP_ID").toString().equals(grand36)){
+				if(bean36.get("SERIES_ID").toString().equals(grand36)){
 					for(int j=0;j<serGroup.size();j++){
 						Map<String, Object> bean30 = serGroup.get(j);
-						if(bean30.get("GROUP_ID").toString().equals(grand30)){
+						if(bean30.get("SERIES_ID").toString().equals(grand30)){
 							serGroup.get(i).put("SER_NUM", new Integer(bean36.get("SER_NUM").toString())+new Integer(bean30.get("SER_NUM").toString()));
 						}
 					}
@@ -294,7 +294,7 @@ public class ResourceAllotAuditServiceImpl implements ResourceAllotAuditService 
 			}*/
 			for(int i=0;i<serGroup.size();i++){
 				Map<String, Object> bean = serGroup.get(i);	
-				if(bean.get("GROUP_ID").toString().equals(grand30)){
+				if(bean.get("SERIES_ID").toString().equals(grand30)){
 					serGroup_30.add(bean);
 				}
 			}
@@ -319,7 +319,7 @@ public class ResourceAllotAuditServiceImpl implements ResourceAllotAuditService 
 				}		
 				for(int j=0;j<serGroup.size();j++){
 					Map<String, Object> sBean = serGroup.get(j);		
-					if(sBean.get("GROUP_ID").toString().equals(bean.get("GROUP_ID").toString())||bean.get("SERIES_NAME").toString().equals("ORG_TOTAL")){
+					if(sBean.get("SERIES_ID").toString().equals(bean.get("SERIES_ID").toString())||bean.get("SERIES_NAME").toString().equals("ORG_TOTAL")){
 						int allotNum=new Integer(gapList.get(i).get("ALLOT_NUM").toString());					
 						int totalNum=0;
 						if(bean.get("SERIES_NAME").toString().equals("ORG_TOTAL")){
@@ -334,7 +334,7 @@ public class ResourceAllotAuditServiceImpl implements ResourceAllotAuditService 
 						}		
 						break;
 					}		
-					if(sBean.get("GROUP_ID").toString().equals(bean.get("GROUP_ID").toString())||bean.get("SERIES_NAME").toString().equals("TOTAL")){
+					if(sBean.get("SERIES_ID").toString().equals(bean.get("SERIES_ID").toString())||bean.get("SERIES_NAME").toString().equals("TOTAL")){
 						int allotNum=new Integer(gapList.get(i).get("ALLOT_NUM").toString());					
 						int totalNum=0;
 						if(bean.get("SERIES_NAME").toString().equals("TOTAL")){

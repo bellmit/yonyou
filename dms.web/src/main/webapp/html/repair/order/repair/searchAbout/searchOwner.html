@@ -104,6 +104,7 @@
 	 	$("a[data-onclickEvent='true']", container).on(
 				"dms.click",
 				function(event, response) {
+					debugger
 					var selectRow = $("#customerList", container)
 					.dmsTable().getFirstSelection();
 					$("div[data-seldate2='true']",getElementContext()).initHtmlContent(selectRow);

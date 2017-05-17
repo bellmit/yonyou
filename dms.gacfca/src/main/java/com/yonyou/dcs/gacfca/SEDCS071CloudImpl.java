@@ -23,7 +23,7 @@ public class SEDCS071CloudImpl  extends BaseCloudImpl implements SEDCS071Cloud {
 	SEDCS071Dao dao ;
 	
 	@Override
-	public List<DiscountCouponDTO> receiveData(List<DiscountCouponDTO> dtos) throws Exception {
+	public List<DiscountCouponDTO> handleExecutor(List<DiscountCouponDTO> dtos) throws Exception {
 		logger.info("*************************** 开始获取可用卡券信息******************************");
 		List<DiscountCouponDTO> retdtos=new ArrayList<DiscountCouponDTO>();
 		try {

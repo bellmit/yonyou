@@ -39,4 +39,21 @@ public interface RebateSumService {
 
 	PageInfoDto pageQueryDetailDownSt(String logId, String drlFlag, String dealerCode,
 			LoginInfoDto logonUser) throws ServiceBizException;
+	/**
+	 * 经销商端查询
+	 * @param queryParam
+	 * @param dealerCode
+	 * @return
+	 * @throws ServiceBizException
+	 */
+	PageInfoDto getRebateSum1(Map<String, String> queryParam, String dealerCode) throws ServiceBizException;
+	
+	/**
+	 * 返利核算汇总查询(DRL)
+	 * @param queryParam
+	 * @param dealerCode
+	 * @return
+	 * @throws ServiceBizException
+	 */
+	List<Map> queryEmpInfoforExport1(Map<String, String> queryParam, String dealerCode) throws ServiceBizException;
 }

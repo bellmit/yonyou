@@ -17,8 +17,10 @@
 				<div class="form-group">
 				   <label class="control-label col-xs-4">仓库</label>
 						<div class="col-xs-8">
-							<input id="storageCode" name="storageCode"
-										class="bs-select form-control"/>
+							<input type="hidden" id="storageCode" name="storageCode"
+										class="bs-select form-control" readonly="readonly"/>
+							<input id="storageName" name="storageName"
+										class="bs-select form-control"/>			
 					    </div>
 				</div>
 			</div>
@@ -27,7 +29,7 @@
 				<div class="form-group">
 					<label class="control-label col-xs-4">配件代码</label>
 						<div class="col-xs-8">
-						<input  id="partNo" 
+						<input  readonly="readonly" id="partNo" 
 										class="bs-select form-control" name="partNo">
 									</select>
 						</div>
@@ -36,9 +38,9 @@
 			
 			<div class="col-xs-12 col-sm-6 col-md-4">
 				<div class="form-group">
-					<label class="control-label col-xs-2">名称</label>
+					<label class="control-label col-xs-4">名称</label>
 						<div class="col-xs-8">
-						    <input id="partName" name="partName" class=" form-control"  maxlength="30" type="text" />				
+						    <input readonly="readonly" id="partName" name="partName" class=" form-control"  maxlength="30" type="text" />				
 						</div>
 				</div>
 			</div>
@@ -60,7 +62,7 @@
 					<label class="control-label col-xs-4">维修项目</label>
 						<div class="col-xs-8">
 									<div class="input-group">
-								<input id="labourName" name="labourName" class="bs-select form-control" type="text" />
+								<input readonly="readonly" id="labourName" name="labourName" class="bs-select form-control" type="text" />
 									</div>			
 						</div>
 				</div>
@@ -90,7 +92,7 @@
 			<div class="col-xs-12 col-sm-6 col-md-4">
 				<div class="form-group">
 					<label class="control-label col-xs-4">配件销售单价</label>
-						<div class="col-xs-10">
+						<div class="col-xs-8">
 						    <input id="partSalesPrice" name="partPrice" class="form-control decimal"maxDigit="8"
 										maxPrecision="2" data-autoValueDigits="2" type="text" />				
 						</div>
@@ -101,7 +103,7 @@
 				<div class="form-group">
 					<label class="control-label col-xs-4">配件数量</label>
 						<div class="col-xs-8">
-						    <input id="partQuantity" name="partQuantity" class="form-control decimal" maxDigit="6"
+						    <input id="partQuantity" name="partQuantity" readonly="readonly" class="form-control decimal" maxDigit="6"
 										maxPrecision="2" maxlength="30" type="text" />				
 						</div>
 				</div>
@@ -111,7 +113,7 @@
 				<div class="form-group">
 					<label class="control-label col-xs-4">配件销售金额</label>
 						<div class="col-xs-8">
-						    <input id="partSalesAmount" name="salesPrice" data-autoValueDigits="2" class="form-control money" maxlength="30" type="text" />				
+						    <input id="partSalesAmount" name="salesPrice" readonly="readonly" data-autoValueDigits="2" class="form-control money" maxlength="30" type="text" />				
 						</div>
 				</div>
 			</div>
@@ -121,7 +123,7 @@
 								<label class="control-label col-xs-4">收费区分</label>
 								<div class="col-xs-8 ">
 									<select id="chargePartitionCode" name="chargePartitionCode" data-info="charge"
-											class="bs-select form-control required" data-url="/basedata/ChargeCO/Charge/dictexs"
+											class="bs-select form-control" data-url="/basedata/ChargeCO/Charge/dictexs"
 											data-model="retail" data-labelValue="CHARGE_PARTITION_CODE"
 											data-lableDesc="CHARGE_PARTITION_NAME" data-ajaxSync = "true">
 										</select>
@@ -133,7 +135,7 @@
 										<div class="form-group">
 											<div class="col-xs-8">
 												<input type="checkbox" name="isMainPart"
-													id="isMainPart" data-dictCode="1278"
+													id="isMainPart" data-dictCode="1057"
 													data-dictLabel="主要配件" />
 											</div>
 										</div>
@@ -150,8 +152,7 @@
 		</div>
 	</div>
 	<div class="modal-footer ">
-			<a data-onclickEvent="true" class="btn blue"
-				data-toggle="confirmation"> <i class="fa fa-save"></i>确定
+			<a data-onclickEvent="true" class="btn blue"> <i class="fa fa-save"></i>确定
 			</a> <a data-dismiss="modal" class="btn blue"><i
 				class="fa fa-undo"></i>取消</a>
 		</div>
@@ -160,7 +161,10 @@
 <script type="text/javascript">
 $(document).one("onload.dms",function(event,container){
 	var selectMasterRow = $("#maintainPickingTbl",getElementContext).dmsTable().getFirstSelection();
+	//var selectMasterRow2 = $("#maintainPickingTbl",getElementContext).dmsTable().getRowDataByIndex();
+	console.log(JSON.stringify(selectMasterRow))
 	var storageCode = selectMasterRow['STORAGE_CODE'];
+	var storageName = selectMasterRow['STORAGE_NAME'];
 	var partNo = selectMasterRow['PART_NO'];
 	var partName = selectMasterRow['PART_NAME'];
 	var receiver = selectMasterRow['RECEIVER'];
@@ -172,10 +176,13 @@ $(document).one("onload.dms",function(event,container){
 	var partSalesAmount = selectMasterRow['PART_SALES_AMOUNT'];
 	var chargePartitionCode = selectMasterRow['CHARGE_PARTITION_CODE'];
 	var isMainPart = selectMasterRow['IS_MAIN_PART'];
-	if('12781001' == isMainPart){
-		$("isMainPart",container).attr("checked", "checked");
+	var isFinished = selectMasterRow["IS_FINISHED"];
+	alert("111"+isMainPart)
+	if('10571001' == isMainPart){
+		$("isMainPart",container).prop("checked", "checked");
 	}
 	$("#storageCode",container).val(storageCode);
+	$("#storageName",container).val(storageName);
 	$("#partNo",container).val(partNo);
 	$("#partName",container).val(partName);
 	$("#receiver",container).val(receiver);
@@ -186,6 +193,15 @@ $(document).one("onload.dms",function(event,container){
 	$("#partQuantity",container).val(partQuantity);
 	$("#partSalesAmount",container).val(partSalesAmount);
 	$("#chargePartitionCode",container).val(chargePartitionCode);
+	if(isFinished =='12781002'){
+		$("#partName",container).removeAttr("readonly");
+		$("#partQuantity",container).removeAttr("readonly");
+	}
+	var isChecked;
+	//绑定onchange 事件
+	$("[name='isMainPart']",container).bindChange(function(obj){
+		isChecked = $(obj).is(':checked');
+	});
 	
 	new Datatable().initPagination({
 		src : "dms_table",
@@ -291,25 +307,30 @@ $(document).one("onload.dms",function(event,container){
 	});
 	//点击确认按钮事件
 	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
-		var selectMasterRow = $("#maintainPickingTbl",getElementContext).dmsTable().getFirstSelection();
-		selectMasterRow['PART_NAME'] = $("#partName").val();
-		selectMasterRow['RECEIVER'] = $("#receiver").val();
-		selectMasterRow['PRICE_RATE'] = $("#priceRate").val();
-		selectMasterRow['PART_SALES_PRICE'] = $("#partSalesPrice").val();
-		selectMasterRow['PART_QUANTITY'] = $("#partQuantity").val();
-		selectMasterRow['CHARGE_PARTITION_CODE'] = $("#chargePartitionCode").val();
-		var updateStatus = selectMasterRow['UPDATE_STATUS'];
-		if(updateStatus != ''){
+		var updateStatus = selectMasterRow["ITEM_UPDATE_STATUS"];
+		
+		var isMainPart ;
 			if(updateStatus == 'U' || updateStatus == 'R'){
-				selectMasterRow['UPDATE_STATUS'] == 'U';
+				updateStatus == 'U';
 			}
-		}
-		if($("#isMainPart").is(':checked')){
-			selectMasterRow['IS_MAIN_PART'] = '10571001';
+		alert($("#isMainPart").val())
+		if(isChecked){
+			isMainPart = '10571001';
+			alert("1"+isMainPart);
 		}else{
-			selectMasterRow['IS_MAIN_PART'] = '10571002';
+			isMainPart = '10571002';
+			alert("2"+isMainPart);
 		}
-		$("#maintainPickingTbl",getElementContext).dmsTable().refreshTableWithForm();
+		$("#maintainPickingTbl",getElementContext()).dmsTable().updateRowByIndex(selectMasterRow.index,{
+			ITEM_UPDATE_STATUS:updateStatus,
+			PART_NAME:$("#partName",container).val(),
+			RECEIVER:$("#receiver",container).val(),
+			PART_SALES_PRICE:$("#partSalesPrice",container).val(),
+			PART_QUANTITY:$("#partQuantity",container).val(),
+			IS_MAIN_PART:isMainPart,
+			CHARGE_PARTITION_CODE:$("#chargePartitionCode",container).val()
+		});
+		//$("#maintainPickingTbl",getElementContext).dmsTable().refreshTableWithForm();
 		$("a[data-dismiss='modal']", container).click();
 	});
 });

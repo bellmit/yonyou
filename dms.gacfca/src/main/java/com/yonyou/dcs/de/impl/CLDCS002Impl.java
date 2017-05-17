@@ -90,6 +90,7 @@ public class CLDCS002Impl extends BaseImpl implements CLDCS002 {
 		for (int i = 0; i < dataList.size(); i++) {
 			CLDMS002Dto dto = dataList.get(i);
 			ProductGroupVO vo = new ProductGroupVO();
+			vo.setEntityCode(dto.getDealerCode());
 			BeanUtils.copyProperties(dto, vo);
 			vos.add(vo);
 		}

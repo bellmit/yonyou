@@ -14,7 +14,7 @@ import com.yonyou.dcs.util.DateConvert;
 import com.yonyou.dms.common.domains.DTO.basedata.OutBoundReturnDTO;
 import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.StringUtils;
-import com.yonyou.dms.gacfca.CLDMS012;
+import com.yonyou.dms.gacfca.CLDMS012Coud;
 
 /**
  * 
@@ -32,7 +32,7 @@ public class SendBoldMsgToDmsCloudImpl extends BaseCloudImpl implements SendBold
 	SaleVehicleSaleDao saleDao;
 	
 	@Autowired
-	CLDMS012 cldms;
+	CLDMS012Coud cldms;
 	
 	@Override
 	public String handleExecutor(List<OutBoundReturnDTO> dtoList) throws ServiceBizException {

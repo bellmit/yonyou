@@ -12,7 +12,7 @@ import com.yonyou.dcs.dao.SalesLeadsCustomerCreateDao;
 import com.yonyou.dms.DTO.gacfca.SADMS003ForeDTO;
 import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.CommonUtils;
-import com.yonyou.dms.gacfca.SADMS003Fore;
+import com.yonyou.dms.gacfca.SADMS003ForeCoud;
 
 /**
  * 
@@ -30,7 +30,7 @@ public class SADCS003ForeCloudImpl extends BaseCloudImpl implements SADCS003Fore
 	@Autowired
 	SalesLeadsCustomerCreateDao dao;
 	
-	@Autowired SADMS003Fore SADMS003Fore;
+	@Autowired SADMS003ForeCoud SADMS003Fore;
 	
 	@Override
 	public String execute() throws ServiceBizException {
