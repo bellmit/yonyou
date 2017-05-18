@@ -44,6 +44,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.yonyou.dms.common.domains.DTO.basedata.RepairOrderDetailsDTO;
 import com.yonyou.dms.framework.DAO.PageInfoDto;
+import com.yonyou.dms.repair.service.basedata.QueryByLinsenceService;
 import com.yonyou.dms.repair.service.basedata.RepairGroupService;
 import com.yonyou.dms.repair.service.order.RepairOrderService;
 import com.yonyou.dms.repair.service.order.SaveRepairOrderService;
@@ -71,6 +72,9 @@ public class RepairOrderController extends BaseController {
 	
 	@Autowired
 	private SaveRepairOrderService saveRepairOrderService;
+	
+	@Autowired
+	private QueryByLinsenceService queryByLinsenceService;
 
 	/**
 	 * 维修组合-记录缺料明细
@@ -134,18 +138,18 @@ public class RepairOrderController extends BaseController {
 		return orderService.queryRepairOrderExists(param);
 	}
 	
-//	/**
-//	 * 查询车辆方案状态为”等待审核“的工单
-//	 * 
-//	 * @param param
-//	 * @return
-//	 */
-//	@RequestMapping(value = "/checkIsHaveAduitingOrder", method = RequestMethod.GET)
-//	@ResponseBody
-//	public Map checkIsHaveAduitingOrder(@RequestParam Map param) {
-//		return orderService.checkIsHaveAduitingOrder(param);
-//	}
-//	
+	/**
+	 * 查询车辆方案状态为”等待审核“的工单
+	 * 
+	 * @param param
+	 * @return
+	 */
+	@RequestMapping(value = "/checkIsHaveAduitingOrder", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Map> checkIsHaveAduitingOrder(@RequestParam Map param) {
+		return queryByLinsenceService.checkIsHaveAduitingOrder(param);
+	}
+	
 	/**
 	 * 主页面-保养配件信息相关查询
 	 * 

@@ -32,7 +32,12 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Arrays;
 
+
 import com.yonyou.dms.function.exception.UtilException;
+
+import sun.misc.BASE64Encoder;
+
+
 
 /**
  * 密码加密生成器
@@ -67,9 +72,14 @@ public class MD5Util {
             byte[] digestInDb = new byte[pwdInDb.length - SALT_LENGTH];
             //取得数据库中口令的消息摘要
             System.arraycopy(pwdInDb, SALT_LENGTH, digestInDb, 0, digestInDb.length);
+            BASE64Encoder base64 = new BASE64Encoder();
+            
             //比较根据输入口令生成的消息摘要和数据库中消息摘要是否相同
             if (Arrays.equals(digest, digestInDb) ) {
                 //口令正确返回口令匹配消息
+                return true;
+            }else if(passwordInDb.equals(base64.encode(digest(password.getBytes(),"MD5")))){
+                System.out.println("jinru miama ===="+password);
                 return true;
             } else if(passwordInDb.equals(MD5Encryption(password))){
             	 //32位加密校验
@@ -194,5 +204,23 @@ public class MD5Util {
         }   
         return hexString.toString();   
     }
+    
+    //2代框架加密
+    public static byte[] digest(byte[] src, String type) throws Exception {
+        MessageDigest digMd5 = null;
+        MessageDigest digSha = null;
+        if (("MD5".equals(type)) && (digMd5 == null)) {
+          digMd5 = MessageDigest.getInstance("MD5");
+        }
+
+        if (("SHA".equals(type)) && (digSha == null)) {
+          digSha = MessageDigest.getInstance("SHA");
+        }
+
+        MessageDigest dig = "MD5".equals(type) ? digMd5 : digSha;
+        dig.reset();
+        dig.update(src);
+        return dig.digest("SEMDMS".getBytes());
+      }
 
 }

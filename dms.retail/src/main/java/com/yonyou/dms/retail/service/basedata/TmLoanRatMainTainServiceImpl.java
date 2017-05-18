@@ -1,7 +1,5 @@
 package com.yonyou.dms.retail.service.basedata;
 
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,7 +7,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.poi.ss.formula.functions.Replace;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,14 +74,13 @@ public class TmLoanRatMainTainServiceImpl implements TmLoanRatMainTainService {
 	 *            文件ID
 	 * @return
 	 */
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public boolean checkData(ArrayList<TmLoanRatMaintainDTO> dataList, LoginInfoDto loginInfo) throws ServiceBizException {
 		try {
 			List<TmLoanRatMaintainPO> excelList = new ArrayList<TmLoanRatMaintainPO>(); // EXCEL
 																						// list
 			TmLoanRatMaintainDTO item = null;
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			// TcCodePO[] bankList =
 			// CodeDict.getDictArrayByType(Constant.PAY_BANK.toString());
 			List<Map> bankList = dao.findBank();
@@ -227,6 +223,7 @@ public class TmLoanRatMainTainServiceImpl implements TmLoanRatMainTainService {
 		dao.delAll(tldto);
 	}
 
+	@SuppressWarnings({ "unused", "rawtypes" })
 	@Override
 	public void sentDiscountRateInfo(TmLoanRatMaintainDTO tldto) throws ServiceBizException {
 		String command = tldto.getFlag();
@@ -256,7 +253,7 @@ public class TmLoanRatMainTainServiceImpl implements TmLoanRatMainTainService {
 				flag = sadcs022.esendDataAll(vinn);
 			}
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 			throw new ServiceBizException("贴息利率信息下发失败！");
 		}
 	}

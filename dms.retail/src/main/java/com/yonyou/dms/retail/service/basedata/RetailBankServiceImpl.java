@@ -14,7 +14,6 @@ import com.yonyou.dms.function.domains.DTO.ImportResultDto;
 import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.retail.dao.basedata.RetailBankDao;
 import com.yonyou.dms.retail.domains.DTO.basedata.TmRetailDiscountBankImportTempDTO;
-import com.yonyou.dms.retail.domains.DTO.basedata.TmRetalDiscountImportTempDTO;
 import com.yonyou.dms.retail.domains.PO.basedata.TmRetailDiscountBankImportPO;
 import com.yonyou.dms.retail.domains.PO.basedata.TmRetailDiscountBankImportTempPO;
 

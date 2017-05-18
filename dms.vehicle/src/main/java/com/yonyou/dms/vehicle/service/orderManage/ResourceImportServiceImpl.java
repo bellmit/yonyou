@@ -539,7 +539,7 @@ public class ResourceImportServiceImpl implements ResourceImportService {
 				TtVsMatchCheckPO mcPo = new TtVsMatchCheckPO(); // 匹配更改日志表
 				mcPo.setLong("Old_Vehicle_Id", (new Long(map2.get("VEHICLE_ID").toString())));// 原车辆ID
 				mcPo.setLong("Chg_Vehicle_Id", tmPO.get("Vehicle_Id"));// 改变车辆ID
-				mcPo.setInteger("Update_By", loginInfo.getUserId());// 操作人
+				mcPo.setLong("Update_By", loginInfo.getUserId());// 操作人
 				mcPo.setTimestamp("Update_Date", format);// 操作时间
 				mcPo.setInteger("Cancel_Type", 1001);// 1001订单取消 1002 订单撤单
 				mcPo.setString("Cancel_Reason", "重新分配");
@@ -551,7 +551,7 @@ public class ResourceImportServiceImpl implements ResourceImportService {
 			tvcr.setLong("Vehicle_Id", tmPO.get("Vehicle_Id"));
 			tvcr.setLong("Create_By", loginInfo.getUserId());
 			tvcr.setTimestamp("Create_Date", tvucPO.get("Create_Date"));
-			tvcr.setInteger("Resource_Scope", tmpo.get("Org_Id"));
+			tvcr.setLong("Resource_Scope", tmpo.get("Org_Id"));
 			tvcr.setInteger("Status", OemDictCodeConstants.COMMON_RESOURCE_STATUS_02);// 资源状态（未下发1，已下发2，已取消3）
 			tvcr.setInteger("Type", new Integer(tvucPO.get("Resource_Type").toString()));
 			tvcr.setTimestamp("Issued_Date", format);
@@ -584,7 +584,7 @@ public class ResourceImportServiceImpl implements ResourceImportService {
 			vhclChng.setInteger("Change_Code", OemDictCodeConstants.VEHICLE_CHANGE_TYPE_24);
 			vhclChng.setString("Change_Desc", "下发公共资源");
 			vhclChng.setTimestamp("Change_Date", format);
-			vhclChng.setInteger("Create_By", loginInfo.getUserId());
+			vhclChng.setLong("Create_By", loginInfo.getUserId());
 			vhclChng.setTimestamp("Create_Date", format);
 			vhclChng.insert();
 

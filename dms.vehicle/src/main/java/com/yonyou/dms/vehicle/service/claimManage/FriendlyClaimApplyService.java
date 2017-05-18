@@ -78,6 +78,10 @@ public interface FriendlyClaimApplyService {
 	
 	//修改页面   报存
 	public void updateClaimOrderInfo(Long claimId,ClaimApplyDTO applyDto) throws ServiceBizException;
+	
+	//查询车辆详细信息
+	public Map queryShowVehicleInfo(String vin) throws ServiceBizException;
+		
 		
 }
 

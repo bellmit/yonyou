@@ -71,14 +71,15 @@ public class StockResourceServiceImpl implements StockResourceService {
 
 		if (map.size() > 0) {
 			Long GROUP_ID = (Long) map.get("GROUP_ID");
-			Map<String, Object> m1 = dao.findMonthPlan(GROUP_ID, loginInfo);
+			List<Map> m1 = dao.findMonthPlan(GROUP_ID, loginInfo);
+			Map<String, Object> m = new HashMap<String, Object>();
 			if (m1.size() > 0) {
-				m1.get("PARENT_GROUP_ID");
+				m = m1.get(0);
 			}
-			Long PARENT_GROUP_ID = (Long) map.get("PARENT_GROUP_ID");
+			Long PARENT_GROUP_ID = (Long) m.get("PARENT_GROUP_ID");
 			Map<String, Object> m2 = dao.findDealerOrders(PARENT_GROUP_ID, loginInfo);
-			Object DETAIL_ID = m2.get("DETAIL_ID");
-			Object SALE_AMOUNT = m2.get("SALE_AMOUNT");
+			Object DETAIL_ID = m.get("DETAIL_ID");
+			Object SALE_AMOUNT = m.get("SALE_AMOUNT");
 			Object TOTAL = m2.get("TOTAL");
 			map.put("DETAIL_ID", DETAIL_ID);
 			map.put("TOTAL", SALE_AMOUNT);
@@ -96,9 +97,9 @@ public class StockResourceServiceImpl implements StockResourceService {
 			map.put("PAYMENT_TYPE", m.get("PAYMENT_TYPE"));
 			map.put("ADDRESS", m.get("ADDRESS"));
 			map.put("DEALER_CODE", m.get("DEALER_CODE"));
-			map.put("TOTAL", m.get("SALE_AMOUNT"));
-			map.put("HASNUM", m.get("TOTAL"));
-			map.put("DETAIL_ID", m.get("DETAIL_ID"));
+			// map.put("TOTAL", m.get("SALE_AMOUNT"));
+			// map.put("HASNUM", m.get("TOTAL"));
+			// map.put("DETAIL_ID", m.get("DETAIL_ID"));
 		}
 
 		return map;

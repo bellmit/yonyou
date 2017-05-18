@@ -79,7 +79,7 @@ public class ActivityMaintainServiceImpl implements ActivityMaintainService{
 			savePo.set("IS_FEE", twaDto.getIsFee());
 			savePo.set("IS_MULTI", twaDto.getIsMulti());
 			//固定费用=是 时 获取页面费用value
-			if(twaDto.getIsFee() == OemDictCodeConstants.IF_TYPE_YES){
+			if(twaDto.getIsFee() == 10041001){
 				savePo.set("LABOUR_FEE", twaDto.getLabourFee());
 				savePo.set("PART_FEE", twaDto.getPartFee());
 				savePo.set("OTHER_FEE", twaDto.getOtherFee());
@@ -97,7 +97,7 @@ public class ActivityMaintainServiceImpl implements ActivityMaintainService{
 			//savePo.set("OEM_COMPANY_ID", "2010010100070674");
 			savePo.saveIt();
 		
-		TtWrActivityDTO dto = new TtWrActivityDTO();
+		
 		TtWrActivityPO findPo = new TtWrActivityPO();
 		findPo  = 	TtWrActivityPO.findFirst(" ACTIVITY_CODE = ?  ", twaDto.getActivityCode());		
 		Map	map = actMatDao.getActivityDetailQuery(findPo.getLong("ACTIVITY_ID"));
@@ -175,7 +175,7 @@ public class ActivityMaintainServiceImpl implements ActivityMaintainService{
 			savePo.set("IS_FEE", twaDto.getIsFee());
 			savePo.set("IS_MULTI", twaDto.getIsMulti());
 			//固定费用=是时 获取页面费用value
-			if(twaDto.getIsFee() == OemDictCodeConstants.IF_TYPE_YES){
+			if(twaDto.getIsFee() == 10041001){
 				savePo.set("LABOUR_FEE", twaDto.getLabourFee());
 				savePo.set("PART_FEE", twaDto.getPartFee());
 				savePo.set("OTHER_FEE", twaDto.getOtherFee());

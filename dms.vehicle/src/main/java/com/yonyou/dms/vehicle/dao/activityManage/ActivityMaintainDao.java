@@ -308,7 +308,7 @@ public class ActivityMaintainDao extends OemBaseDAO{
 		//sql.append("			AND LABOUR_NAME LIKE '%55555%' \n");
 		//sql.append("			AND  GROUP_CODE = 'L300C' \n");
 		sql.append("			AND  IS_DEL =0 \n");
-		sql.append("			ORDER BY LABOUR_NUM DESC \n");
+		//sql.append("			ORDER BY LABOUR_NUM DESC \n");
 		sql.append(" \n");
 
 

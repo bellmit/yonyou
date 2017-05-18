@@ -529,12 +529,12 @@
 									<input type="hidden" class="form-control" id="vehicleId" name="vehicleId"
 										data-fieldName="VEHICLE_ID" />
 									<span class="input-group-btn">
-										<button class="btn default btn-sm" type="button"
+										<button class="btn default btn-sm" type="button" id="vinBtn"
 											data-url="retail/ordermanage/salesorder/selectVIN.html"
 											data-toggle="modal" data-width="modal-lg">
 											<i class="fa fa-list-alt"></i>
 										</button>
-										<button class="btn default input-clear" type="button">
+										<button class="btn default input-clear" id="vinBtnX" type="button">
 											<i class="fa fa-close"></i>
 										</button>
 									</span>
@@ -1237,6 +1237,15 @@
 
 <script type="text/javascript">
 $(document).one("onload.dms",function(event,container){
+	 $("div[data-pageInitCallBack='true']",container).on("callBack.dms",function(event,response){
+			if($("#soStatus",container).val()=='13011030'){
+				$("#vinBtn",container).attr("disabled","disabled");
+				$("#vinBtnX",container).attr("disabled","disabled");
+				 $("#vin",container).attr("disabled","disabled");
+				
+			}
+	 });
+
 
 });		
 </script> 

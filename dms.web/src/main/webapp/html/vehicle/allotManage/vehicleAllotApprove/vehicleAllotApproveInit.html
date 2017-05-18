@@ -237,6 +237,7 @@ $(document).one("onload.dms",function(event,container){
 			data:data,
 			sucessCallBack : function(data) {
 				if(data.res ==  "success"){
+					$("#opinion",container).setDmsValue("");
 					dmsCommon.tip({status:"success",msg:"操作成功！"});
 					
 				}else{

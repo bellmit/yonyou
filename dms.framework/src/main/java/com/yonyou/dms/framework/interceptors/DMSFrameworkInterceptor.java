@@ -94,7 +94,7 @@ public class DMSFrameworkInterceptor extends HandlerInterceptorAdapter{
         
         //获得token 的值
         UserAccessInfoDto userAccessInfoDto = ApplicationContextHelper.getBeanByType(UserAccessInfoDto.class);
-        if(!userAccessInfoDto.isFirstToken()){
+/*        if(!userAccessInfoDto.isFirstToken()){
             if(System.currentTimeMillis() - userAccessInfoDto.getValidTokenDate().getTime()>=10*60*1000){
                 throw new AuthLoginOutException("访问验证超时，请刷新重试");
             }
@@ -106,7 +106,7 @@ public class DMSFrameworkInterceptor extends HandlerInterceptorAdapter{
             if(StringUtils.isNullOrEmpty(urlToken)&&!AccessUrlUtils.isApplicationDefaultUrl(httpServletRequest.getRequestURI(),httpServletRequest.getMethod())){
                 throw new AuthLoginOutException("访问不合法");
             }
-        }
+        }*/
         
         String requestLocale;
         if((requestLocale = CookieUtil.getValueFromCookie(httpServletRequest,"language"))!=null){

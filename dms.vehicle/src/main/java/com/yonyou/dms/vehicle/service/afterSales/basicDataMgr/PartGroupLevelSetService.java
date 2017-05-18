@@ -15,10 +15,14 @@ import com.yonyou.dms.vehicle.domains.DTO.afterSales.basicDataMgr.TtPartGroupLev
 public interface PartGroupLevelSetService {
 	//分组级别设定查询
 	public PageInfoDto  LevelSetQuery(Map<String, String> queryParam);
-    //导入业务表，删除临时表数据
-	public void importSaveAndDelete();
-   //查询临时表的所有数据
-	public List<Map> findTmpPartGroupLevelSetList(Map<String, String> queryParam);
-	public void insertTmpRecallVehicleDcs(TtPartGroupLevelSetTempDTO rowDto);
-	ImportResultDto<TtPartGroupLevelSetTempDTO> checkData(TtPartGroupLevelSetTempDTO list) throws Exception;
+    	//导入业务表
+		public void importSaveAndDelete();
+	   //查询临时表的所有数据
+		public List<Map> findTmpPartGroupLevelSetList();
+		//删除临时表的数据
+		public void deleteTmpRecallVehicleDcs();
+		//导入业务表
+		public void saveTmpRecallVehicleDcs(TtPartGroupLevelSetTempDTO rowDto);
+		//数据校验
+		public List<TtPartGroupLevelSetTempDTO> checkData();
 }

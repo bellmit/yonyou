@@ -86,8 +86,8 @@ public class ActivityIssueMaintainDao extends OemBaseDAO{
 		//活动Id
 		sql.append("		AND  TWAD.ACTIVITY_ID ='"+activityId+"' \n");
 		if(!StringUtils.isNullOrEmpty(queryParam.get("dealerCode"))){
-			sql.append(" and D.DEALER_CODE in ("+queryParam.get("dealerCode")+") \n");
-			
+			sql.append(" and D.DEALER_CODE in ( ? ) \n");
+			params.add(queryParam.get("dealerCode"));
 		 }
 		if(!StringUtils.isNullOrEmpty(queryParam.get("dealerName"))){
 			sql.append("		AND D.DEALER_NAME like'%"+queryParam.get("dealerName")+"%' \n");         

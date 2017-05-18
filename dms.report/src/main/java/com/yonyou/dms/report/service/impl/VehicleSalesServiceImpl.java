@@ -125,8 +125,8 @@ public class VehicleSalesServiceImpl implements VehicleSalesService{
 			whereSql.add(DateUtil.addOneDay(queryParam.get("endFactoryDate")));
 		}
 		
-		sb.append(" ) D LEFT JOIN TM_ORGANIZATION  E ON  D.ORG_CODE = E.ORG_CODE)  B ");
-		sb.append(" LEFT JOIN TM_USER U  ON U.USER_ID = B.sold_by LEFT JOIN tm_brand BR ON B.BRAND_CODE = BR.BRAND_CODE AND B.DEALER_CODE=BR.DEALER_CODE LEFT JOIN  TM_SERIES  se   ON   B.SERIES_CODE=se.SERIES_CODE AND br.BRAND_CODE=se.BRAND_CODE AND br.DEALER_CODE=se.DEALER_CODE LEFT  JOIN   TM_MODEL   mo   ON   B.MODEL_CODE=mo.MODEL_CODE AND mo.BRAND_CODE=se.BRAND_CODE AND mo.series_code=se.series_code AND se.DEALER_CODE=mo.DEALER_CODE LEFT JOIN tm_color c ON b.COLOR_CODE = c.COLOR_CODE left  join   tm_configuration pa   on   B.CONFIG_CODE=pa.CONFIG_CODE and pa.brand_code=mo.brand_code and pa.series_code=mo.series_code and pa.model_code=mo.model_code and mo.DEALER_CODE=pa.DEALER_CODE");
+		sb.append(" ) D LEFT JOIN TM_ORGANIZATION  E ON  D.ORG_CODE = E.ORG_CODE and d.dealer_code=e.dealer_code)  B ");
+		sb.append(" LEFT JOIN TM_USER U  ON U.USER_ID = B.sold_by and u.dealer_code=b.dealer_code LEFT JOIN tm_brand BR ON B.BRAND_CODE = BR.BRAND_CODE AND B.DEALER_CODE=BR.DEALER_CODE LEFT JOIN  TM_SERIES  se   ON   B.SERIES_CODE=se.SERIES_CODE AND br.BRAND_CODE=se.BRAND_CODE AND br.DEALER_CODE=se.DEALER_CODE LEFT  JOIN   TM_MODEL   mo   ON   B.MODEL_CODE=mo.MODEL_CODE AND mo.BRAND_CODE=se.BRAND_CODE AND mo.series_code=se.series_code AND se.DEALER_CODE=mo.DEALER_CODE LEFT JOIN tm_color c ON b.COLOR_CODE = c.COLOR_CODE  AND b.DEALER_CODE = c.DEALER_CODE   left  join   tm_configuration pa   on   B.CONFIG_CODE=pa.CONFIG_CODE and pa.brand_code=mo.brand_code and pa.series_code=mo.series_code and pa.model_code=mo.model_code and mo.DEALER_CODE=pa.DEALER_CODE");
 		System.out.println("******************************************");
 		System.out.println(sb.toString());
 		System.out.println("******************************************");

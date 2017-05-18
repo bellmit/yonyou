@@ -130,7 +130,12 @@
 				var groupIds = "";
 				
 				for(var i = 0 ;i<selectRow.length;i++){
-					//alert($("#amount"+i+"").val())
+					
+					if($("#amount"+i+"").val() == ""){
+						dmsCommon.tip({status:"warning",msg:"项目金额不能为空!"});//总共的状态类型：info、success、error、warning
+						returnResult.status = false;
+				        return;	
+					}
 					
 					if(groupIds=="" ){ //第一次循环为空值
 						groupIds = selectRow[i]["OTHER_FEE_ID"];

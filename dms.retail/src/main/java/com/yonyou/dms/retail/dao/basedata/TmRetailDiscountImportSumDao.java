@@ -160,6 +160,7 @@ public class TmRetailDiscountImportSumDao extends OemBaseDAO {
 	 * @return
 	 * @throws Exception
 	 */
+	@SuppressWarnings("rawtypes")
 	public List<Map> queryEmpInfoforExport(Map<String, String> queryParam) throws Exception {
 		List<Object> params = new ArrayList<Object>();
 		String sql = getRetailRateList(queryParam, params);

@@ -115,37 +115,35 @@
 			sortName : "AUTHORITY_APPROVAL_ID",
 			sortOrder : "asc",
 			columns : [ 
-			  
+				 {field :"AUTHORITY_APPROVAL_ID",title : "操作",operateFormat : [
+                     {type:"edit",url:"vehicle/bigCustomerManage/bigcustomerAuthorityfiling.html",title:"审批",openType:"jump",doubleClick:false,
+                   	  isShow:function(value, row, index){
+                   		  if(row.AUTHORITY_APPROVAL_STATUS=="16000001"){
+                   			  return true;
+                   		  }else{
+                   			  return false;
+                   		  }
+                  	  		}
+                    	 },
+                 {type:"detail",url:"vehicle/bigCustomerManage/bigcustomerAuthorityfiling2.html",openType:"jump",doubleClick:false,
+                       isShow:function(value, row, index){
+                       		  if(row.AUTHORITY_APPROVAL_STATUS !="16000001"){
+                       			  return true;
+                       		  }else{
+                       			  return false;
+                       		  }
+                      	    }
+                         }
+			      ]
+                } ,
 			    {field : "DEALER_CODE",title : "经销商代码" },
 			    {field : "DEALER_NAME",title : "经销商名称" },
 			    {field : "NUM",title : "经销商今年申请次数" },
 			    {field : "USER_NAME",title : "申请用户名称" },
-			    {field : "APPLY_REMARK",title : "申请理由" },
+			    {field : "APPLY_REMARK",title : "申请理由",maxLengthFormat : {length:30} },
 			    {field : "AUTHORITY_APPROVAL_STATUS",title : "审批状态", codeFormat : {type:"oemDict",codeType:"1600"} },
-			    {field : "AUTHORITY_APPLY_DATE",title : "权限申请日期" },
-			    {field :"AUTHORITY_APPROVAL_ID",title : "操作",operateFormat : [
-			                                                                  {type:"edit",url:"vehicle/bigCustomerManage/bigcustomerAuthorityfiling.html",title:"审批",openType:"jump",doubleClick:false,
-						                                                    	  isShow:function(value, row, index){
-						                                                    		
-						                                                    		  if(row.AUTHORITY_APPROVAL_STATUS=="16000001"){
-						                                                    			  return true;
-						                                                    		  }else{
-						                                                    			  return false;
-						                                                    		  }
-						                                                   	  		}
-						                                                     	 },
-						                                                     	 {type:"detail",url:"vehicle/bigCustomerManage/bigcustomerAuthorityfiling2.html",openType:"jump",doubleClick:false,
-							                                                    	  isShow:function(value, row, index){
-							                                                    		
-							                                                    		  if(row.AUTHORITY_APPROVAL_STATUS !="16000001"){
-							                                                    			  return true;
-							                                                    		  }else{
-							                                                    			  return false;
-							                                                    		  }
-							                                                   	  		}
-							                                                     	 }
-																	]
-			    } 
+			    {field : "AUTHORITY_APPLY_DATE",title : "权限申请日期" }
+			   
 			]
 			
 		});

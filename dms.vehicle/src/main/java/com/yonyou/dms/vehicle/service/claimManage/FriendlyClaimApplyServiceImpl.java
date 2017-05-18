@@ -315,9 +315,7 @@ public class FriendlyClaimApplyServiceImpl implements FriendlyClaimApplyService 
 		twcPo.set("LABOUR_FEE", applyDto.getLabourFee());		//工时总费用
 		twcPo.set("PART_FEE", applyDto.getPartFee());		//配件总费用
 		twcPo.set("OTHER_AMOUNT", applyDto.getOtherFee());	//其他项目总费用
-//		twcPo.set("MAINTAIN_AMOUNT", null);	//首次保养金额
-//		twcPo.set("ALL_AMOUNT", null);		//索赔申请总金额
-//		twcPo.set("DEDUCT_FEE", null);		//结算扣款金额
+
 		
 		//各个分担费用
 		twcPo.set("CUSTOMER_BEAR_FEE_LABOR", applyDto.getCustomerBearFeeLabour());	//客户分担费用
@@ -380,9 +378,9 @@ public class FriendlyClaimApplyServiceImpl implements FriendlyClaimApplyService 
 				savePo.set("IS_MAIN", tableMap.get("IS_MAIN"));
 				savePo.set("PART_CODE", tableMap.get("PART_CODE"));
 				savePo.set("PART_NAME", tableMap.get("PART_NAME"));
-				savePo.set("PRICE", tableMap.get("CASE_CODE"));
+				savePo.set("PRICE", tableMap.get("PRICE"));
 				savePo.set("QUANTITY", tableMap.get("QUANTITY"));
-				savePo.set("AMOUNT", tableMap.get("AMOUNT"));
+				savePo.set("AMOUNT", Double.parseDouble(tableMap.get("QUANTITY").toString())*Double.parseDouble(tableMap.get("PRICE").toString()));
 				savePo.set("CREATE_BY", loginInfo.getUserId());
 				savePo.setTimestamp("CREATE_DATE", new Date(System.currentTimeMillis()));
 				savePo.saveIt();
@@ -402,8 +400,8 @@ public class FriendlyClaimApplyServiceImpl implements FriendlyClaimApplyService 
 				savePo.set("LABOUR_CODE", tableMap.get("LABOUR_CODE"));
 				savePo.set("LABOUR_NAME", tableMap.get("LABOUR_NAME"));
 				savePo.set("LABOUR_NUM", tableMap.get("LABOUR_NUM"));
-				savePo.set("PRICE", tableMap.get("PRICE"));
-				savePo.set("FEE", tableMap.get("FEE"));
+				savePo.set("PRICE", tableMap.get("LABOUR_PRICE"));
+				savePo.set("FEE", Double.parseDouble(tableMap.get("LABOUR_NUM").toString())*Double.parseDouble(tableMap.get("LABOUR_PRICE").toString()));
 				savePo.set("FAULT_CODE", tableMap.get("FAULT_CODE"));
 				savePo.set("DAMAGE_AREA", null);
 				savePo.set("DAMAGE_TYPE", null);
@@ -486,6 +484,15 @@ public class FriendlyClaimApplyServiceImpl implements FriendlyClaimApplyService 
 		insertClaimItemInfo(claimId, applyDto, 2);
 
 		
+	}
+
+	/**
+	 * 查询车辆详细信息
+	 */
+	@Override
+	public Map queryShowVehicleInfo(String vin) throws ServiceBizException {
+		Map map = fcaDao.queryShowVehicleInfoMap(vin);
+		return map;
 	}
 	
 

@@ -145,16 +145,37 @@
 							</div>
 						</div>
 						
-						<div class="col-xs-12 col-sm-6 col-md-4 ">
+					<!-- 	<div class="col-xs-12 col-sm-6 col-md-4 ">
 							<div class="form-group">
 								<label class="control-label col-xs-4">VIN</label>
 								<div class="col-xs-8">
 									<input id="vin" name="vin" data-fieldName="VIN"  class="form-control required "  type="text" />								
 								</div>
 							</div>
-						</div> 
+						</div>  -->
 						
-					
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" data-tableSelect="true">
+						<div class="form-group">
+								<label class="control-label col-xs-4">VIN</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+									<input id="vin" readonly data-fieldName="VIN"
+										name="vin" class="form-control" type="text"
+										 /> <span
+											class="input-group-btn" >
+											<button class="btn default btn-sm" type="button"
+												data-url="vehicle/claimManage/friendlyClaimOrderApplyShowVehicle.html"
+												data-toggle="modal" data-width="modal-lg">
+												<i class="fa fa-list-alt"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
 						
 						<div class="col-xs-12 col-sm-6 col-md-4 ">
 							<div class="form-group">
@@ -690,7 +711,8 @@ $(document).one("onload.dms",function(event,container){
 			{field : "ID",title : "操作",operateFormat :[                  			
 	             {type : "localDel",operateIcon:'<i class="glyphicon glyphicon-remove"></i>',onBeforeEvent:function(value, row, index){
 	              },onAfterEvent:function(value, row, index){
-	                	//$("#save",container).removeAttr('disabled');
+	            	  //alert("OnAfter");
+	            	  deleteCase();
 	              },isShow:function(value, row, index){    	
 	                		return true;
 	              }
@@ -745,6 +767,7 @@ $(document).one("onload.dms",function(event,container){
 			CheckPartTable();			
 			$("input[id^='QUANTITY'],input[id^='PRICE']",$("#claimPartsTable",container)).bindChange(function(){				
 				CheckPartTable();
+				loadFee();
 			});				
 			
 		}
@@ -785,6 +808,7 @@ $(document).one("onload.dms",function(event,container){
 			$("input[id^='LABOUR_PRICE'],input[id^='LABOUR_NUM']",$("#claimLabourTable",container)).bindChange(function(){
 				//alert("Labour");
 				CheckLabourTable();
+				loadFee();
 			});
 		}
 	});
@@ -824,6 +848,7 @@ $(document).one("onload.dms",function(event,container){
 			$("input[id^='ITEM_FEE']",$("#claimOtherTable",container)).bindChange(function(){
 				//alert("Other");
 				CheckOtherTable();
+				loadFee();
 			});
 			
 		}
@@ -831,7 +856,13 @@ $(document).one("onload.dms",function(event,container){
 
 	//事件点击
 	$("#addcase[data-onclickEvent='true']",container).on("dms.click",function(event){
-		
+		var rownu = $("#claimCaseTable",container).dmsTable().getRowDataByIndex();
+		//alert(rownu.length);
+		if(rownu.length>=3){
+			dmsCommon.tip({status:"warning",msg:"情形数量最多3个！"});
+			returnResult.status =false;
+			return ;		
+		}		
 		$("#claimCaseTable",container).dmsTable().appendBlankRow();	
 		caseCode();
 		
@@ -840,10 +871,9 @@ $(document).one("onload.dms",function(event,container){
 	
 	//事件点击
 	$("#repairBtn[data-onclickEvent='true']",container).on("dms.click",function(event){
-		init();	
-		
+		 //init();			
 		var rownu = $("#claimCaseTable",container).dmsTable().getRowDataByIndex();
-		alert(rownu.length);
+		//alert(rownu.length);
 		if(rownu.length<1){
 			$("#claimCaseTable",container).dmsTable().appendBlankRow();	
 			caseCode();
@@ -885,7 +915,7 @@ $(document).one("onload.dms",function(event,container){
 		 var partFee = partMangeFee + partFeeVal;
 		 $('#partFee',container).val(partFee);
 		 
-		 loadFee();
+		 //loadFee();
 		 changeCaseCode();
 		 
 		
@@ -912,7 +942,7 @@ $(document).one("onload.dms",function(event,container){
 		 }
 		 $('#labourNumVal',container).val(labourNum);
 		 $('#labourFee',container).val(labourFee);
-		 loadFee();
+		 //loadFee();
 		 changeCaseCode();
 		
 	}
@@ -931,7 +961,7 @@ $(document).one("onload.dms",function(event,container){
 		 }
 		 //alert(itemFee);
 		 $('#otherAmount',container).val(itemFee);
-		 loadFee();
+		 //loadFee();
 		 changeCaseCode();
 	}
 	 //索赔总金额
@@ -1000,13 +1030,31 @@ $(document).one("onload.dms",function(event,container){
 	//情形序列
 	var caseCode=function(){
 		var rownu = $("#claimCaseTable",container).dmsTable().getRowDataByIndex();
-		alert(rownu.length);
+		alert( "情形序列："+rownu.length);
 		if(rownu.length>0){
 			$(rownu).each(function(index){					 				
 				$('#CASE_CODE'+index,container).val(index+1);		
 			  });
 		}
 	}
+	
+	//删除索赔情形
+	var deleteCase = function(){
+		var rownu = $("#claimCaseTable",container).dmsTable().getRowDataByIndex();
+		if(rownu.length < 2){
+			dmsCommon.tip({status:"warning",msg:"情形数量至少存在1个！"});
+			returnResult.status =false;
+			return ;		
+		}
+		for(var i=0; i< rownu.length; i++ ){
+			$(rownu).each(function(index){					 				
+				$('#CASE_CODE'+index,container).val(index+1);		
+			  });
+		}
+
+		
+	}
+	
 	
 });
 </script>

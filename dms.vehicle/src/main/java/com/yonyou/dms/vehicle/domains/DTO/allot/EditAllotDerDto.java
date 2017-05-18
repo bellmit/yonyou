@@ -6,7 +6,26 @@ public class EditAllotDerDto {
 	private String dealerShortNmae;
 	private String dealerId;
 	private String shport;
+	private String tjport;
 	private String id;
+	private String vpc_ports;
+	private String vpc_portt;
+
+	public String getVpc_ports() {
+		return vpc_ports;
+	}
+
+	public void setVpc_ports(String vpc_ports) {
+		this.vpc_ports = vpc_ports;
+	}
+
+	public String getVpc_portt() {
+		return vpc_portt;
+	}
+
+	public void setVpc_portt(String vpc_portt) {
+		this.vpc_portt = vpc_portt;
+	}
 
 	public String getId() {
 		return id;
@@ -31,8 +50,6 @@ public class EditAllotDerDto {
 	public void setTjport(String tjport) {
 		this.tjport = tjport;
 	}
-
-	private String tjport;
 
 	public String getDealerId() {
 		return dealerId;

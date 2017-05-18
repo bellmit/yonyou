@@ -67,8 +67,18 @@ public class VehicleShippingDto {
 
     private Integer                             isValid;
     private String                              ecOrderNo;            // 电商订单号
+    private String dealerCode;
+    
 
-    private LinkedList<VehicleShippingDetailDto> vehicleVoList;
+    public String getDealerCode() {
+		return dealerCode;
+	}
+
+	public void setDealerCode(String dealerCode) {
+		this.dealerCode = dealerCode;
+	}
+
+	private LinkedList<VehicleShippingDetailDto> vehicleVoList;
 
     public String getEntityCode() {
         return entityCode;

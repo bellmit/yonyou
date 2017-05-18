@@ -2,7 +2,8 @@ package com.infoservice.dms.cgcsl.vo;
 
 import java.util.Date;
 
-public class BigCustomerAuthorityApprovalVO {
+@SuppressWarnings("serial")
+public class BigCustomerAuthorityApprovalVO extends BaseVO{
     private String applyNo ;// 申请单号 varchar(30)
     private String applyRemark ;//申请理由 VARCHAR(300)
     private String userCode;//申请用户(操作人) 

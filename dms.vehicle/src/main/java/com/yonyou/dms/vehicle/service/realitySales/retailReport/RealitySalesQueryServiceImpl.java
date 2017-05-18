@@ -74,12 +74,12 @@ public class RealitySalesQueryServiceImpl implements RealitySalesQueryService {
 		try {
 			String type=CommonUtils.checkNull(tvnDto.getType());//批量/单次上报  ：0/1
 			Long tvpDealerId = Long.parseLong(CommonUtils.checkNull(loginInfo.getDealerId(),"0")); //经销商ID	
-			Integer fastRetailStatus = OemDictCodeConstants.FAST_RETAIL_STATUS_02;  //快速零售上报状态
+			Integer fastRetailStatus = OemDictCodeConstants.FAST_RETAIL_STATUS_01;  //快速零售上报状态
 			TtVsBasicParaPO tvbpPO = TtVsBasicParaPO.findFirst(" DEALER_ID = '"
 										+ tvpDealerId
 										+"' AND FAST_RETAIL_STATUS = ? ", fastRetailStatus);
-			if(null!=tvbpPO){
-				new ServiceBizException("上报失败,当前权限不足,如有问题请联系管理员");
+			if(tvbpPO != null){
+				throw new ServiceBizException("上报失败,当前权限不足,如有问题请联系管理员");
 			}else{
 				if(type.equals("0")){   
 					String vins=tvnDto.getVins().substring(0,tvnDto.getVins().length()-1);
@@ -177,7 +177,6 @@ public class RealitySalesQueryServiceImpl implements RealitySalesQueryService {
 						tvNvdrPo.setInteger("REPORT_TYPE",OemDictCodeConstants.RETAIL_REPORT_TYPE_01);//零售上报类型
 						tvNvdrPo.setInteger("STATUS",OemDictCodeConstants.VEHICLE_REPORT_STATUS_02);//交车上报状态
 						tvNvdrPo.insert();
-						nvdrId = tvNvdrPo.getString("NVDR_ID");   
 					} else { //修改
 						TtVsNvdrPO tvnPO = TtVsNvdrPO.findFirst("VIN =? ", vin);
 						tvnPO.setLong("SALE_TYPE", saleType);//销售类型
@@ -195,15 +194,12 @@ public class RealitySalesQueryServiceImpl implements RealitySalesQueryService {
 						tvnPO.setInteger("STATUS",OemDictCodeConstants.VEHICLE_REPORT_STATUS_02);//交车上报状态
 						tvnPO.setInteger("IS_DEL", 0);	//有效
 						tvnPO.saveIt();
-						nvdrId =tvnPO.getString("NVDR_ID");
 					}
 				}
 			}
 		} catch (Exception e) {
-			System.out.println(e.toString());
-			ServiceBizException e1 = new ServiceBizException(e);
-			logger.error(loginInfo.toString(), e1);
-			throw new ServiceBizException("上报失败!");
+			e.printStackTrace();
+			throw new ServiceBizException(e.getMessage());
 		}
 	}
 

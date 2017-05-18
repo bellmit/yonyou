@@ -8,7 +8,15 @@ public class SADCS031Dto {
 	private Integer status;
 	private Integer isDelete;
 	private Integer psType;
+	private String dealerCode;
 	
+	
+	public String getDealerCode() {
+		return dealerCode;
+	}
+	public void setDealerCode(String dealerCode) {
+		this.dealerCode = dealerCode;
+	}
 	public Long getBigCustomerPolicyId() {
 		return bigCustomerPolicyId;
 	}

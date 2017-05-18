@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.javalite.activejdbc.Base;
 import org.springframework.stereotype.Service;
 
 import com.yonyou.dms.common.domains.DTO.customer.OwnerDTO;
@@ -43,6 +44,7 @@ import com.yonyou.dms.framework.util.Utility;
 import com.yonyou.dms.function.common.CommonConstants;
 import com.yonyou.dms.function.common.DictCodeConstants;
 import com.yonyou.dms.function.exception.ServiceBizException;
+import com.yonyou.dms.function.utils.common.CommonUtils;
 import com.yonyou.dms.function.utils.common.StringUtils;
 import com.yonyou.dms.function.utils.security.MD5Util;
 
@@ -196,7 +198,11 @@ public class QueryByLinsenceServiceImpl implements QueryByLinsenceService {
 				" LEFT JOIN  (SELECT  m.DEALER_CODE, m.MODEL_NAME, m.MODEL_CODE, m.SERIES_CODE  FROM tm_model m) tm  ON A.DEALER_CODE = tm.DEALER_CODE  AND A.MODEL = TM.MODEL_CODE  AND ts.brand_code=tb.brand_code AND tm.series_code=ts.series_code WHERE  ");
 		sql.append(" A.DEALER_CODE = ? ");
 		params.add(FrameworkUtil.getLoginInfo().getDealerCode());
-		sql.append(Utility.getLikeCond("A", "LICENSE", queryParam.get("license"), "AND"));
+		if (!StringUtils.isNullOrEmpty(queryParam.get("license"))) {
+			sql.append(" and A.LICENSE like ? ");
+			params.add("%"+queryParam.get("license")+"%");
+		}
+//		sql.append(Utility.getLikeCond("A", "LICENSE", queryParam.get("license"), "AND"));
 		sql.append(Utility.getLikeCond("A", "VIN", queryParam.get("vin"), "AND"));
 		sql.append(Utility.getLikeCond("B", "OWNER_NAME", queryParam.get("ownerName"), "AND"));
 		System.out.print(sql.toString());
@@ -870,5 +876,65 @@ public class QueryByLinsenceServiceImpl implements QueryByLinsenceService {
 		
 	}
 		return hasArrived;
+	}
+
+	@Override
+	public PageInfoDto searchRepairOrder(Map<String, String> queryParam) throws ServiceBizException {
+		String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select '12781001' AS COLOR_FLAG, A.VIN,B.CONSULTANT,A.dealer_code,tms.USER_NAME, A.RO_NO, A.SALES_PART_NO, A.BOOKING_ORDER_NO, A.ESTIMATE_NO,A.RO_TYPE, A.REPAIR_TYPE_CODE, A.OTHER_REPAIR_TYPE, A.VEHICLE_TOP_DESC, ");
+		sql.append(" A.SEQUENCE_NO, A.PRIMARY_RO_NO, A.INSURATION_NO, A.INSURATION_CODE,A.IS_CUSTOMER_IN_ASC, A.IS_SEASON_CHECK, A.OIL_REMAIN, A.IS_WASH, A.IS_TRACE, ");
+		sql.append("  A.TRACE_TIME, A.NO_TRACE_REASON, A.NEED_ROAD_TEST, A.RECOMMEND_EMP_NAME,A.RECOMMEND_CUSTOMER_NAME, A.SERVICE_ADVISOR, A.SERVICE_ADVISOR_ASS, A.RO_STATUS, ");
+		sql.append(" A.RO_CREATE_DATE, A.END_TIME_SUPPOSED, A.CHIEF_TECHNICIAN, A.OWNER_NO, A.OWNER_NAME,A.OWNER_PROPERTY, A.LICENSE,  A.ENGINE_NO, A.BRAND, A.SERIES, A.MODEL, A.IN_MILEAGE, ");
+		sql.append(" A.OUT_MILEAGE, A.IS_CHANGE_ODOGRAPH, A.CHANGE_MILEAGE, A.TOTAL_CHANGE_MILEAGE,A.TOTAL_MILEAGE, A.DELIVERER, A.DELIVERER_GENDER, A.DELIVERER_PHONE, ");
+		sql.append(" A.DELIVERER_MOBILE, A.FINISH_USER, A.COMPLETE_TAG, A.WAIT_INFO_TAG, A.WAIT_PART_TAG,A.COMPLETE_TIME, A.FOR_BALANCE_TIME, A.DELIVERY_TAG, A.DELIVERY_DATE, A.LABOUR_PRICE ");
+		sql.append(" , A.LABOUR_AMOUNT, A.REPAIR_PART_AMOUNT, A.SALES_PART_AMOUNT, A.ADD_ITEM_AMOUNT,A.OVER_ITEM_AMOUNT, A.REPAIR_AMOUNT, A.ESTIMATE_AMOUNT, A.BALANCE_AMOUNT, ");
+		sql.append(" A.RECEIVE_AMOUNT, A.SUB_OBB_AMOUNT, A.DERATE_AMOUNT, A.TRACE_TAG, A.REMARK,A.TEST_DRIVER, A.PRINT_RO_TIME, A.RO_CHARGE_TYPE, A.PRINT_RP_TIME, A.IS_ACTIVITY, ");
+		sql.append(" A.CUSTOMER_DESC, A.LOCK_USER,tmD.USER_NAME LOCK_USERS, A.IS_CLOSE_RO, A.RO_SPLIT_STATUS,A.SO_NO,A.VER,A.IS_MAINTAIN,A.IS_LARGESS_MAINTAIN,C.SALES_DATE,A.IS_QS, A.SCHEME_STATUS ");
+		sql.append(" FROM TT_REPAIR_ORDER A LEFT JOIN TT_SALES_PART B ON A.dealer_code=B.dealer_code AND A.RO_NO=B.RO_NO ");
+		sql.append("  LEFT JOIN tm_user tms ON tms.employee_no = A.SERVICE_ADVISOR ");
+		sql.append("  LEFT JOIN tm_user tmD ON tmD.employee_no = A.LOCK_USER ");
+		sql.append(" LEFT JOIN TM_VEHICLE C ON A.dealer_code = C.dealer_code AND A.VIN = C.VIN WHERE A.dealer_code ='"+dealerCode+"' ");
+		sql.append( " AND A.D_KEY="+ CommonConstants.D_KEY + " ");
+		String roNo = queryParam.get("roNo");
+		String license = queryParam.get("license");
+		String vin = queryParam.get("vin");
+		String ownerName = queryParam.get("ownerName");
+		String serviceAdvisor = queryParam.get("serviceAdvisor");
+		
+		sql.append(Utility.getLikeCond("A", "LICENSE", license, "AND"));
+		sql.append(Utility.getLikeCond("A", "VIN", vin, "AND"));
+		if (roNo != null && !"".equals(roNo.trim())) {
+			sql.append(" AND ( A.RO_NO LIKE '%" + roNo + "%'   or  A.LICENSE LIKE '%" + roNo + "%' ) ");
+		}
+		sql.append(Utility.getLikeCond("A", "OWNER_NAME", ownerName, "AND"));
+		if (serviceAdvisor != null && serviceAdvisor.trim().length() > 0)
+		{
+			sql.append(" and A.SERVICE_ADVISOR = '" + serviceAdvisor + "' ");
+		}
+		List<Object> params = new ArrayList<Object>();
+		PageInfoDto pageInfoDto = DAOUtil.pageQuery(sql.toString(), params);
+		return pageInfoDto;
+		
+		
+	}
+
+	@Override
+	public List<Map> checkIsHaveAduitingOrder(Map param) {
+		String sql = " select * from TT_THREEPACK_REPAIR_DCS where audit_status=40431004 ";
+		List<Map> findAll = Base.findAll(sql);
+		String thr = null;
+		if(CommonUtils.isNullOrEmpty(findAll)){
+			thr = "12781002";
+		}else{
+			thr = "12781001";
+		}
+		if("12781001".equals(thr)){
+			if(!StringUtils.isNullOrEmpty(param.get("vin"))){
+				sql = " select * from TT_THREEPACK_REPAIR where audit_status=40431004 and vin= ?";
+				findAll = Base.findAll(sql, param.get("vin"));
+			}
+		}
+		return findAll;
 	}
 }

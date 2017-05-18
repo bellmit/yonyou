@@ -17,7 +17,46 @@
 							</div>
 						</div>
 					</div>
-					<input id="tjport" name="tjport" hidden="true">
+					<div class="col-xs-12 col-sm-6 col-md-4 hidden" >
+						<div class="form-group">
+							<label class="control-label col-xs-4"></label>
+							<div class="col-xs-8">
+								T<input type="text" class="form-control" id="tjport" name="tjport"  data-fieldName="">
+							
+								
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 hidden" >
+						<div class="form-group">
+							<label class="control-label col-xs-4"></label>
+							<div class="col-xs-8">
+								T<input type="text" class="form-control" id="vpc_portt" name="vpc_portt"  data-fieldName="">
+							
+								
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4  hidden" >
+						<div class="form-group">
+							<label class="control-label col-xs-4"></label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="shport" name="shport"  data-fieldName="">
+							
+								
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 hidden " >
+						<div class="form-group">
+							<label class="control-label col-xs-4"></label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="vpc_ports" name="vpc_ports"  data-fieldName="">
+							
+								
+							</div>
+						</div>
+					</div>
 					<input id="id" name="id"  data-fieldName="ID" type="hidden" >
 				<div class="col-xs-12 col-sm-6 col-md-4">
 						<div class="form-group">
@@ -32,12 +71,11 @@
 							</div>
 						</div>
 					</div>
-					<input id="shport" name="shport" hidden="true">
 					<div class="col-xs-12 col-sm-6 col-md-4">
 						<div class="form-group">
 							<label class="control-label col-xs-4">港口优先级(上海)</label>
 							<div class="col-xs-8">
-								<select id="portLevelSH" name="portLevelSH"
+								<select id="portLevelSH" name="portLevelSH" disabled="true"
 									class="bs-select form-control" data-type="oemDict"
 									data-dictCode="1393" data-excludeItems="13931001,13931002" data-fieldName="SH_PORT_LEVEL"></select>
 
@@ -62,37 +100,47 @@
 
     	//绑定onchange 事件
 		$("#portLevelTJ",container).bindChange(function(obj){
-			var s=obj.value;
+			var s=$("#portLevelTJ").val();
+			//alert(s);
 			if(s==13931001){
 				$("#portLevelSH",container).setDmsValue("13931004");
-				$("#shport",container).setDmsValue("13921001");
-				$("#tjport",container).setDmsValue("13921002");
+				$("#tjport",container).setDmsValue("1");
+				$("#shport",container).setDmsValue("2");
+				
+				$("#vpc_ports",container).setDmsValue("13921002");
+				$("#vpc_portt",container).setDmsValue("13921001");
+				
 			}
 			if(s==13931002){
 				$("#portLevelSH",container).setDmsValue("13931003");
-				$("#shport",container).setDmsValue("13921002");
-				$("#tjport",container).setDmsValue("13921001");
+				$("#shport",container).setDmsValue('1');
+				$("#tjport",container).setDmsValue('2');
+				
+				$("#vpc_ports",container).setDmsValue("13921002");
+				$("#vpc_portt",container).setDmsValue("13921001");
 				
 			}
 		
 			
 		});
     	//绑定onchange 事件
-		$("#portLevelSH",container).bindChange(function(obj){
-			var s1=obj.value;
-			if(s1==13931004){
-				$("#portLevelTJ",container).setDmsValue("13931001");
-				$("#shport",container).setDmsValue("13921002");
-				$("#tjport",container).setDmsValue("13921001");
-			}
-			if(s1==13931003){
-				$("#portLevelTJ",container).setDmsValue("13931002");
-				$("#shport",container).setDmsValue("13921001");
-				$("#tjport",container).setDmsValue("13921002");
-			}
+// 		$("#portLevelSH",container).bindChange(function(obj){
+// 			//var s1=obj.value;
+// 			var s1=$("#portLevelSH").val();
+// 			if(s1==13931004){
+// 				///alert(11);
+// 				$("#portLevelTJ",container).setDmsValue("13931001");
+// 				$("#shport",container).setDmsValue(2);
+// 				$("#tjport",container).setDmsValue(1);
+// 			}
+// 			if(s1==13931003){
+// 				$("#portLevelTJ",container).setDmsValue("13931002");
+// 				$("#shport",container).setDmsValue(1);
+// 				$("#tjport",container).setDmsValue(2);
+// 			}
 		
 			
-		});
+// 		});
 		
 
 		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){

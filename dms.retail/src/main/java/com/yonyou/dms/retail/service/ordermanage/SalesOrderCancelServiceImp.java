@@ -90,10 +90,10 @@ public class SalesOrderCancelServiceImp implements SalesOrderCancelService {
         sql.append(" A.CONTACTOR_NAME,A.MOBILE,A.PHONE,A.CONTRACT_NO,A.CONTRACT_DATE,A.CT_CODE,A.CERTIFICATE_NO");
         sql.append(" FROM TT_SALES_ORDER A  ");
         sql.append(" LEFT JOIN ("+CommonConstants.VM_VS_PRODUCT+") B ON A.PRODUCT_CODE = B.PRODUCT_CODE AND A.DEALER_CODE =B.DEALER_CODE AND A.D_KEY=B.D_KEY left join TM_USER em  on A.SOLD_BY=em.USER_ID AND A.DEALER_CODE =em.DEALER_CODE ");
-        sql.append(" left  join   tm_configuration pa   on   B.CONFIG_CODE=pa.CONFIG_CODE and B.DEALER_CODE=pa.DEALER_CODE");
-        sql.append(" left  join   TM_MODEL   mo   on   B.MODEL_CODE=mo.MODEL_CODE and B.DEALER_CODE=mo.DEALER_CODE");
-        sql.append(" left  join   TM_SERIES  se   on   B.SERIES_CODE=se.SERIES_CODE and B.DEALER_CODE=se.DEALER_CODE");
         sql.append(" left  join   tm_brand   br   on   B.BRAND_CODE = br.BRAND_CODE and B.DEALER_CODE=br.DEALER_CODE");
+        sql.append(" left  join   TM_SERIES  se   on   B.SERIES_CODE=se.SERIES_CODE and br.BRAND_CODE=se.BRAND_CODE and B.DEALER_CODE=se.DEALER_CODE");
+        sql.append(" left  join   TM_MODEL   mo   on   B.MODEL_CODE=mo.MODEL_CODE and se.BRAND_CODE=mo.BRAND_CODE and mo.SERIES_CODE=se.SERIES_CODE and B.DEALER_CODE=mo.DEALER_CODE");
+        sql.append(" left  join   tm_configuration pa   on   B.CONFIG_CODE=pa.CONFIG_CODE and mo.MODEL_CODE=pa.MODEL_CODE and mo.SERIES_CODE=pa.SERIES_CODE and mo.BRAND_CODE=pa.BRAND_CODE and B.DEALER_CODE=pa.DEALER_CODE");
         sql.append(" left  join   tm_color   co   on   B.COLOR_CODE = co.COLOR_CODE and B.DEALER_CODE=co.DEALER_CODE");
         sql.append(" WHERE A.SO_STATUS != "
                 + DictCodeConstants.DICT_SO_STATUS_HAVE_UNTREAD//已退回

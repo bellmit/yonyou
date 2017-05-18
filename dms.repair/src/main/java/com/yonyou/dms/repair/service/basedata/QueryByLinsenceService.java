@@ -56,4 +56,8 @@ public interface QueryByLinsenceService {
 	public List<Map> queryOEMTAG(String vin) throws ServiceBizException;//根据条件查询车辆库存信息
 
 	public String queryLabourCode(Map<String, String> queryParam) throws ServiceBizException;//查询维修项目是否符合保存要求
+	
+	public PageInfoDto searchRepairOrder(Map<String, String> queryParam) throws ServiceBizException;// 查询工单信息
+
+	public List<Map> checkIsHaveAduitingOrder(Map param);
 }

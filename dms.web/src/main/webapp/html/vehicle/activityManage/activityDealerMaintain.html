@@ -6,7 +6,7 @@
 				
 					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 						<div class="form-group">
-							<label class="control-label col-xs-4 ">活动系统编号</label>
+							<label class="control-label col-xs-4 ">活动系统代码</label>
 							<div class="col-xs-8">
 								
 									<input type="text" class="form-control" id="activityCode" name="activityCode">
@@ -102,11 +102,14 @@
 				return row.NAME;
 			},
 			columns : [ 
-			    {field : "ACTIVITY_ID",title : "操作",inputField:"activityId", operateFormat : [
-                       {type:"edit",url:"vehicle/activityManage/activityDealerEdit.html",openWidth:"modal-lg",doubleClick:true,isShow:function(value, row, index){                 	  
+			    {field : "ACTIVITY_ID",title : "操作",inputField:"activityId", operateFormat : [   
+                       {type:"edit", title:"维护", url:"vehicle/activityManage/activityDealerEdit.html",openWidth:"modal-lg",doubleClick:true,isShow:function(value, row, index){                 	  
                     		   return true;              	 
-                       },attr:'data-validateUrl="" data-validateMethod="" data-validateModel=""'} //默认不支持双击操作
-            
+                       }},
+                       {type:"detail", title:"明细", url:"vehicle/activityManage/activityIssueQueryDetail.html",openWidth:"modal-lg",doubleClick:true,isShow:function(value, row, index){                 	  
+                		   return true;              	 
+                   }}
+                      
                    ]
                 },  
 			    {field : "ACTIVITY_CODE",title : "活动系统代码"},

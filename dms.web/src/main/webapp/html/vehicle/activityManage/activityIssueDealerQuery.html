@@ -1,4 +1,4 @@
-<div class="dms-edit ajaxrest" >
+<div class="dms-search" >
 	<form class="form-horizontal">
 		<div class="modal-header">
 			<div class="modal-title">经销商维护</div>
@@ -21,7 +21,7 @@
 										data-fieldName="dealer_code" /> <span
 											class="input-group-btn" >
 											<button class="btn default btn-sm" type="button"
-												data-url="manage/basedata/dealers/searchDealers.html"
+												data-url="manage/basedata/dealers/searchAfterDealers.html"
 												data-toggle="modal" data-width="modal-lg">
 												<i class="fa fa-list-alt"></i>
 											</button>
@@ -36,59 +36,45 @@
 					
 					<div class="col-xs-12 col-sm-6 col-md-4 ">
 						<div class="form-group">
-							<label class="control-label col-xs-4 ">经销商简称：</label>
-							<div class="col-xs-8">
-								<div class="input-group">
+							<label class="control-label col-xs-4 ">经销商简称</label>
+							<div class="col-xs-8">								
 									<input type="text" class="form-control" id="dealerName" name="dealerName">
-									<span class="input-group-btn">
-	                                         <button class="btn default input-clear" type="button">
-	                                            <i class="fa fa-close"></i>
-	                                        </button>
-	                                 </span>
+									
 	                                  <!-- 隐藏域 -->
 	                                 <input id="groupIds" name="groupIds"   class="form-control required "  type="hidden" />
-                                 </div>
+                                
 							</div>
 						</div>
 					</div>					
 																
-					</div>				
+					</div>	
+					
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
+								class="fa fa-search" ></i> 查询
+							</a> 
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置
+							</a>
+						</div>
+					</div>
+				</div>
+					
+					
+								
 			</div>
 		</div>		
 		
-		<div class="modal-body">
-			<div class="panel panel-default">	    		
-					<div class="row">
-					<div class="col-xs-12 ">
-						<div class="query-btn">
-							<div class="modal-footer center-block">
-								<a href="javascript:;" class="btn blue" data-onclickEvent="true"> <i
-									class="fa fa-search" ></i> 查询
-								</a> 
-							<!-- 	<a href="javascript:;" class="btn blue"><i
-									class="fa fa-undo"></i> 重置
-								</a> -->
-							</div>
-						</div>
-					</div>											
-					</div>				
-			</div>
-		</div>
+		
 
 
 	<div class="panel panel-default table-panel">
 			<div class="panel-heading">
-				<div class="pannel-name" >用户信息列表</div>
+				<div class="pannel-name" >经销商列表</div>
 				<div class="pannel-button">
-						<div class="btn-group btn-group-sm">
-
-							<!-- <a class="btn btn-outline" data-url="vehicle/activityManage/activityDealerAdd.html" data-width="modal-lg"
-								data-toggle="modal"> <i class="fa fa-plus-square"></i> 新增
-							</a> 
-							<a href="javascript:;" class="btn btn-outline" data-url="/activityDealerMaintain/dealerDelete" data-model="vehicle" data-method="PUT"
-								data-toggle="confirmation" data-callBack="true" data-beforeRequest="true"> <i
-								class="fa fa-print" ></i>批量删除
-							</a> -->
+						<div class="btn-group btn-group-sm">							
 						</div>
 				</div>
 		</div>
@@ -120,13 +106,14 @@
 			//detailView : true, //当需要显示明细时，打开此开关，否则不需要写
 			sortName : "DEALER_CODE", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
 			sortOrder : "desc",
+			autoHeight:false,
 			//isQueryFirst:false,   
 			mergeTotal:{
 				megerCellNumber:5,
 				megerCellName:"合计"
 			},
 			columns : [ 
-				{checkbox:true,sortable : false}, 
+				//{checkbox:true,sortable : false}, 
 			    {field : "DEALER_CODE",title : "经销商编码"},
 				{field : "DEALER_SHORTNAME",title : "经销商简称"} 
 

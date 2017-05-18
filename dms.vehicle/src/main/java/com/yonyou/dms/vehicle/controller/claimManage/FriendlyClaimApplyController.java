@@ -367,6 +367,19 @@ public class FriendlyClaimApplyController {
 	fcaService.deleteClaimInfo(claimId);      
 	} 
 	
+	/**
+	 * 查询车辆详细信息
+	 * @param vin
+	 * @return
+	 */
+	@RequestMapping(value = "/showVehicle/{VIN}", method = RequestMethod.GET)
+    @ResponseBody
+    public Map showVehicleInfo(@PathVariable(value = "VIN") String vin) {
+		logger.info("============善意索赔申请   车辆详细信息  04===============");
+		Map map = fcaService.queryShowVehicleInfo(vin); 
+        return map;
+    }
+	
 }
 
 

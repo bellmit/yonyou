@@ -63,6 +63,15 @@ public class QueryByLinsenceController extends BaseController{
 		else return null;
 	}
 	
+	@SuppressWarnings({ "rawtypes" })
+	@RequestMapping(value="/license3",method = RequestMethod.GET)
+	@ResponseBody
+	public List<Map> queryByLinsence3(@RequestParam Map<String, String> queryParam) throws ServiceBizException {
+		List<Map> list = queryByLinsenceService.queryByLinsence2(queryParam);
+		if(list.size()>0) return list;
+		else return null;
+	}
+	
 	@RequestMapping(value="/owner",method = RequestMethod.GET)
 	@ResponseBody
 	public PageInfoDto QueryOwnerByNoOrSpell(@RequestParam Map<String, String> queryParam) throws ServiceBizException {
@@ -183,4 +192,11 @@ public class QueryByLinsenceController extends BaseController{
    	public String queryLabourCode(@RequestParam Map<String, String> queryParam) {
    		return queryByLinsenceService.queryLabourCode(queryParam);
    	}
+   	
+   	@RequestMapping(value = "/searchRepairOrder",method = RequestMethod.GET)
+	@ResponseBody
+	public PageInfoDto searchRepairOrder(@RequestParam Map<String, String> queryParam) throws ServiceBizException {
+		PageInfoDto pageInfoDto = queryByLinsenceService.searchRepairOrder(queryParam);
+		return pageInfoDto;
+	}
 }

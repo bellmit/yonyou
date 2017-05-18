@@ -38,6 +38,7 @@ import com.yonyou.dms.function.domains.DTO.ImportResultDto;
 import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.io.IOUtils;
 import com.yonyou.dms.vehicle.domains.DTO.afterSales.basicDataMgr.TtPartGroupLevelSetTempDTO;
+import com.yonyou.dms.vehicle.domains.DTO.afterSales.workWeek.TmpWeekDTO;
 import com.yonyou.dms.vehicle.domains.DTO.threePack.ForecastImportDto;
 import com.yonyou.dms.vehicle.service.afterSales.basicDataMgr.PartGroupLevelSetService;
 import com.yonyou.f4.mvc.annotation.TxnConn;
@@ -116,7 +117,7 @@ public class PartGroupLevelSetController {
 			logger.info("============配件分组级别设定（查询待插入数据） ===============");
 			// 确认后查询待插入的数据
 			
-			List<Map> list = partGroupLevelSetService.findTmpPartGroupLevelSetList(queryParam);
+			List<Map> list = partGroupLevelSetService.findTmpPartGroupLevelSetList();
 			return list;
 		}
 	
@@ -143,36 +144,33 @@ public class PartGroupLevelSetController {
      */
     @RequestMapping(value = "/excelOperate", method = RequestMethod.POST)
  	@ResponseBody
-    public ArrayList<TtPartGroupLevelSetTempDTO> importforecastAudit(@RequestParam final Map<String,String> queryParam,@RequestParam(value = "file") MultipartFile importFile,ForecastImportDto forecastImportDto, UriComponentsBuilder uriCB) throws Exception {
+ 	public List<TtPartGroupLevelSetTempDTO>  recallActivityExcelOperate(@RequestParam final Map<String, String> queryParam,
+ 			@RequestParam(value = "file") MultipartFile importFile, TtPartGroupLevelSetTempDTO raiDto,
+ 			UriComponentsBuilder uriCB) throws Exception {
  		logger.info("============配件分组级别设定(导入临时表)===============");
-         // 解析Excel 表格(如果需要进行回调)
-         ImportResultDto<TtPartGroupLevelSetTempDTO> importResult = excelReadService.analyzeExcelFirstSheet(importFile,
-        		 new AbstractExcelReadCallBack<TtPartGroupLevelSetTempDTO>(TtPartGroupLevelSetTempDTO.class,new ExcelReadCallBack<TtPartGroupLevelSetTempDTO>() {
-             @Override
-             public void readRowCallBack(TtPartGroupLevelSetTempDTO rowDto, boolean isValidateSucess) {
-                 try{
-                     // 只有全部是成功的情况下，才执行数据库保存
-                     if(isValidateSucess){
-                     	ImportResultDto<TtPartGroupLevelSetTempDTO> importResultList =
-                     			partGroupLevelSetService.checkData(rowDto);
-                     	if(importResultList != null){
-                    		throw new ServiceBizException("导入出错,请见错误列表",importResultList.getErrorList()) ;
-                    	}else{
-                    		partGroupLevelSetService.insertTmpRecallVehicleDcs(rowDto);
-                    	}
-                     }
-                 }catch(Exception e){
-                	 throw new ServiceBizException(e) ;
-                 }
-             }
-         }));
-         logger.debug("param:" + forecastImportDto.getFileParam());
-         if(importResult.isSucess()){
-             return importResult.getDataList();
-         }else{
-             throw new ServiceBizException("导入出错,请见错误列表",importResult.getErrorList()) ;
-         }
-     }
+ 		// 解析Excel 表格(如果需要进行回调)
+ 		ImportResultDto<TtPartGroupLevelSetTempDTO> importResult = excelReadService.analyzeExcelFirstSheet(importFile,
+ 				new AbstractExcelReadCallBack<TtPartGroupLevelSetTempDTO>(TtPartGroupLevelSetTempDTO.class));
+ 		ArrayList<TtPartGroupLevelSetTempDTO> dataList = importResult.getDataList();
+ 		
+ 		ArrayList<TtPartGroupLevelSetTempDTO> list = new ArrayList<>();
+ 		//清空临时表中的数据
+ 		partGroupLevelSetService.deleteTmpRecallVehicleDcs();
+ 		
+ 		for (TtPartGroupLevelSetTempDTO rowDto : dataList) {
+ 			// 只有全部是成功的情况下，才执行数据库保存
+ 			partGroupLevelSetService.saveTmpRecallVehicleDcs(rowDto);
+ 		}
+ 		List<TtPartGroupLevelSetTempDTO>  dto =partGroupLevelSetService.checkData();
+ 		if (!dto.isEmpty()) {
+ 			list.addAll(dto);
+ 		}
+ 		if (list != null && !list.isEmpty()) {
+ 			throw new ServiceBizException("导入出错,请见错误列表", list);
+ 		}
+ 		
+ 		return null;
+ 	}
 	
 	
 }

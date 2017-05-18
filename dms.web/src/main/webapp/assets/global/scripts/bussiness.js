@@ -88,6 +88,67 @@ var dmsPart = function() {
 		}
 	};
 
+	//刷新移库页面的按钮
+	var fushPageBtn = function(type,container){
+		switch(type){
+			case "init":
+			$("#addBtn",container).removeAttr("disabled");
+			$(".transferNo",container).removeAttr("disabled");
+			$(".transferDate",container).removeAttr("disabled");
+			break;
+			case "addBtn":
+			$("#saveBtn",container).removeAttr("disabled");
+			$("#batchPartBtn",container).removeAttr("disabled");
+			$("#cancelBtn",container).removeAttr("disabled");
+			$("#addPartBtn",container).removeAttr("disabled");
+			$("#transferNo",container).val("");
+			break;
+			case "cancelBtn":
+			$(".transferNo",container).removeAttr("disabled");
+			$(".transferDate",container).removeAttr("disabled");
+			$("#addBtn",container).removeAttr("disabled");
+			$("#batchSign",container).val("");
+			break;
+			case "searchBtn":
+				$("#outStorgeBtn",container).removeAttr("disabled");
+				$("#addPartBtn",container).removeAttr("disabled");
+				$("#batchPartBtn",container).removeAttr("disabled");
+				$("#saveBtn",container).removeAttr("disabled");
+				$("#cancelBtn",container).removeAttr("disabled");
+				$("#cancellationBtn",container).removeAttr("disabled");
+			break;
+			case "batchBtn":
+				$("#batchPartBtn",container).attr("disabled","true");
+				$("#addPartBtn",container).attr("disabled","true");
+				break;
+			case "saveBtn":
+				$("#outStorgeBtn",container).removeAttr("disabled");
+				$("#cancelBtn",container).removeAttr("disabled");
+				$("#saveBtn",container).removeAttr("disabled");
+				$("#addPartBtn",container).removeAttr("disabled");
+				$("#cancellationBtn",container).removeAttr("disabled");
+				break;
+			case "outStorageBtn":
+				$("#addBtn",container).removeAttr("disabled");
+				$("#cancelBtn",container).removeAttr("disabled");
+				$("#printBtn",container).removeAttr("disabled");
+				break;
+			case "resetType":
+				$(".transferNo",container).attr("disabled","true");
+				$(".transferDate",container).attr("disabled","true");
+				$("#addBtn",container).attr("disabled","true");
+				$("#outStorgeBtn",container).attr("disabled","true");
+				$("#addPartBtn",container).attr("disabled","true");
+				$("#saveBtn",container).attr("disabled","true");
+				$("#cancelBtn",container).attr("disabled","true");
+				$("#cancellationBtn",container).attr("disabled","true");
+				$("#printBtn",container).attr("disabled","true");
+				$("#batchPartBtn",container).attr("disabled","true");
+				$("#delJsonStr",container).val("");
+				break;
+		}
+	}
+
 	var removeElementsReadOnly = function(container, filterFunction) {
 		// 文本输入框
 		var inputArray = $(
@@ -150,7 +211,11 @@ var dmsPart = function() {
 		},
 		removeElementsReadOnly : function(container, filterFunction) {
 			return removeElementsReadOnly(container, filterFunction);
-		}
+		},
+		fushPageBtn:function(type,container){
+					return fushPageBtn(type,container);
+				}
+
 
 	};
 }();
@@ -269,7 +334,7 @@ var dmsRepair = function() {
 				"id", "name");
 	}
 
-	var CheckRepairLabourCodeList = function(repairLabourCode, repairPart) {
+	var CheckRepairLabourCodeList = function(repairLabourCode, repairItem, repairPart) {
 		$.each(repairItem,
 				function(i, j) {
 					if (!isStringNull(j.LABOUR_CODE)
@@ -320,7 +385,7 @@ var dmsRepair = function() {
 					.getRowDataByIndex();
 			var repairLabourCode = [];
 			checkClaimOrder(container, returnResult, repairItem);
-			CheckRepairLabourCodeList(repairLabourCode, repairPart);
+			CheckRepairLabourCodeList(repairLabourCode, repairItem, repairPart);
 			if ($("#ownerNo", container).val() == "888888888888") {
 				if ($("#repairType", container).val() != "SQWX") {
 					dmsCommon.tip({
@@ -641,8 +706,8 @@ var dmsRepair = function() {
 				},
 				errorCallBack : function(data) {
 					dmsCommon.tip({
-						status : "warning",
-						msg : data
+						status : "error",
+						msg : "查询失败!"
 					});
 					returnResult.status = false;
 				}
@@ -660,8 +725,6 @@ var dmsRepair = function() {
 
 	// 工单号回车事件
 	var roNoKeyUp = function(obj, container) {
-		$("#roNo", getParentModal(container)).setDmsValue(
-				$("#roNo", container).val());
 		$("#openRoNo", container).click();
 	}
 
@@ -669,6 +732,7 @@ var dmsRepair = function() {
 	// VIN号直接回车，只有是新建车辆的时候VIN号才可以编辑，其他时候都是点击？选择VIN号。
 	// 回车的时候执行DE，去OEM查询车辆信息。
 	var vinKeyUp = function(obj, container) {
+		alert(1)
 		if (isStringNull($("#vin", container).attr("disabled"))
 				|| $("#vin", container).attr("disabled") != "disabled") {
 			// 从本地查找车辆信息。如果没有通过DE调用OEM的车辆信息。
@@ -686,10 +750,10 @@ var dmsRepair = function() {
 						SetVehicleInfo(data, false, true, false);
 					}
 				},
-				errorCallBack : function(data) {
+				errorCallBack : function() {
 					dmsCommon.tip({
-						status : "warning",
-						msg : data
+						status : "error",
+						msg : "查询失败!"
 					});
 				}
 			});
@@ -711,8 +775,8 @@ var dmsRepair = function() {
 			},
 			errorCallBack : function(data) {
 				dmsCommon.tip({
-					status : "warning",
-					msg : data
+					status : "error",
+					msg : "查询失败!"
 				});
 			}
 		});
@@ -736,8 +800,8 @@ var dmsRepair = function() {
 			},
 			errorCallBack : function(data) {
 				dmsCommon.tip({
-					status : "warning",
-					msg : data
+					status : "error",
+					msg : "查询失败!"
 				});
 				returnResult.status = false;
 			}
@@ -962,8 +1026,8 @@ var dmsRepair = function() {
 			},
 			errorCallBack : function(data) {
 				dmsCommon.tip({
-					status : "warning",
-					msg : data
+					status : "error",
+					msg : "查询失败!"
 				});
 				returnResult.status = false;
 			}
@@ -1552,74 +1616,227 @@ var dmsRepair = function() {
 		dmsCommon
 				.ajaxRestRequest({
 					url : dmsCommon.getDmsPath()['repair']
-							+ "/basedata/queryByLinsence/license2",
+							+ "/basedata/queryByLinsence/license3",
 					data : {
 						'license' : $("#license", container).val()
 					},
-					sucessCallBack : function(data) {
-						debugger
-						var roType = $("#roType", container).val();// 工单类型
-						/*
-						 * var FTempMILEAGE =
-						 * $("#inMileage",getElementContext()).val();
-						 */
-						// 车主不是4S站 在本店库存表里能找到，没有做过购车费用开票 则不能做维修开单
-						console.log(data);
-						if (!isStringNull(data.OWNER_NO)
-								&& data.OWNER_NO != '888888888888'
-								&& data.OWNER_NO != '999999999999'
-								&& !isStringNull(data.VIN)
-								&& CheckVehicleInvoice(data.VIN)) {
-							dmsCommon.tip({
-								status : "warning",
-								msg : "此车辆还没有做实销上报，不能开工单！"
-							});
-							return;
-						} else if (!isStringNull(data.VIN)
-								&& CheckIsHaveAduitingOrder(data.VIN)) {
-							dmsCommon.tip({
-								status : "warning",
-								msg : "此车辆已存在“待审核”的索赔工单，不能再开索赔工单！"
-							});
-							if (parseInt(roType) == 12531004) {// 表示索赔工单类型
+					async : false,
+					sucessCallBack : function(datas) {
+						if(datas.length<=1){
+							var data = {};
+							if(datas.length==1){
+								data = datas[0];
+							}
+							var roType = $("#roType", container).val();// 工单类型
+							/*
+							 * var FTempMILEAGE =
+							 * $("#inMileage",getElementContext()).val();
+							 */
+							// 车主不是4S站 在本店库存表里能找到，没有做过购车费用开票 则不能做维修开单
+							console.log(data);
+							if (!isStringNull(data.OWNER_NO)
+									&& data.OWNER_NO != '888888888888'
+									&& data.OWNER_NO != '999999999999'
+									&& !isStringNull(data.VIN)
+									&& CheckVehicleInvoice(data.VIN)) {
+								dmsCommon.tip({
+									status : "warning",
+									msg : "此车辆还没有做实销上报，不能开工单！"
+								});
 								return;
 							}
-						}
-						if (parseInt($("#isNewVehicle", container).val()) == 1) {// 表示从VIN页面点击新增的车辆
-							// 新建车辆也需要查看监控信息：车辆监控、预约单等信息 根据车牌号查询
-							// 打开监控信息页面 if not MonitorVehicleRemind(fcdsVehicle)
-							// then 3528
-						}
-						if (data.length > 0) {// 表示能查到数据
-							$("#isLoadVehicle", container).setDmsValue("true");
-							// 设置该车的换表里程和累计换表里程，方便计算
-							var FChangeMileage = 0;
-							var FToTalChangeMileage = data.TOTAL_CHANGE_MILEAGE;
-							var fLastMaintenancedate = data.LAST_MAINTENANCE_DATE;
-							var fLastRepairDate = data.LAST_MAINTAIN_DATE;
-							var fLastRepairMileage = data.LAST_MAINTAIN_MILEAGE;
-							var flastMaintenanceMileage = data.LAST_MAINTENANCE_MILEAGE;
-							var fModifySaledate = false;
-							if (parseInt(data.IS_SELF_COMPANY) == 12781001
-									&& data.SALES_DATE != null
-									&& data.SALES_DATE != '') {
-								fModifySaledate = true;
+							if (!isStringNull(data.VIN)
+									&& CheckIsHaveAduitingOrder(data.VIN)) {
+								dmsCommon.tip({
+									status : "warning",
+									msg : "此车辆已存在“待审核”的索赔工单，不能再开索赔工单！"
+								});
+								if (parseInt(roType) == 12531004) {// 表示索赔工单类型
+									return;
+								}
 							}
-							// 选择VIN号后，
-							// 如果车牌号不为空 而且不是新建的车辆，那么去查询是否存在该车辆的在修工单。
-							var aVinTmp = data.VIN;
-							if (!isStringNull(aVinTmp)) {
-								if (QueryROByLicense(aVinTmp)) {
-									// 如果存在在修车辆，提示“此车牌存在在修车辆，是否继续新建工单？”
+							if (parseInt($("#FIsNewVehicle", container).val()) == 1) {// 表示从VIN页面点击新增的车辆
+								// 新建车辆也需要查看监控信息：车辆监控、预约单等信息 根据车牌号查询
+								// 打开监控信息页面 if not MonitorVehicleRemind(fcdsVehicle)
+								// then 3528
+							}
+							if (datas.length > 0) {// 表示能查到数据
+								$("#FIsLoadVehicle", container).setDmsValue("true");
+								// 设置该车的换表里程和累计换表里程，方便计算
+								var FChangeMileage = 0;
+								var FToTalChangeMileage = data.TOTAL_CHANGE_MILEAGE;
+								var fLastMaintenancedate = data.LAST_MAINTENANCE_DATE;
+								var fLastRepairDate = data.LAST_MAINTAIN_DATE;
+								var fLastRepairMileage = data.LAST_MAINTAIN_MILEAGE;
+								var flastMaintenanceMileage = data.LAST_MAINTENANCE_MILEAGE;
+								var fModifySaledate = false;
+								if (parseInt(nullToZero(data.IS_SELF_COMPANY)) == 12781001
+										&& data.SALES_DATE != null
+										&& data.SALES_DATE != '') {
+									fModifySaledate = true;
+								}
+								// 选择VIN号后，
+								// 如果车牌号不为空 而且不是新建的车辆，那么去查询是否存在该车辆的在修工单。
+								var aVinTmp = data.VIN;
+								if (!isStringNull(aVinTmp)) {
+									if (QueryROByLicense(aVinTmp)) {
+										// 如果存在在修车辆，提示“此车牌存在在修车辆，是否继续新建工单？”
+										obj
+												.confirm(
+														'重复的维修组合选择，是否继续新增？',
+														function(confirmObj) {
+															SetVehicleInfo(data,
+																	false, false,
+																	false);
+															// 根据车牌号查询工单的监控信息。
+															if (datas.length > 0) {
+																if (!isStringNull(data.TRACE_TIME)) {
+																	$("#traceTime",
+																			container)
+																			.setDmsValue(
+																					data.TRACE_TIME);
+																} else if ($("#traceTime",container).attr("disabled")=='disabled'
+																		&& $(
+																				"#traceTime",
+																				container)
+																				.val() == "0") {
+																	$("#traceTime",
+																			container)
+																			.setDmsValue(
+																					11251004);
+																}
+															} else {
+																if ($("#traceTime",container).attr("disabled")=='disabled'
+																		&& $(
+																				"#traceTime",
+																				container)
+																				.val() == "0") {
+																	$("#traceTime",
+																			container)
+																			.setDmsValue(
+																					11251004);
+																}
+															}
+															var tt = dmsCommon
+																	.getSystemParamInfo(
+																			"1063",
+																			"1063");// 预交车时间为当前时间延迟xx小时
+															var ttt = parseFloat(tt) * 60 * 60 * 1000;
+															var tttt = Number(new Date()
+																	.getTime())
+																	+ Number(ttt);
+															$("#endTimeSupposed",
+																	container)
+																	.setDmsValue(
+																			dateByType(
+																					tttt,
+																					"1"));// 预交车时间
+															$("#calculate",
+																	container)
+																	.click();// 计算预计下次保修
+														}, function(confirmObj) {
+															return;
+														});
+									}
+								}
+							} else {// 表示没查到数据
+								// 针对跨店维修的车辆-召回活动，监控信息也要显示
+								var defaultValue = dmsCommon.getSystemParamInfo(
+										"3415", "3415");// 维修工单支持同步车主车辆
+								if (parseInt(defaultValue) == 12781001) {
 									obj
 											.confirm(
-													'重复的维修组合选择，是否继续新增？',
+													'该车辆信息不存在，是否需要同步总部信息?',
 													function(confirmObj) {
-														SetVehicleInfo(data,
-																false, false,
-																false);
-														// 根据车牌号查询工单的监控信息。
+														if (!isStringNull($(
+																"#license",
+																container).val())
+																&& $("#license",
+																		container)
+																		.val().length != 17) {
+															dmsCommon
+																	.tip({
+																		status : "error",
+																		msg : "请在车牌号一栏输入准确的17位VIN码，按回车键从总部获取该车主车辆信息！"
+																	});
+															return;
+														}
+														// SEDMS023
+														// 根据$("#license",container).val()
+														// 后台调用接口
+														dmsCommon
+																.ajaxRestRequest({
+																	url : dmsCommon
+																			.getDmsPath()['repair']
+																			+ "/order/repair/SEDMS023",
+																	data : {
+																		'license' : $(
+																				"#license",
+																				container)
+																				.val()
+																	},
+																	async : false,
+																	sucessCallBack : function(
+																			data2) {
+																		if (data2.length > 0) {
+																			$(
+																					"#FIsLoadVehicle",
+																					container)
+																					.setDmsValue(
+																							"true");
+																			$(
+																					"#lastMaintenancedate",
+																					container)
+																					.setDmsValue(
+																							data2.LAST_MAINTENANCE_DATE);
+																			$(
+																					"#toTalChangeMileage",
+																					container)
+																					.setDmsValue(
+																							data2.TOTAL_CHANGE_MILEAGE);
+																			$(
+																					"#lastRepairDate",
+																					container)
+																					.setDmsValue(
+																							data2.LAST_MAINTAIN_DATE);
+																			$(
+																					"#lastRepairMileage",
+																					container)
+																					.setDmsValue(
+																							data2.LAST_MAINTAIN_MILEAGE);
+																			$(
+																					"#lastMaintenanceMileage",
+																					container)
+																					.setDmsValue(
+																							data2.LAST_MAINTENANCE_MILEAGE);
+																			/*
+																			 * if(parseInt(data2.IS_SELF_COMPANY)==12781001&&!isStringNull(data2.SALES_DATE)){ }
+																			 */
+																			// 选择VIN号后，
+																			// 如果车牌号不为空
+																			// 而且不是新建的车辆，那么去查询是否存在该车辆的在修工单。
+																			if (!isStringNull(data2.VIN)) {
+																				// 如果该车有会员卡，则更换图标
+																				QueryMemberCardExist(data2.VIN)
 
+																				setVehicleInfo(
+																						data2,
+																						false,
+																						false,
+																						false);
+																				// 根据车牌号查询工单的监控信息。
+
+																			}
+																		} else {
+																			dmsCommon
+																					.tip({
+																						status : "warning",
+																						msg : "该VIN在总部不存在，请核对输入的17位VIN码是否正确！"
+																					});
+																			return;
+																		}
+																	}
+																});
 														if (data.length > 0) {
 															if (!isStringNull(data.TRACE_TIME)) {
 																$("#traceTime",
@@ -1669,217 +1886,68 @@ var dmsRepair = function() {
 																		dateByType(
 																				tttt,
 																				"1"));// 预交车时间
-														$("#calculate",
-																container)
+														$("#calculate", container)
 																.click();// 计算预计下次保修
-													}, function(confirmObj) {
-														return;
+													},
+													function(confirmObj) {
+														if (data.length > 0) {
+															if (!isStringNull(data.TRACE_TIME)) {
+																$("#traceTime",
+																		container)
+																		.setDmsValue(
+																				data.TRACE_TIME);
+															} else if ($(
+																	"#traceTime",
+																	container)
+																	.attr(
+																			"disabled")
+																	&& $(
+																			"#traceTime",
+																			container)
+																			.val() == "0") {
+																$("#traceTime",
+																		container)
+																		.setDmsValue(
+																				11251004);
+															}
+														} else {
+															if ($("#traceTime",
+																	container)
+																	.attr(
+																			"disabled")
+																	&& $(
+																			"#traceTime",
+																			container)
+																			.val() == "0") {
+																$("#traceTime",
+																		container)
+																		.setDmsValue(
+																				11251004);
+															}
+														}
+														var tt = dmsCommon
+																.getSystemParamInfo(
+																		"1063",
+																		"1063");// 预交车时间为当前时间延迟xx小时
+														var ttt = parseFloat(tt) * 60 * 60 * 1000;
+														var tttt = Number(new Date()
+																.getTime())
+																+ Number(ttt);
+														$("#endTimeSupposed",
+																container)
+																.setDmsValue(
+																		dateByType(
+																				tttt,
+																				"1"));// 预交车时间
+														$("#calculate", container)
+																.click();// 计算预计下次保修
 													});
 								}
 							}
-						} else {// 表示没查到数据
-							// 针对跨店维修的车辆-召回活动，监控信息也要显示
-							var defaultValue = dmsCommon.getSystemParamInfo(
-									"3415", "3415");// 维修工单支持同步车主车辆
-							if (parseInt(defaultValue) == 12781001) {
-								obj
-										.confirm(
-												'该车辆信息不存在，是否需要同步总部信息?',
-												function(confirmObj) {
-													if (!isStringNull($(
-															"#license",
-															container).val())
-															&& $("#license",
-																	container)
-																	.val().length != 17) {
-														dmsCommon
-																.tip({
-																	status : "error",
-																	msg : "请在车牌号一栏输入准确的17位VIN码，按回车键从总部获取该车主车辆信息！"
-																});
-														return;
-													}
-													// SEDMS023
-													// 根据$("#license",container).val()
-													// 后台调用接口
-													dmsCommon
-															.ajaxRestRequest({
-																url : dmsCommon
-																		.getDmsPath()['repair']
-																		+ "/order/repair/SEDMS023",
-																data : {
-																	'license' : $(
-																			"#license",
-																			container)
-																			.val()
-																},
-																sucessCallBack : function(
-																		data2) {
-																	if (data2.length > 0) {
-																		$(
-																				"#isLoadVehicle",
-																				container)
-																				.setDmsValue(
-																						"true");
-																		$(
-																				"#lastMaintenancedate",
-																				container)
-																				.setDmsValue(
-																						data2.LAST_MAINTENANCE_DATE);
-																		$(
-																				"#toTalChangeMileage",
-																				container)
-																				.setDmsValue(
-																						data2.TOTAL_CHANGE_MILEAGE);
-																		$(
-																				"#lastRepairDate",
-																				container)
-																				.setDmsValue(
-																						data2.LAST_MAINTAIN_DATE);
-																		$(
-																				"#lastRepairMileage",
-																				container)
-																				.setDmsValue(
-																						data2.LAST_MAINTAIN_MILEAGE);
-																		$(
-																				"#lastMaintenanceMileage",
-																				container)
-																				.setDmsValue(
-																						data2.LAST_MAINTENANCE_MILEAGE);
-																		/*
-																		 * if(parseInt(data2.IS_SELF_COMPANY)==12781001&&!isStringNull(data2.SALES_DATE)){ }
-																		 */
-																		// 选择VIN号后，
-																		// 如果车牌号不为空
-																		// 而且不是新建的车辆，那么去查询是否存在该车辆的在修工单。
-																		if (!isStringNull(data2.VIN)) {
-																			// 如果该车有会员卡，则更换图标
-																			QueryMemberCardExist(data2.VIN)
-
-																			setVehicleInfo(
-																					data2,
-																					false,
-																					false,
-																					false);
-																			// 根据车牌号查询工单的监控信息。
-
-																		}
-																	} else {
-																		dmsCommon
-																				.tip({
-																					status : "warning",
-																					msg : "该VIN在总部不存在，请核对输入的17位VIN码是否正确！"
-																				});
-																		return;
-																	}
-																}
-															});
-													if (data.length > 0) {
-														if (!isStringNull(data.TRACE_TIME)) {
-															$("#traceTime",
-																	container)
-																	.setDmsValue(
-																			data.TRACE_TIME);
-														} else if ($(
-																"#traceTime",
-																container)
-																.attr(
-																		"disabled")
-																&& $(
-																		"#traceTime",
-																		container)
-																		.val() == "0") {
-															$("#traceTime",
-																	container)
-																	.setDmsValue(
-																			11251004);
-														}
-													} else {
-														if ($("#traceTime",
-																container)
-																.attr(
-																		"disabled")
-																&& $(
-																		"#traceTime",
-																		container)
-																		.val() == "0") {
-															$("#traceTime",
-																	container)
-																	.setDmsValue(
-																			11251004);
-														}
-													}
-													var tt = dmsCommon
-															.getSystemParamInfo(
-																	"1063",
-																	"1063");// 预交车时间为当前时间延迟xx小时
-													var ttt = parseFloat(tt) * 60 * 60 * 1000;
-													var tttt = Number(new Date()
-															.getTime())
-															+ Number(ttt);
-													$("#endTimeSupposed",
-															container)
-															.setDmsValue(
-																	dateByType(
-																			tttt,
-																			"1"));// 预交车时间
-													$("#calculate", container)
-															.click();// 计算预计下次保修
-												},
-												function(confirmObj) {
-													if (data.length > 0) {
-														if (!isStringNull(data.TRACE_TIME)) {
-															$("#traceTime",
-																	container)
-																	.setDmsValue(
-																			data.TRACE_TIME);
-														} else if ($(
-																"#traceTime",
-																container)
-																.attr(
-																		"disabled")
-																&& $(
-																		"#traceTime",
-																		container)
-																		.val() == "0") {
-															$("#traceTime",
-																	container)
-																	.setDmsValue(
-																			11251004);
-														}
-													} else {
-														if ($("#traceTime",
-																container)
-																.attr(
-																		"disabled")
-																&& $(
-																		"#traceTime",
-																		container)
-																		.val() == "0") {
-															$("#traceTime",
-																	container)
-																	.setDmsValue(
-																			11251004);
-														}
-													}
-													var tt = dmsCommon
-															.getSystemParamInfo(
-																	"1063",
-																	"1063");// 预交车时间为当前时间延迟xx小时
-													var ttt = parseFloat(tt) * 60 * 60 * 1000;
-													var tttt = Number(new Date()
-															.getTime())
-															+ Number(ttt);
-													$("#endTimeSupposed",
-															container)
-															.setDmsValue(
-																	dateByType(
-																			tttt,
-																			"1"));// 预交车时间
-													$("#calculate", container)
-															.click();// 计算预计下次保修
-												});
-							}
+						
+						}else{
+							alert($("#license",container).val())
+							$("#licenseBtn",container).click();
 						}
 					}
 				});
@@ -1889,6 +1957,7 @@ var dmsRepair = function() {
 	 * 预计下次保养日期,下次保养里程计算相关方法
 	 */
 	var nextMaintain = function(container) {
+		debugger;
 		var index = dmsCommon.getSystemParamInfo("1123", "1123");// 前台开关查询
 		// 如果参数设置不计算则不处理.
 		if (parseInt(index) == 12781002) {
@@ -1902,13 +1971,14 @@ var dmsRepair = function() {
 			j = dmsCommon.getSystemParamInfo("1072", "1072");// 前台开关查询
 			// 日平均行驶里程
 			$("#averageMileage", container).val(0);
-			if ($("#isLoadVehicle", container).val() == 'true') {
+			if ($("#FIsLoadVehicle", container).val() == 'true') {
 				dmsCommon.ajaxRestRequest({
 					url : dmsCommon.getDmsPath()['repair']
 							+ "/order/repair/queryVehicleforactivity",
 					data : {
 						'vin' : $("#vin", container).val()
 					},
+					async : false,
 					sucessCallBack : function(data) {
 						$("#lastMaintenanceDate", container).val(
 								data.LAST_MAINTENANCE_DATE);
@@ -1938,7 +2008,9 @@ var dmsRepair = function() {
 				data : {
 					'partNo' : partNo.substr(0, partNo.length - 1)
 				},
+				async : false,
 				sucessCallBack : function(data) {
+					console.log(JSON.stringify(data))
 					if (data == '1') {
 						IsHaveMAINTAIN = true;
 					}
@@ -1956,95 +2028,75 @@ var dmsRepair = function() {
 					// 如果销售日期为空或销售日期+预计下次保养日期距本工单最长天数<当前日期就用当前日期作为上次保养日期
 					if (($("#salesDate", container).val() == "" || $(
 							"#salesDate", container).val() == null)
-							|| (Number($("#salesDate", container).val()) + parseInt(i) * 86400000) < sysdate
+							|| (Number(new Date($("#salesDate", container).val()).getTime()) + parseInt(i) * 86400000) < sysdate
 									.getTime()) {
 						$("#lastMaintainDate", container)
-								.val(sysdate.getTime());// 车辆表的上次保养日期;
-						$("#lastMaintenanceMileage", container).val(
+								.setDmsValue(sysdate.getTime());// 车辆表的上次保养日期;
+						$("#lastMaintenanceMileage", container).setDmsValue(
 								$("#outMileage", container).val());
 					} else {
-						$("#lastMaintainDate", container).val(
-								$("#salesDate", container).val());
+						$("#lastMaintainDate", container).setDmsValue(
+								new Date($("#salesDate", container).val()).getTime());
 					}
 				}
 			}
 			if (($("#averageMileage", container).val() == 0)
 					&& $("#lastMaintainDate", container).val() != ''
-					&& (sysdate.getTime() > Number($("#lastMaintainDate",
-							container).val()))) {
+					&& (sysdate.getTime() > Number(nullToZero($("#lastMaintainDate",container).val())))) {
 				// 没有日平均行程里程，用（出厂行驶里程－上次维修里程）/（当前日期－上次维修日期）
-				$("#averageMileage", container)
-						.val(
-								(parseInt($("#outMileage", container).val()) - parseInt($(
-										"#lastRepairMileage", container).val()))
-										/ (Number(sysdate.getTime()) - Number($(
-												"#lastMaintainDate", container)
-												.val())));
+				$("#averageMileage", container).setDmsValue((parseInt(nullToZero($("#outMileage", container).val())) - parseInt(nullToZero($("#lastRepairMileage", container).val()))) / (Number(sysdate.getTime()) - Number($("#lastMaintainDate", container).val())));
 			}
 			if (($("#averageMileage", container).val() == 0)
 					&& $("#lastMaintainDate", container).val() == ''
 					&& $("#salesDate", container).val() != ''
-					&& (sysdate.getTime() > Number($("#salesDate", container)
-							.val()))) {
+					&& (sysdate.getTime() > Number(nullToZero(new Date($("#salesDate", container).val()).getTime())))) {
 				$("#averageMileage", container).val(
-						parseInt($("#outMileage", container).val())
-								/ (sysdate.getTime() - Number($("#salesDate",
-										container).val())));
+						parseInt(nullToZero($("#outMileage", container).val())) / (sysdate.getTime() - Number(nullToZero($("#salesDate",container).val()))));
 			}
-			strTemp += '日均里程:' + $("#averageMileage", container).val();
+			strTemp += '日均里程:' + nullToZero($("#averageMileage", container).val());
 			strTemp += '间隔:' + j + '天数:' + i;
-			strTemp += '上保里程:' + $("#lastMaintenanceMileage", container).val()
-					+ '上保期' + $("#lastMaintainDate", container).val();
-			strTemp += '上维里程:' + $("#lastRepairMileage", container).val()
-					+ '上维期' + $("#lastRepairDate", container).val() + '出里'
-					+ $("#outMileage", container).val();
-			if ($("#averageMileage", container).val() > 0) {
+			strTemp += '上保里程:' + nullToZero($("#lastMaintenanceMileage", container).val())
+					+ '上保期' + nullToZero($("#lastMaintainDate", container).val());
+			strTemp += '上维里程:' + nullToZero($("#lastRepairMileage", container).val())
+					+ '上维期' + nullToZero($("#lastRepairDate", container).val()) + '出里'
+					+ nullToZero($("#outMileage", container).val());
+			if (nullToZero($("#averageMileage", container).val()) > 0) {
 				$("#nextMaintainMileage", container).val(
 						parseInt(j)
-								+ parseInt($("#lastMaintenanceMileage",
-										container).val()));
+								+ parseInt(nullToZero($("#lastMaintenanceMileage",container).val())));
 				if (IsHaveMAINTAIN) {
 					$("#nextMaintainMileage", container).val(
 							parseInt(j)
-									+ parseInt($("#outMileage", container)
-											.val()));
+									+ parseInt(nullToZero($("#outMileage", container).val())));
 				}
-				if (parseInt($("#nextMaintainMileage", container).val()) < parseInt($(
-						"#outMileage", container).val())) {
-					$("#nextMaintainMileage", container).val(
-							$("#outMileage", container).val());
+				if (parseInt(nullToZero($("#nextMaintainMileage", container).val())) < parseInt(nullToZero($("#outMileage", container).val()))) {
+					$("#nextMaintainMileage", container).setDmsValue(nullToZero($("#outMileage", container).val()));
 				}
 				// （定期保养里程间隔/日平均行程里程）> 预计下次保养日期距本工单最长天数
-				if ((parseInt(j) / parseInt($("#averageMileage", container)
-						.val())) > parseInt(i)) {
-					$("#nextMaintainDate", container).val(
-							Number($("#lastMaintainDate", container).val())
+				if ((parseInt(j) / parseInt(nullToZero($("#averageMileage", container).val()))) > parseInt(i)) {
+					$("#nextMaintainDate", container).setDmsValue(
+							Number(nullToZero($("#lastMaintainDate", container).val()))
 									+ parseInt(i) * 86400000);
 				} else {
 					$("#nextMaintainDate", container)
-							.val(
-									Number($("#lastMaintainDate", container)
-											.val())
-											+ (parseInt(j) / parseInt($(
-													"#averageMileage",
-													container).val()))
+							.setDmsValue(
+									Number(nullToZero($("#lastMaintainDate", container).val()))
+											+ (parseInt(j) / parseInt(nullToZero($("#averageMileage",container).val())))
 											* 86400000);
 				}
 				// 如果预计下次维修里程小于当前日期，则以当前日期为预计下次保养里程
-				if (Number($("#nextMaintainDate", container).val()) < sysdate
+				if (Number(nullToZero($("#nextMaintainDate", container).val())) < sysdate
 						.getTime()) {
-					$("#nextMaintainDate", container).val(sysdate.getTime());
+					$("#nextMaintainDate", container).setDmsValue(sysdate.getTime());
 				}
 				strTemp += '下保里：'
-						+ Math.round((parseInt($("#nextMaintainMileage",
-								container).val()) / 100) * 100);
+						+ Math.round((parseInt(nullToZero($("#nextMaintainMileage",container).val())) / 100) * 100);
 				strTemp += '下保期：'
 						+ dateByType($("#nextMaintainDate", container).val(),
 								'1');
 				$("#nextMaintainMileage", container)
 						.val(
-								(parseInt($("#nextMaintainMileage", container)
-										.val()) / 100) * 100);
+								(parseInt(nullToZero($("#nextMaintainMileage", container).val())) / 100) * 100);
 				$("#nextMaintainDate", container)
 						.val(
 								dateByType($("#nextMaintainDate", container)
@@ -2054,41 +2106,36 @@ var dmsRepair = function() {
 				// 无日平均行程里程应该用上次保养日期+预计下次保养日期距本工单最长天数
 				$("#nextMaintainMileage", container).val(
 						parseInt(j)
-								+ parseInt($("#lastRepairMileage", container)
-										.val()));
+								+ parseInt(nullToZero($("#lastRepairMileage", container).val())));
 				if (IsHaveMAINTAIN) {
 					$("#nextMaintainMileage", container).val(
 							parseInt(j)
-									+ parseInt($("#outMileage", container)
-											.val()));
+									+ parseInt(nullToZero($("#outMileage", container).val())));
 				}
-				if (parseInt($("#nextMaintainMileage", container).val()) < parseInt($(
-						"#outMileage", container).val())) {
-					$("#nextMaintainMileage", container).val(
-							parseInt($("#outMileage", container).val()));
+				if (parseInt(nullToZero($("#nextMaintainMileage", container).val())) < parseInt(nullToZero($("#outMileage", container).val()))) {
+					$("#nextMaintainMileage", container).setDmsValue(
+							parseInt(nullToZero($("#outMileage", container).val())));
 				}
-				$("#nextMaintainDate", container).val(
-						Number($("#lastMaintainDate", container).val())
+				$("#nextMaintainDate", container).setDmsValue(
+						Number(nullToZero($("#lastMaintainDate", container).val()))
 								+ Number(i));
 				strTemp += '下保里：'
-						+ Math.round((parseInt($("#nextMaintainMileage",
-								container).val()) / 100) * 100);
+						+ Math.round((parseInt(nullToZero($("#nextMaintainMileage",container).val())) / 100) * 100);
 				$("#nextMaintainMileage", container)
-						.val(
-								(parseInt($("#nextMaintainMileage", container)
-										.val()) / 100) * 100);
+						.setDmsValue(
+								(parseInt(nullToZero($("#nextMaintainMileage", container).val())) / 100) * 100);
 				if ($("#nextMaintainDate", container).val() != ''
-						&& Number($("#nextMaintainDate", container).val()) > sysdate
+						&& Number(nullToZero($("#nextMaintainDate", container).val())) > sysdate
 								.getTime()) {
 					strTemp += '下保期：'
 							+ dateByType($("#nextMaintainDate", container)
 									.val(), '1');
-					$("#nextMaintainDate", container).val(
+					$("#nextMaintainDate", container).setDmsValue(
 							dateByType($("#nextMaintainDate", container).val(),
 									'1'));
 				} else {
 					strTemp += '下保期：' + dateByType(sysdate.getTime(), '1');
-					$("#nextMaintainDate", container).val(
+					$("#nextMaintainDate", container).setDmsValue(
 							dateByType(sysdate.getTime(), '1'));
 				}
 				$("remark2", container).val(strTemp);
@@ -2107,6 +2154,7 @@ var dmsRepair = function() {
 				'vin' : vin,
 				'roStatus' : roStatus
 			},
+			async : false,
 			sucessCallBack : function(data) {
 				if (data != null) {
 					return true;
@@ -2315,6 +2363,7 @@ var dmsRepair = function() {
 					data : {
 						'roNo' : roNo
 					},
+					async : false,
 					sucessCallBack : function(data) {
 						if (data != null) {
 							$("div[data-selectRepairOrder='true']",
@@ -2333,6 +2382,7 @@ var dmsRepair = function() {
 					data : {
 						'vin' : vin
 					},
+					async : false,
 					sucessCallBack : function(data) {
 						if (data != null) {
 							$("#productCode", container).setDmsValue(
@@ -2355,30 +2405,40 @@ var dmsRepair = function() {
 
 	// 查询非4S站的车辆,在库存存在并且未开票的车
 	var CheckVehicleInvoice = function(vin) {// QUERY_NO_INVOICE_VEHICLE
+		var bool = false;
 		dmsCommon.ajaxRestRequest({
 			url : dmsCommon.getDmsPath()['repair']
 					+ "/order/repair/checkVehicleInvoice",
 			data : {
 				'vin' : vin
 			},
+			async : false,
 			sucessCallBack : function(data) {
-				return data.length > 0;
+				if(data!=null){
+					bool = true;
+				}
 			}
 		});
+		return bool;
 	}
 
 	// 查询车辆方案状态为”等待审核“的工单
 	var CheckIsHaveAduitingOrder = function(vin) {// QUERY_ADUITING_REPAIR_ORDER
+		var bool = false;
 		dmsCommon.ajaxRestRequest({
 			url : dmsCommon.getDmsPath()['repair']
 					+ "/order/repair/checkIsHaveAduitingOrder",
 			data : {
 				'vin' : vin
 			},
+			async : false,
 			sucessCallBack : function(data) {
-				return data.length > 0;
+				if(data!=null){
+					bool = true;
+				}
 			}
 		});
+		return bool;
 	}
 
 	// 如果该车有会员卡，则更换图标
@@ -2389,11 +2449,13 @@ var dmsRepair = function() {
 			data : {
 				'vin' : vin
 			},
+			async : false,
 			sucessCallBack : function(data) {
 				$("#cardTypeCode").setDmsValue(data.CARD_TYPE_NAME);
-				return data.length > 0;
+				return data!=null;
 			}
 		});
+		return false;
 	}
 
 	var nullToZero = function(flag) {

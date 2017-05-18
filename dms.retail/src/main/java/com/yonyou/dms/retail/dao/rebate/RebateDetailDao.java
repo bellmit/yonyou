@@ -275,12 +275,12 @@ public class RebateDetailDao extends OemBaseDAO{
         }
         //品牌
   		if (!StringUtils.isNullOrEmpty(queryParam.get("brandCode"))) {
-  			sql.append(" and vm.BRAND_CODE = ? ");
+  			sql.append(" and vm.BRAND_ID = ? ");
   			params.add(queryParam.get("brandCode"));
   		}
   	    //车系
   		if (!StringUtils.isNullOrEmpty(queryParam.get("seriesName"))) {
-  			sql.append(" and vm.SERIES_CODE = ? ");
+  			sql.append(" and vm.SERIES_ID = ? ");
   			params.add(queryParam.get("seriesName"));
   		}
   		//商务政策类型
@@ -298,7 +298,9 @@ public class RebateDetailDao extends OemBaseDAO{
   			sql.append("   AND DATE(trc.END_MONTH) <= ? \n");
   			params.add(queryParam.get("endDate"));
   		}
-		System.err.println(sql.toString());
+  		System.out.println("***********************明细下载");
+		System.out.println(sql.toString());
+		System.out.println("************************");
 		return sql.toString();
 	}
 	
@@ -322,6 +324,7 @@ public class RebateDetailDao extends OemBaseDAO{
 		if(Utility.testIsNotNull(dealerCode)){
 			sql.append(" AND trc.DEALER_CODE  = '" +dealerCode+"'\n");
     	}
+		
 		PageInfoDto pageInfoDto = OemDAOUtil.pageQuery(sql.toString(), params);
 		return pageInfoDto;
 	}

@@ -13,9 +13,9 @@
 
 					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 						<div class="form-group">
-							<label class="control-label col-xs-4">类型:</label>
+							<label class="control-label col-xs-4">类型</label>
 							<div class="col-xs-8">
-								<select id="ageType" name="ageType" class="bs-select form-control" data-type="oemDict" data-dictCode="4032"  data-value="40321001">
+								<select id="ageType" name="ageType" class="bs-select form-control" data-type="oemDict" data-dictCode="4032"  data-value="40321001" data-existsDefault="false">
 								</select>
 							</div>
 						</div>
@@ -23,11 +23,11 @@
 						
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-4">开始日期：</label>
+								<label class="control-label col-xs-4">开始日期</label>
 								<div class="col-xs-8">
 									<div class="input-group date date-picker" >
 										<input id="startDate" name="startDate" readonly
-											class="form-control"
+											class="form-control required"
 											type="text" value="" /> <span class="input-group-btn">
 											<button class="btn default date-set" type="button">
 												<i class="fa fa-calendar"></i>
@@ -44,11 +44,11 @@
 	
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
 							<div class="form-group">
-								<label class="control-label col-xs-4">结束日期：</label>
+								<label class="control-label col-xs-4">结束日期</label>
 								<div class="col-xs-8">
 									<div class="input-group date date-picker" >
 										<input id="endDate" name="endDate" readonly
-											class="form-control"
+											class="form-control required"
 											type="text" value="" /> <span class="input-group-btn">
 											<button class="btn default date-set" type="button">
 												<i class="fa fa-calendar"></i>
@@ -82,7 +82,7 @@
 				
 		<div class="modal-footer center-block">
 			<a data-url="/activityMaintain/carAgeAdd" data-model="vehicle" data-method="POST"
-				data-callBack="true" class="btn blue"
+				data-callBack="true" class="btn blue"  data-beforeRequest="true"
 				data-toggle="confirmation"> <i class="fa fa-save"></i>保存
 			</a> <a data-dismiss="modal" class="btn blue"><i
 				class="fa fa-undo"></i>取消</a>
@@ -174,29 +174,21 @@
 		
 		//批量删除的前执行函数
 		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
-			var selectRow = $("#tableModelList",container).dmsTable().getSelections();
-			debugger;
-			if(!selectRow){
-				dmsCommon.tip({status:"warning",msg:"请选择车型"});//总共的状态类型：info、success、error、warning
+			//开始、结束日期校验
+			 var startDate=$("#startDate",container).val();  
+			 var endDate=$("#endDate",container).val();  			  
+			 var d1 = new Date(startDate.replace(/\-/g, "\/"));  
+			 var d2 = new Date(endDate.replace(/\-/g, "\/"));			
+			if(d1 >=d2){
+				dmsCommon.tip({status:"warning",msg:"开始日期不能小于结束日期!"});//总共的状态类型：info、success、error、warning
 				returnResult.status = false;
-				return ;
-			}
-			if(selectRow.length > 0){
-				var groupIds = "";
-				
-				for(var i = 0 ;i<selectRow.length;i++){
-					if(groupIds=="" ){ //第一次循环为空值
-						groupIds = selectRow[i]["GROUP_ID"];
-					}else{
-						groupIds = groupIds+","+selectRow[i]["GROUP_ID"];
-					}
-					
-				}
-				$("#groupIds",getElementContext()).setDmsValue(groupIds);
-				
-			}
+		        return;		        		        
+			} 
+			
 			returnResult.status = true;
 		});
+		
+		
 		
 	});
 </script>

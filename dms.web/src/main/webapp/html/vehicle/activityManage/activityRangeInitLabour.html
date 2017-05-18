@@ -13,7 +13,7 @@
 
 					<div class="col-xs-12 col-sm-6 col-md-4 ">
 						<div class="form-group">
-							<label class="control-label col-xs-4">工时代码：</label>
+							<label class="control-label col-xs-4">工时代码</label>
 							<div class="col-xs-8">								
 								<input type="text" class="form-control" id="labourCode" name="labourCode">
 							</div>
@@ -22,7 +22,7 @@
 
 					<div class="col-xs-12 col-sm-6 col-md-4 ">
 						<div class="form-group">
-							<label class="control-label col-xs-4">工时名称：</label>
+							<label class="control-label col-xs-4">工时名称</label>
 							<div class="col-xs-8">								
 								<input type="text" class="form-control" id="labourName" name="labourName">
 							</div>
@@ -118,12 +118,13 @@
 			container:container,
 			url : dmsCommon.getDmsPath()["vehicle"] + "/activityMaintain/editRange/labourQuery",
 			rowID : "ID",
-			sortName : "",
-			sortOrder : "",
+			sortName : "GROUP_CODE,LABOUR_NAME",
+			sortOrder : "asc,asc",
 			isQueryFirst:false,
 			autoHeight:false,
 			columns : [ 
-						{checkbox:true,sortable : false}, 		
+						{checkbox:true,sortable : false}, 
+						{field : "GROUP_CODE",title : "车系"}, 
 						{field : "LABOUR_CODE",title : "工时编码"}, 
 						{field : "LABOUR_NAME",title : "工时名称"},
 						{field : "DISCOUNT",title : "折扣"},

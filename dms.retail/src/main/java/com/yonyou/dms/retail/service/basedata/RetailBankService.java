@@ -1,6 +1,5 @@
 package com.yonyou.dms.retail.service.basedata;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -8,7 +7,6 @@ import com.yonyou.dms.framework.DAO.PageInfoDto;
 import com.yonyou.dms.framework.domain.LoginInfoDto;
 import com.yonyou.dms.function.domains.DTO.ImportResultDto;
 import com.yonyou.dms.function.exception.ServiceBizException;
-import com.yonyou.dms.retail.domains.DTO.basedata.TmRetailDiscountBankImportDTO;
 import com.yonyou.dms.retail.domains.DTO.basedata.TmRetailDiscountBankImportTempDTO;
 import com.yonyou.dms.retail.domains.PO.basedata.TmRetailDiscountBankImportPO;
 

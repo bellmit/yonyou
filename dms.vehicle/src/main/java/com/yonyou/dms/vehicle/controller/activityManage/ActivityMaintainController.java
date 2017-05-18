@@ -102,7 +102,7 @@ public class ActivityMaintainController {
 
     	
     	 
-    	 Map map =	actMatService.activityAddSave(twaDto);
+    	 Map map = 	actMatService.activityAddSave(twaDto);
     	 MultiValueMap<String, String> headers = new HttpHeaders();
          headers.set("Location", uriCB.path("/activityMaintain/activityAddSave").buildAndExpand().toUriString());
          return new ResponseEntity<Map>(map,headers, HttpStatus.CREATED);    
@@ -220,6 +220,7 @@ public class ActivityMaintainController {
     		@RequestBody @Valid TtWrActivityDTO twaDto,
     		UriComponentsBuilder uriCB) {
     	logger.info("============服务活动建立 主页面 修改01===============");
+    	
     	 actMatService.activityModifySave(twaDto);
     	 MultiValueMap<String, String> headers = new HttpHeaders();
          headers.set("Location", uriCB.path("/activityMaintain/activityEdit").buildAndExpand().toUriString());

@@ -93,6 +93,7 @@ public class SADCS001Impl extends BaseImpl implements SADCS001 {
 		for (int i = 0; i < dataList.size(); i++) {
 			VehicleShippingDto dto=dataList.get(i);
 			VehicleShippingVO vo=new VehicleShippingVO();
+			vo.setEntityCode(dto.getDealerCode());
 			BeanUtils.copyProperties(dto, vo);
 			vos.add(vo);
 		}

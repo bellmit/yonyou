@@ -6,30 +6,39 @@
 			</div>
 			<div class="panel-body">
 				<div class="row">
-					<div class="col-xs-10 col-sm-6 col-md-4 col-lg-3">
+					
 						<div class="form-group">
-							<label class="control-label col-xs-7">请选择导入订单的类型:</label>
-							<div class="col-xs-4">
+							<label class="control-label col-xs-3" style="margin-left:-110px">1.请选择导入订单的类型</label>
+							<div class="col-xs-2">
 								<select id="orderType" name="orderType"
 									class="bs-select form-control" data-dictCode="2081"
-									data-value="20811001" data-existsDefault="false"></select>
+									data-value="20811002" data-existsDefault="false"></select>
 							</div>
 						</div>
-					</div>
 					<div class="col-xs-10">
 						<div class="form-group">
-							<label class="control-label col-xs-2 ">VIN+资源范围</label>
-							<div class="col-xs-4">
+							<label class="control-label col-xs-4" style="margin-left:5px">2.点击"<font
+							color="red">选择</font>"按钮,确认Excel导入文件的格式: VIN+资源范围
+						</label>
+							<div class="col-xs-4" style="margin-left:70px">
 								<input type="file" class="importData" id="fileupload"
 									name="file">
 							</div>
 							<div class="col-xs-4"></div>
 						</div>
 					</div>
+					
+					
+					
+					
+					
+					
+					
 				</div>
-			</div>
-		</div>
-		<div class="form-actions">
+				<div class="row ">
+					<label class="control-label col-xs-3 " style="margin-left:5px">3.文件选择后,点"<font
+						color="red">上传</font>"按钮,进行数据效验
+					</label>
 			<a class="btn blue" data-url="/orderManager/import"
 				data-model="vehicle" data-callBack="true" data-errorCallBack="true"
 				data-toggle="confirmation" data-method="importData"> <i
@@ -40,6 +49,9 @@
 				class="btn btn-outline "> <i class="fa fa-download"></i> 下载导入模板
 			</a>
 		</div>
+			</div>
+		</div>
+		
 	</form>
 	<div class="panel panel-default table-panel margin-top-5"
 		id="errorInfoPanpel">

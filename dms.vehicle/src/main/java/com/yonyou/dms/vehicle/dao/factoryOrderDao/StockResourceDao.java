@@ -1,5 +1,7 @@
 package com.yonyou.dms.vehicle.dao.factoryOrderDao;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -226,6 +228,9 @@ public class StockResourceDao extends OemBaseDAO {
 
 	public Map<String, Object> findDealerOrders(Long groupId, LoginInfoDto loginInfo) {
 		Date now = new Date();
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		String monthbegin = df.format(DateUtil.getFirstDayOfMonth(now));
+		String monthend = df.format(DateUtil.getLastDayOfMonth(now));
 		StringBuffer sql = new StringBuffer();
 		sql.append("select count(*) TOTAL\n");
 		sql.append("   from  TT_VS_ORDER                TVO,\n");
@@ -244,9 +249,8 @@ public class StockResourceDao extends OemBaseDAO {
 				+ OemDictCodeConstants.ORDER_STATUS_09 + ")\n");
 		sql.append(
 				"     AND not exists (select 1 from TT_VS_ORDER  p where p.IS_DEL <> '1' AND p.VIN=TV.VIN and p.ORDER_TYPE=20831003 and p.ORDER_STATUS=20071007)\n");
-		sql.append("     AND TVO.ORDER_DATE >= date_format('" + DateUtil.getFirstDayOfMonth(now) + "','%y-%m-%d')\n");
-		sql.append("     AND TVO.ORDER_DATE <= date_format('" + DateUtil.getLastDayOfMonth(now)
-				+ " 23:59:59','%y-%m-%d %H:%i:%S')\n");
+		sql.append("     AND TVO.ORDER_DATE >= '" + monthbegin + "'\n");
+		sql.append("     AND TVO.ORDER_DATE <= '" + monthend + " 23:59:59'\n");
 		sql.append("     AND TVMG3.PARENT_GROUP_ID=" + groupId + "\n");
 		sql.append("     AND  TVO.ORDER_TYPE =" + OemDictCodeConstants.ORDER_TYPE_01 + "\n");
 
@@ -255,7 +259,7 @@ public class StockResourceDao extends OemBaseDAO {
 		return map;
 	}
 
-	public Map<String, Object> findMonthPlan(Long materialId, LoginInfoDto loginInfo) {
+	public List<Map> findMonthPlan(Long materialId, LoginInfoDto loginInfo) {
 		StringBuffer sql = new StringBuffer();
 		sql.append(
 				"select COALESCE(t2.SALE_AMOUNT,0) SALE_AMOUNT,COALESCE(t2.HAS_AMOUNT,0) HAS_AMOUNT,t2.MATERIAL_GROUPID,t2.DETAIL_ID,t1.PARENT_GROUP_ID\n");
@@ -308,9 +312,9 @@ public class StockResourceDao extends OemBaseDAO {
 		sql2.append("     AND TVMG3.PARENT_GROUP_ID=" + list.get(0).get("PARENT_GROUP_ID") + "\n");
 		sql2.append("     AND  TVO.ORDER_TYPE =" + OemDictCodeConstants.ORDER_TYPE_01 + "\n");
 
-		Map map = OemDAOUtil.findFirst(sql2.toString(), null);
+		List<Map> list2 = OemDAOUtil.findAll(sql2.toString(), null);
 
-		return map;
+		return list;
 	}
 
 	public List<Map> findIsSubmited(String vin) {

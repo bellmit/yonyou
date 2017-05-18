@@ -183,8 +183,9 @@ public class BigCustomerManageAaServiceImpl implements BigCustomerManageAaServic
 		System.out.println(loginUser.getUserId());
 		bigCustomerApprovalHisPo.setBigDecimal("REPORT_APPROVAL_USER_ID", loginUser.getUserId());
 		bigCustomerApprovalHisPo.setBigDecimal("CREATE_BY", loginUser.getUserId());
+		bigCustomerApprovalHisPo.saveIt();
 		
-		flag = bigCustomerApprovalHisPo.saveIt();	
+			
 
 		if (!flag) {
 			throw new ServiceBizException("审批历史插入失败!");

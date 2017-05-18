@@ -15,7 +15,7 @@
 							<div class="form-group">
 								<label class="control-label col-xs-4">工单号</label>
 								<div class="col-xs-8">
-									<input type="text" class="form-control" id="roNo"
+									<input type="text" class="form-control" id="roNo1"
 										name="roNo">
 								</div>
 							</div>
@@ -24,19 +24,21 @@
 							<div class="form-group">
 								<label class="control-label col-xs-4">车牌号</label>
 								<div class="col-xs-8">
-									<input type="text" class="form-control" id=""
-										name="">
+									<input type="text" class="form-control" id="license"
+										name="license">
 								</div>
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 							<div class="form-group">
 								<label class="control-label col-xs-4">客户经理</label>
-								<div class="col-xs-8">
-									<select id="" name="" class="bs-select form-control"
-										data-url="" data-model=""
-										data-labelValue="" data-lableDesc="">
-										</select>
+								<div class="col-xs-8">  
+											<select id="serviceAdvisor" class="bs-select form-control"
+												name="serviceAdvisor" data-url="/basedata/ownerWeChatBooking/findEmployee" 
+												data-model="repair" data-fieldName="SERVICE_ADVISOR"
+												data-labelValue="EMPLOYEE_NO" data-lableDesc="EMPLOYEE_NAME"
+												>
+											</select>
 								</div>
 							</div>
 						</div>
@@ -62,8 +64,8 @@
 							<div class="form-group">
 								<label class="control-label col-xs-4">VIN</label>
 								<div class="col-xs-8">
-									<input type="text" class="form-control" id=""
-										name="">
+									<input type="text" class="form-control" id="vin"
+										name="vin">
 								</div>
 							</div>
 						</div>
@@ -103,15 +105,17 @@
 </div>
 <script type="text/javascript">
 $(document).one("onload.dms",function(event,container){
+	$("#roNo1", container).setDmsValue(
+			$("#roNo", getElementContext()).val());
 	new Datatable().initPagination({
 		src : "dms_order",
 		rowID:"RO_NO",
 		container:container,
-		url : dmsCommon.getDmsPath()["repair"] + "/basedata/freeSettlement",
+		url : dmsCommon.getDmsPath()["repair"] + "/basedata/queryByLinsence/searchRepairOrder",
 		sortName : "RO_NO", 
 		sortOrder : "asc",
 		autoHeight : false,
-		columns : [
+		columns : [{radio : true,sortable : false},
 		            {field : "RO_NO",title : "工单号"},
 		            {field : "RO_TYPE",title : "工单类型",codeFormat : {type:"dict",codeType:"1253"}},
 		            {field : "REPAIR_TYPE_CODE",title : "维修类型"},
@@ -119,15 +123,15 @@ $(document).one("onload.dms",function(event,container){
 		            {field : "SCHEME_STATUS",title : "三包状态"},
 		            {field : "VIN",title : "VIN"},
 		            {field : "OWNER_NAME",title : "车主"},
-		            {field : "SERVICE_ADVISOR",title : "客户经理"},
+		            {field : "USER_NAME",title : "客户经理"},
 		            {field : "RO_CREATE_DATE",title : "开单日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}}, 
 		            {field : "RO_STATUS",title : "工单状态",codeFormat : {type:"dict",codeType:"1255"}},
-		            {field : "LOCK_USER",title : "锁定人"},
+		            {field : "LOCK_USERS",title : "锁定人"},
 		            {field : "COMPLETE_TAG",title : "竣工标识",codeFormat : {type:"dict",codeType:"1278"}},
 		            {field : "END_TIME_SUPPOSED",title : "预交车时间"},
 		            {field : "SALES_PART_NO",title : "配件销售单号"},
-		            {field : "SO_NO",title : "销售订单号"},
-		            {radio : true,sortable : false}
+		            {field : "SO_NO",title : "销售订单号"}
+		            
 		         ]
 
 	});

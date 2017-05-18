@@ -25,7 +25,7 @@
 								</div>
 							</div>
 					</div>	
-	  				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 " >
+	  				<!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 " >
 							<div class="form-group">
 								<label class="control-label col-xs-4">销售大区</label>
 								<div class="col-xs-8">
@@ -52,8 +52,34 @@
 									
 								</div>
 							</div>
+						</div> -->
+    		        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4">销售大区</label>
+							<div class="col-xs-8">
+								<select id="bigOrg"
+									class="bs-select form-control" name="bigOrgName"
+									data-url="/basedata/orgManage/bigOrg"
+									data-model="manage" data-labelValue="BIG_ORG"
+									data-lableDesc="BIG_ORG_NAME" multiple data-live-search="fales" data-size="5" data-existsDefault = "false" >
+								</select>
+								
+							</div>
 						</div>
-    
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">销售小区</label>
+							<div class="col-xs-8">
+								<select id="smallOrg" parent="bigOrg"
+									class="bs-select form-control" name="smallOrgName"
+									data-url="/basedata/orgManage/{[bigOrg]}/smallOrg"
+									data-model="manage" data-labelValue="SMALL_ORG"
+									data-lableDesc="SMALL_ORG_NAME" multiple data-live-search="fales" data-size="5" data-existsDefault = "false" >
+								</select>
+							</div>
+						</div>
+					</div>
 		      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
 		         <div class="form-group">
 		             <label class="control-label col-xs-4">商务政策名称</label>
@@ -72,12 +98,12 @@
 			         <div class="form-group">
 			             <label class="control-label col-xs-4">商务政策类型</label>
 			             <div class="col-xs-8">
-			                 <select class="bs-select form-control" id="businessPolicyType" name="businessPolicyType" data-existsDefault = "false" 
-			                 	data-type="oemDict" data-dictCode="9118" >
+			                 <select class="bs-select form-control" id="businessPolicyType" name="businessPolicyTylse"
+			                 	data-type="oemDict" data-dictCode="9118"  data-existsDefault="false">
 			                 </select>
 			             </div>
 			         </div>
-			      </div> 
+			     </div> 
      
 			        <div class="ccol-xs-12 col-sm-6 col-md-4 col-lg-3 ">
 						<div class="form-group">

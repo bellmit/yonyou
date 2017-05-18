@@ -9,10 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.infoservice.dms.cgcsl.vo.VoucherVO;
 import com.yonyou.dcs.de.SADCS075;
 import com.yonyou.dcs.gacfca.SADCS075Cloud;
 import com.yonyou.dcs.util.DEUtil;
-import com.yonyou.dms.DTO.gacfca.VoucherDTO;
 @Service
 public class SADCS075Impl  extends BaseImpl  implements  SADCS075 {
 	private static final Logger logger = LoggerFactory.getLogger(SADCS075Impl.class);
@@ -24,7 +24,7 @@ public class SADCS075Impl  extends BaseImpl  implements  SADCS075 {
 	public String sendData(String actId){
 		try {
 			//下发的数据
-			List<VoucherDTO> dataList=cloud.getSendData(actId);
+			List<VoucherVO> dataList=cloud.getSendData(actId);
 			send(dataList);
 		}catch (Exception e) {
 			logger.error(e.getMessage(), e);
@@ -37,7 +37,7 @@ public class SADCS075Impl  extends BaseImpl  implements  SADCS075 {
 	 * @param dealerCode
 	 * @throws Exception 
 	 */
-	private String send(List<VoucherDTO> dataList) throws Exception {
+	private String send(List<VoucherVO> dataList) throws Exception {
 		try {
 			if(null!=dataList && dataList.size()>0){
 				Map<String, Serializable> body = DEUtil.assembleBody(dataList);

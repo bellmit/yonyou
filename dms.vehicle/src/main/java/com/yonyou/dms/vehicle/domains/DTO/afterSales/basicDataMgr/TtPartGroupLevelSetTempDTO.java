@@ -80,10 +80,19 @@ public class TtPartGroupLevelSetTempDTO   extends  DataImportDto {
 	public Date getCreateDate(){
 		return this.createDate;
 	}
+	
 
 	public void setItemNo(String itemNo){
 		this.itemNo=itemNo;
 	}
+
+/*	public String getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}*/
 
 	public String getItemNo(){
 		return this.itemNo;

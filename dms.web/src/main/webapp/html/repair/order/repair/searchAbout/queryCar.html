@@ -15,8 +15,8 @@
 							<div class="form-group">
 								<label class="control-label col-xs-4 ">车牌号</label>
 								<div class="col-xs-8">
-									<input id="license" name="license" class="form-control"
-										type="text" data-fieldName="" />
+									<input id="license2" name="license" class="form-control"
+										type="text" />
 								</div>
 							</div>
 						</div>
@@ -75,6 +75,7 @@
 	$(document).one(
 			"onload.dms",
 			function(event, container) {
+				$("#license2",container).setDmsValue($("#license",getElementContext()).val());
 				$("#license",container).val($("#license2",getElementContext()).val());
 				new Datatable().initPagination({
 					src : "dms_customerList",

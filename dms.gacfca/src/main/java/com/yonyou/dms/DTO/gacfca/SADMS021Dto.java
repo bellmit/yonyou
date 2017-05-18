@@ -7,6 +7,15 @@ public class SADMS021Dto {
 	private String mobile;// 联系电话
 	private String employeeName;// 客户经理姓名
 	private Integer boundType;// 绑定类型：0为DMS;1为微信
+	private String dealerCode;
+	
+	public String getDealerCode() {
+		return dealerCode;
+	}
+
+	public void setDealerCode(String dealerCode) {
+		this.dealerCode = dealerCode;
+	}
 
 	public String getServiceAdvisor() {
 		return serviceAdvisor;

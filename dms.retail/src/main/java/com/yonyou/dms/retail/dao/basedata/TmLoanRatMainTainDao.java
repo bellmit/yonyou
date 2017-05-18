@@ -20,7 +20,6 @@ import com.yonyou.dms.framework.DAO.PageInfoDto;
 import com.yonyou.dms.framework.domain.LoginInfoDto;
 import com.yonyou.dms.framework.util.bean.ApplicationContextHelper;
 import com.yonyou.dms.function.common.OemDictCodeConstants;
-import com.yonyou.dms.function.domains.DTO.ImportResultDto;
 import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.StringUtils;
 import com.yonyou.dms.retail.domains.DTO.basedata.TmLoanRatMaintainDTO;
@@ -212,7 +211,7 @@ public class TmLoanRatMainTainDao extends OemBaseDAO {
 		TmLoanRatMaintainPO tvypPO = new TmLoanRatMaintainPO();
 		// 设置对象属性
 		setTmLoanRatMaintainPO(tvypPO, tvypDTO);
-		boolean flag = tvypPO.saveIt();
+		tvypPO.saveIt();
 		return null;
 	}
 
@@ -302,6 +301,7 @@ public class TmLoanRatMainTainDao extends OemBaseDAO {
 		SimpleDateFormat df2 = new SimpleDateFormat("%Y-%m-%d");
 		SimpleDateFormat df3 = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 		SimpleDateFormat df4 = new SimpleDateFormat("%Y-%m-%d hh:mm:ss");
+		@SuppressWarnings("unused")
 		Date d = null;
 		try {
 			d = df1.parse(value);
@@ -351,7 +351,6 @@ public class TmLoanRatMainTainDao extends OemBaseDAO {
 		sql.append(groupCode);
 		sql.append("'    AND GROUP_TYPE in (" + OemDictCodeConstants.GROUP_TYPE_IMPORT + ","
 				+ OemDictCodeConstants.GROUP_TYPE_DOMESTIC + ") \n");
-		SimpleDateFormat dfm = new SimpleDateFormat("%Y-%m-%d");
 		return OemDAOUtil.findAll(sql.toString(), params);
 	}
 

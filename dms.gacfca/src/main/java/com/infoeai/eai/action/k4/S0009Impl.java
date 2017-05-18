@@ -183,7 +183,7 @@ public class S0009Impl extends BaseService implements S0009 {
 				for (int i = 0; i < list_s0009.size(); i++) {
 
 					// 更新接口表的发送状态
-					TiK4VsNvdrPO setPo = TiK4VsNvdrPO.findFirst("Action_Code=? and ActionDate=? and vin=?",
+					TiK4VsNvdrPO setPo = TiK4VsNvdrPO.findFirst("Action_Code=? and Action_Date=? and vin=?",
 							list_s0009.get(i).getACTION_CODE(), list_s0009.get(i).getACTION_DATE(),
 							list_s0009.get(i).getACTION_TIME());
 					setPo.setString("Row_Id", CommonUtils.checkNull(getRowId()));

@@ -3,7 +3,8 @@ package com.yonyou.dms.DTO.gacfca;
 import java.util.Date;
 
 public class SA007Dto {//调拨
-
+    
+	private String dealerCode;
 	private String inEntityCode;//调入方经销商代码
 	private String outEntityCode;//调出方经销商代码
 	private String productCode;//产品代码
@@ -16,6 +17,13 @@ public class SA007Dto {//调拨
     private Date factoryDate;//出厂日期
     private Double vehiclePrice;//
     
+    
+	public String getDealerCode() {
+		return dealerCode;
+	}
+	public void setDealerCode(String dealerCode) {
+		this.dealerCode = dealerCode;
+	}
 	public String getInEntityCode() {
 		return inEntityCode;
 	}

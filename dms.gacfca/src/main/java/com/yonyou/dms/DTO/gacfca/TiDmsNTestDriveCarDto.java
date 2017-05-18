@@ -2,7 +2,10 @@ package com.yonyou.dms.DTO.gacfca;
 
 import java.util.Date;
 
-public class TiDmsNTestDriveCarDto {
+import com.infoeai.eai.vo.BaseVO;
+
+@SuppressWarnings("serial")
+public class TiDmsNTestDriveCarDto extends BaseVO{
 
 
 	private String vinCode;// 车辆识别码

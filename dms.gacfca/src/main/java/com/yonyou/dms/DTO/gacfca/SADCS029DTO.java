@@ -10,6 +10,16 @@ public class SADCS029DTO {
 	private Date adjustDate; // 调整时间
 	private Double nowCeilingPrice; // 现调整销售限价
 	private Double oldCeilingPrice; // 原销售限价
+	private String dealerCode;
+	
+
+	public String getDealerCode() {
+		return dealerCode;
+	}
+
+	public void setDealerCode(String dealerCode) {
+		this.dealerCode = dealerCode;
+	}
 
 	public String getEntityCode() {
 		return entityCode;

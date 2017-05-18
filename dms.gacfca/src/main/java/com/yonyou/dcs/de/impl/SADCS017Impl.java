@@ -93,6 +93,7 @@ public class SADCS017Impl extends BaseImpl implements SADCS017 {
 		for (int i = 0; i < dataList.size(); i++) {
 			SADMS017Dto dto=dataList.get(i);
 			SADMS017VO vo=new SADMS017VO();
+			vo.setEntityCode(dto.getDealerCode());
 			BeanUtils.copyProperties(dto, vo);
 			vos.add(vo);
 		}

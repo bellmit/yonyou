@@ -6,7 +6,7 @@
 				
 					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 						<div class="form-group">
-							<label class="control-label col-xs-4 ">活动系统编号</label>
+							<label class="control-label col-xs-4 ">活动系统代码</label>
 							<div class="col-xs-8">
 									<input type="text" class="form-control" id="activityCode" name="activityCode">
 							</div>
@@ -36,9 +36,9 @@
 									
 					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 						<div class="form-group">
-							<label class="control-label col-xs-4">活动状态</label>
+							<label class="control-label col-xs-4">发布状态</label>
 							<div class="col-xs-8">
-								<select id="activityStatus" name="activityStatus" class="bs-select form-control" data-type="oemDict" data-dictCode="4017"  data-excludeItems="40171002" >
+								<select id="activityStatus" name="activityStatus" class="bs-select form-control" data-type="oemDict" data-dictCode="4017"  data-excludeItems="40171003" >
 								</select>
 							</div>
 						</div>
@@ -105,7 +105,7 @@
                     		   return false;
                     	   }                    	   
                        }},
-                       {type:"detail",url:"vehicle/activityManage/activityInitDetail.html",openWidth:"modal-lg",isShow:function(value, row, index){
+                       {type:"detail",url:"vehicle/activityManage/activityIssueQueryDetail.html",openWidth:"modal-lg",isShow:function(value, row, index){
                      		   return true;                   	
                        }},//打开方式默认弹出:open
                        {type:"edit",title:"活动经销商",url:"vehicle/activityManage/activityIssueDealerQuery.html",openWidth:"modal-lg",doubleClick:true,isShow:function(value, row, index){
@@ -128,7 +128,7 @@
                        
                    ]
                 },  
-			    {field : "ACTIVITY_CODE",title : "活动系统编号"},
+			    {field : "ACTIVITY_CODE",title : "活动系统代码"},
 			    {field : "ACTIVITY_NAME",title : "活动名称"},
 			    {field : "ACTIVITY_TYPE",title : "活动类别",codeFormat : {type:"oemDict",codeType:"4015"}},
 			    {field : "CLAIM_TYPE",title : "索赔类型",codeFormat : {type:"oemDict",codeType:"4030"}},	    

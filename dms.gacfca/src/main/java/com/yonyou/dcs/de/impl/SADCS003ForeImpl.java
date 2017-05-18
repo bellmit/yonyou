@@ -79,6 +79,7 @@ public class SADCS003ForeImpl extends BaseImpl implements SADCS003Fore{
 		for (int i = 0; i < dataList.size(); i++) {
 			SADMS003ForeDTO dto = dataList.get(i);
 			SADMS003ForeVO vo = new SADMS003ForeVO();
+			vo.setEntityCode(dto.getDealerCode());
 			BeanUtils.copyProperties(dto, vo);
 			vos.add(vo);
 		}

@@ -2,7 +2,7 @@
 	<form class="form-horizontal" >
 		<div class="panel panel-default">
 			<div class="modal-header">
-				<div class="modal-title">工时维护</div>
+				<div class="modal-title">配件维护</div>
 				<div class="modal-close">
 					<a data-dismiss="modal" class="btn btn-lg">
 					<i class="fa fa-remove"></i></a>
@@ -13,32 +13,21 @@
 
 					<div class="col-xs-12 col-sm-6 col-md-4 ">
 						<div class="form-group">
-							<label class="control-label col-xs-4 ">配件代码：</label>
+							<label class="control-label col-xs-4 ">配件代码</label>
 							<div class="col-xs-8">
-								<div class="input-group">
-									<input type="text" class="form-control" id="partCode" name="partCode">
-									<span class="input-group-btn">
-	                                         <button class="btn default input-clear" type="button">
-	                                            <i class="fa fa-close"></i>
-	                                        </button>
-	                                 </span>
-                                 </div>
+							
+									<input type="text" class="form-control required" id="partCode" name="partCode">
+									
 							</div>
 						</div>
 					</div>
 
 					<div class="col-xs-12 col-sm-6 col-md-4 ">
 						<div class="form-group">
-							<label class="control-label col-xs-4 ">配件名称：</label>
+							<label class="control-label col-xs-4 ">配件名称</label>
 							<div class="col-xs-8">
-								<div class="input-group">
 									<input type="text" class="form-control" id="partName" name="partName">
-									<span class="input-group-btn">
-	                                         <button class="btn default input-clear" type="button">
-	                                            <i class="fa fa-close"></i>
-	                                        </button>
-	                                 </span>
-                                 </div>
+								
 							</div>
 						</div>
 					</div>
@@ -167,6 +156,12 @@
 				for(var i = 0 ;i<selectRow.length;i++){
 					//alert($("#num"+i+"").val())
 					
+					if($("#num"+i+"").val() == ""){
+						dmsCommon.tip({status:"warning",msg:"配件数量不能为空!"});//总共的状态类型：info、success、error、warning
+						returnResult.status = false;
+				        return;	
+					}
+										
 					if(groupIds=="" ){ //第一次循环为空值
 						groupIds = selectRow[i]["ID"];
 						groupIds = groupIds+"#"+selectRow[i]["PART_CODE"];

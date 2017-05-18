@@ -43,9 +43,9 @@ public class ResourceAllotDealerMaintenanceDao extends OemBaseDAO {
 		sql.append(
 				"select tp.DEALER_ID,tp.ID ,tp.DEALER_CODE,tp.DEALER_SHORTNAME,tp.COMPANY_NAME,tp.DEALER_TYPE,tp.BIG_AREA,tp.SMALL_AREA,tp.STATUS,	\n");
 		sql.append(
-				"	(case  WHEN tp.TJ_PORT_LEVEL is null THEN 100 else tp.TJ_PORT_LEVEL END) as TJ_PORT_LEVEL,	\n");
+				"	(case  WHEN tp.TJ_PORT_LEVEL is null THEN '未设置' else tp.TJ_PORT_LEVEL END) as TJ_PORT_LEVEL,	\n");
 		sql.append(
-				"	(case  WHEN tp.SH_PORT_LEVEL is null THEN 100 else tp.SH_PORT_LEVEL END) as SH_PORT_LEVEL	\n");
+				"	(case  WHEN tp.SH_PORT_LEVEL is null THEN '未设置' else tp.SH_PORT_LEVEL END) as SH_PORT_LEVEL	\n");
 		sql.append("		from(	\n");
 		sql.append(
 				"			select tm.DEALER_ID, tm.DEALER_CODE,tm.DEALER_SHORTNAME,tm.COMPANY_NAME,tm.DEALER_TYPE,tm.BIG_AREA,tm.SMALL_AREA,tm.STATUS,	\n");

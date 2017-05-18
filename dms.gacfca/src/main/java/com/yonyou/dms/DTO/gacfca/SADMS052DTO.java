@@ -27,6 +27,15 @@ public class SADMS052DTO {
 	private Double absorbRate; // NUMERIC(14,2) /*吸收率*/
 	private String entityName; // VARCHAR(150) /*经销商名称*/
 	private Double serviceGrossProfit; // NUMERIC(14,2) /*售后毛利*/
+	private String dealerCode;
+	
+	public String getDealerCode() {
+		return dealerCode;
+	}
+
+	public void setDealerCode(String dealerCode) {
+		this.dealerCode = dealerCode;
+	}
 
 	public Double getEntityAmount() {
 		return entityAmount;

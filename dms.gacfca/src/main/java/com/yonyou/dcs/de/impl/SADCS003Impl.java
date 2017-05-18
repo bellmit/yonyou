@@ -80,6 +80,7 @@ public class SADCS003Impl extends BaseImpl implements SADCS003{
 		for (int i = 0; i < dataList.size(); i++) {
 			dccDto dto = dataList.get(i);
 			dccVO vo = new dccVO();
+			vo.setEntityCode(dto.getDealerCode());
 			BeanUtils.copyProperties(dto, vo);
 			vos.add(vo);
 		}

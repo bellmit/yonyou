@@ -9,6 +9,16 @@ public class WXBindingDTO {
 	private Integer inNum;// 进厂台次
 	private Integer inCustomerNum;// 进厂客户数
 	private String entityCode; // 下端：经销商代码 CHAR(8) 上端：
+	private String dealerCode;
+	
+
+	public String getDealerCode() {
+		return dealerCode;
+	}
+
+	public void setDealerCode(String dealerCode) {
+		this.dealerCode = dealerCode;
+	}
 
 	public String getEntityCode() {
 		return entityCode;

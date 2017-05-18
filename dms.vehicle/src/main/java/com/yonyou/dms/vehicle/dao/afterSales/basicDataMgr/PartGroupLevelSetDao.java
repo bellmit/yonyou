@@ -12,6 +12,7 @@ import com.yonyou.dms.framework.DAO.PageInfoDto;
 import com.yonyou.dms.framework.domain.LoginInfoDto;
 import com.yonyou.dms.framework.util.bean.ApplicationContextHelper;
 import com.yonyou.dms.function.utils.common.StringUtils;
+import com.yonyou.dms.vehicle.domains.PO.afterSales.basicDataMgr.TtPartGroupLevelSetPO;
 
 /**
  * 配件分组级别设定
@@ -63,15 +64,24 @@ public class PartGroupLevelSetDao extends OemBaseDAO{
 	public List<Map> findTmpRecallVehicleDcsList() {
 		//获取当前用户
 		LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
-		List<Object> params = new ArrayList<Object>();
+		
 		StringBuffer sql = new StringBuffer("\n");
 		sql.append(" SELECT * FROM  Tt_Part_Group_Level_Set_Temp_dcs   \n");
 		sql.append(" WHERE  CREATE_BY =  "+loginInfo.getUserId()+"  \n");
 		sql.append(" order by ID  \n");
-		List<Map> resultList = OemDAOUtil.findAll(sql.toString(), params);
+		List<Map> resultList = OemDAOUtil.findAll(sql.toString(), null);
+		System.out.println(sql);
 		return resultList;
 	}
 	
+	
+	
+	//找出要修改的数据
+	public List<Map> findUpdatePartGroupLevelSet(String famiglia_famiglia) {
+			String sql = "SELECT FAMIGLIA_FAMIGLIA FROM TT_PART_GROUP_LEVEL_SET_dcs where famiglia_famiglia =  '"+famiglia_famiglia+"' ";
+			List<Map> resultList = OemDAOUtil.findAll(sql.toString(), null);
+			return resultList;
+		}
 
 	
 

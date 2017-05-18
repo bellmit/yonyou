@@ -25,6 +25,15 @@ public class TiDmsUSwapDto {
 	private String ownCarColor;
 	private Date UpdateDate;// 更新时间
 	private String entityCode;
+	private String dealerCode;
+
+	public String getDealerCode() {
+		return dealerCode;
+	}
+
+	public void setDealerCode(String dealerCode) {
+		this.dealerCode = dealerCode;
+	}
 
 	public String getEntityCode() {
 		return entityCode;

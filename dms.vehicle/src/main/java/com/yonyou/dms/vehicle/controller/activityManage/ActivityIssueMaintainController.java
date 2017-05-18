@@ -47,7 +47,7 @@ public class ActivityIssueMaintainController {
 	
 	
 	/**
-     *服务活动建立 查询	
+     *服务活动发布 查询	
      * @param queryParam 查询条件
      * @return pageInfoDto 查询结果
      */
@@ -61,7 +61,7 @@ public class ActivityIssueMaintainController {
         
     }
     /**
-     *服务活动建立 查询	
+     *服务活动发布 查询	
      * @param queryParam 查询条件
      * @return pageInfoDto 查询结果
      */

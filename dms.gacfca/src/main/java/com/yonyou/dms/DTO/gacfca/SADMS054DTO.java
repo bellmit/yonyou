@@ -11,6 +11,15 @@ public class SADMS054DTO {
 	private String inputPhone;// 录入电话
 	private String inputName;// 录入姓名
 	private Date inputDate;// 录入时间
+	private String dealerCode;
+ 
+	public String getDealerCode() {
+		return dealerCode;
+	}
+
+	public void setDealerCode(String dealerCode) {
+		this.dealerCode = dealerCode;
+	}
 
 	public String getEntityCode() {
 		return entityCode;

@@ -91,6 +91,7 @@ public class SADCS013Impl extends BaseImpl implements SADCS013 {
 		for (int i = 0; i < dataList.size(); i++) {
 			PoCusWholeClryslerDto dto=dataList.get(i);
 			PoCusWholeClryslerVO vo=new PoCusWholeClryslerVO();
+			vo.setEntityCode(dto.getDealerCode());
 			BeanUtils.copyProperties(dto, vo);
 			vos.add(vo);
 		}

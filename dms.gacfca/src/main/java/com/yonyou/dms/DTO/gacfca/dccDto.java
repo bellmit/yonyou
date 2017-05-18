@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class dccDto {
 	
+	private String dealerCode;
 	private Long nid;//上端主键
 	private String entityCode;//
 	private String dmsCustomerId;//DMS系统客户编号
@@ -32,6 +33,12 @@ public class dccDto {
 	private Integer mediaTypeId;//媒体类型ID字典 (下端转给上端字典，下端“信息渠道”)
 	private Date createDate;//注册时间
 	private String dealerUserName;//电话营销员（下端：放在备注中）
+	public String getDealerCode() {
+		return dealerCode;
+	}
+	public void setDealerCode(String dealerCode) {
+		this.dealerCode = dealerCode;
+	}
 	public Long getNid() {
 		return nid;
 	}

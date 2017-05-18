@@ -596,6 +596,27 @@ public class FriendlyClaimApplyDao extends OemBaseDAO{
 
 	}
 	
+	/**
+	 * 新增页面基础数据加载
+	 * @return
+	 */
+	public Map queryShowVehicleInfoMap(String vin) {
+		//获取当前用户
+		LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
+		List<Object> params = new ArrayList<Object>();
+		StringBuffer sql = new StringBuffer("\n");
+		sql.append("select vhcl.VIN,vhcl.LICENSE_NO,vhcl.ENGINE_NO,DATE_FORMAT(vhcl.PURCHASE_DATE,'%Y-%c-%d') PURCHASE_DATE,  \n");
+		sql.append("		 vhcl.MILEAGE,vhcl.MODEL_YEAR,vwm.COLOR_CODE,vwm.COLOR_NAME,vwm.SERIES_CODE, \n");
+		sql.append("		 vhcl.MATERIAL_ID,vwm.BRAND_CODE,vwm.BRAND_NAME,vwm.SERIES_CODE,vwm.SERIES_NAME,vwm.MODEL_CODE,vwm.MODEL_NAME \n");
+		sql.append("		 from TM_VEHICLE_DEC vhcl,("+getVwMaterialSql()+") vwm \n");
+		sql.append("		 where vhcl.MATERIAL_ID = vwm.MATERIAL_ID \n");
+		sql.append("		 and vhcl.VIN = '"+vin+"' \n");
+		
+		Map map = OemDAOUtil.findFirst(sql.toString(), params);				
+		return map;
+
+	}
+	
 }
 
 

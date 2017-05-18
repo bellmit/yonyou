@@ -125,6 +125,12 @@ public class LoginController extends BaseController {
     	boolean flag = false;
     	Map<String,Object> resultMap = new HashMap<>();
         try {
+            HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            
+            System.out.println(httpServletRequest.getRequestURL());
+            System.out.println(request.getQueryString());
+            System.out.println(request.getSession());
             request.getSession().removeAttribute(frameworkParam.getTenantKey());
             request.getSession().removeAttribute("loginInfoDto");
             
@@ -212,6 +218,7 @@ public class LoginController extends BaseController {
         		//获取该用户的数据权限范围信息
         		powerDataService.getDataPower(loginInfo.getUserId(),loginInfo.getOrgCode());
         		resultMap.put("STATUS", 1);
+        		resultMap.put("STATUS1", "执行成功");
         	}
         	return resultMap;
         } catch (Exception e) {

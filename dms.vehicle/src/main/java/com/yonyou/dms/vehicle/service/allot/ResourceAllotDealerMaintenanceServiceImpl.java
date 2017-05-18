@@ -390,14 +390,19 @@ public class ResourceAllotDealerMaintenanceServiceImpl implements ResourceAllotD
 	public Map findByid(Long id) {
 		Map map = maintenanceDao.findByid(id);
 		Map<String, Object> m = new HashMap<>();
-		String s = map.get("SH_PORT_LEVEL").toString();
-		String s2 = map.get("TJ_PORT_LEVEL").toString();
-		String s3 = map.get("DEALER_SHORTNAME").toString();
-		String s4 = map.get("DEALER_ID").toString();
+		String s = CommonUtils.checkNull(map.get("SH_PORT_LEVEL"));
+		String s2 = CommonUtils.checkNull(map.get("TJ_PORT_LEVEL"));
+		String s3 = CommonUtils.checkNull(map.get("DEALER_SHORTNAME"));
+		String s4 = CommonUtils.checkNull(map.get("DEALER_ID"));
 		if (s2.equals("2")) {
 			// s2 = "13931002";
 			// 港口优先级（天津
 			s2 = OemDictCodeConstants.PORT_LEVELTJ2;
+		}
+		if (s2.equals("")) {
+			// s2 = "13931002";
+			// 港口优先级（天津
+			s2 = OemDictCodeConstants.PORT_LEVELTJ1;
 		}
 		if (s2.equals("1")) {
 			// s2 = "13931001";
@@ -411,6 +416,10 @@ public class ResourceAllotDealerMaintenanceServiceImpl implements ResourceAllotD
 		if (s.equals("1")) {
 			// s = "13931003";
 			s = OemDictCodeConstants.PORT_LEVELSH1;
+		}
+		if (s.equals("")) {
+			// s = "13931003";
+			s = OemDictCodeConstants.PORT_LEVELSH2;
 		}
 		m.put("SH_PORT_LEVEL", s);
 		m.put("VPC_PORT", map.get("VPC_PORT"));
@@ -426,107 +435,43 @@ public class ResourceAllotDealerMaintenanceServiceImpl implements ResourceAllotD
 		String dealerShortNmae = CommonUtils.checkNull(dto.getDealerShortNmae());
 		String dealerI = CommonUtils.checkNull(dto.getDealerId());
 		Long dealerId = Long.parseLong(dealerI);
-		String portLevelSH = CommonUtils.checkNull(dto.getPortLevelSH());
-		String portLevelTJ = CommonUtils.checkNull(dto.getPortLevelTJ());
+		String id = dto.getId();
+		String portLevelSH = CommonUtils.checkNull(dto.getShport());
+		String portLevelTJ = CommonUtils.checkNull(dto.getTjport());
 		LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
 		Date currentTime = new Date();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String date = formatter.format(currentTime);
-
-		if (!portLevelSH.equals("")) {
-			if (portLevelSH.equals(OemDictCodeConstants.PORT_LEVELSH1)) {
-				portLevelSH = "1";
-				String sql = "SELECT ID ,PORT_LEVEL,VPC_PORT FROM TM_DEALER_MAINTENANCE WHERE DEALER_ID=" + dealerId
-						+ "  AND PORT_LEVEL=" + portLevelSH;
-				Map map = OemDAOUtil.findFirst(sql, null);
-
-				TmDealerMaintenancePO tdmp = TmDealerMaintenancePO.findFirst("ID=? and VPC_PORT", map.get("ID"),
-						map.get("VPC_PORT"));
-				if (tdmp != null && map.get("VPC_PORT").equals(OemDictCodeConstants.VPC_PORT_01)) {
-					tdmp.setInteger("VPC_PORT", OemDictCodeConstants.VPC_PORT_01);
-					tdmp.setInteger("PORT_LEVEL", portLevelSH);
-					tdmp.setLong("DEALER_ID", dealerId);
-					tdmp.setLong("Update_By", loginInfo.getUserId());
-					tdmp.setTimestamp("UPDATE_DATE", date);
-					tdmp.saveIt();
-
-				} else {
-					if (portLevelSH.equals(OemDictCodeConstants.PORT_LEVELSH2)) {
-						portLevelSH = "2";
-						// String sql1 = "SELECT Id ,PORT_LEVEL,VPC_PORT FROM
-						// TM_DEALER_MAINTENANCE WHERE DEALER_ID="
-						// + dealerId + " and PORT_LEVEL=" + portLevelSH + "";
-						// Map map1 = OemDAOUtil.findFirst(sql1, null);
-						TmDealerMaintenancePO tdmp1 = TmDealerMaintenancePO.findFirst("ID=?", dto.getId());
-						if (tdmp1 != null && tdmp.get("PORT_LEVEL").equals(1)) {
-
-							tdmp1.setInteger("VPC_PORT", OemDictCodeConstants.VPC_PORT_02);
-							tdmp1.setInteger("PORT_LEVEL", portLevelSH);
-							tdmp1.setLong("DEALER_ID", dealerId);
-							tdmp1.setLong("Update_By", loginInfo.getUserId());
-							tdmp1.setTimestamp("UPDATE_DATE", date);
-							tdmp1.saveIt();
-
-						} else {
-							TmDealerMaintenancePO tdm = new TmDealerMaintenancePO();
-							tdm.setInteger("VPC_PORT", OemDictCodeConstants.VPC_PORT_02);
-							tdm.setInteger("PORT_LEVEL", portLevelSH);
-							tdm.setLong("DEALER_ID", dealerId);
-							tdm.setLong("CREATE_BY", loginInfo.getUserId());
-							tdm.setTimestamp("CREATE_DATE", date);
-							tdm.saveIt();
-						}
-					}
-
+		List<TmDealerMaintenancePO> find = TmDealerMaintenancePO.find("DEALER_ID=?", dealerId);
+		String ss = dto.getVpc_ports() + "," + portLevelSH;
+		String sss = dto.getVpc_portt() + "," + portLevelTJ;
+		String[] portLevel = { sss, ss };
+		if (find.size() > 0) {
+			for (TmDealerMaintenancePO po : find) {
+				for (int i = 0; i < portLevel.length; i++) {
+					String portLevels = portLevel[i];
+					String[] portLevels1 = portLevels.split(",");
+					TmDealerMaintenancePO valueTdmp = po.findFirst(" DEALER_ID=? and VPC_PORT=?", dealerId,
+							portLevels1[0]);
+					valueTdmp.setInteger("VPC_PORT", portLevels1[0]);
+					valueTdmp.setInteger("PORT_LEVEL", portLevels1[1]);
+					valueTdmp.setLong("CREATE_BY", loginInfo.getUserId());
+					valueTdmp.setTimestamp("Update_Date", date);
+					valueTdmp.saveIt();
 				}
 			}
 
-		}
-		if (!portLevelTJ.equals("")) {
-			if (portLevelTJ.equals(OemDictCodeConstants.PORT_LEVELTJ1)) {
-				portLevelTJ = "1";
-				// String sql = "SELECT Id ,PORT_LEVEL,VPC_PORT FROM
-				// TM_DEALER_MAINTENANCE WHERE DEALER_ID=" + dealerId
-				// + " and PORT_LEVEL=" + portLevelTJ + "";
-				// Map map = OemDAOUtil.findFirst(sql, null);
-				TmDealerMaintenancePO tdmp = TmDealerMaintenancePO.findFirst("ID=?", dto.getId());
-				if (tdmp != null && tdmp.get("PORT_LEVEL").equals(1)) {
-
-					tdmp.setInteger("VPC_PORT", OemDictCodeConstants.VPC_PORT_01);
-					tdmp.setInteger("PORT_LEVEL", portLevelTJ);
-					tdmp.setLong("DEALER_ID", dealerId);
-					tdmp.setLong("Update_By", loginInfo.getUserId());
-					tdmp.setTimestamp("UPDATE_DATE", date);
-					tdmp.saveIt();
-				}
-
-			} else {
-				if (portLevelTJ.equals(OemDictCodeConstants.PORT_LEVELTJ2)) {
-					portLevelTJ = "2";
-					String sql = "SELECT Id ,PORT_LEVEL,VPC_PORT FROM TM_DEALER_MAINTENANCE WHERE DEALER_ID=" + dealerId
-							+ " and  PORT_LEVEL=" + portLevelTJ + "";
-					Map map = OemDAOUtil.findFirst(sql, null);
-					TmDealerMaintenancePO tdmp = TmDealerMaintenancePO.findFirst("ID=?", dto.getId());
-					if (tdmp != null && tdmp.get("PORT_LEVEL").equals("1")) {
-
-						tdmp.setInteger("VPC_PORT", OemDictCodeConstants.VPC_PORT_02);
-						tdmp.setInteger("PORT_LEVEL", portLevelTJ);
-						tdmp.setLong("DEALER_ID", dealerId);
-						tdmp.setLong("Update_By", loginInfo.getUserId());
-						tdmp.setTimestamp("UPDATE_DATE", date);
-						tdmp.saveIt();
-
-					} else {
-						TmDealerMaintenancePO tdm = new TmDealerMaintenancePO();
-						tdm.setInteger("VPC_PORT", OemDictCodeConstants.VPC_PORT_01);
-						tdm.setInteger("PORT_LEVEL", portLevelTJ);
-						tdm.setLong("DEALER_ID", dealerId);
-						tdm.setLong("CREATE_BY", loginInfo.getUserId());
-						tdm.setTimestamp("CREATE_DATE", date);
-						tdm.saveIt();
-					}
-				}
-
+		} else {
+			for (int i = 0; i < portLevel.length; i++) {
+				String portLevels = portLevel[i];
+				String[] portLevels1 = portLevels.split(",");
+				TmDealerMaintenancePO tdmp = new TmDealerMaintenancePO();
+				tdmp.setInteger("Vpc_Port", Integer.parseInt(portLevels1[0]));
+				tdmp.setInteger("Port_Level", Integer.parseInt(portLevels1[1]));
+				tdmp.setLong("Create_By", loginInfo.getUserId());
+				tdmp.setLong("DEALER_ID", dealerId);
+				tdmp.setTimestamp("Create_Date", date);
+				tdmp.insert();
 			}
 		}
 

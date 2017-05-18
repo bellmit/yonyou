@@ -4,18 +4,24 @@
 package com.yonyou.dcs.de.impl;
 
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.infoservice.dms.cgcsl.vo.PoCusWholeClryslerVO;
+import com.infoservice.dms.cgcsl.vo.PoCusWholeRepayClryslerVO;
 import com.yonyou.dcs.dao.RepairOrderResultStatusDao;
 import com.yonyou.dcs.de.SADCS015;
 import com.yonyou.dcs.gacfca.SADCS015Cloud;
 import com.yonyou.dcs.util.DEUtil;
+import com.yonyou.dms.DTO.gacfca.PoCusWholeClryslerDto;
 import com.yonyou.dms.DTO.gacfca.PoCusWholeRepayClryslerDto;
 import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.CommonUtils;
@@ -54,6 +60,8 @@ public class SADCS015Impl extends BaseImpl  implements SADCS015 {
 	private String send(List<PoCusWholeRepayClryslerDto> dataList, String dealerCode) throws Exception {
 		try {
 			if(null!=dataList && dataList.size()>0){
+				List<PoCusWholeRepayClryslerVO> vos = new ArrayList<>();
+				setVos(vos,dataList);
 				Map<String, Serializable> body = DEUtil.assembleBody(dataList);
 				String entityCode = CommonUtils.checkNull(dao.getDmsDealerCode(dealerCode).get("DMS_CODE"));
 				if(!"".equals(entityCode)){
@@ -71,6 +79,23 @@ public class SADCS015Impl extends BaseImpl  implements SADCS015 {
 		} finally {
 		}
 		return null;
+	}
+	
+	/**
+	 * 数据转换
+	 * @param vos
+	 * @param dataList
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 */
+	private void setVos(List<PoCusWholeRepayClryslerVO> vos, List<PoCusWholeRepayClryslerDto> dataList) throws IllegalAccessException, InvocationTargetException {
+		for (int i = 0; i < dataList.size(); i++) {
+			PoCusWholeRepayClryslerDto dto=dataList.get(i);
+			PoCusWholeRepayClryslerVO vo=new PoCusWholeRepayClryslerVO();
+			vo.setEntityCode(dto.getDealerCode());
+			BeanUtils.copyProperties(dto, vo);
+			vos.add(vo);
+		}
 	}
 
 }

@@ -76,11 +76,7 @@ public class RebateSumDao extends OemBaseDAO{
 		sql.append("	LEFT JOIN TM_ORG TOR3 ON TOR3.ORG_ID = TDOR.ORG_ID AND TOR3.ORG_LEVEL = 3   \n");
 		sql.append("LEFT JOIN TM_ORG TOR2 ON TOR3.PARENT_ORG_ID = TOR2.ORG_ID AND TOR2.ORG_LEVEL = 2  \n");
 		sql.append("where 1=1  \n");
-		//经销商名称
-		if (!StringUtils.isNullOrEmpty(queryParam.get("businessPolicyName"))) {
-			sql.append(" and trc.BUSINESS_POLICY_NAME = ? ");
-			params.add(queryParam.get("businessPolicyName"));
-		}
+		
 		//经销商类型
 		if (!StringUtils.isNullOrEmpty(queryParam.get("businessPolicyType"))) {
 			sql.append(" and trcm.BUSINESS_POLICY_TYPE = ? ");
@@ -101,10 +97,14 @@ public class RebateSumDao extends OemBaseDAO{
 			params.add(queryParam.get("endDate"));
 		}
 		sql.append(" group by trcm.BUSINESS_POLICY_NAME,trcm.LOG_ID,trcm.BUSINESS_POLICY_TYPE, trc.APPLICABLE_TIME,trc.RELEASE_DATE,trcm.START_MONTH,");
-		sql.append("  trcm.END_MONTH,trc.DEALER_CODE,trc.DEALER_NAME ) t ");
-		
-		
-		
+		sql.append("  trcm.END_MONTH,trc.DEALER_CODE,trc.DEALER_NAME ) t  where 1=1");
+		//经销商名称
+		if (!StringUtils.isNullOrEmpty(queryParam.get("businessPolicyName"))) {
+			sql.append(" and t.BUSINESS_POLICY_NAME like '"+queryParam.get("businessPolicyName")+"' ");
+		}
+		System.out.println("***********************查询");
+		System.out.println(sql.toString());
+		System.out.println("***********************");
 		return sql.toString();
 	}
 	
@@ -115,7 +115,7 @@ public class RebateSumDao extends OemBaseDAO{
 	 */
 	private String getQuerySql(Map<String, String> queryParam, List<Object> params) {	
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select t.* from ( select trcm.BUSINESS_POLICY_NAME,trcm.LOG_ID,(CASE trcm.BUSINESS_POLICY_TYPE WHEN '91181001' THEN '销售' WHEN '91181002' THEN '售后' WHEN '91181003' THEN '网络'  ELSE '' END) BUSINESS_POLICY_TYPE , \n");
+		sql.append(" select t.* from ( select trc.BUSINESS_POLICY_NAME,trcm.LOG_ID,(CASE trcm.BUSINESS_POLICY_TYPE WHEN '91181001' THEN '销售' WHEN '91181002' THEN '售后' WHEN '91181003' THEN '网络'  ELSE '' END) BUSINESS_POLICY_TYPE , \n");
 		sql.append("	 trc.APPLICABLE_TIME, \n");
 		sql.append(" 	 DATE_FORMAT(trc.RELEASE_DATE,'%Y-%m-%d') RELEASE_DATE, \n");
 		sql.append(" 	 trcm.START_MONTH, \n");
@@ -133,33 +133,48 @@ public class RebateSumDao extends OemBaseDAO{
 		sql.append("  LEFT JOIN TM_DEALER_ORG_RELATION TDOR ON TDOR.DEALER_ID = TD.DEALER_ID  \n");
 		sql.append("	LEFT JOIN TM_ORG TOR3 ON TOR3.ORG_ID = TDOR.ORG_ID AND TOR3.ORG_LEVEL = 3   \n");
 		sql.append("LEFT JOIN TM_ORG TOR2 ON TOR3.PARENT_ORG_ID = TOR2.ORG_ID AND TOR2.ORG_LEVEL = 2  \n");
-		sql.append("where 1=1  \n");
+		/*sql.append("where 1=1  \n");*/
+		
+		sql.append(" group by trcm.BUSINESS_POLICY_NAME,trcm.LOG_ID,trcm.BUSINESS_POLICY_TYPE, trc.APPLICABLE_TIME,trc.RELEASE_DATE,trcm.START_MONTH,");
+		sql.append("  trcm.END_MONTH,trc.DEALER_CODE,trc.DEALER_NAME ) t  where 1=1 ");
 		//经销商名称
 		if (!StringUtils.isNullOrEmpty(queryParam.get("businessPolicyName"))) {
-			sql.append(" and trc.BUSINESS_POLICY_NAME = ? ");
+			sql.append(" and t.BUSINESS_POLICY_NAME = ? ");
 			params.add(queryParam.get("businessPolicyName"));
 		}
+		String businessPolicyType= "";
+	    if(!StringUtils.isNullOrEmpty(queryParam.get("businessPolicyType"))){
+	    	businessPolicyType = queryParam.get("businessPolicyType");
+	    }
+		
+		if(businessPolicyType.equals("91181001")) {
+			businessPolicyType = "销售";
+		}else if(businessPolicyType.equals("91181002")){
+			businessPolicyType = "售后";
+		}else if(businessPolicyType.equals("91181003")){
+			businessPolicyType = "网络";
+		}else{
+			businessPolicyType = "其他";
+		}
+		
 		//经销商类型
 		if (!StringUtils.isNullOrEmpty(queryParam.get("businessPolicyType"))) {
-			sql.append(" and trcm.BUSINESS_POLICY_TYPE = ? ");
-			params.add(queryParam.get("businessPolicyType"));
+			sql.append(" and t.BUSINESS_POLICY_TYPE = '"+businessPolicyType+"' ");
 		}
 		//经销商代码
 		if (!StringUtils.isNullOrEmpty(queryParam.get("dealerCode"))) {
-			sql.append(" and trc.DEALER_CODE = ? ");
+			sql.append(" and t.DEALER_CODE = ? ");
 			params.add(queryParam.get("dealerCode"));
 		}
 		if (!StringUtils.isNullOrEmpty(queryParam.get("beginDate"))) {
-			sql.append("   AND DATE(trc.START_MONTH) >= ? \n");
+			sql.append("   AND DATE(t.START_MONTH) >= ? \n");
 			params.add(queryParam.get("beginDate"));
 		}
 		if (!StringUtils.isNullOrEmpty(queryParam.get("endDate"))) {
-			sql.append("   AND DATE(trc.END_MONTH) <= ? \n");
+			sql.append("   AND DATE(t.END_MONTH) <= ? \n");
 			params.add(queryParam.get("endDate"));
 		}
-		sql.append(" group by trcm.BUSINESS_POLICY_NAME,trcm.LOG_ID,trcm.BUSINESS_POLICY_TYPE, trc.APPLICABLE_TIME,trc.RELEASE_DATE,trcm.START_MONTH,");
-		sql.append("  trcm.END_MONTH,trc.DEALER_CODE,trc.DEALER_NAME ) t ");
-		System.err.println(sql.toString());
+		
 		return sql.toString();
 	}
 	

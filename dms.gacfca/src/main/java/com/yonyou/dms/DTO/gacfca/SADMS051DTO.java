@@ -50,6 +50,15 @@ public class SADMS051DTO {
 	private Double expenseCustomerRate; // NUMERIC(14,2) /*自费客户率*/
 	private Double partStockMonth; // NUMERIC(18,6) /*当月配件库存（万元）*/
 	private Long keepFitNumMonth; // NUMERIC(14) /*当月保养台次*/
+	private String dealerCode;
+	
+	public String getDealerCode() {
+		return dealerCode;
+	}
+
+	public void setDealerCode(String dealerCode) {
+		this.dealerCode = dealerCode;
+	}
 
 	public Double getPartSatisfyRate() {
 		return partSatisfyRate;

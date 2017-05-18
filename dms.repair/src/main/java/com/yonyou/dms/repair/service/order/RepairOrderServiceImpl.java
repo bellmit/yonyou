@@ -621,7 +621,7 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 		StringBuffer sql = new StringBuffer();
 		String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
 		List<Object> params = new ArrayList<Object>();
-		sql.append(" select vin as RO_NO from TM_VS_STOCK where DEALER_CODE= ? ");
+		sql.append(" select vin as RO_NO,DEALER_CODE from TM_VS_STOCK where DEALER_CODE= ? ");
 		params.add(dealerCode);
 		sql.append(" and vin= ? ");
 		params.add(param.get("vin"));
@@ -633,7 +633,11 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 		params.add(DictCodeConstants.DICT_INVOICE_FEE_VEHICLE);
 		sql.append(" ) ");
 		List<Map> map = DAOUtil.findAll(sql.toString(), params);
-		return map.get(0);
+		if(map.size()>0){
+			return map.get(0);
+		}else{
+			return new HashMap();
+		}
 	}
 
 	@Override
@@ -641,9 +645,13 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 		StringBuffer sql = new StringBuffer();
 		String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
 		sql.append(" select * from TT_REPAIR_ORDER where RO_STATUS = 12251001 and DEALER_CODE = " + dealerCode
-				+ " and vin = " + param.get("vin"));
+				+ " and vin = '" + param.get("vin") + "'");
 		List<Map> map = DAOUtil.findAll(sql.toString(), null);
-		return map.get(0);
+		if(map.size()>0){
+			return map.get(0);
+		}else{
+			return new HashMap();
+		}
 	}
 
 	// @Override
@@ -1924,8 +1932,8 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 	@Override
 	public List<Map> queryVinByVin(Map<String, String> query) {
 		StringBuffer sb = new StringBuffer();
-		sb.append("SELECT A.*,B.OWNER_NAME,B.OWNER_PROPERTY,C.MEMO_INFO ").append(" FROM VM_VEHICLE A")
-				.append(" LEFT JOIN VM_OWNER B ON A.DEALER_CODE = B. DEALER_CODE AND A.OWNER_NO = B.OWNER_NO ")
+		sb.append("SELECT A.*,B.OWNER_NAME,B.OWNER_PROPERTY,C.MEMO_INFO ").append(" FROM ("+CommonConstants.VM_VEHICLE+") A")
+				.append(" LEFT JOIN ("+CommonConstants.VM_OWNER+") B ON A.DEALER_CODE = B. DEALER_CODE AND A.OWNER_NO = B.OWNER_NO ")
 				.append(" LEFT JOIN TM_VEHICLE_MEMO C ON C.DEALER_CODE = A.DEALER_CODE AND C.VIN = A.VIN")
 				.append(" WHERE A.VIN = '").append(query.get("vin")).append("' AND A.DEALER_CODE = '")
 				.append(FrameworkUtil.getLoginInfo().getDealerCode()).append("' ");

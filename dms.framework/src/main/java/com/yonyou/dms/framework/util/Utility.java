@@ -1502,6 +1502,30 @@ public class Utility {
 		defaultValue = Utility.getDefaultValue(Integer.toString(CommonConstants.DEFAULT_PARA_PART_RATE));
 		return defaultValue;
     }
+
+	/**
+	 * @description 判断是否允许负库存
+	 * @param dealerCode
+	 * @param object
+	 * @return
+	 * @throws Exception 
+	 * @throws NumberFormatException 
+	 */
+	public static boolean checkNegative(String dealerCode, String storageCode) throws NumberFormatException, Exception {
+		StringBuffer sb = new StringBuffer();
+		sb.append("select * from tm_storage where dealer_code = "+ dealerCode + " and Storage_Code = '" + storageCode+"'");
+		List<Map> list = DAOUtil.findAll(sb.toString(), null);
+		if (list == null || list.size() < 1)
+		{ // modifidy by sf 2011-02-15 FOR DXP
+			return false;// 不允许
+		}
+		Map map = list.get(0);
+		if (Utility.getInt(CommonConstants.DICT_IS_NO) == Integer.parseInt(map.get("Is_Negative").toString())){
+			// 不允许负库存
+			return false;
+		}
+		return true;
+	}
 	
 	/**
 	 * 对数据库中查找的索赔单号进行验证

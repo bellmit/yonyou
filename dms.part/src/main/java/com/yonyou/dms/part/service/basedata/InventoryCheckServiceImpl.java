@@ -42,8 +42,8 @@ public class InventoryCheckServiceImpl implements InventoryCheckService {
 		StringBuffer sb = new StringBuffer();
 		sb.append(
 				"select A.DEALER_CODE,'' as SQL_CON ,'' as  SQL_TAG,'' as BEGIN_DATE_OUT ,'' as END_DATE_OUT ,'' as BEGIN_DATE_IN ,'' as  END_DATE_IN,'' as PART_MODEL_GROUP_CODE_SET ,A.REMARK, A.INVENTORY_NO, A.INVENTORY_DATE, A.PROFIT_AMOUNT, A.LOSS_COUNT, ")
-				.append(" A.LOSS_AMOUNT,tu.USER_NAME as HANDLER, A.PROFIT_COUNT, A.IS_CONFIRMED, A.IS_FINISHED, A.PROFIT_TAG, ")
-				.append(" A.LOSS_TAG,tua.USER_NAME as LOCK_USER  from  TT_PART_INVENTORY A LEFT JOIN TM_USER tu ON tu.DEALER_CODE = A.DEALER_CODE AND tu.USER_ID=A.HANDLER LEFT JOIN TM_USER tua ON tua.DEALER_CODE = A.DEALER_CODE AND tua.USER_ID=A.LOCK_USER" + " WHERE A.DEALER_CODE = '")
+				.append(" A.LOSS_AMOUNT,tu.EMPLOYEE_NAME as HANDLER, A.PROFIT_COUNT, A.IS_CONFIRMED, A.IS_FINISHED, A.PROFIT_TAG, ")
+				.append(" A.LOSS_TAG,tua.USER_NAME as LOCK_USER  from  TT_PART_INVENTORY A LEFT JOIN TM_EMPLOYEE tu ON tu.DEALER_CODE = A.DEALER_CODE AND tu.EMPLOYEE_NO=A.HANDLER LEFT JOIN TM_USER tua ON tua.DEALER_CODE = A.DEALER_CODE AND tua.USER_ID=A.LOCK_USER" + " WHERE A.DEALER_CODE = '")
 				.append(FrameworkUtil.getLoginInfo().getDealerCode()).append("' ")
 				.append(" AND D_KEY = ").append(CommonConstants.D_KEY).append(" ");
 		if (!StringUtils.isNullOrEmpty(map.get("IS_CONFIRMED"))) {
@@ -83,7 +83,7 @@ public class InventoryCheckServiceImpl implements InventoryCheckService {
 
 	@Override
 	public Map findinventoryFirst(String id) {
-		String sql = "SELECT A.INVENTORY_NO,A.HANDLER,tu.USER_NAME,A.INVENTORY_DATE,A.REMARK,A.DEALER_CODE FROM TT_PART_INVENTORY A LEFT JOIN TM_USER tu ON tu.DEALER_CODE=A.DEALER_CODE AND tu.USER_ID=A.HANDLER WHERE INVENTORY_NO = ?";
+		String sql = "SELECT A.INVENTORY_NO,A.HANDLER,tu.EMPLOYEE_NAME as USER_NAME,A.INVENTORY_DATE,A.REMARK,A.DEALER_CODE FROM TT_PART_INVENTORY A LEFT JOIN TM_EMPLOYEE tu ON tu.DEALER_CODE=A.DEALER_CODE AND tu.EMPLOYEE_NO=A.HANDLER WHERE INVENTORY_NO = ?";
 		List queryParam = new ArrayList();
 		queryParam.add(id);
 		return DAOUtil.findFirst(sql, queryParam);
@@ -140,7 +140,7 @@ public class InventoryCheckServiceImpl implements InventoryCheckService {
 		TtPartInventoryPO partInventoryPO = new TtPartInventoryPO();
 		partInventoryPO.setString("DEALER_CODE", FrameworkUtil.getLoginInfo().getDealerCode());
 		partInventoryPO.setString("INVENTORY_NO", inventoryNo);
-		partInventoryPO.setString("HANDLER", FrameworkUtil.getLoginInfo().getUserId());
+		partInventoryPO.setString("HANDLER", FrameworkUtil.getLoginInfo().getEmployeeNo());
 		partInventoryPO.set("INVENTORY_DATE", new Timestamp(System.currentTimeMillis()));
 		partInventoryPO.setLong("IS_FINISHED", DictCodeConstants.IS_NOT);
 		partInventoryPO.saveIt();
@@ -159,7 +159,7 @@ public class InventoryCheckServiceImpl implements InventoryCheckService {
 			TtPartInventoryPO partInventoryPO = new TtPartInventoryPO();
 			partInventoryPO.setString("DEALER_CODE", FrameworkUtil.getLoginInfo().getDealerCode());
 			partInventoryPO.setString("INVENTORY_NO", inventoryNo);
-			partInventoryPO.setString("HANDLER", FrameworkUtil.getLoginInfo().getUserId());
+			partInventoryPO.setString("HANDLER", FrameworkUtil.getLoginInfo().getEmployeeNo());
 			partInventoryPO.set("INVENTORY_DATE", new Timestamp(System.currentTimeMillis()));
 			partInventoryPO.setLong("IS_FINISHED", DictCodeConstants.IS_NOT);
 			partInventoryPO.setString("REMARK", dto.getRemark());
@@ -330,14 +330,14 @@ public class InventoryCheckServiceImpl implements InventoryCheckService {
 		if (!StringUtils.isNullOrEmpty(dto.getInventoryNo())) {// 修改
 			id = dto.getInventoryNo();
 			inventory.setString("DEALER_CODE", FrameworkUtil.getLoginInfo().getDealerCode());
-			inventory.setString("HANDLER", FrameworkUtil.getLoginInfo().getUserId().toString());
+			inventory.setString("HANDLER", FrameworkUtil.getLoginInfo().getEmployeeNo());
 			inventory.set("INVENTORY_DATE", new Timestamp(System.currentTimeMillis()));
 			inventory.setLong("LOCK_USER", FrameworkUtil.getLoginInfo().getUserId());
 			inventory.saveIt();
 		} else {// 新增
 			id = commonNoService.getSystemOrderNo(CommonConstants.SRV_PJPDDH);// 获取盘点单号
 			inventory.setString("DEALER_CODE", FrameworkUtil.getLoginInfo().getDealerCode());
-			inventory.setString("HANDLER", FrameworkUtil.getLoginInfo().getUserId().toString());
+			inventory.setString("HANDLER", FrameworkUtil.getLoginInfo().getEmployeeNo());
 			inventory.set("INVENTORY_DATE", new Timestamp(System.currentTimeMillis()));
 			inventory.setString("INVENTORY_NO", id);
 			inventory.setLong("IS_CONFIRMED", DictCodeConstants.IS_NOT);
@@ -468,7 +468,7 @@ public class InventoryCheckServiceImpl implements InventoryCheckService {
 	public String btnConfirm(InventoryItemDTO dto) {
 		TtPartInventoryPO inventory = TtPartInventoryPO
 				.findByCompositeKeys(FrameworkUtil.getLoginInfo().getDealerCode(), dto.getInventoryNo());
-		inventory.setString("HANDLER", FrameworkUtil.getLoginInfo().getUserId().toString());
+		inventory.setString("HANDLER", FrameworkUtil.getLoginInfo().getEmployeeNo());
 		inventory.set("INVENTORY_DATE", new Timestamp(System.currentTimeMillis()));
 		inventory.setLong("LOCK_USER", FrameworkUtil.getLoginInfo().getUserId());
 		inventory.setLong("IS_CONFIRMED", DictCodeConstants.IS_YES);

@@ -2,6 +2,8 @@ package com.yonyou.dms.repair.service.basedata;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,16 +13,31 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.thoughtworks.xstream.mapper.Mapper.Null;
 import com.yonyou.dms.common.domains.PO.basedata.RepairOrderPO;
 import com.yonyou.dms.common.domains.PO.basedata.TmGiftCertificateItemPO;
+import com.yonyou.dms.common.domains.PO.basedata.TmPayobjAmountStatisticsPO;
+import com.yonyou.dms.common.domains.PO.basedata.TmRepairTypePO;
+import com.yonyou.dms.common.domains.PO.basedata.TmVehiclePO;
+import com.yonyou.dms.common.domains.PO.basedata.TmVehicleSubclassPO;
+import com.yonyou.dms.common.domains.PO.basedata.TtAccountsTransFlowPO;
 import com.yonyou.dms.common.domains.PO.basedata.TtBalanceAccountsPO;
 import com.yonyou.dms.common.domains.PO.basedata.TtBalanceAddItemPO;
 import com.yonyou.dms.common.domains.PO.basedata.TtBalanceAddItemPayobjPO;
 import com.yonyou.dms.common.domains.PO.basedata.TtBalanceLabourPO;
 import com.yonyou.dms.common.domains.PO.basedata.TtBalanceLabourPayobjPO;
+import com.yonyou.dms.common.domains.PO.basedata.TtBalanceOtherCostPO;
 import com.yonyou.dms.common.domains.PO.basedata.TtBalanceRepairPartPO;
 import com.yonyou.dms.common.domains.PO.basedata.TtBalanceRepairPartPayobjPO;
+import com.yonyou.dms.common.domains.PO.basedata.TtMemberLabourFlowPO;
+import com.yonyou.dms.common.domains.PO.basedata.TtRoAssignPO;
+import com.yonyou.dms.common.domains.PO.basedata.TtRoLabourPO;
+import com.yonyou.dms.common.domains.PO.basedata.TtRoRepairPartPO;
+import com.yonyou.dms.common.domains.PO.basedata.TtSalesPartPO;
+import com.yonyou.dms.common.domains.PO.basedata.TtSuggestMaintainLabourPO;
+import com.yonyou.dms.common.domains.PO.basedata.TtSuggestMaintainPartPO;
 import com.yonyou.dms.common.domains.PO.monitor.OperateLogPO;
+import com.yonyou.dms.common.domains.PO.stockmanage.VehiclePO;
 import com.yonyou.dms.framework.DAO.DAOUtil;
 import com.yonyou.dms.framework.DAO.PageInfoDto;
 import com.yonyou.dms.framework.service.CommonNoService;
@@ -31,6 +48,7 @@ import com.yonyou.dms.function.common.DictCodeConstants;
 import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.StringUtils;
 import com.yonyou.dms.repair.domains.DTO.basedata.BalanceDTO;
+import com.yonyou.dms.repair.domains.PO.balance.BalancePayobjPO;
 
 @Service
 @SuppressWarnings({ "rawtypes", "unused" })
@@ -375,8 +393,8 @@ public class FreeSettlementServiceImpl implements FreeSettlementService {
 		accountsPo.set("ADD_ITEM_AMOUNT", balanceDTO.getAddItemAmount());
 		accountsPo.set("OVER_ITEM_AMOUNT", balanceDTO.getOverItemAmount());
 		accountsPo.set("TAX", Utility.getDefaultValue("1003"));
-		accountsPo.set("TAX_AMOUNT_BALANCE", balanceDTO.getTaxAmountBalance());
-		accountsPo.set("NET_AMOUNT_BALANCE", balanceDTO.getNetAmountBalance());
+		accountsPo.set("TAX_AMOUNT", balanceDTO.getTaxAmountBalance());
+		accountsPo.set("NET_AMOUNT", balanceDTO.getNetAmountBalance());
 		accountsPo.set("TOTAL_AMOUNT", balanceDTO.getTotalAmount());
 		accountsPo.set("RECEIVE_AMOUNT", balanceDTO.getReceiveAmount());
 		accountsPo.set("DERATE_AMOUNT", balanceDTO.getDerateAmount());
@@ -397,8 +415,8 @@ public class FreeSettlementServiceImpl implements FreeSettlementService {
 		accountsPo.set("ARR_BALANCE", balanceDTO.getArrBalance());
 		accountsPo.set("INSURATION_CODE", balanceDTO.getInsurationCode());
 		accountsPo.set("INSURATION_NO", balanceDTO.getInsurationNo());
-		accountsPo.set("REMARK_BALANCE", balanceDTO.getRemarkBalance());
-		accountsPo.set("REMARK1_BALANCE", balanceDTO.getRemark1Balance());
+		accountsPo.set("REMARK", balanceDTO.getRemarkBalance());
+		accountsPo.set("REMARK1", balanceDTO.getRemark1Balance());
 		if (!StringUtils.isNullOrEmpty(useCredit)) {
 			accountsPo.set("THIS_USE_CREDIT", useCredit);
 		}
@@ -518,7 +536,7 @@ public class FreeSettlementServiceImpl implements FreeSettlementService {
 							Long discount = Long.valueOf(hiddenList1.get(j).get("DISCOUNT").toString());
 							Double discountAmount = receiveableAmount * (1 - discount);
 							Double realReceiveAmount = receiveableAmount * discount;
-														
+
 							labourObjPo.set("ITEM_ID", itemId);
 							labourObjPo.set("DEALER_CODE", dealerCode);
 							labourObjPo.set("PAYMENT_OBJECT_CODE", hiddenList1.get(j).get("PAYMENT_OBJECT_CODE"));
@@ -666,56 +684,56 @@ public class FreeSettlementServiceImpl implements FreeSettlementService {
 				}
 			}
 		}
-		
+
 		// 新增结算单附加项目明细
 		List<Map> list4 = balanceDTO.getbAIDtoList();
 		List<Map> hiddenList4 = balanceDTO.getHiddenList4();
-		if (list4.size()>0) {
+		if (list4.size() > 0) {
 			TtBalanceAddItemPO addPo = null;
 			TtBalanceAddItemPayobjPO addObjPo = null;
 			for (Map map4 : list4) {
 				addPo = new TtBalanceAddItemPO();
-				if(!StringUtils.isNullOrEmpty(balanceNo)){
+				if (!StringUtils.isNullOrEmpty(balanceNo)) {
 					addPo.set("BALANCE_NO", balanceNo);
 				}
-				if(!StringUtils.isNullOrEmpty(dealerCode)){
+				if (!StringUtils.isNullOrEmpty(dealerCode)) {
 					addPo.set("DEALER_CODE", dealerCode);
 				}
-				if(!StringUtils.isNullOrEmpty(map4.get("RO_NO"))){
+				if (!StringUtils.isNullOrEmpty(map4.get("RO_NO"))) {
 					addPo.set("RO_NO", map4.get("RO_NO"));
 				}
-				if(!StringUtils.isNullOrEmpty(map4.get("MANAGE_SORT_CODE"))){
+				if (!StringUtils.isNullOrEmpty(map4.get("MANAGE_SORT_CODE"))) {
 					addPo.set("MANAGE_SORT_CODE", map4.get("MANAGE_SORT_CODE"));
 				}
-				if(!StringUtils.isNullOrEmpty(map4.get("CHARGE_PARTITION_CODE"))){
+				if (!StringUtils.isNullOrEmpty(map4.get("CHARGE_PARTITION_CODE"))) {
 					addPo.set("CHARGE_PARTITION_CODE", map4.get("CHARGE_PARTITION_CODE"));
 				}
-				if(!StringUtils.isNullOrEmpty(map4.get("ADD_ITEM_CODE"))){
+				if (!StringUtils.isNullOrEmpty(map4.get("ADD_ITEM_CODE"))) {
 					addPo.set("ADD_ITEM_CODE", map4.get("ADD_ITEM_CODE"));
 				}
-				if(!StringUtils.isNullOrEmpty(map4.get("ADD_ITEM_NAME"))){
+				if (!StringUtils.isNullOrEmpty(map4.get("ADD_ITEM_NAME"))) {
 					addPo.set("ADD_ITEM_NAME", map4.get("ADD_ITEM_NAME"));
 				}
-				if(!StringUtils.isNullOrEmpty(map4.get("ADD_ITEM_AMOUNT"))){
+				if (!StringUtils.isNullOrEmpty(map4.get("ADD_ITEM_AMOUNT"))) {
 					addPo.set("ADD_ITEM_AMOUNT", map4.get("ADD_ITEM_AMOUNT"));
 				}
-				if(!StringUtils.isNullOrEmpty(map4.get("REMARK"))){
+				if (!StringUtils.isNullOrEmpty(map4.get("REMARK"))) {
 					addPo.set("REMARK", map4.get("REMARK"));
 				}
-				if(!StringUtils.isNullOrEmpty(map4.get("DISCOUNT"))){
+				if (!StringUtils.isNullOrEmpty(map4.get("DISCOUNT"))) {
 					addPo.set("DISCOUNT", map4.get("DISCOUNT"));
 				}
-				if(!StringUtils.isNullOrEmpty(map4.get("DISCOUNT_AMOUNT"))){
+				if (!StringUtils.isNullOrEmpty(map4.get("DISCOUNT_AMOUNT"))) {
 					addPo.set("DISCOUNT_AMOUNT", map4.get("CALC_DISCOUNT_AMOUNT"));
 				}
-				if(!StringUtils.isNullOrEmpty(map4.get("REAL_RECEIVE_AMOUNT"))){
+				if (!StringUtils.isNullOrEmpty(map4.get("REAL_RECEIVE_AMOUNT"))) {
 					addPo.set("REAL_RECEIVE_AMOUNT", map4.get("CALC_REAL_RECEIVE_AMOUNT"));
 				}
-				if(!StringUtils.isNullOrEmpty(map4.get("ACTIVITY_CODE"))){
+				if (!StringUtils.isNullOrEmpty(map4.get("ACTIVITY_CODE"))) {
 					addPo.set("ACTIVITY_CODE", map4.get("ACTIVITY_CODE"));
 				}
 				addPo.saveIt();
-				
+
 				// 新增附加项目收费对象
 				for (Map mapHidden4 : hiddenList4) {
 					if (map4.get("ADD_ITEM_CODE").equals(mapHidden4.get("ADD_ITEM_CODE"))) {
@@ -724,9 +742,9 @@ public class FreeSettlementServiceImpl implements FreeSettlementService {
 						Long discount = Long.valueOf(mapHidden4.get("DISCOUNT").toString());
 						Double discountAmount = receiveableAmount * (1 - discount);
 						Double realReceiveAmount = receiveableAmount * discount;
-						
+
 						addObjPo.set("ITEM_ID", addPo.get("ITEM_ID"));
-					    addObjPo.set("DEALER_CODE", dealerCode);
+						addObjPo.set("DEALER_CODE", dealerCode);
 						addObjPo.set("PAYMENT_OBJECT_CODE", mapHidden4.get("PAYMENT_OBJECT_CODE"));
 						addObjPo.set("PAYMENT_OBJECT_NAME", mapHidden4.get("PAYMENT_OBJECT_NAME"));
 						addObjPo.set("RECEIVEABLE_AMOUNT", receiveableAmount);
@@ -734,18 +752,971 @@ public class FreeSettlementServiceImpl implements FreeSettlementService {
 						addObjPo.set("DISCOUNT_AMOUNT", discountAmount);
 						addObjPo.set("REAL_RECEIVE_AMOUNT", realReceiveAmount);
 						addObjPo.saveIt();
-					}else {
+					} else {
 						continue;
 					}
 				}
 			}
 		}
-		
+
 		// 新增结算单其他成本
 		List<Map> hiddenList5 = balanceDTO.getHiddenList5();
-		if (hiddenList5.size()>0) {
-		//	TtBalanceOtherCostPO otherPo = null;
+		if (hiddenList5.size() > 0) {
+			TtBalanceOtherCostPO otherPo = null;
+			for (Map mapHidden5 : hiddenList5) {
+				otherPo = new TtBalanceOtherCostPO();
+				otherPo.set("BALANCE_NO", balanceNo);
+				otherPo.set("DEALER_CODE", dealerCode);
+				otherPo.set("OTHER_COST_NAME", mapHidden5.get("OTHER_COST_NAME"));
+				otherPo.set("OTHER_COST_CODE", mapHidden5.get("OTHER_COST_CODE"));
+				if (!StringUtils.isNullOrEmpty(mapHidden5.get("OTHER_COST_AMOUNT"))) {
+					otherPo.set("OTHER_COST_AMOUNT", mapHidden5.get("OTHER_COST_AMOUNT"));
+				}
+				otherPo.saveIt();
+			}
 		}
+
+		// 新增结算单收费对象列表
+		List<Map> receivableList = balanceDTO.getReceivableList();// 应收
+		List<Map> receivedList = balanceDTO.getReceivedList();// 实收
+		BalancePayobjPO payObjPo = null;
+		if (receivableList.size() > 0) {
+			for (int i = 0; i < receivableList.size(); i++) {
+				payObjPo = new BalancePayobjPO();
+				payObjPo.set("BALANCE_NO", balanceNo);
+				payObjPo.set("DEALER_CODE", dealerCode);
+				payObjPo.set("RO_NO", roNo);
+				payObjPo.set("SALES_PART_NO", salesPartNo);
+				payObjPo.set("PAYMENT_OBJECT_CODE", receivableList.get(i).get("PAYMENT_OBJECT_CODE"));
+				payObjPo.set("PAYMENT_OBJECT_NAME", receivableList.get(i).get("PAYMENT_OBJECT_NAME"));
+				if (!StringUtils.isNullOrEmpty(receivableList.get(i).get("RECEIVEABLE_LABOUR_FEE"))) {
+					payObjPo.set("RECEIVEABLE_LABOUR_FEE", receivableList.get(i).get("RECEIVEABLE_LABOUR_FEE"));
+				}
+				if (!StringUtils.isNullOrEmpty(receivableList.get(i).get("RECEIVEABLE_REPAIR_PART_FEE"))) {
+					payObjPo.set("RECEIVEABLE_REPAIR_PART_FEE",
+							receivableList.get(i).get("RECEIVEABLE_REPAIR_PART_FEE"));
+				}
+				if (!StringUtils.isNullOrEmpty(receivableList.get(i).get("RECEIVEABLE_SALES_PART_FEE"))) {
+					payObjPo.set("RECEIVEABLE_SALES_PART_FEE", receivableList.get(i).get("RECEIVEABLE_SALES_PART_FEE"));
+				}
+				if (!StringUtils.isNullOrEmpty(receivableList.get(i).get("CALC_RECEIVEABLE_TOTAL_AMOUNT"))) {
+					payObjPo.set("RECEIVEABLE_TOTAL_AMOUNT",
+							receivableList.get(i).get("CALC_RECEIVEABLE_TOTAL_AMOUNT"));
+				}
+				if (!StringUtils.isNullOrEmpty(receivableList.get(i).get("RECEIVEABLE_ADD_ITEM_FEE"))) {
+					payObjPo.set("RECEIVEABLE_ADD_ITEM_FEE", receivableList.get(i).get("RECEIVEABLE_ADD_ITEM_FEE"));
+				}
+				if (!StringUtils.isNullOrEmpty(receivableList.get(i).get("RECEIVEABLE_OVER_ITEM_FEE"))) {
+					payObjPo.set("RECEIVEABLE_OVER_ITEM_FEE", receivableList.get(i).get("RECEIVEABLE_OVER_ITEM_FEE"));
+				}
+				if (!StringUtils.isNullOrEmpty(receivedList.get(i).get("CALC_RECEIVABLE_AMOUNT"))) {
+					payObjPo.set("RECEIVABLE_AMOUNT", receivedList.get(i).get("CALC_RECEIVABLE_AMOUNT"));
+				}
+				if (!StringUtils.isNullOrEmpty(receivedList.get(i).get("REAL_LABOUR_FEE"))) {
+					payObjPo.set("REAL_LABOUR_FEE", receivedList.get(i).get("REAL_LABOUR_FEE"));
+				}
+				if (!StringUtils.isNullOrEmpty(receivedList.get(i).get("REAL_REPAIR_PART_FEE"))) {
+					payObjPo.set("REAL_REPAIR_PART_FEE", receivedList.get(i).get("REAL_REPAIR_PART_FEE"));
+				}
+				if (StringUtils.isNullOrEmpty(receivedList.get(i).get("REAL_LABOUR_FEE"))) {
+					zeroBalance = true;
+				}
+				if (!StringUtils.isNullOrEmpty(receivedList.get(i).get("REAL_SALES_PART_FEE"))) {
+					payObjPo.set("REAL_SALES_PART_FEE", receivedList.get(i).get("REAL_SALES_PART_FEE"));
+				}
+				if (!StringUtils.isNullOrEmpty(receivedList.get(i).get("REAL_ADD_ITEM_FEE"))) {
+					payObjPo.set("REAL_ADD_ITEM_FEE", receivedList.get(i).get("REAL_ADD_ITEM_FEE"));
+				}
+				if (!StringUtils.isNullOrEmpty(receivedList.get(i).get("REAL_OVER_ITEM_FEE"))) {
+					payObjPo.set("REAL_OVER_ITEM_FEE", receivedList.get(i).get("REAL_OVER_ITEM_FEE"));
+				}
+				if (!StringUtils.isNullOrEmpty(receivedList.get(i).get("CALC_REAL_TOTAL_AMOUNT"))) {
+					payObjPo.set("REAL_TOTAL_AMOUNT", receivedList.get(i).get("CALC_REAL_TOTAL_AMOUNT"));
+				}
+				if (!StringUtils.isNullOrEmpty(receivedList.get(i).get("CALC_NET_AMOUNT"))) {
+					payObjPo.set("NET_AMOUNT", receivedList.get(i).get("CALC_NET_AMOUNT"));
+				}
+				String tax = Utility.getDefaultValue("1003");
+				if (!StringUtils.isNullOrEmpty(tax)) {
+					payObjPo.set("TAX", tax);
+				}
+				if (!StringUtils.isNullOrEmpty(receivedList.get(i).get("CALC_TAX_AMOUNT"))) {
+					payObjPo.set("TAX_AMOUNT", receivedList.get(i).get("CALC_TAX_AMOUNT"));
+				}
+				if (!StringUtils.isNullOrEmpty(receivedList.get(i).get("CALC_RECEIVABLE_AMOUNT"))) {
+					payObjPo.set("RECEIVABLE_AMOUNT", receivedList.get(i).get("CALC_RECEIVABLE_AMOUNT"));
+				}
+				payObjPo.set("RECEIVED_AMOUNT", "0");
+				payObjPo.set("DERATED_AMOUNT", "0");
+				if (!StringUtils.isNullOrEmpty(receivedList.get(i).get("CALC_RECEIVABLE_AMOUNT"))) {
+					payObjPo.set("NOT_RECEIVED_AMOUNT", receivedList.get(i).get("CALC_RECEIVABLE_AMOUNT"));
+				}
+				String subObbAmount = "";
+				if (StringUtils.isNullOrEmpty(receivedList.get(i).get("SUB_OBB_AMOUNT"))) {
+					subObbAmount = "0";
+				} else {
+					subObbAmount = receivedList.get(i).get("SUB_OBB_AMOUNT").toString();
+				}
+				payObjPo.set("SUB_OBB_AMOUNT", subObbAmount);
+
+				String cardsAmount = "";
+				if (StringUtils.isNullOrEmpty(receivedList.get(i).get("CARDS_AMOUNT"))) {
+					cardsAmount = "0";
+				} else {
+					cardsAmount = receivedList.get(i).get("CARDS_AMOUNT").toString();
+				}
+				payObjPo.set("CARDS_AMOUNT", cardsAmount);
+
+				if (!StringUtils.isNullOrEmpty(receivedList.get(i).get("GIFT_AMOUNT"))) {
+					payObjPo.set("GIFT_AMOUNT", receivedList.get(i).get("GIFT_AMOUNT"));
+				}
+				if (!StringUtils.isNullOrEmpty(receivedList.get(i).get("CALC_SUM_AMOUNT"))) {
+					payObjPo.set("SUM_AMOUNT", receivedList.get(i).get("CALC_SUM_AMOUNT"));
+				}
+				if (!StringUtils.isNullOrEmpty(receivedList.get(i).get("CUS_RECEIVE_SORT"))) {
+					payObjPo.set("CUS_RECEIVE_SORT", receivedList.get(i).get("CUS_RECEIVE_SORT"));
+				}
+
+				if (Utility.getDefaultValue("1096").equals(CommonConstants.DICT_IS_YES)) {
+					payObjPo.set("PAY_OFF", CommonConstants.DICT_IS_NO);
+				} else if (StringUtils.isNullOrEmpty(receivedList.get(i).get("CALC_RECEIVABLE_AMOUNT"))) {
+					payObjPo.set("PAY_OFF", CommonConstants.DICT_IS_YES);
+				} else {
+					payObjPo.set("PAY_OFF", CommonConstants.DICT_IS_NO);
+				}
+				payObjPo.set("IS_RED", CommonConstants.DICT_IS_NO);
+				payObjPo.saveIt();
+
+				// 更新欠款
+				if (!StringUtils.isNullOrEmpty(receivableList.get(i).get("PAYMENT_OBJECT_CODE"))) {
+					// 更新收费对象的欠款,加上本次的未收金额
+					double notReceivedAmount = 0;
+					if (!StringUtils.isNullOrEmpty(receivedList.get(i).get("CALC_RECEIVABLE_AMOUNT"))) {
+						notReceivedAmount = Double
+								.valueOf(receivedList.get(i).get("CALC_RECEIVABLE_AMOUNT").toString());
+					}
+					boolean isOwner = false;
+					List<Object> queryParam = new ArrayList<Object>();
+					queryParam.add(dealerCode);
+					queryParam.add(receivableList.get(i).get("PAYMENT_OBJECT_CODE"));
+					List<Map> ownList = DAOUtil.findAll("SELECT * FROM (" + CommonConstants.VM_OWNER
+							+ ") AA  WHERE AA.DEALER_CODE = ? AND AA.OWNER_NO = ?", queryParam);
+					if (ownList.size() > 0) {
+						isOwner = true;
+					}
+					StringBuffer sql = new StringBuffer();
+					if (isOwner) {
+						sql.append("UPDATE TM_OWNER "
+								+ " SET ARREARAGE_AMOUNT =  (case when ARREARAGE_AMOUNT is null then 0 else ARREARAGE_AMOUNT end)-(-"
+								+ notReceivedAmount + ") " + "  WHERE OWNER_NO = '"
+								+ receivableList.get(i).get("PAYMENT_OBJECT_CODE") + "'  AND DEALER_CODE = '"
+								+ dealerCode + "' ");
+					} else {
+						sql.append("UPDATE TM_PART_CUSTOMER "
+								+ " SET ARREARAGE_AMOUNT =  (case when ARREARAGE_AMOUNT is null then 0 else ARREARAGE_AMOUNT end)-(-"
+								+ notReceivedAmount + ") " + "  WHERE CUSTOMER_CODE = '"
+								+ receivableList.get(i).get("PAYMENT_OBJECT_CODE") + "'  AND DEALER_CODE = '"
+								+ dealerCode + "' ");
+					}
+					Base.exec(sql.toString());
+					StringBuffer sqlSub = new StringBuffer();
+					if (isOwner) {
+						sqlSub.append("UPDATE TM_OWNER_SUBCLASS "
+								+ " SET ARREARAGE_AMOUNT =  (case when ARREARAGE_AMOUNT is null then 0 else ARREARAGE_AMOUNT end)-(-"
+								+ notReceivedAmount + ") " + "  WHERE OWNER_NO =' "
+								+ receivableList.get(i).get("PAYMENT_OBJECT_CODE") + "'  AND DEALER_CODE = '"
+								+ dealerCode + "' ");
+					} else {
+						sqlSub.append("UPDATE TM_PART_CUSTOMER_SUBCLASS "
+								+ " SET ARREARAGE_AMOUNT =  (case when ARREARAGE_AMOUNT is null then 0 else ARREARAGE_AMOUNT end)-(-"
+								+ notReceivedAmount + ") " + "  WHERE CUSTOMER_CODE = '"
+								+ receivableList.get(i).get("PAYMENT_OBJECT_CODE") + "'  AND DEALER_CODE =' "
+								+ dealerCode + "' ");
+					}
+					Base.exec(sqlSub.toString());
+
+					// 更新车辆表中该车辆的欠款,加上车主本次的未收金额
+					if (!StringUtils.isNullOrEmpty(balanceDTO.getVin())
+							&& !StringUtils.isNullOrEmpty(receivableList.get(i).get("PAYMENT_OBJECT_CODE"))
+							&& receivableList.get(i).get("PAYMENT_OBJECT_CODE")
+									.equals(ttRepairOrderPO.get("OWNER_NO"))) {
+						String groupCode = Utility.getGroupEntity(dealerCode, "TM_VEHICLE");
+						StringBuffer sqlVeh = new StringBuffer();
+						sqlVeh.append(" UPDATE TM_VEHICLE   SET ARREARAGE_AMOUNT =  Coalesce(ARREARAGE_AMOUNT,0)+ ("
+								+ notReceivedAmount + ") " + " WHERE VIN = '"
+								+ Utility.fullSpaceBuffer2(balanceDTO.getVin(), 17) + "'  AND DEALER_CODE = '"
+								+ groupCode + "'");
+						Base.exec(sqlVeh.toString());
+						StringBuffer sqlVehSub = new StringBuffer();
+						sqlVehSub.append("  UPDATE TM_VEHICLE_SUBCLASS "
+								+ " SET ARREARAGE_AMOUNT =  Coalesce(ARREARAGE_AMOUNT,0)+ ((" + notReceivedAmount
+								+ ")) " + " WHERE VIN = '" + Utility.fullSpaceBuffer2(balanceDTO.getVin(), 17)
+								+ "'  AND DEALER_CODE = '" + dealerCode + "'  ");
+						Base.exec(sqlVehSub.toString());
+					}
+				}
+			}
+		}
+
+		if (zeroBalance) {
+			handleOperateLog("执行了实收工时费为0的结算：" + balanceNo, "",
+					Integer.valueOf(DictCodeConstants.DICT_ASCLOG_BALANCE_MANAGE),
+					FrameworkUtil.getLoginInfo().getEmployeeNo());
+		}
+		logger.debug("执行了实收工时费为0的结算：" + balanceNo);
+
+		if (!StringUtils.isNullOrEmpty(balanceDTO.getSalesPartNo())) {
+			TtSalesPartPO ttSalesPartPO = TtSalesPartPO.findByCompositeKeys(dealerCode, balanceDTO.getSalesPartNo());
+			ttSalesPartPO.set("BALANCE_STATUS", CommonConstants.DICT_IS_YES);
+			ttSalesPartPO.saveIt();
+		}
+
+		// 更新工单状态为结算
+		if (!StringUtils.isNullOrEmpty(balanceDTO.getRoNo())) {
+			RepairOrderPO orderPo = RepairOrderPO.findByCompositeKeys(dealerCode, balanceDTO.getRoNo());
+			String isDelivery = DictCodeConstants.DICT_DELIVERY_STATUS_TYPE_NO;
+			if (!StringUtils.isNullOrEmpty(orderPo)) {
+				isDelivery = orderPo.getString("DELIVERY_TAG");
+			}
+
+			// 使用交车开关,增加索赔单和工单一起交车的功能
+			if (!isDelivery.equals(DictCodeConstants.DICT_DELIVERY_STATUS_TYPE_YES)) {
+				if (Utility.getDefaultValue(String.valueOf(CommonConstants.DEFAULT_PARA_SUBMIT_CAR))
+						.equals(CommonConstants.DICT_IS_NO)) {
+					// 自动更新索赔单
+					if (roNo.indexOf("RO") != -1) {
+						String roNoNew1 = roNo.replace(roNo.substring(0, 2), "RW");
+						RepairOrderPO orderPO2 = RepairOrderPO.findByCompositeKeys(dealerCode, roNoNew1);
+						if (!StringUtils.isNullOrEmpty(orderPO2)) {
+							String aRoStatus1 = orderPO2.getString("RO_STATUS");
+							orderPO2.set("RO_STATUS", aRoStatus1);
+							setOrderPo(orderPO2, isDelivery);
+							orderPO2.saveIt();
+						}
+					}
+					// 自动更新工单
+					else {
+						String roNoNew2 = roNo.replace(roNo.substring(0, 2), "RO");
+						RepairOrderPO orderPO2 = RepairOrderPO.findByCompositeKeys(dealerCode, roNoNew2);
+						if (!StringUtils.isNullOrEmpty(orderPO2)) {
+							String aRoStatus2 = orderPO2.getString("RO_STATUS");
+							orderPO2.set("RO_STATUS", aRoStatus2);
+							setOrderPo(orderPO2, isDelivery);
+							orderPO2.saveIt();
+						}
+					}
+				}
+			}
+		}
+
+		// 如果车辆的第一次进厂日期为空，更新车辆第一次进厂时间，售前维修和新车装潢的工单不更新
+		if (!StringUtils.isNullOrEmpty(roNo) && ttRepairOrderPO != null
+				&& !ttRepairOrderPO.get("REPAIR_TYPE_CODE").equals(CommonConstants.REPAIR_TYPE_UPHOLSTER)
+				&& !StringUtils.isNullOrEmpty(ttRepairOrderPO.get("VIN"))) {
+			// 根据维修类型代码去维修类型表判断是否售前维修
+			TmRepairTypePO RepairPO12 = TmRepairTypePO.findByCompositeKeys(dealerCode,
+					ttRepairOrderPO.get("REPAIR_TYPE_CODE"));
+			if (!StringUtils.isNullOrEmpty(RepairPO12)) {
+				if (!RepairPO12.get("IS_PRE_SERVICE").equals(CommonConstants.DICT_IS_YES)) {
+					VehiclePO tmVehiclePO = null;
+					List<Object> relatList = new ArrayList<Object>();
+					relatList.add(ttRepairOrderPO.get("VIN"));
+					relatList.add(Utility.getGroupEntity(dealerCode, "TM_VEHICLE"));
+					List<VehiclePO> listVehicle = VehiclePO.find("VIN = ? AND DEALER_CODE = ?", relatList.toArray());
+					// .findAll("SELECT * FROM TM_VEHICLE WHERE VIN = ? AND
+					// DEALER_CODE = ?", relatList);
+					listVehicle = getVehicleSubclassList1(dealerCode, listVehicle);
+					if (listVehicle != null && listVehicle.size() > 0) {
+						tmVehiclePO = listVehicle.get(0);
+						if (tmVehiclePO.get("FIRST_IN_DATE") == null) {
+							// 二级网点业务-车辆子表更新
+							String vin = "";
+							if (!StringUtils.isNullOrEmpty(ttRepairOrderPO.get("VIN"))) {
+								vin = ttRepairOrderPO.get("VIN").toString();
+							}
+							updateSubclassPO(vin, tmVehiclePO);
+							tmVehiclePO.saveIt();
+						}
+					}
+				}
+			}
+		}
+
+		if (!StringUtils.isNullOrEmpty(roNo) && !StringUtils.isNull(balanceDTO.getVin())) {
+			// 维修项目和配件不修移到维修建议
+			TtRoLabourPO labourPO = new TtRoLabourPO();
+			List<Object> queryParam = new ArrayList<Object>();
+			queryParam.add(balanceDTO.getRoNo());
+			queryParam.add(dealerCode);
+			queryParam.add(CommonConstants.D_KEY);
+			queryParam.add(CommonConstants.DICT_IS_YES);
+			List labourList = DAOUtil.findAll(
+					"SELECT * FROM TT_RO_LABOUR WHERE RO_NO = ? AND DEALER_CODE = ? AND D_KEY = ? AND NEEDLESS_REPAIR = ?",
+					queryParam);
+			if (labourList != null && labourList.size() > 0) {
+				for (int i = 0; i < labourList.size(); i++) {
+					labourPO = (TtRoLabourPO) labourList.get(i);
+					if (labourPO != null) {
+						// VIN+工时代码已经存在的话先删掉
+						List<Object> paramList = new ArrayList<Object>();
+						paramList.add(CommonConstants.D_KEY);
+						paramList.add(dealerCode);
+						paramList.add(balanceDTO.getVin());
+						paramList.add(labourPO.get("LABOUR_CODE"));
+						paramList.add(CommonConstants.DICT_IS_YES);
+
+						List<Map> deleteList = DAOUtil.findAll(
+								"SELECT * FROM TT_SUGGEST_MAINTAIN_LABOUR WHERE D_KEY = ? AND DEALER_CODE = ? AND VIN = ? AND LABOUR_CODE = ? AND IS_VALID = ?",
+								paramList);
+						if (deleteList.size() > 0) {
+							for (int j = 0; j < deleteList.size(); j++) {
+								TtSuggestMaintainLabourPO suggestLabourPODelete = (TtSuggestMaintainLabourPO) deleteList
+										.get(j);
+								suggestLabourPODelete.delete();
+							}
+						}
+
+						TtSuggestMaintainLabourPO suggestLabourPO = new TtSuggestMaintainLabourPO();
+						suggestLabourPO.set("DEALER_CODE", dealerCode);
+						suggestLabourPO.set("LABOUR_AMOUNT", labourPO.get("LABOUR_AMOUNT"));
+						suggestLabourPO.set("LABOUR_CODE", labourPO.get("LABOUR_CODE"));
+						suggestLabourPO.set("LABOUR_NAME", labourPO.get("LABOUR_NAME"));
+						suggestLabourPO.set("LABOUR_PRICE", labourPO.get("LABOUR_PRICE"));
+						suggestLabourPO.set("RO_NO", labourPO.get("RO_NO"));
+						suggestLabourPO.set("REMARK", labourPO.get("REMARK"));
+						suggestLabourPO.set("REMARK", labourPO.get("REMARK"));
+						suggestLabourPO.set("STD_LABOUR_HOUR", labourPO.get("STD_LABOUR_HOUR"));
+						suggestLabourPO.set("SUGGEST_DATE", new Date());
+						suggestLabourPO.set("VIN", balanceDTO.getVin());
+						suggestLabourPO.set("REASON", labourPO.get("REASON"));
+						suggestLabourPO.saveIt();
+
+						// 先删派工子表
+						List<Object> assignParam = new ArrayList<Object>();
+						assignParam.add(CommonConstants.D_KEY);
+						assignParam.add(dealerCode);
+						assignParam.add(labourPO.get("ITEM_ID"));
+						List<Map> assignDeList = DAOUtil.findAll(
+								" SELECT * FROM  TT_RO_ASSIGN WHERE D_KEY = ? AND DEALER_CODE = ? AND ITEM_ID = ? ",
+								assignParam);
+						if (assignDeList.size() > 0) {
+							for (int j = 0; j < assignDeList.size(); j++) {
+								TtRoAssignPO ttRoAssignPODelete = (TtRoAssignPO) assignDeList.get(j);
+								ttRoAssignPODelete.delete();
+							}
+						}
+
+						// 在删除维修材料中关联维修项目中是不修的配件
+						List<Object> repairParam = new ArrayList<Object>();
+						repairParam.add(balanceDTO.getRoNo());
+						repairParam.add(dealerCode);
+						repairParam.add(CommonConstants.D_KEY);
+						repairParam.add(CommonConstants.DICT_IS_YES);
+						List<Map> repairLsit = DAOUtil.findAll(
+								"SELECT * FROM TT_RO_REPAIR_PART WHERE RO_NO = ? AND DEALER_CODE = ? AND  D_KEY = ? AND  NEEDLESS_REPAIR = ? ",
+								repairParam);
+						if (repairLsit.size() > 0) {
+							for (int j = 0; j < repairLsit.size(); j++) {
+								TtRoRepairPartPO ttRoRepairPartPO = (TtRoRepairPartPO) repairLsit.get(j);
+								ttRoRepairPartPO.delete();
+							}
+						}
+					}
+					TtRoLabourPO labourPO1 = (TtRoLabourPO) labourList.get(i);
+					labourPO1.delete();
+					// 修改主表update相关信息 2012-11-16
+					RepairOrderPO roCon = RepairOrderPO.findByCompositeKeys(dealerCode, balanceDTO.getRoNo());
+					roCon.saveIt();
+				}
+
+			}
+
+			// 本次维修项目当中是否在维修建议中存在,如果存在的话从维修建议中逻辑删除(置为无效)
+			List<Object> labourParam = new ArrayList<Object>();
+			labourParam.add(balanceDTO.getRoNo());
+			labourParam.add(dealerCode);
+			labourParam.add(CommonConstants.D_KEY);
+			labourParam.add(CommonConstants.DICT_IS_NO);
+			labourList = DAOUtil.findAll(
+					"SELECT * FROM TT_RO_LABOUR WHERE RO_NO = ? AND DEALER_CODE = ? AND D_KEY = ? AND NEEDLESS_REPAIR = ?",
+					labourParam);
+			if (labourList != null && labourList.size() > 0) {
+				for (int i = 0; i < labourList.size(); i++) {
+					labourPO = (TtRoLabourPO) labourList.get(i);
+					if (labourPO != null && !StringUtils.isNullOrEmpty(balanceDTO.getVin())) {
+						List<Object> suggestParam = new ArrayList<Object>();
+						suggestParam.add(CommonConstants.D_KEY);
+						suggestParam.add(dealerCode);
+						suggestParam.add(balanceDTO.getVin());
+						suggestParam.add(labourPO.get("LABOUR_CODE"));
+						TtSuggestMaintainLabourPO suggestLabourPOCon = (TtSuggestMaintainLabourPO) DAOUtil.findFirst(
+								" SELECT * FROM TT_SUGGEST_MAINTAIN_LABOUR WHERE D_KEY = ?  AND DEALER_CODE = ? AND VIN = ? "
+										+ "AND LABOUR_CODE = ?  ",
+								queryParam);
+						suggestLabourPOCon.set("IS_VALID", CommonConstants.DICT_IS_NO);
+					}
+				}
+			}
+
+			TtRoRepairPartPO roRepairPartPO = new TtRoRepairPartPO();
+			List<Object> roRepairParam = new ArrayList<Object>();
+			roRepairParam.add(balanceDTO.getRoNo());
+			roRepairParam.add(dealerCode);
+			roRepairParam.add(CommonConstants.D_KEY);
+			roRepairParam.add(CommonConstants.DICT_IS_YES);
+			List<Map> roRepairPartList = DAOUtil.findAll(
+					"SELECT * FROM TT_RO_REPAIR_PART WHERE RO_NO = ? AND DEALER_CODE = ? AND D_KEY = ? AND NEEDLESS_REPAIR = ? ",
+					roRepairParam);
+			if (roRepairPartList != null && roRepairPartList.size() > 0) {
+				for (int i = 0; i < roRepairPartList.size(); i++) {
+					roRepairPartPO = (TtRoRepairPartPO) roRepairPartList.get(i);
+					if (roRepairPartPO != null) {
+						// VIN+配件代码已经存在的话先删掉
+						List<Object> suggestMainParam = new ArrayList<Object>();
+						suggestMainParam.add(CommonConstants.D_KEY);
+						suggestMainParam.add(dealerCode);
+						suggestMainParam.add(balanceDTO.getVin());
+						suggestMainParam.add(roRepairPartPO.get("PART_NO"));
+						suggestMainParam.add(CommonConstants.DICT_IS_YES);
+						TtSuggestMaintainPartPO.delete(
+								"D_KEY = ?  AND DEALER_CODE = ? AND VIN = ? AND PART_NO = ? AND IS_VALID = ?",
+								suggestMainParam);
+						TtSuggestMaintainPartPO suggestPartPO = new TtSuggestMaintainPartPO();
+
+						suggestPartPO.set("DEALER_CODE", roRepairPartPO.get("DEALER_CODE"));
+						suggestPartPO.set("PART_NAME", roRepairPartPO.get("PART_NAME"));
+						suggestPartPO.set("PART_NO", roRepairPartPO.get("PART_NO"));
+						suggestPartPO.set("QUANTITY", new Double(roRepairPartPO.getString("QUANTITY")));
+						suggestPartPO.set("RO_NO", roRepairPartPO.get("RO_NO"));
+						suggestPartPO.set("SALES_PRICE", roRepairPartPO.get("PART_SALES_PRICE"));
+						suggestPartPO.setDate("SUGGEST_DATE", new Date());
+						suggestPartPO.set("VIN", balanceDTO.getVin());
+						suggestPartPO.set("REASON", roRepairPartPO.get("REASON"));
+						suggestPartPO.saveIt();
+					}
+				}
+
+				TtRoRepairPartPO.delete("RO_NO = ? AND DEALER_CODE = ? AND D_KEY = ? AND NEEDLESS_REPAIR = ? ",
+						roRepairParam);
+				// 修改主表update相关信息
+				RepairOrderPO roCon = RepairOrderPO.findByCompositeKeys(dealerCode, balanceDTO.getRoNo());
+				roCon.saveIt();
+			}
+
+			// 本次维修的配件当中是否在维修建议中存在,如果存在的话从维修建议中逻辑删除(置为无效)
+			List<Object> roRepairParam1 = new ArrayList<Object>();
+			roRepairParam1.add(balanceDTO.getRoNo());
+			roRepairParam1.add(dealerCode);
+			roRepairParam1.add(CommonConstants.D_KEY);
+			roRepairParam1.add(CommonConstants.DICT_IS_NO);
+			roRepairPartList = DAOUtil.findAll(
+					"SELECT * FROM TT_RO_REPAIR_PART WHERE RO_NO = ? AND DEALER_CODE = ? AND D_KEY = ? AND NEEDLESS_REPAIR = ? ",
+					roRepairParam1);
+			if (roRepairPartList != null && roRepairPartList.size() > 0) {
+				for (int i = 0; i < roRepairPartList.size(); i++) {
+					roRepairPartPO = (TtRoRepairPartPO) roRepairPartList.get(i);
+					if (roRepairPartPO != null && !StringUtils.isNullOrEmpty(balanceDTO.getVin())) {
+						List<Object> suggestParam1 = new ArrayList<Object>();
+						suggestParam1.add(CommonConstants.D_KEY);
+						suggestParam1.add(dealerCode);
+						suggestParam1.add(balanceDTO.getVin());
+						suggestParam1.add(roRepairPartPO.get("PART_NO"));
+						TtSuggestMaintainPartPO suggestPartPOCon = TtSuggestMaintainPartPO
+								.findFirst("D_KEY = ? AND DEALER_CODE = ? AND VIN = ? AND PART_NO = ? ", suggestParam1);
+						suggestPartPOCon.set("IS_VALID", CommonConstants.DICT_IS_NO);
+						suggestPartPOCon.saveIt();
+
+					}
+				}
+			}
+		}
+
+		logger.debug("结算完成");
+		/**
+		 * 校验工单的车主所拆分的实收费用是否大于会员活动的面额
+		 */
+		// 判断是否包含会员活动项目
+		List<Map> balanceList = balanceDTO.getbLDtoList();
+		List<Map> repairPartList = balanceDTO.getbRPDtoList();
+
+		if (balanceList.size() > 0) {
+			if ((ckeckFieldNotNull2(balanceList, "ACTIVITY_CODE") && ckeckFieldNotNull2(balanceList, "CARD_ID"))
+					|| (ckeckFieldNotNull2(repairPartList, "ACTIVITY_CODE")
+							&& ckeckFieldNotNull2(repairPartList, "CARD_ID"))) {
+				// 会员活动专项资金添加校验
+				/**
+				 * 步骤1：根据活动编号获取本次结算单中所有会员活动的总金额A 2：根据工单号获取工单车主收费对象的实收总金额B
+				 * 3：比较这两个金额 如果A>B 则给出提示"工单车主的收费对象的实收金额不能少于会员活动的总金额";
+				 */
+				// 结算单中包含只有项目的会员活动，此时以项目活动编号为准
+				double activityAmountSum = 0.00;
+				List<Map> roActiList = queryRoMemberActivity(roNo);
+				// 获取到最终的会员活动编号
+				if (roActiList != null && roActiList.size() > 0) {
+					for (int z = 0; z < roActiList.size(); z++) {
+						String memActivityCode = roActiList.get(z).get("ACTIVITY_CODE").toString();
+						String memCardId = roActiList.get(z).get("CARD_ID").toString();
+						if (!StringUtils.isNullOrEmpty(memActivityCode)) {
+							activityAmountSum += querySumMemberActivity(memActivityCode, memCardId);
+						}
+					}
+					logger.debug("本次维修工单的会员活动总金额为： " + activityAmountSum);
+				}
+
+				if (activityAmountSum > 0.00) {
+					RepairOrderPO orderPO = new RepairOrderPO();
+					List<Object> repairOrParams = new ArrayList<Object>();
+					repairOrParams.add(dealerCode);
+					repairOrParams.add(balanceDTO.getRoNo());
+					repairOrParams.add(CommonConstants.D_KEY);
+					List<RepairOrderPO> repairOrderList = RepairOrderPO
+							.find("DEALER_CODE = ? AND RO_NO = ?  AND D_KEY = ?", repairOrParams.toArray());
+					if (repairOrderList != null && repairOrderList.size() > 0) {
+						orderPO = repairOrderList.get(0);
+						BalancePayobjPO payobjPO = new BalancePayobjPO();
+						List<Object> objParams = new ArrayList<Object>();
+						objParams.add(dealerCode);
+						objParams.add(balanceDTO.getRoNo());
+						objParams.add(orderPO.get("OWNER_NO"));
+						objParams.add(CommonConstants.D_KEY);
+						objParams.add(balanceNo);
+						List<BalancePayobjPO> objList = BalancePayobjPO.find(
+								"DEALER_CODE = ? AND RO_NO = ? AND PAYMENT_OBJECT_CODE = ? AND D_KEY = ? AND BALANCE_NO = ?",
+								objParams);
+						if (objList != null && objList.size() > 0) {
+							payobjPO = objList.get(0);
+							double realTotalAmount = 0.00;
+							if (!StringUtils.isNullOrEmpty(payobjPO.get("RECEIVABLE_AMOUNT"))) {
+								realTotalAmount = Double.parseDouble(payobjPO.get("RECEIVABLE_AMOUNT").toString());
+								if (realTotalAmount < activityAmountSum) {
+									throw new ServiceBizException("工单车主的收费对象的应收金额不能少于会员活动的总金额!");
+								} else {
+									// 拆分收费对象没问题，将会员活动总金额保存在工单中
+									RepairOrderPO reOrPo = RepairOrderPO.findByCompositeKeys(dealerCode,
+											balanceDTO.getRoNo());
+									reOrPo.set("MEM_ACTI_TOTAL_AMOUNT", activityAmountSum);
+									reOrPo.saveIt();
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// 业务描述：维修结算生成凭证
+		TtBalanceAccountsPO apo = null;
+		if (balanceNo == null || balanceNo.trim().length() < 1) {
+			logger.info("balanceNo is null ");
+		} else {
+			apo = TtBalanceAccountsPO.findByCompositeKeys(balanceNo, dealerCode);
+		}
+
+		TtAccountsTransFlowPO po = new TtAccountsTransFlowPO();
+		po.set("ORG_CODE", dealerCode);
+		po.set("BUSINESS_NO", balanceNo);
+		po.set("DEALER_CODE", dealerCode);
+		po.setDate("TRANS_DATE", new Date());
+		po.set("TRANS_TYPE", CommonConstants.DICT_BUSINESS_TYPE_BALANCE_ACCOUNTS);
+		if (apo != null && apo.get("RO_NO") != null && !apo.get("RO_NO").equals(""))
+			po.set("SUB_BUSINESS_NO", apo.get("RO_NO"));
+		else
+			po.set("SUB_BUSINESS_NO", apo.get("SALES_PART_NO"));
+
+		po.set("TAX_AMOUNT", apo.get("TOTAL_AMOUNT"));
+		po.set("NET_AMOUNT", apo.get("NET_AMOUNT"));
+		po.set("IS_VALID", CommonConstants.DICT_IS_YES);
+		po.set("EXEC_NUM", 0);
+		//po.set("EXEC_STATUS", CommonConstants.DICT_EXEC_STATUS_NOT_EXEC);
+		if (StringUtils.isNullOrEmpty(apo.get("TOTAL_AMOUNT"))) {
+			apo.set("TOTAL_AMOUNT",0);
+		}
+		if ((int) apo.get("TOTAL_AMOUNT") != 0) {
+			po.saveIt();
+		}
+		/**
+		 * 新增结算单更新相关数据金额
+		 *
+		 */
+		logger.debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA   " + balanceNo);
+		List<Object> accountsParams = new ArrayList<Object>();
+		String sql = " SELECT * FROM TT_BALANCE_ACCOUNTS WHERE DEALER_CODE = ? AND D_KEY = ? ";
+		accountsParams.add(dealerCode);
+		accountsParams.add(CommonConstants.D_KEY);
+		if (!StringUtils.isNullOrEmpty(balanceNo)) {
+			sql += " AND BALANCE_NO = ? ";
+			accountsParams.add(balanceNo);
+		}
+		if (!StringUtils.isNullOrEmpty(balanceDTO.getRoNo())) {
+			sql += " AND RO_NO = ?";
+			accountsParams.add(balanceDTO.getRoNo());
+		}
+		if (!StringUtils.isNullOrEmpty(balanceDTO.getSalesPartNo())) {
+			sql += " AND SALES_PART_NO = ?";
+			accountsParams.add(balanceDTO.getSalesPartNo());
+		}
+		List<TtBalanceAccountsPO> ttBalanceAccounts = TtBalanceAccountsPO.findBySQL(sql, accountsParams.toArray());
+		TtBalanceAccountsPO ttBalanceAccountsPO = ttBalanceAccounts.get(0);
+		// 是否含索赔
+		String CLAIM_RECORD_COUNT = CommonConstants.DICT_IS_NO;
+		boolean chargePartitionCode = false;
+		List<Map> listLabour = balanceDTO.getbLDtoList();
+		if (listLabour.size() > 0) {
+			for (Map map : listLabour) {
+				if (!StringUtils.isNullOrEmpty(map.get("CHARGE_PARTITION_CODE"))) {
+					if ("S".equals(map.get("CHARGE_PARTITION_CODE"))) {
+						CLAIM_RECORD_COUNT = CommonConstants.DICT_IS_YES;
+						chargePartitionCode = true;
+						break;
+					}
+				}
+			}
+		}
+
+		List<Map> listRepair = balanceDTO.getbRPDtoList();
+		if (listRepair.size() > 0) {
+			for (Map map : listRepair) {
+				if (!StringUtils.isNullOrEmpty(map.get("CHARGE_PARTITION_CODE"))) {
+					if ("S".equals(map.get("CHARGE_PARTITION_CODE"))) {
+						CLAIM_RECORD_COUNT = CommonConstants.DICT_IS_YES;
+						chargePartitionCode = true;
+						break;
+					}
+				}
+			}
+		}
+
+		List<Map> listSales = balanceDTO.getbSPDtoList();
+		if (listSales.size() > 0) {
+			for (Map map : listSales) {
+				if (!StringUtils.isNullOrEmpty(map.get("CHARGE_PARTITION_CODE"))) {
+					if ("S".equals(map.get("CHARGE_PARTITION_CODE"))) {
+						CLAIM_RECORD_COUNT = CommonConstants.DICT_IS_YES;
+						chargePartitionCode = true;
+						break;
+					}
+				}
+			}
+		}
+
+		List<Map> listAdd = balanceDTO.getbAIDtoList();
+		if (listAdd.size() > 0) {
+			for (Map map : listAdd) {
+				if (!StringUtils.isNullOrEmpty(map.get("CHARGE_PARTITION_CODE"))) {
+					if ("S".equals(map.get("CHARGE_PARTITION_CODE"))) {
+						CLAIM_RECORD_COUNT = CommonConstants.DICT_IS_YES;
+						chargePartitionCode = true;
+						break;
+					}
+				}
+			}
+		}
+
+		// 工时费(索赔)
+		double labourSalesSum = 0;
+		// 实收工时费(索赔)
+		double labourRealSum = 0;
+		if (listLabour.size() > 0) {
+			if (ckeckFieldNotNull2(listLabour, "LABOUR_AMOUNT")) {
+				for (Map map : listLabour) {
+					if (!StringUtils.isNullOrEmpty(map.get("CHARGE_PARTITION_CODE"))) {
+						if ("S".equals(map.get("CHARGE_PARTITION_CODE"))) {
+							if (!StringUtils.isNullOrEmpty(map.get("LABOUR_AMOUNT"))) {
+								labourSalesSum = labourSalesSum + Double.valueOf(map.get("LABOUR_AMOUNT").toString());
+							}
+							if (!StringUtils.isNullOrEmpty(map.get("CALC_REAL_RECEIVE_AMOUNT"))) {
+								labourRealSum = labourRealSum
+										+ Double.valueOf(map.get("CALC_REAL_RECEIVE_AMOUNT").toString());
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// 维修材料成本(索赔)
+		double repairPartCostSum = 0;
+		// 维修材料费(索赔)
+		double repairPartSalesSum = 0;
+		// (结算单维修配件)实收金额
+		double repairPartRealSum = 0;
+		if (listRepair.size() > 0) {
+			if (ckeckFieldNotNull2(listRepair, "PART_COST_AMOUNT")) {
+				for (Map map : listRepair) {
+					if (!StringUtils.isNullOrEmpty(map.get("CHARGE_PARTITION_CODE"))) {
+						if ("S".equals(map.get("CHARGE_PARTITION_CODE"))) {
+							if (!StringUtils.isNullOrEmpty(map.get("PART_COST_AMOUNT"))) {
+								repairPartCostSum = repairPartCostSum
+										+ Double.valueOf(map.get("PART_COST_AMOUNT").toString());
+							}
+							if (!StringUtils.isNullOrEmpty(map.get("PART_SALES_AMOUNT"))) {
+								repairPartSalesSum = repairPartSalesSum
+										+ Double.valueOf(map.get("PART_SALES_AMOUNT").toString());
+							}
+							if (!StringUtils.isNullOrEmpty(map.get("CALC_REAL_RECEIVE_AMOUNT"))) {
+								repairPartRealSum = repairPartRealSum
+										+ Double.valueOf(map.get("CALC_REAL_RECEIVE_AMOUNT").toString());
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// 销售材料成本(索赔)
+		double salesPartCostSum = 0;
+		// 销售材料费(索赔)
+		double salesPartSalesSum = 0;
+		// (结算单销售配件)实收金额
+		double salesPartRealSum = 0;
+		if (listSales.size() > 0) {
+			if (ckeckFieldNotNull2(listSales, "PART_COST_AMOUNT")) {
+				for (Map map : listSales) {
+					if (!StringUtils.isNullOrEmpty(map.get("CHARGE_PARTITION_CODE"))) {
+						if ("S".equals(map.get("CHARGE_PARTITION_CODE"))) {
+							if (!StringUtils.isNullOrEmpty(map.get("PART_COST_AMOUNT"))) {
+								salesPartCostSum = salesPartCostSum
+										+ Double.valueOf(map.get("PART_COST_AMOUNT").toString());
+							}
+							if (!StringUtils.isNullOrEmpty(map.get("PART_SALES_AMOUNT"))) {
+								salesPartSalesSum = salesPartSalesSum
+										+ Double.valueOf(map.get("PART_SALES_AMOUNT").toString());
+							}
+							if (!StringUtils.isNullOrEmpty(map.get("CALC_REAL_RECEIVE_AMOUNT"))) {
+								salesPartRealSum = salesPartRealSum
+										+ Double.valueOf(map.get("CALC_REAL_RECEIVE_AMOUNT").toString());
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// 附加项目费（材料）
+		double addItemSalesSum = 0;
+		// 附加项目费(实收金额)
+		double addItemRealSum = 0;
+		if (listAdd.size() > 0) {
+			if (ckeckFieldNotNull2(listSales, "ADD_ITEM_AMOUNT")) {
+				for (Map map : listAdd) {
+					if (!StringUtils.isNullOrEmpty(map.get("CHARGE_PARTITION_CODE"))) {
+						if ("S".equals(map.get("CHARGE_PARTITION_CODE"))) {
+							if (!StringUtils.isNullOrEmpty(map.get("ADD_ITEM_AMOUNT"))) {
+								addItemSalesSum = addItemSalesSum
+										+ Double.valueOf(map.get("ADD_ITEM_AMOUNT").toString());
+							}
+							if (!StringUtils.isNullOrEmpty(map.get("CALC_REAL_RECEIVE_AMOUNT"))) {
+								addItemRealSum = addItemRealSum
+										+ Double.valueOf(map.get("CALC_REAL_RECEIVE_AMOUNT").toString());
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// 结算单辅料管理费(材料)
+		double manageOverSalesSum = 0;
+		// 结算单辅料管理费(实收金额)
+		double manageOverRealSum = 0;
+
+		// 工时费(索赔)
+		double labSum = 0;
+		// 实收工时费(索赔)
+		double realLabSum = 0;
+		if (listLabour.size() > 0) {
+			if (ckeckFieldNotNull2(listLabour, "LABOUR_AMOUNT")) {
+				for (Map map : listLabour) {
+					if (!StringUtils.isNullOrEmpty(map.get("LABOUR_AMOUNT"))) {
+						labSum = labSum + Double.valueOf(map.get("LABOUR_AMOUNT").toString());
+					}
+					if (!StringUtils.isNullOrEmpty(map.get("CALC_REAL_RECEIVE_AMOUNT"))) {
+						realLabSum = realLabSum + Double.valueOf(map.get("CALC_REAL_RECEIVE_AMOUNT").toString());
+					}
+				}
+			}
+		}
+
+		// 维修材料费(索赔)
+		double saleParSum = 0;
+		// (结算单维修配件)实收金额
+		double parRealSum = 0;
+		if (listRepair.size() > 0) {
+			if (ckeckFieldNotNull2(listRepair, "PART_COST_AMOUNT")) {
+				for (Map map : listRepair) {
+					if (!StringUtils.isNullOrEmpty(map.get("PART_SALES_AMOUNT"))) {
+						saleParSum = saleParSum + Double.valueOf(map.get("PART_SALES_AMOUNT").toString());
+					}
+					if (!StringUtils.isNullOrEmpty(map.get("CALC_REAL_RECEIVE_AMOUNT"))) {
+						parRealSum = parRealSum + Double.valueOf(map.get("CALC_REAL_RECEIVE_AMOUNT").toString());
+					}
+				}
+			}
+		}
+		
+		ttBalanceAccountsPO.set("IS_HAS_CLAIM", CLAIM_RECORD_COUNT);
+	    ttBalanceAccountsPO.set("LABOUR_SALES_SUM",labourSalesSum);
+	    ttBalanceAccountsPO.set("LABOUR_REAL_SUM",labourRealSum);
+	    ttBalanceAccountsPO.set("REPAIR_PART_COST_SUM",repairPartCostSum);
+	    ttBalanceAccountsPO.set("REPAIR_PART_SALES_SUM",repairPartSalesSum);
+	    ttBalanceAccountsPO.set("REPAIR_PART_REAL_SUM",repairPartRealSum);
+	    ttBalanceAccountsPO.set("SALES_PART_COST_SUM",salesPartCostSum);
+	    ttBalanceAccountsPO.set("SALES_PART_SALES_SUM",salesPartSalesSum);
+	    ttBalanceAccountsPO.set("SALES_PART_REAL_SUM",salesPartRealSum);
+	    ttBalanceAccountsPO.set("ADD_ITEM_SALES_SUM",addItemSalesSum);
+	    ttBalanceAccountsPO.set("ADD_ITEM_REAL_SUM",addItemRealSum);
+	    ttBalanceAccountsPO.set("MANAGE_OVER_SALES_SUM",manageOverSalesSum);
+	    ttBalanceAccountsPO.set("MANAGE_OVER_REAL_SUM",manageOverRealSum);
+	    ttBalanceAccountsPO.set("LAB_SUM",labSum);
+	    ttBalanceAccountsPO.set("REAL_LAB_SUM",realLabSum);
+	    ttBalanceAccountsPO.set("SALE_PAR_SUM",saleParSum);
+	    ttBalanceAccountsPO.set("PAR_REAL_SUM",parRealSum);
+	    ttBalanceAccountsPO.saveIt();
+	    
+	    
+	    String [] tableName = {"TT_BALANCE_LABOUR","TT_BALANCE_REPAIR_PART","TT_BALANCE_SALES_PART","TT_BALANCE_ADD_ITEM"};
+		String [] tablePayobj = {"TT_BALANCE_LABOUR_PAYOBJ","TT_BALANCE_REPAIR_PART_PAYOBJ","TT_BALANCE_SALES_PART_PAYOBJ","TT_BALANCE_ADD_ITEM_PAYOBJ"};
+			
+		
+		
+		//循环4张表8次(每张表都有索赔和非索赔)
+		List<Map> listReceivable = balanceDTO.getReceivableList();
+		for (Map map : listReceivable) {
+			double receiveAmountLaClaim = 0; //维修项目应收金额（索赔）
+			double realReceiveAmountLaClaim = 0; //维修项目实收金额（索赔）
+			double discountAmountLaClaim = 0;  //维修项目折让金额（索赔）
+			double recLaNotClaim = 0; //维修项目应收金额（非索赔）
+			double realRecAmountLaNotClaim = 0 ;//维修项目实收金额（非索赔）
+			double discountAmountLaNOtClaim = 0; //维修项目折让金额（非索赔）
+			double receiveableAmountRpClaim = 0 ; //维修配件应收金额（索赔）
+			double realReceiveAmountRpClaim = 0 ; //维修配件实收金额（索赔）
+			double discountAmountRpClaim = 0; //维修配件折让金额（索赔）   
+			double partCostAmountRpClaim = 0 ; //维修配件成本金额（索赔）  
+			double recAmountRpNotClaim = 0; //  维修配件应收金额（非索赔）
+			double realRecAmountRpNotClaim = 0 ; //  维修配件实收金额（非索赔）
+			double discountAmounntRpNotClaim = 0; //  维修配件折让金额（非索赔）   
+			double PartCostAmountRpNotClaim = 0;  //维修配件成本金额（非索赔）  
+			double partCostAmountRp = 0 ; //维修配件成本金额
+			double receiveableAmountSpClaim = 0 ; //  销售配件应收金额(索赔)
+			double realReceiveAmountSpClaim = 0 ; //  销售配件实收金额(索赔)
+			double discountAmountSpClaim = 0; //销售配件折让金额(索赔)
+			double partCostAmountSpClaim = 0; // 销售配件成本金额(索赔)
+			double recAmountSpNotClaim = 0; //销售配件应收金额(非索赔)
+			double realRecAmountSpNotClaim = 0; //销售配件实收金额(非索赔)
+			double discountAmountSpNotClaim = 0 ; // 销售配件折让金额(非索赔)
+			double partCostAmountSpNotClaim = 0 ; //销售配件成本金额(非索赔)
+			double partCostAmountSp = 0; //  销售配件成本金额
+			double receiveableAmountAiClaim = 0 ; //附加项目应收金额(索赔)
+			double realReceiveAmountAiClaim = 0; //附加项目实收金额(索赔)
+			double discountAmountAiClaim = 0; // 附加项目折让金额(索赔)
+			double recAmountAiNotClaim = 0; // 附加项目应收金额(非索赔)
+			double realRecAmountAiNotClaim = 0 ; //   附加项目实收金额(非索赔)
+			double discountAmountAiNotClaim = 0 ; // 附加项目折让金额(非索赔)
+			
+			for(int i = 0 ; i < tableName.length ; i++){
+				//索赔
+				List<Map> listClaim=queryPayobjAmountStatiscs(1, tablePayobj[i], tableName[i], balanceNo,map.get("PAYMENT_OBJECT_CODE").toString());
+				if(listClaim != null && listClaim.size() > 0){
+					for (Map claimMap : listClaim) {
+						if(tableName[i].equals("TT_BALANCE_LABOUR")){
+							receiveAmountLaClaim = receiveAmountLaClaim + Double.parseDouble(claimMap.get("RECEIVEABLE_AMOUNT").toString());
+							realReceiveAmountLaClaim = realReceiveAmountLaClaim + Double.parseDouble(claimMap.get("REAL_RECEIVE_AMOUNT").toString());
+							discountAmountLaClaim = discountAmountLaClaim + Double.parseDouble(claimMap.get("DISCOUNT_AMOUNT").toString());
+						}
+						if(tableName[i].equals("TT_BALANCE_REPAIR_PART")){
+							receiveableAmountRpClaim = receiveableAmountRpClaim + Double.parseDouble(claimMap.get("RECEIVEABLE_AMOUNT").toString());
+							realReceiveAmountRpClaim = realReceiveAmountRpClaim + Double.parseDouble(claimMap.get("REAL_RECEIVE_AMOUNT").toString());
+							discountAmountRpClaim = discountAmountRpClaim + Double.parseDouble(claimMap.get("DISCOUNT_AMOUNT").toString());
+							partCostAmountRpClaim = partCostAmountRpClaim + Double.parseDouble(claimMap.get("PART_COST_AMOUNT").toString());
+						}
+						if(tableName[i].equals("TT_BALANCE_SALES_PART")){
+							receiveableAmountSpClaim = receiveableAmountSpClaim +Double.parseDouble(claimMap.get("RECEIVEABLE_AMOUNT").toString());
+							realReceiveAmountSpClaim = realReceiveAmountSpClaim +  Double.parseDouble(claimMap.get("REAL_RECEIVE_AMOUNT").toString());
+							discountAmountSpClaim = discountAmountSpClaim + Double.parseDouble(claimMap.get("DISCOUNT_AMOUNT").toString());
+							partCostAmountSpClaim = partCostAmountSpClaim + Double.parseDouble(claimMap.get("PART_COST_AMOUNT").toString());
+						}
+						if(tableName[i].equals("TT_BALANCE_ADD_ITEM")){
+							receiveableAmountAiClaim = receiveableAmountAiClaim + Double.parseDouble(claimMap.get("RECEIVEABLE_AMOUNT").toString());
+							realReceiveAmountAiClaim = realReceiveAmountAiClaim + Double.parseDouble(claimMap.get("REAL_RECEIVE_AMOUNT").toString());
+							discountAmountAiClaim = discountAmountAiClaim + Double.parseDouble(claimMap.get("DISCOUNT_AMOUNT").toString());
+						}
+					}
+				}
+				//非索赔
+				List<Map> listNotClaim = queryPayobjAmountStatiscs(2, tablePayobj[i], tableName[i], balanceNo,map.get("PAYMENT_OBJECT_CODE").toString());
+				if(listNotClaim != null && listNotClaim.size() > 0 ){
+					for (Map notClaimMap : listNotClaim) {
+						if(tableName[i].equals("TT_BALANCE_LABOUR")){
+							recLaNotClaim = recLaNotClaim + Double.parseDouble(notClaimMap.get("RECEIVEABLE_AMOUNT").toString());
+							realRecAmountLaNotClaim = realRecAmountLaNotClaim + Double.parseDouble(notClaimMap.get("REAL_RECEIVE_AMOUNT").toString());
+							discountAmountLaNOtClaim = discountAmountLaNOtClaim + Double.parseDouble(notClaimMap.get("DISCOUNT_AMOUNT").toString());
+						}
+						if(tableName[i].equals("TT_BALANCE_REPAIR_PART")){
+							recAmountRpNotClaim = recAmountRpNotClaim + Double.parseDouble(notClaimMap.get("RECEIVEABLE_AMOUNT").toString());
+							realRecAmountRpNotClaim = realRecAmountRpNotClaim + Double.parseDouble(notClaimMap.get("REAL_RECEIVE_AMOUNT").toString());
+							discountAmounntRpNotClaim = discountAmounntRpNotClaim + Double.parseDouble(notClaimMap.get("DISCOUNT_AMOUNT").toString());
+							PartCostAmountRpNotClaim = PartCostAmountRpNotClaim + Double.parseDouble(notClaimMap.get("PART_COST_AMOUNT").toString());
+						}
+						if(tableName[i].equals("TT_BALANCE_SALES_PART")){
+							recAmountSpNotClaim = recAmountSpNotClaim + Double.parseDouble(notClaimMap.get("RECEIVEABLE_AMOUNT").toString());
+							realRecAmountSpNotClaim = realRecAmountSpNotClaim + Double.parseDouble(notClaimMap.get("REAL_RECEIVE_AMOUNT").toString());
+							discountAmountSpNotClaim = discountAmountSpNotClaim + Double.parseDouble(notClaimMap.get("DISCOUNT_AMOUNT").toString());
+							partCostAmountSpNotClaim = partCostAmountSpNotClaim + Double.parseDouble(notClaimMap.get("PART_COST_AMOUNT").toString());
+						}
+						if(tableName[i].equals("TT_BALANCE_ADD_ITEM")){
+							recAmountAiNotClaim = recAmountAiNotClaim + Double.parseDouble(notClaimMap.get("RECEIVEABLE_AMOUNT").toString());
+							realRecAmountAiNotClaim = realRecAmountAiNotClaim + Double.parseDouble(notClaimMap.get("REAL_RECEIVE_AMOUNT").toString());
+							discountAmountAiNotClaim = discountAmountAiNotClaim + Double.parseDouble(notClaimMap.get("DISCOUNT_AMOUNT").toString());
+						}
+					}
+				}
+				if(tableName[i].equals("TT_BALANCE_REPAIR_PART") || tableName[i].equals("TT_BALANCE_SALES_PART")){
+					partCostAmountRp = partCostAmountRpClaim + PartCostAmountRpNotClaim;
+					partCostAmountSp = partCostAmountSpClaim + partCostAmountSpNotClaim;
+				}			
+			}
+			
+			TmPayobjAmountStatisticsPO amountStatisticsPO = new TmPayobjAmountStatisticsPO();
+			amountStatisticsPO.set("DEALER_CODE",dealerCode);
+			amountStatisticsPO.set("BALANCE_NO",balanceNo);
+			amountStatisticsPO.set("PAYMENT_OBJECT_CODE",map.get("PAYMENT_OBJECT_CODE"));
+			amountStatisticsPO.set("PAYMENT_OBJECT_NAME",map.get("PAYMENT_OBJECT_NAME"));
+			amountStatisticsPO.set("RECEIVEABLE_AMOUNT_LA_CLAIM",receiveAmountLaClaim);
+			amountStatisticsPO.set("REAL_RECEIVE_AMOUNT_LA_CLAIM",realReceiveAmountLaClaim);
+			amountStatisticsPO.set("DISCOUNT_AMOUNT_LA_CLAIM",discountAmountLaClaim);
+			amountStatisticsPO.set("REC_LA_NOT_CLAIM",recLaNotClaim);
+			amountStatisticsPO.set("REAL_REC_AMOUNT_LA_NOT_CLAIM",realRecAmountLaNotClaim);
+			amountStatisticsPO.set("DISCOUNT_AMOUNT_LA_NOT_CLAIM",discountAmountLaNOtClaim);
+			amountStatisticsPO.set("RECEIVEABLE_AMOUNT_RP_CLAIM",receiveableAmountRpClaim);
+			amountStatisticsPO.set("REAL_RECEIVE_AMOUNT_RP_CLAIM",realReceiveAmountRpClaim);
+			amountStatisticsPO.set("DISCOUNT_AMOUNT_RP_CLAIM",discountAmountRpClaim);
+			amountStatisticsPO.set("PART_COST_AMOUNT_RP_CLAIM",partCostAmountRpClaim);
+			amountStatisticsPO.set("REC_AMOUNT_RP_NOT_CLAIM",recAmountRpNotClaim);
+			amountStatisticsPO.set("REAL_REC_AMOUNT_RP_NOT_CLAIM",realRecAmountRpNotClaim);
+			amountStatisticsPO.set("DISCOUNT_AMOUNT_RP_NOT_CLAIM",discountAmounntRpNotClaim);
+			amountStatisticsPO.set("PART_COST_AMOUNT_RP_NOT_CLAIM",PartCostAmountRpNotClaim);
+			amountStatisticsPO.set("PART_COST_AMOUNT_RP",partCostAmountRp);
+			amountStatisticsPO.set("RECEIVEABLE_AMOUNT_SP_CLAIM",receiveableAmountSpClaim);
+			amountStatisticsPO.set("REAL_RECEIVE_AMOUNT_SP_CLAIM",realReceiveAmountSpClaim);
+			amountStatisticsPO.set("DISCOUNT_AMOUNT_SP_CLAIM",discountAmountSpClaim);
+			amountStatisticsPO.set("PART_COST_AMOUNT_SP_CLAIM",partCostAmountSpClaim);
+			amountStatisticsPO.set("REC_AMOUNT_SP_NOT_CLAIM",recAmountSpNotClaim);
+			amountStatisticsPO.set("REAL_REC_AMOUNT_SP_NOT_CLAIM",realRecAmountSpNotClaim);
+			amountStatisticsPO.set("DISCOUNT_AMOUNT_SP_NOT_CLAIM",discountAmountSpNotClaim);
+			amountStatisticsPO.set("PART_COST_AMOUNT_SP_NOT_CLAIM",partCostAmountSpNotClaim);
+			amountStatisticsPO.set("PART_COST_AMOUNT_SP",partCostAmountSp);
+			amountStatisticsPO.set("RECEIVEABLE_AMOUNT_AI_CLAIM",receiveableAmountAiClaim);
+			amountStatisticsPO.set("REAL_RECEIVE_AMOUNT_AI_CLAIM",realReceiveAmountAiClaim);
+			amountStatisticsPO.set("DISCOUNT_AMOUNT_AI_CLAIM",discountAmountAiClaim);
+			amountStatisticsPO.set("REC_AMOUNT_AI_NOT_CLAIM",recAmountAiNotClaim);
+			amountStatisticsPO.set("REAL_REC_AMOUNT_AI_NOT_CLAIM",realRecAmountAiNotClaim);
+			amountStatisticsPO.set("DISCOUNT_AMOUNT_AI_NOT_CLAIM",discountAmountAiNotClaim);
+			amountStatisticsPO.set("D_KEY",CommonConstants.D_KEY);
+			amountStatisticsPO.saveIt();
+		}
+		
+	    
+	    
 
 	}
 
@@ -765,5 +1736,251 @@ public class FreeSettlementServiceImpl implements FreeSettlementService {
 		logPO.setString("REMARK", remark);
 		logPO.saveIt();
 	}
+	
+	/**
+	 * 
+	 * @param orderPo
+	 * @param isDelivery
+	 * @throws ServiceBizException
+	 */
+	public void setOrderPo(RepairOrderPO orderPo, String isDelivery) throws ServiceBizException {
+		orderPo.set("RO_STATUS", DictCodeConstants.DICT_RO_STATUS_TYPE_BALANCED);
+		// 是否使用交车开关，如果不使用的话就是自动交车
+		if (!isDelivery.equals(DictCodeConstants.DICT_DELIVERY_STATUS_TYPE_YES)) {// 已交车
+			if (Utility.getDefaultValue(String.valueOf(CommonConstants.DEFAULT_PARA_SUBMIT_CAR))
+					.equals(CommonConstants.DICT_IS_NO)) {
+				orderPo.set("DELIVERY_USER", FrameworkUtil.getLoginInfo().getUserId());
+				orderPo.set("DELIVERY_TAG", DictCodeConstants.DICT_DELIVERY_STATUS_TYPE_YES);
+				orderPo.setDate("DELIVERY_DATE", new Date());
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @param vin
+	 * @param tmVehiclePO
+	 * @throws ServiceBizException
+	 */
+	public void updateSubclassPO(String vin, VehiclePO tmVehiclePO) throws ServiceBizException {
+		TmVehicleSubclassPO poSub = TmVehicleSubclassPO.findFirst("VIN = ? AND DEALER_CODE = ?", vin,
+				FrameworkUtil.getLoginInfo().getDealerCode());
+		if (!StringUtils.isNullOrEmpty(poSub)) {
+			poSub.setString("CONSULTANT", tmVehiclePO.getString("CONSULTANT"));
+			poSub.setInteger("IS_SELF_COMPANY", tmVehiclePO.getInteger("IS_SELF_COMPANY"));
+			poSub.setDate("FIRST_IN_DATE", tmVehiclePO.getDate("FIRST_IN_DATE"));
+			poSub.setString("CHIEF_TECHNICIAN", tmVehiclePO.getString("CHIEF_TECHNICIAN"));
+			poSub.setString("SERVICE_ADVISOR", tmVehiclePO.getString("SERVICE_ADVISOR"));
+			poSub.setString("INSURANCE_ADVISOR", tmVehiclePO.getString("INSURANCE_ADVISOR"));
+			poSub.setString("MAINTAIN_ADVISOR", tmVehiclePO.getString("MAINTAIN_ADVISOR"));
+			poSub.setDate("LAST_MAINTAIN_DATE", tmVehiclePO.getDate("LAST_MAINTAIN_DATE"));
+			poSub.setDouble("LAST_MAINTAIN_MILEAGE", tmVehiclePO.getDouble("LAST_MAINTAIN_MILEAGE"));
+			poSub.setDate("LAST_MAINTENANCE_DATE", tmVehiclePO.getDate("LAST_MAINTENANCE_DATE"));
+			poSub.setDouble("LAST_MAINTENANCE_MILEAGE", tmVehiclePO.getDouble("LAST_MAINTENANCE_MILEAGE"));
+			poSub.setDouble("PRE_PAY", tmVehiclePO.getDouble("PRE_PAY"));
+			poSub.setDouble("ARREARAGE_AMOUNT", tmVehiclePO.getDouble("ARREARAGE_AMOUNT"));
+			poSub.setDate("DISCOUNT_EXPIRE_DATE", tmVehiclePO.getDate("DISCOUNT_EXPIRE_DATE"));
+			poSub.setString("DISCOUNT_MODE_CODE", tmVehiclePO.getString("DISCOUNT_MODE_CODE"));
+			poSub.setInteger("IS_SELF_COMPANY_INSURANCE", tmVehiclePO.getInteger("IS_SELF_COMPANY_INSURANCE"));
+			poSub.setDate("ADJUST_DATE", tmVehiclePO.getDate("ADJUST_DATE"));
+			poSub.setString("ADJUSTER", tmVehiclePO.getString("ADJUSTER"));
+			poSub.setInteger("IS_VALID", tmVehiclePO.getInteger("IS_VALID"));
+			poSub.setString("OWNER_NO", tmVehiclePO.getString("OWNER_NO"));
+			poSub.setInteger("NO_VALID_REASON", tmVehiclePO.getInteger("NO_VALID_REASON"));
+			poSub.saveIt();
+		}
+	}
+	
+	/**
+	 * 
+	 * @param list
+	 * @param field
+	 * @return
+	 * @throws ServiceBizException
+	 */
+	public Boolean ckeckFieldNotNull2(List<Map> list, String field)  throws ServiceBizException {
+		StringBuffer sb = new StringBuffer("");
+		for (Map map : list) {
+			if (!StringUtils.isNullOrEmpty(map.get(field))) {
+				sb.append(map.get(field)).append(" ");
+			}
+		}
+		if (!"".equals(sb.toString())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * 
+	 * @param entityCode
+	 * @param list
+	 * @return
+	 * @throws ServiceBizException
+	 */
+	public static List<VehiclePO> getVehicleSubclassList1(String entityCode, List<VehiclePO> list)  throws ServiceBizException {
+		if (list == null)
+			return null;
+
+		VehiclePO po = null;
+		for (int i = 0; i < list.size(); i++) {
+			po = list.get(i);
+			Map poSub = new HashMap();
+			String sql = "SELECT * FROM TM_VEHICLE_SUBCLASS WHERE DEALER_CODE = '" + entityCode
+					+ "' AND MAIN_ENTITY = '" + po.get("DEALER_CODE").toString() + "' AND VIN = '"
+					+ po.get("VIN").toString() + "'";
+			poSub = DAOUtil.findFirst(sql, null);
+
+			if (poSub != null) {
+				if (Utility.isPrivateField(entityCode, "TM_VEHICLE", "CONSULTANT"))
+					po.set("CONSULTANT", poSub.get("CONSULTANT"));
+				if (Utility.isPrivateField(entityCode, "TM_VEHICLE", "IS_SELF_COMPANY"))
+					po.set("IS_SELF_COMPANY", poSub.get("IS_SELF_COMPANY"));
+				if (Utility.isPrivateField(entityCode, "TM_VEHICLE", "FIRST_IN_DATE"))
+					po.set("FIRST_IN_DATE", poSub.get("FIRST_IN_DATE"));
+				if (Utility.isPrivateField(entityCode, "TM_VEHICLE", "CHIEF_TECHNICIAN"))
+					po.set("CHIEF_TECHNICIAN", poSub.get("CHIEF_TECHNICIAN"));
+				if (Utility.isPrivateField(entityCode, "TM_VEHICLE", "SERVICE_ADVISOR"))
+					po.set("SERVICE_ADVISOR", poSub.get("SERVICE_ADVISOR"));
+				if (Utility.isPrivateField(entityCode, "TM_VEHICLE", "INSURANCE_ADVISOR"))
+					po.set("INSURANCE_ADVISOR", poSub.get("INSURANCE_ADVISOR"));
+				if (Utility.isPrivateField(entityCode, "TM_VEHICLE", "MAINTAIN_ADVISOR"))
+					po.set("MAINTAIN_ADVISOR", poSub.get("MAINTAIN_ADVISOR"));
+				if (Utility.isPrivateField(entityCode, "TM_VEHICLE", "LAST_MAINTAIN_DATE"))
+					po.set("LAST_MAINTAIN_DATE", poSub.get("LAST_MAINTAIN_DATE"));
+				if (Utility.isPrivateField(entityCode, "TM_VEHICLE", "LAST_MAINTAIN_MILEAGE"))
+					po.set("LAST_MAINTAIN_MILEAGE", poSub.get("LAST_MAINTAIN_MILEAGE"));
+				if (Utility.isPrivateField(entityCode, "TM_VEHICLE", "LAST_MAINTENANCE_DATE"))
+					po.set("LAST_MAINTENANCE_DATE", poSub.get("LAST_MAINTENANCE_DATE"));
+				if (Utility.isPrivateField(entityCode, "TM_VEHICLE", "LAST_MAINTENANCE_MILEAGE"))
+					po.set("LAST_MAINTENANCE_MILEAGE", poSub.get("LAST_MAINTENANCE_MILEAGE"));
+				if (Utility.isPrivateField(entityCode, "TM_VEHICLE", "PRE_PAY"))
+					po.set("PRE_PAY", poSub.get("PRE_PAY"));
+				if (Utility.isPrivateField(entityCode, "TM_VEHICLE", "ARREARAGE_AMOUNT"))
+					po.set("ARREARAGE_AMOUNT", poSub.get("ARREARAGE_AMOUNT"));
+				if (Utility.isPrivateField(entityCode, "TM_VEHICLE", "DISCOUNT_EXPIRE_DATE"))
+					po.set("DISCOUNT_EXPIRE_DATE", poSub.get("DISCOUNT_EXPIRE_DATE"));
+				if (Utility.isPrivateField(entityCode, "TM_VEHICLE", "DISCOUNT_MODE_CODE"))
+					po.set("DISCOUNT_MODE_CODE", poSub.get("DISCOUNT_MODE_CODE"));
+				if (Utility.isPrivateField(entityCode, "TM_VEHICLE", "IS_SELF_COMPANY_INSURANCE"))
+					po.set("IS_SELF_COMPANY_INSURANCE", poSub.get("IS_SELF_COMPANY_INSURANCE"));
+				if (Utility.isPrivateField(entityCode, "TM_VEHICLE", "ADJUST_DATE"))
+					po.set("ADJUST_DATE", poSub.get("ADJUST_DATE"));
+				if (Utility.isPrivateField(entityCode, "TM_VEHICLE", "ADJUSTER"))
+					po.set("ADJUSTER", poSub.get("ADJUSTER"));
+				if (Utility.isPrivateField(entityCode, "TM_VEHICLE", "IS_VALID"))
+					po.set("IS_VALID", poSub.get("IS_VALID"));
+				if (Utility.isPrivateField(entityCode, "TM_VEHICLE", "NO_VALID_REASON"))
+					po.set("NO_VALID_REASON", poSub.get("NO_VALID_REASON"));
+			}
+		}
+		return list;
+	}
+	
+	/**
+	 * 
+	 * @param roNo
+	 * @return
+	 * @throws ServiceBizException
+	 */
+	public List<Map> queryRoMemberActivity(String roNo)  throws ServiceBizException {
+		StringBuffer sb = new StringBuffer();
+		sb.append(" SELECT DISTINCT ACTIVITY_CODE,CARD_ID FROM ( ")
+				.append(" SELECT A.ACTIVITY_CODE,A.CARD_ID FROM  TT_RO_REPAIR_PART A  WHERE  A.DEALER_CODE='")
+				.append(FrameworkUtil.getLoginInfo().getDealerCode()).append("' AND  A.RO_NO='").append(roNo)
+				.append("' AND A.ACTIVITY_CODE IS NOT NULL AND A.ACTIVITY_CODE!='' AND A.CARD_ID IS NOT NULL AND A.CARD_ID!=0 ")
+				.append(" UNION SELECT B.ACTIVITY_CODE,B.CARD_ID FROM  TT_RO_LABOUR B  WHERE B.DEALER_CODE='")
+				.append(FrameworkUtil.getLoginInfo().getDealerCode()).append("' AND   B.RO_NO='").append(roNo)
+				.append("' AND B.ACTIVITY_CODE IS NOT NULL AND B.ACTIVITY_CODE!='' AND B.CARD_ID IS NOT NULL AND B.CARD_ID!=0 ")
+				.append(") ");
+		return DAOUtil.findAll(sb.toString(), null);
+	}
+	
+	/**
+	 * 
+	 * @param memberActivityCode
+	 * @param cardId
+	 * @return
+	 * @throws ServiceBizException
+	 */
+	public double querySumMemberActivity(String memberActivityCode, String cardId) throws ServiceBizException  {
+		double sumAmount = 0.00;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" SELECT (COALESCE(B.MEMBER_ACTIVITY_AMOUNT,0)) AS SUM_ACTIVITY_AMOUNT FROM ("
+				+ CommonConstants.VM_MEMBER_CARD_ACTIVITY + ") A INNER JOIN (" + CommonConstants.VM_MEMBER_ACTIVITY
+				+ ")  B" + " ON A.DEALER_CODE = B.DEALER_CODE AND A.MEMBER_ACTIVITY_CODE =B.MEMBER_ACTIVITY_CODE WHERE "
+				+ "  A.DEALER_CODE='" + FrameworkUtil.getLoginInfo().getDealerCode() + "' AND A.IS_USE_SPECIAL_FUND = "
+				+ CommonConstants.DICT_IS_YES + " " + "  AND A.MEMBER_ACTIVITY_CODE = '" + memberActivityCode
+				+ "' AND A.CARD_ID=" + cardId + " " + " ");
+		List<Map> list = DAOUtil.findAll(sql.toString(), null);
+		if (list.size() > 0) {
+			for (Map map : list) {
+				if (!StringUtils.isNullOrEmpty(map.get("SUM_ACTIVITY_AMOUNT"))) {
+					sumAmount = Double.parseDouble(map.get("SUM_ACTIVITY_AMOUNT").toString());
+				}
+			}
+		}
+		return sumAmount;
+	}
+	
+	/**
+	 * 
+	 * @param tag
+	 * @param tablePayobj
+	 * @param tableMain
+	 * @param balanceNo
+	 * @param payobj
+	 * @return
+	 * @throws ServiceBizException
+	 */
+	public List<Map> queryPayobjAmountStatiscs(int tag,String tablePayobj,String tableMain,String balanceNo,String payobj) throws ServiceBizException {
+		StringBuffer sql = new StringBuffer("");
+		String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
+		logger.debug("****************************             "+tableMain + "       ***************************************");
+		sql
+		.append(" SELECT AAA.DEALER_CODE, AAA.BALANCE_NO, AAA.D_KEY, AAA.PAYMENT_OBJECT_CODE, AAA.PAYMENT_OBJECT_NAME, \n " +
+				" SUM(AAA.RECEIVEABLE_AMOUNT) 		 AS RECEIVEABLE_AMOUNT,  \n " +
+				" SUM(AAA.REAL_RECEIVE_AMOUNT_PAYOBJ) AS REAL_RECEIVE_AMOUNT,  \n " +
+				" SUM(AAA.DISCOUNT_AMOUNT_PAYOBJ)     AS DISCOUNT_AMOUNT   \n " ); 
+				if(tableMain.equals("TT_BALANCE_SALES_PART") || tableMain.equals("TT_BALANCE_REPAIR_PART")){
+					sql.append(" , SUM(AAA.PART_COST_AMOUNT_PAYOBJ)    AS PART_COST_AMOUNT \n ");
+				}
+				sql.append(" FROM (SELECT   B.*, A.PAYMENT_OBJECT_CODE, A.PAYMENT_OBJECT_NAME, \n " +
+				" A.RECEIVEABLE_AMOUNT,  \n " +
+				" A.DISCOUNT_AMOUNT     AS DISCOUNT_AMOUNT_PAYOBJ,  \n " +
+				" A.REAL_RECEIVE_AMOUNT AS REAL_RECEIVE_AMOUNT_PAYOBJ,  \n " +
+				" A.DISCOUNT  AS DISCOUNT_PAYOBJ   \n" );
+				if(tableMain.equals("TT_BALANCE_SALES_PART") || tableMain.equals("TT_BALANCE_REPAIR_PART")){
+					sql.append(" ,B.PART_COST_AMOUNT*A.REAL_RECEIVE_AMOUNT/(  CASE  WHEN B.REAL_RECEIVE_AMOUNT = 0 THEN 1  ELSE B.REAL_RECEIVE_AMOUNT END) AS PART_COST_AMOUNT_PAYOBJ  \n ");
+				}
+				sql.append(" FROM "+tablePayobj+" A  \n " +
+				" LEFT JOIN "+tableMain+" B \n " +
+				" ON A.ITEM_ID = B.ITEM_ID   AND A.DEALER_CODE = B.DEALER_CODE AND A.D_KEY = B.D_KEY  "); 
+				if(tag == 1){
+					sql.append(" WHERE  B.CHARGE_PARTITION_CODE = 'S'  ) AAA ");
+				}
+				if(tag == 2 ){
+					sql.append(" WHERE  B.CHARGE_PARTITION_CODE <> 'S'  ) AAA ");
+				}
+				sql.append(" LEFT JOIN TT_BALANCE_PAYOBJ PAYOBJ ON  AAA.BALANCE_NO = PAYOBJ.BALANCE_NO AND AAA.PAYMENT_OBJECT_CODE = PAYOBJ.PAYMENT_OBJECT_CODE \n " +
+				" AND AAA.DEALER_CODE = PAYOBJ.DEALER_CODE AND AAA.D_KEY = PAYOBJ.D_KEY  WHERE AAA.D_KEY = "+CommonConstants.D_KEY+" " );
+				if(balanceNo != null && !balanceNo.equals("")){
+					sql.append(" AND AAA.BALANCE_NO = '"+balanceNo+"' ");
+				}
+				if(dealerCode != null && !dealerCode.equals("")){
+					sql.append(" AND AAA.DEALER_CODE = '"+dealerCode+"' ");
+				}
+				if(payobj != null && !payobj.equals("")){
+					sql.append(" AND AAA.PAYMENT_OBJECT_CODE = '"+payobj+"' ");
+				}
+				sql.append(" GROUP BY AAA.DEALER_CODE,  AAA.BALANCE_NO, AAA.D_KEY,  AAA.PAYMENT_OBJECT_CODE,AAA.PAYMENT_OBJECT_NAME ");
+		
+		
+		logger.debug(sql.toString());
+		return DAOUtil.findAll(sql.toString(), null);
+	}
+	
+	
 
 }

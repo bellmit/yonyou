@@ -3,13 +3,64 @@
  */
 package com.yonyou.dcs.de;
 
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.infoservice.dms.cgcsl.vo.ProperServiceManageVO;
+import com.yonyou.dcs.de.impl.BaseImpl;
+import com.yonyou.dcs.gacfca.SADCS018Cloud;
+import com.yonyou.dms.DTO.gacfca.ProperServiceManageDto;
 import com.yonyou.f4.de.DEException;
 import com.yonyou.f4.de.DEMessage;
+import com.yonyou.f4.de.executer.DEAction;
 
 /**
  * @author Administrator
  *
  */
-public interface SADCS018 {
-	public DEMessage execute(DEMessage deMsg) throws DEException;
+@Service
+public class SADCS018 extends BaseImpl implements DEAction {
+	private static final Logger logger = LoggerFactory.getLogger(SADCS018.class);
+	
+	@Autowired
+	SADCS018Cloud cloud;
+	@Override
+	public DEMessage execute(DEMessage deMsg) throws DEException {
+		logger.info("========一对一客户经理(重绑)开始(SADCS018)========");
+		try {
+			Map<String, Serializable> bodys = deMsg.getBody();
+			List<ProperServiceManageDto> dtoList = new ArrayList<ProperServiceManageDto>();
+			setDTO(dtoList,bodys);
+			cloud.handleExecutor(dtoList);
+		} catch (Throwable t) {
+			logger.info("========一对一客户经理(重绑)异常(SADCS018)========");
+			t.printStackTrace();
+		}finally {
+		}
+		logger.info("========一对一客户经理(重绑)结束(SADCS018)========");
+		return null;
+	}
+	
+	private void setDTO(List<ProperServiceManageDto> dtoList, Map<String, Serializable> bodys){
+		for (Entry<String, Serializable> entry : bodys.entrySet()) {
+			ProperServiceManageVO vo = new ProperServiceManageVO();
+			ProperServiceManageDto dto = new ProperServiceManageDto();
+			vo = (ProperServiceManageVO)entry.getValue();
+			dto.setDealerCode(vo.getEntityCode());
+			BeanUtils.copyProperties(vo, dto);
+			dtoList.add(dto);
+		}
+	}
+
 }
+
