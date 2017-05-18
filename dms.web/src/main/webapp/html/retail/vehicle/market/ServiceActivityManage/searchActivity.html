@@ -1,0 +1,166 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">活动代码</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="activityCode" name="activityCode">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">发布状态</label>
+							<div class="col-xs-8">
+								<select id="releaseTag" name="releaseTag" class="bs-select form-control" data-dictCode="2205">
+							    </select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+						<div class="form-group">
+							<label class="control-label col-xs-4">活动名称</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="activityName" name="activityName">
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">开始日期</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-datefuture"  data-defaultDays="7">
+		                             <input type="text" class="form-control" readonly  name="beginDateFrom">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="beginDateTo"> 
+		                              <span class="input-group-btn">
+                                         <button class="btn default input-clear" type="button">
+                                            <i class="fa fa-close"></i>
+                                        </button>
+                                      </span> 
+		                        </div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">结束日期</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-datefuture"  data-defaultDays="7">
+		                             <input type="text" class="form-control" readonly  name="endDateFrom">
+		                             <span class="input-group-addon">至</span>
+		                             <input type="text" class="form-control" readonly  name="endDateTo"> 
+		                              <span class="input-group-btn">
+                                         <button class="btn default input-clear" type="button">
+                                            <i class="fa fa-close"></i>
+                                        </button>
+                                      </span> 
+		                        </div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a>
+							<a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a> 
+						</div>
+					</div>
+				</div>
+			</div>
+			<input type="hidden" id="fag" name="fag"/>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name">服务活动信息</div>
+			<div class="pannel-button" >
+				<div class="btn-group btn-group-sm">
+					<a data-url="retail/vehicle/market/ServiceActivityManage/addActivity.html" 
+						data-toggle="modal" data-onclickEvent="true" data-width="modal-lg" class="btn btn-outline">
+						<i class="fa fa-plus-square"/> 新增</a>
+					<a data-url="" class="btn btn-outline ajaxify">
+						<i class="fa fa-plus-square"/> 附件下载</a>
+					<a data-url="" 
+						data-model="part" data-method="PUT" data-toggle="confirmation" class="btn btn-outline ajaxify">
+						<i class="fa fa-plus-square"/> 发布</a>
+					<a data-url="" 
+						data-model="part" data-method="PUT" data-toggle="confirmation" class="btn btn-outline ajaxify">
+						<i class="fa fa-plus-square"/> 作废</a>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	 new Datatable().initPagination({
+		src : "dms_table",
+		container:container,
+		url : dmsCommon.getDmsPath()["repair"] + "/activity/serviceActivity",
+		rowID : "ACTIVITY_CODE",
+		sortName : "ACTIVITY_CODE",
+		sortOrder : "asc",
+		columns : [
+			 {field : "",title : "操作",operateFormat : [
+				       {type : "edit",url : "retail/vehicle/market/ServiceActivityManage/editActivity.html",openWidth:"modal-lg",doubleClick : true,
+				    	   isShow:function(value, row, index){
+// 							   if(row.RELEASE_TAG=="22051001"&& row.ACTIVITY_TYPE=="22041001"){
+								   return true;
+// 	                    	   }else{
+// 	                    		   return false;
+// 	                    	   }      
+						   }},
+					   {type:"detail",url:"retail/vehicle/market/ServiceActivityManage/editActivity.html",openWidth:"modal-lg"},
+					   {type:"del",url:"/activity/serviceActivity/{[ACTIVITY_CODE]}/releaseTag",title:"发布",model:"repair",method:"GET",operateIcon:'<i class="fa fa-check-square-o glyphicon-lg"></i>',callBack:function(response){
+                    	   $("#dms_table",container).dmsTable().refreshTableWithForm();
+                        }, isShow:function(value, row, index){
+// 							   if(row.RELEASE_TAG=="22051001" && row.ACTIVITY_TYPE=="22041001"){
+								   return true;
+// 	                    	   }else{
+// 	                    		   return false;
+// 	                    	   }      
+						}}, 
+                        {type:"del",url:"/activity/serviceActivity/{[ACTIVITY_CODE]}",title:"作废",model:"repair",method:"DELETE",operateIcon:'<i class="fa fa-history glyphicon-lg"></i>',callBack:function(response){
+                     	   $("#dms_table",container).dmsTable().refreshTableWithForm();
+                         }, isShow:function(value, row, index){
+// 							   if(row.RELEASE_TAG=="22051001" && row.ACTIVITY_TYPE=="22041001"){
+								   return true;
+// 	                    	   }else{
+// 	                    		   return false;
+// 	                    	   }      
+						   }}
+				]}, 
+				{field : "ACTIVITY_CODE",title : "活动代码"},
+				{field : "ACTIVITY_NAME",title : "活动名称"},
+				{field : "GLOBAL_ACTIVITY_CODE",title : "活动编号"},
+				{field : "ACTIVITY_TYPE",title : "活动类型",codeFormat : {type:"dict",codeType:"2204"}},
+				{field : "ACTIVITY_KIND",title : "活动类别",codeFormat : {type:"dict",codeType:"2206"}},
+				{field : "ACTIVITY_PROPERTY",title : "活动性质",codeFormat : {type:"dict",codeType:"2207"}},
+				{field : "BEGIN_DATE",title : "开始日期",dateFormat : {format:"YYYY-MM-DD"}},
+				{field : "END_DATE",title : "结束日期",dateFormat : {format:"YYYY-MM-DD"}},
+				{field : "RELEASE_DATE",title : "发布日期",dateFormat : {format:"YYYY-MM-DD"}},
+				{field : "RELEASE_TAG",title : "发布状态",codeFormat : {type:"dict",codeType:"2205"}},
+				{field : "LABOUR_AMOUNT",title : "工时费"},
+				{field : "REPAIR_PART_AMOUNT",title : "维修材料费"},
+				{field : "ACTIVITY_AMOUNT",title : "活动总金额"}
+				]
+
+	}); 
+	 $("a[data-onclickEvent='true']",container).on("dms.click",function(event,container){
+		 $("#fag",container).val("A");
+	 });
+});
+</script>

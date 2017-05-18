@@ -1,0 +1,172 @@
+<div class="dms-edit" data-model="part" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">移库配件编辑</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row ">
+						<div class="col-xs-12 col-sm-6 col-md-3 ">
+							<div class="form-group form-group-xs m-b-xs">
+								<label class="control-label col-xs-4 ">原仓库代码</label>
+								<div class="col-xs-8">
+									<input type="hidden" data-fieldName="STORAGE_CODE" />
+									<input type="text" readonly="readonly" class="form-control disabledClass" value="{[OLD_STORAGE_NAME]}" />
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-3 ">
+							<div class="form-group form-group-xs m-b-xs">
+								<label class="control-label col-xs-4 ">新仓库代码</label>
+								<div class="col-xs-8">
+									<input type="hidden" data-fieldName="STORAGE_CODE" /> 
+									<input type="text" readonly="readonly" class="form-control disabledClass" value="{[NEW_STORAGE_NAME]}" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-3 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">配件代码</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control  disabledCLass" readonly="readonly" id="PART_NO" value="{[PART_NO]}"
+										name="partNo">
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-md-3 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">配件名称</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="PART_NAME"
+										name="partName" value="{[PART_NAME]}">
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">移库数量</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="transferQuantity"
+										name="transferQuantity" onblur="countMoney()" value="{[TRANSFER_QUANTITY]}"> 
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">成本金额</label>
+								<div class="col-xs-8">
+								<input type="hidden" value="{[COST_PRICE]}" id="costPrice" />
+									<input type="text" class="form-control disabledClass" readonly="readonly" id="costAmount"
+										name="costAmount" value="0.00"> 
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default table-panel">
+				<div style="border: solid 1px #DDDDDD; height: 150px; overflow-y: scroll; overflow-x: hidden">
+					<table class="table table-striped table-bordered table-hover table-responsive"
+						id="editPartItemTable"></table>
+				</div>
+			</div>
+			<div class="modal-footer center-block">
+						<a data-onclickEvent='true' class="btn blue"><i
+							class="fa fa-save"></i>确定</a> <a data-dismiss="modal"
+							class="btn blue"><i class="fa fa-undo"></i>取消</a>
+					</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms", function(event, container) {
+		countMoney();
+		new Datatable().initPagination({
+			src : "editPartItemTable",
+			container : container,
+			url:dmsCommon.getDmsPath()["part"] + "/basedata/partmove/queryPartItemInfos/" + $("#PART_NO",container).val(),
+			rowID : "PART_NO,STORAGE_CODE", 
+			sortName : "SALES_PRICE",
+			sortOrder : "desc",
+			autoHeight:false,
+			uniqueDataName:"PART_NO",
+			columns : [ {                               
+				field : "SALES_PRICE",                  
+				title : "销售价"                        
+			}, {                                        
+				field : "CLAIM_PRICE",                  
+				title : "索赔价"                        
+			}, {                                        
+				field : "INSURANCE_PRICE",              
+				title : "保险价"
+			}, {
+				field : "MIN_LIMIT_PRICE",
+				title : "最低销售限价"
+			}, {
+				field : "LIMIT_PRICE",
+				title : "销售限价"
+			}, {
+				field : "max_Stock",
+				title : "最大库存"
+			}, {
+				field : "min_stock",
+				title : "最小库存"
+			}, {
+				field : "STOCK_QUANTITY",
+				title : "账面库存"
+			}, {
+				field : "USEABLE_STOCK",
+				title : "可用库存"
+			}, {
+				field : "BORROW_QUANTITY",
+				title : "借进数量"
+			}, {
+				field : "LEND_QUANTITY",
+				title : "借出数量"
+			}, {
+				field : "LOCKED_QUANTITY",
+				title : "锁定量"
+			}, {
+				field : "OPTION_NAME",
+				title : "替代配件"
+			}, {
+				field : "OPTION_STOCK",
+				title : "替代件库存"
+			}, {
+				field : "PART_GROUP_CODE",
+				title : "配件类别"
+			}, {
+				field : "UNIT_NAME",
+				title : "单位"
+			}, {
+				field : "PART_MODEL_GROUP_CODE_SET",
+				title : "配件车型组集"
+			} ]
+		});
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(){
+			var selectRow = $("#partMoveItemTable",getElementContext()).bootstrapTable("getSelections");
+			console.log(selectRow);
+			selectRow[0]["TRANSFER_QUANTITY"] = $("#transferQuantity",container).val();
+			selectRow[0]["PART_NAME"] = $("#PART_NAME",container).val();
+			console.log(selectRow);
+			console.log($("#partMoveItemTable",getElementContext()));
+			$("#partMoveItemTable",getElementContext()).bootstrapTable('updateRow', {index: 1, row: selectRow});;
+			$("#partMoveItemTable",getElementContext()).bootstrapTable('refresh');
+			$("a[data-dismiss='modal']",container).click();
+		})
+	})
+	//统计金钱
+	function countMoney(){
+		var count = Number($("#transferQuantity").val());
+		var price = Number($("#costPrice").val());
+		$("#costAmount").val(count * price);
+		
+	}
+</script>

@@ -1,0 +1,181 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+				<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">维修工单号</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="repairNo" name="repairNo">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">VIN</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="vin" name="vin">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">进厂里程</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" id="inMilleage" name="inMilleage">
+							</div>
+						</div>
+					</div>
+				
+						
+						<div class="col-xs-12 col-sm-6  col-md-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">购车日期</label>
+								<div class="col-xs-8">
+									<div class="input-group date  date-picker">
+										<input id="purchase" name="purchase" 
+											class="form-control" type="text" value=""  data-fieldName="birthday" />		
+												<span  class="input-group-btn">
+											<button class="btn default date-set" type="button" >
+												<i class="fa fa-calendar"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					
+				<div class="col-xs-8 col-sm-6 col-md-4 col-lg-6">
+					<div class="form-group">
+						<label class="control-label col-xs-4 col-sm-2">工单日期</label>
+						<div class="col-xs-8 col-sm-10">
+							 <div class="input-group input-daterange" data-opens="right">
+	                             <input type="text" class="form-control" readonly  id=roStartDate" name="roStartDate">
+	                             <span class="input-group-addon">至</span>
+	                             <input type="text" class="form-control" readonly  id="roEndDate" name="roEndDate">
+	                             
+	                        </div>
+						</div>
+					</div>
+				</div>	
+						
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name" >经销商信息</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+	<div class="modal-footer center-block">
+			 <a class="btn blue" data-onclickEvent="true"><i class="fa fa-save hidden"></i>确定</a> 
+				<a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initPagination({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["vehicle"] + "/friendlyClaimApply/query/repairOrder",
+			rowID : "REPAIR_ID",
+			sortName : "REPAIR_NO",
+			sortOrder : "asc",
+			autoHeight:false,
+			isQueryFirst:true,
+			pageSize:10,
+			columns : [ 
+			    {radio:true,sortable : true},
+			    {field : "REPAIR_NO",title : "维修工单号"}, 
+				{field : "CLAIM_NUMBER",title : "索赔单号"},
+				{field : "MODEL_CODE",title : "车型"}, 
+				{field : "MODEL_YEAR",title : "年款"}, 
+				{field : "VIN",title : "VIN"}, 
+				{field : "ENGINE_NO",title : "发动机号"}, 
+				{field : "REPAIR_TYPE",title : "维修类型"}, 
+				{field : "MAIN_PART",title : "主因零部件"}, 
+				{field : "REPAIR_DATE",title : "维修日期"}, 
+				{field : "BALANCE_DATE",title : "结算日期"}
+								
+			]
+
+		});
+		
+		//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			var selectRow = $("#dms_table",container).dmsTable().getSelections();
+			if(selectRow.length>0){
+				var repairNo = "";
+				var claimNo = "";
+				var roStratDate = "";
+				var roEndDate = "";
+				var purchaseDate = ""; // 购车时间     PURCHASE_DATE
+				var vin = "";		   // VIN
+				var milleage = "";	//MILLEAGE
+				var engineNo = "";
+				var brand = "";
+				var series = "";
+				var model = "";
+				var serveAdvisor = "";
+				var repairId = "";
+				for(var i = 0 ;i<selectRow.length;i++){
+					repairNo = selectRow[i]["REPAIR_NO"];
+					claimNo = selectRow[i]["CLAIM_NUMBER"];
+					roStratDate = selectRow[i]["REPAIR_DATE"];
+					roEndDate = selectRow[i]["BALANCE_DATE"];
+					purchaseDate = selectRow[i]["PURCHASE_DATE"];
+					vin = selectRow[i]["VIN"];
+					milleage = selectRow[i]["MILLEAGE"];
+					engineNo = selectRow[i]["ENGINE_NO"];
+					brand = selectRow[i]["BRAND_NAME"];
+					series = selectRow[i]["SERIES_NAME"];
+					model = selectRow[i]["MODEL_NAME"];
+					serveAdvisor = selectRow[i]["MAKE_MAN"];
+					repairId = selectRow[i]["REPAIR_ID"];
+				}
+				
+				$("#repair_No",getElementContext()).setDmsValue(repairNo);
+				$("#claim_No",getElementContext()).setDmsValue(claimNo);
+				$("#ro_Strat_Date",getElementContext()).setDmsValue(roStratDate);
+				$("#ro_End_Date",getElementContext()).setDmsValue(roEndDate);
+				$("#purchase_Date",getElementContext()).setDmsValue(purchaseDate);
+				$("#vin",getElementContext()).setDmsValue(vin);
+				$("#milleage",getElementContext()).setDmsValue(milleage);
+				$("#engineNo",getElementContext()).setDmsValue(engineNo);
+				$("#brand",getElementContext()).setDmsValue(brand);
+				$("#series",getElementContext()).setDmsValue(series);
+				$("#model",getElementContext()).setDmsValue(model);
+				$("#serveAdvisor",getElementContext()).setDmsValue(serveAdvisor);
+				$("#repairId",getElementContext()).setDmsValue(repairId);
+			}else{
+				dmsCommon.tip({status:"warning",msg:"请选择所需要的工单！"});//总共的状态类型：info、success、error、warning
+				return false;
+			}
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("#claimPartsTable",getElementContext()).dmsTable().refreshTableWithForm();
+			$("#claimLabourTable",getElementContext()).dmsTable().refreshTableWithForm();
+			$("#claimOtherTable",getElementContext()).dmsTable().refreshTableWithForm();
+		}); 
+	});
+</script>

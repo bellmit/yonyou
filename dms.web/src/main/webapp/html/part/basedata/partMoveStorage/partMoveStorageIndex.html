@@ -1,0 +1,266 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">移库单号</label>
+							<div class="col-xs-8">
+								<div class="input-group">
+									<input id="transferNo" name="transferNo" class="form-control transferNo"
+									type="text" />
+									<input id="useableStock" type="hidden" />
+									<input id="transferSign" name="transferSign" type="hidden" />
+									<input id="delJsonStr" name="delJsonStr" type="hidden" />
+									<input id="batchSign" type="hidden" />
+									<div class="input-group-btn">
+										<button class="btn default btn-sm transferNo" type="button"
+										data-url="part/basedata/partMoveStorage/partMoveStorageSearch.html"
+										data-toggle="modal" data-info="license" data-width="modal-lg">
+										<i class="fa fa-search"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-3 ">
+					<div class="form-group" id="transferDateBtn">
+						<label class="control-label col-xs-4">移库日期</label>
+						<div class="col-xs-8">
+							<div class="input-group date date-picker"
+							data-date-end-date="+0d" data-orientation="top right">
+							<input id="transferDate" name="transferDate"
+							readonly="readonly" 
+							class="form-control transferDate"  type="text" /> <span
+							class="input-group-btn">
+							<button class="btn default date-set transferDate" type="button">
+								<i class="fa fa-calendar"></i>
+							</button>
+							<button class="btn default date-reset transferDate" type="button">
+								<i class="fa fa-times"></i>
+							</button>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+<div class="panel panel-default table-panel">
+	<div class="panel-heading">
+		<div class="pannel-name">
+			<label class="control-label">配件移库 </label>
+		</div>
+		<div class="pannel-button">
+			<div class="btn-group btn-group-sm">
+				<a class="btn btn-outline" id="addPartBtn" disabled="true" data-url="part/basedata/partMoveStorage/partMoveStorageAdd.html" data-toggle="modal"
+				data-width="modal-lg"> <i class="fa fa-plus-square"></i> 新增
+			</a>
+			
+			<a class="btn btn-outline" id="batchPartBtn" disabled="true" style="display: none;" data-url="part/basedata/partMoveStorage/partMoveStorageBatch.html" data-toggle="modal"
+				data-width="modal-sm"> <i class="fa fa-plus-square"></i> 批量移库
+			</a>
+		</div>
+	</div>
+</div>
+<div class="panel-body">
+	<table
+	class="table table-striped table-bordered table-hover table-responsive"
+	id="partMoveItemTable"></table>
+</div>
+</div>
+</form>
+<div class="row ">
+	<div class="col-xs-12 ">
+			<div class="query-btn">
+				<a href="javascript:;" id="addBtn" disabled="true" class="btn blue"
+					data-onclickEvent="true"><i class="fa fa-plus-square"></i>新建</a> <a
+					data-url="/basedata/partmove/addPartItemMove" id="saveBtn"
+					disabled="true" data-model="part" data-method="POST"
+					data-callBack="true" class="btn blue" data-toggle="confirmation"><i
+					class="fa fa-save"></i>保存</a> <a href="javascript:;" id="outStorgeBtn"
+					data-onclickEvent="true" disabled="true" class="btn blue"><i
+					class="fa fa-undo"></i>出库</a> <a href="javascript:;" id="cancelBtn"
+					data-onclickEvent="true" disabled="true" class="btn blue"><i
+					class="fa fa-undo"></i>取消</a> <a id="cancellationBtn"
+					data-onclickEvent="true" disabled="true" class="btn blue"><i
+					class="fa fa-plus-square"></i>作废</a> 
+					<a id="printBtn"
+					data-url="part/basedata/partMoveStorage/partMovePrint.html"
+					class="btn blue" data-toggle="modal" disabled="true" data-beforeShowEvent="true"
+					data-width="modal-lg"> <i class="fa fa-print"></i> 打印
+				</a>
+			</div>
+		</div>
+				<script type="text/javascript">
+					$(document).one("onload.dms", function(event, container) {
+						dmsPart.fushPageBtn("init",container);
+						new Datatable().initPagination({
+							src : "partMoveItemTable",
+							container : container,
+							url : dmsCommon.getDmsPath()["part"] + "/basedata/partmove/queryPartInfos/"+$("#transferNo",container).val(),
+							rowID : "TRANSFER_NO",
+							sortName : "UPDATED_AT",
+							sortOrder : "desc",
+							isQueryFirst:false,
+							autoHeight:false,
+							pageSize:300,
+							uniqueDataName:"PART_NO",
+							columns : [{radio:true}, {
+								field : "TRANSFER_NO",
+								title : "操作",
+								operateFormat : [ {type : "localDel",
+									onBeforeEvent:function(value,row,index){
+										deleteRow(value,row,index,container);
+									}
+								}]
+								}, 
+								{field : "OLD_STORAGE_NAME",title : "原仓库",inputHiddenFormat : {hiddenFieldName:"OLD_STORAGE_CODE,OLD_STORAGE_NAME,partSign",hiddenField:"OLD_STORAGE_CODE,OLD_STORAGE_NAME,partSign"}
+								}, {field : "OLD_STORAGEPOSITION_CODE",inputField:"OLD_STORAGEPOSITION_CODE",inputHiddenFormat:"OLD_STORAGEPOSITION_CODE",
+									title : "原库位代码"
+								}, {field : "NEW_STORAGE_NAME",inputField:"NEW_STORAGE_NAME",inputHiddenFormat:{hiddenFieldName:"NEW_STORAGE_CODE,NEW_STORAGE_NAME,ITEM_ID",hiddenField:"NEW_STORAGE_CODE,NEW_STORAGE_NAME,ITEM_ID"},
+									title : "新仓库"
+								}, {field : "NEW_STORAGEPOSITION_CODE",inputField:"NEW_STORAGEPOSITION_CODE",inputHiddenFormat:{},
+									title : "新库位代码"
+								}, {field : "PART_NO",inputField:"PART_NO",inputHiddenFormat:{},
+									title : "配件代码"
+								},{field : "PART_NAME",inputField:"PART_NAME",inputTextFormat:{},
+									title : "配件名称"
+								},{field : "UNIT_CODE",inputField:"UNIT_CODE",inputHiddenFormat:{},
+									title : "计量单位"
+								},{field : "TRANSFER_QUANTITY",inputField:"TRANSFER_QUANTITY",inputNumberFormat : {validate:{validateClass:"required decimal",validateAttr:'maxDigit="10" maxPrecision="2"'}}, 
+									title : "移库数量"
+								},{field : "COST_PRICE",inputField:"COST_PRICE",
+									title : "成本单价"
+								},{field : "COST_AMOUNT",inputField:"COST_AMOUNT",
+									title : "成本金额",formatter:function(value,row,index){return row.TRANSFER_QUANTITY * row.COST_PRICE}
+								}],
+								onLoadSuccess:function(data){
+									$("input[id^='TRANSFER_QUANTITY0']",container).blur(function(event){
+										var selectedRow = $("#partMoveItemTable",container).bootstrapTable("getSelections");
+										var result = Number($("input[id^='TRANSFER_QUANTITY0']",container).val()) * Number(selectedRow[0]["COST_PRICE"]);
+										$("#partMoveItemTable tr[class='selected'] td:last",container).html(result);
+									 })
+									 if(data.total > 0 && $("#batchSign",container).val() == "true"){
+										 dmsPart.fushPageBtn("batchBtn");
+									 }
+								}
+						});
+						
+						//按钮管控
+						if(dmsCommon.getSystemParamInfo("5437","5437") == "12781001"){
+							$("#batchPartBtn",container).show();
+						}
+						
+						//打印之前事件
+						$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+							$(this).data("pageData",{"transferNo":$("#transferNo",container).val()});
+							returnResult.status = true;
+						})
+						//按钮点击事件
+						$("a[data-onclickEvent='true']",container).on("dms.click",function(){
+							switch($(this).attr("id")){
+							case "addBtn":
+								addBtnClick(container);
+								$("transferSign",container).val("A");
+								break;
+							case "saveBtn":
+// 								saveBtnClick(container);
+								break;
+							case "cancelBtn":
+								cancelBtnClick(container);
+								$("transferSign",container).val("");
+								break;
+							case "cancellationBtn":
+								cancellationBtn(container);
+								break;
+							case "outStorgeBtn":
+								outStorgeBtnClick(container);
+								break;
+							}
+						})
+						$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+							if(response.result == "success"){
+								dmsPart.fushPageBtn("resetType",getElementContext());
+								dmsPart.fushPageBtn("saveBtn",getElementContext());
+								$("input[name='transferNo']",container).val(response.transferNo);
+								$("#partMoveItemTable",container).dmsTable().refreshUrl(dmsCommon.getDmsPath()["part"] + "/basedata/partmove/queryPartInfos/"+$("#transferNo",container).val());
+							}
+						})
+					});
+				
+				//新建按钮点击事件
+				function addBtnClick(container){
+					dmsPart.fushPageBtn("resetType",container);
+					dmsPart.fushPageBtn("addBtn",container);
+					$("#partMoveItemTable",container).bootstrapTable('removeAll');
+					$("#transferDate",container).val(formatDate(new Date(),"YYYY-MM-DD"));
+				}
+				//取消按钮点击事件
+				function cancelBtnClick(container){
+					$("#transferNo",container).val("");
+					$("#transferDate",container).val("");
+					$("#partMoveItemTable",container).bootstrapTable('removeAll');
+					dmsPart.fushPageBtn("resetType",container);
+					dmsPart.fushPageBtn("init",container);
+				}
+				//报废按钮点击事件
+				function cancellationBtn(container){
+					$("#cancellationBtn",container).confirm("确定作废工单?",function(confirmObj){
+						dmsCommon.ajaxRestRequest({
+							url : dmsCommon.getDmsPath()["part"] + "/basedata/partmove/delPartItemMove/"+$("#transferNo",container).val(),
+							type : 'DELETE',
+							sucessCallBack : function(data) {
+								if(data.result == "success"){
+									dmsCommon.tip({status:"info",msg:"移库单作废成功!"});
+								}else{
+									dmsCommon.tip({status:"warning",msg:"移库单作废失败!"});
+								}
+							}
+						});
+					})
+				}
+				
+				//出库按钮点击事件
+				function outStorgeBtnClick(container){
+					var selections = $("#partMoveItemTable",container).dmsTable().getRowDataByIndex();
+					if(selections.length <= 0){
+						dmsCommon.tip({status:"warning",msg:"不允许提交空表单!"});
+						return;
+					}
+					dmsCommon.ajaxRestRequest({
+						url : dmsCommon.getDmsPath()["part"] + "/basedata/partmove/partOutStorage/"+$("#transferNo",container).val(),
+						type : 'POST',
+						sucessCallBack : function(data) {
+							if(data.result == "success"){
+								dmsPart.fushPageBtn("resetType",container);
+								dmsPart.fushPageBtn("outStorageBtn",container);
+								$("#batchSign",container).val("");
+								dmsCommon.tip({status:"info",msg:data.msg});
+							}else{
+								dmsCommon.tip({status:"warning",msg:data.msg});
+							}
+						}
+					});
+				}
+				
+				//删除前事件
+				function deleteRow(value,row,index,container){
+					if(row.partSign == "A"){
+						row.partSign = "D";
+						return;
+					}else{
+						row.partSign = "D";
+					}
+					var context = [];
+					if($("#delJsonStr",container).val() != ""){
+						context = JSON.parse($("#delJsonStr",container).val());
+					}
+					context.push(row);
+					$("#delJsonStr",container).val(JSON.stringify(context));
+				}
+				</script>

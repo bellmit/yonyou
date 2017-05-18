@@ -1,0 +1,193 @@
+<div class="dms-edit ajaxrest" data-url="/repair/claimRepairOrder/QueryRoTimeoutCause/{[RO_NO]}" data-model="repair" data-pageInitCallBack="true">
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">超时原因填写</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+			<div class="modal-body">
+				<div class="tabbable-retail ">
+					<div class="tab-content">
+						<div class="tab-pane fade in active" id="tab_basreceive">
+							<div class="panel-body">
+								<div class="row">
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">工单号</label>
+											<div class="col-xs-8">
+											<input  id="items" name="items"   class="form-control  "  type="hidden" readonly/>
+												<input id="roNo" name="roNo" disabled="disabled" 
+												data-fieldName="RO_NO" type="text" />
+											</div>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-xs-12 col-sm-6 col-md-4">
+										<div class="form-group">
+											<label class="control-label col-xs-4">填写人</label>
+											<div class="col-xs-8">
+												<select id="ownedBy" name="ownedBy"
+													class="bs-select form-control required"
+													data-url="/basedata/employees/-1/salesConsultant"
+													data-model="manage" data-labelValue="USER_ID"
+													data-value="{[userInfo.userId]}" 
+													data-lableDesc="USER_NAME">
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--/span-->
+									<div class="panel-heading">
+										<div class="pannel-name">待工原因</div>
+										<div class="pannel-tools">
+											<a href="javascript:;" class="collapse"> <i
+												class="fa fa-chevron-down"></i></a>
+										</div>
+									</div>
+									<div class="panel-body">
+										<div class="row">
+											<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+												<div class="form-group">
+													<label class="control-label col-xs-1">待工原因</label>
+													<div class="col-xs-4">
+														<select id="workStatus" class="bs-select form-control required"
+															data-fieldName="WORK_STATUS" name="workStatus" data-dictCode="1819">
+														</select>
+													</div>
+												</div>
+											</div>
+											<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+												<div class="form-group">
+													<label class="control-label col-xs-1">备注</label>
+													<div class="col-xs-8">
+														<textarea id="remark" name="remark" data-fieldName="REMARK"
+												class="form-control" rows="3" cols=""></textarea>
+													</div>
+												</div>
+											</div>
+									
+									</div>
+								</div>
+								<!-- /span -->
+										<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name">待料原因</div>
+					<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+						<a id="add" data-toggle="modal" data-beforeShowEvent="true"
+					data-url="repair/claimRepairOrder/roSelectPart.html"
+					data-width="modal-lg" data-callBack="true" class="btn btn-outline"><i
+					class="fa fa-plus-square" />新增 </a>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_reason">
+
+					</table>
+				</div>
+			</div>
+								<!--/span-->
+
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+			<div class="modal-footer center-block">
+			<a data-url="/repair/claimRepairOrder/save"  data-model="repair"  data-method="POST" data-callBack="true" 
+				data-beforeRequest="true" class="btn blue" data-toggle="confirmation"> <i class="fa fa-save "></i>确定
+			</a> <a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+</div>
+<script type="text/javascript">
+	$(document).one(
+			"onload.dms",
+			function(event, container) {
+				var items=[];
+				new Datatable().initPagination({
+					src : "dms_reason",
+					rowID : "ITEM_ID",
+					container : container,
+					url : dmsCommon.getDmsPath()["repair"] + "/repair/claimRepairOrder/QueryRoTimeoutDetail/{[RO_NO]}",
+					sortName : "ITEM_ID",
+					sortOrder : "asc",
+					autoHeight : false,
+					uniqueDataName:"PART_NO",
+					undefinedText : "",
+					columns : [ {
+						title : "操作",
+						operateFormat : [ {type : "localDel",onAfterEvent:function(value, row, index){
+							$("#items",container).val(items);
+						},onBeforeEvent:function(value, row, index){
+							items[items.length]=row.PART_NO;
+						}} ]
+					}, {
+						field : "PART_NO",
+						inputHiddenFormat : {},
+						title : "零件编号"
+					}, {
+						field : "PART_NAME",
+						inputHiddenFormat : {},
+						title : "零件名称"
+					}, {
+						field : "PART_QUANTITY",
+						inputHiddenFormat : {},
+						title : "零件数量"
+					}, {
+						field : "PURCHASE_ORDER_NO",
+						title : "<span style='color: blue;'>订单号</span>",
+						inputTextFormat : {validate:{validateClass:"required"}}
+					}, {
+						field : "ORDER_DATE",
+						title : "<span style='color: blue;'>订单日期</span>",
+						inputDateFormat : {format:"YYYY-MM-DD",validate:{validateClass:"required"}}
+					}, {
+						field : "REMARK",
+						title : "<span style='color: blue;'>备注</span>",
+						inputTextFormat : {}
+					}]
+				});
+				
+				//新增页面回调函数
+				$("a[data-callBack='true']", container).on(
+						"callBack.dms",
+						function(event, response) {
+							//关闭窗口
+							$("a[data-dismiss='modal']", container).click();
+							//刷新表格
+							$("#dms_claim", getElementContext()).dmsTable().refreshTableWithForm();
+						});
+				
+				$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
+						$(this).data("pageData",{RO_NO:$("#roNo",container).val()});//传递3个值
+						returnResult.status = true;
+
+				});
+				
+				$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+					if(true){
+// 						//获取提醒内容
+// 						var context = $("#remindContent",container).val();
+// 						//往提醒内容赋值
+// 						$("#remindContent",container).val(context+"("+first+")");
+						returnResult.status = true;
+					}else{
+						returnResult.status = false;
+					}
+				});
+		
+				
+			});
+</script>

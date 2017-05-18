@@ -1,0 +1,92 @@
+<div class="dms-add"
+	data-model="vehicle">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">情形新增</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+					
+	         
+							
+					
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">情形</label>
+							<div class="col-xs-8">
+							<input id="labourName"  name="CASE_CODE" class="form-control" type="text"  	/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">技术人员</label>
+							<div class="col-xs-8">
+							 <input id="labourNum"  name="TECHPERSON" class="form-control" type="text"  	 />
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">故障说明</label>
+							<div class="col-xs-8">
+							 <input id="labourNum"  name="FAULT_CAUSE" class="form-control" type="text"  	/>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">故障备注</label>
+							<div class="col-xs-8">
+							 <input id="labourNum"  name="APPLY_REMARK" class="form-control" type="text"  	 />
+							</div>
+						</div>
+					</div>
+									
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-onclickEvent="true" 
+				class="btn blue" ><i
+				class="fa fa-save"></i>保存</a> <a data-dismiss="modal"
+				class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+
+		
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+				var row=  $('.form-horizontal',container).serializeFormJson();
+				$("#claimCaseTable", getParentModal(container)).dmsTable().appendRow(row);
+				//关闭窗口
+				$("a[data-dismiss='modal']",container).click();
+		});
+		
+		//新增页面的回调函数
+		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			//刷新表格
+			$("a.clear").click();
+			$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		});
+		
+		
+
+	})
+</script>
+

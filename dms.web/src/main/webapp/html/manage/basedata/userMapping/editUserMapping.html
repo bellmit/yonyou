@@ -1,0 +1,103 @@
+<div class="dms-edit ajaxrest" data-url="/basedata/userMapping/{[USER_CODE]}" data-model="manage" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">用户映射修改</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+					<div class="panel-body">
+								<div class="row">
+									<div class="col-xs-12">
+										<div class="form-group">
+											<label class="control-label col-xs-4">DMS账号</label>
+											<div class="col-xs-8">
+												<input id="userCode" name="userCode" class="form-control" 
+												disabled="disabled" type="text" data-fieldName="USER_CODE"/>
+											</div>
+										</div>
+									</div>
+								
+									<div class="col-xs-12">
+										<div class="form-group">
+											<label class="control-label col-xs-4">系统名称</label>
+											<div class="col-xs-8">												
+												<select id="targetSystem" class="bs-select form-control"
+													name="targetSystem" data-url=""
+													data-model="manage" data-fieldName="TARGET_SYSTEM">
+													
+													
+												</select>
+											</div>
+											
+										</div>
+									</div>
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">登录账号</label>
+								<div class="col-xs-8">
+									<select id="targetUser" class="bs-select form-control"
+										name="targetUser" data-url="/basedata/userMapping/getSysAcc"
+										data-model="manage" data-labelValue="TARGET_USER"  data-fieldName="TARGET_USER"
+										data-lableDesc="TARGET_USER">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">登录角色</label>
+								<div class="col-xs-8">
+									<select id="targetRole" name="targetRole"
+										class="bs-select form-control " data-dictCode=""
+										data-fieldName="TARGET_ROLE">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+										<div class="form-group">
+											<label class="control-label col-xs-4">登录密码</label>
+											<div class="col-xs-8">
+												<input id="targetPassword" name="targetPassword" class="form-control" 
+												 type="passWord" data-fieldName="TARGET_PASSWORD"/>
+											</div>
+										</div>
+									</div>
+					</div>
+						</div>
+					</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a data-url="/basedata/userMapping/{[USER_CODE]}" data-model="manage" data-method="PUT" 
+				data-callBack="true" class="btn blue"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存
+			</a> 
+			<a data-dismiss="modal" class="btn blue">
+			<i class="fa fa-undo"></i>取消
+			</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+	//动态刷新下拉框的值
+	var selectData = new Array();
+	selectData.push({id:"CHRYSLER",name:"CHRYSLER"});
+	dmsDict.refreshSelectByData($( "#targetSystem" ,container),selectData,"id","name");
+});
+
+
+</script>

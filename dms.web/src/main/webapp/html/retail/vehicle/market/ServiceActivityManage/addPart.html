@@ -1,0 +1,70 @@
+<div class="dms-edit ajaxrest" 
+	data-model="manage">
+	<!-- BEGIN FORM-->
+	<form class="form-horizontal">
+		<div class="panel-body">
+			<div class="panel panel-default table-panel">
+				<div class="panel-heading">
+					<div class="pannel-name"></div>
+				    <div class="btn-group btn-group-sm">
+						<a class="btn btn-outline" data-url="retail/vehicle/market/ServiceActivityManage/selectPart.html"
+							data-toggle="modal"  data-width="modal-lg"> <i class="fa fa-plus-square"></i> 新增
+						</a> 
+					</div>
+
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="partList">
+					</table>
+					<input type="hidden" id="afterDiscountAmountLabour" name="afterDiscountAmountLabour" value="0">
+					<input type="hidden" id="zkAmountLabour" name="zkAmountLabour" value="0">
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		var calcPartAmount=function(event,container){
+			gfkRepair.calcPartAmount();
+		};
+		
+		new Datatable().initLocale({
+			src : "partList",
+			container:container,
+			columns : [	
+			            {field : "STORAGE_CODE",title : "<span style='color: blue;'>仓库代码</span>",inputSelectFormat : {
+																	url : "/partStocks/StockCode",
+																	model : "part",
+																	labelValue : "STORAGE_CODE",
+																	lableDesc : "STORAGE_NAME",
+																	attr : "data-existsdefault='false'"
+						}}, 
+			            {field : "PART_NO",title : "配件代码",inputHiddenFormat:{}}, 
+			            {field : "PART_NAME",title : "配件名称",inputHiddenFormat:{}}, 
+			            {field : "CHARGE_PARTITION_CODE",title : "<span style='color: blue;'>收费区分</span>",inputSelectFormat : {
+																	url : "/accessoryItem/AccessoryItem/cplist",
+																	model : "repair",
+																	labelValue : "CHARGE_PARTITION_CODE",
+																	lableDesc : "CHARGE_PARTITION_CODE",
+																	attr : "data-existsdefault='false'"
+						}},
+			            {field : "IS_MAIN_PART",title : "主要配件",inputHiddenFormat:{}},
+			            {field : "LABOUR_CODE",title : "维修项目代码",inputHiddenFormat:{}},
+			            {field : "UNIT_CODE",title : "计量单位名称",inputHiddenFormat:{}}, 
+			            {field : "STOCK_QUANTITY",title : "<span style='color: blue;'>配件数量</span>",inputTextFormat:{}},
+			            {field : "PART_SALES_PRICE",title : "<span style='color: blue;'>配件销售单价</span>",inputTextFormat:{}},
+			            {field : "PART_SALES_AMOUNT",title : "配件销售金额",inputHiddenFormat : {},numberFormat:{decimal:2,autoValueFormat:{autoValue:"#STOCK_QUANTITY*#PART_SALES_PRICE"}}},
+			            {field : "DISCOUNT",title : "<span style='color: blue;'>折扣率</span>",inputTextFormat:{}}, 
+			            {field : "PART_SALES_AMOUNT_DISCOUNT",title : "折扣后金额合计",autoValueFormat:{autoValue:"#STOCK_QUANTITY*#PART_SALES_PRICE*#DISCOUNT"}},
+			            {field : "COST_PRICE",title : "配件成本单价",inputHiddenFormat:{}},
+			            {field : "COST_AMOUNT",title : "配件成本金额",inputHiddenFormat:{}}
+			         ]
+		});
+		
+	});
+
+</script>

@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.yonyou.dms</groupId>
+	<artifactId>dms.parent</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<modules>
+		<module>dms.function</module>
+		<module>dms.framework</module>
+		<module>dms.common</module>
+		<module>dms.commonAS</module>
+		<module>dms.commonSales</module>
+		<module>dms.web</module>
+		<module>dms.manage</module>
+		<module>dms.customer</module>
+		<module>dms.part</module>
+		<module>dms.repair</module>
+		<module>dms.retail</module>
+		<module>dms.report</module>
+		<module>dms.interface</module>
+		<module>dms.schedule</module>
+		<module>dms.vehicle</module>
+		<module>dms.demo</module>
+		<module>dms.gacfca</module>
+		
+	</modules>
+	<properties>
+		<maven.build.timestamp.format>yyyy_MM_dd_HH_mm_ss</maven.build.timestamp.format>
+		<project.build.date>${maven.build.timestamp}</project.build.date>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<aop.version>1.8.6</aop.version>
+		<java.version>1.7</java.version>
+		<maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
+		<maven-resources-plugin.version>3.0.0</maven-resources-plugin.version>
+		<maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
+		<maven-jar-plugin.version>2.6</maven-jar-plugin.version>
+		<maven-war-plugin.version>2.6</maven-war-plugin.version>
+		<plexus-compiler-eclipse.version>2.7</plexus-compiler-eclipse.version>
+		<spring.version>4.2.5.RELEASE</spring.version>
+		<logback.version>1.1.7</logback.version>
+		<slf4j.version>1.7.21</slf4j.version>
+		<jdbc.mysql.version>5.1.35</jdbc.mysql.version>
+		<jackson.version>2.7.4</jackson.version>
+		<junit.version>4.12</junit.version>
+		<servlet.version>3.0.1</servlet.version>
+		<poi.version>3.14</poi.version>
+		<pinyin4j.version>2.5.1</pinyin4j.version>
+		<jstl.version>1.2</jstl.version>
+		<activejdbcTool.version>1.4.11</activejdbcTool.version>
+		<apache.common.version>3.4</apache.common.version>
+		<com.yonyou.f4.version>1.0</com.yonyou.f4.version>
+		<com.yonyou.f4.schedule.version>1.0.1</com.yonyou.f4.schedule.version>
+		<com.yonyou.f4.fileStore.version>1.0</com.yonyou.f4.fileStore.version>
+		<hibernate.validator.version>5.2.4.Final</hibernate.validator.version>
+		<cglib.version>3.2.2</cglib.version>
+		<okHttp.version>3.4.2</okHttp.version>
+		<!-- <com.yonyou.f4.version>0.0.20-SNAPSHOT</com.yonyou.f4.version> -->
+		<argLine>-Dfile.encoding=UTF-8</argLine>
+	</properties>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<!--MAVEN plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+					<configuration>
+						<source>${java.version}</source>
+						<target>${java.version}</target>
+						<encoding>${project.build.sourceEncoding}</encoding>
+					</configuration>
+				</plugin>
+				<!--MAVEN resource -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>${maven-resources-plugin.version}</version>
+					<configuration>
+						<encoding>${project.build.sourceEncoding}</encoding>
+					</configuration>
+				</plugin>
+				<!--MAVEN test -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${maven-surefire-plugin.version}</version>
+					<configuration>
+						<testFailureIgnore>false</testFailureIgnore>
+						<forkMode>once</forkMode>
+					</configuration>
+				</plugin>
+
+				<!--MAVEN eclipse import -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>${maven-jar-plugin.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.javalite</groupId>
+					<artifactId>activejdbc-instrumentation</artifactId>
+					<version>${activejdbcTool.version}</version>
+					<executions>
+						<execution>
+							<phase>process-classes</phase>
+							<goals>
+								<goal>instrument</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									 <pluginExecutionFilter>
+						                <groupId>org.javalite</groupId>
+						                <artifactId>activejdbc-instrumentation</artifactId>
+						                <goals>
+						                    <goal>instrument</goal>
+						                </goals>
+						                <versionRange>${activejdbcTool.version}</versionRange>
+						            </pluginExecutionFilter>
+									<action>
+										<execute></execute>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+
+	</build>
+
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.yonyou.f4</groupId>
+				<artifactId>mvc</artifactId>
+				<classifier>pg</classifier>
+				<version>${com.yonyou.f4.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-log4j12</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<dependency>
+				<groupId>com.yonyou.f4</groupId>
+				<artifactId>filestore</artifactId>
+				<version>${com.yonyou.f4.fileStore.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>com.yonyou.f4</groupId>
+				<artifactId>schedule</artifactId>
+				<version>${com.yonyou.f4.schedule.version}</version>
+			</dependency>
+<!-- 			<dependency> -->
+<!-- 				<groupId>org.javalite</groupId> -->
+<!-- 				<artifactId>activejdbc</artifactId> -->
+<!-- 				<version>${activejdbc.version}</version> -->
+<!-- 			</dependency> -->
+			<dependency>
+				<groupId>org.javalite</groupId>
+				<artifactId>activejdbcTool</artifactId>
+				<version>${activejdbcTool.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-core</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-annotations</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${jdbc.mysql.version}</version>
+				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>javax.servlet-api</artifactId>
+				<version>${servlet.version}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jcl-over-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-core</artifactId>
+				<version>${logback.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>${logback.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi</artifactId>
+				<version>${poi.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-ooxml</artifactId>
+				<version>${poi.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-ooxml-schemas</artifactId>
+				<version>${poi.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.belerweb</groupId>
+				<artifactId>pinyin4j</artifactId>
+				<version>${pinyin4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>jstl</artifactId>
+				<version>${jstl.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>${apache.common.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-validator</artifactId>
+				<version>${hibernate.validator.version}</version>
+			</dependency>
+			<!-- <dependency> -->
+			<!-- <groupId>com.yonyou.f4</groupId> -->
+			<!-- <artifactId>common</artifactId> -->
+			<!-- <version>0.0.2-SNAPSHOT</version> -->
+			<!-- </dependency> -->
+			<!-- <dependency> -->
+			<!-- <groupId>com.oracle</groupId> -->
+			<!-- <artifactId>ojdbc</artifactId> -->
+			<!-- <version>12.1.0</version> -->
+			<!-- </dependency> -->
+			<dependency>
+				<groupId>com.squareup.okhttp3</groupId>
+				<artifactId>okhttp</artifactId>
+				<version>${okHttp.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<repositories>
+		<repository>
+			<id>public</id>
+			<name>Maven Repository Switchboard</name>
+			<layout>default</layout>
+			<url>http://ts.yonyouqiche.com/nexus/content/groups/public/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>public</id>
+			<name>public</name>
+			<url>http:/10.180.6.154:8081/nexus/content/groups/public/</url>
+			<layout>default</layout>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>snapshot</id>
+			<url>http://ts.yonyouqiche.com/nexus/content/repositories/Snapshot</url>
+		</snapshotRepository>
+		<repository>
+			<id>release</id>
+			<name>SGM Nexus Staging Repo</name>
+			<url>http://ts.yonyouqiche.com/nexus/content/repositories/release</url>
+		</repository>
+	</distributionManagement>
+</project>

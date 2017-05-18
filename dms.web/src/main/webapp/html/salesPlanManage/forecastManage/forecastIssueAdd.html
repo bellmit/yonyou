@@ -1,0 +1,111 @@
+<div class="dms-search">
+	<form class="form-horizontal" >
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" id="oemOrg">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">车款年款</label>
+								<div class="col-xs-8">
+									<div class="input-group">
+										<input type="hidden" class="form-control" id="groupId" name="groupId">	
+										<input type="hidden" class="form-control" id="modelYear" name="modelYear">
+										<input type="text" class="form-control" readonly id="groupName" name="groupName">
+										
+										<span class="input-group-btn">
+											<button class="btn default btn-sm" type="button" data-url="salesPlanManage/forecastManage/searchGroup.html"
+												data-toggle="modal" data-width="modal-md"> <i class="fa fa-sitemap"></i>
+											</button>
+											<button class="btn default input-clear" type="button">
+                                            	<i class="fa fa-close"></i>
+                                    		</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>			
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="panel panel-default table-panel">
+		<div class="panel-heading">
+			<div class="pannel-name" >经销商信息</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped table-bordered table-hover table-responsive"
+				id="dms_table"></table>
+		</div>
+	</div>
+	<div class="modal-footer center-block">
+			 <a class="btn blue" data-onclickEvent="true"><i class="fa fa-save hidden"></i>确定</a> 
+				<a data-dismiss="modal" class="btn blue">
+				<i class="fa fa-undo"></i>取消
+			</a>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).one("onload.dms",function(event,container){
+		new Datatable().initLocale({
+			src : "dms_table",
+			container:container,
+			url : dmsCommon.getDmsPath()["manage"] + "/forecastImport/findColorAndTrim",
+			rowID : "MATERIAL_ID",
+			sortName : "MATERIAL_ID",
+			sortOrder : "asc",
+  			autoHeight:false,
+			isFormParam:true,
+			isQueryFirst:false,
+ 			//pageSize:5,
+			columns : [ 
+			    {checkbox:true,sortable : true},
+			    {field : "COLOR_CODE",title : "颜色代码"}, 
+			    {field : "COLOR_NAME",title : "颜色"}, 
+				{field : "TRIM_CODE",title : "内饰代码"}, 
+				{field : "TRIM_NAME",title : "内饰"}, 
+			]
+
+		});
+		
+		//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			var selectRow = $("#dms_table",container).dmsTable().getSelections();
+			var year = $("#yearId",getElementContext()).val();
+			var month = $("#monthId",getElementContext()).val();
+			var material = "";
+			if(selectRow.length>0){
+				for(var i = 0 ;i<selectRow.length;i++){
+					material += selectRow[i].MATERIAL_ID + ",";
+				}
+				material = material.substring(0,material.length -1);
+				dmsCommon.ajaxRestRequest({
+					url : dmsCommon.getDmsPath()["manage"] + "/forecastImport/saveColorAndTrim",
+					type : 'GET',
+					data : {year:year,month:month,material:material},
+					sucessCallBack : function(data) {
+						if(data){
+							dmsCommon.tip({status:"success",msg:"新增成功！"});
+						}
+					}
+				});
+			}else{
+				dmsCommon.tip({status:"warning",msg:"请选择所需下发的数据！"});//总共的状态类型：info、success、error、warning
+				return false;
+			}
+			
+			//关闭窗口
+			$("a[data-dismiss='modal']",container).click();
+			$("#queryByMaterialid1_table",getElementContext()).dmsTable().refreshTableWithForm();
+		}); 
+	});
+</script>

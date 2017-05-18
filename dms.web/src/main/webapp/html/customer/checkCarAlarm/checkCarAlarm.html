@@ -1,0 +1,679 @@
+<div class="dms-search" data-pageInitCallBack="true">
+	<form class="form-horizontal">
+		<div class="panel panel-default">
+			<div class="panel-body">
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="pannel-name">查询条件</div>
+						<div class="pannel-tools">
+							<a href="javascript:;" class=collapse> <i
+								class="fa fa-chevron-down"></i></a>
+						</div>
+					</div>
+					<div class="panel-body">
+						<!-- /span -->
+						<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">经销商</label>
+								<div class="col-xs-8">
+									<select id="DEALER_CODE" class="bs-select form-control"
+										name="DEALER_CODE"
+										data-url="/stockManage/safeguard/findDealerInfo"
+										data-value="{[userInfo.dealerCode]}" data-model="customer"
+										data-labelValue="dealer_code"
+										data-lableDesc="DEALER_SHORTNAME">
+									</select>
+								</div>
+							</div>
+						</div>
+						<!-- /span -->
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">品牌</label>
+								<div class="col-xs-8">
+									<select id="brand" class="bs-select form-control"
+										data-ajaxSync="true" name="brandCode"
+										data-url="/basedata/brandsdict" data-model="manage"
+										data-labelValue="BRAND_CODE" data-lableDesc="BRAND_NAME"
+										data-alwaysRefresh="true">
+									</select>
+								</div>
+							</div>
+						</div>
+						<!-- /span -->
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车系</label>
+								<div class="col-xs-8">
+									<select id="series" class="bs-select form-control"
+										name="seriesCode" data-url="/basedata/selectSeries"
+										data-model="manage" data-labelValue="SERIES_CODE"
+										data-lableDesc="SERIES_NAME" data-alwaysRefresh="true">
+									</select>
+								</div>
+							</div>
+						</div>
+						<!-- /span -->
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车型</label>
+								<div class="col-xs-8">
+									<select id="model" class="bs-select form-control"
+										name="modelCode" data-url="/basedata/selectModel"
+										data-model="manage" data-labelValue="MODEL_CODE"
+										data-lableDesc="MODEL_NAME" data-alwaysRefresh="true">
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">车牌号</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="license"
+										name="license"> <input type="hidden"
+										class="form-control" id="license2" name="license">
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否激活</label>
+								<div class="col-xs-8">
+									<select id="iSValid" class="bs-select form-control"
+										name="iSValid" data-dictCode="1278">
+									</select>
+								</div>
+							</div>
+						</div>
+						<!-- data-defaultDays="7" -->
+						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+							<div class="form-group">
+								<label class="control-label col-xs-2">上次验车日期</label>
+								<div class="col-xs-8">
+									<div class="input-group input-daterange">
+										<input type="text" class="form-control" readonly name="lastInspectDateBegin" id="lastInspectDateBegin"
+											value="" /> <span class="input-group-addon">至</span> <input
+											type="text" class="form-control" readonly name="lastInspectDateEnd" id="lastInspectDateEnd"
+											value="" /> <span class="input-group-btn">
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+								<div class="col-xs-2">
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+							<div class="form-group">
+								<label class="control-label col-xs-2">提醒时间</label>
+								<div class="col-xs-8">
+									<div class="input-group input-daterange">
+										<input type="text" class="form-control" readonly
+											data-defaultDays="7" name="remindBeginDate"
+											id="remindBeginDate" value="" /> <span
+											class="input-group-addon">至</span> <input type="text"
+											class="form-control" readonly name="remindEndDate"
+											id="remindEndDate" value="" /> <span class="input-group-btn">
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+								<div class="col-xs-2">
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+
+							<div class="form-group">
+								<label class="control-label col-xs-2">下次验车日期</label>
+								<div class="col-xs-8">
+									<div class="input-group input-daterange">
+										<input type="text" class="form-control" readonly name="nextInspectDateBegin" id="nextInspectDateBegin"
+											value="" /> <span class="input-group-addon">至</span> <input
+											type="text" class="form-control" readonly name="nextInspectDateEnd" id="nextInspectDateEnd"
+											value="" /> <span class="input-group-btn">
+											<button class="btn default input-clear" type="button">
+												<i class="fa fa-close"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+								<div class="col-xs-2">
+								</div>
+							</div>
+						</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">VIN</label>
+								<div class="col-xs-8">
+									<input type="hidden" id="vin2" /> <input type="text"
+										class="form-control" id="vin" name="vin" />
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4">提醒状态</label>
+								<div class="col-xs-8">
+									<select id="remindStatus" class="bs-select form-control"
+										name="remindStatus" data-dictCode="1382">
+									</select>
+								</div>
+							</div>
+						</div>
+						<!--/span-->
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">车主地址</label>
+								<div class="col-xs-8">
+									<input type="text" class="form-control" id="address"
+										name="address" />
+								</div>
+							</div>
+						</div>
+						</div>
+						<!--/span-->
+						<div class="row ">
+							<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 ">
+								<input id="sellDat" name="sellDat" type="checkbox"
+									 data-dictCode="1057" data-dictLabel="距销售日期" />
+							</div>
+							<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 ">
+								<input id="sellDate2" name="sellDate2" type="checkbox"
+									data-dictCode="1057" data-dictLabel="2个月" disabled="disabled" />
+							</div>
+							<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 ">
+								<input id="sellDate3" name="sellDate3" type="checkbox"
+									data-dictCode="1057" data-dictLabel="3个月" disabled="disabled" />
+							</div>
+							<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 ">
+								<input id="sellDate6" name="sellDate6" type="checkbox"
+									data-dictCode="1057" data-dictLabel="6个月" disabled="disabled" />
+							</div>
+							<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 ">
+								<input id="sellDate12" name="sellDate12" type="checkbox"
+									data-dictCode="1057" data-dictLabel="12个月" disabled="disabled" />
+							</div>
+							<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 ">
+								<input id="sellDate24" name="sellDate24" type="checkbox"
+									data-dictCode="1057" data-dictLabel="24个月" disabled="disabled" />
+							</div>
+							<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 ">
+								<input id="sellDate36" name="sellDate36" type="checkbox"
+									data-dictCode="1057" data-dictLabel="36个月" disabled="disabled" />
+							</div>
+							<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 ">
+								<input id="sellDate48" name="sellDate48" type="checkbox"
+									data-dictCode="1057" data-dictLabel="48个月" disabled="disabled" />
+							</div>
+							<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 ">
+								<input id="sellDate60" name="sellDate60" type="checkbox"
+									data-dictCode="1057" data-dictLabel="60个月" disabled="disabled" />
+							</div>
+							<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 ">
+								<input id="sellDate72" name="sellDate72" type="checkbox"
+									data-dictCode="1057" data-dictLabel="72个月" disabled="disabled" />
+							</div>
+						</div>
+						<!--/span-->
+						<div class="row ">
+							<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 ">
+								<input id="lisenceDat" name="lisenceDat" type="checkbox"
+									data-dictCode="1057" data-dictLabel="距上牌日期" />
+							</div>
+							<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 ">
+								<input id="lisenceDate2" name="lisenceDate2" type="checkbox"
+									data-dictCode="1057" data-dictLabel="2个月" disabled="disabled" />
+							</div>
+							<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 ">
+								<input id="lisenceDate3" name="lisenceDate3" type="checkbox"
+									data-dictCode="1057" data-dictLabel="3个月" disabled="disabled" />
+							</div>
+							<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 ">
+								<input id="lisenceDate6" name="lisenceDate6" type="checkbox"
+									data-dictCode="1057" data-dictLabel="6个月" disabled="disabled" />
+							</div>
+							<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 ">
+								<input id="lisenceDate12" name="lisenceDate12" type="checkbox"
+									data-dictCode="1057" data-dictLabel="12个月" disabled="disabled" />
+							</div>
+							<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 ">
+								<input id="lisenceDate24" name="lisenceDate24" type="checkbox"
+									data-dictCode="1057" data-dictLabel="24个月" disabled="disabled" />
+							</div>
+							<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 ">
+								<input id="lisenceDate36" name="lisenceDate36" type="checkbox"
+									data-dictCode="1057" data-dictLabel="36个月" disabled="disabled" />
+							</div>
+							<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 ">
+								<input id="lisenceDate48" name="lisenceDate48" type="checkbox"
+									data-dictCode="1057" data-dictLabel="48个月" disabled="disabled" />
+							</div>
+							<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 ">
+								<input id="lisenceDate60" name="lisenceDate60" type="checkbox"
+									data-dictCode="1057" data-dictLabel="60个月" disabled="disabled" />
+							</div>
+							<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 ">
+								<input id="lisenceDate72" name="lisenceDate72" type="checkbox"
+									data-dictCode="1057" data-dictLabel="72个月" disabled="disabled" />
+							</div>
+						</div>
+						<!--/span-->
+						<div class="row ">
+							<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 ">
+								<input id="lastInspectDat" name="lastInspectDat"
+									type="checkbox" data-dictCode="1057" data-dictLabel="距上次验车日期" />
+							</div>
+							<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 ">
+								<input id="lastInspectDate2" name="lastInspectDate2"
+									type="checkbox" data-dictCode="1057" data-dictLabel="2个月"
+									disabled="disabled" />
+							</div>
+							<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 ">
+								<input id="lastInspectDate3" name="lastInspectDate3"
+									type="checkbox" data-dictCode="1057" data-dictLabel="3个月"
+									disabled="disabled" />
+							</div>
+							<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 ">
+								<input id="lastInspectDate6" name="lastInspectDate6"
+									type="checkbox" data-dictCode="1057" data-dictLabel="6个月"
+									disabled="disabled" />
+							</div>
+							<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 ">
+								<input id="lastInspectDate12" name="lastInspectDate12"
+									type="checkbox" data-dictCode="1057" data-dictLabel="12个月"
+									disabled="disabled" />
+							</div>
+							<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 ">
+								<input id="lastInspectDate24" name="lastInspectDate24"
+									type="checkbox" data-dictCode="1057" data-dictLabel="24个月"
+									disabled="disabled" />
+							</div>
+							<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 ">
+								<input id="lastInspectDate36" name="lastInspectDate36"
+									type="checkbox" data-dictCode="1057" data-dictLabel="36个月"
+									disabled="disabled" />
+							</div>
+							<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 ">
+								<input id="lastInspectDate48" name="lastInspectDate48"
+									type="checkbox" data-dictCode="1057" data-dictLabel="48个月"
+									disabled="disabled" />
+							</div>
+							<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 ">
+								<input id="lastInspectDate60" name="lastInspectDate60"
+									type="checkbox" data-dictCode="1057" data-dictLabel="60个月"
+									disabled="disabled" />
+							</div>
+							<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 ">
+								<input id="lastInspectDate72" name="lastInspectDate72"
+									type="checkbox" data-dictCode="1057" data-dictLabel="72个月"
+									disabled="disabled" />
+							</div>
+						</div>
+						<!--/span-->
+					</div>
+					<div class="row ">
+						<div class="col-xs-12 ">
+							<div class="query-btn">
+								<a href="javascript:;" class="btn btn-sm blue"> <i
+									class="fa fa-search"></i> 查询
+								</a> <a href="javascript:;" class="btn btn-sm blue"><i
+									class="fa fa-undo"></i> 重置</a>
+							</div>
+						</div>
+					</div>
+				
+				<div class="panel panel-default table-panel">
+					<div class="panel-heading">
+						<div class="pannel-name">验车到期提醒</div>
+						<div class="pannel-button">
+							<div class="btn-group btn-group-sm">
+								<!--/span-->
+								<a id="editOwner" data-toggle="modal"
+									data-beforeShowEvent="true"
+									data-url="customer/solicitude/updateOwner.html"
+									data-width="modal-lg" data-callBack="true"
+									class="btn btn-outline"><i class="fa fa-edit" />修改车主信息 </a>
+								<!--/span-->
+								<a id="editVehicle" data-beforeShowEvent="true"
+									class="btn btn-outline"
+									data-url="customer/solicitude/updateVehicle.html"
+									data-toggle="modal" data-width="modal-lg"> <i
+									class="fa fa-edit" />修改车辆信息
+								</a>
+								<!--/span-->
+								<a id="remind" data-beforeShowEvent="true"
+									class="btn btn-outline"
+									data-url="customer/solicitude/remind.html" data-toggle="modal"
+									data-width="modal-md"> <i class="fa fa-plus-square" />提醒
+								</a>
+								<!--/span-->
+								<a id="remindRecord" data-toggle="modal" data-width="modal-lg"
+									class="btn btn-outline"
+									data-url="customer/solicitude/remindRecord/remindRecord.html"
+									data-beforeShowEvent="true"> <i class="fa fa-search" />提醒记录
+								</a>
+								<!--/span-->
+								<a id="appointmentPlan" data-toggle="modal"
+									data-width="modal-lg" class="btn btn-outline"
+									data-url="customer/solicitude/appointmentPlan/appointmentPlan.html"
+									data-beforeShowEvent="true"> <i class="fa fa-edit" />预约安排
+								</a>
+								<!--/span-->
+								<a id="maintainHistory" data-toggle="modal"
+									data-width="modal-lg" class="btn btn-outline"
+									data-url="customer/solicitude/maintainHistory/maintainHistory.html"
+									data-beforeShowEvent="true"> <i class="fa fa-search" />维修历史
+								</a>
+								<!--/span-->
+								<a id="suggestMaintain" data-toggle="modal"
+									data-width="modal-lg" data-beforeShowEvent="true"
+									data-url="customer/solicitude/suggestMaintain/suggestMaintain.html"
+									class="btn btn-outline"> <i class="fa fa-search" />建议维修
+								</a>
+								<!--/span-->
+								<a id="complainHistory" data-toggle="modal"
+									data-width="modal-lg" data-beforeShowEvent="true"
+									data-url="customer/solicitude/complainHistory/complainHistory.html"
+									class="btn btn-outline"> <i class="fa fa-search" />投诉历史
+								</a>
+								<!--/span-->
+								<a href="javascript:;" data-url="/customer/solicitude/export"
+									data-model="customer" data-method="downLoad" id="excel"
+									data-toggle="confirmation" class="btn btn-outline "> <i
+									class="fa fa-download"></i>导出
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<table
+						class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_checkCar">
+					</table>
+				</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document)
+			.one(
+					"onload.dms",
+					function(event, container) {
+						
+						new Datatable().initPagination({
+							src : "dms_checkCar",
+							rowID : "VIN",
+							container : container,
+							url : dmsCommon.getDmsPath()["customer"] + "",
+							sortName : "VIN",
+							sortOrder : "asc",
+							checkboxHeader : true, //全选框
+							autoHeight : false,
+							undefinedText : "",
+							columns : [ {
+								checkbox : true,
+								sortable : false
+							}, {
+								field : "dealer_shortname",
+								title : "经销商"
+							}, {
+								field : "LICENSE",
+								title : "车牌号"
+							}, {
+								field : "VIN",
+								title : "VIN"
+							},{
+								field : "BRAND",
+								title : "品牌"
+							}, {
+								field : "SERIES",
+								title : "车系"
+							}, {
+								field : "MODEL",
+								title : "车型"
+							}, {
+								field : "OWNER_NO",
+								title : "车主编号"
+							}, {
+								field : "OWNER_NAME",
+								title : "车主"
+							}, {
+								field : "ADDRESS",
+								title : "车主地址"
+							}, {
+								field : "OWNER_PROPERTY",
+								title : "车主性质",
+								codeFormat : {
+									type : "dict",
+									codeType : "1190"
+								}
+							},
+							{
+								field : "SALES_DATE",
+								title : "销售日期",
+								dateFormat : {
+									format : "YYYY-MM-DD"
+								}
+							},
+							{
+								field : "LICENSE_DATE",
+								title : "上牌日期",
+								dateFormat : {
+									format : "YYYY-MM-DD"
+								}
+							},
+							{
+								field : "LAST_INSPECT_DATE",
+								title : "上次验车日期",
+								dateFormat : {
+									format : "YYYY-MM-DD"
+								}
+							},{
+								field : "NEXT_INSPECT_DATE",
+								title : "下次验车日期",
+								dateFormat : {
+									format : "YYYY-MM-DD"
+								}
+							},
+							{
+								field : "DELIVERER",
+								title : "送修人"
+							}, {
+								field : "DELIVERER_MOBILE",
+								title : "送修人手机"
+							}, {
+								field : "DELIVERER_PHONE",
+								title : "送修人电话"
+							}, {
+								field : "CONTACTOR_NAME",
+								title : "联系人",
+							}, {
+								field : "CONTACTOR_MOBILE",
+								title : "联系人手机"
+							}, {
+								field : "CONTACTOR_PHONE",
+								title : "联系人电话"
+							}, {
+								field : "CONTACTOR_ZIP_CODE",
+								title : "联系人邮编"
+							}, {
+								field : "CONTACTOR_ADDRESS",
+								title : "联系人详细地址"
+							}, {
+								field : "USER_NAME",
+								title : "提醒人",
+								inputHiddenFormat : {
+									hiddenField : "SOLD_BY"
+								}
+							}, {
+								field : "REMIND_STATUS",
+								title : "提醒状态",
+								codeFormat : {
+									type : "dict",
+									codeType : "1382"
+								}
+							}, {
+								field : "REMIND_FAIL_REASON",
+								title : "提醒失败原因",
+								codeFormat : {
+									type : "dict",
+									codeType : "1383"
+								}
+							},{
+								field : "REMIND_CONTENT",
+								title : "提醒内容"
+							},  {
+								field : "REMIND_DATE",
+								title : "提醒时间",
+								dateFormat : {
+									format : "YYYY-MM-DD HH:mm:ss"
+								}
+							}, {
+								field : "CUSTOMER_FEEDBACK",
+								title : "客户反馈"
+							}, {
+								field : "service_advisor_name",
+								title : "服务专员"
+							},  {
+								field : "IS_VALID",
+								title : "是否激活",
+								codeFormat : {
+									type : "dict",
+									codeType : "1278"
+								}
+							}]
+						});
+						$("input[name='sellDat']").click(function(){
+							var flag = $("input[name='sellDat']:checked").val();
+							if(flag=='10571001'){//客户
+								$("input[name^='sellDate']").removeProp("disabled");
+							}else{
+								$("input[name^='sellDate']").prop("disabled","disabled");
+							}
+						});
+						$("input[name='lisenceDat']").click(function(){
+							var flag = $("input[name='lisenceDat']:checked").val();
+							if(flag=='10571001'){//客户
+								$("input[name^='lisenceDate']").removeProp("disabled");
+							}else{
+								$("input[name^='lisenceDate']").prop("disabled","disabled");
+							}
+						});
+						$("input[name='lastInspectDat']").click(function(){
+							var flag = $("input[name='lastInspectDat']:checked").val();
+							if(flag=='10571001'){//客户
+								$("input[name^='lastInspectDate']").removeProp("disabled");
+							}else{
+								$("input[name^='lastInspectDate']").prop("disabled","disabled");
+							}
+						});
+						$("a[data-beforeShowEvent='true']", container)
+								.on(
+										"beforeShow.dms",
+										function(event, returnResult) {
+											var selectRow = $(
+													"#dms_solicitude",
+													container).dmsTable()
+													.getSelections();
+
+											if (!selectRow) {
+												dmsCommon.tip({
+													status : "warning",
+													msg : "请选择表格数据"
+												});
+												returnResult.status = false;
+												return;
+											}
+											$(this)
+													.data(
+															"pageData",
+															{
+																VIN : selectRow[0].VIN,
+																LICENSE : selectRow[0].LICENSE,
+																RO_CREATE_DATE : selectRow[0].RO_CREATE_DATE,
+																OWNER_NO : selectRow[0].OWNER_NO,
+																OWNER_NAME : selectRow[0].OWNER_NAME
+															});//传递多个值
+											/* alert(selectRow[0].VIN);
+											alert(selectRow[0].LICENSE);
+											alert(selectRow[0].RO_CREATE_DATE); 
+											alert(selectRow[0].OWNER_NAME);*/
+											returnResult.status = true;
+
+											var vins = '';
+											var ownerNos = '';
+											var nextMaintainMileages = '';
+
+											var engineNos = '';
+											var licenses = '';
+											var addresss = '';
+
+											for (var i = 0; i < selectRow.length; i++) {
+												if (i == selectRow.length - 1) {
+													vins += selectRow[i].VIN;
+													ownerNos += selectRow[i].OWNER_NO;
+													nextMaintainMileages += selectRow[i].NEXT_MAINTAIN_MILEAGES;
+
+													engineNos += selectRow[i].ENGINE_NO;
+													licenses += selectRow[i].LICENSE;
+													addresss += selectRow[i].ADDRESS;
+
+												} else {
+													vins += selectRow[i].VIN
+															+ ',';
+													ownerNos += selectRow[i].OWNER_NO
+															+ ',';
+													nextMaintainMileages += selectRow[i].NEXT_MAINTAIN_MILEAGES
+															+ ',';
+
+													engineNos += selectRow[i].ENGINE_NO
+															+ ',';
+													licenses += selectRow[i].LICENSE
+															+ ',';
+													addresss += selectRow[i].ADDRESS
+															+ ',';
+												}
+											}
+
+											$("#vin2", container).val(vins);
+											$("#ownerNo2", container).val(
+													ownerNos);
+											$("#ownerNo", container)
+													.removeClass("required");
+											$("#nextMaintainMileage2",
+													container).val(
+													nextMaintainMileages);
+											$("#nextMaintainMileage", container)
+													.removeClass("required");
+
+											$("#license2", container).val(
+													licenses);
+											$("#license", container)
+													.removeClass("required");
+											$("#engineNo2", container).val(
+													engineNos);
+											$("#engineNo", container)
+													.removeClass("required");
+											$("#address2", container).val(
+													addresss);
+											$("#address", container)
+													.removeClass("required");
+											returnResult.status = true;
+
+										});
+					});
+</script>

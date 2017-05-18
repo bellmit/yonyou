@@ -1,0 +1,159 @@
+<div class="dms-edit ajaxrest" >
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">车辆信息</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg"> <i
+					class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel-heading">
+			<div class="pannel-name" ></div>
+			</div>
+			<div class="panel panel-default">
+	    		<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12 col-sm-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">VIN</label>
+								<div class="col-xs-8">
+									<input class="form-control " id="VIN" disabled="disabled" data-fieldName="VIN"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">车型</label>
+								<div class="col-xs-8">
+									<input class="form-control " id="MODEL_CODE" disabled="disabled" data-fieldName="MODEL_CODE"/>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12 col-sm-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">年款</label>
+								<div class="col-xs-8">
+									<input class="form-control " id="MODEL_YEAR" disabled="disabled" data-fieldName="MODEL_YEAR"/>
+								</div>
+							</div>
+						</div>
+						
+											
+				
+							
+						<div class="col-xs-12 col-sm-4">
+							<div class="form-group">
+								<label class="control-label col-xs-4">颜色</label>
+								<div class="col-xs-8">
+									<input class="form-control " id="COLOR_NAME" disabled="disabled" data-fieldName="COLOR_NAME" />
+								</div>
+							</div>
+						</div>	
+						
+							
+							<div class="col-xs-12 col-sm-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">发动机号</label>
+									<div class="col-xs-8">
+										<input class="form-control " id="ENGINE_NO" disabled="disabled" data-fieldName="ENGINE_NO" />
+									</div>
+								</div>
+							</div>
+						
+						<div class="col-xs-12 col-sm-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">牌照号</label>
+									<div class="col-xs-8">
+										<input class="form-control " id="LICENSE_NO" disabled="disabled" data-fieldName="LICENSE_NO" />
+									</div>
+								</div>
+							</div>
+						
+						<div class="col-xs-12 col-sm-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">购车日期</label>
+									<div class="col-xs-8">
+										<input class="form-control " id="PURCHASE_DATE" disabled="disabled" data-fieldName="PURCHASE_DATE" />
+									</div>
+								</div>
+							</div>
+						
+						<div class="col-xs-12 col-sm-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">保修开始日期</label>
+									<div class="col-xs-8">
+										<input class="form-control " id="PURCHASE_DATE2" disabled="disabled" data-fieldName="PURCHASE_DATE" />
+									</div>
+								</div>
+							</div>
+						
+						<div class="col-xs-12 col-sm-4">
+								<div class="form-group">
+									<label class="control-label col-xs-4">车辆里程数</label>
+									<div class="col-xs-8">
+										<input class="form-control"  id="MILLEAGE" disabled="disabled" data-fieldName="MILLEAGE" />
+									</div>
+								</div>
+							</div>
+							
+					
+
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+
+		
+		<div class="modal-footer center-block">
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>返回</a>
+		</div>
+		
+	</form>
+</div>
+
+
+
+		
+
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	var vin = $("#vin",getElementContext()).val(); 
+	//alert(vin);
+	dmsCommon.ajaxRestRequest({
+		url : dmsCommon.getDmsPath()["vehicle"] + "/friendlyClaimApply/showVehicle/"+vin,
+		type : 'GET',
+		sucessCallBack : function(data) {
+			//alert(data.MILEAGE);
+			//alert(JSON.stringify(data));
+			
+			console.log(data);
+			$("#VIN",container).val(data.VIN);
+			$("#MODEL_CODE",container).val(data.MODEL_CODE);
+			$("#MODEL_YEAR",container).val(data.MODEL_YEAR);
+			$("#COLOR_NAME",container).val(data.COLOR_NAME);
+			$("#ENGINE_NO",container).val(data.ENGINE_NO);
+			$("#LICENSE_NO",container).val(data.LICENSE_NO);
+			$("#PURCHASE_DATE",container).val(data.PURCHASE_DATE);
+			$("#PURCHASE_DATE2",container).val(data.PURCHASE_DATE);
+			$("#MILLEAGE",container).val(data.MILEAGE);
+			
+		}
+	});
+	
+	
+	
+	//新增页面的回调函数
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		//关闭窗口
+		$("a[data-dismiss='modal']",container).click();
+		//刷新表格
+		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+	});
+	
+});
+</script>

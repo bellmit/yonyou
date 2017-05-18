@@ -1,0 +1,244 @@
+<div class="dms-search">
+	<form class="form-horizontal" id="myform">
+		<div class="panel panel-default">
+			<div class="modal-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">经销商</label>
+							<div class="col-xs-8">
+								<select id="entityCodeLocal" class="bs-select form-control"
+									name="entityCodeLocal"
+									data-url="/stockManage/safeguard/findDealerInfo"
+									data-value="{[userInfo.dealerCode]}" data-model="customer"
+									data-labelValue="dealer_code" data-lableDesc="DEALER_SHORTNAME">
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4">仓库代码</label>
+							<div class="col-xs-8">
+								<select id="storageCode" name="storageCode"
+									class="bs-select form-control" data-fieldName="STORAGE_CODE"
+									data-url="/partStocks/StockCode" data-model="part"
+									data-labelValue="STORAGE_CODE" data-labledesc="STORAGE_NAME"
+									tabindex="-98">
+
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">配件代码</label>
+							<div class="col-xs-8">
+								<input id="partNo" name="partNo" class="form-control"
+									type="text" data-Change="true" />
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-4 ">配件名称</label>
+							<div class="col-xs-8">
+								<input id="partName" name="partName" class="form-control"
+									type="text" data-Change="true" />
+							</div>
+						</div>
+					</div>
+					<!--/span-->
+
+				</div>
+				<div class="row ">
+					<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"
+								data-errorCallBack="true"> <i class="fa fa-search"></i> 查询
+							</a> <a href="javascript:;" class="btn blue"><i
+								class="fa fa-undo"></i> 重置 </a>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="panel panel-default table-panel">
+			<div class="panel-body">
+				<div class="panel-heading">
+					<div class="pannel-button">
+						<div class="btn-group btn-group-sm">
+
+							<a href="javascript:;" data-url="/partOrder/waterBook/export/excel"
+								data-model="part" data-method="downLoad"
+								data-toggle="confirmation" class="btn btn-outline "
+								data-validateModel="demo" data-validateMethod=""><i
+								class="fa fa-download"></i>Excel</a>
+
+						</div>
+					</div>
+				</div>
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="partStuffPrice">
+				</table>
+
+			</div>
+		</div>
+
+		<div class="panel panel-default">
+			<div class="modal-body">
+				<div class="row ">
+					<div class="col-xs-12 col-sm-6 col-md-4 ">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-3">查看日期</label>
+							<div class="col-xs-8 col-sm-9">
+								<div class="input-group input-daterange" data-defaultdays="15"
+									data-date-format="yyyy/mm/dd/hh/mm/ss">
+									<input type="text" class="form-control" readonly name="beginTime"
+										id="beginTime"> <span class="input-group-addon">至</span>
+									<input type="text" class="form-control" readonly name="endTime"
+										id="endTime"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6  ">
+						<a class="btn blue"  data-onclickEvent="true" id="refreshTableId"><i
+							class="fa fa-save"></i>明细</a>
+				    </div>
+				   <div class="col-xs-12 col-sm-12 col-md-8 hidden">
+							<div class="form-group">
+								<label class="control-label col-xs-4 col-sm-2 ">明细条件</label>
+								<div class="col-xs-8 col-sm-10">
+									<textarea id="scene" name="scene"  class="form-control" rows="2" cols=""></textarea>
+								</div>
+				           </div>
+				 </div>
+				 
+				</div>
+
+			</div>
+		</div>
+	
+
+
+	<div class="panel panel-default table-panel">
+		<div class="panel-body">
+			<div class="panel-heading">
+				<div class="pannel-button">
+					<div class="btn-group btn-group-sm">
+
+						<a href="javascript:;" data-url="/partOrder/waterBook/export/excel/item"
+							data-model="part" data-method="downLoad"
+							data-toggle="confirmation" class="btn btn-outline "
+							data-validateModel="demo" data-validateMethod=""><i
+							class="fa fa-download"></i>Excel</a>
+
+					</div>
+				</div>
+			</div>
+			<table
+				class="table table-striped table-bordered table-hover table-responsive"
+				id="partStuffPriceItem">
+			</table>
+
+		</div>
+	</div>
+</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+ 	new Datatable().initPagination({
+		src : "partStuffPrice",
+		container:container,
+	    url : dmsCommon.getDmsPath()["part"] + "/partOrder/waterBook",
+		rowID : "ITEM_ID",
+		autoHeight:false,
+		selectItemName:"itemId",
+		onDblClickRow:function(rowData,trElement){
+			var scene={};
+			scene['DEALER_CODE']=rowData.Dealer_Code;
+			scene['PART_NO']=rowData.PART_NO;
+			scene['STORAGE_CODE']=rowData.STORAGE_CODE;
+			
+			$("#scene",container).setDmsValue(JSON.stringify(scene));
+			$("#partStuffPriceItem",container).dmsTable().refreshTableWithForm();
+		},
+		columns : [
+                    {radio:true,sortable : false},
+		            {field : "dealer_shortname",title : "经销商简称"},
+		            {field : "STORAGE_CODE_NAME",title : "仓库"},
+		            {field : "STORAGE_POSITION_CODE",title : "库位"},
+		            {field : "PART_NO",title : "配件代码"},
+		            {field : "PART_NAME",title : "配件名称"},
+		            {field : "UNIT_CODE",title : "计量单位"},
+		            {field : "PART_MODEL_GROUP_CODE_SET",title : "配件车型组"},
+		            {field : "STOCK_QUANTITY",title : "库存数量"},
+		            {field : "BORROW_QUANTITY",title : "借进数量"},
+		            {field : "LEND_QUANTITY",title : "借出数量"},
+		            {field : "USEABLE_STOCK",title : "可用库存"},
+		        	{field : "LAST_STOCK_IN",title : "最新入库日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"},isVisible:function(column){
+						return false;
+					}},
+					{field : "LAST_STOCK_OUT",title : "最新出库日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"},isVisible:function(column){
+						return false;
+					}},
+		         ],onCheck:function(row){
+		        	var scene={};
+		 			scene['DEALER_CODE']=row.Dealer_Code;
+		 			scene['PART_NO']=row.PART_NO;
+		 			scene['STORAGE_CODE']=row.STORAGE_CODE;
+		 			
+		 			$("#scene",container).setDmsValue(JSON.stringify(scene));
+					}
+	});
+ 	
+ 	new Datatable().initPagination({
+		src : "partStuffPriceItem",
+		container:container,
+	    url : dmsCommon.getDmsPath()["part"] + "/partOrder/waterBook/item",
+		rowID : "ITEM_ID",
+		autoHeight:false,
+		selectItemName:"itemId",
+		isQueryFirst:false,
+		columns : [
+		           {field : "OPERATE_DATE",title : "发生日期",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}},
+		           {field : "IN_OUT_TYPE",title : "进出类型",codeFormat : {type:"dict",codeType:"1215"}},
+                   {field : "STOCK_IN_QUANTITY",title : "进数量"},
+                   {field : "STOCK_OUT_QUANTITY",title : "出数量"},
+                   {field : "IN_OUT_NET_PRICE",title : "出入库不含税单价"},
+                   {field : "IN_OUT_NET_AMOUNT",title : "出入库不含税金额"},
+                   {field : "IN_OUT_TAXED_PRICE",title : "出入库含税单价"},
+                   {field : "IN_OUT_TAXED_AMOUNT",title : "出入库含税金额"},
+                   {field : "STOCK_QUANTITY",title : "库存数量"},
+                   {field : "COST_PRICE",title : "成本单价"},
+                   {field : "LICENSE",title : "车牌号"},
+                   {field : "SHEET_NO",title : "单据号码"},
+                   {field : "CUSTOMER_NAME",title : "客户名称"},
+                   {field : "OPERATOR_NAME",title : "操作员"},
+		         ]	
+	});
+
+	$("a[data-errorCallBack='true']",container).on("errorCallBack.dms",function(event,response){
+		
+	});
+	//绑定刷新表格操作
+	$("#refreshTableId",container).on('click',function(){
+		$("#partStuffPriceItem",container).dmsTable().refreshTableWithForm();
+    });
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+		$("#partStuffPriceItem",container).dmsTable().refreshTableWithForm();
+	});
+	
+});		
+</script>

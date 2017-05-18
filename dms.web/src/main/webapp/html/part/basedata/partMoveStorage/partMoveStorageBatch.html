@@ -1,0 +1,92 @@
+<div class="dms-search">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">批量移库</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-12  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">原仓库代码</label>
+							<div class="col-xs-8">
+								<input type="hidden" 
+										data-fieldName="STORAGE_CODE" /> <select id="oldStorageCode"
+										name="oldStorageCode" class="bs-select form-control"
+										data-url="/stockmanage/allocateInOders/Storage/Select"
+										data-model="part" data-labelValue="STORAGE_CODE"
+										data-lableDesc="STORAGE_NAME">
+									</select>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12  ">
+							<div class="form-group">
+								<label class="control-label col-xs-4">新仓库代码</label>
+							<div class="col-xs-8">
+								<input type="hidden" 
+										data-fieldName="STORAGE_CODE" /> <select id="newStorageCode"
+										name="newStorageCode" class="bs-select form-control"
+										data-url="/stockmanage/allocateInOders/Storage/Select"
+										data-model="part" data-labelValue="STORAGE_CODE"
+										data-lableDesc="STORAGE_NAME">
+									</select>
+							</div>
+						</div>
+					</div>
+
+			
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<a data-onclickEvent="true"  class="btn blue" ><i class="fa fa-save"></i>保存</a>
+				<a data-dismiss="modal" class="btn blue" ><i
+				class="fa fa-undo"></i>取消</a>
+			</div>
+		</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms", function(event, container) {
+	$("a[data-onclickEvent='true']", container).on("dms.click",function(event, returnResult) {
+		if($("#oldStorageCode",container).val() == ''){
+			dmsCommon.tip({status:"warning",msg:"请选择配件仓库!"});
+			return;
+		}
+		if($("#newStorageCode",container).val() == ''){
+			dmsCommon.tip({status:"warning",msg:"请选择新仓库！"})
+			return;
+		}
+		if($("#oldStorageCode",container).val() == $("#newStorageCode",container).val()){
+			dmsCommon.tip({status:"warning",msg:"新旧仓库不能一样!"})
+			return;
+		}
+		if(dmsCommon.getSystemParamInfo("5436","5436") == "12781002"){
+			dmsCommon.ajaxRestRequest({
+				container : container,
+				url : dmsCommon.getDmsPath()["part"] + "/basedata/partmove/checkStorageMove",
+				type : 'GET',
+				data : {"oldStorageCode":$("#oldStorageCode",container).val(),"newStorageCode":$("#newStorageCode",container).val()},
+				sucessCallBack : function(data) {
+					if(data.isScan != "12781001"){
+						dmsCommon.tip({status:"warning",msg:$("#oldStorageCode option:selected",container).val() +"不能移动到" + $("#newStorageCode option:selected",container).text() + "中"})
+						return;
+					}
+				}
+			})
+		}
+		$("#partMoveItemTable",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["part"] + "/basedata/partmove/queryPartStockItem/" +$("#oldStorageCode",container).val()+"/"+$("#newStorageCode",container).val());
+		$("#batchSign",getElementContext()).val("true");
+		$("a[data-dismiss='modal']",container).click();
+	})
+})
+
+</script>

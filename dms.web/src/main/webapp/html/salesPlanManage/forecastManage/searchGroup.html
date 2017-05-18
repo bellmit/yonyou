@@ -1,0 +1,57 @@
+<div class="dms-add">
+	<form class="form-horizontal">
+		<div class="modal-header">
+			<div class="modal-title">车款年款选择</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div id="departTree" ></div>
+				<input type="hidden" name="modelYear" id="modelYear">
+				<input type="hidden" name="groupName" id="groupName"> 
+				<input type="hidden" name="groupId" id="groupId"> 						
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<a  class="btn blue" data-onclickEvent="true"> <i class="fa fa-save"></i>确定</a>
+			<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+
+$(document).one("onload.dms",function(event,container){
+	//树初始化
+	$('#departTree',container).jstree({ 'core' : {
+		'data' : {
+		'url':dmsCommon.getDmsFuncIdUrl(dmsCommon.getDmsPath()["manage"] + "/forecastImport/findColor"),
+		'data':function(node){
+			return{'id':node.id}
+		}}},
+		"plugins" : ["changed"]
+	});	
+	
+	//树节点选择
+	$('#departTree',container).on('changed.jstree', function (e, data) {
+		$("#modelYear",container).val(data.node.parent);	
+		$("#groupId",container).val(data.node.id);	
+		$("#groupName",container).val(data.node.text);	
+	});
+	$("a[data-onclickEvent='true']",container).on("dms.click",function(event,response){
+		if($("#modelYear",container).val() == "#"){
+			dmsCommon.tip({status:"warning",msg:"该数据无法选择"});
+			return;
+		}
+		$("#modelYear",getElementContext()).val($("#modelYear",container).val());
+		$("#groupId",getElementContext()).val($("#groupId",container).val());
+		$("#groupName",getElementContext()).val($("#groupName",container).val());
+	
+		$("a[data-dismiss='modal']",container).click();
+	});
+	
+});
+</script>

@@ -1,0 +1,49 @@
+<div class="dms-edit ajaxrest">
+	<form class="form-horizontal">
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+			<div class="pannel-name">参与活动车辆明细</div>
+			</div>
+			<div class="panel-body">
+				<table
+					class="table table-striped table-bordered table-hover table-responsive"
+					id="activityVehicleDetailList">
+				</table>
+			</div>
+		</div>
+		<div class="modal-footer center-block">
+			<div class="col-xs-12 ">
+				<div class="query-btn">
+						<a data-goback="page"
+						data-onclickEvent="true"
+						href="retail/vehicle/market/searchActivityVehicle.html"
+						class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initPagination({
+		src : "activityVehicleDetailList",
+		container:container,
+		url : dmsCommon.getDmsPath()["repair"] + "/activity/serviceActivity/{[ACTIVITY_CODE]}/VehicleDetail",
+		autoHeight:false,
+		columns : [ {field : "RO_CREATE_DATE",inputField:"",title : "参与活动日期",dateFormat : {format:"YYYY-MM-DD"}},
+		            {field : "LICENSE",inputField:"",title : "车牌号"},
+		            {field : "VIN",inputField:"",title : "VIN"},
+		            {field : "ENGINE_NO",inputField:"",title : "发动机号"},
+		            {field : "SERIES_NAME",inputField:"",title : "车型"},
+		            {field : "MODEL_NAME",inputField:"",title : "版本",inputHiddenFormat : {}},
+		            {field : "OWNER_NAME",inputField:"",title : "客户名称"},
+		            {field : "DELIVERER",inputField:"",title : "送修人"},
+		            {field : "DELIVERER_PHONE",inputField:"",title : "送修人电话"},
+		            {field : "DELIVERER_MOBILE",inputField:"",title : "送修人手机"},
+		            {field : "CONSULTANT",inputField:"",title : "销售顾问"},
+		            {field : "EMPLOYEE_NAME",inputField:"",title : "服务顾问"},
+		            {field : "SALES_DATE",inputField:"",title : "销售日期",dateFormat : {format:"YYYY-MM-DD"}}
+		         ]
+		});
+	});
+</script>
