@@ -119,7 +119,7 @@ public class TtWrForelabourRuleServiceImpl implements TtWrForelabourRuleService{
 	private List<Map> getDealerPaymentBy(TtWrForelabourRuleDTO ptdto) throws ServiceBizException {
         StringBuilder sqlSb = new StringBuilder("  SELECT  labour_code  FROM  TT_WR_FORELABOUR_RULE_dcs  WHERE 1=1");
         List<Object> params = new ArrayList<>();
-        sqlSb.append(" and labour_code= ? ");
+        sqlSb.append(" and labour_code= ? and is_del=0");
         params.add(ptdto.getLabourCode());
         List<Map> applyList=OemDAOUtil.findAll(sqlSb.toString(), params);
         return applyList;

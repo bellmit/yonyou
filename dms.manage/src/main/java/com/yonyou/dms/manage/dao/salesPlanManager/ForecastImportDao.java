@@ -1,7 +1,9 @@
 package com.yonyou.dms.manage.dao.salesPlanManager;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -225,6 +227,8 @@ public class ForecastImportDao extends OemBaseDAO{
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");*/
 		 //获取当前用户
         LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
+        Calendar calendar = Calendar.getInstance();
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT * FROM (");
 		sql.append("SELECT DISTINCT * FROM ( \n");
@@ -237,25 +241,13 @@ public class ForecastImportDao extends OemBaseDAO{
 		sql.append("       (SELECT MAX(STATUS) \n");
 		sql.append("          FROM TT_VS_MONTHLY_FORECAST T2 WHERE 1=1 \n");
 		if(!StringUtils.isNullOrEmpty(loginInfo.getDealerId())){
-			sql.append("AND DEALER_ID = ? \n");
-			params.add(loginInfo.getDealerId());
+			sql.append("AND DEALER_ID = '"+loginInfo.getDealerId()+"' \n");
 		}
 		sql.append("           AND T2.TASK_ID = TT.TASK_ID) AS STATUS \n");
 		sql.append("  FROM TT_VS_RETAIL_TASK tt  ,Tt_Forecast_Material tfm WHERE \n");
-		if(!StringUtils.isNullOrEmpty(OemDictCodeConstants.TASK_TYPE_02)){
-			sql.append("       TT.TASK_TYPE=? \n");
-			params.add(OemDictCodeConstants.TASK_TYPE_02);
-		}
-		/*
-		 * 
-		 * if(!StringUtils.isNullOrEmpty(format.format(calendar.getTime()))){
-			sql.append("      AND TT.END_DATE>=? \n");
-			params.add(format.format(calendar.getTime()));
-		}
-		if(!StringUtils.isNullOrEmpty(format.format(calendar.getTime()))){
-			sql.append("      AND TT.START_DATE<=? \n");
-			params.add(format.format(calendar.getTime()));
-		}*/
+		sql.append("       TT.TASK_TYPE= '"+OemDictCodeConstants.TASK_TYPE_02+"' \n");
+		sql.append("      AND TT.END_DATE>= '"+format.format(calendar.getTime())+"' \n");
+		sql.append("      AND TT.START_DATE<= '"+format.format(calendar.getTime())+"' \n");
 		sql.append(" and tfm.task_id=tt.task_id and tfm.group_id is null\n");
 		sql.append(" ) tt where tt.STATUS IS NULL OR TT.STATUS='"+OemDictCodeConstants.TT_VS_MONTHLY_FORECAST_SAVE+"'");
 		sql.append(" ) T");
@@ -288,19 +280,19 @@ public class ForecastImportDao extends OemBaseDAO{
 	private String getforecastImportOTDQuerySql(Map<String, String> queryParam,
 			List<Object> params, TtVsRetailTaskPO tvrtPO) {
 		StringBuilder sbSql = new StringBuilder();
-		sbSql.append("SELECT T1.BRAND_NAME,T1.BRAND_CODE,T1.SERIES_NAME,T1.SERIES_CODE,T1.FORECAST_AMOUNT D_DATE,T2.S UP_LIMIT,T2.LOWER_LIMIT LOWER_LIMIT FROM	\n");
-		sbSql.append("     (SELECT    TT3.BRAND_NAME,TT3.BRAND_CODE,TT3.SERIES_NAME,TT3.SERIES_CODE,sum(TT3.FORECAST_AMOUNT) FORECAST_AMOUNT FROM \n");
-		sbSql.append("		(SELECT DISTINCT TT1.BRAND_NAME,TT1.BRAND_CODE,TT1.GROUP_NAME,TT1.GROUP_CODE,TT1.SERIES_NAME,TT1.SERIES_CODE,TT2.FORECAST_AMOUNT FROM \n");
-		sbSql.append("			(SELECT DISTINCT BRAND_NAME,BRAND_CODE,SERIES_NAME,SERIES_CODE,GROUP_NAME,GROUP_CODE FROM ("+getVwMaterialSql()+") VM WHERE\n");
-		sbSql.append("		 	MATERIAL_ID IN (SELECT MATERIAL_ID FROM TT_FORECAST_MATERIAL WHERE");
+		sbSql.append("SELECT T1.BRAND_NAME,T1.BRAND_CODE,T1.SERIES_NAME,T1.SERIES_CODE,T1.FORECAST_AMOUNT D_DATE,T2.S UP_LIMIT,T2.LOWER_LIMIT LOWER_LIMIT,T1.SERIES_ID FROM	\n");
+		sbSql.append("     (SELECT    TT3.BRAND_NAME,TT3.BRAND_CODE,TT3.SERIES_NAME,TT3.SERIES_CODE,sum(TT3.FORECAST_AMOUNT) FORECAST_AMOUNT,TT3.SERIES_ID FROM \n");
+		sbSql.append("		(SELECT DISTINCT TT1.BRAND_NAME,TT1.BRAND_CODE,TT1.GROUP_NAME,TT1.GROUP_CODE,TT1.SERIES_NAME,TT1.SERIES_CODE,TT2.FORECAST_AMOUNT,TT1.SERIES_ID FROM \n");
+		sbSql.append("			(SELECT DISTINCT BRAND_NAME,BRAND_CODE,SERIES_NAME,SERIES_CODE,GROUP_NAME,GROUP_CODE,SERIES_ID FROM ("+getVwMaterialSql()+") VM WHERE\n");
+		sbSql.append("		 	MATERIAL_ID IN (SELECT MATERIAL_ID FROM TT_FORECAST_MATERIAL WHERE 1=1 ");
 		if(!StringUtils.isNullOrEmpty(queryParam.get("taskId"))){
-			sbSql.append( " TASK_ID= ? \n");
+			sbSql.append( " AND TASK_ID= ? \n");
 			params.add(queryParam.get("taskId"));
 		}
 		sbSql.append("		) ) TT1 \n");
 		sbSql.append("		LEFT JOIN\n");
 		sbSql.append("			(SELECT TVMG2.GROUP_CODE SERIES_CODE,TVMG4.GROUP_NAME,TVMG4.GROUP_CODE,SUM(TVMFD.FORECAST_AMOUNT) FORECAST_AMOUNT\n");
-		sbSql.append("			FROM  TT_VS_MONTHLY_FORECAST_DETAIL     TVMFD, \n");
+		sbSql.append("			FROM  TT_VS_MONTHLY_FORECAST_DETAIL_DCS     TVMFD, \n");
 		sbSql.append("			  TT_VS_MONTHLY_FORECAST            TVMF, \n");
 		sbSql.append("		      TM_VHCL_MATERIAL_GROUP TVMG4,\n");
 		sbSql.append("		      TM_VHCL_MATERIAL_GROUP TVMG2\n");
@@ -350,8 +342,11 @@ public class ForecastImportDao extends OemBaseDAO{
 			params.add(planVer);
 		}
 		sbSql.append(" 	AND TVMG.GROUP_ID=TVMPD.MATERIAL_GROUPID\n");
-		sbSql.append(" 	GROUP BY TVMG.GROUP_CODE ) T2 ON T1.SERIES_CODE=T2.SERIES_CODE\n");
-		
+		sbSql.append(" 	GROUP BY TVMG.GROUP_CODE ) T2 ON T1.SERIES_CODE=T2.SERIES_CODE WHERE 1=1 \n");
+		if(!StringUtils.isNullOrEmpty(queryParam.get("seriesId"))){
+			sbSql.append( " AND T1.SERIES_ID = ? \n");
+			params.add(queryParam.get("seriesId"));
+		}
 		return sbSql.toString();
 	}
 	//经销商录入获取最大版本号
@@ -486,13 +481,13 @@ public class ForecastImportDao extends OemBaseDAO{
 		List<Map> materialIdList = OemDAOUtil.findAll(sql,params);
 		return materialIdList;
 	}
-	private String selectTtVsRetailTaskUniqueSql(String groupCode, LoginInfoDto loginInfo,
+	private String selectTtVsRetailTaskUniqueSql(String groupId, LoginInfoDto loginInfo,
 			String taskId, List<Object> params) {
 		StringBuffer strBuff = new StringBuffer();
 		strBuff.append("SELECT TT1.*,TT2.FORECAST_ID,TT2.DETAIL_ID, TT2.FORECAST_AMOUNT  FROM \n");
 		strBuff.append(" 	(SELECT VM.GROUP_ID,VM.SERIES_NAME,VM.SERIES_CODE,VM.MODEL_NAME,VM.MODEL_CODE,VM.GROUP_NAME,VM.GROUP_CODE\n");
-		strBuff.append("		 FROM ("+getVwMaterialSql()+") VM WHERE VM.SERIES_CODE=?\n");
-		params.add(groupCode);
+		strBuff.append("		 FROM ("+getVwMaterialSql()+") VM WHERE VM.SERIES_ID=?\n");
+		params.add(groupId);
 		strBuff.append(" 		AND EXISTS (SELECT 1 FROM TM_VHCL_MATERIAL_GROUP P WHERE P.GROUP_LEVEL=2 AND P.GROUP_CODE=VM.SERIES_CODE AND P.STATUS=10011001)\n");
 		strBuff.append(" 		 AND VM.MATERIAL_ID IN (SELECT MATERIAL_ID FROM TT_FORECAST_MATERIAL WHERE TASK_ID =? )\n");
 		params.add(taskId);
@@ -500,7 +495,7 @@ public class ForecastImportDao extends OemBaseDAO{
 		strBuff.append(" 	 ) TT1\n");
 		strBuff.append(" LEFT JOIN \n");
 		strBuff.append(" 	 (SELECT TVMG.GROUP_CODE SERIES_CODE,TVMF.FORECAST_ID,TVMFD.DETAIL_ID,SUM(TVMFD.FORECAST_AMOUNT) FORECAST_AMOUNT\n");
-		strBuff.append(" 	 	FROM   TT_VS_MONTHLY_FORECAST_DETAIL     TVMFD, \n");
+		strBuff.append(" 	 	FROM   TT_VS_MONTHLY_FORECAST_DETAIL_DCS     TVMFD, \n");
 		strBuff.append(" 			TT_VS_MONTHLY_FORECAST            TVMF,\n");
 		strBuff.append(" 			TM_VHCL_MATERIAL_GROUP TVMG\n");
 		strBuff.append(" 		WHERE TVMF.FORECAST_ID = TVMFD.FORECAST_ID\n");
@@ -512,7 +507,6 @@ public class ForecastImportDao extends OemBaseDAO{
 		strBuff.append(" 		 GROUP BY TVMG.GROUP_CODE,TVMF.FORECAST_ID,TVMFD.DETAIL_ID\n");
 		strBuff.append(" 	 ) TT2\n");
 		strBuff.append(" ON TT1.GROUP_CODE=TT2.SERIES_CODE\n");
-		
 		return strBuff.toString();
 	}
 	
@@ -521,30 +515,30 @@ public class ForecastImportDao extends OemBaseDAO{
 	 * @param parentId 
 	 * @return
 	 */
-	public List<Map> getForecastCarOTDListTotal(String groupCode, LoginInfoDto loginInfo,
+	public List<Map> getForecastCarOTDListTotal(String groupId, LoginInfoDto loginInfo,
 			String taskId) {
 		List<Object> params = new ArrayList<Object>();
-		String sql = getForecastCarOTDListTotalSql(groupCode,loginInfo,taskId,params);
+		String sql = getForecastCarOTDListTotalSql(groupId,loginInfo,taskId,params);
 		List<Map> list = OemDAOUtil.findAll(sql,params);
 		return list;
 	}
-	private String getForecastCarOTDListTotalSql(String groupCode, LoginInfoDto loginInfo, 
+	private String getForecastCarOTDListTotalSql(String groupId, LoginInfoDto loginInfo, 
 			String taskId, List<Object> params) {
 		TtVsRetailTaskPO tvrtPO = new TtVsRetailTaskPO();
 		tvrtPO.set("TASK_ID", Long.valueOf(taskId));
 		List<Map> tvrtList = selectTtVsRetailTaskUnique(tvrtPO);
 		StringBuffer strBuff = new StringBuffer();
-		strBuff.append("SELECT T1.SERIES_NAME,T1.SERIES_CODE, sum(T1.FORECAST_AMOUNT) FORECAST_TOTAL,sum(T2.s) S_TOTAl,sum(T2.LOWER_LIMIT) LOWER_LIMIT FROM \n");
+		strBuff.append("SELECT T1.SERIES_NAME,T1.SERIES_CODE, IFNULL(sum(T1.FORECAST_AMOUNT),0) FORECAST_TOTAL,IFNULL(sum(T2.s),'') UP_LIMIT,IFNULL(sum(T2.LOWER_LIMIT),'') LOWER_LIMIT FROM \n");
 		strBuff.append("  (select tt.series_name,tt.SERIES_CODE,sum(tt.FORECAST_AMOUNT) FORECAST_AMOUNT from\n");
 		strBuff.append(" 	(SELECT DISTINCT TT1.*,TT2.FORECAST_AMOUNT FROM\n");
-		strBuff.append(" 		(SELECT VM.SERIES_NAME,VM.SERIES_CODE,VM.GROUP_CODE FROM ("+getVwMaterialSql()+") VM WHERE VM.SERIES_CODE='"+groupCode+"'\n");
+		strBuff.append(" 		(SELECT VM.SERIES_NAME,VM.SERIES_CODE,VM.GROUP_CODE FROM ("+getVwMaterialSql()+") VM WHERE VM.SERIES_ID='"+groupId+"'\n");
 		strBuff.append(" 			AND EXISTS (SELECT 1 FROM TM_VHCL_MATERIAL_GROUP P WHERE P.GROUP_CODE = VM.SERIES_CODE AND P.GROUP_LEVEL=2 AND P.STATUS=10011001)\n");
 		strBuff.append(" 			AND VM.MATERIAL_ID IN (SELECT MATERIAL_ID FROM TT_FORECAST_MATERIAL WHERE TASK_ID ="+taskId+")\n");
 		strBuff.append(" 		GROUP BY VM.SERIES_NAME,VM.SERIES_CODE,VM.GROUP_CODE\n");
 		strBuff.append(" 		) TT1\n");
 		strBuff.append(" 	LEFT JOIN\n");
 		strBuff.append(" 		(SELECT TVMG4.GROUP_CODE,TVMG2.GROUP_CODE SERIES_CODE,TVMG2.GROUP_NAME,SUM(TVMFD.FORECAST_AMOUNT) FORECAST_AMOUNT\n");
-		strBuff.append(" 		FROM  TT_VS_MONTHLY_FORECAST_DETAIL     TVMFD,\n");
+		strBuff.append(" 		FROM  TT_VS_MONTHLY_FORECAST_DETAIL_DCS     TVMFD,\n");
 		strBuff.append(" 			  TT_VS_MONTHLY_FORECAST            TVMF,\n");
 		strBuff.append(" 			  TM_VHCL_MATERIAL_GROUP            TVMG4,\n");
 		strBuff.append(" 			  TM_VHCL_MATERIAL_GROUP TVMG2\n");
@@ -625,6 +619,31 @@ public class ForecastImportDao extends OemBaseDAO{
 		sql.append(" )	\n");
 		sql.append(" GROUP BY VM.GROUP_ID \n");
 		return sql.toString();
+	}
+	public List<Map> getForecastColorOTDFilterList(String groupId, LoginInfoDto loginInfo, String taskId,
+			String detailId) {
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT T1.MATERIAL_ID,T1.COLOR_CODE,T1.COLOR_NAME,T1.TRIM_NAME,T1.TRIM_CODE,T2.REQUIRE_NUM AS FORECAST_AMOUNT  FROM		\n");
+		sql.append("	( SELECT  VM.MATERIAL_ID,VM.COLOR_CODE,VM.COLOR_NAME,VM.TRIM_NAME,VM.TRIM_CODE FROM ("+getVwMaterialSql()+")  VM WHERE VM.GROUP_ID='"+groupId+"'	\n");
+		sql.append("		AND VM.COLOR_NAME!='TBD' AND MATERIAL_ID IN 	\n");
+		sql.append("		(SELECT MATERIAL_ID FROM TT_FORECAST_MATERIAL WHERE TASK_ID= '"+taskId+"' )\n");
+		sql.append("		GROUP BY VM.COLOR_CODE,VM.COLOR_NAME,VM.TRIM_NAME,VM.TRIM_CODE,VM.MATERIAL_ID\n");
+		sql.append("	 ) T1	\n");
+		sql.append(" LEFT JOIN 		\n");
+		sql.append("	(SELECT VM.MATERIAL_ID,VM.COLOR_CODE,VM.COLOR_NAME,VM.TRIM_NAME,VM.TRIM_CODE,TVMFDC.REQUIRE_NUM	\n");
+		sql.append("	FROM  TT_VS_MONTHLY_FORECAST_DETAIL_DCS     TVMFD,\n");
+		sql.append("		TT_VS_MONTHLY_FORECAST            TVMF,\n");
+		sql.append("		TT_VS_RETAIL_TASK                 TVRT,\n");
+		sql.append("		("+getVwMaterialSql()+")                        VM,\n");
+		sql.append("		TT_VS_MONTHLY_FORECAST_DETAIL_COLOR   TVMFDC\n");
+		sql.append("	 WHERE TVMFDC.DETAIL_ID = TVMFD.DETAIL_ID  AND TVMF.FORECAST_ID = TVMFD.FORECAST_ID	\n");
+		sql.append("		AND TVMFDC.DETAIL_ID= '"+detailId+"' AND TVMF.TASK_ID = TVRT.TASK_ID	\n");
+		sql.append("		AND TVMFDC.MATERIAL_ID=VM.MATERIAL_ID	\n");
+		sql.append("	 	AND TVRT.TASK_ID= '"+taskId+"'	\n");
+		sql.append("		AND TVMF.DEALER_ID = '"+loginInfo.getDealerId()+"' \n");
+		sql.append("	)      T2	\n");
+		sql.append("ON T1.MATERIAL_ID=T2.MATERIAL_ID		\n");
+		return OemDAOUtil.findAll(sql.toString(), null);
 	}
 	
 	

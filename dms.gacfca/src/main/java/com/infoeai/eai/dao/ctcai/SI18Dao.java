@@ -8,8 +8,12 @@ import org.springframework.stereotype.Repository;
 
 import com.infoeai.eai.DTO.Dcs2Jec01DTO;
 import com.infoeai.eai.DTO.Dcs2Jec02DTO;
+import com.infoeai.eai.DTO.Dcs2Jec03DTO;
 import com.infoeai.eai.DTO.JECAddNVhclMaintainDTO;
 import com.infoeai.eai.DTO.JECCarDTO;
+import com.infoeai.eai.DTO.JECMaintainDTO;
+import com.infoeai.eai.DTO.JECRecommendDTO;
+import com.yonyou.dms.common.Util.Utility;
 import com.yonyou.dms.framework.DAO.OemBaseDAO;
 import com.yonyou.dms.framework.DAO.OemDAOUtil;
 import com.yonyou.dms.function.utils.common.CommonUtils;
@@ -239,5 +243,100 @@ public class SI18Dao extends OemBaseDAO {
 		}
 		return resultList;
 	}
-
+	/**
+	 * 功能说明:车辆维修信息查询_查询符合条件客户信息
+	 * @return
+	 * @throws Exception 
+	 */
+	public List<Dcs2Jec03DTO> getSI20Info() throws Exception {
+		StringBuffer sql = new StringBuffer("");
+		
+		sql.append("  SELECT tmv.SEQUENCE_ID,tmv.CODE \n");
+		sql.append("    FROM TI_SERVICE_JEC_CUSTOMER_DCS tmv \n");
+		sql.append("   WHERE 1=1 \n");
+		sql.append("     AND tmv.IS_SCAN = '0' \n");
+		List<Map> mapList = OemDAOUtil.findAll(sql.toString(), null);
+		List<Dcs2Jec03DTO> list = null;
+		if(null!=mapList&&mapList.size()>0){
+			list = new ArrayList<>();
+			for(Map map : mapList){
+				Dcs2Jec03DTO dto=new Dcs2Jec03DTO();
+				dto.setSequenceId(Utility.getLong(CommonUtils.checkNull(map.get("SEQUENCE_ID"))));
+				dto.setCode(CommonUtils.checkNull(map.get("CODE")));
+				list.add(dto);
+			}
+		}
+		return list;
+	}
+	/**
+	 * 功能说明:车辆维修信息查询_根据客户信息查找所有推荐客户信息
+	 * 创建人: zhangRM 
+	 * 创建日期: 2013-06-17
+	 * @return
+	 */
+	public List<JECRecommendDTO> getIntroduceInfo(Long codeId) {
+		StringBuffer sql = new StringBuffer("");
+		
+		sql.append("  SELECT tvm.DMS_MAPPING_ID,tvm.RECOMMEND_DATE,tvm.RECOMMENDEE_NAME,tvm.RECOMMEND_MODEL \n");
+		sql.append("    FROM TI_JEC_INTRODUCE_CUSTOMER_DCS tvm \n");
+		sql.append("   WHERE 1=1 \n");
+		sql.append("     AND tvm.CODE_ID = "+codeId+" \n");
+		List<Map> mapList = OemDAOUtil.findAll(sql.toString(), null);
+		List<JECRecommendDTO> list = null;
+		if(null!=mapList&&mapList.size()>0){
+			list = new ArrayList<>();
+			for(Map map : mapList){
+				JECRecommendDTO dto=new JECRecommendDTO();
+				dto.setDmsMappingId(CommonUtils.checkNull(map.get("DMS_MAPPING_ID")));
+				dto.setRecommendDate(CommonUtils.checkNull(map.get("RECOMMEND_DATE")));
+				dto.setRecommendeeName(CommonUtils.checkNull(map.get("RECOMMENDEE_NAME")));
+				dto.setRecommendModel(CommonUtils.checkNull(map.get("RECOMMEND_MODEL")));
+				list.add(dto);
+			}
+		}
+		return list;
+	}
+	/**
+	 * 功能说明:车辆维修信息查询_根据客户信息查找所有维修信息
+	 * 创建人: zhangRM 
+	 * 创建日期: 2013-06-17
+	 * @return
+	 */
+	public List<JECMaintainDTO> getMaintainsInfo(Long codeId) {
+		StringBuffer sql = new StringBuffer("");
+		
+		sql.append("  SELECT tvm.TRUNK_CODE,tvm.USED_CAR_REG_DATE,tvm.CARE_INTERVAL,tvm.CARE_INTERVAL_IN_MONTH, \n");
+		sql.append("         FLOOR(tvm.LAST_MILEAGE) LAST_MILEAGE,tvm.WARRANTY_END_DATE,tvm.WARRANTY_STATE,tvm.EXTEND_PROTEC_START_DATE, \n");
+		sql.append("         tvm.EXTEND_PROTECT_IN_MONTH,tvm.EXTEND_PROTECT_END_DATE,tvm.LAST_CARE_DATE,tvm.NEXT_PLAN_MAINTAI, \n");
+		sql.append("         tvm.LAST_YEARLY_CHECK_DATE,tvm.YEARLY_CHECK_EXP_DATE,'' BUY_STATUS \n");
+		sql.append("    FROM TI_SERVICE_JEC_MAINTAIN_DCS tvm \n");
+		sql.append("   WHERE 1=1 \n");
+		sql.append("     AND tvm.CODE_ID = "+codeId+" \n");
+		List<Map> mapList = OemDAOUtil.findAll(sql.toString(), null);
+		List<JECMaintainDTO> list = null;
+		if(null!=mapList&&mapList.size()>0){
+			list = new ArrayList<>();
+			for(Map map : mapList){
+				JECMaintainDTO dto=new JECMaintainDTO();
+				dto.setTrunkCode(CommonUtils.checkNull(map.get("TRUNK_CODE")));
+				dto.setUsedCarRegDate(CommonUtils.checkNull(map.get("USED_CAR_REG_DATE")));
+				dto.setCareInterval(CommonUtils.checkNull(map.get("CARE_INTERVAL")));
+				dto.setCareIntervalInMonth(CommonUtils.checkNull(map.get("CARE_INTERVAL_IN_MONTH")));
+				dto.setLastMileage(CommonUtils.checkNull(map.get("LAST_MILEAGE")));
+				dto.setWarrantyEndDate(CommonUtils.checkNull(map.get("WARRANTY_END_DATE")));
+				dto.setWarrantyState(CommonUtils.checkNull(map.get("WARRANTY_STATE")));
+				dto.setExtendProtecStartDate(CommonUtils.checkNull(map.get("EXTEND_PROTEC_START_DATE")));
+				dto.setExtendProtectInMonth(CommonUtils.checkNull(map.get("EXTEND_PROTECT_IN_MONTH")));
+				dto.setExtendProtectEndDate(CommonUtils.checkNull(map.get("EXTEND_PROTECT_END_DATE")));
+				dto.setLastCareDate(CommonUtils.checkNull(map.get("LAST_CARE_DATE")));
+				dto.setNextPlanMaintai(CommonUtils.checkNull(map.get("NEXT_PLAN_MAINTAI")));
+				dto.setLastYearlyCheckDate(CommonUtils.checkNull(map.get("LAST_YEARLY_CHECK_DATE")));
+				dto.setYearlyCheckExpDate(CommonUtils.checkNull(map.get("YEARLY_CHECK_EXP_DATE")));
+				dto.setBuystatus(CommonUtils.checkNull(map.get("BUY_STATUS")));
+				
+				list.add(dto);
+			}
+		}
+		return list;
+	}
 }

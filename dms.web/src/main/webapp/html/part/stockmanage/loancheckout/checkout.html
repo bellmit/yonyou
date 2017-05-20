@@ -51,14 +51,6 @@
 										<input name="handler" data-fieldName="HANDLER" type="hidden" />
 										<input name="OUT_AMOUNT" data-fieldName="OUT_AMOUNT" type="hidden" />	
 										<input id="customerName" name="customerName" data-url="/basedata/employees" data-beforeRequest="true" class="form-control required" data-fieldName="CUSTOMER_NAME" type="text"  />
-										
-										<!-- <select id="customerName" class="bs-select form-control required"
-											data-ajaxSync="true" name="customerName"
-											data-url="/basedata/employees" data-model="manage"
-											data-labelValue="CUSTOMER_NAME" data-beforeRequest="true"
-											data-lableDesc="CUSTOMER_NAME" data-alwaysRefresh="true">
-										</select> -->
-											
 										<span class="input-group-btn">
 											<button class="btn default btn-sm" type="button" id="find" name="find" 
 												data-url="part/stockmanage/loancheckout/employee.html"
@@ -77,18 +69,17 @@
 						<!-- /span -->
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" id="customerCode222">
 							<div class="form-group">
-								<label class="control-label col-xs-4"><span
-									style="color: red;">*</span>客户代码</label>
+								<label class="control-label col-xs-4"><span style="color: red;">*</span>客户代码</label>
 								<div class="col-xs-8">
 									<div class="input-group">
-										<input id="customerCode" name="customerCode" disabled="disabled" data-beforeRequest="true" class="form-control required" data-fieldName="CUSTOMER_CODE" type="text"  />
+										<input id="customerCode" name="customerCode" data-onclickEvent="true" disabled="disabled" data-beforeRequest="true" class="form-control required" data-fieldName="CUSTOMER_CODE" type="text"  />
 										<span class="input-group-btn">
-											<button class="btn default btn-sm" type="button" id="find" name="find" data-onclickEvent="true"
-												data-url="part/stockmanage/partallocatein/searchCustomeer.html" disabled="disabled"
+											<button class="btn default btn-sm" type="button" id="find2" name="find2" 
+												data-url="part/stockmanage/partallocatein/searchCustomeer.html"
 												data-toggle="modal" data-width="modal-lg">
 												<i class="fa fa-sitemap"></i>
 											</button>
-											<button class="btn default input-clear" id="clear" name="clear" disabled="disabled"
+											<button class="btn default input-clear" id="clear2" name="clear2"
 												type="button">
 												<i class="fa fa-close"></i>
 											</button>
@@ -112,8 +103,8 @@
 							<div class="form-group">
 								<label class="control-label col-xs-4">开单日期</label>
 								<div class="col-xs-8">
-									<div class="input-group date date-picker">
-										<input id="createDate" name="sheetCreateDate" readonly
+									<div class="input-group input-daterange" data-defaultDays="1">
+										<input id="createDate" name="sheetCreateDate" 
 											data-fieldName="SHEET_CREATE_DATE" class="form-control"
 											type="text" /> 
 										<span class="input-group-btn">
@@ -133,8 +124,8 @@
 							<div class="form-group">
 								<label class="control-label col-xs-4">借出日期</label>
 								<div class="col-xs-8">
-									<div class="input-group date date-picker">
-										<input id="lendDate" name="lendDate" readonly
+									<div class="input-group input-daterange" data-defaultDays="1">
+										<input id="lendDate" name="lendDate"
 											data-fieldName="LEND_DATE" class="form-control"
 											type="text" /> 
 										<span class="input-group-btn">
@@ -160,6 +151,7 @@
 						<div class="btn-group btn-group-sm">
 							<a id="add" data-url="part/stockmanage/loancheckout/addCheckOut.html" class="btn btn-outline" data-toggle="modal" data-width="modal-lg"> <i class="fa fa-plus-square"></i> 新增</a>
 							<a id="outter" data-callBack="true" data-model="part" method="POST" data-toggle="confirmation" data-beforeRequest="true" class="btn btn-outline"> <i class="fa fa-plus-square"></i>出库</a> 
+							<a class="btn btn-outline hidden" data-url="part/stockmanage/loancheckout/account.html" data-width="modal-md" data-toggle="modal"> <i class="fa fa-plus-square" ></i>隐藏</a>
 							<a id="cancel" data-model="part" method="DELETE" data-toggle="confirmation" data-onclickEvent="true" class="btn btn-outline"> <i class="fa fa-plus-square"></i>作废</a>
 						</div>
 					</div>
@@ -181,6 +173,9 @@
 <script type="text/javascript">
 	$(document).one("onload.dms",function(event, container){
 		
+		$("#find2",container).hide();
+		$("#clear2",container).hide();
+		
 		//客户类型
 		$("#customerType",container).on('change',function(){
 			var flag = $(this).val();
@@ -189,8 +184,8 @@
 				$("#customerCode222",container).show();//显示
 				$("#customerName333",container).hide();//隐藏
 				$("#customerCode444",container).show();
-				$("#find",container).removeAttr("disabled");
-				$("#clear",container).removeAttr("disabled");
+				$("#find2",container).show();
+				$("#clear2",container).show();
 			}else{//员工
 				$("#customerCode222",container).hide();
 				$("#customerName333",container).show();
@@ -198,12 +193,12 @@
 			}
 		});
 		
+		
 		$("#customerName333",container).hide();
 		$("#add", container).setElementReadOnly();
 		$("#customerType", container).setElementReadOnly();
-		
 		$("#createDate", container).setElementReadOnly();
-		$("#lendDate", container).setElementReadOnly();
+	
 		$("#outter", container).setElementReadOnly();
 		$("#cancel", container).setElementReadOnly();
 		
@@ -252,7 +247,6 @@
 	                    		   $(obje).data("pageData",row);
 						   }},
 						]}, 
-						{field : "update_status",title : "",inputHiddenFormat:{}},
 						{field : "IS_FINISHED",title : "是否入账",codeFormat : {type : "dict",codeType : "1278"},visible:false},
 			            {field : "STORAGE_CODE",title : "仓库",inputHiddenFormat:{}},
 			            {field : "STORAGE_POSITION_CODE",title:"库位",inputHiddenFormat:{}},
@@ -265,7 +259,10 @@
 						{field : "OUT_PRICE",title : "出库单价",numberFormat : {decimal:2},inputHiddenFormat:{}},
 						{field : "OUT_AMOUNT",title : "出库金额",numberFormat : {decimal:2},inputHiddenFormat:{hiddenField:"OUT_AMOUNT"}},
 						{field : "PRICE_RATE",title : "价格系数",inputHiddenFormat:{},visible:false},
-						{field : "SALES_BASE_PRICE_TYPE",title : "价格类型",inputHiddenFormat:{},visible:false},
+						{field : "STOCK_QUANTITY",title : "库存数量",inputHiddenFormat:{}},
+						{field : "BORROW_QUANTITY",title : "借进数量",inputHiddenFormat:{}},
+						{field : "LEND_QUANTITY",title : "借出数量",inputHiddenFormat:{}}
+						
 				]
 		});
 		
@@ -315,9 +312,7 @@
 				}
 			}else{
 				if($(this).attr('disabled')!='disabled'){
-					debugger
 					var selectRow = $("#dms_checkout",container).dmsTable().getSelections();
-					console.log(JSON.stringify(selectRow));
 					if(selectRow!=null){
 						var checkFinish = false;//判断是否入账
 						var storageCode = "";//用来选择出库的仓库代码
@@ -339,10 +334,26 @@
 							dmsCommon.tip({status:"warning",msg:"已经入账的配件不能再次出库！"});
 							returnResult.status=false;
 						}else{
-							//请求,查询是否为负库存
-							$("#outter",container).attr("data-url","/part/lendOrderChoose/"+partNo2+"/"+storageCode+"/"+outQuantity)
-							$(this).attr("data-method","POST");
-							returnResult.status=true;
+							debugger
+							//查询是否为负库存
+							dmsCommon.ajaxRestRequest({
+								url:dmsCommon.getDmsPath()["part"] +"/part/lendOrderChoose/asd/"+partNo2+"/"+storageCode+"/"+outQuantity,
+								type:"GET",
+								async : false,
+								sucessCallBack : function(data) {
+									console.log(JSON.stringify(data));
+										if(data==0){
+											dmsCommon.tip({status:"warning",msg:"该配件在配件仓库中负库存或者零库存,无法出库"});
+											returnResult.status=false;
+										}else{
+											debugger
+											//把查询是否负库存（data）带回来的值穿到下一个页面
+											$("a[data-url='part/stockmanage/loancheckout/account.html']",container).data("pageData",{PART_NO:data.PART_NO,STORAGE_CODE:data.STORAGE_CODE,LEND_NO:data.LEND_NO});
+											$("a[data-url='part/stockmanage/loancheckout/account.html']",container).click();
+										}
+								}
+							});
+							//returnResult.status=true;
 						}
 					}else{
 					    dmsCommon.tip({status:"warning",msg:"请选择需要出库的列！"});
@@ -375,16 +386,6 @@
 			}
 			$("#dms_checkout",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["part"] + "/part/lendOrderChoose/"+$('#lendNo',container).val());
  			$("#dms_checkout", getElementContext()).dmsTable().refreshTableWithForm();
-			if($(this).attr('id')=='outter'){
-				console.log(JSON.stringify(response));
-				if(response==0){
-					dmsCommon.tip({status:"warning",msg:"该配件在配件仓库中或者零库存,无法出库！"});
-				}else{
-					//把查询是否负库存（response）带回来的值穿到下一个页面
-					$(container).data("pageData",{PART_NO:response.PART_NO,STORAGE_CODE:response.STORAGE_CODE,LEND_NO:response.LEND_NO});
-					dmsCommon.refreshPageByUrl("part/stockmanage/loancheckout/account.html",container);
-				}
-			}
 		});
 		
 		
@@ -419,7 +420,7 @@
 		});
 		
 	});
-Date.prototype.Format = function (fmt) { //author: wx
+/* Date.prototype.Format = function (fmt) { //author: wx
 	    var o = {
 	        "M+": this.getMonth() + 1, //月份 
 	        "d+": this.getDate(), //日 
@@ -433,5 +434,5 @@ Date.prototype.Format = function (fmt) { //author: wx
 	    for (var k in o)
 	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
 	    return fmt;
-	}
+	} */
 </script>

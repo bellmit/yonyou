@@ -25,6 +25,7 @@
 
 package com.yonyou.dms.customer.controller.customerManage;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +34,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.javalite.activejdbc.Base;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -67,6 +69,7 @@ import com.yonyou.dms.framework.util.FrameworkUtil;
 import com.yonyou.dms.function.common.CommonConstants;
 import com.yonyou.dms.function.domains.DTO.ImportResultDto;
 import com.yonyou.dms.function.exception.ServiceBizException;
+import com.yonyou.f4.common.database.DBService;
 import com.yonyou.f4.mvc.annotation.TxnConn;
 import com.yonyou.f4.mvc.controller.BaseController;
 
@@ -87,6 +90,8 @@ public class PotentialCusContoller extends BaseController {
     private ExcelGenerator      excelService;
     @Autowired
     private ExcelRead<PotentialCustomerImportDTO> excelReadService;
+    @Autowired
+    DBService                   dbService;
 
     
     
@@ -103,14 +108,23 @@ public class PotentialCusContoller extends BaseController {
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public PageInfoDto queryPotentialCusInfo(@RequestParam Map<String, String> queryParam,HttpServletRequest request) {
-        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        
-        System.out.println(httpServletRequest.getRequestURL());
-        System.out.println(request.getQueryString());
-        System.out.println(request.getSession());
-        PageInfoDto pageInfoDto = potentialcusservice.queryPotentialCusInfo(queryParam);
-        return pageInfoDto;
+        try {
+            HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            System.out.println(httpServletRequest.getRequestURL());
+            System.out.println(request.getQueryString());
+            System.out.println(request.getSession());
+            PageInfoDto pageInfoDto = potentialcusservice.queryPotentialCusInfo(queryParam);
+            return pageInfoDto;
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return null;
+        }
+       
+       
+   
+       
     }
 
     /**

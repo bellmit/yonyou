@@ -5,7 +5,7 @@
 				<div class="row ">
 				
 				
-				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 ">
 							<div class="form-group">
 								<label class="control-label col-xs-4">大区</label>
 								<div class="col-xs-8">
@@ -19,7 +19,7 @@
 								</div>
 							</div>
 					</div>
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 ">
 							<div class="form-group">
 								<label class="control-label col-xs-4">小区</label>
 								<div class="col-xs-8">
@@ -34,7 +34,7 @@
 							</div>
 						</div>
 				
-					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
 						<div class="form-group">
 							<label class="control-label col-xs-4 ">召回编号</label>
 							<div class="col-xs-8">
@@ -52,7 +52,7 @@
 					
 					
 					
-					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
 						<div class="form-group">
 							<label class="control-label col-xs-4 ">召回名称</label>
 							<div class="col-xs-8">
@@ -68,7 +68,7 @@
 						</div>
 					</div>
 					
-					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
 						<div class="form-group">
 							<label class="control-label col-xs-4 ">VIN</label>
 							<div class="col-xs-8">
@@ -84,7 +84,7 @@
 						</div>
 					</div>
 
-				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" data-tableSelect="true">
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" data-tableSelect="true">
 						<div class="form-group">
 								<label class="control-label col-xs-4">经销商代码</label>
 								<div class="col-xs-8">
@@ -110,7 +110,7 @@
 
 
 									
-					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
 						<div class="form-group">
 							<label class="control-label col-xs-4">完成状态</label>
 							<div class="col-xs-8">
@@ -120,11 +120,11 @@
 						</div>
 					</div>						
 
-					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-4">
 						<div class="form-group">
-							<label class="control-label col-xs-4 col-sm-2">预计召回时间</label>
-							<div class="col-xs-8 col-sm-10">
-								 <div class="input-group input-daterange"  data-opens="right">
+							<label class="control-label col-xs-4 col-sm-4">预计召回时间</label>
+							<div class="col-xs-8 col-sm-8">
+								 <div class="input-group input-daterange"  data-opens="left">
 		                             <input type="text" class="form-control" readonly  id="beginDate" name="beginDate">
 		                             <span class="input-group-addon">至</span>
 		                             <input type="text" class="form-control" readonly id="endDate" name="endDate">
@@ -140,11 +140,11 @@
 				<!-- 隐藏域 -->
 				<input id="idStr" name="idStr" type="hidden">
 				
-					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-4">
 						<div class="form-group">
-							<label class="control-label col-xs-4 col-sm-2">结算时间</label>
-							<div class="col-xs-8 col-sm-10">
-								 <div class="input-group input-daterange"  data-opens="right">
+							<label class="control-label col-xs-4 col-sm-4">结算时间</label>
+							<div class="col-xs-8 col-sm-8">
+								 <div class="input-group input-daterange"  data-opens="left">
 		                             <input type="text" class="form-control" readonly id="beginTime" name="beginTime">
 		                             <span class="input-group-addon">至</span>
 		                             <input type="text" class="form-control" readonly id="endTime" name="endTime">
@@ -186,7 +186,7 @@
 							</a> 
 							
 							<a id="update" class="btn btn-outline" data-url="vehicle/activityRecallManage/recallVehicleManagerUpdateDealers.html" data-width="modal-lg" 
-								data-onclickEvent="true" data-toggle="modal"> <i class="fa fa-print"></i> 批量修改
+								data-beforeShowEvent="true" data-toggle="modal"> <i class="fa fa-print"></i> 批量修改
 							</a> 
 							<a href="javascript:;" data-url="/recallVehicleManage/recallVehicleDownload" data-model="vehicle" data-method="downLoad" data-toggle="confirmation"
 								class="btn btn-outline " ><i class="fa fa-download"></i>下载</a>
@@ -263,13 +263,16 @@
 		});
     	      	
     	//事件点击
-		$("#update[data-onclickEvent='true']",container).on("dms.click",function(event){
+		
+		$("#update[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult){
 // 			console.log("into callBack");
 			var selectRow = $("#orderList",container).dmsTable().getSelections();
 			debugger;
 			if(!selectRow){
 				dmsCommon.tip({status:"warning",msg:"请选择表格记录"});//总共的状态类型：info、success、error、warning				
 				$("#idStr",getElementContext()).setDmsValue("");
+				returnResult.status = false;
+				return ;
 			}
 			if(selectRow.length > 0){
 				var idStr = "";
@@ -286,7 +289,7 @@
 				$("#idStr",getElementContext()).setDmsValue(idStr);
 				//alert(idStr);
 			}
-			
+			returnResult.status = true;
 
 		});
     	

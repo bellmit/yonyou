@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.infoservice.dms.cgcsl.SADCS025VO;
+import com.infoservice.dms.cgcsl.vo.SADCS025VO;
 import com.infoservice.dms.cgcsl.vo.SADMS054VO;
 import com.yonyou.dcs.de.impl.BaseImpl;
 import com.yonyou.dcs.gacfca.SADCS025Cloud;

@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yonyou.dms.common.domains.PO.basedata.TmDealerPO;
 import com.yonyou.dms.framework.DAO.OemDAOUtil;
 import com.yonyou.dms.framework.domain.LoginInfoDto;
 import com.yonyou.dms.framework.util.bean.ApplicationContextHelper;
@@ -169,8 +170,8 @@ public class MonthPlanImportMaintainServiceImpl implements MonthPlanImportMainta
 				for (int i = 0; i < po1list.size(); i++) {
 					TtVsMonthlyPlanDetailPO.delete(" PLAN_ID = ?", po1list.get(i).get("PLAN_ID"));
 				}
-				
-				TtVsMonthlyPlanPO.delete(" PLAN_YEAR = ? AND PLAN_MONTH = ? AND PLAN_TYPE = ? AND PLAN_VER = ?  AND BUSINESS_TYPE = ?  AND TASK_ID = ?", rowDto.getPlanYear(), rowDto.getPlanMonth(), rowDto.getPlanType(),1,90081002,null);
+				TmDealerPO dealer = TmDealerPO.findFirst("DEALER_CODE = ?", rowDto.getDealerCode());
+				TtVsMonthlyPlanPO.delete(" PLAN_YEAR = ? AND PLAN_MONTH = ? AND PLAN_TYPE = ? AND PLAN_VER = ?  AND BUSINESS_TYPE = ? AND DEALER_ID = ?  AND TASK_ID is ?", rowDto.getPlanYear(), rowDto.getPlanMonth(), rowDto.getPlanType(),1,OemDictCodeConstants.GROUP_TYPE_IMPORT,dealer.getLong("DEALER_ID"),null);
 				
 				/*
 				 * 写入新数据
@@ -189,6 +190,7 @@ public class MonthPlanImportMaintainServiceImpl implements MonthPlanImportMainta
 					planPO.set("PLAN_VER", 1);
 					planPO.setTimestamp("CREATE_DATE", new Date(System.currentTimeMillis()));
 					planPO.set("CREATE_BY", loginInfo.getUserId());
+					planPO.set("BUSINESS_TYPE",OemDictCodeConstants.GROUP_TYPE_IMPORT);
 					planPO.saveIt();
 					Long planId = planPO.getLong("id");
 					

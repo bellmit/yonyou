@@ -11,10 +11,7 @@ import javax.sql.rowset.serial.SerialException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
-import com.yonyou.dms.common.domains.DTO.stockmanage.TmPartStockDTO;
 import com.yonyou.dms.common.domains.DTO.stockmanage.TmPartStockItemDTO;
-import com.yonyou.dms.common.domains.DTO.stockmanage.TtPartFlowDTO;
 import com.yonyou.dms.common.domains.DTO.stockmanage.TtpartLendDTO;
 import com.yonyou.dms.common.domains.PO.basedata.TmPartInfoPO;
 import com.yonyou.dms.common.domains.PO.basedata.TmPartStockItemPO;
@@ -54,9 +51,8 @@ public class CheckOutServiceImpl implements CheckOutService {
 				+ " A.OUT_AMOUNT,A.HANDLER,A.LEND_DATE,A.IS_FINISHED,A.FINISHED_DATE,A.PAY_OFF,A.BORROWER_TAG,"
 				+ " A.LOCK_USER ,A.SHEET_CREATE_DATE,pli.ITEM_ID from TT_PART_LEND A "
 				+ " LEFT JOIN TT_PART_LEND_ITEM pli ON pli.DEALER_CODE=A.DEALER_CODE AND pli.LEND_NO = A.LEND_NO "
-				+ "WHERE A.DEALER_CODE='" + dealerCode
-				+ "' and A.D_KEY=" + CommonConstants.D_KEY + " and  IS_FINISHED=" + DictCodeConstants.DICT_IS_NO
-				+ Utility.getLikeCond("A", "LEND_NO", queryParam.get("lendNo"), "AND"));
+				+ "WHERE A.DEALER_CODE='" + dealerCode + "' and A.D_KEY=" + CommonConstants.D_KEY + " and  IS_FINISHED="
+				+ DictCodeConstants.DICT_IS_NO + Utility.getLikeCond("A", "LEND_NO", queryParam.get("lendNo"), "AND"));
 		PageInfoDto pageInfoDto = DAOUtil.pageQuery(sb.toString(), null);
 		return pageInfoDto;
 
@@ -89,6 +85,7 @@ public class CheckOutServiceImpl implements CheckOutService {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public List<Map> lendDetail2(String id) {
 		String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
@@ -129,8 +126,7 @@ public class CheckOutServiceImpl implements CheckOutService {
 						+ " ) AS USEABLE_QUANTITY, "
 						+ " CASE WHEN (SELECT 1 FROM TM_MAINTAIN_PART CC WHERE  CC.PART_NO = B.PART_NO "// 增加是否保养
 						+ " AND CC.DEALER_CODE = B.DEALER_CODE ) >0 THEN " + DictCodeConstants.DICT_IS_YES + " ELSE "
-						+ DictCodeConstants.DICT_IS_NO + " END  AS IS_MAINTAIN "
-
+						+ DictCodeConstants.DICT_IS_NO + " END  AS IS_MAINTAIN,TS.STORAGE_NAME "
 						+ " from TM_PART_STOCK_ITEM  A  LEFT OUTER JOIN (" + CommonConstants.VM_PART_INFO
 						+ ") B ON (A.DEALER_CODE = B.DEALER_CODE AND A.PART_NO = B.PART_NO ) "
 						+ " LEFT OUTER JOIN TM_PART_STOCK C ON (A.DEALER_CODE = C.DEALER_CODE AND A.PART_NO = C.PART_NO AND A.STORAGE_CODE=C.STORAGE_CODE) "
@@ -163,7 +159,7 @@ public class CheckOutServiceImpl implements CheckOutService {
 	 * @param queryList
 	 */
 	private void setWhere(StringBuffer sql, Map<String, String> queryParam, List<Object> queryList) {
-		
+
 		if (!StringUtils.isNullOrEmpty(queryParam.get("stockName"))) {
 			sql.append(" AND A.STORAGE_CODE like ? ");
 			queryList.add("%" + queryParam.get("stockName") + "%");
@@ -186,34 +182,32 @@ public class CheckOutServiceImpl implements CheckOutService {
 			sql.append(" and  1 = 1 ");
 		}
 		sql.append(Utility.getLikeCond("A", "STORAGE_POSITION_CODE", queryParam.get("storagePositionCode"), "AND"));
-		
+
 		if (!StringUtils.isNullOrEmpty(queryParam.get("partModelGroupCodeSet"))) {
 			sql.append(" AND C.PART_MODEL_GROUP_CODE_SET like ? ");
 			queryList.add("%" + queryParam.get("partModelGroupCodeSet") + "%");
 		} else {
 			sql.append(" and  1=1 ");
 		}
-		
+
 		if (!StringUtils.isNullOrEmpty(queryParam.get("remark"))) {
 			sql.append(" AND A.REMARK like ? ");
 			queryList.add("%" + queryParam.get("remark") + "%");
 		} else {
 			sql.append(" and  1=1 ");
 		}
-		
+
 		if (!StringUtils.isNullOrEmpty(queryParam.get("isCheck"))) {
 			sql.append(" AND  A.STOCK_QUANTITY > 0 ");
 		} else {
 			sql.append(" and  1=1 ");
 		}
-		
+
 		if (!StringUtils.isNullOrEmpty(queryParam.get("isSalePriceBigger"))) {
 			sql.append(" and  A.SALES_PRICE > 0 ");
 		} else {
 			sql.append(" and  1=1 ");
 		}
-		
-
 
 	}
 
@@ -296,18 +290,19 @@ public class CheckOutServiceImpl implements CheckOutService {
 			// 新增子表
 			addPartProfitItem(ttpartLendDTO);
 		} else {
-			// 修改子表记录     ]
-			for (Map map: ttpartLendDTO.getDms_checkout()) {
-				List<TtPartLendItemPO> list = TtPartLendItemPO.findBySQL(
-						" SELECT * FROM TT_PART_LEND_ITEM WHERE ITEM_ID = ?",map.get("ITEM_ID"));
-				
+			// 修改子表记录 ]
+			for (Map map : ttpartLendDTO.getDms_checkout()) {
+				List<TtPartLendItemPO> list = TtPartLendItemPO
+						.findBySQL(" SELECT * FROM TT_PART_LEND_ITEM WHERE ITEM_ID = ?", map.get("ITEM_ID"));
+
 				if (!StringUtils.isNullOrEmpty(list) && (list.size() > 0)) {
-					
+
 					TtPartLendItemPO ttPartLendItemPO = list.get(0);
 					ttPartLendItemPO.setString("PART_NAME", map.get("PART_NAME"));
 					ttPartLendItemPO.setDouble("OUT_PRICE", map.get("OUT_PRICE"));
 					ttPartLendItemPO.setInteger("OUT_QUANTITY", map.get("OUT_QUANTITY"));
-//					ttPartLendItemPO.setString("LOCK_USER", FrameworkUtil.getLoginInfo().getUserId().toString());
+					// ttPartLendItemPO.setString("LOCK_USER",
+					// FrameworkUtil.getLoginInfo().getUserId().toString());
 					ttPartLendItemPO.saveIt();
 				}
 			}
@@ -328,11 +323,11 @@ public class CheckOutServiceImpl implements CheckOutService {
 	 */
 	@SuppressWarnings("rawtypes")
 	private void addPartProfitItem(TtpartLendDTO ttpartLendDTO) {
-		String dealerCode=FrameworkUtil.getLoginInfo().getDealerCode();
+		String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
 		for (Map map : ttpartLendDTO.getDms_checkout()) {
 
 			TtPartLendItemPO ttPartLendItemPO = new TtPartLendItemPO();
-			
+
 			ttPartLendItemPO.setString("LEND_NO", ttpartLendDTO.getLendNo());
 
 			if (!StringUtils.isNullOrEmpty(map.get("STORAGE_CODE"))) {// 仓库代码
@@ -342,8 +337,8 @@ public class CheckOutServiceImpl implements CheckOutService {
 				ttPartLendItemPO.setString("STORAGE_POSITION_CODE", map.get("STORAGE_POSITION_CODE").toString());
 			}
 			// 进货批号
-				ttPartLendItemPO.setString("PART_BATCH_NO",  CommonConstants.defaultBatchName);
-			
+			ttPartLendItemPO.setString("PART_BATCH_NO", CommonConstants.defaultBatchName);
+
 			if (!StringUtils.isNullOrEmpty(map.get("PART_NO"))) {// 配件代码
 				ttPartLendItemPO.setString("PART_NO", map.get("PART_NO").toString());
 			}
@@ -367,8 +362,7 @@ public class CheckOutServiceImpl implements CheckOutService {
 			}
 
 			// 查询成本金额,成本单价
-			TtPartLendPO ttPartLendPO = TtPartLendPO.findByCompositeKeys(dealerCode,
-					ttpartLendDTO.getLendNo());
+			TtPartLendPO ttPartLendPO = TtPartLendPO.findByCompositeKeys(dealerCode, ttpartLendDTO.getLendNo());
 			if (!StringUtils.isNullOrEmpty(ttPartLendPO)) {
 				if (!StringUtils.isNullOrEmpty(ttPartLendPO.getDouble("OUT_AMOUNT"))) {// 出库金额
 					ttPartLendItemPO.setString("OUT_AMOUNT", ttPartLendPO.getDouble("OUT_AMOUNT"));
@@ -388,18 +382,22 @@ public class CheckOutServiceImpl implements CheckOutService {
 	 * 
 	 * @param ttpartLendDTO
 	 */
+	@SuppressWarnings("rawtypes")
 	private void delPartLendItem(String id) {
-		
-		String dealerCode=FrameworkUtil.getLoginInfo().getDealerCode();
-		List list=TtPartLendItemPO.findBySQL(" SELECT * FROM TT_PART_LEND_ITEM WHERE LEND_NO =? ",id );
-		//删除子表
-		if (list!=null&&list.size()>0) {
-			TtPartLendItemPO.delete("DEALER_CODE=? AND D_KEY=? AND LEND_NO=?",dealerCode,CommonConstants.D_KEY,id);
+
+		String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
+		List list = TtPartLendItemPO.findBySQL(" SELECT * FROM TT_PART_LEND_ITEM WHERE LEND_NO =? ", id);
+		// 删除子表
+		if (list != null && list.size() > 0) {
+			TtPartLendItemPO.delete("DEALER_CODE=? AND D_KEY=? AND LEND_NO=?", dealerCode, CommonConstants.D_KEY, id);
 		}
-		/*List list2=TtPartLendPO.findBySQL("  SELECT * FROM TT_PART_LEND WHERE LEND_NO =?  ", id);
-		if (list2!=null&&list2.size()>0) {
-			TtPartLendPO.delete("DEALER_CODE=? AND D_KEY=? AND LEND_NO=?",dealerCode,CommonConstants.D_KEY,id);
-		}*/
+		/*
+		 * List list2=TtPartLendPO.
+		 * findBySQL("  SELECT * FROM TT_PART_LEND WHERE LEND_NO =?  ", id); if
+		 * (list2!=null&&list2.size()>0) {
+		 * TtPartLendPO.delete("DEALER_CODE=? AND D_KEY=? AND LEND_NO=?"
+		 * ,dealerCode,CommonConstants.D_KEY,id); }
+		 */
 	}
 
 	/**
@@ -422,73 +420,51 @@ public class CheckOutServiceImpl implements CheckOutService {
 	/**
 	 * 出库操作校验库存是否为负库存
 	 */
-	@SuppressWarnings({ "rawtypes", "static-access", "unused" })
+	@SuppressWarnings({ "rawtypes", "unused" })
 	@Override
-	public List<Map> btnOutter2(List<Map> list, String split, String split2, String split3, Float tag,
+	public List<Map> btnOutter2(List<Map> list, String split, String split2, String split3,
 			TmPartStockItemDTO tmPartStockItemDTO) throws Exception {
 		String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
 		int partQuantity = split3.length();
-		List rslistAll = new ArrayList<>();
 		if (!StringUtils.isNullOrEmpty(split)) {
 			for (int i = 0; i < split.length(); i++) {
-				TmPartStockPO tmPartStockPO = new TmPartStockPO();
-				tmPartStockPO.set("DEALER_CODE", FrameworkUtil.getLoginInfo().getDealerCode());
-				tmPartStockPO.set("PART_NO", tmPartStockItemDTO.getPartNo2());
-				tmPartStockPO.set("STORAGE_CODE", tmPartStockItemDTO.getStorageCode());
-				tmPartStockPO.set("D_KEY", CommonConstants.D_KEY);
-				List partlist = new ArrayList();
-				partlist = tmPartStockPO.findBySQL(
+				List partlist = TmPartStockPO.findBySQL(
 						"SELECT * FROM TM_PART_STOCK WHERE DEALER_CODE = ? AND PART_NO = ? AND STORAGE_CODE = ?  AND D_KEY = ? ",
 						dealerCode, split, split2, CommonConstants.D_KEY);
 				if (partlist.size() == 0 || partlist == null) {
 					throw new SerialException("配件库存中没有该配件信息 (配件代码为:" + split + "仓库代码为:" + split2);
 				}
-				if (tag != null) {
-					rslistAll = queryStockItem(-Utility.getFloat(split3), dealerCode, split, split2);
-				} else {
-					rslistAll = queryStockItem(Utility.getFloat(split3), dealerCode, split, split2);
-				}
+				list = queryStockItem(Utility.getFloat(split3), dealerCode, split, split2);
 				break;
 			}
 		}
-		return rslistAll;
+		return list;
 	}
 
-	@SuppressWarnings("static-access")
+	@SuppressWarnings({ "rawtypes" })
 	@Override
-	public List<Map> btnOutter(List<Map> list, String partNo2s, String storageCodes, String outQuantitys, Float tag,
+	public List<Map> btnOutter(List<Map> list, String partNo2s, String storageCodes, String outQuantitys,
 			TmPartStockItemDTO tmPartStockItemDTO) throws Exception {
 		String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
 		String[] partQuantity = outQuantitys.split(",");
-		List rslistAll = new ArrayList<>();
 		if (!StringUtils.isNullOrEmpty(partNo2s)) {
-			for (int i = 0; i < partNo2s.length(); i++) {
-				TmPartStockPO tmPartStockPO = new TmPartStockPO();
-				tmPartStockPO.set("DEALER_CODE", FrameworkUtil.getLoginInfo().getDealerCode());
-				tmPartStockPO.set("PART_NO", tmPartStockItemDTO.getPartNo2());
-				tmPartStockPO.set("STORAGE_CODE", tmPartStockItemDTO.getStorageCode());
-				tmPartStockPO.set("D_KEY", CommonConstants.D_KEY);
-				List partlist = new ArrayList();
-				partlist = tmPartStockPO.findBySQL(
+			for (int i = 0; i < partNo2s.length();) {
+				List partlist = TmPartStockPO.findBySQL(
 						"SELECT * FROM TM_PART_STOCK WHERE DEALER_CODE = ? AND PART_NO = ? AND STORAGE_CODE = ? AND D_KEY = ? ",
 						dealerCode, tmPartStockItemDTO.getPartNo2(), tmPartStockItemDTO.getStorageCode(),
 						CommonConstants.D_KEY);
 				if (partlist.size() == 0 || partlist == null) {
 					throw new SerialException("配件库存中没有该配件信息 (配件代码为:" + partNo2s + "仓库代码为:" + storageCodes);
 				}
-				if (tag != null) {
-					rslistAll = queryStockItem(-Utility.getFloat(partQuantity[i]), dealerCode, partNo2s, storageCodes);
-				} else {
-					rslistAll = queryStockItem(Utility.getFloat(partQuantity[i]), dealerCode, partNo2s, storageCodes);
-				}
+				list = queryStockItem(Utility.getFloat(partQuantity[i]), dealerCode, partNo2s, storageCodes);
 				break;
 			}
 		}
-		return rslistAll;
+		return list;
 	}
 
 	/**
-	 * 查询配件库存批次信息
+	 * 查询是否负库存
 	 * 
 	 * @return
 	 */
@@ -520,12 +496,11 @@ public class CheckOutServiceImpl implements CheckOutService {
 			sql.append(" and 1 = 1 ");
 		}
 		queryList = DAOUtil.findAll(sql.toString(), null);
-		System.err.println(sql + "*******************");
 		return queryList;
 	}
 
 	/**
-	 * 查询配件库存批次信息
+	 * 查询是否负库存
 	 * 
 	 * @param partQuantity
 	 * @param dealerCode
@@ -533,6 +508,7 @@ public class CheckOutServiceImpl implements CheckOutService {
 	 * @param storageCode
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	public List queryStockItem(Float partQuantity, String dealerCode, String[] partNo2, String[] storageCode) {
 		StringBuffer sql = new StringBuffer("");
 		List<Object> queryList = new ArrayList<Object>();
@@ -563,41 +539,6 @@ public class CheckOutServiceImpl implements CheckOutService {
 	}
 
 	/**
-	 * 是否入账
-	 */
-	@Override
-	public PageInfoDto findAccount(Map<String, String> queryParam) throws SerialException {
-		StringBuffer sql = new StringBuffer("");
-		String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
-		String[] partQuantity = {};
-		sql.append(" select " + partQuantity
-				+ " as PART_QUANTITY,pt.DEALER_CODE,pt.PART_NO, pt.STORAGE_CODE, pt.STORAGE_POSITION_CODE, pt.PART_NAME, "
-				+ " pt.SPELL_CODE, pt.PART_GROUP_CODE, pt.UNIT_CODE, pt.STOCK_QUANTITY, pt.SALES_PRICE,pt.STOCK_QUANTITY AS STOCK_QUANTITY_STOCK,pt.COST_PRICE,pt.COST_AMOUNT, "
-				+ " pt.CLAIM_PRICE, pt.LIMIT_PRICE, pt.LATEST_PRICE, pt.COST_PRICE, pt.COST_AMOUNT, pt.MAX_STOCK, "
-				+ " pt.MIN_STOCK, pt.BORROW_QUANTITY, pt.LEND_QUANTITY, pt.LOCKED_QUANTITY, pt.PART_STATUS, "
-				+ " pt.LAST_STOCK_IN, pt.LAST_STOCK_OUT, pt.FOUND_DATE, pt.REMARK, pt.D_KEY, pt.CREATED_BY,(pt.STOCK_QUANTITY+pt.BORROW_QUANTITY-pt.LEND_QUANTITY) AS USEABLE_STOCK, "
-				+ " ( CASE WHEN (pt.STOCK_QUANTITY+pt.BORROW_QUANTITY-pt.LEND_QUANTITY-(" + partQuantity
-				+ ")-pt.LOCKED_QUANTITY)<-0.00000001 THEN 12781001 ELSE 12781002 END )   AS ISNEGATIVE, "
-				+ " (CASE WHEN ( (pt.STOCK_QUANTITY*pt.COST_PRICE<>pt.COST_AMOUNT AND (pt.STOCK_QUANTITY=0 OR pt.COST_AMOUNT=0)) OR pt.COST_PRICE=0)  THEN 12781001 ELSE 12781002 END)  AS ISNORMAL "
-				+ " from  TM_PART_STOCK pt" + " LEFT JOIN TM_PART_LEND pl WHERE pl.DEALER_CODE=pt.DEALER_CODE "
-				+ " WHERE pt.DEALER_CODE = '" + dealerCode + "' " + " AND pt.D_KEY =  " + CommonConstants.D_KEY);
-		sql.append(" AND ( ( (pt.STOCK_QUANTITY+pt.BORROW_QUANTITY-pt.LEND_QUANTITY-(" + partQuantity
-				+ ")-pt.LOCKED_QUANTITY<-0.00000001) OR ( (pt.STOCK_QUANTITY*pt.COST_PRICE<>pt.COST_AMOUNT) AND (pt.STOCK_QUANTITY=0 OR pt.COST_AMOUNT=0 ) )) OR pt.COST_PRICE=0 ) ");
-		if (!StringUtils.isNullOrEmpty(queryParam.get("storageCode"))) {
-			sql.append(" and pt.STORAGE_CODE = '" + queryParam.get("storageCode") + "' ");
-		} else {
-			sql.append(" and  1 = 1 ");
-		}
-		if (!StringUtils.isNullOrEmpty(queryParam.get("partNo2"))) {
-			sql.append(" and pt.PART_NO =  '" + queryParam.get("partNo2") + "'  ");
-		} else {
-			sql.append(" and 1 = 1 ");
-		}
-		PageInfoDto pageInfoDto = DAOUtil.pageQuery(sql.toString(), null);
-		return pageInfoDto;
-	}
-
-	/**
 	 * 查询出库
 	 * 
 	 * @throws Exception
@@ -614,201 +555,205 @@ public class CheckOutServiceImpl implements CheckOutService {
 		double costAmountAfterA = 0; // 批次表入账后成本
 		double costAmountAfterB = 0; // 库存表入账后成本
 		// 1.查询本月的报表是否完成
-		// if (isFinishedThisMonth().size() > 0) {
-		// 2.查询当前时间的会计周期是否做过月结
-		// if (getIsFinished().size() > 0) {
-
-		TmPartInfoPO tmPartInfoPO = new TmPartInfoPO();
-		// List listCheck = getNonOemPartListOut("TT_PART_LEND_ITEM", "LEND_NO",
-		// lendNo);
-		// String errPart = "";
-		// if (listCheck != null && listCheck.size() > 0) {
-		// for (int i = 0; i < listCheck.size(); i++) {
-		// TtPartLendItemPO ttPartLendItemPO = (TtPartLendItemPO)
-		// listCheck.get(i);
-		// if (errPart.equals("")) {
-		// errPart = ttPartLendItemPO.getString("PART_NO");
-		// } else {
-		// errPart = errPart + ", " + ttPartLendItemPO.getString("PART_NO");
-		// }
-		// }
-		// } else {
-		// throw new SerialException(errPart + " 非OEM配件不允许出OEM库,请重新操作!");
-		// }
-
-		/**
-		 * 相同账号分别调出同一张未入账的调拨入库单，点入账造成流水账中该入库单，有2条重复的流水账记录, 判断该入库单是否已经入账
-		 * flag==12781002没有入账；反之已经入账
-		 */
-		String sheetNoType = "LEND_NO";
-		String sheetType = "TT_PART_LEND";
-		// String flag = checkIsFinished(dealerCode, lendNo, sheetType,
-		// sheetNoType);
-		// if (flag.equals(DictCodeConstants.DICT_IS_YES)) {
-		// throw new SerialException("入库单号:" + lendNo + "已经入账，不能重复入账！");
-		// }
-		// VER校验
-		String verNow = "";
-		List listi = TtPartLendPO.findBySQL(
-				" SELECT * FROM TT_PART_LEND WHERE DEALER_CODE = ?  AND LEND_NO = ? ", dealerCode,lendDetail2.get(0).get("LEND_NO"));
-		if (listi != null && listi.size() > 0) {
-			TtPartLendPO ttPartLendPO2 = (TtPartLendPO) listi.get(0);
-			verNow = ttPartLendPO2.getString("VER");
-		}
-		// if (!(ver.trim().equals(verNow.trim()))) {
-		// // 校验未通过
-		// throw new SerialException("单据状态已改变，请重新选择");
-		// }
-		// 借出单号不为空，根据借出单号查询借出单明细
-		// 1、修改借出登记单 是否入帐字段为 是
-		TtPartLendPO.update("IS_FINISHED=?", "IS_FINISHED=?", new Date(System.currentTimeMillis()), userId);
-		if (!StringUtils.isNullOrEmpty(lendDetail2.get(0).get("LEND_NO"))) {
-			List list = TtPartLendItemPO.findBySQL(
-					"  SELECT * FROM TT_PART_LEND_ITEM WHERE DEALER_CODE = ? AND D_KEY = ? AND LEND_NO = ? ",
-					dealerCode, CommonConstants.D_KEY, lendDetail2.get(0).get("LEND_NO"));
-			if (list.size() > 0 && list != null) {
-				int count = list.size();
-				List listitemnow = new ArrayList<>();
-				for (int i = 0; i < count; i++) {
-					costAmountBeforeA = 0; // 批次表入账前成本
-					costAmountBeforeB = 0; // 库存表入账前成本
-					costAmountAfterA = 0; // 批次表入账后成本
-					costAmountAfterB = 0; // 库存表入账后成本
-
-					listitemnow = TmPartStockItemPO.findBySQL(
-							"  SELECT * FROM TM_PART_STOCK_ITEM WHERE DEALER_CODE = ? AND D_KEY = ? AND PART_NO = ? AND STORAGE_CODE = ? ",
-							dealerCode, CommonConstants.D_KEY, lendDetail2.get(0).get("PART_NO"),
-							lendDetail2.get(0).get("STORAGE_CODE"));
-					TmPartStockItemPO tmPartStockItemPO = (TmPartStockItemPO) listitemnow.get(i);
-					if (listitemnow != null && listitemnow.size() > 0) {
-						if (tmPartStockItemPO.getDouble("COST_AMOUNT") != 0
-								&& (tmPartStockItemPO.getDouble("COST_AMOUNT") > 0)) {
-							costAmountBeforeA = tmPartStockItemPO.getDouble("COST_AMOUNT");// 批次表入帐前成本金额
+		if (isFinishedThisMonth().size() > 0) {
+			// 2.查询当前时间的会计周期是否做过月结
+			if (getIsFinished().size() > 0) {
+				TmPartInfoPO tmPartInfoPO = new TmPartInfoPO();
+				List listCheck = getNonOemPartListOut("TT_PART_LEND_ITEM", "LEND_NO", lendNo);
+				String errPart = "";
+				if (listCheck != null && listCheck.size() > 0) {
+					for (int i = 0; i < listCheck.size(); i++) {
+						TtPartLendItemPO ttPartLendItemPO = (TtPartLendItemPO) listCheck.get(i);
+						if (errPart.equals("")) {
+							errPart = ttPartLendItemPO.getString("PART_NO");
+						} else {
+							errPart = errPart + ", " + ttPartLendItemPO.getString("PART_NO");
 						}
 					}
+				} else {
+					throw new SerialException(errPart + " 非OEM配件不允许出OEM库,请重新操作!");
+				}
 
-					List stocknow = TmPartStockPO.findBySQL(
-							"   SELECT * FROM TM_PART_STOCK WHERE DEALER_CODE = ?  AND PART_NO = ? AND STORAGE_CODE = ? AND D_KEY = ? ",
-							dealerCode, lendDetail2.get(0).get("PART_NO"), lendDetail2.get(0).get("STORAGE_CODE"),
-							CommonConstants.D_KEY);
-					TmPartStockPO stockPO = (TmPartStockPO) stocknow.get(0);
-					if (stocknow != null && stocknow.size() > 0) {
-						if (stockPO.getDouble("COST_AMOUNT") != null && (stockPO.getDouble("COST_AMOUNT") != 0)) {
-							costAmountBeforeB = stockPO.getDouble("COST_AMOUNT"); // 库存表入账前成本金额
-						}
-					}
+				/**
+				 * 相同账号分别调出同一张未入账的调拨入库单，点入账造成流水账中该入库单，有2条重复的流水账记录, 判断该入库单是否已经入账
+				 * flag==12781002没有入账；反之已经入账
+				 */
+				String sheetNoType = "LEND_NO";
+				String sheetType = "TT_PART_LEND";
+				String flag = checkIsFinished(dealerCode, lendNo, sheetType, sheetNoType);
+				if (flag.equals(DictCodeConstants.DICT_IS_YES)) {
+					throw new SerialException("入库单号:" + lendNo + "已经入账，不能重复入账！");
+				}
+				// VER校验
+				String verNow = "";
+				List listi = TtPartLendPO.findBySQL(
+						" SELECT * FROM TT_PART_LEND WHERE DEALER_CODE = ?  AND LEND_NO = ? ", dealerCode,
+						lendDetail2.get(0).get("LEND_NO"));
+				if (listi != null && listi.size() > 0) {
+					TtPartLendPO ttPartLendPO2 = (TtPartLendPO) listi.get(0);
+					verNow = ttPartLendPO2.getString("VER");
+				}
+//				if (!(ver.trim().equals(verNow.trim()))) {
+//					/// 校验未通过
+//					throw new SerialException("单据状态已改变，请重新选择");
+//				}
+				// 借出单号不为空，根据借出单号查询借出单明细
+				// 1、修改借出登记单 是否入帐字段为 是
+				TtPartLendPO.update("IS_FINISHED=?", "IS_FINISHED=?", new Date(System.currentTimeMillis()), userId);
+				if (!StringUtils.isNullOrEmpty(lendDetail2.get(0).get("LEND_NO"))) {
+					List list = TtPartLendItemPO.findBySQL(
+							"  SELECT * FROM TT_PART_LEND_ITEM WHERE DEALER_CODE = ? AND D_KEY = ? AND LEND_NO = ? ",
+							dealerCode, CommonConstants.D_KEY, lendDetail2.get(0).get("LEND_NO"));
+					if (list.size() > 0 && list != null) {
+						int count = list.size();
+						List listitemnow = new ArrayList<>();
+						for (int i = 0; i < count; i++) {
+							costAmountBeforeA = 0; // 批次表入账前成本
+							costAmountBeforeB = 0; // 库存表入账前成本
+							costAmountAfterA = 0; // 批次表入账后成本
+							costAmountAfterB = 0; // 库存表入账后成本
 
-					// 更新配件库存批次表和配件库存表中借出数量
-					TmPartStockItemPO stockItemPO = TmPartStockItemPO.findByCompositeKeys(dealerCode,
-							lendDetail2.get(0).get("PART_NO"), lendDetail2.get(0).get("STORAGE_CODE"),
-							lendDetail2.get(0).get("PART_BATCH_NO"));
-					stockItemPO.setString("DEALER_CODE", dealerCode);
-					stockItemPO.setString("PART_NO", lendDetail2.get(0).get("PART_NO"));
-					stockItemPO.setString("STORAGE_CODE", lendDetail2.get(0).get("STORAGE_CODE"));
-					if (lendDetail2.get(0).get("PART_BATCH_NO") != null
-							&& !"".equals(lendDetail2.get(0).get("PART_BATCH_NO"))) {
-						stockItemPO.setString("PART_BATCH_NO", (lendDetail2.get(0).get("PART_BATCH_NO")));
-					} else {
-						stockItemPO.setString("PART_BATCH_NO", CommonConstants.defaultBatchName);
-					}
-					stockItemPO.setDouble("STOCK_QUANTITY", (lendDetail2.get(0).get("OUT_QUANTITY")));
-					calLendQuantity(dealerCode, stockItemPO, lendDetail2);
-					List listItemAfter = TmPartStockItemPO.findBySQL(
-							" SELECT * FROM TM_PART_STOCK_ITEM WHERE DEALER_CODE = ?  AND PART_NO = ? AND STORAGE_CODE = ? AND PART_BATCH_NO = ?",
-							dealerCode, lendDetail2.get(0).get("PART_NO"), lendDetail2.get(0).get("STORAGE_CODE"),
-							lendDetail2.get(0).get("PART_BATCH_NO"));
-					TmPartStockItemPO itemAfter = (TmPartStockItemPO) listItemAfter.get(0);
-					if (listItemAfter != null && listItemAfter.size() > 0) {
-						if (itemAfter.getDouble("COST_AMOUNT") != null
-								&& !"".equals(itemAfter.getDouble("COST_AMOUNT"))) {
-							costAmountAfterA = itemAfter.getDouble("COST_AMOUNT"); // 批次表入账后成本金额
+							listitemnow = TmPartStockItemPO.findBySQL(
+									"  SELECT * FROM TM_PART_STOCK_ITEM WHERE DEALER_CODE = ? AND D_KEY = ? AND PART_NO = ? AND STORAGE_CODE = ? ",
+									dealerCode, CommonConstants.D_KEY, lendDetail2.get(0).get("PART_NO"),
+									lendDetail2.get(0).get("STORAGE_CODE"));
+							TmPartStockItemPO tmPartStockItemPO = (TmPartStockItemPO) listitemnow.get(i);
+							if (listitemnow != null && listitemnow.size() > 0) {
+								if (tmPartStockItemPO.getDouble("COST_AMOUNT") != 0
+										&& (tmPartStockItemPO.getDouble("COST_AMOUNT") > 0)) {
+									costAmountBeforeA = tmPartStockItemPO.getDouble("COST_AMOUNT");// 批次表入帐前成本金额
+								}
+							}
+
+							List stocknow = TmPartStockPO.findBySQL(
+									"   SELECT * FROM TM_PART_STOCK WHERE DEALER_CODE = ?  AND PART_NO = ? AND STORAGE_CODE = ? AND D_KEY = ? ",
+									dealerCode, lendDetail2.get(0).get("PART_NO"),
+									lendDetail2.get(0).get("STORAGE_CODE"), CommonConstants.D_KEY);
+							TmPartStockPO stockPO = (TmPartStockPO) stocknow.get(0);
+							if (stocknow != null && stocknow.size() > 0) {
+								if (stockPO.getDouble("COST_AMOUNT") != null
+										&& (stockPO.getDouble("COST_AMOUNT") != 0)) {
+									costAmountBeforeB = stockPO.getDouble("COST_AMOUNT"); // 库存表入账前成本金额
+								}
+							}
+
+							// 更新配件库存批次表和配件库存表中借出数量
+							TmPartStockItemPO stockItemPO = TmPartStockItemPO.findByCompositeKeys(dealerCode,
+									lendDetail2.get(0).get("PART_NO"), lendDetail2.get(0).get("STORAGE_CODE"),
+									lendDetail2.get(0).get("PART_BATCH_NO"));
+							stockItemPO.setString("DEALER_CODE", dealerCode);
+							stockItemPO.setString("PART_NO", lendDetail2.get(0).get("PART_NO"));
+							stockItemPO.setString("STORAGE_CODE", lendDetail2.get(0).get("STORAGE_CODE"));
+							if (lendDetail2.get(0).get("PART_BATCH_NO") != null
+									&& !"".equals(lendDetail2.get(0).get("PART_BATCH_NO"))) {
+								stockItemPO.setString("PART_BATCH_NO", (lendDetail2.get(0).get("PART_BATCH_NO")));
+							} else {
+								stockItemPO.setString("PART_BATCH_NO", CommonConstants.defaultBatchName);
+							}
+							stockItemPO.setDouble("STOCK_QUANTITY", (lendDetail2.get(0).get("OUT_QUANTITY")));
+							calLendQuantity(dealerCode, stockItemPO, lendDetail2);
+							List listItemAfter = TmPartStockItemPO.findBySQL(
+									" SELECT * FROM TM_PART_STOCK_ITEM WHERE DEALER_CODE = ?  AND PART_NO = ? AND STORAGE_CODE = ? AND PART_BATCH_NO = ?",
+									dealerCode, lendDetail2.get(0).get("PART_NO"),
+									lendDetail2.get(0).get("STORAGE_CODE"), lendDetail2.get(0).get("PART_BATCH_NO"));
+							TmPartStockItemPO itemAfter = (TmPartStockItemPO) listItemAfter.get(0);
+							if (listItemAfter != null && listItemAfter.size() > 0) {
+								if (itemAfter.getDouble("COST_AMOUNT") != null
+										&& !"".equals(itemAfter.getDouble("COST_AMOUNT"))) {
+									costAmountAfterA = itemAfter.getDouble("COST_AMOUNT"); // 批次表入账后成本金额
+								}
+							}
+							// 更新库存最后出库日期 1.字段 2.条件 3.字段+条件的值
+							int stockPO1 = TmPartStockPO.update("LAST_STOCK_OUT=?",
+									"DEALER_CODE=? AND D_KEY=? AND PART_NO=? AND UPDATED_BY=? AND UPDATED_AT=?",
+									dealerCode, CommonConstants.D_KEY, lendDetail2.get(0).get("PART_NO"), userId,
+									new Timestamp(System.currentTimeMillis()),
+									new Timestamp(System.currentTimeMillis()));
+							List listStockAfter = TmPartStockPO.findBySQL(
+									" SELECT * FROM TM_PART_STOCK_ITEM WHERE DEALER_CODE = ?  AND PART_NO = ? AND STORAGE_CODE = ? ",
+									dealerCode, lendDetail2.get(0).get("PART_NO"),
+									lendDetail2.get(0).get("STORAGE_CODE"));
+							TmPartStockPO StockAfter = (TmPartStockPO) listStockAfter.get(0);
+							if (listStockAfter != null && listStockAfter.size() > 0) {
+								if (StockAfter.getDouble("COST_AMOUNT") != null
+										&& !"".equals(StockAfter.getDouble("COST_AMOUNT"))) {
+									costAmountAfterB = StockAfter.getDouble("COST_AMOUNT"); // 库存表入账后成本金额
+								}
+							}
+							// 4、向配件流水帐填加一条记录
+							PartFlowPO ttPartFlowPO = new PartFlowPO();
+							// ttPartFlowPO.setString("DEALER_CODE ",
+							// dealerCode);
+							ttPartFlowPO.setString("STORAGE_CODE", lendDetail2.get(0).get("STORAGE_CODE"));// 仓库代码
+							ttPartFlowPO.setString("PART_NO", lendDetail2.get(0).get("PART_NO"));// 配件代码
+							ttPartFlowPO.setString("PART_BATCH_NO", lendDetail2.get(0).get("PART_BTACH_NO"));// 进货批号
+							ttPartFlowPO.setString("PART_NAME", lendDetail2.get(0).get("PART_NAME"));// 配件名称
+							ttPartFlowPO.setDouble("COST_AMOUNT_AFTER_A", tmPartStockItemPO.getDouble("COST_AMOUNT"));
+							ttPartFlowPO.setDouble("COST_AMOUNT_AFTER_B", stockPO.getDouble("COST_AMOUNT"));
+							ttPartFlowPO.setDouble("COST_AMOUNT_BEFORE_A", itemAfter.getDouble("COST_AMOUNT"));
+							ttPartFlowPO.setDouble("COST_AMOUNT_BEFORE_B", StockAfter.getDouble("COST_AMOUNT"));
+							// 从借出登记主表里获取客户名称、客户代码
+							List partlendlist = TtPartLendPO.findBySQL(
+									" SELECT * FROM TT_PART_LEND WHERE DEALER_CODE=? AND D_KEY=? AND LEND_NO=?",
+									dealerCode, CommonConstants.D_KEY, lendDetail2.get(0).get("LEND_NO"));
+							TtPartLendPO partLendPO = (TtPartLendPO) partlendlist.get(0);
+							ttPartFlowPO.setString("CUSTOMER_CODE", lendDetail2.get(0).get("CUSTOMER_CODE"));// 客户代码
+							ttPartFlowPO.setString("CUSTOMER_NAME", lendDetail2.get(0).get("CUSTOMER_NAME")); // 客户名称
+							TmPartStockItemPO partStockItemPO = TmPartStockItemPO.findByCompositeKeys(dealerCode,
+									lendDetail2.get(0).get("PART_NO"), lendDetail2.get(0).get("STORAGE_CODE"),
+									lendDetail2.get(0).get("PART_BATCH_NO"));
+							partStockItemPO.setString("DEALER_CODE", dealerCode);
+							partStockItemPO.setString("PART_NO", lendDetail2.get(0).get("PART_NO"));
+							partStockItemPO.setString("STORAGE_CODE", lendDetail2.get(0).get("STORAGE_CODE"));
+							if (lendDetail2.get(0).get("PART_BATCH_NO") != null
+									&& !"".equals(lendDetail2.get(0).get("PART_BATCH_NO"))) {
+								stockItemPO.setString("PART_BATCH_NO", (lendDetail2.get(0).get("PART_BATCH_NO")));
+							} else {
+								stockItemPO.setString("PART_BATCH_NO", CommonConstants.defaultBatchName);
+							}
+							if (listitemnow != null && listitemnow.size() > 0) {
+								partStockItemPO = (TmPartStockItemPO) listitemnow.get(0);
+								ttPartFlowPO.setDouble("STOCK_QUANTITY", partStockItemPO.getDouble("STOCK_QUANTITY"));
+								ttPartFlowPO.setString("CREATED_BY", userId); // CreateBy
+								ttPartFlowPO.setDouble("COST_PRICE", lendDetail2.get(0).get("COST_PRICE")); // 成本单价
+								ttPartFlowPO.setDouble("COST_AMOUNT", lendDetail2.get(0).get("COST_AMOUNT")); // 成本金额
+								ttPartFlowPO.setString("OPERATOR", empNo); // 操作员
+								ttPartFlowPO.setDate("OPERATE_DATE", new Timestamp(System.currentTimeMillis()));// 操作日期
+								double amount = Utility.add("1", Utility.getPartRate("2034"));
+								// 销售价借出(销售价是含税的)
+								String rate = Double.toString(amount);
+								ttPartFlowPO.setDouble("IN_OUT_NET_PRICE",
+										(Utility.div(lendDetail2.get(0).get("COST_PRICE").toString(), rate)));// 出入库不含税单价
+								ttPartFlowPO.setDouble("IN_OUT_TAXED_PRICE",
+										(lendDetail2.get(0).get("OUT_PRICE").toString())); // 出入库含税单价
+								ttPartFlowPO.setDouble("IN_OUT_NET_AMOUNT",
+										(Utility.div(lendDetail2.get(0).get("OUT_AMOUNT").toString(), rate)));// 出入库不含税金额
+								ttPartFlowPO.setDouble("IN_OUT_TAXED_AMOUNT",
+										lendDetail2.get(0).get("OUT_AMOUNT").toString()); // 出入库含税金额
+								ttPartFlowPO.setDouble("STOCK_OUT_QUANTITY",
+										lendDetail2.get(0).get("OUT_QUANTITY").toString()); // 借出数量
+								ttPartFlowPO.setDouble("IN_OUT_TYPE",
+										(Utility.getInt(DictCodeConstants.DICT_IN_OUT_TYPE_PART_LEND)));// 出入库类型
+								ttPartFlowPO.setInteger("IN_OUT_TAG", (Utility.getInt(DictCodeConstants.DICT_IS_YES)));// 是否出库
+								ttPartFlowPO.setString("SHEET_NO", lendNo); // 单据号码
+								ttPartFlowPO.saveIt();
+							}
 						}
-					}
-					// 更新库存最后出库日期 1.字段 2.条件 3.字段+条件的值
-					int stockPO1 = TmPartStockPO.update("LAST_STOCK_OUT=?",
-							"DEALER_CODE=? AND D_KEY=? AND PART_NO=? AND UPDATED_BY=? AND UPDATED_AT=?", dealerCode,
-							CommonConstants.D_KEY, lendDetail2.get(0).get("PART_NO"), userId,
-							new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()));
-					List listStockAfter = TmPartStockPO.findBySQL(
-							" SELECT * FROM TM_PART_STOCK_ITEM WHERE DEALER_CODE = ?  AND PART_NO = ? AND STORAGE_CODE = ? ",
-							dealerCode, lendDetail2.get(0).get("PART_NO"), lendDetail2.get(0).get("STORAGE_CODE"));
-					TmPartStockPO StockAfter = (TmPartStockPO) listStockAfter.get(0);
-					if (listStockAfter != null && listStockAfter.size() > 0) {
-						if (StockAfter.getDouble("COST_AMOUNT") != null
-								&& !"".equals(StockAfter.getDouble("COST_AMOUNT"))) {
-							costAmountAfterB = StockAfter.getDouble("COST_AMOUNT"); // 库存表入账后成本金额
-						}
-					}
-					// 4、向配件流水帐填加一条记录
-					PartFlowPO ttPartFlowPO = new PartFlowPO();
-//					ttPartFlowPO.setString("DEALER_CODE ", dealerCode);
-					ttPartFlowPO.setString("STORAGE_CODE", lendDetail2.get(0).get("STORAGE_CODE"));// 仓库代码
-					ttPartFlowPO.setString("PART_NO", lendDetail2.get(0).get("PART_NO"));// 配件代码
-					ttPartFlowPO.setString("PART_BATCH_NO", lendDetail2.get(0).get("PART_BTACH_NO"));// 进货批号
-					ttPartFlowPO.setString("PART_NAME", lendDetail2.get(0).get("PART_NAME"));// 配件名称
-					ttPartFlowPO.setDouble("COST_AMOUNT_AFTER_A", tmPartStockItemPO.getDouble("COST_AMOUNT"));
-					ttPartFlowPO.setDouble("COST_AMOUNT_AFTER_B", stockPO.getDouble("COST_AMOUNT"));
-					ttPartFlowPO.setDouble("COST_AMOUNT_BEFORE_A", itemAfter.getDouble("COST_AMOUNT"));
-					ttPartFlowPO.setDouble("COST_AMOUNT_BEFORE_B", StockAfter.getDouble("COST_AMOUNT"));
-					// 从借出登记主表里获取客户名称、客户代码
-					List partlendlist = TtPartLendPO.findBySQL(
-							" SELECT * FROM TT_PART_LEND WHERE DEALER_CODE=? AND D_KEY=? AND LEND_NO=?", dealerCode,
-							CommonConstants.D_KEY, lendDetail2.get(0).get("LEND_NO"));
-					TtPartLendPO partLendPO = (TtPartLendPO) partlendlist.get(0);
-					ttPartFlowPO.setString("CUSTOMER_CODE", lendDetail2.get(0).get("CUSTOMER_CODE"));// 客户代码
-					ttPartFlowPO.setString("CUSTOMER_NAME", lendDetail2.get(0).get("CUSTOMER_NAME")); // 客户名称
-					TmPartStockItemPO partStockItemPO = TmPartStockItemPO.findByCompositeKeys(dealerCode,
-							lendDetail2.get(0).get("PART_NO"), lendDetail2.get(0).get("STORAGE_CODE"),
-							lendDetail2.get(0).get("PART_BATCH_NO"));
-					partStockItemPO.setString("DEALER_CODE", dealerCode);
-					partStockItemPO.setString("PART_NO", lendDetail2.get(0).get("PART_NO"));
-					partStockItemPO.setString("STORAGE_CODE", lendDetail2.get(0).get("STORAGE_CODE"));
-					if (lendDetail2.get(0).get("PART_BATCH_NO") != null
-							&& !"".equals(lendDetail2.get(0).get("PART_BATCH_NO"))) {
-						stockItemPO.setString("PART_BATCH_NO", (lendDetail2.get(0).get("PART_BATCH_NO")));
-					} else {
-						stockItemPO.setString("PART_BATCH_NO", CommonConstants.defaultBatchName);
-					}
-					if (listitemnow != null && listitemnow.size() > 0) {
-						partStockItemPO = (TmPartStockItemPO) listitemnow.get(0);
-						ttPartFlowPO.setDouble("STOCK_QUANTITY", partStockItemPO.getDouble("STOCK_QUANTITY"));
-						ttPartFlowPO.setString("CREATED_BY", userId); // CreateBy
-						ttPartFlowPO.setDouble("COST_PRICE", lendDetail2.get(0).get("COST_PRICE")); // 成本单价
-						ttPartFlowPO.setDouble("COST_AMOUNT", lendDetail2.get(0).get("COST_AMOUNT")); // 成本金额
-						ttPartFlowPO.setString("OPERATOR", empNo); // 操作员
-						ttPartFlowPO.setDate("OPERATE_DATE",new Timestamp(System.currentTimeMillis()));// 操作日期
-						double amount = Utility.add("1", Utility.getPartRate("2034"));
-						// 销售价借出(销售价是含税的)
-						String rate = Double.toString(amount);
-						ttPartFlowPO.setDouble("IN_OUT_NET_PRICE",
-								(Utility.div(lendDetail2.get(0).get("COST_PRICE").toString(), rate)));// 出入库不含税单价
-						ttPartFlowPO.setDouble("IN_OUT_TAXED_PRICE", (lendDetail2.get(0).get("OUT_PRICE").toString())); // 出入库含税单价
-						ttPartFlowPO.setDouble("IN_OUT_NET_AMOUNT",
-								(Utility.div(lendDetail2.get(0).get("OUT_AMOUNT").toString(), rate)));// 出入库不含税金额
-						ttPartFlowPO.setDouble("IN_OUT_TAXED_AMOUNT", lendDetail2.get(0).get("OUT_AMOUNT").toString()); // 出入库含税金额
-						ttPartFlowPO.setDouble("STOCK_OUT_QUANTITY", lendDetail2.get(0).get("OUT_QUANTITY").toString()); // 借出数量
-						ttPartFlowPO.setDouble("IN_OUT_TYPE",
-								(Utility.getInt(DictCodeConstants.DICT_IN_OUT_TYPE_PART_LEND)));// 出入库类型
-						ttPartFlowPO.setInteger("IN_OUT_TAG", (Utility.getInt(DictCodeConstants.DICT_IS_YES)));// 是否出库
-						ttPartFlowPO.setString("SHEET_NO", lendNo); // 单据号码
-						ttPartFlowPO.saveIt();
 					}
 				}
+				// 配件借出登记生成凭证
+				performExecute(lendNo, lendDetail2);
+				// 解锁
+				String[] noValue = { lendDetail2.get(0).get("LEND_NO").toString() };
+				Utility.updateByUnLock("TT_PART_LEND", FrameworkUtil.getLoginInfo().getUserId().toString(), "LEND_NO",
+						noValue, "LOCK_USER");
+				return id;
+			} else {
+				throw new ServiceBizException("当前会计月报没有完成");
 			}
+		} else {
+			throw new ServiceBizException("当前配件月报没有完成");
 		}
-		// 配件借出登记生成凭证
-		performExecute(lendNo, lendDetail2);
-		// 解锁
-		String[] noValue = { lendDetail2.get(0).get("LEND_NO").toString() };
-		Utility.updateByUnLock("TT_PART_LEND", FrameworkUtil.getLoginInfo().getUserId().toString(), "LEND_NO", noValue,
-				"LOCK_USER");
-		return id;
-		// }
-		// else {
-		// throw new ServiceBizException("当前会计月报没有完成");
-		// }
-		// } else {
-		// throw new ServiceBizException("当前配件月报没有完成");
 
 	}
 
@@ -817,29 +762,28 @@ public class CheckOutServiceImpl implements CheckOutService {
 	 * 
 	 * @return
 	 */
-	// @SuppressWarnings("rawtypes")
-	// private List<Map> isFinishedThisMonth() {
-	// StringBuffer sb = new StringBuffer();
-	// sb.append("SELECT DEALER_CODE,REPORT_YEAR FROM TT_MONTH_CYCLE ");
-	// sb.append("WHERE REPORT_YEAR = '" + Utility.getYear() + "' ");
-	// sb.append("AND REPORT_MONTH = '" + Utility.getMonth() + "' ");
-	// return DAOUtil.findAll(sb.toString(), null);
-	// }
+	@SuppressWarnings("rawtypes")
+	private List<Map> isFinishedThisMonth() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("SELECT DEALER_CODE,REPORT_YEAR FROM TT_MONTH_CYCLE ");
+		sb.append("WHERE REPORT_YEAR = '" + Utility.getYear() + "' ");
+		sb.append("AND REPORT_MONTH = '" + Utility.getMonth() + "' ");
+		return DAOUtil.findAll(sb.toString(), null);
+	}
 
 	/**
 	 * 查询当前时间的会计周期是否做过月结
 	 * 
 	 * @return
 	 */
-	// @SuppressWarnings("rawtypes")
-	// private List<Map> getIsFinished() {
-	// StringBuffer sb = new StringBuffer();
-	// sb.append("SELECT
-	// DEALER_CODE,B_YEAR,PERIODS,BEGIN_DATE,END_DATE,IS_EXECUTED ");
-	// sb.append(" FROM TM_ACCOUNTING_CYCLE WHERE ");
-	// sb.append("CURRENT_TIMESTAMP BETWEEN BEGIN_DATE AND END_DATE");
-	// return DAOUtil.findAll(sb.toString(), null);
-	// }
+	@SuppressWarnings("rawtypes")
+	private List<Map> getIsFinished() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("SELECT DEALER_CODE,B_YEAR,PERIODS,BEGIN_DATE,END_DATE,IS_EXECUTED ");
+		sb.append(" FROM TM_ACCOUNTING_CYCLE WHERE ");
+		sb.append("CURRENT_TIMESTAMP BETWEEN BEGIN_DATE AND END_DATE");
+		return DAOUtil.findAll(sb.toString(), null);
+	}
 
 	/**
 	 * 功能描述：描述当前方法所要实现的功能，可以简要描述操作的数据内容
@@ -851,44 +795,33 @@ public class CheckOutServiceImpl implements CheckOutService {
 	 * @return
 	 * @throws Exception
 	 */
-	// @SuppressWarnings({ "rawtypes", "unused" })
-	// public List getNonOemPartListOut(String sheetTable, String sheetName,
-	// String sheetNo) throws Exception {
-	// if
-	// (!Utility.getIsOEMPartOutCheck().equals(DictCodeConstants.DICT_IS_YES)) {
-	// return null;
-	// }
-	// List returnList = null;
-	// String sql = null;
-	// String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
-	// if (sheetTable == "TT_SALES_PART_ITEM" ||
-	// "TT_SALES_PART_ITEM".equals(sheetTable)) {
-	// String fieldName = "PART_QUANTITY";
-	// sql = "select AA.PART_NO,AA.STORAGE_CODE,SUM(AA.PART_QUANTITY) as
-	// PART_QUANTITY FROM"
-	// + " (select A.PART_NO,A.PART_NAME,A.STORAGE_CODE," + " A." + fieldName +
-	// " As PART_QUANTITY "
-	// + " from " + sheetTable + " A "
-	// + " left join TM_PART_INFO B on (A.part_NO = B.PART_NO AND A.DEALER_CODE
-	// = B.DEALER_CODE) "
-	// + " WHERE A.DEALER_CODE = '" + dealerCode + "' " + " AND B.DOWN_TAG = "
-	// + DictCodeConstants.DICT_IS_NO + " " + " AND A.STORAGE_CODE ='OEMK'" + "
-	// AND A." + sheetName
-	// + " = '" + sheetNo + "'"
-	// + " ) AA group by AA.PART_NO,AA.STORAGE_CODE having SUM(AA.PART_QUANTITY)
-	// <> 0 ";
-	// } else {
-	// sql = " select A.PART_NO,A.PART_NAME,A.STORAGE_CODE from " + sheetTable +
-	// " A "
-	// + " left join TM_PART_INFO B on (A.part_NO = B.PART_NO AND A.DEALER_CODE
-	// = B.DEALER_CODE) "
-	// + " WHERE A.DEALER_CODE = '" + dealerCode + "' " + " AND B.DOWN_TAG = "
-	// + DictCodeConstants.DICT_IS_NO + " " + " AND A.STORAGE_CODE ='OEMK'" + "
-	// AND A." + sheetName
-	// + " = '" + sheetNo + "'";
-	// }
-	// return returnList;
-	// }
+	@SuppressWarnings({ "rawtypes", "unused" })
+	public List getNonOemPartListOut(String sheetTable, String sheetName, String sheetNo) throws Exception {
+		if (!Utility.getIsOEMPartOutCheck().equals(DictCodeConstants.DICT_IS_YES)) {
+			return null;
+		}
+		List returnList = null;
+		String sql = null;
+		String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
+		if (sheetTable == "TT_SALES_PART_ITEM" || "TT_SALES_PART_ITEM".equals(sheetTable)) {
+			String fieldName = "PART_QUANTITY";
+			sql = "select AA.PART_NO,AA.STORAGE_CODE,SUM(AA.PART_QUANTITY) as PART_QUANTITY FROM"
+					+ " (select A.PART_NO,A.PART_NAME,A.STORAGE_CODE," + " A." + fieldName + " As PART_QUANTITY "
+					+ " from " + sheetTable + " A "
+					+ " left join TM_PART_INFO B on (A.part_NO = B.PART_NO AND A.DEALER_CODE = B.DEALER_CODE) "
+					+ " WHERE A.DEALER_CODE = '" + dealerCode + "' " + " AND B.DOWN_TAG = "
+					+ DictCodeConstants.DICT_IS_NO + " " + " AND A.STORAGE_CODE ='OEMK'" + " AND A." + sheetName
+					+ " = '" + sheetNo + "'"
+					+ " ) AA group by AA.PART_NO,AA.STORAGE_CODE having SUM(AA.PART_QUANTITY) <> 0 ";
+		} else {
+			sql = " select A.PART_NO,A.PART_NAME,A.STORAGE_CODE from " + sheetTable + " A "
+					+ " left join TM_PART_INFO B on (A.part_NO = B.PART_NO AND A.DEALER_CODE = B.DEALER_CODE) "
+					+ " WHERE A.DEALER_CODE = '" + dealerCode + "' " + " AND B.DOWN_TAG = "
+					+ DictCodeConstants.DICT_IS_NO + " " + " AND A.STORAGE_CODE ='OEMK'" + " AND A." + sheetName
+					+ " = '" + sheetNo + "'";
+		}
+		return returnList;
+	}
 
 	/**
 	 * 校验配件是否已经入账
@@ -901,21 +834,17 @@ public class CheckOutServiceImpl implements CheckOutService {
 	 * @return
 	 * @throws Exception
 	 */
-	// public static String checkIsFinished(String sheetNo, String dealerCode,
-	// String sheetType, String sheetNoType)
-	// throws Exception {
-	// String flag = DictCodeConstants.DICT_IS_YES;
-	// if (sheetNo != null && !"".equals(sheetNo.trim()) && sheetType != null &&
-	// !"".equals(sheetType.trim())) {
-	// StringBuffer sql = new StringBuffer("");
-	// sql.append(" select * from " + sheetType + " where DEALER_CODE='" +
-	// dealerCode + "' and d_key="
-	// + CommonConstants.D_KEY + " and " + sheetNoType + "='" + sheetNo + "' and
-	// IS_FINISHED="
-	// + DictCodeConstants.DICT_IS_NO + " ");
-	// }
-	// return flag;
-	// }
+	public static String checkIsFinished(String sheetNo, String dealerCode, String sheetType, String sheetNoType)
+			throws Exception {
+		String flag = DictCodeConstants.DICT_IS_YES;
+		if (sheetNo != null && !"".equals(sheetNo.trim()) && sheetType != null && !"".equals(sheetType.trim())) {
+			StringBuffer sql = new StringBuffer("");
+			sql.append(" select * from " + sheetType + " where DEALER_CODE='" + dealerCode + "' and d_key="
+					+ CommonConstants.D_KEY + " and " + sheetNoType + "='" + sheetNo + "' and IS_FINISHED="
+					+ DictCodeConstants.DICT_IS_NO + " ");
+		}
+		return flag;
+	}
 
 	/**
 	 * 更新配件库存批次表库存数量借出数量
@@ -925,7 +854,7 @@ public class CheckOutServiceImpl implements CheckOutService {
 	 * @param itemPO
 	 * @throws Exception
 	 */
-	@SuppressWarnings("unused")
+	@SuppressWarnings({ "unused", "rawtypes" })
 	public void calLendQuantity(String dealerCode, TmPartStockItemPO stockItemPO, List<Map> lendDetail2)
 			throws Exception {
 
@@ -985,14 +914,15 @@ public class CheckOutServiceImpl implements CheckOutService {
 	public void deleteAllocateIn(String lendNo) throws ServiceBizException {
 		// 对借出登记单操作
 		String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
-		List list=TtPartLendItemPO.findBySQL(" SELECT * FROM TT_PART_LEND_ITEM WHERE LEND_NO =? ",lendNo );
-		//删除子表
-		if (list!=null&&list.size()>0) {
-			TtPartLendItemPO.delete("DEALER_CODE=? AND D_KEY=? AND LEND_NO=?",dealerCode,CommonConstants.D_KEY,lendNo);
+		List list = TtPartLendItemPO.findBySQL(" SELECT * FROM TT_PART_LEND_ITEM WHERE LEND_NO =? ", lendNo);
+		// 删除子表
+		if (list != null && list.size() > 0) {
+			TtPartLendItemPO.delete("DEALER_CODE=? AND D_KEY=? AND LEND_NO=?", dealerCode, CommonConstants.D_KEY,
+					lendNo);
 		}
-		List list2=TtPartLendPO.findBySQL("  SELECT * FROM TT_PART_LEND WHERE LEND_NO =?  ", lendNo);
-		if (list2!=null&&list2.size()>0) {
-			TtPartLendPO.delete("DEALER_CODE=? AND D_KEY=? AND LEND_NO=?",dealerCode,CommonConstants.D_KEY,lendNo);
+		List list2 = TtPartLendPO.findBySQL("  SELECT * FROM TT_PART_LEND WHERE LEND_NO =?  ", lendNo);
+		if (list2 != null && list2.size() > 0) {
+			TtPartLendPO.delete("DEALER_CODE=? AND D_KEY=? AND LEND_NO=?", dealerCode, CommonConstants.D_KEY, lendNo);
 		}
 	}
 

@@ -555,7 +555,7 @@ public class OemBaseDAO {
 	 *            上端经销商ID
 	 * @return DMS_CODE 下端经销商公司Code
 	 */
-	public Map getDmsDealerCode(Long dealerId) throws ServiceBizException {
+	public static Map getDmsDealerCode(Long dealerId) throws ServiceBizException {
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT C.DMS_CODE,B.COMPANY_SHORTNAME\n");
 		sql.append("FROM TM_DEALER A, TM_COMPANY B, TI_DEALER_RELATION C\n");
@@ -891,9 +891,9 @@ public class OemBaseDAO {
 		params.add(dealerCode.replace("A", ""));
 		List<Map> map = OemDAOUtil.findAll(sql.toString(), params);
 		if(null != map && map.size()>0){
-			return -1;
-		}else{
 			return Integer.parseInt(map.get(0).get("SEND_TYPE").toString());
+		}else{
+			return -1;
 		}
 	}
 

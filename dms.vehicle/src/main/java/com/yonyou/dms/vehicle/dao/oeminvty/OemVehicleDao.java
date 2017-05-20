@@ -504,19 +504,39 @@ public class OemVehicleDao extends OemBaseDAO {
 		// 车辆变更日志
 		List<Object> params = new ArrayList<Object>();
 		StringBuffer sql2 = new StringBuffer();
+		// sql2.append(
+		// "select distinct TVVC.CHANGE_CODE,date_format(TVVC.CHANGE_DATE
+		// ,'%Y-%m-%d') CHANGE_DATE,TVVC.CHANGE_DESC,TD.DEALER_SHORTNAME
+		// DEALER_NAME\n");
+		// sql2.append(" from TM_VEHICLE_dec TV,\n");
+		// sql2.append(" TT_VS_VHCL_CHNG TVVC,\n");
+		// sql2.append(" TM_DEALER TD\n");
+		// sql2.append(" where TVVC.VEHICLE_ID = TV.VEHICLE_ID\n");
+		// sql2.append(" AND TV.DEALER_ID = TD.DEALER_ID\n");
+		// /// 经销商端的详细车籍查询的车辆变更类型只有三种：发运出库 验收入库 实销
+		// sql2.append(" AND TVVC.CHANGE_CODE in(" +
+		// OemDictCodeConstants.VEHICLE_CHANGE_TYPE_07 + ","
+		// + OemDictCodeConstants.VEHICLE_CHANGE_TYPE_09 + "," +
+		// OemDictCodeConstants.VEHICLE_CHANGE_TYPE_10
+		// + ")\n");
+		// sql2.append(" AND TV.VIN=?\n");
+		// params.add(vin);
 		sql2.append(
-				"select distinct TVVC.CHANGE_CODE,date_format(TVVC.CHANGE_DATE ,'%Y-%m-%d') CHANGE_DATE,TVVC.CHANGE_DESC,TD.DEALER_SHORTNAME DEALER_NAME\n");
+				"select t.*,(case when t.CHANGE_CODE in(20211024,20211025,20211026,20211020,20211007,20211009,20211010) then  \n");
+		sql2.append(
+				"          (case when t.CHANGE_CODE is not null then (case when t.RESOURCE_TYPE=10191001 then (case when tor.ORG_ID=2010010100070674 then '全国' else tor.ORG_NAME end) else td.DEALER_SHORTNAME end) else '' end) end) RESOURCE, (case when tu.NAME is null then '' else  tu.NAME end)NAME\n");
+		sql2.append(
+				"  from (select  TV.VIN,TVVC.CHANGE_CODE,CHANGE_DATE,TVVC.CHANGE_DESC,date_format(TVVC.CREATE_DATE ,'%Y-%m-%d %H:%i:%s') CREATE_DATE,tvvc.CREATE_BY,tvvc.RESOURCE_TYPE,tvvc.RESOURCE_ID\n");
 		sql2.append("     from TM_VEHICLE_dec           TV,\n");
-		sql2.append("          TT_VS_VHCL_CHNG      TVVC,\n");
-		sql2.append("     	   TM_DEALER            TD\n");
+		sql2.append("          TT_VS_VHCL_CHNG      TVVC\n");
 		sql2.append("       where TVVC.VEHICLE_ID = TV.VEHICLE_ID\n");
-		sql2.append("         AND TV.DEALER_ID = TD.DEALER_ID\n");
-		/// 经销商端的详细车籍查询的车辆变更类型只有三种：发运出库 验收入库 实销
-		sql2.append("         AND TVVC.CHANGE_CODE in(" + OemDictCodeConstants.VEHICLE_CHANGE_TYPE_07 + ","
-				+ OemDictCodeConstants.VEHICLE_CHANGE_TYPE_09 + "," + OemDictCodeConstants.VEHICLE_CHANGE_TYPE_10
-				+ ")\n");
 		sql2.append("         AND TV.VIN=?\n");
 		params.add(vin);
+		sql2.append("       order by TVVC.CREATE_DATE,TVVC.CHANGE_DATE,TVVC.CREATE_DATE) t\n");
+		sql2.append("  left join TM_DEALER td on td.DEALER_ID=t.RESOURCE_ID\n");
+		sql2.append("  left join TM_ORG tor on tor.ORG_ID=t.RESOURCE_ID\n");
+		sql2.append("  left join TC_USER tu on t.CREATE_BY=tu.USER_ID order by CHANGE_DATE\n");
+		System.out.println(sql2.toString());
 		PageInfoDto pageInfoDto = OemDAOUtil.pageQuery(sql2.toString(), params);
 		return pageInfoDto;
 	}
@@ -1054,7 +1074,7 @@ public class OemVehicleDao extends OemBaseDAO {
 		String vehicleId = CommonUtils.checkNull(queryParam.get("id"));
 		StringBuffer sql = new StringBuffer();
 		sql.append(
-				"select t.* from (select  TV.VIN,TVVC.CHANGE_CODE,date_format(TVVC.CHANGE_DATE ,'%y-%m-%d %H:%i:%s') CHANGE_DATE,TVVC.CHANGE_DESC,date_format(TVVC.CREATE_DATE ,'%y-%m-%d %H:%i:%s') CREATE_DATE,\n");
+				"select t.* from (select  TV.VIN,TVVC.CHANGE_CODE,date_format(TVVC.CHANGE_DATE ,'%Y-%m-%d %H:%i:%s') CHANGE_DATE,TVVC.CHANGE_DESC,date_format(TVVC.CREATE_DATE ,'%Y-%m-%d %H:%i:%s') CREATE_DATE,\n");
 		sql.append(
 				"      (select NAME from TC_USER where USER_ID=TVVC.CREATE_BY) NAME,(case when TVVC.CHANGE_CODE is not null then'"
 						+ resource + "' else '' end) RESOURCE\n");

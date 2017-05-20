@@ -98,7 +98,13 @@ $(document).one("onload.dms",function(event,container){
 				{field : "ACTIVITY_NAME",title : "活动名称"},
 				{field : "BEGIN_DATE",title : "开始日期",dateFormat : {format:"YYYY-MM-DD"}},
 				{field : "END_DATE",title : "结束日期",dateFormat : {format:"YYYY-MM-DD"}},
-				{field : "IS_ACTIVITY_STATUS",title : "活动状态"}, 
+				{field : "IS_ACTIVITY_STATUS",title : "活动状态",formatter:function(value,row,index){
+					if(value==12781001){
+						return '过期';
+					}else{
+						return '不过期';
+					}
+				}}, 
 				{field : "RELEASE_DATE",title : "发布日期",dateFormat : {format:"YYYY-MM-DD"}},
 				{field : "LABOUR_AMOUNT",title : "工时费",numberFormat:{decimal:2}},
 				{field : "REPAIR_PART_AMOUNT",title : "维修材料费",numberFormat:{decimal:2}},

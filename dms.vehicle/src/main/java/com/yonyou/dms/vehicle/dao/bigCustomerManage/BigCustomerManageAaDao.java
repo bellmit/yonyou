@@ -100,7 +100,6 @@ public class BigCustomerManageAaDao extends OemBaseDAO{
 //	        }
 	        if (!StringUtils.isNullOrEmpty(queryParams.get("dealerCode"))) {
 	                pasql.append(" AND TM.DEALER_CODE = ? "); //经销商代码
-	              
 	                params.add( queryParams.get("dealerCode"));
 	        }
 	        
@@ -1010,8 +1009,10 @@ public class BigCustomerManageAaDao extends OemBaseDAO{
         pasql.append("	 	,TBCFIB.PS_TYPE,TBCRA.AMOUNT,TBCFIB.CUSTOMER_SUB_TYPE \n");
         pasql.append(" ORDER BY TBCRA.REPORT_DATE DESC \n");
         pasql.append(" ) dcs \n");
-        
-		return pasql.toString();
+        System.out.println("****************查询");
+        System.out.println(pasql.toString());
+        System.out.println("****************查询");
+        return pasql.toString();
 	}
 	
 	private String getQueryCustomerSql(String wsno, Long week, int flag) {

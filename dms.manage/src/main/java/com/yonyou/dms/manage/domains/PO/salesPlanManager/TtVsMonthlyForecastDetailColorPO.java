@@ -4,6 +4,7 @@ import org.javalite.activejdbc.annotations.IdName;
 import org.javalite.activejdbc.annotations.Table;
 
 import com.yonyou.dms.framework.domain.BaseModel;
+import com.yonyou.dms.framework.domain.OemBaseModel;
 
 /**
  * 
@@ -15,6 +16,6 @@ import com.yonyou.dms.framework.domain.BaseModel;
 */
 @Table("tt_vs_monthly_forecast_detail_color")
 @IdName("DETAIL_COLOR_ID")
-public class TtVsMonthlyForecastDetailColorPO extends BaseModel{
+public class TtVsMonthlyForecastDetailColorPO extends OemBaseModel{
 
 }

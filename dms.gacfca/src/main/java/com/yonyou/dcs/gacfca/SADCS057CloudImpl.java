@@ -61,7 +61,7 @@ public class SADCS057CloudImpl extends BaseCloudImpl implements SADCS057Cloud {
 			week = Integer.parseInt(weekCode);
 		}
 		TtTestDriverStatPO statPO = new TtTestDriverStatPO();
-		statPO.setDate("CURRENT_DATE", vo.getCurrentDate());
+		statPO.setTimestamp("CURRENT_DATET", vo.getCurrentDate());
 		statPO.setInteger("CURRENT_WEEK", week);
 		statPO.setString("DEALER_CODE", dealerCode);
 		statPO.setLong("PO_CUSTOMER", vo.getPoCustomer());
@@ -69,7 +69,7 @@ public class SADCS057CloudImpl extends BaseCloudImpl implements SADCS057Cloud {
 		statPO.setLong("TEST_DRIVER_FEEDBACK", vo.getTestDriverFeedback());
 		statPO.setLong("TEST_DRIVER_ORDER", vo.getTestDriverOrder());
 		statPO.setString("SERIES_CODE", vo.getSeriesCode());
-		statPO.setDate("CREATE_DATE", new Date());
+		statPO.setTimestamp("CREATE_DATE", new Date());
 		statPO.insert();//插入试乘试驾统计表
 		
 	}

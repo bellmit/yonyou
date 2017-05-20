@@ -16,6 +16,13 @@
 	    		<div class="modal-body">
 					<div class="row">
 						
+					<!-- 维修工单ID -->	
+					<input  id="repairId" name="repairId" type="hidden" class="form-control" />
+					<!--工时单价-->	
+					<input  id="labourPriceValue" name="labourPriceValue" data-fieldName="LABOUR_PRICE" type="hidden" class="form-control" />
+					<!-- 税率 -->	
+					<input  id="taxRateValue" name="taxRateValue" data-fieldName="TAX_RATE" type="hidden" class="form-control" />
+					
 						
 						<div class="col-xs-12 col-sm-6 col-md-4 ">
 							<div class="form-group">
@@ -619,70 +626,73 @@
 
 <script type="text/javascript">
 $(document).one("onload.dms",function(event,container){
-
-	
 	
 	
 	//索赔情形
-	new Datatable().initPagination({
+	
+	new Datatable().initLocale({
 		src : "claimCaseTable",
 		container:container,
-		url : dmsCommon.getDmsPath()["vehicle"] + "/friendlyClaimApply/claimCaseQuery/{[CLAIM_ID]}",
-		rowID : "",	
-		sortName : "", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
-		sortOrder : "",
-		//isQueryFirst:false,
+		url : dmsCommon.getDmsPath()["vehicle"] + "/friendlyClaimApply/claimCaseQueryList/{[CLAIM_ID]}",
 		autoHeight:false,
-		columns : [ 
-			{field : "ID",title : "操作",operateFormat :[                  			
-	             {type : "localDel",operateIcon:'<i class="glyphicon glyphicon-remove"></i>',onBeforeEvent:function(value, row, index){
-	              },onAfterEvent:function(value, row, index){
-	                	//$("#save",container).removeAttr('disabled');
-	              },isShow:function(value, row, index){    	
-	                		return true;
-	              }
-	         }]}, 		           
-	    	{field : "CASE_CODE",inputField:"CASE_CODE", title : "情形", inputTextFormat : {}},
-	    	{field : "TECHPERSON",inputField:"TECHPERSON",title : "技术人员",inputTextFormat : {}},
-	    	{field : "FAULT_CAUSE",inputField:"FAULT_CAUSE",title : "故障说明",inputTextFormat : {}},	
-	    	{field : "APPLY_REMARK",inputField:"APPLY_REMARK",title : "申请备注",inputTextFormat : {}}
-		],
-		onLoadSuccess : function() {
-			$("#claimCaseTable",container).dmsTable().bootstrapTable('resetView');
-		}
+		columns : [ {field : "ID",title : "操作",operateFormat :[                  			
+		            {type : "localDel",onBeforeEvent:function(value, row, index){
+		            },onAfterEvent:function(value, row, index){
+		            	//alert("onAfterEvent");
+		            	updateCaseCodeNumber(); //修改情形序列
+		            	changeCaseCode();		//刷新下拉选
+		            }
+		         }]}, 
+				{field : "CASE_CODE",inputField:"CASE_CODE",title : "情形", inputTextFormat : {}},
+    			//{field : "CASE_CODE",inputField:"CASE_CODE", title : "情形", inputTextFormat : {}},
+    			{field : "TECHPERSON",inputField:"TECHPERSON",title : "技术人员",inputTextFormat : {}},
+    			{field : "FAULT_CAUSE",inputField:"FAULT_CAUSE",title : "故障说明",inputTextFormat : {}},	
+    			{field : "APPLY_REMARK",inputField:"APPLY_REMARK",title : "申请备注",inputTextFormat : {}}
+		         ]
 	});
-
+	
 	//配件
 	new Datatable().initPagination({
 		src : "claimPartsTable",
 		container:container,
 		url : dmsCommon.getDmsPath()["vehicle"] + "/friendlyClaimApply/claimPartQuery/{[CLAIM_ID]}",
 		rowID : "",	
-		sortName : "", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
-		sortOrder : "",
+		//sortName : "", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
+		//sortOrder : "",
 		//isQueryFirst:false,
 		autoHeight:false,
-		columns : [     
-	    	{field : "ID",title : "操作",operateFormat :[                  			
+		columns : [
+			{field : "ID",title : "操作",operateFormat :[                  			
 				{type : "localDel",operateIcon:'<i class="glyphicon glyphicon-remove"></i>',onBeforeEvent:function(value, row, index){
 				},onAfterEvent:function(value, row, index){
-					 //$("#save",container).removeAttr('disabled');
-				},isShow:function(value, row, index){    	
-					  return true;
+					
 				}
 			}]}, 			        
-			{field : "CASE_CODE_PART",inputField:"CASE_CODE_PART",title : "情形",inputSelectFormat : {}},
+            {field : "CASE_CODE_PART",inputField:"CASE_CODE_PART",title : "情形",inputSelectFormat : {}},
 	    	{field : "IS_MAIN",inputField:"IS_MAIN",title : "主标示",inputRadioFormat : {type : "oemDict",codeType : "1004"}},
+	    	//{field : "PART_CODE",title : "配件代码"},
+	    	//{field : "PART_NAME",title : "配件名称"},	
+	   	 	//{field : "PRICE",title : "单价(元)"},	
+	   	 	//{field : "QUANTITY",title : "数量"},
+	   	 	//{field : "AMOUNT",title : "金额（元）"},
 	   	 	{field : "PART_CODE",inputField:"PART_CODE", title : "配件代码", inputTextFormat : {}},
 	   	 	{field : "PART_NAME",inputField:"PART_NAME", title : "配件名称", inputTextFormat : {}},	
 	   	 	{field : "PRICE",inputField:"PRICE",title : "单价(元)",inputNumberFormat : {decimal :2 }},
 	   	 	{field : "QUANTITY",inputField:"QUANTITY",title : "数量",inputNumberFormat : {decimal : 0}},
 	    	{field : "AMOUNT",inputField:"AMOUNT",title : "金额（元）",numberFormat : {decimal : 2,autoValueFormat:{autoValue:"#PRICE*#QUANTITY" }}},
+	    	//{field : "ACTIVITY_CODE",title : "活动编号"},
 	    	{field : "ACTIVITY_CODE",inputField:"ACTIVITY_CODE", title : "活动编号", inputTextFormat : {}}
 		],
 		onLoadSuccess : function() {
 			$("#claimPartsTable",container).dmsTable().bootstrapTable('resetView');
+			CheckPartTable();			
+			$("input[id^='QUANTITY'],input[id^='PRICE']",$("#claimPartsTable",container)).bindChange(function(){				
+				CheckPartTable();
+				loadFee();
+			});				
+			
 		}
+		
 	});
 	//工时
 	new Datatable().initPagination({
@@ -694,8 +704,8 @@ $(document).one("onload.dms",function(event,container){
 		sortOrder : "",
 		//isQueryFirst:false,
 		autoHeight:false,
-		columns : [     
-	    	{field : "ID",title : "操作",operateFormat :[                  			
+		columns : [
+			{field : "ID",title : "操作",operateFormat :[                  			
                 {type : "localDel",operateIcon:'<i class="glyphicon glyphicon-remove"></i>',onBeforeEvent:function(value, row, index){
                 },onAfterEvent:function(value, row, index){
                  	//$("#save",container).removeAttr('disabled');
@@ -703,7 +713,7 @@ $(document).one("onload.dms",function(event,container){
                      return true;
              }
             }]}, 		           
-            {field : "CASE_CODE_LABOUR",inputField:"CASE_CODE_LABOUR", title : "情形", inputSelectFormat : {}},
+	    	{field : "CASE_CODE_LABOUR",inputField:"CASE_CODE_LABOUR", title : "情形", inputSelectFormat : {}},
 	    	{field : "LABOUR_CODE",inputField:"LABOUR_CODE", title : "工时名称", inputTextFormat : {}},
 	    	{field : "LABOUR_NAME",inputField:"LABOUR_NAME", title : "工时名称", inputTextFormat : {}},
 	    	{field : "LABOUR_PRICE",inputField:"LABOUR_PRICE",title : "工时单价",inputNumberFormat : {decimal : 2 }},
@@ -715,6 +725,12 @@ $(document).one("onload.dms",function(event,container){
 		],
 		onLoadSuccess : function() {
 			$("#claimLabourTable",container).dmsTable().bootstrapTable('resetView');
+			CheckLabourTable();
+			$("input[id^='LABOUR_PRICE'],input[id^='LABOUR_NUM']",$("#claimLabourTable",container)).bindChange(function(){
+				//alert("Labour");
+				CheckLabourTable();
+				loadFee();
+			});
 		}
 	});
 
@@ -730,38 +746,229 @@ $(document).one("onload.dms",function(event,container){
 		//isQueryFirst:false,
 		autoHeight:false,
 			columns : [ 
-				    {field : "ID",title : "操作",operateFormat :[                  			
-                         {type : "localDel",operateIcon:'<i class="glyphicon glyphicon-remove"></i>',onBeforeEvent:function(value, row, index){
-                         },onAfterEvent:function(value, row, index){
-                             //$("#save",container).removeAttr('disabled');
-                         },isShow:function(value, row, index){    	
-                            return true;
-                          }
-                    }]}, 			        
-                   {field : "CASE_CODE_OTHER",inputField:"CASE_CODE_OTHER", title : "情形", inputSelectFormat : {}},
- 				   {field : "OTHER_FEE_CODE",inputField:"OTHER_FEE_CODE", title : "项目代码", inputTextFormat : {}},
- 				   {field : "OTHER_FEE_NAME",inputField:"OTHER_FEE_NAME", title : "项目名称", inputTextFormat : {}},			 				   
- 				   {field : "LOP_NUMBER",inputField:"LOP_NUMBER", title : "LOP", inputTextFormat : {}},
- 				   {field : "DETAIL_ID",inputField:"DETAIL_ID", title : "单据编号", inputTextFormat : {}},
- 				   {field : "AMOUNT",inputField:"ITEM_FEE",title : "金额",inputNumberFormat : {decimal :2 }},
- 				   {field : "ACTIVITY_CODE",inputField:"ACTIVITY_CODE", title : "活动编号", inputTextFormat : {}},
- 				   {field : "REMARK",inputField:"REMARK", title : "备注", inputTextFormat : {}}
+					{field : "ID",title : "操作",operateFormat :[                  			
+                        {type : "localDel",operateIcon:'<i class="glyphicon glyphicon-remove"></i>',onBeforeEvent:function(value, row, index){
+                        },onAfterEvent:function(value, row, index){
+                           	//$("#save",container).removeAttr('disabled');
+                        },isShow:function(value, row, index){    	
+                           	return true;
+                        }
+                   }]}, 
+				   {field : "CASE_CODE_OTHER",inputField:"CASE_CODE_OTHER", title : "情形", inputSelectFormat : {}},
+				   {field : "OTHER_FEE_CODE",inputField:"OTHER_FEE_CODE", title : "项目代码", inputTextFormat : {}},
+				   {field : "OTHER_FEE_NAME",inputField:"OTHER_FEE_NAME", title : "项目名称", inputTextFormat : {}},			 				   
+				   {field : "LOP_NUMBER",inputField:"LOP_NUMBER", title : "LOP", inputTextFormat : {}},
+				   {field : "DETAIL_ID",inputField:"DETAIL_ID", title : "单据编号", inputTextFormat : {}},
+				   {field : "AMOUNT",inputField:"ITEM_FEE",title : "金额",inputNumberFormat : {decimal :2 }},
+				   {field : "ACTIVITY_CODE",inputField:"ACTIVITY_CODE", title : "活动编号", inputTextFormat : {}},
+				   {field : "REMARK",inputField:"REMARK", title : "备注", inputTextFormat : {}}
 		],
 		onLoadSuccess : function() {
 			$("#claimOtherTable",container).dmsTable().bootstrapTable('resetView');
+			CheckOtherTable();
+			$("input[id^='ITEM_FEE']",$("#claimOtherTable",container)).bindChange(function(){
+				//alert("Other");
+				CheckOtherTable();
+				loadFee();
+			});
+			
 		}
 	});
 
+	//索赔新增事件点击
+	$("#addcase[data-onclickEvent='true']",container).on("dms.click",function(event){
+		var rownu = $("#claimCaseTable",container).dmsTable().getRowDataByIndex();
+		//alert(rownu.length);
+		if(rownu.length>=3){
+			dmsCommon.tip({status:"warning",msg:"情形数量最多3个！"});
+			returnResult.status =false;
+			return ;		
+		}		
+		$("#claimCaseTable",container).dmsTable().appendRow({'CASE_CODE':rownu.length+1});	
+		changeCaseCode();
+		
+	});
 	
-	
+	//事件点击
+	$("#repairBtn[data-onclickEvent='true']",container).on("dms.click",function(event){
+		 //init();			
+		var rownu = $("#claimCaseTable",container).dmsTable().getRowDataByIndex();
+		//alert(rownu.length);
+		if(rownu.length<1){
+			$("#claimCaseTable",container).dmsTable().appendRow({'CASE_CODE':rownu.length+1});
+			changeCaseCode();
+		}
+		
+		
+	});
 
 	//新增页面的回调函数
 	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
 		//关闭窗口
 		//$("a[data-dismiss='modal']",container).click();
 		//刷新表格
-		$("#dms_table",getElementContext()).dmsTable().refreshTableWithForm();
+		$("#orderList",getElementContext()).dmsTable().refreshTableWithForm();
 	});
+	//配件金额计算
+	 var CheckPartTable=function(){
+		 var partFeeVal = 0;
+		 var rownum = $("#claimPartsTable",container).dmsTable().getTableRows();
+		 var rownu = $("#claimPartsTable",container).dmsTable().getRowDataByIndex();
+		 //alert(rownum);
+		 //alert(rownu);
+		 if(rownum>0){
+			 $(rownu).each(function(index){					
+				console.log(JSON.stringify(rownu));				
+					amount = $('#PRICE'+index,container).val() * $('#QUANTITY'+index,container).val();
+					partFeeVal += amount;
+					
+			  });
+			
+		 }
+		 //alert(partFeeVal);
+		 $('#partFeeVal',container).val(partFeeVal);
+		 //配件管理费
+		 var partMangeFee =  partFeeVal * (parseFloat($('#taxRateValue',container).val()/100)).toFixed(2);
+		 //alert(partMangeFee);
+		 $('#partMangeFee',container).val(partMangeFee.toFixed(2));
+		 //配件总金额
+		 var partFee = partMangeFee + partFeeVal;
+		 $('#partFee',container).val(partFee);
+		 
+		 //loadFee();
+		 changeCaseCode();
+		 
+		
+	}
+	 //工时金额计算
+	 var CheckLabourTable=function(){
+		 var labourNum =0;
+		 var labourFee =0; 
+		 var rownum = $("#claimLabourTable",container).dmsTable().getTableRows();
+		 var rownu = $("#claimLabourTable",container).dmsTable().getRowDataByIndex();
+		 //alert(rownum);
+		 //alert(rownu);
+		 if(rownum>0){
+			 $(rownu).each(function(index){	
+				 
+				console.log(JSON.stringify(rownu));
+					var price = $('#labourPice',container).val();
+					//alert(price);
+					$('#LABOUR_PRICE'+index,container).val(price); 
+					fee = parseFloat(price * $('#LABOUR_NUM'+index,container).val());				
+					labourNum += parseFloat($('#LABOUR_NUM'+index,container).val()) ;//总工时
+					labourFee += fee;
+			  });
+		 }
+		 $('#labourNumVal',container).val(labourNum);
+		 $('#labourFee',container).val(labourFee);
+		 //loadFee();
+		 changeCaseCode();
+		
+	}
+	 //其他项目
+	 var CheckOtherTable=function(){
+		 var itemFee = 0;
+		 var rownum = $("#claimOtherTable",container).dmsTable().getTableRows();
+		 var rownu = $("#claimOtherTable",container).dmsTable().getRowDataByIndex();
+		 //alert(rownum);
+		 //alert(rownu);
+		 if(rownum>0){
+			 $(rownu).each(function(index){					 
+				console.log(JSON.stringify(rownu));					
+					itemFee +=parseFloat($('#ITEM_FEE'+index,container).val());				
+			  });
+		 }
+		 //alert(itemFee);
+		 $('#otherAmount',container).val(itemFee);
+		 //loadFee();
+		 changeCaseCode();
+	}
+	 //索赔总金额
+	 var loadFee= function(){		
+		 var allAmount = 0;
+		 allAmount = parseFloat($('#labourFee',container).val()) +parseFloat($('#partFee',container).val())+ parseFloat($('#otherAmount',container).val());		 			 			
+		 $('#allAmount',container).val(allAmount);
+		
+	}
+	//初始化input值
+	var init = function(){
+		$('#labTaxRate',container).val(0);
+		$('#partTaxRate',container).val(0);
+		$('#partFeeVal',container).val(0);
+		$('#otherAmount',container).val(0);
+		$('#labourFee',container).val(0);
+		$('#partFee',container).val(0);
+		$('#allAmount',container).val(0);
+		
+	}
+	
+	//动态修改下拉选列表
+	var changeCaseCode=function(number){	
+		
+		var rownuCase = $("#claimCaseTable",container).dmsTable().getRowDataByIndex();
+		//alert(rownu.length);
+		var selectData = new Array();
+		if(rownuCase.length>0){
+			$(rownuCase).each(function(index){					 									
+				selectData.push({id:index+1,name:index+1});
+			  });
+		}					 		 
+		//配件下拉选
+			var rownum = $("#claimPartsTable",container).dmsTable().getTableRows();
+			var rownu = $("#claimPartsTable",container).dmsTable().getRowDataByIndex();
+			 //alert(rownum);
+			 //alert(rownu);
+			 if(rownum>0){
+				 $(rownu).each(function(index){					 
+					console.log(JSON.stringify(rownu));					
+					dmsDict.refreshSelectByData($( "#CASE_CODE_PART"+index ,container),selectData,"id","name");		
+				  });
+			 }
+				//工时下拉选
+				var rownum = $("#claimLabourTable",container).dmsTable().getTableRows();
+				var rownu = $("#claimLabourTable",container).dmsTable().getRowDataByIndex();
+					 //alert(rownum);
+					 //alert(rownu);
+					 if(rownum>0){
+						 $(rownu).each(function(index){					 
+							console.log(JSON.stringify(rownu));					
+							dmsDict.refreshSelectByData($( "#CASE_CODE_LABOUR"+index ,container),selectData,"id","name");		
+						  });
+					 }
+				//其他下拉选
+				var rownum = $("#claimOtherTable",container).dmsTable().getTableRows();
+				var rownu = $("#claimOtherTable",container).dmsTable().getRowDataByIndex();
+							 //alert(rownum);
+							 //alert(rownu);
+						if(rownum>0){
+							$(rownu).each(function(index){					 
+								console.log(JSON.stringify(rownu));					
+							dmsDict.refreshSelectByData($( "#CASE_CODE_OTHER"+index ,container),selectData,"id","name");		
+							});
+						 }
+		
+		}
+	//刷新情形序号
+	var updateCaseCodeNumber=function(){
+	    var rownu = $("#claimCaseTable",container).dmsTable().getRowDataByIndex();
+		//alert( "情形序列："+rownu.length);
+		if(rownu.length>0){
+			$(rownu).each(function(index){					 				
+				//$('#CASE_CODE'+index,container).setDmsValue(index+1);
+				alert("CASE_CODE:"+index);
+				 $("#claimCaseTable",container).dmsTable().updateRowByIndex(index,{
+						CASE_CODE: index+1						
+						});
+					
+			  });
+		}  
+		
+		 
+		
+	}
+	
+	
 	
 	
 });

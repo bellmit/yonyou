@@ -36,6 +36,7 @@ public class TtWrForelabourRuleDao extends OemBaseDAO{
 		LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
 		List<Map>  list=getAuthLevel();//获得授权级别列表
 		StringBuffer sql= new StringBuffer();
+		sql.append("select * from (");
 		sql.append(" select t1.RULE_ID,t1.OEM_COMPANY_ID,t1.MODEL_GROUP,t1.LABOUR_CODE, \n " );
 		sql.append(" t1.AUTH_LEVEL,t2.LABOUR_NAME,t2.GROUP_CODE \n " );
 		//根据授权级别进行拼列，动态列，按照“，”打开列显示
@@ -61,6 +62,7 @@ public class TtWrForelabourRuleDao extends OemBaseDAO{
 			}
 		sql.append("group by t1.RULE_ID,t1.OEM_COMPANY_ID,t1.MODEL_GROUP,t1.LABOUR_CODE, \n");
 		sql.append("t1.AUTH_LEVEL,t2.LABOUR_NAME,t2.group_code");
+		sql.append("  )tt ");
 		//sql.append(" order by t1.LABOUR_CODE ");
 		 System.out.println(sql.toString());
 			return sql.toString();

@@ -5,6 +5,7 @@ import org.javalite.activejdbc.annotations.IdName;
 import org.javalite.activejdbc.annotations.Table;
 
 import com.yonyou.dms.framework.domain.BaseModel;
+import com.yonyou.dms.framework.domain.OemBaseModel;
 /**
  * 
 * @ClassName: TtVsMonthlyForecastPO 
@@ -15,16 +16,7 @@ import com.yonyou.dms.framework.domain.BaseModel;
  */
 @Table("tt_vs_monthly_forecast")
 @IdName("FORECAST_ID")
-public class TtVsMonthlyForecastPO extends BaseModel{
+public class TtVsMonthlyForecastPO extends OemBaseModel{
 
-	private Long updated_by;
-
-	public Long getUpdated_by() {
-		return updated_by;
-	}
-
-	public void setUpdated_by(Long updated_by) {
-		this.updated_by = updated_by;
-	}
 	
 }

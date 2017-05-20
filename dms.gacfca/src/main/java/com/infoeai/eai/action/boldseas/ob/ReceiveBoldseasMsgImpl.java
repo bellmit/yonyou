@@ -185,7 +185,7 @@ public class ReceiveBoldseasMsgImpl extends BaseService implements ReceiveBoldse
 			OutBoundReturnVO returnVo = new OutBoundReturnVO();
 			BeanUtils.populate(returnVo, paramsMap); //将请求参数封装到TtWarrantyRegistrationInterfaceInfoPO
 			logger.info("下发数据:"+returnVo.toString());
-			msgId = SendBoldMsgToDms.sendData(returnVo);
+//			msgId = SendBoldMsgToDms.sendData(returnVo);
 		}catch(Exception t){
 			msgId = "";
 		}

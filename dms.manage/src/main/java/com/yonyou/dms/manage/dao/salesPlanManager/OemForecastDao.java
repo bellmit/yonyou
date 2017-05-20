@@ -57,7 +57,7 @@ public class OemForecastDao extends OemBaseDAO {
 		sql.append("        IFNULL(TVMFDC.REQUIRE_NUM,0) REQUIRE_NUM,IFNULL(TVMFDC.CONFIRM_NUM,0) CONFIRM_NUM,IFNULL(TVMFDC.REPORT_NUM,0) REPORT_NUM\n");
 		sql.append(" 		FROM ("+getVwMaterialSql()+")                   VW,\n");
 		sql.append(" 		TT_VS_MONTHLY_FORECAST            TVMF,\n");
-		sql.append(" 		TT_VS_MONTHLY_FORECAST_DETAIL     TVMFD,\n");
+		sql.append(" 		TT_VS_MONTHLY_FORECAST_DETAIL_DCS     TVMFD,\n");
 		sql.append(" 		TT_VS_RETAIL_TASK				  TVRT,\n");
 		sql.append(" 		TT_FORECAST_MATERIAL 			  TFM,\n");
 		sql.append(" 		TM_DEALER 						 TD,\n");
@@ -147,7 +147,7 @@ public class OemForecastDao extends OemBaseDAO {
 		sql.append(" select  TVMFDC.DETAIL_COLOR_ID,TOR2.ORG_ID,TOR2.ORG_NAME,VM.SERIES_CODE,VM.SERIES_NAME,VM.MODEL_CODE,VM.MODEL_NAME, VM.GROUP_CODE,VM.GROUP_NAME,VM.COLOR_NAME,VM.TRIM_NAME,\n");
 		sql.append("    TVMF.DEALER_ID,SUM(TVMFDC.REQUIRE_NUM) REQUIRE_NUM,SUM(TVMFDC.Confirm_num) CONFIRM_NUM,SUM(TVMFDC.report_num) REPORT_NUM\n");
 		sql.append("    from TT_VS_MONTHLY_FORECAST            TVMF,\n");
-		sql.append("         TT_VS_MONTHLY_FORECAST_DETAIL     TVMFD,\n");		
+		sql.append("         TT_VS_MONTHLY_FORECAST_DETAIL_DCS     TVMFD,\n");		
 		sql.append("         TM_DEALER                         TD,\n");
 		sql.append("         TM_ORG                            TOR,\n");
 		sql.append("         TM_ORG                            TOR2,\n");
@@ -253,7 +253,7 @@ public class OemForecastDao extends OemBaseDAO {
 		sql.append("select  TVMFDC.DETAIL_COLOR_ID,VM.SERIES_CODE,VM.SERIES_NAME,VM.MODEL_CODE,VM.MODEL_NAME,VM.GROUP_NAME,VM.GROUP_CODE,VM.COLOR_NAME,VM.TRIM_NAME,sum(TVMFDC.REQUIRE_NUM) REQUIRE_NUM,sum(TVMFDC.CONFIRM_NUM) CONFIRM_NUM,sum(TVMFDC.REPORT_NUM) REPORT_NUM\n");
 		sql.append("    from ("+getVwMaterialSql()+")                       VM,\n");
 		sql.append("         TT_VS_MONTHLY_FORECAST            TVMF,\n");
-		sql.append("         TT_VS_MONTHLY_FORECAST_DETAIL     TVMFD,\n");
+		sql.append("         TT_VS_MONTHLY_FORECAST_DETAIL_DCS     TVMFD,\n");
 		sql.append("         TT_VS_MONTHLY_FORECAST_DETAIL_COLOR TVMFDC,\n");
 		sql.append("         TM_DEALER                         TD\n");
 		sql.append("    where VM.MATERIAL_ID = TVMFDC.MATERIAL_ID\n");
@@ -343,7 +343,7 @@ public class OemForecastDao extends OemBaseDAO {
 		sql.append("select  TVMFDC.DETAIL_COLOR_ID,TOR2.ORG_ID PORG_ID,TOR2.ORG_NAME PORG_NAME,TOR.ORG_ID,TOR.ORG_NAME,TD.DEALER_CODE,TD.DEALER_SHORTNAME,VM.SERIES_CODE,VM.SERIES_NAME,VM.MODEL_CODE,VM.MODEL_NAME, VM.GROUP_CODE,VM.GROUP_NAME,VM.COLOR_NAME,VM.TRIM_NAME, \n");
 		sql.append("  TVMFDC.REQUIRE_NUM,TVMFDC.CONFIRM_NUM,TVMFDC.REPORT_NUM\n");
 		sql.append("    from TT_VS_MONTHLY_FORECAST            TVMF,\n");
-		sql.append("         TT_VS_MONTHLY_FORECAST_DETAIL     TVMFD,\n");
+		sql.append("         TT_VS_MONTHLY_FORECAST_DETAIL_DCS     TVMFD,\n");
 		sql.append("         TM_DEALER                         TD,\n");
 		sql.append("         TM_ORG                            TOR,\n");
 		sql.append("         TM_ORG                            TOR2,\n");
@@ -588,7 +588,7 @@ public class OemForecastDao extends OemBaseDAO {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT tvmf.TASK_ID,TOR2.ORG_NAME BIG_AREA,TOR.ORG_NAME SMALL_AREA,TD.DEALER_NAME,TD.DEALER_CODE,TVMF.FORECAST_YEAR,TVMF.FORECAST_MONTH,POS.SERIAL_NUMBER PON,VM.BRAND_NAME,VM.GROUP_NAME,VM.COLOR_NAME,VM.TRIM_NAME,VM.MODEL_YEAR,VM.SERIES_NAME \n");
 		 sql.append(" 	,POS.STATUS,CONCAT(TVMF.FORECAST_YEAR,'-',TVMF.FORECAST_MONTH) MONTH FROM PRO_ORDER_SERIAL POS, TT_VS_MONTHLY_FORECAST_DETAIL_COLOR TVMFDC, ("+getVwMaterialSql()+") VM,TT_VS_MONTHLY_FORECAST TVMF,TM_DEALER TD,\n");
-		 sql.append(" 	 TT_VS_MONTHLY_FORECAST_DETAIL TVMFD, TM_DEALER_ORG_RELATION         TDOR,TM_ORG TOR,TM_ORG TOR2 \n");
+		 sql.append(" 	 TT_VS_MONTHLY_FORECAST_DETAIL_DCS TVMFD, TM_DEALER_ORG_RELATION         TDOR,TM_ORG TOR,TM_ORG TOR2 \n");
 		 sql.append("WHERE TVMFDC.DETAIL_COLOR_ID=POS.DETAIL_COLOR_ID  AND VM.MATERIAL_ID=TVMFDC.MATERIAL_ID AND TVMFD.DETAIL_ID=TVMFDC.DETAIL_ID \n");
 		 sql.append(" 		  AND TVMFD.FORECAST_ID=TVMF.FORECAST_ID  AND TD.DEALER_ID=TVMF.DEALER_ID\n");
 		 sql.append(" 		AND TOR.ORG_ID=TDOR.ORG_ID\n");
@@ -681,7 +681,7 @@ public class OemForecastDao extends OemBaseDAO {
 		 sql.append(" 	,(CASE POS.STATUS WHEN '21112101' THEN '已确认流水号' WHEN '21112102' THEN '中进定金确认' WHEN '21112103' THEN '逾期未付定金撤销' WHEN '21112100' THEN 'OTD已审核订单' WHEN '21112104' THEN '无效流水号' ELSE '' END) STATUS \n");
 		 sql.append(" ,CONCAT(TVMF.FORECAST_YEAR,'-',TVMF.FORECAST_MONTH) MONTH \n");
 		 sql.append("   FROM PRO_ORDER_SERIAL POS, TT_VS_MONTHLY_FORECAST_DETAIL_COLOR TVMFDC, ("+getVwMaterialSql()+") VM,TT_VS_MONTHLY_FORECAST TVMF,TM_DEALER TD, \n");
-		 sql.append(" 	 TT_VS_MONTHLY_FORECAST_DETAIL TVMFD, TM_DEALER_ORG_RELATION         TDOR,TM_ORG TOR,TM_ORG TOR2 \n");
+		 sql.append(" 	 TT_VS_MONTHLY_FORECAST_DETAIL_DCS TVMFD, TM_DEALER_ORG_RELATION         TDOR,TM_ORG TOR,TM_ORG TOR2 \n");
 		 sql.append("WHERE TVMFDC.DETAIL_COLOR_ID=POS.DETAIL_COLOR_ID  AND VM.MATERIAL_ID=TVMFDC.MATERIAL_ID AND TVMFD.DETAIL_ID=TVMFDC.DETAIL_ID \n");
 		 sql.append(" 		  AND TVMFD.FORECAST_ID=TVMF.FORECAST_ID  AND TD.DEALER_ID=TVMF.DEALER_ID\n");
 		 sql.append(" 		AND TOR.ORG_ID=TDOR.ORG_ID\n");

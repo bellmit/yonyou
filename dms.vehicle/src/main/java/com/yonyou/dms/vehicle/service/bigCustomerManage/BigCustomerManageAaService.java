@@ -62,11 +62,14 @@ public interface BigCustomerManageAaService {
 	//审批更改
 	public void saveApprovalInfo(BigDecimal id,TtBigCustomerAuthorityApprovalDTO dto)throws ServiceBizException;
 	
-	public void downBigCustomerPolicy(BigDecimal policyFileId) throws ServiceBizException;
+	public int downBigCustomerPolicy(BigDecimal policyFileId) throws ServiceBizException;
 	
-	public void uploadFiles(MultipartFile importFile) throws ServiceBizException;
+	//附件上传
+	public int uploadFiles(String dmsFileIds) throws ServiceBizException;
 	//大客户报备申请显示信息
 	public Map<String, Object> QueryCustomerByStatus1(String wsno, int flag);
+	//大客户政策删除
+	public void delete(BigDecimal id) throws ServiceBizException;
 	
 
 	

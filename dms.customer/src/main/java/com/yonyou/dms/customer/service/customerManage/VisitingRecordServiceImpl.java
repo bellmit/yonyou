@@ -360,6 +360,8 @@ public class VisitingRecordServiceImpl implements VisitingRecordService {
 	        System.out.println(id);
 	        visitPo.setLong("ITEM_ID", id);
     	}
+    	String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
+
         visitPo.setString("CUSTOMER_NO", visitDto.getCustomerNo());// 客户编码
         visitPo.setString("CUSTOMER_NAME", visitDto.getCustomerName());// 客户名称
         visitPo.setString("CONTACTOR_NAME", visitDto.getContactorName());// 联系人
@@ -390,10 +392,11 @@ public class VisitingRecordServiceImpl implements VisitingRecordService {
         visitPo.setString("BETTER_VISIT_TIME", visitDto.getBetterVisitTime());// 拜访时间
         
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT * FROM TT_VISITING_RECORD WHERE CONTACTOR_PHONE = ? OR CONTACTOR_MOBILE = ? AND 1=1");
+        sb.append("SELECT * FROM TT_VISITING_RECORD WHERE CONTACTOR_PHONE = ? OR CONTACTOR_MOBILE = ? AND DEALER_CODE= ?");
         List<Object> queryList = new ArrayList<Object>();
         queryList.add(visitDto.getContactorPhone());																
         queryList.add(visitDto.getContactorMobile());
+        queryList.add(dealerCode);
         List<Map> result = DAOUtil.findAll(sb.toString(), queryList);
         if(flag){//新增
         	if(result.size() == 0){                             //手机号和电话都不存在的
@@ -422,7 +425,32 @@ public class VisitingRecordServiceImpl implements VisitingRecordService {
         	visitPo.setDouble("VISIT_TIMES", visitDto.getVisitTimes());
         }
         
-            
+        if(!StringUtils.isNullOrEmpty(visitDto.getCustomerNo())){
+            PotentialCusPO poCu = PotentialCusPO.findByCompositeKeys(dealerCode,visitDto.getCustomerNo());
+            if(poCu!=null){
+                if(flag){
+                    poCu.setTimestamp("VISIT_TIME", new Date());// 来访时间
+                } 
+                if(flag){//新增
+                    if(result.size() == 0){                             //手机号和电话都不存在的
+                        if(visitDto.getVisitType() == 13091002){        //来店
+                            poCu.setDouble("VISIT_TIMES", 1);
+                        }else{                                          //非来店
+                            poCu.setDouble("VISIT_TIMES", 0);
+                        }
+                    }else{                                              //手机号或电话存在的
+                        if(visitDto.getVisitType() == 13091002){        //来店
+                            poCu.setDouble("VISIT_TIMES", result.size() + 1);
+                        }else{                                          //非来店
+                            poCu.setDouble("VISIT_TIMES", 0);
+                        }
+                    }
+                }else{//修改
+                    poCu.setDouble("VISIT_TIMES", visitDto.getVisitTimes());
+                }
+                poCu.saveIt();
+            }
+        }   
         if(!StringUtils.isNullOrEmpty(visitDto.getIsStepForwardGreeting())){    // 是否已接待
         	visitPo.setLong("IS_STEP_FORWARD_GREETING", DictCodeConstants.IS_YES);
         }else{
@@ -1188,11 +1216,22 @@ public class VisitingRecordServiceImpl implements VisitingRecordService {
         VisitingRecordPO visitPo = VisitingRecordPO.findByCompositeKeys(id,FrameworkUtil.getLoginInfo().getDealerCode());
         visitPo.setString("CUSTOMER_NO", customerNo);
         visitPo.saveIt();
+      
    /*     // 1. 取Min(来访时间)且是否首次到店为是的展厅记录中的来访时间作为客户首次到店时间
         // 2. 取Min(来访时间)且是否首次到店为是，是否二次到店为是的展厅记录中的来访时间作为客户二次到店时间。
         this.setFirstArriveTime(potentialCusDto.getContactorMobile(), potentialCusPo);
         this.setSecondArriveTime(potentialCusDto.getContactorMobile(), potentialCusPo);*/
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+       if(!StringUtils.isNullOrEmpty(visitPo.getDate("VISIT_TIME"))){
+           System.out.println("===========================");
+           System.out.println(visitPo.getString("VISIT_TIME"));
+           potentialCusPo.setString("VISIT_TIME",  visitPo.getString("VISIT_TIME"));
+        }
+       if(!StringUtils.isNullOrEmpty(visitPo.getInteger("VISIT_TIMES"))){
+           potentialCusPo.setInteger("VISIT_TIMES",  visitPo.getInteger("VISIT_TIMES"));
+       }else{
+           potentialCusPo.setInteger("VISIT_TIMES",  0);
+       }
         System.out.println("日期"+format1.format(new Date()));
         potentialCusPo.setString("FOUND_DATE",  format1.format(new Date()));
         potentialCusPo.setString("VALIDITY_BEGIN_DATE",  format1.format(new Date()));
@@ -1390,6 +1429,7 @@ public class VisitingRecordServiceImpl implements VisitingRecordService {
      */
 
     public void setPotentialCus(PotentialCusPO potentialCusPo, PotentialCusDTO potentialCusDto) {
+ 
         potentialCusPo.setString("CUSTOMER_NO", potentialCusDto.getCustomerNo());// 潜客编号
         potentialCusPo.setString("CUSTOMER_NAME", potentialCusDto.getCustomerName());// 客户编码
         potentialCusPo.setLong("CUSTOMER_STATUS",Long.parseLong(DictCodeConstants.DICT_CUSTOMER_STATUS_LATENCY));

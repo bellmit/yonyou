@@ -29,8 +29,10 @@ import com.yonyou.dms.framework.domain.LoginInfoDto;
 import com.yonyou.dms.framework.util.bean.ApplicationContextHelper;
 import com.yonyou.dms.function.utils.common.CommonUtils;
 import com.yonyou.dms.manage.domains.DTO.basedata.OrganizationTreeDto;
+import com.yonyou.dms.manage.domains.DTO.salesPlanManager.ForecastColorListDTO;
 import com.yonyou.dms.manage.domains.DTO.salesPlanManager.TmpVsMonthlyForecastDTO;
 import com.yonyou.dms.manage.domains.DTO.salesPlanManager.TtVsMonthlyForecastDTO;
+import com.yonyou.dms.manage.domains.PO.salesPlanManager.TtVsRetailTaskPO;
 import com.yonyou.dms.manage.service.salesPlanManager.ForecastImportService;
 import com.yonyou.f4.mvc.annotation.TxnConn;
 /**
@@ -196,21 +198,34 @@ public class ForecastImportController {
 	* @return PageInfoDto    返回类型 
 	* @throws
 	 */
-	@RequestMapping(value="/forecastOTDImportList/{taskId}",method = RequestMethod.GET)
+	@RequestMapping(value="/forecastOTDImportList/{taskId}/{seriesId}",method = RequestMethod.GET)
 	@ResponseBody
 	public List<Map> forecastOTDImportList(@RequestParam Map<String, String> queryParam,
-			@PathVariable("taskId") String taskId ) {
+			@PathVariable("taskId") String taskId,@PathVariable("seriesId") String seriesId) {
 		logger.info("============ 生产订单任务录入(N+3预测录入界面(车系,车型,车款))===============");
-		queryParam.put("taskId", taskId);
+		//获取当前用户
+        LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
+		TmVhclMaterialGroupPO tvmgPo = TmVhclMaterialGroupPO.findById(Long.parseLong(seriesId));
+		TtVsRetailTaskPO trt = TtVsRetailTaskPO.findById(taskId);
+		List<Map> tvmgList = forecastImportService.getForecastPackageOTDFilterList(seriesId,loginInfo,taskId);
+		List<Map> totalList =  forecastImportService.getForecastCarOTDListTotal(seriesId,loginInfo,taskId);
+		Map<String, Object> map = new HashMap<String,Object>();
+		map = totalList.get(0);
+		map.put("S_TOTAL",map.get("UP_LIMIT")+"-"+map.get("LOWER_LIMIT"));
+		map.put("GROUP_NAME",tvmgPo.getString("GROUP_NAME"));
+		List<Map> mapList = new ArrayList<>();
+		mapList.add(map);
+		return mapList;
+		/*queryParam.put("taskId", taskId);
 		List<Map> forecastImportOTDList = forecastImportService.forecastImportOTDQuery(queryParam);
 		String groupCode = forecastImportOTDList.get(0).get("SERIES_CODE").toString();
 		TmVhclMaterialGroupPO tvmgPo = new TmVhclMaterialGroupPO();
 		tvmgPo.setString("GROUP_CODE", groupCode);
 		List<Map> tvmgPoList = forecastImportService.selectTmVhclMaterialGroupUnique(tvmgPo);
 		
-		/*TtVsRetailTaskPO trtPO = new TtVsRetailTaskPO();
+		TtVsRetailTaskPO trtPO = new TtVsRetailTaskPO();
 		trtPO.set("TASK_ID", Long.valueOf(taskId));
-		List<Map> trtList = forecastImportService.selectTtVsRetailTaskUnique(trtPO);*/
+		List<Map> trtList = forecastImportService.selectTtVsRetailTaskUnique(trtPO);
 		
 		//获取当前用户
         LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
@@ -219,20 +234,20 @@ public class ForecastImportController {
 		Map map = new HashMap<String,Object>();
 		map = totalList.get(0);
 		
-		/*act.setOutData("S_TOTAL",map.get("UP_LIMIT")+"-"+map.get("LOWER_LIMIT"));
+		act.setOutData("S_TOTAL",map.get("UP_LIMIT")+"-"+map.get("LOWER_LIMIT"));
 		act.setOutData("LOWER_LIMIT",map.get("LOWER_LIMIT"));
 		act.setOutData("UP_LIMIT",map.get("UP_LIMIT"));
-		act.setOutData("FORECAST_TOTAL",FORECAST_TOTAL);*/
+		act.setOutData("FORECAST_TOTAL",FORECAST_TOTAL);
 		
-		/*TtVsMonthlyForecastPercentPO tvmfp = new TtVsMonthlyForecastPercentPO();
-		List tvmfpList = dao.select(tvmfp);*/
+		TtVsMonthlyForecastPercentPO tvmfp = new TtVsMonthlyForecastPercentPO();
+		List tvmfpList = dao.select(tvmfp);
 		
-		/*act.setOutData("isSetColor", "2");//录入页面初始化
+		act.setOutData("isSetColor", "2");//录入页面初始化
 		act.setOutData("notSumColor", "2");//录入页面初始化
 		act.setOutData("taskId", taskId);
 		act.setOutData("tvmgPo", tvmgPo);
 		act.setOutData("groupId", groupCode);
-		act.setOutData("tvmgList", tvmgList);*/
+		act.setOutData("tvmgList", tvmgList);
 		
 		if(tvmgPoList.size() >0){
 			for(int i=0; i<tvmgPoList.size(); i++){
@@ -243,7 +258,7 @@ public class ForecastImportController {
 			}
 		}
 
-		return tvmgPoList;
+		return tvmgPoList;*/
 	}
 	
 	/**
@@ -255,56 +270,76 @@ public class ForecastImportController {
 	* @return PageInfoDto    返回类型 
 	* @throws
 	 */
-	@RequestMapping(value="/forecastOTDImportList2/{taskId}",method = RequestMethod.GET)
+	@RequestMapping(value="/forecastOTDImportList2/{taskId}/{seriesId}",method = RequestMethod.GET)
 	@ResponseBody
 	public List<Map> forecastOTDImportList2(@RequestParam Map<String, String> queryParam,
-			@PathVariable("taskId") String taskId) {
+			@PathVariable("taskId") String taskId,@PathVariable("seriesId") String seriesId) {
 		logger.info("============ 生产订单任务录入2(N+3预测录入界面(车系,车型,车款)2)===============");
-		queryParam.put("taskId", taskId);
-		List<Map> forecastImportOTDList = forecastImportService.forecastImportOTDQuery(queryParam);
-		String groupCode = forecastImportOTDList.get(0).get("SERIES_CODE").toString();
-		
-		/*TmVhclMaterialGroupPO tvmgPo = new TmVhclMaterialGroupPO();
-		tvmgPo.setString("GROUP_CODE", groupCode);
-		List<Map> tvmgPoList = forecastImportService.selectTmVhclMaterialGroupUnique(tvmgPo);*/
-		
-		/*TtVsRetailTaskPO trtPO = new TtVsRetailTaskPO();
-		trtPO.set("TASK_ID", Long.valueOf(taskId));
-		List<Map> trtList = forecastImportService.selectTtVsRetailTaskUnique(trtPO);*/
-		
 		//获取当前用户
         LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
-		List<Map> tvmgList = forecastImportService.getForecastPackageOTDFilterList(groupCode,loginInfo,taskId);
-		List<Map> totalList =  forecastImportService.getForecastCarOTDListTotal(groupCode,loginInfo,taskId);
-		
-		Map map = new HashMap<String,Object>();
+		TmVhclMaterialGroupPO tvmgPo = TmVhclMaterialGroupPO.findById(Long.parseLong(seriesId));
+		TtVsRetailTaskPO trt = TtVsRetailTaskPO.findById(taskId);
+		List<Map> tvmgList = forecastImportService.getForecastPackageOTDFilterList(seriesId,loginInfo,taskId);
+		List<Map> totalList =  forecastImportService.getForecastCarOTDListTotal(seriesId,loginInfo,taskId);
+		Map<String, Object> map = new HashMap<String,Object>();
 		map = totalList.get(0);
-
-		/*act.setOutData("S_TOTAL",map.get("UP_LIMIT")+"-"+map.get("LOWER_LIMIT"));
-		act.setOutData("LOWER_LIMIT",map.get("LOWER_LIMIT"));
-		act.setOutData("UP_LIMIT",map.get("UP_LIMIT"));
-		act.setOutData("FORECAST_TOTAL",FORECAST_TOTAL);*/
-		
-		/*TtVsMonthlyForecastPercentPO tvmfp = new TtVsMonthlyForecastPercentPO();
-		List tvmfpList = dao.select(tvmfp);*/
-		
-		/*act.setOutData("isSetColor", "2");//录入页面初始化
-		act.setOutData("notSumColor", "2");//录入页面初始化
-		act.setOutData("taskId", taskId);
-		act.setOutData("tvmgPo", tvmgPo);
-		act.setOutData("groupId", groupCode);
-		act.setOutData("tvmgList", tvmgList);*/
-		
-		if(tvmgList.size() >0){
-			for(int i=0; i<tvmgList.size(); i++){
-				tvmgList.get(i).put("S_TOTAL",map.get("UP_LIMIT")+"-"+map.get("LOWER_LIMIT"));
-				tvmgList.get(i).put("LOWER_LIMIT",map.get("LOWER_LIMIT"));
-				tvmgList.get(i).put("UP_LIMIT",map.get("UP_LIMIT"));
-				tvmgList.get(i).put("FORECAST_TOTAL", map.get("FORECAST_TOTAL"));
+		map.put("S_TOTAL",map.get("UP_LIMIT")+"-"+map.get("LOWER_LIMIT"));
+		map.put("GROUP_NAME",tvmgPo.getString("GROUP_NAME"));
+		List<Map> mapList = new ArrayList<>();
+		mapList.add(map);
+		return tvmgList;
+	}
+	
+	@RequestMapping(value="/forecastOTDImportList2/{taskId}/{seriesId}/{groupId}",method = RequestMethod.GET)
+	@ResponseBody
+	public List<Map> forecastOTDImportList2(@RequestParam Map<String, String> queryParam,
+			@PathVariable("taskId") String taskId,@PathVariable("seriesId") String seriesId,@PathVariable("groupId") String groupId) {
+		logger.info("============ 生产订单任务录入2(N+3预测录入界面(车系,车型,车款)2)===============");
+		//获取当前用户
+        LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
+		TmVhclMaterialGroupPO tvmgPo = TmVhclMaterialGroupPO.findById(Long.parseLong(seriesId));
+		TtVsRetailTaskPO trt = TtVsRetailTaskPO.findById(taskId);
+		List<Map> tvmgList = forecastImportService.getForecastPackageOTDFilterList(seriesId,loginInfo,taskId);
+		List<Map> totalList =  forecastImportService.getForecastCarOTDListTotal(seriesId,loginInfo,taskId);
+		List<Map> resultList = new ArrayList<>();
+		if(tvmgList != null && !tvmgList.isEmpty()){
+			for(int i = 0; i < tvmgList.size(); i++){
+				Map map = tvmgList.get(i);
+				if(CommonUtils.checkNull(map.get("GROUP_ID")).equals(groupId)){
+					resultList.add(map);
+				}
 			}
 		}
-
-		return tvmgList;
+		return resultList;
+	}
+	
+	@RequestMapping(value="/forecastColorList/{groupId}/{detailId}/{taskId}",method = RequestMethod.GET)
+	@ResponseBody
+	public List<Map> forecastColorList(@PathVariable("groupId") String groupId,@PathVariable("detailId") String detailId,@PathVariable("taskId") String taskId){
+		LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
+		List<Map> colorList = forecastImportService.getForecastColorOTDFilterList(groupId,loginInfo,taskId,detailId);
+		return colorList;	
+	}
+	
+	/**
+	 * 生产需求任务录入（保存）
+	 * @param dto
+	 * @param uriCB
+	 * @return
+	 */
+	@RequestMapping(value="/saveForecastColorList",method = RequestMethod.PUT)
+	@ResponseBody
+	public ResponseEntity<ForecastColorListDTO> saveForecastColorList(@RequestBody ForecastColorListDTO dto,UriComponentsBuilder uriCB){
+		LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
+		String taskId = dto.getTaskId();
+		String colorDetailId = dto.getColorDetailId();
+		String groupId = dto.getGroupId();
+		String forecastAmount = CommonUtils.checkNull(dto.getForecastAmount(),"0");
+		String[] numsColor = dto.getNumsColor().split(",");
+		String[] materialIds = dto.getMaterialIds().split(",");
+		logger.info("============ 生产需求任务录入（保存）===============");
+		forecastImportService.saveOTDForecast2(taskId,colorDetailId,groupId,forecastAmount,numsColor,materialIds,loginInfo);
+		return new ResponseEntity<>( HttpStatus.CREATED);
 	}
 	
 	/**
@@ -318,7 +353,7 @@ public class ForecastImportController {
 	* @return ResponseEntity<DemoUserDto>    返回类型 
 	* @throws
 	 */
-	@RequestMapping(value = "/modifyforecastOTDSubmit",
+	@RequestMapping(value = "/modifyforecastOTDSubmit/{taskId}",
 			method = RequestMethod.PUT)
     public ResponseEntity<TtVsMonthlyForecastDTO> modifyforecastOTDSubmit(
     		@PathVariable("taskId") Long taskId, 

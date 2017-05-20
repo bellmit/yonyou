@@ -11,9 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.yonyou.dcs.dao.UrlFunctionDao;
 import com.yonyou.dms.common.domains.DTO.common.SalesorderShoppingDTO;
-import com.yonyou.dms.framework.DAO.OemDAOUtil;
-import com.yonyou.dms.function.common.OemDictCodeConstants;
-import com.yonyou.dms.function.exception.ServiceBizException;
 
 @Service
 public class SA02CloudImpl extends BaseCloudImpl implements SA02Cloud {
@@ -49,11 +46,11 @@ public class SA02CloudImpl extends BaseCloudImpl implements SA02Cloud {
 			}
 			if(null!=dmsCodes&&dmsCodes.size()>0){
 //				 //下发操作
-//				 int flag = send(list,dmsCodes);
+//				 int flag = send(msg,dmsCodes);
 //				 if(flag==1){
-//					 logger.info("================URL功能列表下发成功（HMCICO11）====================");
+//					 logger.info("================调拨审批结果下发成功（SA02Cloud）====================");
 //				 }else{
-//					 logger.info("================URL功能列表下发失败（HMCICO11）====================");
+//					 logger.info("================调拨审批结果下发失败（SA02Cloud）====================");
 //				 	 logger.error("Cann't send to " + dealerCode);
 //				 }
 			}

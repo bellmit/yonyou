@@ -351,14 +351,14 @@ public class OemVehicleServiceImpl implements OemVehicleService {
 	@Override
 	public PageInfoDto vehicleNodeChangeQuery(Long id) {
 		Map<String, Object> map = new HashMap();
-		PageInfoDto m = dao.vehicleNodeChangeQuery(id);
+		//PageInfoDto m = dao.vehicleNodeChangeQuery(id);
 		// for (Map map2 : m) {
 		// map.put("CHANGE_CODE", map2.get("CHANGE_CODE"));
 		// map.put("CHANGE_DATE", map2.get("CHANGE_DATE"));
 		// map.put("CHANGE_DESC", map2.get("CHANGE_DESC"));
 		//
 		// }
-		return m;
+		return null;
 	}
 
 	@Override
@@ -402,8 +402,8 @@ public class OemVehicleServiceImpl implements OemVehicleService {
 
 		List<ExcelExportColumn> exportColumnList = new ArrayList<>();
 		exportColumnList.add(new ExcelExportColumn("VIN", "VIN"));
-		exportColumnList.add(new ExcelExportColumn("CHANGE_DATE", "变更类型"));
-		exportColumnList.add(new ExcelExportColumn("CHANGE_CODE", "变更时间"));
+		exportColumnList.add(new ExcelExportColumn("CHANGE_CODE", "变更类型", ExcelDataType.Oem_Dict));
+		exportColumnList.add(new ExcelExportColumn("CHANGE_DATE", "变更时间"));
 		exportColumnList.add(new ExcelExportColumn("CHANGE_DESC", "变更描述"));
 		exportColumnList.add(new ExcelExportColumn("RESOURCE", "资源范围"));
 		exportColumnList.add(new ExcelExportColumn("NAME", "操作人"));

@@ -121,6 +121,53 @@ public class ExcelGeneratorDefaultImpl implements ExcelGenerator {
 
     }
     
+    public void generateExcel(@SuppressWarnings("rawtypes") Map<String, List<Map>> excelData, Map<String, List<ExcelExportColumn>> columnDefineListMap,String fileName, HttpServletRequest request, HttpServletResponse response) {
+        // 如果excelData 中没有数据，则返回错误
+        if (CommonUtils.isNullOrEmpty(excelData)) {
+            throw new ServiceBizException("No excel data !");
+        }
+
+        Workbook workbook = null;
+        OutputStream outputStream = null;
+        try {
+            // 初始化输出流
+            outputStream = initOutputStream(request,response, fileName);
+            // 初始化workbook
+            workbook = createWorkbook();
+
+            Set<String> sheetSet = excelData.keySet();
+            for (String sheetName : sheetSet) {
+                @SuppressWarnings("rawtypes")
+                List<Map> rowList = excelData.get(sheetName);
+                // 创建sheet 页
+                Sheet sheet = workbook.createSheet(sheetName);
+                Set<String> colSet = columnDefineListMap.keySet();
+                for (String col : colSet) {
+                	if(col.equals(sheetName)){
+                		// 生成标题
+                        generateTitleRow(sheet, columnDefineListMap.get(col));
+
+                        // 生成数据
+                        generateDataRows(sheet, rowList, columnDefineListMap.get(col));
+                	}
+				}
+
+                //当数据加载完成后设置sheet 格式
+                setSheetFinishStyle(sheet,columnDefineListMap.size());
+
+            }
+
+            workbook.write(outputStream);
+        } catch (Exception exception) {
+            logger.warn(exception.getMessage(), exception);
+            throw new ServiceBizException(exception.getMessage(), exception);
+        } finally {
+            IOUtils.closeStream(workbook);
+            IOUtils.closeStream(outputStream);
+        }
+
+    }
+    
     /**
      * 生成Excel 数据 For Dms
      * @author wangxin

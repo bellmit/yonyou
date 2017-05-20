@@ -43,4 +43,7 @@ public interface ExcelGenerator
     void generateExcel(@SuppressWarnings("rawtypes") Map<String, List<Map>> excelData, List<ExcelExportColumn> columnDefineList,String fileName,HttpServletRequest request, HttpServletResponse response);
     
     void generateExcelForDms(@SuppressWarnings("rawtypes") Map<String, List<Map>> excelData, List<ExcelExportColumn> columnDefineList,String fileName,HttpServletRequest request, HttpServletResponse response);
+
+	void generateExcel(Map<String, List<Map>> excelData, Map<String, List<ExcelExportColumn>> exportColumnList,
+			String fileName, HttpServletRequest request, HttpServletResponse response);
 }

@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.javalite.activejdbc.Base;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class S0004Impl extends BaseService implements S0004 {
 
 		/********** 开启事物 **********/
 
-		dbService.beginTxn();
+		beginDbService();
 
 		try {
 
@@ -94,6 +95,7 @@ public class S0004Impl extends BaseService implements S0004 {
 			throw new Exception("S0004业务处理异常！" + e);
 		} finally {
 			logger.info("==========S0004 is finish==========");
+			Base.detach();
 			dbService.clean();
 		}
 		return retVoList;
@@ -122,7 +124,7 @@ public class S0004Impl extends BaseService implements S0004 {
 
 		} else {
 
-			List<TtVsOrderPO> orderList = TtVsOrderPO.find("SoNo=?", vo.getSoNo());
+			List<TtVsOrderPO> orderList = TtVsOrderPO.find("So_No=?", vo.getSoNo());
 
 			if (null == orderList || orderList.size() <= 0) {
 
@@ -317,22 +319,22 @@ public class S0004Impl extends BaseService implements S0004 {
 		TiK4VsDnReturnPO soReturn = new TiK4VsDnReturnPO();
 
 		// soReturn.setIfId(new Long(SequenceManager.getSequence("")));
-		soReturn.setString("SoNo", vo.getSoNo());
-		soReturn.setString("DnNo", vo.getDnNo());
+		soReturn.setString("So_No", vo.getSoNo());
+		soReturn.setString("Dn_No", vo.getDnNo());
 		soReturn.setString("Vin", vo.getVin());
 		soReturn.setString("Dn_Create_Date", vo.getDnCreateDate());
 		soReturn.setString("Dn_Create_Time", vo.getDnCreateTime());
 		soReturn.setString("Dn_Posting_Date", vo.getDnPostingDate());
 		soReturn.setString("Dn_Posting_Time", vo.getDnPostingTime());
 		soReturn.setString("Factory_Code", vo.getFactoryCode());
-		soReturn.setLong("Row_Id", vo.getRowId());
-		soReturn.setInteger("Create_By", OemDictCodeConstants.K4_S0004);
+		soReturn.setString("Row_Id", vo.getRowId());
+		soReturn.setLong("Create_By", OemDictCodeConstants.K4_S0004);
 		soReturn.set("Create_Date2", new Date());
 		soReturn.setInteger("Is_Del", OemDictCodeConstants.IS_DEL_00);
 		soReturn.setInteger("Is_Result", vo.getIsResult());
 		soReturn.set("Is_Message", vo.getIsMessage());
 
-		soReturn.insert();
+		soReturn.saveIt();
 
 	}
 }

@@ -25,14 +25,6 @@ import com.yonyou.dms.vehicle.domains.PO.orderManager.TtVsUploadCommonResourcePO
 @SuppressWarnings("all")
 public class ResourceExcelDao extends OemBaseDAO {
 
-	public List<Map> findTime() {
-		String sql = "select ID,timestampdiff(MINUTE,CREATE_DATE,current_date) DIF_TIME from TMP_IMPORT_STATUS where ITYPE=1 and STATUS="
-				+ OemDictCodeConstants.TMP_IMPORT_STATUS_02;
-
-		List<Map> list = OemDAOUtil.findAll(sql, null);
-		return list;
-	}
-
 	// 临时表数据回显
 	public List<Map> importShow(String orderType) {
 		String type = CommonUtils.checkNull(orderType);
@@ -316,12 +308,22 @@ public class ResourceExcelDao extends OemBaseDAO {
 				// 5.车辆在车厂库存，而且zbildate是否为空(在车厂库存且为空则报错)
 				List<Map> istList2 = checkVinIsStore2();
 				if (istList2.size() > 0 && istList2 != null) {
-					for (int i = 0; i < istList2.size(); i++) {
+					for (Map map : istList2) {
+
 						ResourceOrderUploadDTO rowDto = new ResourceOrderUploadDTO();
-						rowDto.setRowNO(Integer.parseInt(vehList.get(i).get("ROW_NO").toString()));
-						rowDto.setErrorMsg("vin号:" + istList2.get(i).get("VIN") + "未开票");
+						rowDto.setRowNO(Integer.parseInt(map.get("ROW_NO").toString()));
+						rowDto.setErrorMsg("vin号:" + map.get("VIN") + "未开票");
 						tvypDTOList.add(rowDto);
 					}
+					// for (int i = 0; i < istList2.size(); i++) {
+					// String string = vehList.get(i).get("ROW_NO").toString();
+					// ResourceOrderUploadDTO rowDto = new
+					// ResourceOrderUploadDTO();
+					// rowDto.setRowNO(Integer.parseInt(vehList.get(i).get("ROW_NO").toString()));
+					// rowDto.setErrorMsg("vin号:" + istList2.get(i).get("VIN") +
+					// "未开票");
+					// tvypDTOList.add(rowDto);
+					// }
 					return tvypDTOList;
 				}
 				// 8.判断该VIN是否锁定(资源备注)
@@ -738,7 +740,7 @@ public class ResourceExcelDao extends OemBaseDAO {
 
 	private List<Map> checkedNodeStatus() {
 		String sql = "select ROW_NO,t.VIN from Tt_Vs_Upload_Common_Resource  t,TM_VEHICLE_DEC tv where t.VIN=tv.VIN and tv.NODE_STATUS not in(select NODE_STATUS from TT_VS_RESOURCE_RANGE)";
-		return null;
+		return OemDAOUtil.findAll(sql, null);
 	}
 
 	private List<Map> checkVinIsOnStore2(String type) {
@@ -962,6 +964,25 @@ public class ResourceExcelDao extends OemBaseDAO {
 		sql.append("       and tv.VIN='" + vin + "'\n");
 
 		return OemDAOUtil.findAll(sql.toString(), null);
+	}
+
+	public String findOrderType1() {
+		StringBuffer sql = new StringBuffer();
+		sql.append("select count(*) TOTAL from TT_VS_UPLOAD_COMMON_RESOURCE t\n");
+		sql.append("	where exists (select 1 from TM_DEALER where DEALER_CODE=t.RESOURCE_SCOPE and DEALER_TYPE="
+				+ OemDictCodeConstants.DEALER_TYPE_DVS + ")\n");
+		List<Map> list1 = OemDAOUtil.findAll(sql.toString(), null);
+
+		String sql2 = "select count(*) TOTAL from TT_VS_UPLOAD_COMMON_RESOURCE";
+		List<Map> list2 = OemDAOUtil.findAll(sql2, null);
+
+		// 现货：如果临时表的数据总数全部是分配给经销商的则认为是"指派",否则认为是"现货"
+		// 期货：如果临时表的数据总数全部是分配给经销商的则认为是"期货资源分配给经销商"，否则认为是"分配给区域"
+		if (list1.get(0).get("TOTAL").toString().equals(list2.get(0).get("TOTAL").toString())) {
+			return "1";
+		} else {
+			return "0";
+		}
 	}
 
 }

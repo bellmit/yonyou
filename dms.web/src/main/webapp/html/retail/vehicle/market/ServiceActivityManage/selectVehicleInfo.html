@@ -1,118 +1,107 @@
 <div class="dms-search">
 	<form class="form-horizontal">
-	  <div class="modal-header">
-			<div class="modal-title">活动车辆选择</div>
+		<div class="modal-header">
+			<div class="modal-title">车辆产品查询</div>
 			<div class="modal-close">
 				<a data-dismiss="modal" class="btn btn-lg">
 				<i class="fa fa-remove"></i></a>
 			</div>
 		</div>
-	  <div class="modal-body">
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<div class="row">
-					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-						<div class="form-group">
-							<label class="control-label col-xs-4 ">VIN</label>
-							<div class="col-xs-8">
-								<input type="text" class="form-control" name="vin" id="vin">
-							</div>
-						</div>
-					</div>
-					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-						<div class="form-group">
-							<label class="control-label col-xs-4 ">车牌号</label>
-							<div class="col-xs-8">
-								<input type="text" class="form-control" name="license" id="license">
-							</div>
-						</div>
-					</div>
-					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-						<div class="form-group">
-							<label class="control-label col-xs-4 ">车主姓名</label>
-							<div class="col-xs-8">
-								<input type="text" class="form-control" name="ownername" id="ownername">
-							</div>
-						</div>
-					</div>
-					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-						<div class="form-group">
-							<label class="control-label col-xs-4 ">联系人姓名</label>
-							<div class="col-xs-8">
-								<input type="text" class="form-control" name="contactorname" id="contactorname">
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row ">
-					<div class="col-xs-12 ">
-						<div class="query-btn">
-							<a href="javascript:;" class="btn blue"> <i
-								class="fa fa-search"></i> 查询
-							</a> <a href="javascript:;" class="btn blue"> <i
-								class="fa fa-undo"></i> 重置
-							</a>
-						</div>
+		<div class="modal-body hidden">
+			<div class="row" style="height: 40px;">
+				<div class="col-xs-12  col-md-2">
+					<div class="query-btn">
+						<a href="javascript:;" class="btn blue" style="position: relative; top: -10px;"> <i
+							class="fa fa-search"></i> 查询
+						</a>
 					</div>
 				</div>
 			</div>
+			<div class="row" class="tree">
+				<div id="vehicleTree" class="col-xs-8 col-md-4"></div>
+				<input type="hidden" name="code" id="code"> 
+				<div class="col-xs-8 col-md-8">
+					<table class="table table-striped table-bordered table-hover table-responsive"
+						id="dms_tab">
+					</table>
+				</div> 					
+			</div>
 		</div>
-		<div class="panel panel-default table-panel">
-		
-		<div class="panel-body">
-			<table
-				class="table table-striped table-bordered table-hover table-responsive"
-				id="dms_table"></table>
+		<div class="modal-footer center-block">
+			<a  class="btn blue" data-onclickEvent="true"><i class="fa fa-save"></i>保存</a> <a
+				data-dismiss="modal" class="btn blue"><i
+				class="fa fa-undo"></i>取消</a>
 		</div>
-	</div>
-	  </div>	
-	
-	
-	<div class="modal-footer center-block">
-			<a data-onclickEvent="true" data-callBack="true" class="btn blue" ><i class="fa fa-save"></i>确定</a> 
-			<a data-dismiss="modal" class="btn btn-sm blue"><i class="fa fa-undo"></i>取消</a>
-		</div>
-  </form>		
+	</form>
 </div>
 <script type="text/javascript">
-$(document).one("onload.dms",function(event,container){
-	   new Datatable().initPagination({
-			src : "dms_table",
-			url : dmsCommon.getDmsPath()["manage"] + "/basedata/vehicles",
-			rowID : "VEHICLE_ID",
-			pageSize:5,
-			autoHeight:false,
-			columns : [ 
-                {checkbox:true,sortable : false}, 
-			    {field:"VIN",title : "VIN"}, 
-				{field:"LICENSE",title : "车牌号"}, 
-				{field:"OWNER_NAME",title:"车主姓名"},
-				{field:"CONTACTOR_NAME",title : "联系人姓名"},
-				{field:"CONTACTOR_PHONE",title : "联系人电话"}]
-		});
-	   /* +function(){
-		   $("#addButton",container).hide();
-		   if("{[systemParam.2001.AddButton_Test]}"=="10131001"){
-			   $("#addButton",container).show();
-	       };
-	   }(); */
-	   
-	   $("a[data-onclickEvent='true']",container).on("dms.click",function(event){
-		   var modelTable = $("#dms_table",container).dmsTable().getSelections();
-		   for(var i=0;i<modelTable.length;i++){				
-				var modelParentTable = {};
-				
-				modelParentTable.VIN=modelTable[i].VIN;
-				modelParentTable.LICENSE=modelTable[i].LICENSE;
-				modelParentTable.OWNER_NAME=modelTable[i].OWNER_NAME;
-				modelParentTable.CONTACTOR_NAME=modelTable[i].CONTACTOR_NAME;
-				modelParentTable.CONTACTOR_PHONE=modelTable[i].CONTACTOR_PHONE;
-				$("#vehicleList",getElementContext()).dmsTable().appendRow(modelParentTable);
-			}
-	   })
 
+	$(document).one("onload.dms",function(event,container){
+		
+		//树节点选择
+		$('#vehicleTree',container).on('changed.jstree', function (e, data) {
+			var node = data.changed.selected;
+			if(node!=""){
+				$("#code",container).val(node);
+				$("#dms_tab",getElementContext()).dmsTable().refreshTableWithForm();
+			} 
+		});
+		
+		new Datatable().initPagination({
+			src : "dms_tab",
+			url : dmsCommon.getDmsPath()["vehicle"] + "/stockManage/safeguard/findProduct",
+			rowID : "PRODUCT_CODE",
+			autoHeight : false,
+			sortName : "PRODUCT_CODE", 
+			sortOrder : "asc",
+			checkboxHeader:true, //全选框
+			columns : [ 
+				{radio:true,sortable : false},
+				{field : "SERIES_CODE",title : "车系"},
+				{field : "MODEL_CODE",title : "车型"},
+				{field : "CONFIG_NAME",title : "配置"}
+			]
+			
+		});
+		
+		loadTree("vehicleTree",container);
+		
+		//$('a[class="btn blue"]',container).on('dms.click',function(event,response){
+		//	$('#vehicleTree').data('jstree', false).empty();
+		//	loadTree("vehicleTree",container);
+		//})
+		
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event,response){
+			var selectRow = $("#dms_tab",getElementContext()).dmsTable().getSelections();
+			var k = selectRow[0];
+			$("#productCode",getElementContext()).val(k.PRODUCT_CODE);
+			$("#productCode",getParentModal(container)).val(k.PRODUCT_CODE);
+			$("#productName",getParentModal(container)).val(k.PRODUCT_NAME);
+			$("#brandName",getParentModal(container)).val(k.BRAND_NAME);
+			$("#seriesName",getParentModal(container)).val(k.SERIES_NAME);
+			$("#modelName",getParentModal(container)).val(k.MODEL_NAME);
+			$("#brand",getParentModal(container)).selectpicker('val',k.BRAND_CODE);
+			/* $("#brand",getElementContext()).val(k.BRAND_CODE); */
+			$("#series",getElementContext()).val(k.SERIES_CODE);
+			$("#model",getElementContext()).val(k.MODEL_CODE);			
+			$("#color",getElementContext()).val(k.COLOR_CODE);
+			$("#colorCode",getParentModal(container)).selectpicker('val',k.COLOR_CODE);
+			$("a[data-dismiss='modal']",container).click();
+		});
 	});
 	
-	
-	
+	//加载树
+	var loadTree = function(treeName,location){
+		var url = "/stockManage/safeguard/findAllTree";
+		//加载树形结构
+		$('#'+treeName,location).initTree({
+			url:dmsCommon.getDmsPath()["vehicle"] + url,
+			dataFunc:$('.form-horizontal').serialize(),
+			loadedFunc: function(e,data){
+				 var inst = data.instance;  
+				 var obj = inst.get_node(e.target.firstChild.firstChild.lastChild);
+				 inst.select_node(obj);  
+			}
+		});
+	}
 </script>

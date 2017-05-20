@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.infoeai.eai.action.bsuv.bs.BSTODCS001;
 import com.infoeai.eai.action.bsuv.common.CommonBSUV;
 import com.yonyou.dcs.de.SEDCSP04;
 import com.yonyou.dcs.util.DEConstant;
@@ -29,9 +30,13 @@ import com.yonyou.dms.function.utils.common.CommonUtils;
 public class SEDCSP04Impl  implements SEDCSP04 {
 	private static final Logger logger = LoggerFactory.getLogger(SEDCSP04Impl.class);
 	private String MAIL_TITLE = "配件订货系统通知邮件:配件订货上报SAP异常";
+	
 	@Autowired
 	PartCommonDao dao ;
-
+	
+	@Autowired
+	BSTODCS001 bstodcs001 ;
+	
 	@Override
 	public String sendDateSAP() throws Exception {
 		logger.info("====PartOrderReportSAP is begin====");
@@ -352,8 +357,7 @@ public class SEDCSP04Impl  implements SEDCSP04 {
 					}
 				if(num>0){
 					//调用电商订单反馈接口
-//					BSTODCS001 bs = new BSTODCS001();
-//					bs.ElectricitySuppliersOrderFeedback(polist);
+					bstodcs001.ElectricitySuppliersOrderFeedback(dtolist);
 				}
 				
 			}

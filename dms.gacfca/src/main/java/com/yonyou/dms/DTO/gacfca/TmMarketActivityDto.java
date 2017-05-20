@@ -24,6 +24,14 @@ public class TmMarketActivityDto {
 	private Integer ver;			//版本控制
 	private String seriesCode;		//车系代码
 	private Integer isArc;			//归档标志
+	private String dealerCode;
+	
+	public String getDealerCode() {
+		return dealerCode;
+	}
+	public void setDealerCode(String dealerCode) {
+		this.dealerCode = dealerCode;
+	}
 	public Double getMarketFee() {
 		return marketFee;
 	}

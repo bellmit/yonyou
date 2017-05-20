@@ -12,6 +12,7 @@ import org.javalite.activejdbc.LazyList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yonyou.dms.common.domains.PO.basedata.PartInventoryItemPO;
 import com.yonyou.dms.common.domains.PO.basedata.TtPartInventoryPO;
 import com.yonyou.dms.framework.DAO.DAOUtil;
 import com.yonyou.dms.framework.DAO.PageInfoDto;
@@ -24,7 +25,6 @@ import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.StringUtils;
 import com.yonyou.dms.part.domains.DTO.basedata.InventoryCheckDTO;
 import com.yonyou.dms.part.domains.DTO.basedata.InventoryItemDTO;
-import com.yonyou.dms.part.domains.PO.basedata.PartInventoryItemPO;
 
 /**
  * @author yangjie

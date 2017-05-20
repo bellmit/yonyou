@@ -17,8 +17,7 @@
 			</div>
 		</div>
 		<div class="modal-footer center-block">
-			<a id="save" data-callBack="true" data-onclickEvent='true'
-				class="btn blue"><i class="fa fa-save"></i>确定</a> <a
+			<a class="btn blue" data-toggle="confirmation" data-beforeRequest="true"><i class="fa fa-save" ></i>确定</a> <a
 				data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>取消</a>
 
 		</div>
@@ -31,37 +30,29 @@
 				new Datatable().initPagination({
 					src : "reference_table",
 					container : container,
-					url : dmsCommon.getDmsPath()["part"]
-							+ "/stockmanage/partbuy/stockIn/i="
-							+ $("#stockInNo", getElementContext()).val(),
-					rowID : "",
-					sortName : "STOCK_IN_NO",
+					url : dmsCommon.getDmsPath()["manage"]
+							+ "/basedata/employees",
+					rowID : "EMPLOYEE_NO",
+					sortName : "EMPLOYEE_NO",
 					sortOrder : "asc",
 					undefinedText : "",
-					autoHeight : false,
 					columns : [ {
 						radio : true,
-						sortable : false
-					}, {field : "",title : "员工编号"},
-					{field : "",title : "员工姓名"}
+					}, {field : "EMPLOYEE_NO",title : "员工编号"},
+					{field : "EMPLOYEE_NAME",title : "员工姓名"}
 
 					]
 				});
-// 				$("a[data-onclickEvent='true']", container).on(
-// 						"dms.click",
-// 						function(event, response) {
-// 							var selectRow = $("#item_table", container)
-// 									.dmsTable().getFirstSelection();
-// 							$("div[partBuy-data='true']", getElementContext())
-// 									.initHtmlContent(selectRow);
-// 							$("#inType", getElementContext()).selectpicker(
-// 									'val', selectRow.STOCK_IN_TYPE);
-// 							$("#remark", getElementContext()).val(
-// 									selectRow.REMARK);
-							
-// 							//关闭界面
-//    							$("a[data-dismiss='modal']", container).click();
-// 						});
+				$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+					
+					//将选中的表格里的数据写入到前一个页面的查询条件中
+					$("a[data-dismiss='modal']",container).click();//关闭窗口
+				 	var selectRow = $("#reference_table",container).dmsTable().getSelections();//获取选中行内的数据
+					//将表格里的数据传到前一个页面
+				 	$("#reCommendEmp",getElementContext()).val(selectRow[0].EMPLOYEE_NAME);
+				   returnResult.status =true;
+				});
+				
 
 			});
 </script>

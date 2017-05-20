@@ -70,8 +70,8 @@ public class TestDriverServiceImpl implements TestDriverService {
 		}
 		sb.append(DAOUtilGF.getOwnedByStr("C", loginInfo.getUserId(), loginInfo.getOrgCode(),  "201011", loginInfo.getDealerCode()));
 		
-		sb.append(" )AAA LEFT JOIN TM_SERIES BBB ON AAA.SERIES_CODE = BBB.SERIES_CODE");
-		sb.append(" LEFT JOIN TM_USER CCC ON AAA.SOLD_BY = CCC.USER_ID");
+		sb.append(" )AAA LEFT JOIN TM_SERIES BBB ON AAA.SERIES_CODE = BBB.SERIES_CODE AND AAA.DEALER_CODE=BBB.DEALER_CODE");
+		sb.append(" LEFT JOIN TM_USER CCC ON AAA.SOLD_BY = CCC.USER_ID AND AAA.DEALER_CODE=CCC.DEALER_CODE");
 
 		System.err.println(sb.toString());
 		return DAOUtil.pageQuery(sb.toString(), null);

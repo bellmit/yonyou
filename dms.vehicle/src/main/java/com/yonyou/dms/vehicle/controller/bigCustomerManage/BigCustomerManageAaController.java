@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,8 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.yonyou.dms.common.domains.DTO.basedata.TtBigCustomerReportApprovalHisPO;
@@ -40,7 +39,6 @@ import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.StringUtils;
 import com.yonyou.dms.vehicle.domains.DTO.bigCustomer.TtBigCustomerAuthorityApprovalDTO;
 import com.yonyou.dms.vehicle.domains.DTO.bigCustomer.TtBigCustomerReportApprovalDTO;
-import com.yonyou.dms.vehicle.domains.PO.bigCustomer.TtBigCustomerPolicyFilePO;
 
 import com.yonyou.dms.vehicle.service.bigCustomerManage.BigCustomerManageAaService;
 import com.yonyou.f4.mvc.annotation.TxnConn;
@@ -580,15 +578,17 @@ public class BigCustomerManageAaController {
 	* @author zhengzengliang
 	 */
 	@RequestMapping(value = "/uploadFiles", method = RequestMethod.POST)
-	 @ResponseStatus(HttpStatus.NO_CONTENT)
- 	public void uploadFiles(@RequestParam(value = "file") MultipartFile importFile,
- 			UriComponentsBuilder uriCB){
+	@ResponseBody
+	public int uploadFiles(@RequestBody @Valid TtBigCustomerReportApprovalDTO dto) {
 		logger.info("================== 大客户政策（上传）================");
-		customerService.uploadFiles(importFile);
-        /*MultiValueMap<String, String> headers = new HttpHeaders();
-        headers.set("Location", uriCB.path("").buildAndExpand().toUriString());
-        return new ResponseEntity<> (headers, HttpStatus.CREATED);*/
- 	}
+		String dmsFileIds = dto.getDmsFileIds();
+		int msg = customerService.uploadFiles(dmsFileIds);
+		if(msg == 0){
+			throw new ServiceBizException("上传失败...");
+		}else{
+			return msg;
+		}
+	}
 	
 	 /**
 	  * 删除文件
@@ -601,10 +601,9 @@ public class BigCustomerManageAaController {
 			@PathVariable(value = "id") BigDecimal id){
 		logger.info("===== 删除文件=====");
 		TtBigCustomerReportApprovalDTO dto = new TtBigCustomerReportApprovalDTO();
-		TtBigCustomerPolicyFilePO po = TtBigCustomerPolicyFilePO.findById(id);
 		try {
-			po.deleteCascadeShallow();
-		} catch (Exception e) {
+			customerService.delete(id);
+		} catch (ServiceBizException e) {
 			throw new ServiceBizException("删除失败...");
 
 		}
@@ -623,13 +622,14 @@ public class BigCustomerManageAaController {
 	 */
 	@RequestMapping(value="/downBigCustomerPolicy/{policyFileId}",method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<TtBigCustomerReportApprovalDTO> downBigCustomerPolicy (
+	public int downBigCustomerPolicy(
 			@RequestParam Map<String, String> queryParams,
 			@PathVariable(value = "policyFileId") BigDecimal policyFileId ){
 		logger.info("===== 大客户政策（下载）=====");
-		customerService.downBigCustomerPolicy(policyFileId);
+		int msg = customerService.downBigCustomerPolicy(policyFileId);
+
+		return msg;
 		
-		return new ResponseEntity<>( HttpStatus.CREATED);
 	}
 	
 	/**

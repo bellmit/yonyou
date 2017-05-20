@@ -18,7 +18,7 @@
 						class="table table-striped table-bordered table-hover table-responsive"
 						id="partList">
 					</table>
-					<input type="hidden" id="afterDiscountAmountLabour" name="afterDiscountAmountLabour" value="0">
+					<input type="hidden" id="afterpart" name="afterpart" value="0">
 					<input type="hidden" id="zkAmountLabour" name="zkAmountLabour" value="0">
 				</div>
 			</div>
@@ -31,11 +31,29 @@
 		var calcPartAmount=function(event,container){
 			gfkRepair.calcPartAmount();
 		};
-		
-		new Datatable().initLocale({
+		var calcAddItemAmount=function(event,container){
+			gfkRepair.calcAddItemAmount();
+		};
+		new Datatable().initPagination({
 			src : "partList",
+			rowID : "",
 			container:container,
+			autoHeight:false,
+			url : dmsCommon.getDmsPath()["retail"] + "/market/serviceActivityManage/selectpart/{[ACTIVITY_CODE]}",
+			undefinedText : "",
 			columns : [	
+						{field : "",title : "操作",operateFormat : [ {type : "localDel",onAfterEvent:function(value,row,index){
+							var obj = {};
+							obj["itemId"] = row.ITEM_ID;
+							var oldStr = $("#part",container).val();
+							if($.trim(oldStr) == ""){
+								oldStr = JSON.stringify(obj);
+							}else{
+								oldStr += JSON.stringify(obj);
+							}
+							$("#part",getElementContext()).val(oldStr)
+							calcAddItemAmount();
+							}}]},							
 			            {field : "STORAGE_CODE",title : "<span style='color: blue;'>仓库代码</span>",inputSelectFormat : {
 																	url : "/partStocks/StockCode",
 																	model : "part",
@@ -54,17 +72,20 @@
 						}},
 			            {field : "IS_MAIN_PART",title : "主要配件",inputHiddenFormat:{}},
 			            {field : "LABOUR_CODE",title : "维修项目代码",inputHiddenFormat:{}},
-			            {field : "UNIT_CODE",title : "计量单位名称",inputHiddenFormat:{}}, 
+			            {field : "UNIT_CODE",title : "计量单位名称",inputHiddenFormat : {hiddenFieldName:"UNIT_CODE,ITEM_ID",hiddenField:"UNIT_CODE,ITEM_ID"},visible : true},  
 			            {field : "STOCK_QUANTITY",title : "<span style='color: blue;'>配件数量</span>",inputTextFormat:{}},
-			            {field : "PART_SALES_PRICE",title : "<span style='color: blue;'>配件销售单价</span>",inputTextFormat:{}},
-			            {field : "PART_SALES_AMOUNT",title : "配件销售金额",inputHiddenFormat : {},numberFormat:{decimal:2,autoValueFormat:{autoValue:"#STOCK_QUANTITY*#PART_SALES_PRICE"}}},
-			            {field : "DISCOUNT",title : "<span style='color: blue;'>折扣率</span>",inputTextFormat:{}}, 
-			            {field : "PART_SALES_AMOUNT_DISCOUNT",title : "折扣后金额合计",autoValueFormat:{autoValue:"#STOCK_QUANTITY*#PART_SALES_PRICE*#DISCOUNT"}},
+			            {field : "SALES_PRICE",title : "<span style='color: blue;'>配件销售单价</span>",inputTextFormat:{}},
+			            {field : "PART_SALES_AMOUNT",title : "配件销售金额",inputHiddenFormat : {},numberFormat:{decimal:2,autoValueFormat:{autoValue:"#STOCK_QUANTITY*#SALES_PRICE"}}},
+			            {field : "DISCOUNT",title : "<span style='color: blue;'>折扣率</span>",inputNumberFormat : {decimal : 2, defaultValue:1,validate:{validateClass:" decimal",validateAttr:'max="1" min ="0" maxPrecision="2"'} }, inputHiddenFormat : {}},
+			            {field : "PART_SALES_AMOUNT_DISCOUNT",title : "折扣后金额合计",inputHiddenFormat : {},numberFormat:{decimal:2,autoValueFormat:{autoValue:"#STOCK_QUANTITY*#SALES_PRICE*#DISCOUNT"}}},
 			            {field : "COST_PRICE",title : "配件成本单价",inputHiddenFormat:{}},
 			            {field : "COST_AMOUNT",title : "配件成本金额",inputHiddenFormat:{}}
 			         ]
 		});
-		
+		$("#afterpart",container).bindChange(function(obj){
+			$("#partAmount",getElementContext()).val($("#afterpart",container).val());
+			alert($("#partAmount",getElementContext()).val())
+		}); 
 	});
 
 </script>

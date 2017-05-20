@@ -15,6 +15,7 @@ import com.yonyou.dms.common.Util.DomManager;
 import com.yonyou.dms.common.Util.QueryConditionBean;
 import com.yonyou.dms.common.domains.PO.basedata.TmAllotGrandPO;
 import com.yonyou.dms.framework.domain.LoginInfoDto;
+import com.yonyou.dms.framework.service.excel.ExcelExportColumn;
 import com.yonyou.dms.framework.util.bean.ApplicationContextHelper;
 import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.CommonUtils;
@@ -626,31 +627,25 @@ public class ResourceAllotAuditServiceImpl implements ResourceAllotAuditService 
 				sDB.put("SERIES_NAME", "大切诺基");
 				sList.add(sDB);
 			}
-			int totalList=orgTotalList2.size()+orgTotalList.size()+dlrTotalList.size()+1;	
-			if(actionType.equals("download")){				
-			//	ToExcel.toExcelAllotOTDQuery(ActionContext.getContext().getResponse(), request, totalList,sList,xqList,dlrList,gapList,gList,cList,cList2,serGroup,gList_30,cList_30,cList2_30,grand30, list, "资源分配审核下载" + Utility.getCurrentTime(10));
-//				ToExcel.toExcelAllotOTDQuery(ActionContext.getContext().getResponse(), request, totalList,sList,xqList,dlrList,gapList,gList,cList,cList2,serGroup,gList_30,cList_30,cList2_30,grand30, list,dqList,cList_big,cList_big_30, "资源分配查询(OTD)下载" + Utility.getCurrentTime(10));
-				
-			}else{			
-				resultMap.put("totalList", totalList);
-				resultMap.put("sList", sList);
-				resultMap.put("dqList", dqList);
-				resultMap.put("xqList", xqList);
-				resultMap.put("dlrList", dlrList);
-				resultMap.put("gapList", gapList);
-				resultMap.put("gList", gList);
-				resultMap.put("cList", cList);
-				resultMap.put("cList2", cList2);
-				resultMap.put("serGroup", serGroup);
-				resultMap.put("gList_30", gList_30);
-				resultMap.put("cList_30", cList_30);
-				resultMap.put("cList2_30", cList2_30);
-				resultMap.put("grand30", grand30);
-				resultMap.put("list", list);	
-				resultMap.put("cList_big_30", cList_big_30);
-				resultMap.put("cList_big", cList_big);
-				resultMap.put("auditType", auditType);
-			}				
+			int totalList=orgTotalList2.size()+orgTotalList.size()+dlrTotalList.size()+1;
+			resultMap.put("totalList", totalList);
+			resultMap.put("sList", sList);
+			resultMap.put("dqList", dqList);
+			resultMap.put("xqList", xqList);
+			resultMap.put("dlrList", dlrList);
+			resultMap.put("gapList", gapList);
+			resultMap.put("gList", gList);
+			resultMap.put("cList", cList);
+			resultMap.put("cList2", cList2);
+			resultMap.put("serGroup", serGroup);
+			resultMap.put("gList_30", gList_30);
+			resultMap.put("cList_30", cList_30);
+			resultMap.put("cList2_30", cList2_30);
+			resultMap.put("grand30", grand30);
+			resultMap.put("list", list);	
+			resultMap.put("cList_big_30", cList_big_30);
+			resultMap.put("cList_big", cList_big);
+			resultMap.put("auditType", auditType);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error( e.toString());
@@ -658,6 +653,307 @@ public class ResourceAllotAuditServiceImpl implements ResourceAllotAuditService 
 			throw e1;
 		}
 		return resultMap;
+	}
+	
+	public Map<String, List<Map>> getExcelData(Map result){
+		List<Map> sList = (List<Map>) result.get("sList");
+		List<Map> dqList = (List<Map>) result.get("dqList");
+		List<Map> xqList = (List<Map>) result.get("xqList");
+		List<Map> dlrList = (List<Map>) result.get("dlrList");
+		List<Map> gapList = (List<Map>) result.get("gapList");
+		List<Map> gList = (List<Map>) result.get("gList");
+		List<Map> cList = (List<Map>) result.get("cList");
+		List<Map> cList2 = (List<Map>) result.get("cList2");
+		List<Map> list = (List<Map>) result.get("list");
+		List<Map> cList_big = (List<Map>) result.get("cList_big");
+		
+		Map<String, List<Map>> returnResult = new HashMap<String, List<Map>>();
+		List<Map> mapList = null;
+		for(int i=0;i<sList.size();i++){
+			mapList = new ArrayList<Map>();
+	    	Map<String, Object> sMap = sList.get(i);
+	    	String seriesName = CommonUtils.checkNull(sMap.get("SERIES_NAME"));
+	    	//设置每一个sheet名称
+		    //数据
+		    for(int x=0;x<dqList.size();x++){
+		    	Map<String, Object> dqMap = dqList.get(x);
+		    	if(dqMap.get("SERIES_ID").toString().equals(sMap.get("SERIES_ID").toString())){
+		    	    for(int j=0;j<xqList.size();j++){
+				    	Map<String, Object> xqMap = xqList.get(j);
+				    	if(xqMap.get("SERIES_ID").toString().equals(dqMap.get("SERIES_ID").toString())&&
+				    			xqMap.get("ORG_ID2").toString().equals(dqMap.get("ORG_ID2").toString())){
+				    		for(int k=0;k<dlrList.size();k++){
+				    			Map<String, Object> dlrMap = dlrList.get(k);
+				    			if(dlrMap.get("ORG_ID2").toString().equals(xqMap.get("ORG_ID2").toString())&&
+				    					dlrMap.get("ORG_NAME").equals(xqMap.get("ORG_NAME"))&&
+				    					dlrMap.get("SERIES_ID").toString().equals(xqMap.get("SERIES_ID").toString())){
+								    for(int p=0;p<gapList.size();p++){
+								    	Map<String, Object> gapMap = gapList.get(p);
+								    	if(gapMap.get("ORG_ID2").equals(dlrMap.get("ORG_ID2"))&&
+								    			gapMap.get("ORG_NAME").equals(dlrMap.get("ORG_NAME"))&&
+								    			gapMap.get("SERIES_ID").toString().equals(dlrMap.get("SERIES_ID").toString())&&
+								    			gapMap.get("DEALER_NAME").equals(dlrMap.get("DEALER_NAME"))){
+											Map dealerMap = gapMap;
+
+										    //颜色数量
+										    for(int t=0;t<gList.size();t++){
+										    	Map<String, Object> gMap = gList.get(t);
+										    	if(gMap.get("SERIES_ID").toString().equals(dlrMap.get("SERIES_ID").toString())){
+										    		for(int q=0;q<cList.size();q++){
+										    			Map<String, Object> cMap = cList.get(q);
+										    			if(cMap.get("SERIES_ID").toString().equals(gMap.get("SERIES_ID").toString())&&
+										    				cMap.get("GROUP_ID").toString().equals(gMap.get("GROUP_ID").toString())&&
+									    					cMap.get("GROUP_NAME").toString().equals(gMap.get("GROUP_NAME").toString())&&
+									    					!cMap.get("GROUP_ID").toString().equals("0")){
+										    				String str = "0";
+										    				for(int l=0;l<list.size();l++){
+												    			Map<String, Object> rMap = list.get(l);
+												    			if(rMap.get("SERIES_ID").toString().equals(dlrMap.get("SERIES_ID").toString())&&
+											    					rMap.get("DEALER_NAME").equals(dlrMap.get("DEALER_NAME"))&&
+											    					rMap.get("GROUP_ID").toString().equals(cMap.get("GROUP_ID").toString())&&
+											    					rMap.get("GROUP_NAME").equals(cMap.get("GROUP_NAME"))&&
+											    					rMap.get("COLOR_NAME").equals(cMap.get("COLOR_NAME"))){
+												    				str =  rMap.get("NUM").toString();
+												    				break;
+												    			}
+												    		}
+										    				dealerMap.put(cMap.get("GROUP_ID")+"_"+cMap.get("COLOR_NAME"), str);
+										    			}
+										    		}
+										    	}
+										    }
+										    mapList.add(dealerMap);
+								    	}
+								    }
+								    							   
+								    //大切诺基3.0需要单独处理
+//								    for(int p=0;p<gList_30.size();p++){
+//								    	Map<String, Object> gMap = gList_30.get(p);
+//								    	if(gMap.get("SERIES_NAME").toString().equals(dlrMap.get("SERIES_NAME").toString())){
+//								    		for(int q=0;q<cList_30.size();q++){
+//								    			Map<String, Object> cMap = cList_30.get(q);
+//								    			if(cMap.get("SERIES_NAME").toString().equals(gMap.get("SERIES_NAME").toString())&&
+//								    					cMap.get("GROUP_ID").toString().equals(gMap.get("GROUP_ID").toString())&&
+//								    					cMap.get("GROUP_NAME").toString().equals(gMap.get("GROUP_NAME").toString())&&
+//								    					!cMap.get("GROUP_ID").toString().equals("0")){
+//								    				int tempStr=0;
+//								    				for(int l=0;l<list.size();l++){
+//										    			Map<String, Object> rMap = list.get(l);
+//										    			if(rMap.get("SERIES_NAME").toString().equals(dlrMap.get("SERIES_NAME").toString())&&
+//										    					rMap.get("DEALER_NAME").equals(dlrMap.get("DEALER_NAME"))&&
+//										    					rMap.get("GROUP_ID").toString().equals(cMap.get("GROUP_ID").toString())&&
+//										    					rMap.get("GROUP_NAME").equals(cMap.get("GROUP_NAME"))&&
+//										    					rMap.get("COLOR_NAME").equals(cMap.get("COLOR_NAME"))){
+//										    				List gps = (List) hashMap.get(rMap.get("SERIES_ID").toString());
+//										    				if(gps!=null&&gps.size()>0){
+//								    							for(int cc=0;cc<gps.size();cc++){
+//								    								if(gps.get(cc).toString().equals(rMap.get("GROUP_ID").toString())){
+//								    									wsheet.addCell(new  Label(num++, n, rMap.get("NUM").toString(), wcf1));
+//								    								}
+//								    							}
+//								    						}else{
+//								    							wsheet.addCell(new  Label(num++, n, "0", wcf1));
+//								    						}							    				
+//								    						tempStr++;
+//										    			}
+//										    		}
+//										    		if(tempStr==0){
+//								    					wsheet.addCell(new  Label(num++, n, "0", wcf1));
+//								    				}
+//								    			}
+//								    		}
+//								    	}
+//								    }	
+				    			}
+				    		}	
+						   	//小区汇总	 
+				    		Map smallOrgMap = null;
+				    		for(int k=0;k<gapList.size();k++){
+				    			Map<String, Object> gapMap = gapList.get(k);
+				    			if(gapMap.get("SERIES_ID").toString().equals(sMap.get("SERIES_ID").toString())&&gapMap.get("ORG_ID2").toString().equals(xqMap.get("ORG_ID2").toString())&&gapMap.get("ORG_ID").toString().equals(xqMap.get("ORG_ID").toString())&&
+				    					gapMap.get("SERIES_NAME").toString().equals("ORG_TOTAL")){
+				    				gapMap.put("DEALER_NAME", xqMap.get("ORG_NAME"));
+				    				smallOrgMap = gapMap;
+				    			}
+				    		}	    	
+				    		//小区颜色汇总
+				    		for(int k=0;k<gList.size();k++){
+				    			Map<String, Object> gMap = gList.get(k);
+				    			if(gMap.get("SERIES_ID").toString().equals(sMap.get("SERIES_ID").toString())){
+				    				for(int p=0;p<cList2.size();p++){
+				    					Map<String, Object> cMap = cList2.get(p);
+				    					if(cMap.get("SERIES_ORG_TOTAL")!=null&&
+				    							cMap.get("SERIES_ORG_TOTAL").equals("ORG_TOTAL")&&
+				    							cMap.get("SERIES_ID").toString().equals(gMap.get("SERIES_ID").toString())&&
+				    							cMap.get("ORG_ID2").toString().equals(xqMap.get("ORG_ID2").toString())&&
+				    							cMap.get("ORG_ID").toString().equals(xqMap.get("ORG_ID").toString())&&
+				    							cMap.get("GROUP_ID").toString().equals(gMap.get("GROUP_ID").toString())&&
+				    							cMap.get("GROUP_NAME").toString().equals(gMap.get("GROUP_NAME"))){		
+						    				smallOrgMap.put(cMap.get("GROUP_ID")+"_"+cMap.get("COLOR_NAME"), cMap.get("ORG_COLOR_TOTAL").toString());
+				    					}
+				    				}
+				    			}
+				    		}
+				    		if(smallOrgMap!=null){
+				    			mapList.add(smallOrgMap);
+				    		}
+				    		//大切诺基3.0需要单独处理
+//				    		for(int k=0;k<gList_30.size();k++){
+//				    			Map<String, Object> gMap = gList_30.get(k);
+//				    			if(gMap.get("SERIES_NAME").toString().equals(sMap.get("SERIES_NAME").toString())){
+//				    				for(int p=0;p<cList2_30.size();p++){
+//				    					Map<String, Object> cMap = cList2_30.get(p);
+//				    					if(cMap.get("SERIES_ORG_TOTAL")!=null&&cMap.get("SERIES_ORG_TOTAL").equals("ORG_TOTAL")&&cMap.get("SERIES_NAME").toString().equals(gMap.get("SERIES_NAME").toString())&&cMap.get("ORG_ID2").toString().equals(xqMap.get("ORG_ID2").toString())&&cMap.get("ORG_ID").toString().equals(xqMap.get("ORG_ID").toString())&&
+//				    							cMap.get("GROUP_ID").toString().equals(gMap.get("GROUP_ID").toString())&&cMap.get("GROUP_NAME").equals(gMap.get("GROUP_NAME"))&&!cMap.get("GROUP_ID").toString().equals("0")){
+//				    						wsheet.addCell(new  Label(num++, n, cMap.get("ORG_COLOR_TOTAL").toString(), wcf));
+//				    						orgColorNum+=1;
+//				    					}
+//				    				}
+//				    			}
+//				    		}
+				    	}
+				    }
+		    	    //大区汇总
+		    	    Map bigOrgMap = null;
+		    	    for(int j=0;j<gapList.size();j++){
+				    	Map<String, Object> gapMap = gapList.get(j);
+				    	if(gapMap.get("SERIES_ID").toString().equals(dqMap.get("SERIES_ID").toString())&&
+				    			gapMap.get("ORG_ID2").toString().equals(dqMap.get("ORG_ID2").toString())&&
+				    			gapMap.get("SERIES_NAME").toString().equals("BIG_ORG_TOTAL")){
+				    		gapMap.put("DEALER_NAME", dqMap.get("ORG_NAME2"));
+				    		bigOrgMap = gapMap;
+				    	}
+		    	    }
+		    	    //大区颜色汇总
+		    	    for(int j=0;j<gList.size();j++){
+		    	    	Map<String, Object> gMap = gList.get(j);
+		    	    	if(gMap.get("SERIES_ID").toString().equals(sMap.get("SERIES_ID").toString())){
+		    	    		for(int k=0;k<cList_big.size();k++){
+		    	    			Map<String, Object> cMap = cList_big.get(k);
+		    	    			if(cMap.get("SERIES_BIG_ORG_TOTAL")!=null&&
+		    	    					cMap.get("SERIES_BIG_ORG_TOTAL").toString().equals("ORG_TOTAL")&&
+		    	    					cMap.get("SERIES_ID").toString().equals(gMap.get("SERIES_ID").toString())&&
+		    	    					cMap.get("ORG_ID2").toString().equals(dqMap.get("ORG_ID2").toString())&&
+		    	    					cMap.get("GROUP_ID").toString().equals(gMap.get("GROUP_ID").toString())&&
+		    	    					cMap.get("GROUP_NAME").toString().equals(gMap.get("GROUP_NAME"))){
+		    	    				bigOrgMap.put(cMap.get("GROUP_ID")+"_"+cMap.get("COLOR_NAME"), cMap.get("ORG_COLOR_TOTAL").toString());
+		    	    			}
+		    	    		}
+		    	    		
+		    	    	}
+		    	    }
+		    	    if(bigOrgMap!=null){
+		    	    	mapList.add(bigOrgMap);
+		    	    }
+		    	    //大切诺基3.0需要单独处理
+//		    	    for(int j=0;j<gList_30.size();j++){
+//		    	    	Map<String, Object> gMap = gList_30.get(j);
+//		    	    	if(gMap.get("SERIES_NAME").toString().equals(sMap.get("SERIES_NAME").toString())){
+//		    	    		for(int k=0;k<cList_big_30.size();k++){
+//		    	    			Map<String, Object> cMap = cList_big_30.get(k);
+//		    	    			if(cMap.get("SERIES_BIG_ORG_TOTAL")!=null&&cMap.get("SERIES_BIG_ORG_TOTAL").toString().equals("ORG_TOTAL")&&cMap.get("SERIES_NAME").toString().equals(gMap.get("SERIES_NAME").toString())&&cMap.get("ORG_ID2").toString().equals(dqMap.get("ORG_ID2").toString())&&
+//		    	    					cMap.get("GROUP_ID").toString().equals(gMap.get("GROUP_ID").toString())&&cMap.get("GROUP_NAME").equals(gMap.get("GROUP_NAME"))&&!cMap.get("GROUP_ID").toString().equals("0")){
+//		    	    				wsheet.addCell(new  Label(num++, n, cMap.get("ORG_COLOR_TOTAL").toString(), wcf));
+//		    	    			}
+//		    	    		}
+//		    	    	}
+//		    	    }
+		    	}
+		    }
+		    //汇总
+		    Map totalMap = null;
+		    for(int j=0;j<gapList.size();j++){
+		    	Map<String, Object> gapMap = gapList.get(j);
+		    	if(gapMap.get("SERIES_ID").toString().equals(sMap.get("SERIES_ID").toString())&&gapMap.get("SERIES_NAME").toString().equals("TOTAL")){
+		    		gapMap.put("DEALER_NAME", "汇总");
+		    		totalMap = gapMap;
+		    		break;
+		    	}
+		    }
+		    for(int j=0;j<gList.size();j++){
+		    	Map<String, Object> gMap = gList.get(j);
+		    	if(gMap.get("SERIES_ID").toString().equals(sMap.get("SERIES_ID").toString())){
+		    		for(int k=0;k<cList.size();k++){
+		    			Map<String, Object> cMap = cList.get(k);
+			    		String str = "0";
+		    			if(cMap.get("SERIES_TOTAL")!=null&&
+		    					cMap.get("SERIES_TOTAL").toString().equals("TOTAL")&&
+		    					cMap.get("SERIES_ID").toString().equals(gMap.get("SERIES_ID").toString())&&
+		    					cMap.get("GROUP_ID").equals(gMap.get("GROUP_ID"))&&
+		    					cMap.get("GROUP_NAME").equals(gMap.get("GROUP_NAME"))&&
+		    					!cMap.get("GROUP_ID").toString().equals("0")){
+		    				totalMap.put(cMap.get("GROUP_ID")+"_"+cMap.get("COLOR_NAME").toString(), cMap.get("COLOR_TOTAL").toString());
+		    			}
+		    		}
+		    	}
+		    }
+		    if(totalMap!=null){
+		    	mapList.add(totalMap);
+		    }
+		    returnResult.put(seriesName, mapList);
+		    //大切诺基3.0需要单独处理
+//		    for(int j=0;j<gList_30.size();j++){
+//		    	Map<String, Object> gMap = gList_30.get(j);
+//		    	if(gMap.get("SERIES_NAME").toString().equals(sMap.get("SERIES_NAME").toString())){
+//		    		for(int k=0;k<cList_30.size();k++){
+//		    			Map<String, Object> cMap = cList_30.get(k);
+//		    			if(cMap.get("SERIES_TOTAL")!=null&&cMap.get("SERIES_TOTAL").toString().equals("TOTAL")&&cMap.get("SERIES_NAME").toString().equals(gMap.get("SERIES_NAME").toString())&&
+//		    					cMap.get("GROUP_ID").equals(gMap.get("GROUP_ID"))&&cMap.get("GROUP_NAME").equals(gMap.get("GROUP_NAME"))&&!cMap.get("GROUP_ID").toString().equals("0")){
+//		    				wsheet.addCell(new  Label(num++, n, cMap.get("COLOR_TOTAL").toString(), wcf));
+//		    			}
+//		    		}	
+//		    	}
+//		    }
+	    }
+		
+		return returnResult;
+	}
+	
+	public Map<String, List<ExcelExportColumn>> getColumnData(Map<String, Object> result){
+		List<Map> sList = (List<Map>) result.get("sList");
+		List<Map> gList = (List<Map>) result.get("gList");
+		List<Map> cList = (List<Map>) result.get("cList");
+		
+		Map<String, List<ExcelExportColumn>> map = new HashMap<String, List<ExcelExportColumn>>();
+		for(int i=0;i<sList.size();i++){
+	    	Map<String, Object> sMap = sList.get(i);
+	    	String seriesName = CommonUtils.checkNull(sMap.get("SERIES_NAME"));
+	    	
+	    	List<ExcelExportColumn> exportColumnList = new ArrayList<ExcelExportColumn>();
+			exportColumnList.add(new ExcelExportColumn("DEALER_NAME","区域"));
+		    exportColumnList.add(new ExcelExportColumn("SALE_AMOUNT","批售目标"));
+		    exportColumnList.add(new ExcelExportColumn("NUM1","月初结转"));
+		    exportColumnList.add(new ExcelExportColumn("NUM2","全国池已定"));
+		    exportColumnList.add(new ExcelExportColumn("NUM22","全国池未定"));
+		    exportColumnList.add(new ExcelExportColumn("NUM3","区域池已定"));
+		    exportColumnList.add(new ExcelExportColumn("NUM33","区域池未定"));
+		    exportColumnList.add(new ExcelExportColumn("NUM4","指派资源"));
+		    exportColumnList.add(new ExcelExportColumn("NUM5","期货订单(一次开票)"));
+		    exportColumnList.add(new ExcelExportColumn("GAP","当前Gap"));
+		    exportColumnList.add(new ExcelExportColumn("ALLOT_NUM","本次分配"));
+		    exportColumnList.add(new ExcelExportColumn("ALLOT_MONTH_NUM","本月分配"));
+		    exportColumnList.add(new ExcelExportColumn("RATE","资源满足率(分配资源/批售目标)"));
+		    
+		    for(int j=0;j<gList.size();j++){
+		    	Map<String, Object> gMap = gList.get(j);
+		    	if(gMap.get("SERIES_ID").toString().equals(sMap.get("SERIES_ID").toString())){
+		    		for(int k=0;k<cList.size();k++){
+		    			Map<String, Object> cMap = cList.get(k);
+		    			if(cMap.get("SERIES_TOTAL")!=null&&
+		    					cMap.get("SERIES_TOTAL").toString().equals("TOTAL")&&
+		    					cMap.get("SERIES_ID").toString().equals(gMap.get("SERIES_ID").toString())&&
+		    					cMap.get("GROUP_ID").equals(gMap.get("GROUP_ID"))&&
+		    					cMap.get("GROUP_NAME").equals(gMap.get("GROUP_NAME"))&&
+		    					!cMap.get("GROUP_ID").toString().equals("0")){
+		    				exportColumnList.add(new ExcelExportColumn(CommonUtils.checkNull(cMap.get("GROUP_ID"))+"_"+CommonUtils.checkNull(cMap.get("COLOR_NAME")),CommonUtils.checkNull(cMap.get("GROUP_NAME"))+CommonUtils.checkNull(cMap.get("COLOR_NAME"))));
+		    			}
+		    		}
+		    	}
+		    }	
+		    map.put(seriesName, exportColumnList);
+		}
+		
+		return map;
 	}
 	
 }

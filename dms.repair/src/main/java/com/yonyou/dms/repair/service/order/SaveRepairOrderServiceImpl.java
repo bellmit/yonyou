@@ -2065,6 +2065,7 @@ public class SaveRepairOrderServiceImpl implements SaveRepairOrderService {
 	/**
 	 * 判断收费区分字段是否含有S
 	 */
+	@Override
 	public Boolean checkChargePartitionCode(List<Map<String, String>> list) {
 		Boolean flag = false;
 		if (list.size() > 0) {
@@ -2161,6 +2162,7 @@ public class SaveRepairOrderServiceImpl implements SaveRepairOrderService {
 	/**
 	 * 操作时工单更新车主车辆信息
 	 */
+	@Override
 	public int updateOwnerAndVehicle(RepairOrderDetailsDTO dto) throws ServiceBizException {
 		String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
 		String groupCodeOwner = Utility.getGroupEntity(dealerCode, "TM_OWNER");

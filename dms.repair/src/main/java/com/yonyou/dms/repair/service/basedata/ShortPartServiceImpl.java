@@ -7,12 +7,11 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.yonyou.dms.common.domains.PO.basedata.MaintainWorkTypePO;
+import com.yonyou.dms.common.domains.PO.basedata.TtShortPartPO;
 import com.yonyou.dms.framework.DAO.DAOUtil;
 import com.yonyou.dms.framework.DAO.PageInfoDto;
-import com.yonyou.dms.framework.util.FrameworkUtil;
 import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.StringUtils;
-import com.yonyou.dms.repair.domains.DTO.basedata.MaintainWorkTypeDTO;
 import com.yonyou.dms.repair.domains.DTO.basedata.TtShortPartDTO;
 
 /**
@@ -51,13 +50,13 @@ public class ShortPartServiceImpl implements ShortPartService {
     @Override
     public void deleteShortPartById(Long id) throws ServiceBizException {
         // TODO Auto-generated method stub
-        
+        TtShortPartPO.delete(" SHORT_ID = ? ", id);
     }
 
     @Override
     public List<Map> queryShortPart(Map<String, Object> queryParams) throws ServiceBizException {
         List<Object> params = new ArrayList<Object>();
-        StringBuilder sqlSb = new StringBuilder("SELECT A.DEALER_CODE as dealerCode,A.STORAGE_CODE as storageCode,A.PART_NO as partNo,A.STORAGE_POSITION_CODE as storagePositionCode,A.SHEET_NO as sheetNo,A.D_KEY as dKey,A.IS_BO as isBo FROM TT_SHORT_PART A where 1=1 ");
+        StringBuilder sqlSb = new StringBuilder("SELECT A.DEALER_CODE,A.STORAGE_CODE as storageCode,A.PART_NO as partNo,A.STORAGE_POSITION_CODE as storagePositionCode,A.SHEET_NO as sheetNo,A.D_KEY as dKey,A.IS_BO as isBo FROM TT_SHORT_PART A where 1=1 ");
         if(!StringUtils.isNullOrEmpty(queryParams.get("storageCode"))){
             sqlSb.append(" AND A.storage_code = ? ");
             params.add(queryParams.get("storageCode"));

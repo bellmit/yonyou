@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.yonyou.dms.common.domains.DTO.basedata.TtOpOldpartPO;
 import com.yonyou.dms.framework.DAO.DAOUtil;
 import com.yonyou.dms.framework.DAO.OemBaseDAO;
 import com.yonyou.dms.framework.DAO.OemDAOUtil;
@@ -19,7 +20,6 @@ import com.yonyou.dms.framework.util.bean.ApplicationContextHelper;
 import com.yonyou.dms.function.common.OemDictCodeConstants;
 import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.StringUtils;
-import com.yonyou.dms.vehicle.domains.PO.oldPart.TtOpOldpartPO;
 import com.yonyou.dms.vehicle.domains.PO.oldPart.TtOpReturnBillPO;
 
 /**

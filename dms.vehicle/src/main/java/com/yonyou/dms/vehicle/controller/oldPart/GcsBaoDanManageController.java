@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.yonyou.dms.common.domains.DTO.basedata.TtOpOldpartPO;
 import com.yonyou.dms.framework.DAO.DAOUtil;
 import com.yonyou.dms.framework.DAO.PageInfoDto;
 import com.yonyou.dms.framework.domain.LoginInfoDto;
@@ -51,7 +52,6 @@ import com.yonyou.dms.vehicle.domains.DTO.oldPart.TmpGcsImpDTO;
 import com.yonyou.dms.vehicle.domains.DTO.oldPart.TtOpGcsImpDTO;
 import com.yonyou.dms.vehicle.domains.DTO.threePack.ForecastImportDto;
 import com.yonyou.dms.vehicle.domains.PO.oldPart.TmpGcsImpPO;
-import com.yonyou.dms.vehicle.domains.PO.oldPart.TtOpOldpartPO;
 import com.yonyou.dms.vehicle.service.oldPart.GcsBaoDanManageService;
 import com.yonyou.f4.mvc.annotation.TxnConn;
 import com.yonyou.f4.mvc.controller.BaseController;

@@ -44,7 +44,7 @@ public class PerClaimFeedDao extends OemBaseDAO{
 			}
 		  //工单号
 		  if (!StringUtils.isNullOrEmpty(queryParam.get("repairNo"))) {
-				sql.append("AND a.REPAIR_NO = '"+queryParam.get("repairNo")+"'  \n");
+				sql.append("AND a.REPAIR_NO like '%"+queryParam.get("repairNo")+"%'  \n");
 			}
 		//申请日期
 		  if (!StringUtils.isNullOrEmpty(queryParam.get("startDate"))) {

@@ -18,12 +18,73 @@ public class RepairOrderDetailsDTO {
 
 	private String roNo;// 工单号
 	
+	private String ver;
+	
+	private String completeTag;//是否竣工
+	
+	public String getCompleteTag() {
+		return completeTag;
+	}
+
+	public void setCompleteTag(String completeTag) {
+		this.completeTag = completeTag;
+	}
+
+	private String isUpdateEndTimeSupposed;//是否修改预交车时间
+
+	public String getIsUpdateEndTimeSupposed() {
+		return isUpdateEndTimeSupposed;
+	}
+
+	public void setIsUpdateEndTimeSupposed(String isUpdateEndTimeSupposed) {
+		this.isUpdateEndTimeSupposed = isUpdateEndTimeSupposed;
+	}
+
+	public String getVer() {
+		return ver;
+	}
+
+	public void setVer(String ver) {
+		this.ver = ver;
+	}
 
 	private String carTopType;// 车顶号
 
 	private String sequenceNo;// 车顶号序列码
 	
 	private String customerDesc;//顾客描述
+	
+	private String isTripleGuarantee;//是否三包
+	
+	private String isTripleGuaranteeBef;//是否做过三包
+	
+	private String seriousSafetyStatus;//严重安全故障状态
+	
+	private String roStatus;//工单状态
+
+	public String getRoStatus() {
+		return roStatus;
+	}
+
+	public void setRoStatus(String roStatus) {
+		this.roStatus = roStatus;
+	}
+
+	public String getIsTripleGuaranteeBef() {
+		return isTripleGuaranteeBef;
+	}
+
+	public void setIsTripleGuaranteeBef(String isTripleGuaranteeBef) {
+		this.isTripleGuaranteeBef = isTripleGuaranteeBef;
+	}
+
+	public String getIsTripleGuarantee() {
+		return isTripleGuarantee;
+	}
+
+	public void setIsTripleGuarantee(String isTripleGuarantee) {
+		this.isTripleGuarantee = isTripleGuarantee;
+	}
 
 	public String getCustomerDesc() {
 		return customerDesc;
@@ -57,8 +118,6 @@ public class RepairOrderDetailsDTO {
 	public void setFirstInDate(Date firstInDate) {
 		this.firstInDate = firstInDate;
 	}
-
-	private String seriousSafetyStatus;// 安全故障
 
 	@JsonDeserialize(using = JsonSimpleDateDeserializer.class)
 	private Date createDate;// 开单日期
@@ -338,6 +397,16 @@ public class RepairOrderDetailsDTO {
 	
 	private String schemeStatus;//方案状态
 	
+	private String modifyNum;//修改次数
+	
+	public String getModifyNum() {
+		return modifyNum;
+	}
+
+	public void setModifyNum(String modifyNum) {
+		this.modifyNum = modifyNum;
+	}
+
 	private String updateStatus;//U 修改;A 新增
 
 	public String getUpdateStatus() {
@@ -378,6 +447,16 @@ public class RepairOrderDetailsDTO {
 
 	private List<Map<String, String>> dms_subjoinItem;// 附加项目
 	
+	private String isCloseRo;//关单标志
+	
+	public String getIsCloseRo() {
+		return isCloseRo;
+	}
+
+	public void setIsCloseRo(String isCloseRo) {
+		this.isCloseRo = isCloseRo;
+	}
+
 	@SuppressWarnings("rawtypes")
 	private List<Map> ttTripleInfo;// 预警信息
 

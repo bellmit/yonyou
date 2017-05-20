@@ -5,8 +5,8 @@
 				<div class="row ">
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-4">品牌</label>
-								<div class="col-xs-8">
+								<label class="control-label col-xs-6">品牌</label>
+								<div class="col-xs-6">
 									<select id="brandId"
 										class="bs-select form-control" name="brandId"
 										data-url="/basedata/material/brand/90081002"
@@ -19,8 +19,8 @@
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-4">车系</label>
-								<div class="col-xs-8">
+								<label class="control-label col-xs-6">车系</label>
+								<div class="col-xs-6">
 									<select id="seriesId" parent="brandId"
 										class="bs-select form-control" name="seriesName"
 										data-url="/basedata/material/series/90081002/{[brandId]}"
@@ -33,8 +33,8 @@
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-4">车款</label>
-								<div class="col-xs-8">
+								<label class="control-label col-xs-6">车款</label>
+								<div class="col-xs-6">
 									<select id="groupId" parent="seriesId"
 										class="bs-select form-control" name="groupName"
 										data-url="/basedata/material/group/90081002/{[seriesId]}"
@@ -47,8 +47,8 @@
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-4">年款</label>
-								<div class="col-xs-8">
+								<label class="control-label col-xs-6">年款</label>
+								<div class="col-xs-6">
 									<select id="modelId" parent="groupId"
 										class="bs-select form-control" name="modelYear"
 										data-url="/basedata/material/modelYear/90081002/{[groupId]}"
@@ -61,8 +61,8 @@
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-4">颜色</label>
-								<div class="col-xs-8">
+								<label class="control-label col-xs-6">颜色</label>
+								<div class="col-xs-6">
 									<select id="colorId" parent="modelId"
 										class="bs-select form-control" name="colorName"
 										data-url="/basedata/material/color/90081002/{[groupId]}/{[modelId]}"
@@ -74,8 +74,8 @@
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 							<div class="form-group">
-								<label class="control-label col-xs-4">内饰</label>
-								<div class="col-xs-8">
+								<label class="control-label col-xs-6">内饰</label>
+								<div class="col-xs-6">
 									<select id="trimId" parent="colorId"
 										class="bs-select form-control" name="trimName"
 										data-url="/basedata/material/trim/90081002/{[groupId]}/{[modelId]}/{[colorId]}"
@@ -87,11 +87,37 @@
 							</div>
 						</div>
 
+				
+
+  
+			
+			
 					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 						<div class="form-group">
-							<label class="control-label col-xs-12 col-sm-4">入库日期</label>
-							<div class="col-xs-6 col-sm-8">
-								<div class="input-group input-daterange" data-maxDays="30"
+							<label class="control-label col-xs-6">库龄超过天数</label>
+							<div class="col-xs-6">
+								<input type="text" class="form-control" id="days" name="days">
+							</div>
+						</div>
+					</div>
+					
+
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="form-group">
+							<label class="control-label col-xs-6">CG/CTCAI库存</label>
+							<div class="col-xs-6">
+								<select id="selctStore" name="selctStore"
+									class="bs-select form-control" data-type="oemDict"
+									data-dictCode="1378" data-value=""></select>
+
+							</div>
+						</div>
+					</div>
+						<div class="col-xs-12 col-sm-12 col-md-4 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-6 col-sm-3">入库日期</label>
+							<div class="col-xs-6 col-sm-9">
+								<div class="input-group input-daterange"
 									data-opens="right">
 									<input type="text" class="form-control" readonly
 										name="beginDate"> <span class="input-group-addon">至</span>
@@ -105,37 +131,11 @@
 							</div>
 						</div>
 					</div>
-
-  
-			
-			
 					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 						<div class="form-group">
-							<label class="control-label col-xs-4">库龄超过天数</label>
-							<div class="col-xs-8">
-								<input type="text" class="form-control" id="days" name="days">
-							</div>
-						</div>
-					</div>
-					
-
-					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-						<div class="form-group">
-							<label class="control-label col-xs-4">CG/CTCAI库存</label>
-							<div class="col-xs-8">
-								<select id="selctStore" name="selctStore"
-									class="bs-select form-control" data-type="oemDict"
-									data-dictCode="1378" data-value=""></select>
-
-							</div>
-						</div>
-					</div>
-					
-					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-						<div class="form-group">
-							<label class="control-label col-xs-4">VIN</label>
-							<div class="col-xs-8">
-							 <textarea class="form-control" rows="3" id="vin" name="vin"></textarea> 
+							<label class="control-label col-xs-6">VIN</label>
+							<div class="col-xs-6">
+							 <textarea class="form-control" rows="2" id="vin" name="vin"></textarea> 
 							</div>
 						</div>
 					</div>
@@ -243,7 +243,7 @@ $(document).one("onload.dms",function(event,container){
 		            {field : "COLOR_NAME",title : "颜色"},
 		            {field : "VIN",title : "VIN"},
 		            {field : "ORG_STORAGE_DATE",title : "PDI完成日期"},
-		            {field : "ZBIL_DATE",title : "开票日期"},
+		            {field : "ZBIL_DATE",title : "开票日期" },
 		            {field : "D",title : "库龄(天)"}
 		          
 		 ],

@@ -21,10 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.yonyou.dms.common.domains.DTO.basedata.TtcampaignPlanDTO;
-import com.yonyou.dms.common.domains.DTO.stockmanage.TmPartStockDTO;
 import com.yonyou.dms.common.domains.DTO.stockmanage.TmPartStockItemDTO;
-import com.yonyou.dms.common.domains.DTO.stockmanage.TtPartFlowDTO;
 import com.yonyou.dms.common.domains.DTO.stockmanage.TtpartLendDTO;
 import com.yonyou.dms.framework.DAO.PageInfoDto;
 import com.yonyou.dms.function.exception.ServiceBizException;
@@ -123,11 +120,10 @@ public class CheckOutController {
 	 * @throws ServiceBizException
 	 */
 	@SuppressWarnings({ "rawtypes" })
-	@RequestMapping(value = "/{partNo2}/{storageCode}/{outQuantity}", method = RequestMethod.POST)
-	public ResponseEntity<Map> btnOutter(@PathVariable(value = "partNo2") String partNo2,
+	@RequestMapping(value = "/asd/{partNo2}/{storageCode}/{outQuantity}", method = RequestMethod.GET)
+	public Map btnOutter(@PathVariable(value = "partNo2") String partNo2,
 			@PathVariable(value = "storageCode") String storageCode,
-			@PathVariable(value = "outQuantity") String outQuantity, Float tag, TmPartStockItemDTO tmPartStockItemDTO,
-			UriComponentsBuilder uriCB) throws Exception {
+			@PathVariable(value = "outQuantity") String outQuantity, TmPartStockItemDTO tmPartStockItemDTO) throws Exception {
 		String[] split = partNo2.split(",");// 用来储存出库时选择的partNo2号
 		String[] split2 = storageCode.split(",");// 用来储存出库时选择的storageCode号
 		String[] split3 = outQuantity.split(",");// 用来储存出库时选择的outQuantity号
@@ -147,28 +143,13 @@ public class CheckOutController {
 					outQuantitys += "'" + split[i] + "',";
 				}
 			}
-			list = checkoutService.btnOutter(list, partNo2s, storageCodes, outQuantitys, tag, tmPartStockItemDTO);
-		} else {// 表示单个出库
-			if (split.length != 0 && split2.length != 0 & split3.length != 0) {
-				list = checkoutService.btnOutter2(list, split[0], split2[0], split3[0], tag, tmPartStockItemDTO);
+			list = checkoutService.btnOutter(list, partNo2s, storageCodes, outQuantitys, tmPartStockItemDTO);
+		} else {
+			if (split.length != 0 && split2.length != 0 & split3.length != 0) {// 表示单个出库
+				list = checkoutService.btnOutter2(list, split[0], split2[0], split3[0], tmPartStockItemDTO);
 			}
 		}
-		MultiValueMap<String, String> headers = new HttpHeaders();
-		headers.set("Location", uriCB.path("/vehicleStock/stockIn").buildAndExpand().toUriString());
-		return new ResponseEntity<Map>(list.get(0), headers, HttpStatus.CREATED);
-	}
-
-	/**
-	 * 查询库存是否为零或金额为零
-	 * 
-	 * @param queryParam
-	 * @return
-	 * @throws SerialException
-	 */
-	@RequestMapping(value = "/partNo2/storageCode", method = RequestMethod.GET)
-	@ResponseBody
-	public PageInfoDto quaryAccount(@RequestParam Map<String, String> queryParam) throws SerialException {
-		return checkoutService.findAccount(queryParam);
+		return list.get(0);
 	}
 
 	/**
@@ -179,11 +160,11 @@ public class CheckOutController {
 	 * @return
 	 * @throws SerialException
 	 */
-	@RequestMapping(value = "/{lendNo}", method = RequestMethod.POST)
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(value = "/yes/{lendNo}", method = RequestMethod.POST)
 	public ResponseEntity<Integer> btnOut(@PathVariable(value = "lendNo") String lendNo, UriComponentsBuilder uriCB)
 			throws Exception {
 		List<Map> lendDetail2 = checkoutService.lendDetail2(lendNo);
-
 		checkoutService.btnOut(lendNo, lendDetail2);
 		MultiValueMap<String, String> headers = new HttpHeaders();
 		headers.set("Location", uriCB.path("/part/lendOrderChoose/btnSave").buildAndExpand().toUriString());

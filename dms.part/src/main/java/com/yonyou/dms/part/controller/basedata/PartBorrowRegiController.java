@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -54,9 +55,9 @@ public class PartBorrowRegiController {
      */
     @RequestMapping(value="/{borrowNo}",method = RequestMethod.GET)
     @ResponseBody
-    public PageInfoDto searchPartBorrowRegiItem(@PathVariable  String borrowNo) throws ServiceBizException{
+    public List<Map> searchPartBorrowRegiItem(@PathVariable  String borrowNo) throws ServiceBizException{
         
-        PageInfoDto pageInfoDto = partBorrowRegiService.searchPartBorrowRegiItem(  borrowNo);
+        List<Map> pageInfoDto = partBorrowRegiService.searchPartBorrowRegiItem(  borrowNo);
         return pageInfoDto;
     }  
    /**

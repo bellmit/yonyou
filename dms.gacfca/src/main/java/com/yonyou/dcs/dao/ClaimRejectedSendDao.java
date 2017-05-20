@@ -6,7 +6,6 @@
 
 package com.yonyou.dcs.dao;
 
-import java.util.Date;
 import java.util.LinkedList;
 
 import org.springframework.stereotype.Repository;
@@ -17,11 +16,6 @@ import com.yonyou.dms.framework.DAO.OemBaseDAO;
 
 @Repository
 public class ClaimRejectedSendDao extends OemBaseDAO{
-private static final ClaimRejectedSendDao dao = new ClaimRejectedSendDao();
-	
-	public static final ClaimRejectedSendDao getInstance() {
-		return dao;
-	}
 	/**
 	 * 获取下发VO
 	 * @param claimpo

@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.javalite.activejdbc.Base;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,7 @@ public class S0006Imp extends BaseService implements S0006 {
 
 		logger.info("logger.info ->>> 国产车车辆发运信息接收[SAP->EAI->DCS], start..");
 		logger.info("logger.info ->>> 国产车车辆发运信息接收[SAP->EAI->DCS], 开启事务!");
-		dbService.beginTxn();
+		beginDbService();
 
 		List<returnVO> retVoList = new ArrayList<returnVO>();
 		String[] returnVo = null;
@@ -104,6 +105,7 @@ public class S0006Imp extends BaseService implements S0006 {
 		} finally {
 			logger.info("logger.info ->>> 国产车车辆发运信息接收[SAP->EAI->DCS], finish.");
 			logger.info("logger.info ->>> 国产车车辆发运信息接收[SAP->EAI->DCS], 清除事务!");
+			Base.detach();
 			dbService.clean();
 		}
 
@@ -315,16 +317,16 @@ public class S0006Imp extends BaseService implements S0006 {
 		orderTrans.setString("Trans_No", s0006Vo.getTransNo());
 		orderTrans.setInteger("Trans_Type", new Integer(this.getK4TransType(s0006Vo.getTransType())));
 		orderTrans.setString("Trans_Vehicle_No", s0006Vo.getTransVehicleNo());
-		orderTrans.setString("Departure_Date", departureDate);
+		orderTrans.setTimestamp("Departure_Date", departureDate);
 		orderTrans.setString("Driver_Name", s0006Vo.getDriverName());
 		orderTrans.setString("Driver_Tel", s0006Vo.getDriverTel());
-		orderTrans.setTimestamp("Expected_Date", s0006Vo.getExpectedDate());
+		orderTrans.setString("Expected_Date", s0006Vo.getExpectedDate());
 		orderTrans.setString("Vin", s0006Vo.getVin());
 		orderTrans.setLong("Receives_Dealer_Id", dealerId);
 		orderTrans.setInteger("Status", OemDictCodeConstants.STATUS_ENABLE);
-		orderTrans.setInteger("Create_By", OemDictCodeConstants.K4_S0006);
+		orderTrans.setLong("Create_By", OemDictCodeConstants.K4_S0006);
 		orderTrans.setTimestamp("Create_Date", format);
-		orderTrans.insert();
+		orderTrans.saveIt();
 
 		// 发运单取消重新创建情况下
 		String orderTransNo = null;
@@ -378,12 +380,12 @@ public class S0006Imp extends BaseService implements S0006 {
 				// 更新车辆表条件
 				TmVehiclePO tpo = TmVehiclePO.findFirst("vin=?", s0006Vo.getVin());
 				// 更新车辆表内容
-				tpo.setInteger("NodeStatus", OemDictCodeConstants.K4_VEHICLE_NODE_17); // 车辆节点状态
-				tpo.setInteger("LifeCycle", OemDictCodeConstants.LIF_CYCLE_03); // 车辆生命周期
-				tpo.setTimestamp("ZbilDate", departureDate); // 一次开票日期 = 发车日期
-				tpo.setTimestamp("StockoutDealerDate", departureDate); // 发运日期 =
+				tpo.setInteger("Node_Status", OemDictCodeConstants.K4_VEHICLE_NODE_17); // 车辆节点状态
+				tpo.setInteger("Life_Cycle", OemDictCodeConstants.LIF_CYCLE_03); // 车辆生命周期
+				tpo.setTimestamp("Zbil_Date", departureDate); // 一次开票日期 = 发车日期
+				tpo.setTimestamp("Stockout_Dealer_Date", departureDate); // 发运日期 =
 																		// 发车日期
-				tpo.setTimestamp("NodeDate", nodeDate);
+				tpo.setTimestamp("Node_Date", nodeDate);
 				tpo.saveIt();
 
 			} else if (orderStatus == OemDictCodeConstants.SALE_ORDER_TYPE_11.intValue() || // 已到店
@@ -533,11 +535,11 @@ public class S0006Imp extends BaseService implements S0006 {
 
 		// orderTrans.setIfId(new Long(SequenceManager.getSequence("")));
 		orderTrans.setString("Trans_No", vo.getTransNo()); // 运单号
-		orderTrans.setTimestamp("Trans_Create_Date", vo.getTransCreateDate()); // 运单创建日期
-		orderTrans.setTimestamp("Trans_Create_Time", vo.getTransCreateTime()); // 运单创建时间
-		orderTrans.setTimestamp("Departure_Date", vo.getDepartureDate()); // 发车日期
-		orderTrans.setTimestamp("Departure_Time", vo.getDepartureTime()); // 发车时间
-		orderTrans.setTimestamp("Expected_Date", vo.getExpectedDate()); // 预计到店日期
+		orderTrans.setString("Trans_Create_Date", vo.getTransCreateDate()); // 运单创建日期
+		orderTrans.setString("Trans_Create_Time", vo.getTransCreateTime()); // 运单创建时间
+		orderTrans.setString("Departure_Date", vo.getDepartureDate()); // 发车日期
+		orderTrans.setString("Departure_Time", vo.getDepartureTime()); // 发车时间
+		orderTrans.setString("Expected_Date", vo.getExpectedDate()); // 预计到店日期
 		orderTrans.setString("Trans_Agent_Code", vo.getTransAgentCode()); // 运输商编号
 		orderTrans.setString("Trans_Agent_Name", vo.getTransAgentName()); // 运输商名称
 		orderTrans.setString("Trans_Type", vo.getTransType()); // 运输类型
@@ -549,13 +551,13 @@ public class S0006Imp extends BaseService implements S0006 {
 		orderTrans.setString("Dn_No", vo.getDnNo()); // 销售发货单号
 		orderTrans.setString("Sap_Trans_No", vo.getSapTransNo()); // 销售运单号
 		orderTrans.setString("Vin", vo.getVin()); // 车架号
-		orderTrans.setInteger("Row_Id", vo.getRowId()); // ROWID
-		orderTrans.setInteger("Create_By", OemDictCodeConstants.K4_S0006); // 创建人ID
+		orderTrans.setString("Row_Id", vo.getRowId()); // ROWID
+		orderTrans.setLong("Create_By", OemDictCodeConstants.K4_S0006); // 创建人ID
 		orderTrans.setTimestamp("Create_Date", new Date()); // 创建日期
 		orderTrans.setInteger("Is_Del", OemDictCodeConstants.IS_DEL_00); // 逻辑删除
-		orderTrans.setInteger("Is_Result", vo.getIsResult()); // 是否成功
+		orderTrans.setString("Is_Result", vo.getIsResult()); // 是否成功
 		orderTrans.setString("Is_Message", vo.getIsMessage()); // 处理结果信息
-		orderTrans.insert();
+		orderTrans.saveIt();
 	}
 
 	/**

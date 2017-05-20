@@ -1,4 +1,4 @@
-<div class="dms-search">
+<div class="dms-edit ajaxrest" data-url="" data-model="repair"  data-pageInitCallBack="true">
 	<form class="form-horizontal">
 		<div class="modal-header">
 			<div class="modal-title">监控车辆提醒</div>
@@ -9,12 +9,12 @@
 		</div>
 		
 		<div class="modal-body">
-		<div class="row">
+				<div class="row">
 		            <div class="col-xs-12 col-sm-6 col-md-4">
 			           <div class="form-group">
 			               <label class="control-label col-xs-4 ">车牌号</label>
 			               <div class="col-xs-8">
-			                   <input type="text"  class="form-control" id="" name="" data-fieldName=""
+			                   <input type="text"  class="form-control" id="LICENSE" name="LICENSE" data-fieldName="LICENSE"
 			                   readonly="readonly">
 			               </div>
 			           </div>
@@ -24,7 +24,7 @@
 			           <div class="form-group">
 			               <label class="control-label col-xs-4 ">VIN</label>
 			               <div class="col-xs-8">
-			                   <input type="text"  class="form-control" id="" name="" data-fieldName=""
+			                   <input type="text"  class="form-control" id="vin" name="vin" data-fieldName="VIN"
 			                   readonly="readonly">
 			               </div>
 			           </div>
@@ -34,70 +34,193 @@
 			           <div class="form-group">
 			               <label class="control-label col-xs-4 ">发动机号</label>
 			               <div class="col-xs-8">
-			                   <input type="text"  class="form-control" id="" name="" data-fieldName=""
+			                   <input type="text"  class="form-control" id="engineNo" name="engineNo" data-fieldName="ENGINE_NO"
 			                   readonly="readonly">
 			               </div>
 			           </div>
 			       </div>
-			       
+			        </div>
+			         <div class="row">
 			         <div class="col-xs-12 col-sm-6 col-md-4">
 			           <div class="form-group">
 			               <label class="control-label col-xs-4 ">车主编号</label>
 			               <div class="col-xs-8">
-			                   <input type="text"  class="form-control" id="discountModeCode" name="discountModeCode"
+			                   <input type="text"  class="form-control" id="ownerNo" name="ownerNo"   data-fieldName="OWNER_NO"
 			                   readonly="readonly">
 			               </div>
 			           </div>
-			       </div>
-			       
-			       	<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+			     	  </div>
+
+			      		<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
 									<div class="form-group">
 										<label class="control-label col-xs-4">保修开始日期</label>
+										<div class="col-xs-6">
+										<div class="input-group date date-picker">
+											<input id="wrtBeginDate" name="wrtBeginDate" data-fieldName="WRT_BEGIN_DATE"
+											 readonly="readonly"	class="form-control" type="text"/> 
+											<span class="input-group-btn">
+												<button class="btn default date-set" type="button">
+													<i class="fa fa-calendar"></i>
+												</button>
+											</span>
+										</div>
+										</div>	
+										</div>
+									</div>
+						
+						<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+								<div class="form-group">
+									<label class="control-label col-xs-6">保修结束日期</label>
+									<div class="col-xs-6">
+										<div class="input-group date date-picker">
+											<input id="wrtEndDate" name="wrtEndDate" data-fieldName="WRT_END_DATE"
+											 readonly="readonly"		class="form-control" type="text"/> 
+											<span class="input-group-btn">
+												<button class="btn default date-set" type="button">
+													<i class="fa fa-calendar"></i>
+												</button>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+				</div>
+				 <div class="row">
+					<div class="col-xs-12 col-sm-8 col-md-6 col-lg-3">
+									<div class="form-group hidden">
+										<label class="control-label col-xs-4">MODEL</label>
 										<div class="col-xs-8">
-											
-												<input id="" name="" data-fieldName=""
+												<input id="MODEL" name="MODEL" data-fieldName="MODEL"
 													class="form-control" type="text" readonly="readonly"/> 
-							
-											
+										</div>
+									</div>
+					</div>
+					<div class="col-xs-12 col-sm-8 col-md-6 col-lg-3">
+									<div class="form-group hidden">
+										<label class="control-label col-xs-4">BRAND</label>
+										<div class="col-xs-8">
+												<input id="BRAND" name="BRAND" data-fieldName="BRAND"
+													class="form-control " type="text" readonly="readonly"/> 
 										</div>
 									</div>
 					</div>
 					
-						<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
-									<div class="form-group">
-										<label class="control-label col-xs-4">保修结束日期</label>
+					
+					<div class="col-xs-12 col-sm-8 col-md-6 col-lg-3">
+									<div class="form-group hidden">
+										<label class="control-label col-xs-4">SERIES</label>
 										<div class="col-xs-8">
-											
-												<input id="" name="" data-fieldName=""
+												<input id="SERIES" name="SERIES" data-fieldName="SERIES"
 													class="form-control" type="text" readonly="readonly"/> 
-										
-										
 										</div>
 									</div>
 					</div>
+					
+					<div class="col-xs-12 col-sm-8 col-md-6 col-lg-3">
+									<div class="form-group hidden">
+										<label class="control-label col-xs-4">CONFIG_CODE</label>
+										<div class="col-xs-8">
+												<input id="CONFIG_CODE" name="CONFIG_CODE" data-fieldName="CONFIG_CODE"
+													class="form-control" type="text" readonly="readonly"/> 
+										</div>
+									</div>
+					</div>
+					</div>
+				<div class="row">		
+					<div class="col-xs-12 col-sm-8 col-md-6 col-lg-3">
+									<div class="form-group hidden">
+										<label class="control-label col-xs-4">MILEAGE</label>
+										<div class="col-xs-8">
+												<input id="MILEAGE" name="MILEAGE" data-fieldName="MILEAGE"
+													class="form-control" type="text" readonly="readonly"/> 
+										</div>
+									</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-8 col-md-6 col-lg-3">
+									<div class="form-group hidden">
+										<label class="control-label col-xs-4">CARD_TYPE_CODE会员卡CARD_TYPE_NAME</label>
+										<div class="col-xs-8">
+												<input id="CARD_TYPE_CODE" name="CARD_TYPE_CODE" data-fieldName="CARD_TYPE_CODE"
+													class="form-control" type="text" readonly="readonly"/> 
+										</div>
+									</div>
+					</div>
+					
+					
+					<div class="col-xs-12 col-sm-8 col-md-6 col-lg-3">
+									<div class="form-group  hidden">
+										<label class="control-label col-xs-4">RONO</label>
+										<div class="col-xs-8">
+												<input id="RONO" name="RONO" data-fieldName="RONO"
+													class="form-control" type="text" readonly="readonly"/> 
+										</div>
+									</div>
+					</div>
+						<div class="col-xs-12 col-sm-8 col-md-6 col-lg-3">
+									<div class="form-group hidden">
+										<label class="control-label col-xs-4">OPEN_DAYS</label>
+										<div class="col-xs-8">
+												<input id="OPEN_DAYS" name="OPEN_DAYS" data-fieldName="OPEN_DAYS"
+													class="form-control" type="text" readonly="readonly"/> 
+										</div>
+									</div>
+					</div>
+					
+							<div class="col-xs-12 col-sm-8 col-md-6 col-lg-3">
+								<div class="form-group  hidden">
+									<label class="control-label col-xs-6">SALES_DATE</label>
+									<div class="col-xs-6">
+										<div class="input-group date date-picker">
+											<input id="SALES_DATE" name="SALES_DATE" data-fieldName="SALES_DATE"
+												class="form-control" type="text"/> 
+											<span class="input-group-btn">
+												<button class="btn default date-set" type="button">
+													<i class="fa fa-calendar"></i>
+												</button>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-8 col-md-6 col-lg-3">
+								<div class="form-group  hidden">
+									<label class="control-label col-xs-6">createDate</label>
+									<div class="col-xs-6">
+										<div class="input-group date date-picker">
+											<input id="createDate" name="createDate" data-fieldName="createDate"
+												class="form-control" type="text"/> 
+											<span class="input-group-btn">
+												<button class="btn default date-set" type="button">
+													<i class="fa fa-calendar"></i>
+												</button>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
 		</div>
 		</div>
 		
 		<div class="modal-body">
+		<div class="row">	
 		 <div class="pannel-name">提示信息</div>
-			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<div class="pannel-name"></div>
 						</div>
 						<div class="panel-body">
-
 								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 									<div class="form-group">
-										<textarea rows="5" id="" name="" style="width: 100%"></textarea>
+										<textarea rows="5" id="remind" name="remind" data-fieldName="remind"   style="width: 100%"></textarea>
 									</div>
 								</div>
 
 						</div>
-					</div>
+					</div>	
 				</div>
-				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+				 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<div class="pannel-name"></div>
@@ -120,8 +243,8 @@
 		</div>
 			
 		<div class="modal-body">
+		<div class="row">	
 		<div class="pannel-name">活动</div>	
-			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
@@ -161,15 +284,17 @@
 						</div>
 					</div>
 				</div>
-			</div>
+		
 		</div>
-			
+		</div>
+		
+	
 		<div class="modal-body">	
-			<div class="row">
+		<div class="row">	
 				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<div class="pannel-name">预约安排</div>
+						<div class="pannel-name">预约安排</div>
 						</div>
 						<div class="panel-body">
 
@@ -207,61 +332,104 @@
 				</div>
 			</div>
 		</div>	
-		
+	
 		<div class="modal-footer center-block">
 		    <a class="btn blue"><i class="fa fa-save"></i>确定</a>
 			<a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消</a>
 		</div>
-	
+		
 	</form>
 </div>
 <script type="text/javascript">
 	$(document).one("onload.dms",function(event,container){
+		$("#LICENSE",container).val($("#license",getElementContext()).val());
+		$("#vin",container).val($("#vin",getElementContext()).val());
+		$("#engineNo",container).val($("#engineNo",getElementContext()).val());
+		$("#ownerNo",container).val($("#ownerNo",getElementContext()).val());
+		$("#RONO",container).val($("#roNo",getElementContext()).val());
+		$("#MILEAGE",container).val($("#inMileage",getElementContext()).val());
 		
-		//监控信息右1
-		new Datatable().initPagination({
+		$("#BRAND",container).val($("#brand",getElementContext()).val());
+		$("#SERIES",container).val($("#series",getElementContext()).val());
+		$("#MODEL",container).val($("#model",getElementContext()).val());
+		$("#CONFIG_CODE",container).val($("#config",getElementContext()).val());		 
+		$("#SALES_DATE",container).val($("#salesDate",getElementContext()).val());
+		$("#createDate",container).val($("#createDate",getElementContext()).val());
+		$("#wrtBeginDate",container).val($("#wrtBeginDate",getElementContext()).val());
+		
+		
+	 	//监控信息左2
+ 		new Datatable().initLocale({
 			src : "monitor_table",
-   		    url : dmsCommon.getDmsPath()[""] + "",
-   			rowID : "",
-   			sortName : "",
-   			sortOrder : "",
+   		    url : dmsCommon.getDmsPath()["repair"] + "/order/repair/retriveByControlright",
+   			rowID : "IS_VALID",
+   			sortName : "IS_VALID",
+   			sortOrder : "asc",
    			autoHeight:false,
    			undefinedText : "",
    			columns : [     
    				{radio : true,sortable : false,title : "选择"},
-   	         	{field : "",title : "监控信息"}
-                  
+   				{field : "MESSAGE",title : "监控信息"}  
    			]
+		}); 
+ 		//监控信息右1 
+		dmsCommon.ajaxRestRequest({
+			url : dmsCommon.getDmsPath()["repair"]
+					+ "/order/repair/retriveByControl",
+			type : 'GET',
+			sucessCallBack : function(data) {
+		//		alert(JSON.stringify(data))
+				var s = '';
+				for(var i=0;i<data.length;i++){
+					var k = data[i];
+					s += '('+k.REMIND_ID+')'+k.MESSAGE+'\n';
+				}
+				$("#remind",container).html(s);
+			},
+			errorCallBack : function(data) {
+				dmsCommon.tip({
+					status : "warning",
+					msg : data
+				});
+				returnResult.status = false;
+			}
 		});
 		
-		//监控信息左2
 		new Datatable().initPagination({
 			src : "activity1_table",
-   		    url : dmsCommon.getDmsPath()[""] + "",
-   			rowID : "",
-   			sortName : "",
-   			sortOrder : "",
+   		    url : dmsCommon.getDmsPath()["repair"] + "/order/repair/queryActivityValid",
+   			rowID : "ACTIVITY_CODE",
+   			sortName : "ACTIVITY_CODE",
+   			sortOrder : "asc",
    			autoHeight:false,
    			undefinedText : "",
    			columns : [     
    				{radio : true,sortable : false,title : "选择"},
-   	         	{field : "",title : "活动"}
-                  
+   				{field : "ACTIVITY_CODE",title : "活动编号"},
+   	     	  	{field : "ACTIVITY_NAME",title : "活动名称"},
+	     	  	{field : "ACTIVITY_TYPE",title : "活动类型"},
+   				{field : "BEGIN_DATE",title : "开始日期"},
+   			  	{field : "END_DATE",title : "结束日期"},
+   				{field : "ACTIVITY_AMOUNT",title : "活动总金额"},
    			]
 		});
 		
 		//监控信息右2
 		new Datatable().initPagination({
 			src : "activity2_table",
-   		    url : dmsCommon.getDmsPath()[""] + "",
-   			rowID : "",
-   			sortName : "",
-   			sortOrder : "",
+   		    url : dmsCommon.getDmsPath()["repair"] + "/order/repair/queryActivityResult",
+   			rowID : "ACTIVITY_CODE",
+   			sortName : "ACTIVITY_CODE",
+   			sortOrder : "asc",
    			autoHeight:false,
    			undefinedText : "",
    			columns : [     
    				{radio : true,sortable : false,title : "选择"},
-   	         	{field : "",title : "已经参加活动"}
+   	         	{field : "ACTIVITY_CODE",title : "活动编号"},
+   	     	  	{field : "ACTIVITY_NAME",title : "活动名称"},
+   				{field : "VIN",title : "VIN"},
+   			  	{field : "DEALER_NAME",title : "经销商名称"},
+   				{field : "CAMPAIGN_DATE",title : "参加活动时间"},
                   
    			]
 		});
@@ -269,35 +437,47 @@
 		//监控信息左3
 		new Datatable().initPagination({
 			src : "booking_table",
-   		    url : dmsCommon.getDmsPath()[""] + "",
-   			rowID : "",
-   			sortName : "",
-   			sortOrder : "",
+   		    url : dmsCommon.getDmsPath()["repair"] + "/order/repair/queryBookingOrder",
+   			rowID : "BOOKING_ORDER_NO",
+   			sortName : "BOOKING_ORDER_NO",
+   			sortOrder : "asc",
    			autoHeight:false,
    			undefinedText : "",
    			columns : [     
    				{radio : true,sortable : false,title : "选择"},
-   	         	{field : "",title : "预约"}
-                  
+   	         	{field : "BOOKING_ORDER_NO",title : "预约单号"},
+   				{field : "VIN",title : "VIN"},
+   			  	{field : "BOOKING_TYPE_CODE",title : "预约类别"},
+   				{field : "BOOKING_COME_TIME",title : "预约进厂时间"},
+   				{field : "CONTACTOR_NAME",title : "联系人"},
+   				{field : "CREATE_DATE",title : "创建时间"},
+   				{field : "REMARK",title : "备注"},
+   			
    			]
 		});
 		
 		//监控信息右3
 		new Datatable().initPagination({
 			src : "insurance_table",
-   		    url : dmsCommon.getDmsPath()[""] + "",
-   			rowID : "",
-   			sortName : "",
-   			sortOrder : "",
+   		    url : dmsCommon.getDmsPath()["repair"] + "/order/repair/queryOccurInsuranceByLicenseOrVin",
+   			rowID : "OCCUR_INSURANCE_NO",
+   			sortName : "OCCUR_INSURANCE_NO",
+   			sortOrder : "asc",
    			autoHeight:false,
    			undefinedText : "",
    			columns : [     
    				{radio : true,sortable : false,title : "选择"},
-   	         	{field : "",title : "出险"}
+   	         	{field : "OCCUR_INSURANCE_NO",title : "出险单号"},
+   				{field : "REPORT_MAN",title : "报案人"},
+   				{field : "VIN",title : "VIN"},
+   			  	{field : "LICENSE",title : "车牌号"},
+   				{field : "BRAND",title : "品牌"},
+   				{field : "SERIES",title : "车系"},
+   				{field : "MODEL",title : "车型"},
+   				{field : "CUS_SOURCE",title : "客户来源"},
                   
    			]
 		});
-		
-		
+
 	});
 </script>

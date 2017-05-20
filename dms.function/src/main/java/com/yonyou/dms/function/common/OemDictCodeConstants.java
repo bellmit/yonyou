@@ -2257,6 +2257,7 @@ public class OemDictCodeConstants {
 	public final static Integer OILE_TYPE = 5055;
 	public final static Integer OILE_TYPE_01 = 50551001; // 汽油
 	public final static Integer OILE_TYPE_02 = 50551002; // 柴油
+	public final static Integer OILE_TYPE_03 = 50551003;//混合动力
 
 	/**
 	 * 菲亚特配件类别

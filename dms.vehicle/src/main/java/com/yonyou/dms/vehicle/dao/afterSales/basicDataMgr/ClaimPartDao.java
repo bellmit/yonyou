@@ -31,7 +31,7 @@ public class ClaimPartDao extends OemBaseDAO{
 	private String getQuerySql(Map<String, String> queryParam, List<Object> params) {
 		StringBuffer sql = new StringBuffer();
 		sql.append("select \n");
-		sql.append("	t.id,t.PART_NAME,t.PART_CODE,CONCAT_WS('月',t.quality_time,t.quality_mileage,'公里') AS clause \n");
+		sql.append("	t.id,t.PART_NAME,t.PART_CODE,CONCAT(t.quality_time,'月',ROUND(t.quality_mileage),'公里') AS clause \n");
 		sql.append("  from TT_WR_PARTWARRANTY_dcs t  \n");
 		sql.append("  where is_del = "+OemDictCodeConstants.IS_DEL_00);			
 		if (!"".equals(queryParam.get("partCode")) && queryParam.get("partCode") != null) {
@@ -62,10 +62,10 @@ public class ClaimPartDao extends OemBaseDAO{
 		sql.append("     from TT_PT_PART_BASE_dcs t where IS_DEL="+OemDictCodeConstants.IS_DEL_00 +" \n");
 		
 		  if (!StringUtils.isNullOrEmpty(queryParam.get("partCode"))) {
-				sql.append("   and t.part_code='"+queryParam.get("partCode")+"'  \n");
+				sql.append("   and t.part_code like  '%"+queryParam.get("partCode")+"%'  \n");
 			}
 		  if (!StringUtils.isNullOrEmpty(queryParam.get("partName"))) {
-				sql.append("   and t.part_name='"+queryParam.get("partName")+"'  \n");
+				sql.append("   and t.part_name like'%"+queryParam.get("partName")+"%'  \n");
 			}
 		  System.out.println(sql.toString());
     return OemDAOUtil.findAll(sql.toString(),null); 

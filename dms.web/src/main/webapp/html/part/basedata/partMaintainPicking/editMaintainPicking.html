@@ -50,7 +50,7 @@
 					<label class="control-label col-xs-4">领料人</label>
 						<div class="col-xs-8">
 						    <select id="receiver" 
-								name="receiver" class="bs-select form-control"data-url="/basedata/employees/-1/salesConsultant"
+								name="receiver" class="bs-select form-control" data-url="/basedata/employees/-1/salesConsultant"
 										data-model="manage" data-labelValue="USER_ID"
 										data-lableDesc="USER_NAME"></select>			
 						</div>
@@ -73,7 +73,7 @@
 					<label class="control-label col-xs-4">价格类型</label>
 						<div class="col-xs-8">
 						    <select id="priceType" name="priceType"
-										class="bs-select form-control"data-excludeItems="12361008,12361009" data-dictCode="1236" >
+										class="bs-select form-control" data-excludeItems="12361008,12361009" data-dictCode="1236" >
 									</select>				
 						</div>
 				</div>
@@ -93,7 +93,7 @@
 				<div class="form-group">
 					<label class="control-label col-xs-4">配件销售单价</label>
 						<div class="col-xs-8">
-						    <input id="partSalesPrice" name="partPrice" class="form-control decimal"maxDigit="8"
+						    <input id="partSalesPrice" name="partSalesPrice" class="form-control decimal"maxDigit="8"
 										maxPrecision="2" data-autoValueDigits="2" type="text" />				
 						</div>
 				</div>
@@ -162,7 +162,6 @@
 $(document).one("onload.dms",function(event,container){
 	var selectMasterRow = $("#maintainPickingTbl",getElementContext).dmsTable().getFirstSelection();
 	//var selectMasterRow2 = $("#maintainPickingTbl",getElementContext).dmsTable().getRowDataByIndex();
-	console.log(JSON.stringify(selectMasterRow))
 	var storageCode = selectMasterRow['STORAGE_CODE'];
 	var storageName = selectMasterRow['STORAGE_NAME'];
 	var partNo = selectMasterRow['PART_NO'];
@@ -170,29 +169,33 @@ $(document).one("onload.dms",function(event,container){
 	var receiver = selectMasterRow['RECEIVER'];
 	var labourName = selectMasterRow['LABOUR_NAME'];
 	var priceType = selectMasterRow['PRICE_TYPE'];
-	var priceRate = selectMasterRow['PRICE_RATE'];
 	var partSalesPrice = selectMasterRow['PART_SALES_PRICE'];
 	var partQuantity = selectMasterRow['PART_QUANTITY'];
 	var partSalesAmount = selectMasterRow['PART_SALES_AMOUNT'];
 	var chargePartitionCode = selectMasterRow['CHARGE_PARTITION_CODE'];
+	alert("chargePartitionCode = "+chargePartitionCode+" priceType = "+ priceType);
 	var isMainPart = selectMasterRow['IS_MAIN_PART'];
 	var isFinished = selectMasterRow["IS_FINISHED"];
-	alert("111"+isMainPart)
-	if('10571001' == isMainPart){
-		$("isMainPart",container).prop("checked", "checked");
-	}
 	$("#storageCode",container).val(storageCode);
 	$("#storageName",container).val(storageName);
 	$("#partNo",container).val(partNo);
 	$("#partName",container).val(partName);
-	$("#receiver",container).val(receiver);
+	setTimeout(function(){
+		$("#receiver",container).setDmsValue(receiver);
+		$("#priceType",container).setDmsValue(priceType);
+		$("#chargePartitionCode",container).val(chargePartitionCode);
+	 },100);
+	$("button[data-id='receiver'] span:first", container).html(receiver);
 	$("#labourName",container).val(labourName);
-	$("#priceType",container).val(priceType);
-	$("#priceRate",container).val(priceRate);
+	
 	$("#partSalesPrice",container).val(partSalesPrice);
 	$("#partQuantity",container).val(partQuantity);
 	$("#partSalesAmount",container).val(partSalesAmount);
-	$("#chargePartitionCode",container).val(chargePartitionCode);
+	
+	if('12781001' == isMainPart){
+		$("[name = isMainPart]:checkbox").attr("checked", true);
+		//$("#isMainPart",container).prop("checked", "checked");
+	}
 	if(isFinished =='12781002'){
 		$("#partName",container).removeAttr("readonly");
 		$("#partQuantity",container).removeAttr("readonly");
@@ -213,7 +216,11 @@ $(document).one("onload.dms",function(event,container){
 		isQueryFirst:true,
 		autoHeight : false,
 		columns : [ 
-			{field : "SALES_PRICE",title : "销售价"}, 
+			{field : "SALES_PRICE",title : "销售价",
+				inputHiddenFormat : {
+					hiddenFieldName:"salesPrice,netCostPrice,latestPrice,nodePrice,costPrice",
+					hiddenField : "SALES_PRICE,NET_COST_PRICE,LATEST_PRICE,NODE_PRICE,COST_PRICE"
+				}}, 
 			{field : "CLAIM_PRICE",title : "索赔价"}, 
 			{field : "INSURANCE_PRICE",title : "保险价"}, 
 			{field : "MIN_LIMIT_PRICE",title : "最低销售限价"},
@@ -231,7 +238,7 @@ $(document).one("onload.dms",function(event,container){
 			{field : "UNIT",title : "单位"},
 			{field : "PART_MODEL_GROUP_CODE_SET",title : "配件车型组集"}
 		],onLoadSuccess:function(){
-			
+			var localTable = $("#dms_table",container).dmsTable().getRowDataByIndex();
 			//收费区分值变动绑定事件
 			$("#chargePartitionCode", container).bindChange(function(obj){
 				var cpType=$("#chargePartitionCode", container).val();
@@ -239,15 +246,15 @@ $(document).one("onload.dms",function(event,container){
 				switch(cpType)
 				{
 				case "M":	 //保险
-					$("#priceType").setDmsValue("12361007");  //修改下来框的值 
+					$("#priceType").setDmsValue("12361007");  //修改下拉框的值 
 					$("#priceType",container).removeAttr("disabled");
 				  break;
 				case "S":     //索赔价
-					$("#priceType").setDmsValue("12361003");  //修改下来框的值 
+					$("#priceType").setDmsValue("12361003");  //修改下拉框的值 
 					$("#priceType",container).attr("disabled","disabled");
 				  break;
 				default:
-					$("#priceType").setDmsValue("12361002");  //修改下来框的值 
+					$("#priceType").setDmsValue("12361002");  //修改下拉框的值 
 				    $("#priceType",container).removeAttr("disabled");
 				}
 			});
@@ -259,34 +266,33 @@ $(document).one("onload.dms",function(event,container){
 				$("#partSalesAmount").val((parseFloat($("#partSalesPrice").val())
 						 *parseFloat($("#priceRate").val())
 						 *parseFloat($("#partQuantity").val())).toFixed(2));
-			
-			});
-			
+			    });
 			//价格类型变动绑定事件
 			$("#priceType", container).bindChange(function(obj){		
-				var type=$("#priceType").val();		
+				var type=$("#priceType").val();	
+				debugger;
 				switch(type)
 				{
 				case "12361001":	 //成本价
-					$("#partSalesPrice").val(rowdata.COST_PRICE);
+					$("#partSalesPrice").val(localTable[0].COST_PRICE);
 				  break;
 				case "12361002":     //销售价
-					$("#partSalesPrice").val(rowdata.SALES_PRICE);
+					$("#partSalesPrice").val(localTable[0].SALES_PRICE);
 				  break;
 				case "12361003":	//索赔价
-					$("#partSalesPrice").val(rowdata.CLAIM_PRICE);
+					$("#partSalesPrice").val(localTable[0].CLAIM_PRICE);
 				  break;	
 				case "12361004":	//网点价
-					$("#partSalesPrice").val(rowdata.NODE_PRICE);
+					$("#partSalesPrice").val(localTable[0].NODE_PRICE);
 				  break;	
 				case "12361005":	//最新进货价
-					$("#partSalesPrice").val(rowdata.LATEST_PRICE);
+					$("#partSalesPrice").val(localTable[0].LATEST_PRICE);
 				  break;	
 				case "12361006":	//含税成本价
-					$("#partSalesPrice").val(rowdata.NET_COST_PRICE);
+					$("#partSalesPrice").val(localTable[0].NET_COST_PRICE);
 				  break;
 				case "12361007":	//保险价
-					$("#partSalesPrice").val(rowdata.INSURANCE_PRICE);
+					$("#partSalesPrice").val(localTable[0].INSURANCE_PRICE);
 				  break;
 				default:
 					$("#partSalesPrice").val("0");
@@ -308,24 +314,22 @@ $(document).one("onload.dms",function(event,container){
 	//点击确认按钮事件
 	$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
 		var updateStatus = selectMasterRow["ITEM_UPDATE_STATUS"];
-		
 		var isMainPart ;
 			if(updateStatus == 'U' || updateStatus == 'R'){
-				updateStatus == 'U';
+				updateStatus = 'U';
 			}
-		alert($("#isMainPart").val())
+			isChecked = $("[name='isMainPart']",container).is(':checked');
 		if(isChecked){
-			isMainPart = '10571001';
-			alert("1"+isMainPart);
+			isMainPart = '12781001';
 		}else{
-			isMainPart = '10571002';
-			alert("2"+isMainPart);
+			isMainPart = '12781002';
 		}
 		$("#maintainPickingTbl",getElementContext()).dmsTable().updateRowByIndex(selectMasterRow.index,{
 			ITEM_UPDATE_STATUS:updateStatus,
 			PART_NAME:$("#partName",container).val(),
 			RECEIVER:$("#receiver",container).val(),
 			PART_SALES_PRICE:$("#partSalesPrice",container).val(),
+			PART_SALES_AMOUNT:$("#partSalesAmount",container).val(),
 			PART_QUANTITY:$("#partQuantity",container).val(),
 			IS_MAIN_PART:isMainPart,
 			CHARGE_PARTITION_CODE:$("#chargePartitionCode",container).val()

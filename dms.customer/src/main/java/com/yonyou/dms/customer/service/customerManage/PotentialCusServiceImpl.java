@@ -1544,7 +1544,7 @@ public class PotentialCusServiceImpl implements PotentialCusService {
         sb.append("SELECT DISTINCT C.*\n");
         sb.append(" from ( select c.DEALER_CODE,c.CUSTOMER_NAME,C.CONTACTOR_MOBILE AS MOBILE,c.CUSTOMER_NO,ci.INTENT_COLOR,\n");
         sb.append(" c.INTENT_ID,C.AUDIT_STATUS,C.UPDATED_AT,C.CREATED_AT,C.DETAIL_DESC,C.TEST_DRIVE_REMARK,C.IS_TEST_DRIVE,\n");
-        sb.append(" C.CUSTOMER_STATUS,C.CUSTOMER_TYPE,C.GENDER,C.BIRTHDAY,tv.VISIT_TIME AS V_TIME,tv.VISIT_TIMES AS V_TIMES,");
+        sb.append(" C.CUSTOMER_STATUS,C.CUSTOMER_TYPE,C.GENDER,C.BIRTHDAY,c.VISIT_TIME AS V_TIME,c.VISIT_TIMES AS V_TIMES,");
         sb.append(" C.ZIP_CODE,C.COUNTRY_CODE,C.PROVINCE,C.CITY,C.DISTRICT,C.EXPECT_TIMES_RANGE,EXPECT_DATE,ci.INTENT_BRAND,ci.INTENT_SERIES,ci.INTENT_MODEL,ci.INTENT_CONFIG,\n");
         sb.append(" C.ADDRESS,C.E_MAIL,C.HOBBY,C.CONTACTOR_PHONE,CASE WHEN C.CONTACTOR_MOBILE IS NULL THEN C.CONTACTOR_PHONE ELSE C.CONTACTOR_MOBILE END AS CONTACTOR_MOBILE,\n");
         sb.append(" C.IS_WHOLESALER,C.RECOMMEND_EMP_NAME,C.INIT_LEVEL,C.CT_CODE,\n");
@@ -1571,7 +1571,7 @@ public class PotentialCusServiceImpl implements PotentialCusService {
         sb.append(" left  join   TM_MODEL   mo   on   ci.INTENT_MODEL=mo.MODEL_CODE and se.BRAND_CODE=mo.BRAND_CODE and mo.SERIES_CODE=se.SERIES_CODE and c.DEALER_CODE=mo.DEALER_CODE\n");
         sb.append(" left  join   tm_configuration pa   on   ci.INTENT_CONFIG=pa.CONFIG_CODE and mo.MODEL_CODE=pa.MODEL_CODE and mo.SERIES_CODE=pa.SERIES_CODE and mo.BRAND_CODE=pa.BRAND_CODE and c.DEALER_CODE=pa.DEALER_CODE\n");
         sb.append(" left  join   tm_color   co   on   ci.INTENT_COLOR = co.COLOR_CODE and c.DEALER_CODE=co.DEALER_CODE\n");
-        sb.append(" left  join   TT_VISITING_RECORD   tv   on   c.CUSTOMER_NO = tv.CUSTOMER_NO and c.DEALER_CODE=tv.DEALER_CODE\n");
+     /*   sb.append(" left  join   TT_VISITING_RECORD   tv   on   c.CUSTOMER_NO = tv.CUSTOMER_NO and c.DEALER_CODE=tv.DEALER_CODE\n");*/
         sb.append(" left join (SELECT MAX(CREATED_AT),SCENE,DEALER_CODE,INTENT_ID,CUSTOMER_NO FROM TT_SALES_PROMOTION_PLAN WHERE PROM_RESULT IS NOT NULL AND SCENE IS NOT NULL GROUP BY CREATED_AT,SCENE,DEALER_CODE,INTENT_ID,CUSTOMER_NO) pot on c.INTENT_ID = pot.INTENT_ID and c.DEALER_CODE=pot.DEALER_CODE\n");
         sb.append(" left join TT_PO_CUS_LINKMAN tl on c.CUSTOMER_NO=tl.CUSTOMER_NO and c.DEALER_CODE=tl.DEALER_CODE and tl.IS_DEFAULT_CONTACTOR=12781001) C left join TT_CUSTOMER_VEHICLE_LIST sss on c.DEALER_CODE=sss.DEALER_CODE and c.CUSTOMER_NO=sss.CUSTOMER_NO\n");
         sb.append(" where 1=1 and c.dealer_code='"+loginInfo.getDealerCode()+"'");

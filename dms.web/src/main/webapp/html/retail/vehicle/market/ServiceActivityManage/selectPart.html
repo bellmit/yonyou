@@ -132,6 +132,32 @@
 			sortName : "PART_NO",
 			sortOrder : "asc",
 			autoHeight:false,
+			onDblClickRow:function(rowData,trElement){
+				var select = $("#partInfoTable",container).dmsTable().getSelections();
+				$("#partList",getElementContext()).dmsTable().appendRow({
+					"STORAGE_CODE":select[0].STORAGE_CODE,
+					"PART_NO":select[0].PART_NO,
+					"PART_NAME":select[0].PART_NAME,
+					"CHARGE_PARTITION_CODE":select[0].CHARGE_PARTITION_CODE,
+					"IS_MAIN_PART":select[0].IS_MAIN_PART,
+					"LABOUR_CODE":select[0].LABOUR_CODE,
+					"UNIT_CODE":select[0].UNIT_CODE,
+					"STOCK_QUANTITY":select[0].STOCK_QUANTITY,
+					"SALES_PRICE":select[0].SALES_PRICE	,
+					"PART_SALES_AMOUNT":select[0].SALES_PRICE*select[0].STOCK_QUANTITY,
+					"DISCOUNT":1,
+					"PART_SALES_AMOUNT_DISCOUNT":select[0].SALES_PRICE*select[0].STOCK_QUANTITY,
+					"COST_PRICE":select[0].COST_PRICE,
+					"COST_AMOUNT":select[0].COST_AMOUNT			
+				});
+				var selectRow = $("#partList",getElementContext()).dmsTable().getRowDataByIndex();
+				var Str = 0;
+				$.each(selectRow,function(index,row){
+	        		Str += row.PART_SALES_AMOUNT_DISCOUNT;
+				});
+				$("#afterpart",getElementContext()).val(Str);
+				$("a[data-dismiss='modal']",container).click();
+			},
 			columns : [	
 						{radio:true,sortable : false},
 				        {field : "STORAGE_NAME",title : "仓库名称",inputHiddenFormat : {hiddenFieldName:"STORAGE_CODE",hiddenField:"STORAGE_CODE"},visible : true}, 
@@ -162,8 +188,29 @@
 		//事件点击
 		$("a[data-onclickEvent='true']",container).on("dms.click",function(event,container){
 			var select = $("#partInfoTable",container).dmsTable().getSelections();
-			$("#partList",getElementContext()).dmsTable().appendRow(select[0]);
-			
+			$("#partList",getElementContext()).dmsTable().appendRow({
+				"STORAGE_CODE":select[0].STORAGE_CODE,
+				"PART_NO":select[0].PART_NO,
+				"PART_NAME":select[0].PART_NAME,
+				"CHARGE_PARTITION_CODE":select[0].CHARGE_PARTITION_CODE,
+				"IS_MAIN_PART":select[0].IS_MAIN_PART,
+				"LABOUR_CODE":select[0].LABOUR_CODE,
+				"UNIT_CODE":select[0].UNIT_CODE,
+				"STOCK_QUANTITY":select[0].STOCK_QUANTITY,
+				"SALES_PRICE":select[0].SALES_PRICE	,
+				"PART_SALES_AMOUNT":select[0].SALES_PRICE*select[0].STOCK_QUANTITY,
+				"DISCOUNT":1,
+				"PART_SALES_AMOUNT_DISCOUNT":select[0].STOCK_QUANTITY*select[0].SALES_PRICE,
+				"COST_PRICE":select[0].COST_PRICE,
+				"COST_AMOUNT":select[0].COST_AMOUNT			
+			});
+			var selectRow = $("#partList",getElementContext()).dmsTable().getRowDataByIndex();
+			var Str = 0;
+			$.each(selectRow,function(index,row){
+        		Str += row.PART_SALES_AMOUNT_DISCOUNT;
+			});
+			$("#afterpart",getElementContext()).val(Str);
+			$("a[data-dismiss='modal']",container).click();
 		});
 	});
 </script>

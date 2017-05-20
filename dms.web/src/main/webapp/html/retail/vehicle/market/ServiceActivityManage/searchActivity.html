@@ -75,7 +75,7 @@
 					</div>
 				</div>
 			</div>
-			<input type="hidden" id="fag" name="fag"/>
+			<input type="hidden" id="fag" name="fag" value="U"/>
 		</div>
 	</form>
 	<div class="panel panel-default table-panel">
@@ -86,14 +86,8 @@
 					<a data-url="retail/vehicle/market/ServiceActivityManage/addActivity.html" 
 						data-toggle="modal" data-onclickEvent="true" data-width="modal-lg" class="btn btn-outline">
 						<i class="fa fa-plus-square"/> 新增</a>
-					<a data-url="" class="btn btn-outline ajaxify">
+					<a data-url="" class="btn btn-outline ajaxify" disabled="disabled">
 						<i class="fa fa-plus-square"/> 附件下载</a>
-					<a data-url="" 
-						data-model="part" data-method="PUT" data-toggle="confirmation" class="btn btn-outline ajaxify">
-						<i class="fa fa-plus-square"/> 发布</a>
-					<a data-url="" 
-						data-model="part" data-method="PUT" data-toggle="confirmation" class="btn btn-outline ajaxify">
-						<i class="fa fa-plus-square"/> 作废</a>
 				</div>
 			</div>
 		</div>
@@ -109,6 +103,7 @@ $(document).one("onload.dms",function(event,container){
 	 new Datatable().initPagination({
 		src : "dms_table",
 		container:container,
+		undefinedText : "",
 		url : dmsCommon.getDmsPath()["repair"] + "/activity/serviceActivity",
 		rowID : "ACTIVITY_CODE",
 		sortName : "ACTIVITY_CODE",
@@ -117,35 +112,36 @@ $(document).one("onload.dms",function(event,container){
 			 {field : "",title : "操作",operateFormat : [
 				       {type : "edit",url : "retail/vehicle/market/ServiceActivityManage/editActivity.html",openWidth:"modal-lg",doubleClick : true,
 				    	   isShow:function(value, row, index){
-// 							   if(row.RELEASE_TAG=="22051001"&& row.ACTIVITY_TYPE=="22041001"){
+							   if(row.DOWN_TAG=="12781002"){
 								   return true;
-// 	                    	   }else{
-// 	                    		   return false;
-// 	                    	   }      
+	                    	   }else{
+	                    		   return false;
+	                    	   }      
 						   }},
 					   {type:"detail",url:"retail/vehicle/market/ServiceActivityManage/editActivity.html",openWidth:"modal-lg"},
-					   {type:"del",url:"/activity/serviceActivity/{[ACTIVITY_CODE]}/releaseTag",title:"发布",model:"repair",method:"GET",operateIcon:'<i class="fa fa-check-square-o glyphicon-lg"></i>',callBack:function(response){
+					   {type:"del",url:"/market/serviceActivityManage/del/{[ACTIVITY_CODE]}/1",title:"发布",model:"retail",method:"PUT",operateIcon:'<i class="fa fa-check-square-o glyphicon-lg"></i>',callBack:function(response){
                     	   $("#dms_table",container).dmsTable().refreshTableWithForm();
                         }, isShow:function(value, row, index){
-// 							   if(row.RELEASE_TAG=="22051001" && row.ACTIVITY_TYPE=="22041001"){
+							   if(row.DOWN_TAG=="12781002" && row.RELEASE_TAG=="22051002"){
 								   return true;
-// 	                    	   }else{
-// 	                    		   return false;
-// 	                    	   }      
+	                    	   }else{
+	                    		   return false;
+	                    	   }      
 						}}, 
-                        {type:"del",url:"/activity/serviceActivity/{[ACTIVITY_CODE]}",title:"作废",model:"repair",method:"DELETE",operateIcon:'<i class="fa fa-history glyphicon-lg"></i>',callBack:function(response){
+                        {type:"del",url:"/market/serviceActivityManage/del/{[ACTIVITY_CODE]}/2",title:"作废",model:"retail",method:"PUT",operateIcon:'<i class="fa fa-history glyphicon-lg"></i>',callBack:function(response){
                      	   $("#dms_table",container).dmsTable().refreshTableWithForm();
                          }, isShow:function(value, row, index){
-// 							   if(row.RELEASE_TAG=="22051001" && row.ACTIVITY_TYPE=="22041001"){
+							   if(row.DOWN_TAG=="12781002"){
 								   return true;
-// 	                    	   }else{
-// 	                    		   return false;
-// 	                    	   }      
+	                    	   }else{
+	                    		   return false;
+	                    	   }      
 						   }}
 				]}, 
 				{field : "ACTIVITY_CODE",title : "活动代码"},
 				{field : "ACTIVITY_NAME",title : "活动名称"},
-				{field : "GLOBAL_ACTIVITY_CODE",title : "活动编号"},
+				{field : "GLOBAL_ACTIVITY_CODE",title : "全球活动编号"},
+				{field : "ACTIVITY_TITLE",title : "主题"},
 				{field : "ACTIVITY_TYPE",title : "活动类型",codeFormat : {type:"dict",codeType:"2204"}},
 				{field : "ACTIVITY_KIND",title : "活动类别",codeFormat : {type:"dict",codeType:"2206"}},
 				{field : "ACTIVITY_PROPERTY",title : "活动性质",codeFormat : {type:"dict",codeType:"2207"}},
@@ -153,9 +149,14 @@ $(document).one("onload.dms",function(event,container){
 				{field : "END_DATE",title : "结束日期",dateFormat : {format:"YYYY-MM-DD"}},
 				{field : "RELEASE_DATE",title : "发布日期",dateFormat : {format:"YYYY-MM-DD"}},
 				{field : "RELEASE_TAG",title : "发布状态",codeFormat : {type:"dict",codeType:"2205"}},
-				{field : "LABOUR_AMOUNT",title : "工时费"},
-				{field : "REPAIR_PART_AMOUNT",title : "维修材料费"},
-				{field : "ACTIVITY_AMOUNT",title : "活动总金额"}
+				{field : "LABOUR_AMOUNT",title : "工时费",numberFormat:{decimal:2}},
+				{field : "REPAIR_PART_AMOUNT",title : "维修材料费",numberFormat:{decimal:2}},
+				{field : "ACTIVITY_AMOUNT",title : "活动总金额",numberFormat:{decimal:2}},
+				{field : "IS_PART_ACTIVITY",title : "是否配件活动",codeFormat : {type:"dict",codeType:"1278"}},
+				{field : "OCCUR_CREDIT",title : "本次积分"},
+				{field : "ACTIVITY_FIRST",title : "是否活动优先",codeFormat : {type:"dict",codeType:"1278"}},
+				{field : "DOWN_TAG",title : "是否下发",codeFormat : {type:"dict",codeType:"1278"}},
+				{field : "IS_REPEAT_ATTEND",title : "是否多次参加活动",codeFormat : {type:"dict",codeType:"1278"}}
 				]
 
 	}); 

@@ -123,6 +123,7 @@ public class RebateController extends BaseController{
 	    public PageInfoDto queryDefeatReason(@RequestParam Map<String, String> queryParam) throws Exception {
 	    	logger.info("返利核算管理（查询）");
 	        PageInfoDto pageInfoDto=rservice.getRebateManage(queryParam);
+	       
 	        return pageInfoDto;
 	    }
 	    

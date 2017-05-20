@@ -80,10 +80,10 @@ public class ClaimQualityDAO extends OemBaseDAO{
 		sql.append("	 select t.GROUP_ID,t.GROUP_CODE,t.GROUP_NAME  \n");
 		sql.append("     from TM_VHCL_MATERIAL_GROUP t where IS_DEL="+OemDictCodeConstants.IS_DEL_00 +" \n");
 		  if (!StringUtils.isNullOrEmpty(queryParam.get("groupCode"))) {
-				sql.append("   and t.group_code='"+queryParam.get("groupCode")+"'  \n");
+				sql.append("   and t.group_code like  '%"+queryParam.get("groupCode")+"%'  \n");
 			}
 		  if (!StringUtils.isNullOrEmpty(queryParam.get("groupName"))) {
-				sql.append("   and t.group_name='"+queryParam.get("groupName")+"'  \n");
+				sql.append("   and t.group_name like '%"+queryParam.get("groupName")+"%'  \n");
 			}
 		  System.out.println(sql.toString());
     return OemDAOUtil.findAll(sql.toString(),null); 

@@ -66,7 +66,7 @@ public class DlrForecastQueryServiceImpl implements DlrForecastQueryService{
 	        TtVsMonthlyForecastDetailColorPO tvmfdcPO = TtVsMonthlyForecastDetailColorPO.findById(detailColorId);
 	        //2.查询
 	        StringBuilder sqlSb = new StringBuilder();
-	        sqlSb.append("SELECT * FROM tt_vs_monthly_forecast_detail tvmfd WHERE 1=1 AND  tvmfd.DETAIL_ID=" + tvmfdcPO.get("DETAIL_ID"));
+	        sqlSb.append("SELECT * FROM tt_vs_monthly_forecast_detail_dcs tvmfd WHERE 1=1 AND  tvmfd.DETAIL_ID=" + tvmfdcPO.get("DETAIL_ID"));
 			Map result = OemDAOUtil.findFirst(sqlSb.toString(), null);
 			//3.修改
 			BigDecimal forecastId = (BigDecimal) result.get("FORECAST_ID");

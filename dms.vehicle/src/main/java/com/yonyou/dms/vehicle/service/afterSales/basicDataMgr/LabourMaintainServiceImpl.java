@@ -1,5 +1,7 @@
 package com.yonyou.dms.vehicle.service.afterSales.basicDataMgr;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -7,12 +9,15 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yonyou.dms.framework.DAO.OemDAOUtil;
 import com.yonyou.dms.framework.DAO.PageInfoDto;
 import com.yonyou.dms.framework.domain.LoginInfoDto;
 import com.yonyou.dms.framework.util.bean.ApplicationContextHelper;
 import com.yonyou.dms.function.common.OemDictCodeConstants;
 import com.yonyou.dms.function.exception.ServiceBizException;
+import com.yonyou.dms.function.utils.common.CommonUtils;
 import com.yonyou.dms.vehicle.dao.afterSales.basicDataMgr.LabourMaintainDAO;
+import com.yonyou.dms.vehicle.domains.DTO.afterSales.basicDataMgr.TtWrBasicParaDTO;
 import com.yonyou.dms.vehicle.domains.DTO.afterSales.basicDataMgr.TtWrForeapprovallabDTO;
 import com.yonyou.dms.vehicle.domains.PO.afterSales.basicDataMgr.TtWrForeapprovallabPO;
 
@@ -80,7 +85,9 @@ public Long add(TtWrForeapprovallabDTO ptdto) {
 }
 	private void setApplyPo(TtWrForeapprovallabPO ptPo, TtWrForeapprovallabDTO ptdto) {
 		   LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
-		   if(ptdto.getWrgroupId()!=null&&ptdto.getLabourCode()!=null&&ptdto.getLabourDesc()!=null){
+		   if(!CommonUtils.isNullOrEmpty(  getCheBy(ptdto))){
+	              throw new ServiceBizException("工时代码已存在，请重新输入！");
+	          }else{
 			   ptPo.setLong("OEM_COMPANY_ID",loginInfo.getCompanyId());
 			   ptPo.setLong("WRGROUP_ID", ptdto.getWrgroupId());
 			   ptPo.setString("LABOUR_CODE",ptdto.getLabourCode());
@@ -91,12 +98,21 @@ public Long add(TtWrForeapprovallabDTO ptdto) {
 			   ptPo.setDate("CREATE_DATE", new Date());  
 			   ptPo.setInteger("IS_DEL",0);
 			   ptPo.saveIt();
-		   }else{
-			   throw new ServiceBizException("信息不完整，不能进行新增！"); 
 		   }
 	
 	}
-
+	/**
+		 * 查询，不能重复新增
+		 */
+	    public List<Map> getCheBy(TtWrForeapprovallabDTO ptdto) throws ServiceBizException {
+	        StringBuilder sqlSb = new StringBuilder(" 	SELECT * FROM  TT_WR_FOREAPPROVALLAB_dcs  WHERE 1=1");
+	        List<Object> params = new ArrayList<>();
+	        sqlSb.append("  and labour_code= ? and  IS_DEL=0 ");
+	        params.add(ptdto.getLabourCode());
+	        System.out.println(sqlSb);
+	        List<Map> applyList=OemDAOUtil.findAll(sqlSb.toString(), params);
+	        return applyList;
+	    }
 	
 	
 	

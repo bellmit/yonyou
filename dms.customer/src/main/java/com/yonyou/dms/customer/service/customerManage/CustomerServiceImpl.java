@@ -240,7 +240,7 @@ public class CustomerServiceImpl implements CustomerService {
 		}		
         sb.append("  AND (E.SO_STATUS = "+DictCodeConstants.DICT_SO_STATUS_CLOSED+" OR E.SO_STATUS="+DictCodeConstants.DICT_SO_STATUS_HAVE_CONFIRMED+" OR E.SO_STATUS="+DictCodeConstants.DICT_SO_STATUS_HAVE_OUT_STOCK+" ");
         sb.append("  )  AND E.BUSINESS_TYPE IN("+DictCodeConstants.DICT_SO_TYPE_GENERAL+","+DictCodeConstants.DICT_SO_TYPE_ALLOCATION+","+DictCodeConstants.DICT_SO_TYPE_ENTRUST_DELIVERY+") ORDER BY C.CUSTOMER_NO,C.CREATED_AT) I");
-        sb.append("  )  B  LEFT JOIN tc_code C   ON  B.city = c.CODE_ID LEFT JOIN tc_code O ON B.province = O.CODE_ID LEFT JOIN tc_code D ON d.CODE_ID = B.district LEFT  JOIN   TM_MODEL   mo   ON   B.MODEL =mo.MODEL_CODE ");
+        sb.append("  )  B  LEFT JOIN tc_code C   ON  B.city = c.CODE_ID LEFT JOIN tc_code O ON B.province = O.CODE_ID LEFT JOIN tc_code D ON d.CODE_ID = B.district LEFT  JOIN   TM_MODEL   mo   ON   B.MODEL =mo.MODEL_CODE and B.DEALER_CODE=mo.DEALER_CODE AND B.SERIES= mo.SERIES_CODE AND B.BRAND= mo.BRAND_CODE");
         System.out.println("********************************");
         System.out.println(sb.toString());
         System.out.println("********************************");

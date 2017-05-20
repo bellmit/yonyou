@@ -46,15 +46,18 @@ public class SADCS012CloudImpl extends BaseCloudImpl implements SADCS012Cloud {
 
 	@Override
 	public String receiveDate(List<PoCusWholeClryslerDto> dtoList) throws Exception {
+	    String msg="1";
 		logger.info("*************************** 开始获取大客户报备上传数据 ******************************");
 		try {
+		    
 			dealUpBigCustomerData(dtoList);
 		} catch (Exception e) {
+		    msg="0";
 			e.printStackTrace();
 			throw new ServiceBizException(e);
 		}
 		logger.info("*************************** 成功获取大客户报备上传数据 ******************************");
-		return null;
+		return msg;
 	}
 	
 	//处理上报数据

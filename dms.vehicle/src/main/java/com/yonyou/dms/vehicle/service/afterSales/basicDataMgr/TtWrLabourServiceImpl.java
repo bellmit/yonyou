@@ -118,6 +118,8 @@ public class TtWrLabourServiceImpl  implements TtWrLabourService{
 		        ptPo.setString("GROUP_CODE", list.get(i));
 			    setApplyPo(ptPo,ptdto);
 	        		}
+	        	}else{
+	        		  throw new ServiceBizException("请选择车系！");
 	        	}
 	        	}
 		   }

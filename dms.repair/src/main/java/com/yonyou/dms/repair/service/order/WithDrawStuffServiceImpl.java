@@ -164,7 +164,7 @@ public class WithDrawStuffServiceImpl implements WithDrawStuffService {
         // TODO Auto-generated method stub
         List<Object> params = new ArrayList<Object>();
         StringBuffer sql = new StringBuffer();
-        sql.append("select 'R' AS UPDATE_STATUS,S.STORAGE_NAME,M.CARD_CODE,A.IS_DISCOUNT,C.PART_MODEL_GROUP_CODE_SET,ITEM_ID, A.PART_BATCH_NO,RO_NO, A.DEALER_CODE, A.PART_NO, A.PART_NAME, A.STORAGE_CODE, ");
+        sql.append("select 'R' AS ITEM_UPDATE_STATUS,S.STORAGE_NAME,M.CARD_CODE,A.IS_DISCOUNT,C.PART_MODEL_GROUP_CODE_SET,ITEM_ID, A.PART_BATCH_NO,RO_NO, A.DEALER_CODE, A.PART_NO, A.PART_NAME, A.STORAGE_CODE, ");
         sql.append("A.CHARGE_PARTITION_CODE, A.STORAGE_POSITION_CODE, A.UNIT_CODE, A.CARD_ID,  A.MANAGE_SORT_CODE, A.OUT_STOCK_NO, A.PRICE_TYPE, A.IS_MAIN_PART, ");
         sql.append("A.PART_QUANTITY,  PRICE_RATE, A.OEM_LIMIT_PRICE, A.PART_COST_PRICE, A.PART_SALES_PRICE, A.DISCOUNT,  PART_COST_AMOUNT, PART_SALES_AMOUNT, SENDER, RECEIVER, ");
         sql.append("SEND_TIME,LABOUR_CODE, A.NON_ONE_OFF, IS_FINISHED, CAST(CAST(BATCH_NO AS SIGNED) AS CHAR(4))AS BATCH_NO, ACTIVITY_CODE, PRE_CHECK, NEEDLESS_REPAIR,  ");
@@ -348,57 +348,42 @@ public class WithDrawStuffServiceImpl implements WithDrawStuffService {
      * com.yonyou.dms.repair.domains.DTO.basedata.TtRoRepairPartDTO)
      */
     @Override
-    public void modifyByItemId(Long ItemId, TtRoRepairPartDTO cudto) throws ServiceBizException {
+    public void modifyByItemId(Long itemId, TtRoRepairPartDTO cudto) throws ServiceBizException {
         // TODO Auto-generated method stub
-        TtRoRepairPartPO lap = TtRoRepairPartPO.findByCompositeKeys(FrameworkUtil.getLoginInfo().getDealerCode(),
-                                                                    ItemId);
-        lap.setString("ACTIVITY_CODE", cudto.getACTIVITY_CODE());
-        lap.setInteger("CARD_ID", cudto.getCARD_ID());
-        lap.setInteger("BATCH_NO", cudto.getBATCH_NO());
-        lap.setString("CHARGE_PARTITION_CODE", cudto.getCHARGE_PARTITION_CODE());
-        lap.setInteger("CONSIGN_EXTERIOR", cudto.getCONSIGN_EXTERIOR());
+        String fullQuery = " ro_no = ? and item_id = ? and dealer_code = ? and d_key = ?";
+        TtRoRepairPartPO lap = TtRoRepairPartPO.findFirst(fullQuery, cudto.getRO_NO(),itemId,FrameworkUtil.getLoginInfo().getDealerCode(),
+                                                          DictCodeConstants.D_KEY);
+        //TtRoRepairPartPO lap = TtRoRepairPartPO.findByCompositeKeys(FrameworkUtil.getLoginInfo().getDealerCode(),
+        //                                                            ItemId);
+        lap.setString("PART_NAME", cudto.getPART_NAME());
+        lap.setInteger("IS_DISCOUNT", cudto.getIS_DISCOUNT());
+        lap.setString("LABOUR_NAME", cudto.getLABOUR_NAME());
         lap.setDouble("DISCOUNT", cudto.getDISCOUNT());
-        lap.setString("DEALER_CODE", cudto.getDEALER_CODE());
+        lap.setString("RECEIVER", cudto.getRECEIVER());
+        lap.setInteger("PRICE_TYPE", cudto.getPRICE_TYPE());
+        lap.setDouble("PRICE_RATE", cudto.getPRICE_RATE());
+        lap.setString("CHARGE_PARTITION_CODE", cudto.getCHARGE_PARTITION_CODE());
         lap.setInteger("IS_MAIN_PART", cudto.getIS_MAIN_PART());
-        lap.setString("MANAGE_SORT_CODE", cudto.getMANAGE_SORT_CODE());
-        lap.setInteger("NEEDLESS_REPAIR", cudto.getNEEDLESS_REPAIR());
-        lap.setDouble("OEM_LIMIT_PRICE", cudto.getOEM_LIMIT_PRICE());
-        lap.setString("PART_BATCH_NO", cudto.getPART_BATCH_NO());
+        lap.setDouble("PART_SALES_AMOUNT", cudto.getPART_SALES_AMOUNT());
+        lap.setDouble("PART_SALES_PRICE", cudto.getPART_SALES_PRICE());
         lap.setDouble("PART_COST_AMOUNT", cudto.getPART_COST_AMOUNT());
         lap.setDouble("PART_COST_PRICE", cudto.getPART_COST_PRICE());
         lap.setString("OUT_STOCK_NO", cudto.getOUT_STOCK_NO());
         lap.setDouble("PART_QUANTITY", cudto.getPART_QUANTITY());
-        lap.setString("PART_NAME", cudto.getPART_NAME());
-        lap.setDouble("PART_SALES_AMOUNT", cudto.getPART_SALES_AMOUNT());
-        lap.setDouble("PART_SALES_PRICE", cudto.getPART_SALES_PRICE());
-        lap.setInteger("PRE_CHECK", cudto.getPRE_CHECK());
-        lap.setDouble("PRICE_RATE", cudto.getPRICE_RATE());
-        lap.setInteger("PRICE_TYPE", cudto.getPRICE_TYPE());
-        lap.setInteger("PRINT_BATCH_NO", cudto.getPRINT_BATCH_NO());
-        lap.setDate("PRINT_RP_TIME", cudto.getPRINT_RP_TIME());
-        lap.setString("RECEIVER", cudto.getRECEIVER());
-        lap.setString("RO_NO", cudto.getRO_NO());
-        lap.setString("SENDER", cudto.getSENDER());
-        lap.setString("STORAGE_CODE", cudto.getSTORAGE_CODE());
-        lap.setString("STORAGE_POSITION_CODE", cudto.getSTORAGE_POSITION_CODE());
-        lap.setString("UNIT_CODE", cudto.getUNIT_CODE());
-        lap.setInteger("IS_DISCOUNT", cudto.getIS_DISCOUNT());
-        lap.setString("LABOUR_CODE", cudto.getLABOUR_CODE());
         lap.setInteger("ITEM_ID_LABOUR", cudto.getITEM_ID_LABOUR());
-        lap.setString("LABOUR_NAME", cudto.getLABOUR_NAME());
-        lap.setLong("FROM_TYPE", cudto.getFROM_TYPE());
-        lap.setString("PART_INFIX", cudto.getPART_INFIX());
         lap.saveIt();
     }
 
     @Override
-    public Long addTtRoRepairPart(TtRoRepairPartDTO cudto) throws ServiceBizException {
+    public TtRoRepairPartPO addTtRoRepairPart(TtRoRepairPartDTO cudto) throws ServiceBizException {
         // TODO Auto-generated method stub
         TtRoRepairPartPO typo = new TtRoRepairPartPO();
-        checkRoRepairPart(cudto);
+        //checkRoRepairPart(cudto);
         setRoRepairPart(typo, cudto);
         typo.saveIt();
-        return typo.getLongId();
+       
+        System.out.println("-----------------------"+typo.getCompositeKeys()+"|||"+typo.getId());
+        return typo;
     }
 
     /**
@@ -428,7 +413,6 @@ public class WithDrawStuffServiceImpl implements WithDrawStuffService {
      */
 
     public void setRoRepairPart(TtRoRepairPartPO typo, TtRoRepairPartDTO pyto) {
-        typo.setInteger("ITEM_ID", pyto.getITEM_ID());
         typo.setString("DEALER_CODE", pyto.getDEALER_CODE());
         typo.setInteger("ITEM_ID_LABOUR", pyto.getITEM_ID_LABOUR());
         typo.setString("PART_NO", pyto.getPART_NO());
@@ -497,7 +481,7 @@ public class WithDrawStuffServiceImpl implements WithDrawStuffService {
     @Override
     public List<Map> selectRepairOrder(Map<String, Object> queryParams) throws ServiceBizException {
         List<Object> params = new ArrayList<Object>();
-        StringBuilder sqlSb = new StringBuilder("select RO_NO as roNo,DEALER_CODE as dealerCode,D_KEY as dKey,REPAIR_TYPE_CODE as repairTypeCode,BRAND as brand,SERIES as series,ro_status as roStatus from TT_REPAIR_ORDER tt where 1=1 ");
+        StringBuilder sqlSb = new StringBuilder("select RO_NO as roNo,DEALER_CODE,D_KEY as dKey,REPAIR_TYPE_CODE as repairTypeCode,BRAND as brand,SERIES as series,ro_status as roStatus from TT_REPAIR_ORDER where 1=1 ");
         if (!StringUtils.isNullOrEmpty(queryParams.get("roNo"))) {
             sqlSb.append(" AND RO_NO = ? ");
             params.add(queryParams.get("roNo"));
@@ -512,7 +496,7 @@ public class WithDrawStuffServiceImpl implements WithDrawStuffService {
     @Override
     public String selectDefaultPara(Map<String, Object> queryParams) throws ServiceBizException {
         List<Object> params = new ArrayList<Object>();
-        StringBuilder sqlSb = new StringBuilder("select A.DEALER_CODE as dealerCode,A.Item_Code as itemCode,A.DEFAULT_VALUE as defaultValue from TM_DEFAULT_PARA A where 1=1 ");
+        StringBuilder sqlSb = new StringBuilder("select A.DEALER_CODE,A.Item_Code as itemCode,A.DEFAULT_VALUE as defaultValue from TM_DEFAULT_PARA A where 1=1 ");
         if (!StringUtils.isNullOrEmpty(queryParams.get("itemCode"))) {
             sqlSb.append(" AND A.Item_Code = ? ");
             params.add(queryParams.get("itemCode"));
@@ -531,11 +515,13 @@ public class WithDrawStuffServiceImpl implements WithDrawStuffService {
     @Override
     public List<Map> selectRoRepairPart(Map<String, Object> queryParams) throws ServiceBizException {
         List<Object> params = new ArrayList<Object>();
-        StringBuilder sqlSb = new StringBuilder("select A.DEALER_CODE as dealerCode,A.RO_NO as roNo,A.D_KEY as dKey,A.ACTIVITY_CODE as activityCode,A.PART_SALES_PRICE as partSalesPrice,A.is_finished as isFinished,A.card_id as cardId,");
+        StringBuilder sqlSb = new StringBuilder("select A.DEALER_CODE as DEALER_CODE,B.UNIT_NAME as unitName,A.RO_NO as roNo,A.D_KEY as dKey,A.ACTIVITY_CODE as activityCode,A.is_finished as isFinished,A.card_id as cardId,");
         sqlSb.append("A.STORAGE_CODE AS storageCode,A.PART_NO AS partNo,A.`PART_NAME` AS partName,");
         sqlSb.append("A.`CHARGE_PARTITION_CODE` AS chargePartitionCode,A.`UNIT_CODE` AS unitCode,A.`PART_QUANTITY` AS partQuantity,A.`PART_SALES_PRICE` AS partSalesPrice,");
         sqlSb.append("A.`PART_COST_PRICE` AS partCostPrice,A.`PART_SALES_AMOUNT` AS partSalesAmount,A.`PART_COST_AMOUNT` AS partCostAmount,A.`DISCOUNT` AS discount,");
-        sqlSb.append(" A.`IS_MAIN_PART` AS isMainPart,A.`LABOUR_CODE` AS labourCode,A.MANAGE_SORT_CODE AS manageSortCode FROM TT_RO_REPAIR_PART A where 1=1 ");
+        sqlSb.append(" A.`IS_MAIN_PART` AS isMainPart,A.`LABOUR_CODE` AS labourCode,A.MANAGE_SORT_CODE AS manageSortCode FROM TT_RO_REPAIR_PART A ");
+        sqlSb.append(" left join TM_PART_INFO B on A.DEALER_CODE = B.DEALER_CODE and A.PART_NO = B.PART_NO and A.UNIT_CODE = B.UNIT_CODE ");
+        sqlSb.append(" where 1=1 ");
         if (!StringUtils.isNullOrEmpty(queryParams.get("roNo"))) {
             sqlSb.append(" AND A.RO_NO = ? ");
             params.add(queryParams.get("roNo"));
@@ -623,17 +609,15 @@ public class WithDrawStuffServiceImpl implements WithDrawStuffService {
 
     @Override
     public void deleteRoRepairPart(Long id) throws ServiceBizException {
-        // TODO Auto-generated method stub
-        TtRoRepairPartPO lomipo = TtRoRepairPartPO.findByCompositeKeys(FrameworkUtil.getLoginInfo().getDealerCode(),
-                                                                       id);
-        lomipo.delete();
+        TtRoRepairPartPO.delete(" item_id = ?", id);
+        //DAOUtil.deleteByDealer(objClass, query, params);
     }
 
     @Override
     public List<Map> getNonOemPartListOutReturn(String fieldName, String sheetTable, String sheetName, String sheetNo,
                                                 String quantityFieldName) throws ServiceBizException {
-        StringBuilder sqlSb = new StringBuilder("select AA.part_no,AA.STORAGE_CODE,SUM(AA.PART_QUANTITY) as PART_QUANTITY FROM ");
-        sqlSb.append("(select A.PART_NO,A.PART_NAME,A.STORAGE_CODE,A.").append(fieldName).append("As PART_QUANTITY ");
+        StringBuilder sqlSb = new StringBuilder("select AA.DEALER_CODE,AA.part_no,AA.STORAGE_CODE,SUM(AA.PART_QUANTITY) as PART_QUANTITY FROM ");
+        sqlSb.append("(select A.DEALER_CODE,A.PART_NO,A.PART_NAME,A.STORAGE_CODE,A.").append(fieldName).append("As PART_QUANTITY ");
         sqlSb.append(" from ").append(sheetTable);
         sqlSb.append(" A left join TM_PART_INFO B on (A.part_NO = B.PART_NO AND A.DEALER_CODE = B.DEALER_CODE) ");
         sqlSb.append(" WHERE A.DEALER_CODE = '").append(FrameworkUtil.getLoginInfo().getDealerCode());
@@ -652,15 +636,15 @@ public class WithDrawStuffServiceImpl implements WithDrawStuffService {
     @Override
     public void reCalcRepairAmount(String roNo, RepairOrderDTO cudto) throws ServiceBizException {
         // TODO Auto-generated method stub
-        StringBuilder sbSql = new StringBuilder("REPAIR_PART_AMOUNT =( SELECT SUM(Coalesce(DISCOUNT,1)*Coalesce(PART_QUANTITY,0)*Coalesce(PART_SALES_PRICE,0)) ");
-        sbSql.append(" from TT_RO_REPAIR_PART  where DEALER_CODE = '").append(cudto.getDealerCode()).append("' ");
-        sbSql.append(" AND D_KEY = ").append(cudto.getdKey()).append("AND RO_NO = '").append(roNo);
+        StringBuilder sbSql = new StringBuilder(" REPAIR_PART_AMOUNT =( SELECT SUM(Coalesce(DISCOUNT,1)*Coalesce(PART_QUANTITY,0)*Coalesce(PART_SALES_PRICE,0)) ");
+        sbSql.append(" from TT_RO_REPAIR_PART  where DEALER_CODE = ").append(FrameworkUtil.getLoginInfo().getDealerCode());
+        sbSql.append(" AND D_KEY = ").append(CommonConstants.D_KEY).append(" AND RO_NO = '").append(roNo);
         sbSql.append("' and NEEDLESS_REPAIR= ").append(DictCodeConstants.DICT_IS_NO);
         sbSql.append(" AND (CHARGE_PARTITION_CODE='' or CHARGE_PARTITION_CODE is null))");
         StringBuilder sbWhere = new StringBuilder("");
-        sbWhere.append(" RO_NO = '").append(roNo).append("' AND D_KEY = ").append(cudto.getdKey());
-        sbWhere.append(" AND DEALER_CODE = '").append(cudto.getDealerCode()).append("' ");
-        TtMemberPartFlowPO.update(sbSql.toString(), sbWhere.toString());
+        sbWhere.append(" RO_NO = '").append(roNo).append("' AND D_KEY = ").append(CommonConstants.D_KEY);
+        sbWhere.append(" AND DEALER_CODE = ").append(FrameworkUtil.getLoginInfo().getDealerCode());
+        RepairOrderPO.update(sbSql.toString(), sbWhere.toString());
     }
 
     /**
@@ -670,10 +654,10 @@ public class WithDrawStuffServiceImpl implements WithDrawStuffService {
     public List<Map> queryManage(Map<String, Object> queryParams) throws ServiceBizException {
         List<Object> params = new ArrayList<Object>();
         StringBuffer sqlSb = new StringBuffer("");
-        sqlSb.append("SELECT ITEM_ID, DEALER_CODE, RO_NO, MANAGE_SORT_CODE, OVER_ITEM_AMOUNT, ");
+        sqlSb.append(" SELECT ITEM_ID, DEALER_CODE, RO_NO, MANAGE_SORT_CODE, OVER_ITEM_AMOUNT, ");
         sqlSb.append(" LABOUR_RATE, REPAIR_PART_RATE, SALES_PART_RATE, ADD_ITEM_RATE,CREATED_BY,CREATED_AT,");
-        sqlSb.append("LABOUR_AMOUNT_RATE, OVERHEAD_EXPENSES_RATE, IS_MANAGING, DISCOUNT,D_KEY");
-        sqlSb.append("FROM TT_RO_MANAGE WHERE 1=1 ");
+        sqlSb.append(" LABOUR_AMOUNT_RATE, OVERHEAD_EXPENSES_RATE, IS_MANAGING, DISCOUNT,D_KEY ");
+        sqlSb.append(" FROM TT_RO_MANAGE WHERE 1=1 ");
         if (StringUtils.isNullOrEmpty(queryParams.get("roNo"))) {
             sqlSb.append(" and ro_no = ?");
             params.add(queryParams.get("roNo"));
@@ -696,18 +680,8 @@ public class WithDrawStuffServiceImpl implements WithDrawStuffService {
     @Override
     public void deleteTtRoManage(Map<String, Object> deleteParams) throws ServiceBizException {
         List listParams = new ArrayList();
-        StringBuilder sbSql = new StringBuilder();
-        if (!StringUtils.isNullOrEmpty(deleteParams.get("roNo"))) {
-            sbSql.append(" AND RO_NO = ? ");
-            listParams.add(deleteParams.get("roNo"));
-        }
-        if (!StringUtils.isNullOrEmpty(deleteParams.get("dKey"))) {
-            sbSql.append(" AND D_KEY = ? ");
-            listParams.add(deleteParams.get("dKey"));
-        }
-        sbSql.append(" AND IS_MANAGING = ? ");
-        listParams.add(deleteParams.get("isManaging"));
-        DAOUtil.deleteByDealer(RoManagePO.class, sbSql.toString(), listParams);
+        StringBuilder sbSql = new StringBuilder(" IS_MANAGING = ? AND RO_NO = ? AND D_KEY = ? ");
+        DAOUtil.deleteByDealer(RoManagePO.class, sbSql.toString(), deleteParams.get("isManaging"),deleteParams.get("roNo"),deleteParams.get("dKey"));
     }
 
     @Override
@@ -715,7 +689,7 @@ public class WithDrawStuffServiceImpl implements WithDrawStuffService {
         // TODO Auto-generated method stub
         StringBuilder sbSql = new StringBuilder(" UPDATED_BY = ?,UPDATED_AT = ? ");
         StringBuilder sbWhere = new StringBuilder(" RO_NO = ? and D_KEY = ? and DEALER_CODE = ? ");
-        TtMemberPartFlowPO.update(sbSql.toString(), sbWhere.toString(), updateParams);
+        TtMemberPartFlowPO.update(sbSql.toString(), sbWhere.toString(), updateParams.toArray());
     }
 
     /**
@@ -753,11 +727,11 @@ public class WithDrawStuffServiceImpl implements WithDrawStuffService {
         sbSql.append(" from TT_RO_ADD_ITEM  where 1=1 ");
         List<Object> queryParam = new ArrayList<Object>();
         if (!StringUtils.isNullOrEmpty(queryParams.get("roNo"))) {
-            sbSql.append(" AND t.RO_NO = ? ");
+            sbSql.append(" AND RO_NO = ? ");
             queryParam.add(queryParams.get("roNo"));
         }
         if (!StringUtils.isNullOrEmpty(queryParams.get("dKey"))) {
-            sbSql.append(" AND t.D_KEY = ? ");
+            sbSql.append(" AND D_KEY = ? ");
             queryParam.add(queryParams.get("dKey"));
         }
         return DAOUtil.findAll(sbSql.toString(), queryParam);
@@ -798,40 +772,10 @@ public class WithDrawStuffServiceImpl implements WithDrawStuffService {
      * @see com.yonyou.dms.repair.service.order.WithDrawStuffService#updateRepairOrder(java.util.Map, java.util.Map)
      */
     @Override
-    public void updateRepairOrder(Map<String, Object> updateParams,
-                                  Map<String, Object> whereParams) throws ServiceBizException {
+    public void updateRepairOrder(String sqlStr, String sqlWhere) throws ServiceBizException {
         // TODO Auto-generated method stub
         List params = new ArrayList();
-        StringBuilder sbSql = new StringBuilder();
-        StringBuilder sbWhere = new StringBuilder();
-        if (!StringUtils.isNullOrEmpty(updateParams.get("OVER_ITEM_AMOUNT"))) {
-            sbSql.append(" OVER_ITEM_AMOUNT = ?,");
-            params.add(updateParams.get("OVER_ITEM_AMOUNT"));
-        }
-        if (!StringUtils.isNullOrEmpty(updateParams.get("REPAIR_AMOUNT"))) {
-            sbSql.append(" REPAIR_AMOUNT = ?,");
-            params.add(updateParams.get("REPAIR_AMOUNT"));
-        }
-        if (!StringUtils.isNullOrEmpty(updateParams.get("ESTIMATE_AMOUNT"))) {
-            sbSql.append(" ESTIMATE_AMOUNT = ?,");
-            params.add(updateParams.get("ESTIMATE_AMOUNT"));
-        }
-        String sbStrSql = sbSql.substring(0, sbSql.length() - 1);
-
-        if (!StringUtils.isNullOrEmpty(whereParams.get("RO_NO"))) {
-            sbWhere.append(" and RO_NO = ? ");
-            params.add(whereParams.get("RO_NO"));
-        }
-        if (!StringUtils.isNullOrEmpty(whereParams.get("DEALER_CODE"))) {
-            sbWhere.append(" and DEALER_CODE = ? ");
-            params.add(whereParams.get("DEALER_CODE"));
-        }
-        if (!StringUtils.isNullOrEmpty(whereParams.get("D_KEY"))) {
-            sbWhere.append(" and D_KEY = ? ");
-            params.add(whereParams.get("D_KEY"));
-        }
-        TtMemberPartFlowPO.update(sbStrSql, sbWhere.toString(), params);
-
+        RepairOrderPO.update(sqlStr, sqlWhere, params.toArray());
     }
 
     /**
@@ -847,15 +791,15 @@ public class WithDrawStuffServiceImpl implements WithDrawStuffService {
     public void deleteShortPart(Map<String, Object> deleteParams) throws ServiceBizException {
         List listParams = new ArrayList();
         StringBuilder sbSql = new StringBuilder();
-        sbSql.append("not exists (select 1 from TT_RO_REPAIR_PART b where a.dealer_code = b.dealer_Code ");
-        sbSql.append("and a.sheet_No = b.ro_no and a.part_no = b.part_no ");
-        sbSql.append(" and a.storage_code=b.storage_code and a.STORAGE_POSITION_CODE=b.STORAGE_POSITION_CODE)");
+        sbSql.append("not exists (select 1 from TT_RO_REPAIR_PART b where dealer_code = b.dealer_Code ");
+        sbSql.append("and sheet_No = b.ro_no and part_no = b.part_no ");
+        sbSql.append(" and storage_code=b.storage_code and STORAGE_POSITION_CODE=b.STORAGE_POSITION_CODE)");
         if (!StringUtils.isNullOrEmpty(deleteParams.get("sheetNo"))) {
-            sbSql.append(" AND a.sheet_no = ? ");
+            sbSql.append(" AND sheet_no = ? ");
             listParams.add(deleteParams.get("sheetNo"));
         }
-        sbSql.append("and a.is_bo=12781002");
-        DAOUtil.deleteByDealer(TtShortPartPO.class, sbSql.toString(), listParams);
+        sbSql.append(" and is_bo=12781002");
+        DAOUtil.deleteByDealer(TtShortPartPO.class, sbSql.toString(), listParams.toArray());
     }
 
     @Override
@@ -894,7 +838,7 @@ public class WithDrawStuffServiceImpl implements WithDrawStuffService {
     @Override
     public List<Map> checkUserRights(Map<String, Object> queryParam) throws ServiceBizException {
         List<Object> params = new ArrayList<Object>();
-        StringBuilder sqlSb = new StringBuilder("select a.user_id,a.user_code,a.user_name,b.user_id,b.option_code,c.option_code,c.option_name,c.option_type,c.type_name ");
+        StringBuilder sqlSb = new StringBuilder("select a.user_id,a.dealer_code,a.user_code,a.user_name,b.option_code,c.option_name,c.option_type,c.type_name ");
         sqlSb.append("from TM_USER a ");
         sqlSb.append("inner join TT_USER_OPTION_MAPPING b on  a.dealer_code=b.dealer_code and a.USER_ID=b.USER_ID ");
         sqlSb.append("inner join TM_AUTH_OPTION C on b.OPTION_CODE=c.OPTION_CODE where a.dealer_code='");
@@ -907,12 +851,11 @@ public class WithDrawStuffServiceImpl implements WithDrawStuffService {
     @Override
     public List checkCostSize(Map<String, Object> queryParam) throws ServiceBizException {
         List<Object> params = new ArrayList<Object>();
-        StringBuilder sqlSb = new StringBuilder(" select part_no,storage_code,cost_price from tm_part_stock ");
+        StringBuilder sqlSb = new StringBuilder(" select dealer_code,part_no,storage_code,cost_price from tm_part_stock ");
         sqlSb.append("where d_key=0 and floor(cost_price*100)/100-").append(queryParam.get("partSalesPrice"));
         sqlSb.append(">0  and part_no='").append(queryParam.get("partNo"));
         sqlSb.append("' and storage_code='");
         sqlSb.append(queryParam.get("storageCode")).append("'");
-        sqlSb.append(FrameworkUtil.getLoginInfo().getUserId());
         return DAOUtil.findAll(sqlSb.toString(), params);
     }
 
@@ -1422,7 +1365,10 @@ public class WithDrawStuffServiceImpl implements WithDrawStuffService {
         sql.append(" A.VER, A.PART_GROUP_CODE,  C.PART_MODEL_GROUP_CODE_SET,  (A.STOCK_QUANTITY + A.BORROW_QUANTITY - ");
         sql.append("ifnull(A.LEND_QUANTITY, 0) ) AS USEABLE_QUANTITY,CC.LEND_QUANTITY AS SHOP_BORROW_QUANTITY,CC.BORROWER AS SHOP_BORROWER,CC.ORDER_TYPE ");
         sql.append(", CASE  WHEN(  SELECT 1  FROM TM_MAINTAIN_PART CC  WHERE CC.PART_NO = B.PART_NO  AND CC.DEALER_CODE = B.DEALER_CODE  )   >0 THEN 12781001  ELSE 12781002  END AS IS_MAINTAIN ");
-        sql.append(" from TM_PART_STOCK_ITEM  A  LEFT OUTER JOIN VM_PART_INFO B ON (A.DEALER_CODE = B.DEALER_CODE AND A.PART_NO = B.PART_NO ) ");
+        sql.append(" from TM_PART_STOCK_ITEM  A  LEFT OUTER JOIN (");
+        sql.append(" SELECT B.CHILD_ENTITY AS DEALER_CODE,A.NODE_PRICE,A.PART_NO FROM TM_PART_INFO A INNER JOIN TM_ENTITY_RELATIONSHIP B ");
+        sql.append(" ON A.DEALER_CODE = B.PARENT_ENTITY AND B.BIZ_CODE = 'TM_PART_INFO' ");
+        sql.append(")B ON (A.DEALER_CODE = B.DEALER_CODE AND A.PART_NO = B.PART_NO ) ");
         sql.append(" INNER JOIN ( ");
         sql.append(" SELECT  A.PART_NO,  A.STORAGE_CODE,A.DEALER_CODE,LEND_QUANTITY, BORROWER,'车间借料' as ORDER_TYPE ");
         sql.append(" FROM TT_PART_WORKSHOP_ITEM A   WHERE  DEALER_CODE = '").append(FrameworkUtil.getLoginInfo().getDealerCode() + "' AND RO_NO ='").append(queryParam.get("roNo")).append("' AND A.LEND_QUANTITY > 0 ");

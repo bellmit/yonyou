@@ -176,80 +176,38 @@ public class OemForecastQueryController {
 	* @return List<OemForecastAuditDTO>    返回类型 
 	* @throws
 	 */
-	@RequestMapping(value = "/importforecastAudit", method = RequestMethod.POST)
+	@RequestMapping(value = "/importforecastAudit/{taskId}", method = RequestMethod.POST)
     @ResponseBody
     public List<OemForecastAuditDTO> importforecastAudit(
-    		@RequestParam final Map<String,String> queryParam,
+    		@PathVariable String taskId,
     		@RequestParam(value = "file") MultipartFile importFile,
     		ForecastImportDto forecastImportDto,
     		UriComponentsBuilder uriCB) throws Exception {
 		logger.info("============生产订单审核导入===============");
-        // 解析Excel 表格(如果需要进行回调)
-        ImportResultDto<OemForecastAuditDTO> importResult = excelReadService.analyzeExcelFirstSheet(importFile,new AbstractExcelReadCallBack<OemForecastAuditDTO>(OemForecastAuditDTO.class,new ExcelReadCallBack<OemForecastAuditDTO>() {
-            @Override
-            public void readRowCallBack(OemForecastAuditDTO rowDto, boolean isValidateSucess) {
-                try{
-                    logger.debug("bigArea:"+rowDto.getBigArea());
-                    // 只有全部是成功的情况下，才执行数据库保存
-                    if(isValidateSucess){
-                    	//清空数据
-//                    	TmpVsProImpInfoAuditPO tvpiaPo=new TmpVsProImpInfoAuditPO();
-                    	TmpVsProImpInfoAuditPO.deleteAll();
-    					
-    					// 将数据插入临时表
-    					long sTime=System.currentTimeMillis();
-    					oemForecastService.insertTmpVsProImpAudit(rowDto);
-    					
-    					logger.info("生产需求审核导入插入临时表数据,用时："+String.format("%.2f",(System.currentTimeMillis()-sTime)*0.001)+"秒");
-    					long startTime=System.currentTimeMillis();
-//    					String taskId = queryParam.get("");
-//    					List<ExcelErrors> errorList =checkData(taskId);
-    					logger.info("生产需求审核导入检验数据,用时："+String.format("%.2f",(System.currentTimeMillis()-startTime)*0.001)+"秒");
-    					
-    						//验证通过
-    						/*String dIds="";
-    						String mIds="";
-    						String cNums="";
-    						String fIds="";
-    						List<Map<String,Object>> tmpList = dao.getTmVsProImpAudit();
-    						if(tmpList!=null && tmpList.size()>0){
-    							for (int i = 0; i < tmpList.size(); i++) {
-    								if(i<tmpList.size()-1){
-    									dIds+=CommonUtils.checkNull(tmpList.get(i).get("DETAIL_ID"))+",";
-    									mIds+=CommonUtils.checkNull(tmpList.get(i).get("MATERIAL_ID"))+",";
-    									cNums+=CommonUtils.checkNull(tmpList.get(i).get("CONFIRM_NUM"))+",";
-    									fIds+=CommonUtils.checkNull(tmpList.get(i).get("FORECAST_ID"))+",";
-    								}else{
-    									dIds+=CommonUtils.checkNull(tmpList.get(i).get("DETAIL_ID"));
-    									mIds+=CommonUtils.checkNull(tmpList.get(i).get("MATERIAL_ID"));
-    									cNums+=CommonUtils.checkNull(tmpList.get(i).get("CONFIRM_NUM"));
-    									fIds+=CommonUtils.checkNull(tmpList.get(i).get("FORECAST_ID"));
-    								}
-    							}
-    						}*/
-
-    						/*act.setOutData("n3year",year);
-    						act.setOutData("nowMonth",month);
-    						act.setOutData("ftaskId",taskId);
-    						act.setOutData("type", 2);//导入完毕
-    						act.setOutData("dIds", dIds);
-    						act.setOutData("mIds", mIds);
-    						act.setOutData("cNums", cNums);
-    						act.setOutData("fIds", fIds);
-    						act.setForword(forecastOTDAudit);*/
-    						
-    				}
-                    
-                }catch(Exception e){
-                    throw e;
-                }
-            }
-        }));
-        logger.debug("param:" + forecastImportDto.getFileParam());
-        if(importResult.isSucess()){
-            return importResult.getDataList();
+		//清空数据
+		TmpVsProImpInfoAuditPO.deleteAll();
+		// 解析Excel 表格(如果需要进行回调)
+        ImportResultDto<OemForecastAuditDTO> importResult = excelReadService.analyzeExcelFirstSheet(importFile,new AbstractExcelReadCallBack<OemForecastAuditDTO>(OemForecastAuditDTO.class));
+        if(!importResult.isSucess()){
+        	throw new ServiceBizException("导入出错,请见错误列表",importResult.getErrorList()) ;
+        }
+        ArrayList<OemForecastAuditDTO> dataList = importResult.getDataList();
+        ArrayList<OemForecastAuditDTO> errorList = importResult.getErrorList();
+        for(int i = 0 ; i < dataList.size(); i++){
+        	OemForecastAuditDTO rowDto = new OemForecastAuditDTO();
+        	// 将数据插入临时表
+			long sTime=System.currentTimeMillis();
+			oemForecastService.insertTmpVsProImpAudit(rowDto);			
+			logger.info("生产需求审核导入插入临时表数据,用时："+String.format("%.2f",(System.currentTimeMillis()-sTime)*0.001)+"秒");
+			long startTime=System.currentTimeMillis();
+//			String taskId = queryParam.get("");
+//			List<ExcelErrors> errorList =checkData(taskId);
+			logger.info("生产需求审核导入检验数据,用时："+String.format("%.2f",(System.currentTimeMillis()-startTime)*0.001)+"秒");    						
+        }
+        if(errorList != null && !errorList.isEmpty()){
+        	throw new ServiceBizException("导入出错,请见错误列表",errorList) ;
         }else{
-            throw new ServiceBizException("导入出错,请见错误列表",importResult.getErrorList()) ;
+        	return importResult.getDataList();
         }
     }
 	

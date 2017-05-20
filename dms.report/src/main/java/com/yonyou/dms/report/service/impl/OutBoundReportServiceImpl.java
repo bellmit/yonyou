@@ -236,8 +236,8 @@ public class OutBoundReportServiceImpl implements OutBoundReportService{
         		sql.append(DAOUtilGF.getFunRangeByStr("tt", "SOLD_BY", userid, orgcode, functionCode, dealerCode));
         	}
         }
-		sql.append(" ) AAA LEFT JOIN TM_MODEL BBB ON AAA.MODEL = BBB.MODEL_CODE LEFT JOIN TM_COLOR CCC ON AAA.COLOR = CCC.COLOR_CODE "
-				+ " LEFT JOIN TM_EMPLOYEE DDD ON AAA.SOLD_BY = DDD.EMPLOYEE_NO");
+		sql.append(" ) AAA LEFT JOIN TM_MODEL BBB ON AAA.MODEL = BBB.MODEL_CODE AND AAA.DEALER_CODE=BBB.DEALER_CODE LEFT JOIN TM_COLOR CCC ON AAA.COLOR = CCC.COLOR_CODE AND AAA.DEALER_CODE=CCC.DEALER_CODE "
+				+ " LEFT JOIN TM_EMPLOYEE DDD ON AAA.SOLD_BY = DDD.EMPLOYEE_NO AND AAA.DEALER_CODE=DDD.DEALER_CODE");
 		System.err.println("tabler3------------------"+sql.toString());
 		 List<Object> queryParam=new ArrayList<Object>();
 	        return DAOUtil.pageQuery(sql.toString(), queryParam);

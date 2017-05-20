@@ -116,10 +116,14 @@ public class RecallActivityBuildServiceImpl implements RecallActivityBuildServic
 		trsdPo.set("RECALL_END_DATE", trsdDto.getRecallEndDate());
 		trsdPo.set("IS_FIXED_COST", trsdDto.getIsFixedCost());
 		//是否固定费用
-		if(OemDictCodeConstants .IF_TYPE_YES.toString().equals(trsdDto.getIsFixedCost())){
+		if(trsdDto.getIsFixedCost()==10041001){
 			trsdPo.set("MAN_HOUR_COST", trsdDto.getManHourCost());
 			trsdPo.set("PART_COST", trsdDto.getPartCost());
 			trsdPo.set("OTHER_COST", trsdDto.getOtherCost());
+		}else{
+			trsdPo.set("MAN_HOUR_COST", 0);
+			trsdPo.set("PART_COST", 0);
+			trsdPo.set("OTHER_COST", 0);
 		}
 		trsdPo.set("RECALL_EXPLAIN", trsdDto.getRecallExplain());
 		trsdPo.set("CLAIM_APPLY_GUIDANCE", trsdDto.getClaimApplyGuidance());

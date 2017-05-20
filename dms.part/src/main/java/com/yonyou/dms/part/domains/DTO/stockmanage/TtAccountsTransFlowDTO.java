@@ -3,7 +3,7 @@ package com.yonyou.dms.part.domains.DTO.stockmanage;
 import java.util.Date;
 
 /**
- * 
+ * 财务凭证事务
 * TODO description
 * @author yujiangheng
 * @date 2017年5月9日

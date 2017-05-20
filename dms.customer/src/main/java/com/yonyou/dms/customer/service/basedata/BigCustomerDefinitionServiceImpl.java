@@ -49,7 +49,7 @@ public class BigCustomerDefinitionServiceImpl implements BigCustomerDefinitionSe
     public PageInfoDto findAllDefinition(Map<String, String> param) {
         StringBuilder sb = new StringBuilder("SELECT ta.ITEM_ID,ta.DEALER_CODE,td.BRAND_CODE,td.BRAND_NAME,ts.SERIES_CODE,ts.SERIES_NAME,ta.IS_VALID,case ta.IS_DELETE when 1 then 12781002 else 12781001 end as IS_DELETE ,ta.CREATED_AT,ta.PS_TYPE ");
         sb.append("FROM tm_big_customer_definition ta,tm_series ts,tm_brand td ");
-        sb.append("WHERE ta.series_code = ts.series_code AND ta.brand_code = td.brand_code and ta.IS_VALID=10011001 ");
+        sb.append("WHERE ta.series_code = ts.series_code AND ta.dealer_code=ts.dealer_code and ta.dealer_code=td.dealer_code AND ta.brand_code = td.brand_code and ta.IS_VALID=10011001 ");
         List<Object> queryParam=new ArrayList<Object>();
         if(!StringUtils.isNullOrEmpty(param.get("type"))){
             sb.append(" and ta.PS_TYPE = ?");

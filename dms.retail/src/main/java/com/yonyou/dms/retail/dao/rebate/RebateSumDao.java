@@ -96,11 +96,22 @@ public class RebateSumDao extends OemBaseDAO{
 			sql.append("   AND DATE(trc.END_MONTH) <= ? \n");
 			params.add(queryParam.get("endDate"));
 		}
+		
+      
+		if(!StringUtils.isNullOrEmpty(queryParam.get("resourceScope"))){
+			    sql.append(" AND TOR2.ORG_ID = ? ");
+				params.add(queryParam.get("resourceScope"));
+		}
+		if(!StringUtils.isNullOrEmpty(queryParam.get("orgId"))){
+				sql.append(" AND TOR3.ORG_ID  = ? ");
+				params.add(queryParam.get("orgId"));
+		}
 		sql.append(" group by trcm.BUSINESS_POLICY_NAME,trcm.LOG_ID,trcm.BUSINESS_POLICY_TYPE, trc.APPLICABLE_TIME,trc.RELEASE_DATE,trcm.START_MONTH,");
 		sql.append("  trcm.END_MONTH,trc.DEALER_CODE,trc.DEALER_NAME ) t  where 1=1");
 		//经销商名称
 		if (!StringUtils.isNullOrEmpty(queryParam.get("businessPolicyName"))) {
-			sql.append(" and t.BUSINESS_POLICY_NAME like '"+queryParam.get("businessPolicyName")+"' ");
+			System.err.println(queryParam.get("businessPolicyName"));
+			sql.append(" and t.BUSINESS_POLICY_NAME like '%"+queryParam.get("businessPolicyName")+"%' ");
 		}
 		System.out.println("***********************查询");
 		System.out.println(sql.toString());
@@ -133,15 +144,25 @@ public class RebateSumDao extends OemBaseDAO{
 		sql.append("  LEFT JOIN TM_DEALER_ORG_RELATION TDOR ON TDOR.DEALER_ID = TD.DEALER_ID  \n");
 		sql.append("	LEFT JOIN TM_ORG TOR3 ON TOR3.ORG_ID = TDOR.ORG_ID AND TOR3.ORG_LEVEL = 3   \n");
 		sql.append("LEFT JOIN TM_ORG TOR2 ON TOR3.PARENT_ORG_ID = TOR2.ORG_ID AND TOR2.ORG_LEVEL = 2  \n");
-		/*sql.append("where 1=1  \n");*/
-		
+		sql.append("where 1=1  \n");
+		 if(!StringUtils.isNullOrEmpty(queryParam.get("bigOrgName"))){
+	        	sql.append(" AND TOR2.ORG_ID = ? ");
+				params.add(queryParam.get("bigOrgName"));
+	     }
+		 
+	     if(!StringUtils.isNullOrEmpty(queryParam.get("smallOrgName"))){
+				sql.append(" AND TOR3.ORG_ID  = ? ");
+				params.add(queryParam.get("smallOrgName"));
+	     }
 		sql.append(" group by trcm.BUSINESS_POLICY_NAME,trcm.LOG_ID,trcm.BUSINESS_POLICY_TYPE, trc.APPLICABLE_TIME,trc.RELEASE_DATE,trcm.START_MONTH,");
 		sql.append("  trcm.END_MONTH,trc.DEALER_CODE,trc.DEALER_NAME ) t  where 1=1 ");
+		
+	
 		//经销商名称
 		if (!StringUtils.isNullOrEmpty(queryParam.get("businessPolicyName"))) {
-			sql.append(" and t.BUSINESS_POLICY_NAME = ? ");
-			params.add(queryParam.get("businessPolicyName"));
+			sql.append(" and t.BUSINESS_POLICY_NAME  like '%"+queryParam.get("businessPolicyName")+"%'");
 		}
+	
 		String businessPolicyType= "";
 	    if(!StringUtils.isNullOrEmpty(queryParam.get("businessPolicyType"))){
 	    	businessPolicyType = queryParam.get("businessPolicyType");
@@ -156,6 +177,8 @@ public class RebateSumDao extends OemBaseDAO{
 		}else{
 			businessPolicyType = "其他";
 		}
+		
+		
 		
 		//经销商类型
 		if (!StringUtils.isNullOrEmpty(queryParam.get("businessPolicyType"))) {

@@ -27,7 +27,9 @@ package com.yonyou.dms.repair.domains.DTO.basedata;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.yonyou.dms.function.utils.jsonSerializer.date.JsonSimpleDateDeserializer;
 
 /**
  * 
@@ -49,6 +51,7 @@ public class ListAdMaintainDTO {
     private String vin;
     private String ownerName;
     private char ownerNo;
+    @JsonDeserialize(using = JsonSimpleDateDeserializer.class)
     private Date roCreateDate;
     private String chiefTechnician;
     private Double edtMoney;
@@ -57,8 +60,29 @@ public class ListAdMaintainDTO {
     private Double edtCount;
     private Double cxCurrencyEditDiscount;
     private String sendTime;
+    private String updateStatus;
+    private String deleteList;
+    
+    public String getDeleteList() {
+        return deleteList;
+    }
+
 
     
+    public void setDeleteList(String deleteList) {
+        this.deleteList = deleteList;
+    }
+
+
+    public String getUpdateStatus() {
+        return updateStatus;
+    }
+
+    
+    public void setUpdateStatus(String updateStatus) {
+        this.updateStatus = updateStatus;
+    }
+
     public String getRoNo() {
         return roNo;
     }

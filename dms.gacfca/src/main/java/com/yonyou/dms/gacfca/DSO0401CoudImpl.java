@@ -108,7 +108,7 @@ public class DSO0401CoudImpl implements DSO0401Coud{
 	                dto.setConfigList(vehicleList);
 	            }
                 PoCusWholesalePO poT = PoCusWholesalePO.findByCompositeKeys(dealerCode,wsNo);
-                if(!StringUtils.isNullOrEmpty(poT.getDate("FIRST_SUBMIT_TIME"))){
+                if(StringUtils.isNullOrEmpty(poT.getDate("FIRST_SUBMIT_TIME"))){
                     poT.setDate("FIRST_SUBMIT_TIME", new Date(System.currentTimeMillis()));
                 }
                

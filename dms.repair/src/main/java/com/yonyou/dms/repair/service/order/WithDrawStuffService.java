@@ -28,6 +28,7 @@ package com.yonyou.dms.repair.service.order;
 import java.util.List;
 import java.util.Map;
 
+import com.yonyou.dms.common.domains.PO.basedata.TtRoRepairPartPO;
 import com.yonyou.dms.commonAS.domains.DTO.order.RepairOrderDTO;
 import com.yonyou.dms.framework.DAO.PageInfoDto;
 import com.yonyou.dms.function.exception.ServiceBizException;
@@ -92,9 +93,18 @@ public interface WithDrawStuffService {
 	
 	public void modifyByItemId(Long ItemId, TtRoRepairPartDTO cudto) throws ServiceBizException;///根据customerCode修改
 	
+	/**
+	 * 修改 维修材料费 tt_repair_order工单表
+	* TODO description
+	* @author chenwei
+	* @date 2017年5月15日
+	* @param roNo
+	* @param cudto
+	* @throws ServiceBizException
+	 */
 	public void reCalcRepairAmount(String roNo, RepairOrderDTO cudto) throws ServiceBizException;///修改
 	
-    public Long addTtRoRepairPart(TtRoRepairPartDTO cudto)throws ServiceBizException;///新增
+    public TtRoRepairPartPO addTtRoRepairPart(TtRoRepairPartDTO cudto)throws ServiceBizException;///新增
     
     public List<Map> selectEmployees(Map<String, String> queryParam) throws ServiceBizException;//查询employee表 领料人
     
@@ -123,7 +133,7 @@ public interface WithDrawStuffService {
     
     public void modifyRepairOrderByParams(List updateParams) throws ServiceBizException;//修改维修工单表
     
-    public void updateRepairOrder(Map<String, Object> updateParams, Map<String, Object> whereParams) throws ServiceBizException;//封装 修改维修工单表
+    public void updateRepairOrder(String sqlStr, String sqlWhere) throws ServiceBizException;//封装 修改维修工单表
     
     public List<Map> findRoLabourList(Map<String, Object> queryParams) throws ServiceBizException;//工单维修项目明细
     

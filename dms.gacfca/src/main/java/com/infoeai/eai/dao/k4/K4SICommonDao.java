@@ -184,17 +184,17 @@ public class K4SICommonDao extends OemBaseDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	public void updateOrder(String reason, String orderNo, Timestamp changeDate) {
+	public void updateOrder(String reason, String orderNo) {
 
 		StringBuffer sql = new StringBuffer();
 		sql.append(" \n");
 		sql.append("UPDATE TT_VS_ORDER \n");
 		sql.append("   SET SO_CR_FAILURE_REASON = '" + reason + "', \n");
-		sql.append("       SO_CR_FAILURE_DATE = '" + changeDate + "', \n");
+		sql.append("       SO_CR_FAILURE_DATE = now(), \n");
 		sql.append("       IS_SEND = '" + OemDictCodeConstants.IF_TYPE_NO + "', \n");
 		sql.append("       ALLOT_VEHICLE_DATE = NULL, \n");
 		sql.append("       UPDATE_BY = '" + OemDictCodeConstants.K4_S0003 + "', \n");
-		sql.append("       UPDATE_DATE = CURRENT TIMESTAMP \n");
+		sql.append("       UPDATE_DATE = now() \n");
 		sql.append(" WHERE ORDER_NO = '" + orderNo + "' \n");
 
 		OemDAOUtil.execBatchPreparement(sql.toString(), new ArrayList<Object>());

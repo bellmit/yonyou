@@ -114,15 +114,7 @@
 							</div>
 						</div>
 
-						<div class="col-xs-12 col-sm-6 col-md-6">
-							<div class="form-group">
-								<label class="control-label col-xs-4">是否固定费用 </label>
-								<div class="col-xs-8">
-									<select id="isFixedCost" name="isFixedCost" data-fieldName="is_ec" class="bs-select form-control required" data-type="oemDict" data-dictCode="1004" data-value="10041002"   >
-									</select>
-								</div>
-							</div>
-						</div> 
+						
 						
 
 						<div class="col-xs-12 col-sm-6 col-md-6">
@@ -145,35 +137,44 @@
 							</div>
 						</div>
 						
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<label class="control-label col-xs-4">是否固定费用 </label>
+								<div class="col-xs-8">
+									<select id="isFixedCost" name="isFixedCost" data-fieldName="is_ec" class="bs-select form-control required" data-type="oemDict" data-dictCode="1004" data-value="10041002" data-existsDefault="false"  >
+									</select>
+								</div>
+							</div>
+						</div> 
 																			
 					<div class="col-xs-12 col-sm-6 col-md-12 ">
 						<div class="form-group">
-							<label class="control-label col-xs-4 ">召回活动说明</label>
-							<div class="col-xs-8">
-								<div class="input-group">
+							<label class="control-label col-xs-2 ">召回活动说明</label>
+							<div class="col-xs-10">
+								<!-- <div class="input-group"> -->
 									<input type="text" class="form-control" id="recallExplain" name="recallExplain">
-									<span class="input-group-btn">
-	                                         <button class="btn default input-clear" type="button">
-	                                            <i class="fa fa-close"></i>
-	                                        </button>
-	                                 </span>
-                                 </div>
+									<!-- <span class="input-group-btn"> -->
+	                                         <!-- <button class="btn default input-clear" type="button"> -->
+	                                            <!-- <i class="fa fa-close"></i> -->
+	                                       <!--  </button> -->
+	                                <!--  </span> -->
+                                 <!-- </div> -->
 							</div>
 						</div>
 					</div>
 
 					<div class="col-xs-12 col-sm-6 col-md-12 ">
 						<div class="form-group">
-							<label class="control-label col-xs-4 ">索赔申请指导</label>
-							<div class="col-xs-8">
-								<div class="input-group">
+							<label class="control-label col-xs-2 ">索赔申请指导</label>
+							<div class="col-xs-10">
+								<!-- <div class="input-group"> -->
 									<input type="text" class="form-control" id="claimApplyGuidance" name="claimApplyGuidance">
-									<span class="input-group-btn">
-	                                         <button class="btn default input-clear" type="button">
-	                                            <i class="fa fa-close"></i>
-	                                        </button>
-	                                 </span>
-                                 </div>
+									<!-- <span class="input-group-btn"> -->
+	                                        <!--  <button class="btn default input-clear" type="button"> -->
+	                                           <!--  <i class="fa fa-close"></i> -->
+	                                        <!-- </button> -->
+	                                 <!-- </span> -->
+                                <!--  </div> -->
 							</div>
 						</div>
 					</div>	 
@@ -217,6 +218,37 @@
 	$(document).one("onload.dms",function(event,container){
 		//alert("111");
 		
+		//固定费用绑定事件
+		$("#manHourCost",container).attr("disabled","disabled");
+		$("#partCost",container).attr("disabled","disabled");
+		$("#otherCost",container).attr("disabled","disabled");
+		$("#isFixedCost",container).bindChange(function(obj){
+			var otherFee =$("#isFixedCost",container).val();
+			//alert(otherFee);
+			if(otherFee==10041001){
+				//alert("是");
+				$("#manHourCost",container).removeAttr("disabled","disabled");
+				$("#manHourCost",container).addClass("required");
+				$("#partCost",container).removeAttr("disabled","disabled");
+				$("#partCost",container).addClass("required");
+				$("#otherCost",container).removeAttr("disabled","disabled");
+				$("#otherCost",container).addClass("required");
+			}else{
+				//alert("否");
+				$("#partCost",container).val("");	
+				$("#manHourCost",container).val("");	
+				$("#otherFee",container).val("");
+				$("#manHourCost",container).attr("disabled","disabled");
+				$("#manHourCost",container).removeClass("required");
+				$("#partCost",container).attr("disabled","disabled");
+				$("#partCost",container).removeClass("required");
+				$("#otherCost",container).attr("disabled","disabled");
+				$("#otherCost",container).removeClass("required");
+			}
+
+		});
+		
+		
 		
 		
 		//新增页面的回调函数
@@ -256,8 +288,16 @@
 		
 		//发送请求前执行事件
 		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
-			//alert("发送请求前执行事件");			
-			//debugger;
+			//校验日期 
+			var startDate=$("#recallStartDate",container).val();  
+			 var endDate=$("#recallEndDate",container).val();   
+			 var d1 = new Date(startDate.replace(/\-/g, "\/"));  
+			 var d2 = new Date(endDate.replace(/\-/g, "\/")); 			
+			if(d1 >=d2){
+				dmsCommon.tip({status:"warning",msg:"召回开始日期必须小于召回结束日期!"});//总共的状态类型：info、success、error、warning
+				returnResult.status = false;
+		        return;		        		        
+			} 
 			returnResult.status = true;
 		});
 		

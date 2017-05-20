@@ -171,7 +171,7 @@ public class StockResourceServiceImpl implements StockResourceService {
 		 * if(!vehicleUsageType.equals("")){ po.setVehicleUse(new
 		 * Integer(vehicleUsageType)); }
 		 */
-		po.setInteger("CREATE_BY", loginInfo.getUserId());
+		po.setLong("CREATE_BY", loginInfo.getUserId());
 		po.setTimestamp("CREATE_DATE", format);
 		po.setInteger("VER", new Integer(0));
 		po.setInteger("Is_Del", new Integer(0));
@@ -185,9 +185,8 @@ public class StockResourceServiceImpl implements StockResourceService {
 		}
 
 		/* add by ZRM 修改车辆表信息，提报订单时将车辆表的org_id置空，dealer_id置为当前经销商 */
-		TmVehiclePO tmVw = new TmVehiclePO();
-		tmVw.setString("vin", vin);
-		TmVehiclePO tm = new TmVehiclePO();
+
+		TmVehiclePO tm = TmVehiclePO.findFirst("vin=?", vin);
 		tm.setLong("DEALER_ID", new Long(loginInfo.getDealerId()));
 		tm.setLong("ORG_ID", new Long(0));
 		tm.setLong("UPDATE_BY", loginInfo.getUserId());
@@ -225,7 +224,7 @@ public class StockResourceServiceImpl implements StockResourceService {
 		salesImport.setString("VIN", vin);
 		salesImport.setInteger("IS_SCAN", "0");
 		salesImport.setInteger("WHOLESALE_PRICE", tmVehicle.get("WHOLESALE_PRICE"));// 将车辆表的价格传给中进
-		salesImport.setInteger("CREATE_BY", loginInfo.getUserId());
+		salesImport.setLong("CREATE_BY", loginInfo.getUserId());
 		tm.setTimestamp("CREATE_DATE", format);
 
 		if (tmVehicle.get("VEHICLE_USAGE") == null || "".equals(tmVehicle.get("VEHICLE_USAGE"))) {

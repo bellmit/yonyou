@@ -118,7 +118,7 @@ public class FurtherOrderQueryServiceImpl implements FurtherOrderQueryService {
 								tmpPO.setInteger("ORG_ID", new Long(0));
 								// tmpPO.setNodeStatus(Constant.VEHICLE_NODE_08);期货订单取消不改车辆节点
 								tmpPO.setTimestamp("NODE_DATE", format);
-								tmpPO.setInteger("UPDATE_BY", loginInfo.getUserId());
+								tmpPO.setLong("UPDATE_BY", loginInfo.getUserId());
 								tmpPO.setTimestamp("UPDATE_DATE", format);
 								tmpPO.saveIt();
 
@@ -128,8 +128,8 @@ public class FurtherOrderQueryServiceImpl implements FurtherOrderQueryService {
 							com.yonyou.dms.common.domains.PO.basedata.TtVsMatchCheckPO mcPo = new TtVsMatchCheckPO(); // 匹配更改日志表
 							mcPo.setInteger("OLD_VEHICLE_ID", tvPO.get("VEHICLE_ID"));// 原车辆ID
 							mcPo.setInteger("CHG_VEHICLE_ID", tvPO.get("VEHICLE_ID"));// 改变车辆ID
-							mcPo.setInteger("UPDATE_BY", loginInfo.getUserId());
-							;// 操作人
+							mcPo.setLong("UPDATE_BY", loginInfo.getUserId());
+							// 操作人
 							mcPo.setTimestamp("UPDATE_DATE", format);// 操作时间
 							mcPo.setInteger("CANCEL_TYPE", 1002);// 1001订单取消
 																	// 1002 订单撤单
@@ -141,7 +141,7 @@ public class FurtherOrderQueryServiceImpl implements FurtherOrderQueryService {
 							tfcPO.setString("VIN", tPO.get("VIN"));
 							tfcPO.setString("DEALER_CODE", tdPO.get("DEALER_CODE"));
 							tfcPO.setInteger("IS_SCAN", "0");
-							tfcPO.setInteger("CREATE_BY", loginInfo.getUserId());
+							tfcPO.setLong("CREATE_BY", loginInfo.getUserId());
 							tfcPO.setTimestamp("CREATE_DATE", format);
 							tfcPO.saveIt();
 
@@ -191,7 +191,7 @@ public class FurtherOrderQueryServiceImpl implements FurtherOrderQueryService {
 
 							mcPo.setInteger("OLD_VEHICLE_ID", tvP.get("VEHICLE_ID"));// 原车辆ID
 							mcPo.setInteger("CHG_VEHICLE_ID", tvP.get("VEHICLE_ID"));
-							mcPo.setInteger("UPDATE_BY", loginInfo.getUserId());// 操作人
+							mcPo.setLong("UPDATE_BY", loginInfo.getUserId());// 操作人
 							mcPo.setInteger("CANCEL_TYPE", 1001);// 订单取消
 							mcPo.setTimestamp("UPDATE_DATE", format);// 操作时间
 							mcPo.setString("CANCEL_REASON", "期货资源撤单");

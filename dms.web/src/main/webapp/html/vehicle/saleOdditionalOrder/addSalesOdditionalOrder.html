@@ -384,7 +384,7 @@
 							<label class="control-label col-xs-4">VIN</label>
 							<div class="col-xs-8 ">
 								<div class="input-group">
-									<input type="text" class="form-control VIN" id="vin" name="vin" 
+									<input type="text" class="form-control" id="vin" name="vin" 
 										data-fieldName="VIN" onMouseMove="this.title=this.value"/>
 									<input type="hidden" class="form-control" id="vsStockId" name="vsStockId"
 										data-fieldName="VS_STOCK_ID" />
@@ -409,7 +409,7 @@
 								<label class="control-label col-xs-4 ">车牌号</label>
 								<div class="col-xs-8 ">
 									<input id="license" name="license" data-fieldName="LICENSE" 
-										class="form-control license" type="text" />
+										class="form-control" type="text" />
 								</div>
 							</div>
 					</div>
@@ -846,7 +846,7 @@
 		           {field : "UPHOLSTER_NAME",inputField:"upholsterName",inputHiddenFormat : {hiddenField:"UPHOLSTER_NAME"}, title : "<span style='color: blue;'>装潢项目名称</span>"},
 		           {field : "STD_LABOUR_HOUR",inputField:"stdLabourHour",inputHiddenFormat : {hiddenField:"STD_LABOUR_HOUR"}, title : "标准工时"},
 		           {field : "LABOUR_PRICE",inputField:"labourPrice",inputHiddenFormat : {hiddenField:"LABOUR_PRICE"}, title : "<span style='color: blue;'>工时单价</span>",inputSelectFormat : {url:"/ordermanage/salesOdditionalOrder/hourPrice/dicts",model:"vehicle",validate:{validateClass:"required"},labelValue:"LABOUR_PRICE_CODE",lableDesc:"LABOUR_PRICE"}},
-		           {field : "ACCOUNT_MODE", inputField : "accountMode", title : "<span style='color: blue;'>结算方式</span>", inputHiddenFormat : {hiddenField:"ACCOUNT_MODE"},inputSelectFormat : { type : "dict", codeType : "1406" ,defaultValue:"14061001",validate:{validateClass:"required"}} },
+		           {field : "ACCOUNT_MODE", inputField : "accountMode", title : "<span style='color: blue;'>结算方式</span>", inputHiddenFormat : {hiddenField:"ACCOUNT_MODE"},inputSelectFormat : { type : "dict", codeType : "1312" ,defaultValue:"13121004",validate:{validateClass:"required"}} },
 		           {field : "DISCOUNT",inputField:"discount",inputHiddenFormat : {hiddenField:"DISCOUNT"}, title : "<span style='color: blue;'>折扣率</span>",inputNumberFormat : {decimal : 2,validate:{validateClass:"required money",validateAttr:'maxDigit="30"'}}},
 		           {field : "DISCOUNT_AMOUNT",inputField:"discountAmount",inputHiddenFormat : {hiddenField:"DISCOUNT_AMOUNT"}, title : "优惠金额",numberFormat : {decimal : 2,validate:{validateClass:"money",validateAttr:'maxDigit="30"'}}},
 		           {field : "RECEIVE_AMOUNT",inputField:"receiveAmount",inputHiddenFormat : {hiddenField:"RECEIVE_AMOUNT"}, title : "实收金额",numberFormat : {decimal : 2,validate:{validateClass:"money",validateAttr:'maxDigit="30"'}}},
@@ -868,7 +868,7 @@
 		           {field : "PART_SALES_PRICE",inputField : "partSalesPrice",inputHiddenFormat : {}, title : "配件销售单价",numberFormat : {decimal : 2,validate:{validateClass:"money",validateAttr:'maxDigit="30"'}}},
 		           {field : "REAL_PRICE",inputField:"realPrice", title : "<span style='color: blue;'>实际销售单价</span>",inputNumberFormat : {decimal : 2,validate:{validateClass:"required money",validateAttr:'maxDigit="30"'}}},
 		           {field : "PART_QUANTITY",inputField:"partQuantity", title : "<span style='color: blue;'>配件数量</span>",inputNumberFormat : {decimal : 2,validate:{validateClass:"required digits",validateAttr:'maxDigit="30"'}}},
-		           {field : "ACCOUNT_MODE",inputField : "accountModeList", title : "<span style='color: blue;'>结算方式</span>", inputHiddenFormat : {hiddenField:"ACCOUNT_MODE"},inputSelectFormat : { type : "dict", codeType : "1406" ,defaultValue:"14061001",validate:{validateClass:"required"}} },
+		           {field : "ACCOUNT_MODE",inputField : "accountModeList", title : "<span style='color: blue;'>结算方式</span>", inputHiddenFormat : {hiddenField:"ACCOUNT_MODE"},inputSelectFormat : { type : "dict", codeType : "1312" ,defaultValue:"13121004",validate:{validateClass:"required"}} },
 		           {field : "DISCOUNT",inputField :"discount",title : "<span style='color: blue;'>折扣率</span>",inputNumberFormat : {decimal : 2,validate:{validateClass:"required money",validateAttr:'maxDigit="30"'}}},
 		           {field : "PART_SALES_AMOUNT",inputField:"partSalesAmount",inputHiddenFormat : {}, title : "配件销售金额",numberFormat : {decimal : 2,autoValueFormat:{autoValue:"#realPrice*#partQuantity*#discount" },validate:{validateClass:"money",validateAttr:'maxDigit="30"'}}},
 		           {field : "REMARK",inputField : "remark",inputHiddenFormat : {}, title : "<span style='color: blue;'>备注</span>"},
@@ -890,7 +890,7 @@
     							var receivableAmount = $("tr:eq("+index+") td:eq(9) input[id^=receivableAmount]",tab).val();
     							var accountModeList = $("tr:eq("+index+") td:eq(7) select[id^=accountModeList]",tab).val();
     							
-    							if(accountModeList == "14061001"){
+    							if(accountModeList == "13121004"){
     								//$("#OrderReceivableSum",container).setDmsValue(parseFloat(receivableAmount).toFixed(2));
     								$("#OrderReceivableSum",container).val(parseFloat(receivableAmount).toFixed(2));
     							}
@@ -900,13 +900,12 @@
 		           {field : "SERVICE_TYPE", inputField : "serviceType",inputHiddenFormat : {hiddenField:"SERVICE_TYPE"}, title : "服务类别",codeFormat : {type:"dict",codeType:"1402"}},
 		           {field : "DIRECTIVE_PRICE", inputField : "directivePrice",inputHiddenFormat : {hiddenField:"DIRECTIVE_PRICE"}, title : "销售指导价",numberFormat : {decimal : 2,validate:{validateClass:"money",validateAttr:'maxDigit="30"'}}},
 		           {field : "REAL_PRICE", inputField : "realPrice", inputHiddenFormat : {hiddenField:"REAL_PRICE"}, title : "实际销售价", numberFormat : {decimal : 2,validate:{validateClass:" money"}} },		     
-		           {field : "ACCOUNT_MODE", inputField : "accountMode", title : "<span style='color: blue;'>结算方式</span>", inputHiddenFormat : {hiddenField:"ACCOUNT_MODE"},inputSelectFormat : { type : "dict", codeType : "1406" ,defaultValue:"14061001",validate:{validateClass:"required"}} },
+		           {field : "ACCOUNT_MODE", inputField : "accountMode", title : "<span style='color: blue;'>结算方式</span>", inputHiddenFormat : {hiddenField:"ACCOUNT_MODE"},inputSelectFormat : { type : "dict", codeType : "1312" ,defaultValue:"13121004",validate:{validateClass:"required"}} },
 		           {field : "RECEIVEABLE_AMOUNT", inputField : "receiveableAmount",inputHiddenFormat : {hiddenField:"RECEIVEABLE_AMOUNT"}, title : "实际发生金额",numberFormat : {decimal : 2,validate:{validateClass:"money",validateAttr:'maxDigit="30"'}}},
 		           {field : "CONSIGNED_AMOUNT", inputField : "consignedAmount", title : "<span style='color: blue;'>代办预收金额</span>", inputHiddenFormat : {hiddenField:"CONSIGNED_AMOUNT"}, inputNumberFormat : {decimal : 2,validate:{validateClass:"required money"},autoValueFormat:{autoValue:"#aaa",afterEvent:calcTotalAmount}} },		     
 		           {field : "REMARK",inputField : "remark",inputHiddenFormat : {hiddenField:"REMARK"}, title : "备注"}
 			         ]
 		});			
-		
 		
 		//给工时单价赋值
 		$("#labourPrice").bindChange(function(obj){
@@ -945,13 +944,6 @@
 		
 		//保存事件
 		$("a[data-onclickEvent3='true']",container).on("dms.click",function(event){
-			/* var vin = $("#vin",container).val();
-			var license = $("#license",container).val();
-			if(vin == '' && license == ''){
-				dmsCommon.tip({status:"warning",msg:"VIN、车牌号不能同时为空"});
-				returnResult.status = false;
-				return;
-			} */
 			$("#partForBack",container).removeAttr("disabled");
 		});
 		
@@ -984,21 +976,19 @@
 				var rec = table[i].RECEIVE_AMOUNT;
 				aa+=rec;
 			}
-			alert(aa);
 			var table2 = $("#soDecrodatePartList",getElementContext()).dmsTable().getRowDataByIndex();
 			var bb = 0;
 			for (var i = 0; i < table2.length; i++) {
 				var psa = table2[i].PART_SALES_AMOUNT;
 				bb+=psa;
 			}
-			alert(bb);
 			var table3 = $("#soServicesList",getElementContext()).dmsTable().getRowDataByIndex();
 			var cc = 0;
 			for (var i = 0; i < table3.length; i++) {
 				var st = table3[i].SERVICE_TYPE;
 				var rea = table3[i].REAL_PRICE;
 				cc=parseFloat(cc)+parseFloat(rea);
-				if(acc == '14061001'){//代办
+				if(acc == '13121004'){//代办
 					$("#consignedSum").val(cc);
 					$("#conReceivableSum").val(cc);
 				}
@@ -1007,7 +997,6 @@
 					$("#insuranceSum").val(cc);
 				}
 			}
-			alert(cc);
 			$("#upholsterSum").val(aa);
 			$("#orderSum").val(aa+bb+cc);
 			$("#orderReceivableSum").val(aa+bb+cc);
@@ -1064,7 +1053,7 @@
 				var st = table3[i].SERVICE_TYPE;
 				var rea = table3[i].REAL_PRICE;
 				cc=parseFloat(cc)+parseFloat(rea);
-				if(acc == '14061001'){//代办
+				if(acc == '13121004'){//代办
 					$("#consignedSum").val(cc);
 					$("#conReceivableSum").val(cc);
 				}
@@ -1084,16 +1073,14 @@
 			var tab=$("#soServicesList tbody");
 			var index = $(this).attr('data-index');
 			var acc = $("tr:eq("+index+") td:eq(7) select[id^=accountMode]",tab).val();
-			if(acc == '14061001'){
-				var rec = $("tr:eq("+index+") td:eq(9) input[id^=consignedAmount]",tab).val();
+			var rec = $("tr:eq("+index+") td:eq(9) input[id^=consignedAmount]",tab).val();
+			if(acc == '13121004' || acc=='13121003' || acc == '13121002' || acc == '13121001'){
 				if(rec == ''){
 					rec = 0;
 				}
-				
-				//$("#soServicesList",container).dmsTable().updateRowByIndex(index,{DIRECTIVE_PRICE:rec});
-				$("#soServicesList",container).dmsTable().updateRowByIndex(index,{REAL_PRICE:rec});
-				$("#soServicesList",container).dmsTable().updateRowByIndex(index,{RECEIVEABLE_AMOUNT:rec});
 			}
+			$("#soServicesList",container).dmsTable().updateRowByIndex(index,{REAL_PRICE:rec});
+			$("#soServicesList",container).dmsTable().updateRowByIndex(index,{RECEIVEABLE_AMOUNT:rec});
 			
 			//获取行数，遍历
 			var table = $("#soDecrodateList",getElementContext()).dmsTable().getRowDataByIndex();
@@ -1115,7 +1102,7 @@
 				var st = table3[i].SERVICE_TYPE;
 				var rea = table3[i].REAL_PRICE;
 				cc=parseFloat(cc)+parseFloat(rea);
-				if(acc == '14061001'){//代办
+				if(acc == '13121004'){//代办
 					$("#consignedSum").val(cc);
 					$("#conReceivableSum").val(cc);
 				}

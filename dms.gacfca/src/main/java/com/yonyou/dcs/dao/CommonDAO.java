@@ -58,7 +58,7 @@ public class CommonDAO extends OemBaseDAO{
 	public static Integer[] getNowWrokWeekAndYear() throws Exception {
 		Integer[] wrokWY = new Integer[3];
 		try {
-			String sql = new String(" SELECT WORK_YEAR,WORK_WEEK,WORK_MONTH FROM TM_WORK_WEEK  WHERE START_DATE <= SYSDATE AND END_DATE >= SYSDATE AND STATUS = "+OemDictCodeConstants.STATUS_ENABLE+" ");
+			String sql = new String(" SELECT WORK_YEAR,WORK_WEEK,WORK_MONTH FROM TM_WORK_WEEK  WHERE START_DATE <= now() AND END_DATE >= now() AND STATUS = "+OemDictCodeConstants.STATUS_ENABLE+" ");
 			List<Map> list = OemDAOUtil.findAll(sql, null);
 			if(null!=list && list.size()>0){
 				Map map = list.get(0);

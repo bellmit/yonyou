@@ -62,7 +62,7 @@ public class PartBorrowRegiServiceImpl implements PartBorrowRegiService{
     * @see com.yonyou.dms.part.service.basedata.PartBorrowRegiService#searchPartBorrowRegi(java.lang.String)
      */
     @Override
-    public PageInfoDto searchPartBorrowRegiItem( String borrowNo) throws ServiceBizException {
+    public List<Map> searchPartBorrowRegiItem( String borrowNo) throws ServiceBizException {
         String dealerCode=FrameworkUtil.getLoginInfo().getDealerCode();
         //核对加锁
         String lockName=Utility.selLockerName("LOCK_USER", "TT_PART_BORROW", "BORROW_NO", borrowNo);
@@ -88,7 +88,7 @@ public class PartBorrowRegiServiceImpl implements PartBorrowRegiService{
          */
         sql.append(  "where  A.DEALER_CODE='"+dealerCode + "'  and A.D_KEY=" + CommonConstants.D_KEY +Utility.getLikeCond(null, "BORROW_NO", borrowNo, "AND"));
         System.out.println("_________________________"+sql.toString());
-        return DAOUtil.pageQuery(sql.toString(), null);
+        return DAOUtil.findAll(sql.toString(), null);
     }
     /**
      * 根据借进单号模糊查询借进主表信息

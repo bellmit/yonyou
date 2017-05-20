@@ -55,7 +55,7 @@
 								class="fa fa-search"></i> 查询
 							</a> <a href="javascript:;" class="btn blue"><i
 								class="fa fa-undo"></i> 重置</a>
-							<a href="javascript:;" data-url="/resourceAllotAudit/allotDateInit" 
+							<a href="javascript:;" data-url="/resourceAllotAudit/excel" 
 							data-model="vehicle" data-method="downLoad" data-toggle="confirmation"
 								class="btn blue" ><i class="fa fa-download"></i>下载</a>
 						</div>
@@ -387,7 +387,8 @@
 												cMap["SERIES_ID"] == xqMap["SERIES_ID"] &&
 												cMap["ORG_ID2"] == dqMap["ORG_ID2"] &&
 												cMap["GROUP_ID"] == temp_heads.split("_")[0] &&
-												cMap["GROUP_NAME"] == temp_heads.split("_")[1]) {
+												cMap["GROUP_NAME"] == temp_heads.split("_")[1]&&
+												cMap["COLOR_NAME"] == temp_heads.split("_")[2]) {
 												
 												str = cMap["ORG_COLOR_TOTAL"];
 												break;
@@ -420,7 +421,8 @@
 											if (cMap["SERIES_TOTAL"] == "TOTAL" &&
 												cMap["SERIES_ID"] == dqMap["SERIES_ID"] &&
 												cMap["GROUP_ID"] == temp_heads.split("_")[0] &&
-												cMap["GROUP_NAME"] == temp_heads.split("_")[1]) {
+												cMap["GROUP_NAME"] == temp_heads.split("_")[1]&&
+												cMap["COLOR_NAME"] == temp_heads.split("_")[2]) {
 												
 												str = cMap["COLOR_TOTAL"];
 											}

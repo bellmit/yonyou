@@ -7,7 +7,7 @@
 		    <div class="panel-heading">
 				<div class="pannel-name">活动车型</div>
 				<div class="btn-group btn-group-sm">
-					<a class="btn btn-outline" data-url="repair/activity/selectConfiguration.html" data-toggle="modal" data-width="modal-lg"><i class="fa fa-plus-square"></i>新增</a> 
+					<a class="btn btn-outline" data-url="retail/vehicle/market/ServiceActivityManage/selectVehicleInfo.html" data-toggle="modal" data-width="modal-lg"><i class="fa fa-plus-square"></i>新增</a> 
 		       </div>
 		    </div>
 			<div class="panel-body">
@@ -19,11 +19,19 @@
 				<input type="hidden" id="zkAmountPart" name="zkAmountPart" value="0">
 			</div>
 		</div>
+		<div class="row ">
+			<div class="col-xs-12 ">
+						<div class="query-btn">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a>
+						</div>
+			</div>		
+		</div>
 		<div class="panel panel-default table-panel">
 		    <div class="panel-heading">
 				<div class="pannel-name">活动车辆</div>
 				<div class="btn-group btn-group-sm">
-					<!-- <a class="btn btn-outline" data-url="repair/activity/selectVehicleInfo.html" data-toggle="modal" data-width="modal-lg"><i class="fa fa-plus-square"></i>新增</a>  -->
 		       </div>
 		    </div>
 			<div class="panel-body">
@@ -31,8 +39,6 @@
 					class="table table-striped table-bordered table-hover table-responsive"
 					id="vehicleList">
 				</table>
-				<!-- <input type="hidden" id="afterDiscountAmountPart" name="afterDiscountAmountPart" value="0">
-				<input type="hidden" id="zkAmountPart" name="zkAmountPart" value="0"> -->
 			</div>
 		</div>
 	</form>
@@ -44,28 +50,50 @@
 		new Datatable().initLocale({
 			src : "modelList",
 			container:container,
+			autoHeight:false,
 			columns : [ {field : "",inputField:"",inputTextFormat:{},title : "操作",operateFormat : [ {type : "localDel",onAfterEvent:function(value, row, index){
-							
+							var obj = {};
+							obj["itemId"] = row.ITEM_ID;
+							var oldStr = $("#mod",container).val();
+							if($.trim(oldStr) == ""){
+								oldStr = JSON.stringify(obj);
+							}else{
+								oldStr += JSON.stringify(obj);
+							}
+							$("#mod",getElementContext()).val(oldStr)
 			            }} ]},
-			            //{field : "BRAND_NAME",inputField:"packageId",inputHiddenFormat : {hiddenField:"PACKAGE_ID"},title : "品牌"}, 
-			            {field : "SERIES_NAME",inputField:"packageId",inputHiddenFormat : {hiddenField:"PACKAGE_ID"},title : "车型"}, 
-			            {field : "MODEL_NAME",inputField:"modelCode",inputHiddenFormat : {},title : "版本"}, 
-			            {field : "CONFIG_NAME",inputField:"",inputHiddenFormat : {},inputHiddenFormat : {},title : "车款"}, 
-			            {field : "COLOR_NAME",inputField:"",inputHiddenFormat : {},inputHiddenFormat : {},title : "颜色"}/* ,
-			            {field : "BEGIN_VIN",inputField:"beginVin",inputHiddenFormat : {},title : "VIN号后6位开始"},
-			            {field : "END_VIN",inputField:"endVin",inputHiddenFormat : {},title : "VIN号后6位结束"} */
+			            {field : "ACTIVITY_CODE",title : "活动编号",inputHiddenFormat:{}}, 
+			            {field : "SERIES_CODE",title : "车系",inputHiddenFormat:{hiddenFieldName:"SERIES_CODE,DUTY_ENTITY,VIN,ITEM_ID",hiddenField:"SERIES_CODE,DUTY_ENTITY,VIN,ITEM_ID"}}, 
+			            {field : "MODEL_CODE",title : "车型",inputHiddenFormat:{}}, 
+			            {field : "CONFIG_CODE",title : "配置",inputHiddenFormat:{}}
 			         ]
 		});
 		
-		new Datatable().initLocale({
+		new Datatable().initPagination({
 			src : "vehicleList",
+			undefinedText : "",
+			url : dmsCommon.getDmsPath()["retail"] + "/market/serviceActivityManage/queryVehicle",
 			container:container,
-			columns:[{field : "",inputField:"",inputTextFormat:{},title : "操作",operateFormat : [ {type : "localDel",onAfterEvent:function(value, row, index){}}]},
-					{field:"VIN",title : "VIN"}, 
-					{field:"LICENSE",title : "车牌号"}, 
-					{field:"OWNER_NAME",title:"车主姓名"},
-					{field:"CONTACTOR_NAME",title : "联系人姓名"},
-					{field:"CONTACTOR_PHONE",title : "联系人电话"}]
+			autoHeight:false,
+			isQueryFirst:false,
+			columns:[
+				{field : "",inputField:"",inputTextFormat:{},title : "操作",operateFormat : [ {type : "localDel",onAfterEvent:function(value, row, index){
+					var obj = {};
+					obj["itemId"] = row.ITEM_ID;
+					var oldStr = $("#vehic",container).val();
+					if($.trim(oldStr) == ""){
+						oldStr = JSON.stringify(obj);
+					}else{
+						oldStr += JSON.stringify(obj);
+					}
+					$("#vehic",getElementContext()).val(oldStr)
+	            }} ]},
+				{field:"ACTIVITY_CODE",title : "活动编号",inputHiddenFormat:{}}, 
+				{field:"DUTY_ENTITY",title : "责任维修站",inputHiddenFormat:{}}, 
+				{field:"VIN",title:"VIN",inputHiddenFormat : {hiddenFieldName:"ITEM_ID,VIN,MODEL_CODE,MANUFACTURE_DATE_BEGIN,MANUFACTURE_DATE_END,BEGIN_VIN,END_VIN,SERIES_CODE,CONFIG_CODE",hiddenField:"ITEM_ID,VIN,MODEL_CODE,MANUFACTURE_DATE_BEGIN,MANUFACTURE_DATE_END,BEGIN_VIN,END_VIN,SERIES_CODE,CONFIG_CODE"},visible : true},
+				{field:"CONTACTOR_NAME",title : "联系人姓名",inputHiddenFormat:{}},
+				{field:"CONTACTOR_PHONE",title : "联系人电话",inputHiddenFormat:{}}
+			]
 		});
 	});
 

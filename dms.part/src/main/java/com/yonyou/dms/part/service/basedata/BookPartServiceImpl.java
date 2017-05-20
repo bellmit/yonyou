@@ -201,10 +201,11 @@ public class BookPartServiceImpl implements BookPartService{
     public PageInfoDto queryPartInfo(String id,String ids) throws ServiceBizException {
         List<Object> list = new ArrayList<>();
         StringBuffer sb = new StringBuffer();
+        String value = Utility.getDefaultValue(String.valueOf(CommonConstants.DEFAULT_PARA_PART_RATE));
         sb.append("SELECT '' as POS_CODE,'' as POS_NAME,A.PART_MODEL_GROUP_CODE_SET, ");
         sb.append("0 as PART_QUANTITY,  A.DEALER_CODE, A.PART_NO, A.STORAGE_CODE, A.STORAGE_POSITION_CODE, A.PART_NAME, ");
         sb.append("A.SPELL_CODE, A.UNIT_CODE, A.STOCK_QUANTITY, A.SALES_PRICE, A.CLAIM_PRICE, A.PART_GROUP_CODE, ");
-        sb.append("B.LIMIT_PRICE, A.LATEST_PRICE, A.COST_PRICE AS COST_PRICE, A.COST_AMOUNT, A.MAX_STOCK,B.DOWN_TAG, ");
+        sb.append("B.LIMIT_PRICE, A.LATEST_PRICE, A.COST_PRICE AS COST_PRICE,A.COST_PRICE*"+value+ "  AS NET_COST_PRICE, A.COST_AMOUNT, A.MAX_STOCK,B.DOWN_TAG, ");
         sb.append("A.BORROW_QUANTITY, A.LEND_QUANTITY, A.LOCKED_QUANTITY, A.LAST_STOCK_IN, A.PART_STATUS, ");
         sb.append("A.LAST_STOCK_OUT, A.REMARK, A.CREATED_BY, A.CREATED_AT, A.UPDATED_BY, A.UPDATED_AT, A.VER, A.MIN_STOCK, ");
         sb.append("B.OPTION_NO, A.NODE_PRICE, B.PLAN_PRICE, B.OEM_LIMIT_PRICE, B.URGENT_PRICE, ");

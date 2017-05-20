@@ -28,6 +28,8 @@ public class k4DcsToSapImpl extends BaseService implements k4DcsToSap {
 	S0008 s0008;
 	@Autowired
 	S0009 s0009;
+	@Autowired
+	S0002 s0002;
 	
 	@Override
 	public void doGet(ServletRequest request, ServletResponse response) throws IOException, ServletException {
@@ -51,6 +53,8 @@ public class k4DcsToSapImpl extends BaseService implements k4DcsToSap {
 					resultObj = s0008.getInfo();
 				} else if ("S0009".equals(actionName)) {
 					resultObj = s0009.getInfo();
+				} else if ("S0002".equals(actionName)) {
+					resultObj = s0002.getInfo();
 				}
 //				executor = Class.forName("com.infoeai.eai.action.k4." + actionName);
 //				obj = (Object) executor.newInstance();
@@ -77,8 +81,10 @@ public class k4DcsToSapImpl extends BaseService implements k4DcsToSap {
 				// 第五步：上传数据成功修改状态
 				if("S0008".equals(actionName)){
 					resultObj = s0008.updateVoMethod(resultObj);
-				}else if("S0009".equals(actionName)){
+				} else if ("S0009".equals(actionName)){
 					resultObj = s0009.updateVoMethod(resultObj);
+				} else if ("S0002".equals(actionName)){
+					resultObj = s0002.updateVoMethod(resultObj);
 				}
 				logger.info("========== 上传XML文件结束 ==========");
 			} catch (Throwable e) {

@@ -51,7 +51,7 @@ public class ClaimBasicParamsServiceImpl implements ClaimBasicParamsService{
 			   if(!CommonUtils.isNullOrEmpty( getCheBy(ptdto))){
 		              throw new ServiceBizException("该经销商不能重复新增！");
 		          }else{
-			   if(ptdto.getDealerId()!=null&&ptdto.getLabourPrice()!=null&&ptdto.getTaxRate()!=null&&ptdto.getPartMangefee()!=null){
+		
 				   ptPo.setLong("OEM_COMPANY_ID",loginInfo.getCompanyId());
 				   ptPo.setLong("DEALER_ID", ptdto.getDealerId());
 				   ptPo.setDouble("LABOUR_PRICE",ptdto.getLabourPrice());
@@ -66,9 +66,7 @@ public class ClaimBasicParamsServiceImpl implements ClaimBasicParamsService{
 				   ptPo.setInteger("IS_DEL",0);
 				   ptPo.setInteger("IS_DOWN",0);
 				   ptPo.saveIt();
-			   }else{
-				   throw new ServiceBizException("未填写完整信息，请输入！"); 
-			   }
+			
 		          }
 		}
 		/**

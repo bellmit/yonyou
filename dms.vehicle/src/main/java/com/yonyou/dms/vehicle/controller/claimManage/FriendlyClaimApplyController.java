@@ -1,5 +1,6 @@
 package com.yonyou.dms.vehicle.controller.claimManage;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -145,6 +146,21 @@ public class FriendlyClaimApplyController {
     	PageInfoDto pageInfoDto = fcaService.claimCaseQueryDetail(claimId);   	
         return pageInfoDto;               
     }
+	/**
+	 * 索赔明细 情形
+	 * @param claimId
+	 * @param queryParam
+	 * @return
+	 */
+	@RequestMapping(value="/claimCaseQueryList/{CLAIM_ID}",method = RequestMethod.GET)
+    @ResponseBody
+    public List<Map> claimCaseQueryDetailList(@PathVariable("CLAIM_ID") Long claimId,@RequestParam Map<String, String> queryParam) {
+    	logger.info("============索赔明细  情形 查询04==============");
+    	PageInfoDto pageInfoDto = fcaService.claimCaseQueryDetail(claimId);
+    	
+        return pageInfoDto.getRows();               
+    }
+	
 	/**
 	 * 索赔明细 工时
 	 * @param claimId

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.yonyou.dms.common.domains.DTO.basedata.TtOpOldpartPO;
 import com.yonyou.dms.framework.DAO.OemBaseDAO;
 import com.yonyou.dms.framework.DAO.OemDAOUtil;
 import com.yonyou.dms.framework.DAO.PageInfoDto;
@@ -17,7 +18,6 @@ import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.StringUtils;
 import com.yonyou.dms.vehicle.domains.DTO.oldPart.TtOpOldpartDTO;
 import com.yonyou.dms.vehicle.domains.DTO.oldPart.TtOpReturnBillDTO;
-import com.yonyou.dms.vehicle.domains.PO.oldPart.TtOpOldpartPO;
 import com.yonyou.dms.vehicle.domains.PO.oldPart.TtOpReturnBillPO;
 /**
  * 旧件清点

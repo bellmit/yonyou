@@ -198,6 +198,9 @@ public class Utility {
      * @return 四舍五入后的结果
      */
     public static double round(String v, int scale) throws ServiceBizException {
+    	if(!StringUtils.isNumeric(v)){
+    		return 0d;
+    	}
         if (scale < 0) {
             throw new ServiceBizException("精确小数点后几位必须为正数或者0 ");
         }
@@ -205,7 +208,7 @@ public class Utility {
         BigDecimal one = new BigDecimal("1");
         return b.divide(one, scale, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
-
+    
     /**
      * 功能描述：获取父DEALER_CODE，只适用于BROTHER_MODE模式 TODO description
      * 

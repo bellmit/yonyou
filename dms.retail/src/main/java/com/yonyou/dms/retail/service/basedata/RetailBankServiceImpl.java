@@ -12,6 +12,7 @@ import com.yonyou.dms.framework.domain.LoginInfoDto;
 import com.yonyou.dms.framework.service.FileStoreService;
 import com.yonyou.dms.function.domains.DTO.ImportResultDto;
 import com.yonyou.dms.function.exception.ServiceBizException;
+import com.yonyou.dms.function.utils.common.DateUtil;
 import com.yonyou.dms.retail.dao.basedata.RetailBankDao;
 import com.yonyou.dms.retail.domains.DTO.basedata.TmRetailDiscountBankImportTempDTO;
 import com.yonyou.dms.retail.domains.PO.basedata.TmRetailDiscountBankImportPO;
@@ -141,8 +142,8 @@ public class RetailBankServiceImpl implements RetailBankService {
 			trdbitPO.setString("CUSTOMER", trdbitDTO.getCustomer());//客户名称
 			trdbitPO.setString("VIN", trdbitDTO.getVin());//车架号
 			trdbitPO.setString("APP_STATE", trdbitDTO.getAppState());//审批状态
-			trdbitPO.setString("APPLY_DATE", trdbitDTO.getApplyDate());//申请时间
-			trdbitPO.setString("DEAL_DATE", trdbitDTO.getDealDate());//银行放款时间
+			trdbitPO.setString("APPLY_DATE", DateUtil.formatDefaultDate(trdbitDTO.getApplyDate()));//申请时间
+			trdbitPO.setString("DEAL_DATE", DateUtil.formatDefaultDate(trdbitDTO.getDealDate()));//银行放款时间
 			trdbitPO.setString("NET_PRICE", trdbitDTO.getNetPrice());//成交价
 			trdbitPO.setString("FINANCING_PNAME", trdbitDTO.getFinancingPname());//零售融资产品名称
 			trdbitPO.setString("FIRST_PERMENT", trdbitDTO.getFirstPerment());//首付

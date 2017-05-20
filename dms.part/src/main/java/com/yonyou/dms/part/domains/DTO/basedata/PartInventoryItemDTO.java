@@ -24,161 +24,204 @@
  */
 
 package com.yonyou.dms.part.domains.DTO.basedata;
-
-import javax.validation.constraints.Digits;
-
 /**
- * 配件盘点单明细Dto
- * @author ZhengHe
- * @date 2016年7月26日
+ * 盘点差异分析子表
+* TODO description
+* @author yujiangheng
+* @date 2017年5月17日
  */
-
 public class PartInventoryItemDTO {
-    private Long partInventoryId;
-
-    private String inventoryNo;
-
-    private String storageCode;
-
-    private String storagePositionCode;
-
-    private String partNo;
-
+//    private Date createDate;
+//    private Date updateDate;
+//    private Long createBy;
+//    private Long updateBy;
+    private Long itemId;
+    
     private String partName;
-
-    @Digits(integer=10,fraction=4)
-    private Double stockQuantity;
-
-    @Digits(integer=10,fraction=4)
-    private Double borrowQuantity;
-
-    @Digits(integer=10,fraction=4)
-    private Double lendQuantity;
-
-    @Digits(integer=10,fraction=4)
-    private Double realStock;
-
-    @Digits(integer=10,fraction=4)
-    private Double checkQuantity;
-
-    @Digits(integer=10,fraction=4)
-    private Double profitLossQuantity;
-
-    @Digits(integer=12,fraction=2)
-    private Double costPrice;
-
-    @Digits(integer=12,fraction=2)
+    private String partBatchNo;
+    private String dealerCode;
+    private String partNo;
+    private String storageCode;
+    private String inventoryNo;
+    private String unitCode;
+    private String storagePositionCode;
+    
+    private Float profitLossQuantity;
+    private Float borrowQuantity;
+    private Float checkQuantity;
+    private Float lendQuantity;
+    
+    private Float currentStock;
+    private Float realStock;
+    
+    private Integer dKey;
+    private Integer ver;
+    
     private Double profitLossAmount;
-
-    public Long getPartInventoryId() {
-        return partInventoryId;
+    private Double costPrice;
+    
+    public Long getItemId() {
+        return itemId;
+    }
+    
+    @Override
+    public String toString() {
+        return "PartInventoryItemDTO [itemId=" + itemId + ", partName=" + partName + ", partBatchNo=" + partBatchNo
+               + ", dealerCode=" + dealerCode + ", partNo=" + partNo + ", storageCode=" + storageCode + ", inventoryNo="
+               + inventoryNo + ", unitCode=" + unitCode + ", storagePositionCode=" + storagePositionCode
+               + ", profitLossQuantity=" + profitLossQuantity + ", borrowQuantity=" + borrowQuantity
+               + ", checkQuantity=" + checkQuantity + ", lendQuantity=" + lendQuantity + ", currentStock="
+               + currentStock + ", realStock=" + realStock + ", dKey=" + dKey + ", ver=" + ver + ", profitLossAmount="
+               + profitLossAmount + ", costPrice=" + costPrice + "]";
     }
 
-    public void setPartInventoryId(Long partInventoryId) {
-        this.partInventoryId = partInventoryId;
+    public void setItemId(Long itemId) {
+        this.itemId = itemId;
     }
-
-    public String getInventoryNo() {
-        return inventoryNo;
-    }
-
-    public void setInventoryNo(String inventoryNo) {
-        this.inventoryNo = inventoryNo;
-    }
-
-    public String getStorageCode() {
-        return storageCode;
-    }
-
-    public void setStorageCode(String storageCode) {
-        this.storageCode = storageCode;
-    }
-
-    public String getStoragePositionCode() {
-        return storagePositionCode;
-    }
-
-    public void setStoragePositionCode(String storagePositionCode) {
-        this.storagePositionCode = storagePositionCode;
-    }
-
-    public String getPartNo() {
-        return partNo;
-    }
-
-    public void setPartNo(String partNo) {
-        this.partNo = partNo;
-    }
-
+    
     public String getPartName() {
         return partName;
     }
-
+    
     public void setPartName(String partName) {
         this.partName = partName;
     }
-
-    public Double getStockQuantity() {
-        return stockQuantity;
+    
+    public String getPartBatchNo() {
+        return partBatchNo;
     }
-
-    public void setStockQuantity(Double stockQuantity) {
-        this.stockQuantity = stockQuantity;
+    
+    public void setPartBatchNo(String partBatchNo) {
+        this.partBatchNo = partBatchNo;
     }
-
-    public Double getBorrowQuantity() {
-        return borrowQuantity;
+    
+    public String getDealerCode() {
+        return dealerCode;
     }
-
-    public void setBorrowQuantity(Double borrowQuantity) {
-        this.borrowQuantity = borrowQuantity;
+    
+    public void setDealerCode(String dealerCode) {
+        this.dealerCode = dealerCode;
     }
-
-    public Double getLendQuantity() {
-        return lendQuantity;
+    
+    public String getPartNo() {
+        return partNo;
     }
-
-    public void setLendQuantity(Double lendQuantity) {
-        this.lendQuantity = lendQuantity;
+    
+    public void setPartNo(String partNo) {
+        this.partNo = partNo;
     }
-
-    public Double getRealStock() {
-        return realStock;
+    
+    public String getStorageCode() {
+        return storageCode;
     }
-
-    public void setRealStock(Double realStock) {
-        this.realStock = realStock;
+    
+    public void setStorageCode(String storageCode) {
+        this.storageCode = storageCode;
     }
-
-    public Double getCheckQuantity() {
-        return checkQuantity;
+    
+    public String getInventoryNo() {
+        return inventoryNo;
     }
-
-    public void setCheckQuantity(Double checkQuantity) {
-        this.checkQuantity = checkQuantity;
+    
+    public void setInventoryNo(String inventoryNo) {
+        this.inventoryNo = inventoryNo;
     }
-
-    public Double getProfitLossQuantity() {
+    
+    public String getUnitCode() {
+        return unitCode;
+    }
+    
+    public void setUnitCode(String unitCode) {
+        this.unitCode = unitCode;
+    }
+    
+    public String getStoragePositionCode() {
+        return storagePositionCode;
+    }
+    
+    public void setStoragePositionCode(String storagePositionCode) {
+        this.storagePositionCode = storagePositionCode;
+    }
+    
+    public Float getProfitLossQuantity() {
         return profitLossQuantity;
     }
-
-    public void setProfitLossQuantity(Double profitLossQuantity) {
+    
+    public void setProfitLossQuantity(Float profitLossQuantity) {
         this.profitLossQuantity = profitLossQuantity;
     }
-
-    public Double getCostPrice() {
-        return costPrice;
+    
+    public Float getBorrowQuantity() {
+        return borrowQuantity;
     }
-
-    public void setCostPrice(Double costPrice) {
-        this.costPrice = costPrice;
+    
+    public void setBorrowQuantity(Float borrowQuantity) {
+        this.borrowQuantity = borrowQuantity;
     }
-
+    
+    public Float getCheckQuantity() {
+        return checkQuantity;
+    }
+    
+    public void setCheckQuantity(Float checkQuantity) {
+        this.checkQuantity = checkQuantity;
+    }
+    
+    public Float getLendQuantity() {
+        return lendQuantity;
+    }
+    
+    public void setLendQuantity(Float lendQuantity) {
+        this.lendQuantity = lendQuantity;
+    }
+    
+    public Float getCurrentStock() {
+        return currentStock;
+    }
+    
+    public void setCurrentStock(Float currentStock) {
+        this.currentStock = currentStock;
+    }
+    
+    public Float getRealStock() {
+        return realStock;
+    }
+    
+    public void setRealStock(Float realStock) {
+        this.realStock = realStock;
+    }
+    
+    public Integer getdKey() {
+        return dKey;
+    }
+    
+    public void setdKey(Integer dKey) {
+        this.dKey = dKey;
+    }
+    
+    public Integer getVer() {
+        return ver;
+    }
+    
+    public void setVer(Integer ver) {
+        this.ver = ver;
+    }
+    
     public Double getProfitLossAmount() {
         return profitLossAmount;
     }
-
+    
     public void setProfitLossAmount(Double profitLossAmount) {
         this.profitLossAmount = profitLossAmount;
     }
+    
+    public Double getCostPrice() {
+        return costPrice;
+    }
+    
+    public void setCostPrice(Double costPrice) {
+        this.costPrice = costPrice;
+    }
+    
+    
 }

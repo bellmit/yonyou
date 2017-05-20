@@ -11,9 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yonyou.dms.framework.DAO.OemDAOUtil;
 import com.yonyou.dms.framework.DAO.PageInfoDto;
+import com.yonyou.dms.framework.domain.LoginInfoDto;
 import com.yonyou.dms.framework.service.excel.ExcelExportColumn;
 import com.yonyou.dms.framework.service.excel.ExcelGenerator;
+import com.yonyou.dms.framework.util.bean.ApplicationContextHelper;
+import com.yonyou.dms.function.common.OemDictCodeConstants;
 import com.yonyou.dms.repair.dao.accountBalanceDao.AccountBalanceDao;
 
 @SuppressWarnings("all")
@@ -156,5 +160,65 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
 	public PageInfoDto dealerPayQuery(Map<String, String> queryParam) {
 
 		return dao.dealerpayquery(queryParam);
+	}
+
+	@Override
+	public PageInfoDto accountBalanceDealerQuery(Map<String, String> queryParam) {
+		LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
+		StringBuffer sql = new StringBuffer();
+		sql.append(" \n");
+		sql.append("SELECT D.DEALER_CODE, -- 经销商代码 \n");
+		sql.append("       D.DEALER_SHORTNAME, -- 经销商名称 \n");
+
+		sql.append("       SUM((CASE when T.ACC_TYPE='" + OemDictCodeConstants.K4_PAYMENT_01
+				+ "' THEN  T.AMOUNT ELSE '0.00' END)) AS COUNT1, -- 现金 \n");
+
+		sql.append("       SUM(CASE WHEN T.FINANCING_STATUS = 'A' OR T.FINANCING_STATUS = 'W' \n");
+		sql.append("                THEN (CASE when T.ACC_TYPE='" + OemDictCodeConstants.K4_PAYMENT_02
+				+ "' THEN  T.USABLE_AMOUNT ELSE '0.00' END) \n");
+		sql.append("                ELSE '0.00' END) AS COUNT2, -- 广汽汇理汽车金融有限公司 \n");
+
+		sql.append("       SUM(CASE WHEN T.FINANCING_STATUS = 'A' OR T.FINANCING_STATUS = 'W' \n");
+		sql.append("                THEN (CASE when T.ACC_TYPE='" + OemDictCodeConstants.K4_PAYMENT_03
+				+ "' THEN  T.USABLE_AMOUNT ELSE '0.00' END) \n");
+		sql.append("                ELSE '0.00' END) AS COUNT3, -- 菲亚特汽车金融有限责任公司 \n");
+
+		sql.append("       SUM(CASE WHEN T.FINANCING_STATUS = 'A' OR T.FINANCING_STATUS = 'W' \n");
+		sql.append("                THEN (CASE when T.ACC_TYPE='" + OemDictCodeConstants.K4_PAYMENT_04
+				+ "' THEN  T.USABLE_AMOUNT ELSE '0.00' END) \n");
+		sql.append("                ELSE '0.00' END) AS COUNT4, -- 兴业银行 \n");
+
+		sql.append("       SUM(CASE WHEN T.FINANCING_STATUS = 'A' OR T.FINANCING_STATUS = 'W' \n");
+		sql.append("                THEN (CASE when T.ACC_TYPE='" + OemDictCodeConstants.K4_PAYMENT_05
+				+ "' THEN  T.USABLE_AMOUNT ELSE '0.00' END) \n");
+		sql.append("                ELSE '0.00' END) AS COUNT5, -- 交通银行 \n");
+		sql.append("       SUM((CASE when T.ACC_TYPE='" + OemDictCodeConstants.K4_PAYMENT_06
+				+ "' THEN  T.AMOUNT ELSE '0.00' END)) AS COUNT6, -- 中行的三方承兑 \n");
+
+		sql.append("       SUM(CASE WHEN T.FINANCING_STATUS = 'A' OR T.FINANCING_STATUS = 'W' \n");
+		sql.append("                THEN (CASE when T.ACC_TYPE='" + OemDictCodeConstants.K4_PAYMENT_07
+				+ "' THEN  T.USABLE_AMOUNT ELSE '0.00' END) \n");
+		sql.append("                ELSE '0.00' END) AS COUNT7, -- 建行融资 \n");
+
+		sql.append("       SUM((CASE WHEN T.ACC_TYPE = '" + OemDictCodeConstants.K4_PAYMENT_01 + "' THEN T.AMOUNT \n");
+		sql.append("                 WHEN T.ACC_TYPE = '" + OemDictCodeConstants.K4_PAYMENT_02
+				+ "' AND (T.FINANCING_STATUS = 'A' OR T.FINANCING_STATUS = 'W') THEN T.USABLE_AMOUNT \n");
+		sql.append("                 WHEN T.ACC_TYPE = '" + OemDictCodeConstants.K4_PAYMENT_03
+				+ "' AND (T.FINANCING_STATUS = 'A' OR T.FINANCING_STATUS = 'W') THEN T.USABLE_AMOUNT \n");
+		sql.append("                 WHEN T.ACC_TYPE = '" + OemDictCodeConstants.K4_PAYMENT_04
+				+ "' AND (T.FINANCING_STATUS = 'A' OR T.FINANCING_STATUS = 'W') THEN T.USABLE_AMOUNT \n");
+		sql.append("                 WHEN T.ACC_TYPE = '" + OemDictCodeConstants.K4_PAYMENT_05
+				+ "' AND (T.FINANCING_STATUS = 'A' OR T.FINANCING_STATUS = 'W') THEN T.USABLE_AMOUNT \n");
+		sql.append("                 WHEN T.ACC_TYPE = '" + OemDictCodeConstants.K4_PAYMENT_06 + "' THEN T.AMOUNT \n");
+		sql.append("                 WHEN T.ACC_TYPE = '" + OemDictCodeConstants.K4_PAYMENT_07
+				+ "' AND (T.FINANCING_STATUS = 'A' OR T.FINANCING_STATUS = 'W') THEN T.USABLE_AMOUNT \n");
+		sql.append("            ELSE '0.00' END)) AS AMOUNT -- 合计 \n");
+
+		sql.append("  FROM TT_DEALER_ACCOUNT T \n");
+		sql.append(" RIGHT JOIN TM_DEALER D ON T.DEALER_ID = D.DEALER_ID \n");
+		sql.append(" WHERE D.DEALER_ID = '" + loginInfo.getDealerId() + "' \n");
+		sql.append(" GROUP BY T.DEALER_ID, D.DEALER_CODE, D.DEALER_SHORTNAME \n");
+		sql.append(" ORDER BY D.DEALER_CODE, D.DEALER_SHORTNAME \n");
+		return OemDAOUtil.pageQuery(sql.toString(), null);
 	}
 }

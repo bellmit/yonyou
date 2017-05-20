@@ -30,7 +30,7 @@ import com.yonyou.dms.function.utils.common.CommonUtils;
  * 传输方向 DCCM->DCS
  */
 @Service
-public class DCCMTODCS001Impl extends BaseService implements DCCMTODCS001 {
+public class DCCMTODCS001Impl implements DCCMTODCS001 {
 	private static final Logger logger = LoggerFactory.getLogger(DCCMTODCS001Impl.class);
 	private LonPropertiesLoad lonLeader=LonPropertiesLoad.getInstance();
 	
@@ -44,7 +44,6 @@ public class DCCMTODCS001Impl extends BaseService implements DCCMTODCS001 {
 		try {
 			logger.info("================潜客信息数据交互接口========开始=========");
 			//事务开启
-			dbService();
 			
 			Calendar beforeTime = Calendar.getInstance();
 			beforeTime.add(Calendar.MINUTE, -35);// 35分钟之前的时间
@@ -157,14 +156,11 @@ public class DCCMTODCS001Impl extends BaseService implements DCCMTODCS001 {
 					tInfo.saveIt();
 			    }	
 			}		
-		    dbService.endTxn(true);
 			logger.info("================潜客信息数据交互接口========成功=========");
 		} catch (Exception e) {
 			e.printStackTrace();
-			dbService.endTxn(false);	// 回滚事务
 			logger.info("================潜客信息数据交互接口========异常=========" + e);
 		} finally {
-			dbService.clean();	// 清理事务
 			logger.info("================潜客信息数据交互接口========结束=========");
 		}
 		return null;
@@ -172,8 +168,8 @@ public class DCCMTODCS001Impl extends BaseService implements DCCMTODCS001 {
 	}
 	public static void main(String[] args) throws Exception {
 		//ContextUtil.loadConf();
-		DCCMTODCS001 dcc = new DCCMTODCS001Impl();
-		dcc.execute();
+//		DCCMTODCS001 dcc = new DCCMTODCS001Impl();
+//		dcc.execute();
 	}
 
 }

@@ -82,7 +82,7 @@ public class SADCS010DayCloudImpl  extends BaseCloudImpl implements SADCS010DayC
 			showPO.set("NO_OF_SC", new Long(vo.getNoOfSc()));
 		}
 		// showPO.setConRate(vo.getConversionRatio());
-		showPO.setTimestamp("CURRENT_DATE", vo.getCurrentDate());
+		showPO.setTimestamp("CURRENT_DATET", vo.getCurrentDate());
 		showPO.setInteger("IS_ARC", 0);
 		showPO.setInteger("IS_DEL", 0);
 		showPO.setInteger("VER", 0);

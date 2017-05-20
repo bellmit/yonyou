@@ -51,7 +51,7 @@ public class TtWrForeotheritemsRuleDao extends OemBaseDAO{
 		sql.append(" and t1.OEM_COMPANY_ID=").append(loginInfo.getCompanyId()).append("\n");
 		//其他费用代码
 		  if (!StringUtils.isNullOrEmpty(queryParam.get("OTHER_FEE_CODE"))) {
-				sql.append(" and t1.OTHER_FEE_CODE like '%"+queryParam.get("OTHER_FEE_CODE")+"%'  \n");
+				sql.append(" and t2.OTHER_FEE_CODE like '%"+queryParam.get("OTHER_FEE_CODE")+"%'  \n");
 			}
 		  //其他费用名称
 		  if (!StringUtils.isNullOrEmpty(queryParam.get("OTHER_FEE_NAME"))) {
@@ -94,10 +94,10 @@ public class TtWrForeotheritemsRuleDao extends OemBaseDAO{
         StringBuffer sql = new StringBuffer();
         sql.append("	 select OTHER_FEE_CODE,OTHER_FEE_NAME from TT_WR_OTHERFEE_DCS  where IS_DEL="+OemDictCodeConstants.IS_DEL_00 +" \n");		
 		  if (!StringUtils.isNullOrEmpty(queryParam.get("OTHER_FEE_CODE"))) {
-				sql.append("   and OTHER_FEE_CODE='"+queryParam.get("OTHER_FEE_CODE")+"'  \n");
+				sql.append("   and OTHER_FEE_CODE like  '%"+queryParam.get("OTHER_FEE_CODE")+"%'  \n");
 			}
 		  if (!StringUtils.isNullOrEmpty(queryParam.get("OTHER_FEE_NAME"))) {
-				sql.append("   and OTHER_FEE_NAME='"+queryParam.get("OTHER_FEE_NAME")+"'  \n");
+				sql.append("   and OTHER_FEE_NAME  like '%"+queryParam.get("OTHER_FEE_NAME")+"%'  \n");
 			}
 		  System.out.println(sql.toString());
     return OemDAOUtil.findAll(sql.toString(),null); 

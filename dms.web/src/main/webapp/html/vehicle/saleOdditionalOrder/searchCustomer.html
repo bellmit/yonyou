@@ -157,10 +157,11 @@ $(document).one("onload.dms",function(event,container){
 		container:container,
 		url : dmsCommon.getDmsPath()["vehicle"] + "/ordermanage/salesOdditionalOrder/customer",
 		sortName : "CUSTOMER_NO",
-		sortOrder : "asc",
+		sortOrder : "desc",
 		pageSize:7,
 		autoHeight:false,
 		isQueryFirst:false,
+		undefinedText : "",
 		columns : [ 
 		            {radio:true,sortable : false},
 		            {field : "CUSTOMER_NO",title : "客户编号"},
@@ -178,7 +179,7 @@ $(document).one("onload.dms",function(event,container){
 	    			{field : "CONFIG_NAME",title:"意向配置"},
 	    			{field : "COLOR_NAME",title:"意向颜色"},		        
 		            {field : "MEDIA_TYPE",title : "信息渠道",inputField:"mediaType",codeFormat : {type:"dict",codeType:"1298"}},
-		            {field : "MEDIA_DETAIL",title : "渠道细分"}
+		            {field : "MEDIA_DETAIL_NAME",title : "渠道细分"}
 		         ]
 	});
  	new Datatable().initPagination({
@@ -186,7 +187,7 @@ $(document).one("onload.dms",function(event,container){
 		container:container,
 		url : dmsCommon.getDmsPath()["vehicle"] + "/ordermanage/salesOdditionalOrder/customer",
 		sortName : "CUSTOMER_NO",
-		sortOrder : "asc",
+		sortOrder : "desc",
 		pageSize:7,
 		autoHeight:false,
 		isQueryFirst:false,

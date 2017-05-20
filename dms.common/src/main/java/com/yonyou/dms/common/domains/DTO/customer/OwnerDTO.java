@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.yonyou.dms.function.utils.jsonSerializer.date.JsonSimpleDateDeserializer;
+
 public class OwnerDTO {
 
 	private String dealercode;
@@ -47,7 +50,7 @@ public class OwnerDTO {
 	private String phone;//电话
 
 	private String mobile;//手机
-
+	@JsonDeserialize(using = JsonSimpleDateDeserializer.class)
 	private Date birthday;//出生日期
 
 	private String eMail;//E_MAIL
@@ -72,6 +75,7 @@ public class OwnerDTO {
 
 	private Double decisionMarkerPosition;//决策人职位
 
+	@JsonDeserialize(using = JsonSimpleDateDeserializer.class)
 	private Date decisionMarkerBirthday;//决策人生日
 
 	private String decisionMarkerEMail;//决策人EMail

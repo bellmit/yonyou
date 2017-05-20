@@ -84,4 +84,6 @@ public interface AccountBalanceService {
 	 */
 	List<Map> dealerPayquery1(Map<String, String> queryParam);
 
+	PageInfoDto accountBalanceDealerQuery(Map<String, String> queryParam);
+
 }

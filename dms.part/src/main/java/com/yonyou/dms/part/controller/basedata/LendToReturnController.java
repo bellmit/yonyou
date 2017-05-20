@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.yonyou.dms.common.domains.PO.basedata.TtPartLendPO;
 import com.yonyou.dms.framework.DAO.PageInfoDto;
 import com.yonyou.dms.framework.util.FrameworkUtil;
 import com.yonyou.dms.framework.util.Utility;

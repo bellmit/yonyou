@@ -63,7 +63,7 @@
 			isQueryFirst:true,
 // 			pageSize:5,
 			columns : [ 
-			    {checkbox:true,sortable : true},
+			    {radio:true,sortable : true},
 			    {field : "PART_CODE",title : "配件代码"}, 
 				{field : "PART_NAME",title : "配件名称"}
 			]
@@ -89,6 +89,31 @@
 			}
 			$("a[data-dismiss='modal']",container).click();
 		});
+		
+		
+		//事件点击
+		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
+			var selectRow = $("#dms_table",container).dmsTable().getSelections();
+			if(selectRow.length>0){
+				var dealers = "";
+				for(var i = 0 ;i<selectRow.length;i++){
+					if(dealers==""){
+						dealers = selectRow[i]["PART_NAME"];
+					}else{
+						dealers =dealers+","+selectRow[i]["PART_NAME"];
+					}
+				}
+				$("#partName",getElementContext()).setDmsValue(dealers);
+			}else{
+				dmsCommon.tip({status:"warning",msg:"请选择所需要的车系代码！"});//总共的状态类型：info、success、error、warning
+				return false;
+			}
+			$("a[data-dismiss='modal']",container).click();
+		});
+		
+		
+		
+		
 		//事件点击
 		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
 			var selectRow = $("#dms_table",container).dmsTable().getSelections();

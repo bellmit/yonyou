@@ -39,7 +39,8 @@ public class SEDCS054Impl extends BaseImpl implements SEDCS054{
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
-		logger.info("==========克莱斯勒明检和神秘客下发结束(SEDCS054Impl)============");		return null;
+		logger.info("==========克莱斯勒明检和神秘客下发结束(SEDCS054Impl)============");		
+		return null;
 	}
 	
 	/**

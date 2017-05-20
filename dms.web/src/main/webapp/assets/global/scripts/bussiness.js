@@ -42,6 +42,15 @@ var dmsPart = function() {
 			setElementReadOnly(item);
 		});
 	};
+	
+	//让某标志的元素显示为禁用,这个可以是一个类标志，可以是标签，也可以是id
+	var initContextReadOnly = function(container,element){
+		var objArray = $(element,container);
+		objArray.each(function(index,item){
+			setElementReadOnly(item);
+		})
+	}
+	
 	var setElementReadOnly = function(element) {
 		var obj = element;
 		var isExcludeReadOnly = $(obj).attr("data-isExcludeReadOnly");
@@ -149,6 +158,63 @@ var dmsPart = function() {
 		}
 	}
 
+	//刷新配件报损页面的按钮
+	var fushPageBtn1 = function(type,container){
+		switch(type){
+			case "init":
+				$(".lossNo",container).removeAttr("disabled");
+				$("#addBtn",container).removeAttr("disabled");
+			break;
+			case "addBtn":
+				$("#saveBtn",container).removeAttr("disabled");
+				$("#cancelBtn",container).removeAttr("disabled");
+				$(".inventoryNo",container).removeAttr("disabled");
+				$("#addPartBtn",container).removeAttr("disabled");
+				$("#lossNo",container).val("");
+			break;
+			case "searchBtn":
+				if($.trim($("#inventoryNo",container).val()) != ""){
+					$("#cancellationBtn",container).removeAttr("disabled");
+					$("#addPartBtn",container).removeAttr("disabled");
+				}
+				$("#outStorgeBtn",container).removeAttr("disabled");
+				$("#cancelBtn",container).removeAttr("disabled");
+				$("#saveBtn",container).removeAttr("disabled");
+			break;
+			case "batchBtn":
+//				$("#batchPartBtn",container).attr("disabled","true");
+//				$("#addPartBtn",container).attr("disabled","true");
+				break;
+			case "saveBtn":
+//				$("#outStorgeBtn",container).removeAttr("disabled");
+//				$("#cancelBtn",container).removeAttr("disabled");
+//				$("#saveBtn",container).removeAttr("disabled");
+//				$("#addPartBtn",container).removeAttr("disabled");
+//				$("#cancellationBtn",container).removeAttr("disabled");
+				break;
+			case "outStorageBtn":
+//				$("#addBtn",container).removeAttr("disabled");
+//				$("#cancelBtn",container).removeAttr("disabled");
+//				$("#printBtn",container).removeAttr("disabled");
+				break;
+			case "resetType":
+				initContextReadOnly(container,$("#handler",container));
+				$(".lossNo",container).attr("disabled","true");
+				$(".inventoryNo",container).attr("disabled","true");
+				$(".lossDate",container).attr("disabled","true");
+				$("#addBtn",container).attr("disabled","true");
+				$("#outStorgeBtn",container).attr("disabled","true");
+				$("#addPartBtn",container).attr("disabled","true");
+				$("#saveBtn",container).attr("disabled","true");
+				$("#cancelBtn",container).attr("disabled","true");
+				$("#cancellationBtn",container).attr("disabled","true");
+				$("#printBtn",container).attr("disabled","true");
+				$("#batchPartBtn",container).attr("disabled","true");
+				$("#delJsonStr",container).val("");
+				break;
+		}
+	}
+	
 	var removeElementsReadOnly = function(container, filterFunction) {
 		// 文本输入框
 		var inputArray = $(
@@ -214,7 +280,13 @@ var dmsPart = function() {
 		},
 		fushPageBtn:function(type,container){
 					return fushPageBtn(type,container);
-				}
+				},
+		fushPageBtn1:function(type,container){
+					return fushPageBtn1(type,container);
+				},
+		initContextReadOnly:function(container,element){
+			initContextReadOnly(container,element);
+		}
 
 
 	};
@@ -725,7 +797,66 @@ var dmsRepair = function() {
 
 	// 工单号回车事件
 	var roNoKeyUp = function(obj, container) {
-		$("#openRoNo", container).click();
+		$("#roNoQueryBtn", container).click();
+	}
+	
+	var SetDefaultPara = function(container){
+		var CurDateTime = new Date();
+		$("#estimateBeginTime",container).setDmsValue(CurDateTime.getTime());
+		if(dmsCommon.getSystemParamInfo("1160", "1160")=='12781001'){
+			if(!isStringNull(dmsCommon.getSystemParamInfo("8037", "8037"))&&parseInt(dmsCommon.getSystemParamInfo("8037", "8037"))>0){
+				$("#estimateBeginTime",container).setDmsValue(CurDateTime.getTime()+parseInt(dmsCommon.getSystemParamInfo("8037", "8037"))*60*1000);
+			}
+			$("#createDate",container).setDmsValue(CurDateTime.getTime());
+			$("#endTimeSupposed",container).setDmsValue(CurDateTime.getTime());
+			$("#license",container).setDmsValue(dmsCommon.getSystemParamInfo("1002", "1002"));
+			$("#roStatus",container).setDmsValue('12551001');
+			$("#completeTag",container).setDmsValue('12781002');
+			$("#isCustomerInAsc",container).setDmsValue('12781001');
+			//初始化页面显示。
+			//工单类型  维修工单
+			$("#roType",container).setDmsValue('12531001');
+			
+			$("#isTrace",container).setDmsValue('12781001');
+			$("#traceTime",container).setDmsValue('11251004');//默认全天
+			
+			 //一些为否的默认值：
+			//是否洗车、是否路试、是否质检  IS_SEASON_CHECK
+			$("#checkIsTake",container).setDmsValue(dmsCommon.getSystemParamInfo("1782", "1782"));
+			$("#checkIsWash",container).setDmsValue(dmsCommon.getSystemParamInfo("1607", "1607"));
+			$("#checkIsRoad",container).setDmsValue(dmsCommon.getSystemParamInfo("1608", "1608"));
+			$("#checkIsQuality",container).setDmsValue(dmsCommon.getSystemParamInfo("1609", "1609"));
+			
+			//如果当前操作人是服专，那 当前默认服专为自己
+			findServiceAdvisor(dmsCommon.commonDataMap['userInfo']['employeeNo'],container);
+			//工时单价 跟随维修类型变化、及时更新。
+		}
+	}
+	
+	/**
+	 * 判断是否服务专员
+	 */
+	var findServiceAdvisor = function(name,container){
+		dmsCommon.ajaxRestRequest({
+			url : dmsCommon.getDmsPath()["repair"]
+					+ "/order/repair/findServiceAdvisor",
+			type : 'GET',
+			data : {
+				'name' : name,
+			},
+			async : false,
+			sucessCallBack : function(data) {
+				if(data=='1'){//表示是
+					$("#serviceAdvisor",container).setDmsValue("{[userInfo.employeeNo]}");
+				}
+			},
+			errorCallBack : function() {
+				dmsCommon.tip({
+					status : "error",
+					msg : "查询失败!"
+				});
+			}
+		});
 	}
 
 	// vin号回车事件
@@ -2533,6 +2664,9 @@ var dmsRepair = function() {
 		},
 		vinKeyUp : function(obj, container) {
 			vinKeyUp(obj, container);
+		},
+		SetDefaultPara : function(container){
+			SetDefaultPara(container);
 		}
 	};
 

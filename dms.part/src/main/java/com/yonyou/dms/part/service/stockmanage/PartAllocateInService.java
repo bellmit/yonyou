@@ -43,7 +43,7 @@ import com.yonyou.dms.part.domains.DTO.stockmanage.PartAllocateInDto;
 public interface PartAllocateInService {
 
     public   PageInfoDto  qryAllocateInOrders(Map<String, String> queryParam) throws ServiceBizException;
-    public PageInfoDto getAllocateInItemsByAllocateInNo(String allocateInNo) throws ServiceBizException;
+    public  List<Map> getAllocateInItemsByAllocateInNo(String allocateInNo) throws ServiceBizException;
     public List<Map> getStorageAllSelect()throws ServiceBizException;
     public PageInfoDto queryStoragePartForAdd(Map<String, String> queryParam)throws ServiceBizException;
    // public PageInfoDto queryStoragePartForAddC(Map<String, String> queryParam)throws ServiceBizException;

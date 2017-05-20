@@ -3,7 +3,9 @@
 		<div class="modal-header">
 			<div class="modal-title">系统提示</div>
 		</div>
+		<!-- 库存数量+借进数量-借出数量-出库数量 -->
 		<div class="modal-body">
+				<input type="hidden" id="outQuantity" name="outQuantity" value="{[OUT_QUANTITY]}" />
 				<input type="hidden" id="partNo2" name="partNo2" value="{[PART_NO]}" />
 				<input type="hidden" id="storageCode" name="storageCode" value="{[STORAGE_CODE]}" />
 				<input type="hidden" id="lendNo" name="lendNo" value="{[LEND_NO]}" />
@@ -18,21 +20,21 @@
 			<div class="modal-footer center-block">
 				<p>是否负库存：上述配件出入库会造成负库存,是否入账？</p>					
 				<p>是否库存或金额为零:&nbsp;1.库存数量*成本单价<>成本金额且库存数量或成本金额有为零;<br/>&nbsp;2.成本单价为零。</p>					
-				<a id="yes" data-onclickEvent="true" class="btn blue"><i class="fa fa-save"></i>是</a>
-				<a id="exit" class="btn blue"><i class="fa fa-print"></i>否</a>
+				<a id="yes" data-onclickEvent="true" class="btn blue" data-toggle="confirmation"><i class="fa fa-save"></i>是</a>
+				<a data-dismiss="modal" class="btn blue"><i class="fa fa-undo"></i>否
+			</a>
 			</div>
 		</div>
 	</form>
 </div>
 <script type="text/javascript">
 $(document).one("onload.dms",function(event,container){
-	alert($("#lendNo").val());
 		new Datatable().initPagination({
 			src : "dms_account",
 			container:container,
 			rowID:"PART_NO",
 			undefinedText : "",
-			url :dmsCommon.getDmsPath()["part"] + "/part/lendOrderChoose/"+$('#partNo2',container).val()+"/"+$('#storageCode',container).val(),
+			url:dmsCommon.getDmsPath()["part"] +"/part/lendOrderChoose/"+partNo2+"/"+storageCode+"/"+outQuantity,
 			pageSize:5,
 			autoHeight:false,
 			clickToSelect: false,
@@ -55,16 +57,16 @@ $(document).one("onload.dms",function(event,container){
 		$("a[data-onclickEvent='true']",container).on("dms.click",function(event,container){
 			
 			dmsCommon.ajaxRestRequest({
-				url:dmsCommon.getDmsPath()["part"] +"/part/lendOrderChoose/"+$('#lendNo',container).val(),
+				url:dmsCommon.getDmsPath()["part"] +"/part/lendOrderChoose/yes/"+$('#lendNo',container).val(),
 				type:"POST",
 				sucessCallBack : function(data) {
 					
 				}
 			});
-			
 			returnResult.status = true;
 			//关闭窗口
 			$("a[data-dismiss='modal']",container).click();
+			
 		}); 
 		
 		//点击否按钮

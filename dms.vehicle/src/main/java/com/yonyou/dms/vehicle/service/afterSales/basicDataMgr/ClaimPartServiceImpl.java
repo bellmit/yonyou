@@ -121,7 +121,7 @@ public class ClaimPartServiceImpl implements ClaimPartService{
 	  public List<Map> getApplyDataBy(TtWrPartwarrantyDTO ptdto) throws ServiceBizException {
 	        StringBuilder sqlSb = new StringBuilder("  SELECT part_code from TT_WR_PARTWARRANTY_dcs where 1=1");
 	        List<Object> params = new ArrayList<>();
-	        sqlSb.append(" and  part_code=?");
+	        sqlSb.append(" and  part_code=?  and is_del=0 ");
 	        params.add(ptdto.getPartCode());
 	        List<Map> applyList=OemDAOUtil.findAll(sqlSb.toString(), params);
 	        return applyList;

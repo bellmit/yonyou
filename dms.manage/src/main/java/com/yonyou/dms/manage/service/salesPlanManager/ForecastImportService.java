@@ -55,6 +55,12 @@ public interface ForecastImportService {
 	public boolean saveColorAndTrim(Map<String, String> params);
 
 	public boolean delColorAndTrim(Long id);
+
+	public List<Map> getForecastColorOTDFilterList(String packageId, LoginInfoDto loginInfo, String taskId,
+			String detailId);
+
+	public void saveOTDForecast2(String taskId, String colorDetailId, String groupId, String forecastAmount,
+			String[] numsColor, String[] materialIds, LoginInfoDto loginInfo);
 	
 	
 	

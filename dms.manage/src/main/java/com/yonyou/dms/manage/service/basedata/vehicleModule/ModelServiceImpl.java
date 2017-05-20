@@ -416,7 +416,7 @@ public class ModelServiceImpl implements ModelService{
 
 	@Override
 	public List<Map> queryModelC(Map<String, String> queryParam) throws ServiceBizException {
-		StringBuilder sqlSb = new StringBuilder("select tmm.DEALER_CODE as DEALER_CODE,tmc.SERIES_CODE,tmm.MODEL_CODE,tmm.MODEL_NAME   from tm_MODEL tmm,tm_series tmc where 1=1 and tmc.IS_VALID=12781001 and tmm.SERIES_CODE=tmc.SERIES_CODE");
+		StringBuilder sqlSb = new StringBuilder("select tmm.DEALER_CODE as DEALER_CODE,tmc.SERIES_CODE,tmm.MODEL_CODE,tmm.MODEL_NAME   from tm_MODEL tmm,tm_series tmc where 1=1 and tmc.IS_VALID=12781001 and tmm.SERIES_CODE=tmc.SERIES_CODE AND tmm.DEALER_CODE=tmc.DEALER_CODE");
 		List<Object> params = new ArrayList<Object>();
 //		sqlSb.append(" and tmm.IS_VALID=?");
 //		params.add(DictCodeConstants.STATUS_IS_YES);

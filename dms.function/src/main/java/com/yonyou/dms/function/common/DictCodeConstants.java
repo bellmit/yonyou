@@ -1702,4 +1702,25 @@ public class DictCodeConstants {
 	public static final String DICT_OUT_DANGER_TRACE_STATUS_SUCCEED="16061003";// 成功结束跟踪
 	public static final String DICT_OUT_DANGER_TRACE_STATUS_FAILED="16061004";// 失败结束
 	public static final String DICT_OUT_DANGER_TRACE_STATUS_CONTINUE="16061005";//继续跟踪
+	
+	/**
+	  * 延保索赔申请单状态
+	  */
+	 public static final String  DICT_CLAIMA_STATUS = "3334"; //延保索赔申请单状态
+	 public static final String  DICT_CLAIMA_STATUS_NOT_AUDIT = "33341001"; //未提交
+	 public static final String  DICT_CLAIMA_STATUS_CANCEL = "33341002"; //已作废
+	 public static final String  DICT_CLAIMA_STATUS_TECHNICAL_AUDITING = "33341011"; //技术经理审核中
+	 public static final String  DICT_CLAIMA_STATUS_TECHNICAL_REFUSE = "33341012"; //技术经理拒绝
+	 public static final String  DICT_CLAIMA_STATUS_TECHNICAL_TURN = "33341013"; //技术经理驳回
+	 public static final String  DICT_CLAIMA_STATUS_SERVICE_AUDITING = "33341021"; //服务经理审核中
+	 public static final String  DICT_CLAIMA_STATUS_SERVICE_REFUSE = "33341022"; //服务经理审拒绝
+	 public static final String  DICT_CLAIMA_STATUS_SERVICE_TURN = "33341023"; //服务经理驳回
+	 public static final String  DICT_CLAIMA_STATUS_GENERAL_AUDITING = "33341031"; //总经理审核中
+	 public static final String  DICT_CLAIMA_STATUS_GENERAL_REFUSE = "33341032"; //总经理拒绝
+	 public static final String  DICT_CLAIMA_STATUS_GENERAL_TURN = "33341033"; // 总经理驳回
+	 public static final String  DICT_CLAIMA_STATUS_4S_AUDITED = "33341038"; //店面审核通过
+	 public static final String  DICT_CLAIMA_STATUS_IS_UPLOAD = "33341040"; //已上报
+	 public static final String  DICT_CLAIMA_STATUS_OEM_AUDITED = "33341041"; //总部索赔通过
+	 public static final String  DICT_CLAIMA_STATUS_OEM_REFUSE = "33341042";//总部索赔拒绝
+	 public static final String  DICT_CLAIMA_STATUS_OEM_TURN = "33341043"; //总部驳回修改
 }

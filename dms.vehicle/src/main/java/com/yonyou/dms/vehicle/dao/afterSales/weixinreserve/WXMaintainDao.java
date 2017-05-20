@@ -77,7 +77,12 @@ public class WXMaintainDao extends OemBaseDAO{
 		 
 		 //套餐类型
 		 if (!StringUtils.isNullOrEmpty(queryParam.get("pType"))) {
-				sql.append("AND TWMP.P_TYPE = '"+queryParam.get("pType")+"'  \n");
+			 if(Long.parseLong(queryParam.get("pType").toString())==90111002){
+				 sql.append("AND TWMP.P_TYPE = 0  \n");
+			 }
+			 else if(Long.parseLong(queryParam.get("pType").toString())==90111001){
+				sql.append("AND TWMP.P_TYPE = 1  \n");
+			 }
 			}
 		 
 		 //燃油类型
@@ -154,11 +159,11 @@ public class WXMaintainDao extends OemBaseDAO{
 			sqlStr.append(" WHERE TWML.LABOUR_CODE <> '' \n");
 			//工时代码
 			 if (!StringUtils.isNullOrEmpty(queryParam.get("LABOUR_CODE"))) {
-					sqlStr.append("AND  t.labour_code like '%"+queryParam.get("LABOUR_CODE")+"%'  \n");
+					sqlStr.append("AND TWML.LABOUR_CODE like '%"+queryParam.get("LABOUR_CODE")+"%'  \n");
 				}
 			 //工时名称
 			 if (!StringUtils.isNullOrEmpty(queryParam.get("LABOUR_DESC"))) {
-					sqlStr.append("AND   t.labour_name like '%"+queryParam.get("LABOUR_DESC")+"%'  \n");
+					sqlStr.append("AND   TWML.LABOUR_NAME like '%"+queryParam.get("LABOUR_DESC")+"%'  \n");
 				}
 			return OemDAOUtil.findAll(sqlStr.toString(), null);
 		}

@@ -88,6 +88,61 @@ public class ServiceActivityManageController {
      * @return
      */
 
+    @RequestMapping(value="/queryVehicle",method = RequestMethod.GET)
+    @ResponseBody
+    public PageInfoDto queryVehicle(@RequestParam Map map) {
+        return activityManageService.queryVehicle(map);
+    }
+    
+    /**
+     * 查询
+     * @author dingchaoyu
+     * @date 2016年7月27日
+     * @param queryParam
+     * @return
+     */
+
+    @RequestMapping(value="/selectpart/{ACTIVITY_CODE}",method = RequestMethod.GET)
+    @ResponseBody
+    public PageInfoDto selectpart(@PathVariable("ACTIVITY_CODE") String id, UriComponentsBuilder uriCB) {
+        return activityManageService.selectpart(id);
+    }
+    /**
+     * 查询
+     * @author dingchaoyu
+     * @date 2016年7月27日
+     * @param queryParam
+     * @return
+     */
+
+    @RequestMapping(value="/selectlabour/{ACTIVITY_CODE}",method = RequestMethod.GET)
+    @ResponseBody
+    public PageInfoDto selectlabour(@PathVariable("ACTIVITY_CODE") String id, UriComponentsBuilder uriCB) {
+        return activityManageService.selectlabour(id);
+    }
+    
+    /**
+     * 查询
+     * @author dingchaoyu
+     * @date 2016年7月27日
+     * @param queryParam
+     * @return
+     */
+
+    @RequestMapping(value="/selectsubjoin/{ACTIVITY_CODE}",method = RequestMethod.GET)
+    @ResponseBody
+    public PageInfoDto selectsubjoin(@PathVariable("ACTIVITY_CODE") String id, UriComponentsBuilder uriCB) {
+        return activityManageService.selectsubjoin(id);
+    }
+    
+    /**
+     * 查询
+     * @author dingchaoyu
+     * @date 2016年7月27日
+     * @param queryParam
+     * @return
+     */
+
     @RequestMapping(value="/query/{ACTIVITY_CODE}",method = RequestMethod.GET)
     @ResponseBody
     public Map<String,Object> querys(@PathVariable("ACTIVITY_CODE") String id, UriComponentsBuilder uriCB) {
@@ -103,6 +158,17 @@ public class ServiceActivityManageController {
        MultiValueMap<String, String> headers = new HttpHeaders();
        headers.set("Location", uriCB.path("/market/serviceActivityManage").buildAndExpand().toUriString());
        return new ResponseEntity<String>(s, headers, HttpStatus.CREATED);
+    }
+    
+    /**
+     * 发布和作废
+     */
+    @RequestMapping(value="/del/{ACTIVITY_CODE}/{id}",method = RequestMethod.PUT)
+    public ResponseEntity<String> UpdateActivityReleaseTag(@PathVariable("ACTIVITY_CODE") String id,@PathVariable("id") String ids, UriComponentsBuilder uriCB){
+       activityManageService.UpdateActivityReleaseTag(id,ids);
+       MultiValueMap<String, String> headers = new HttpHeaders();
+       headers.set("Location", uriCB.path("/market/serviceActivityManage").buildAndExpand().toUriString());
+       return new ResponseEntity<String>( headers, HttpStatus.CREATED);
     }
     
 }

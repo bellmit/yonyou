@@ -437,4 +437,37 @@ public class RepairOrderController extends BaseController {
    		return  list;
    	}
    	
+   	/**
+   	 * 判断是否服务专员
+   	 * 1表示是   0表示不是
+   	 * @param queryParam
+   	 * @author yangjie
+   	 * @return
+   	 */
+   	@RequestMapping(value = "/findServiceAdvisor", method = RequestMethod.GET)
+   	public String findServiceAdvisor(@RequestParam Map<String, String> queryParam){
+   		return orderService.findServiceAdvisor(queryParam.get("name"));
+   	}
+   	
+   	/**
+   	 * 根据维修类型查询工时单价
+   	 * @param queryParam
+   	 * @author yangjie
+   	 * @return
+   	 */
+   	@RequestMapping(value = "/findLabourPriceByRepairTypeCode", method = RequestMethod.GET)
+   	public String findLabourPriceByRepairTypeCode(@RequestParam Map<String, String> queryParam){
+   		return orderService.findLabourPriceByRepairTypeCode(queryParam.get("code"));
+   	}
+   	
+   	/**
+   	 * 根据车型代码查询工时单价
+   	 * @param queryParam
+   	 * @author yangjie
+   	 * @return
+   	 */
+   	@RequestMapping(value = "/findLabourPriceByModelCode", method = RequestMethod.GET)
+   	public String findLabourPriceByModelCode(@RequestParam Map<String, String> queryParam){
+   		return orderService.findLabourPriceByModelCode(queryParam);
+   	}
 }

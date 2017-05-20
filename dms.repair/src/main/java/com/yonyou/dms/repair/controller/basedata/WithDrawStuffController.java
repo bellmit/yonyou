@@ -53,9 +53,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.yonyou.dms.common.domains.DTO.basedata.TmPartStockDTO;
 import com.yonyou.dms.common.domains.DTO.basedata.TmPartStockItemDTO;
+import com.yonyou.dms.common.domains.PO.basedata.TtRoRepairPartPO;
 import com.yonyou.dms.common.service.monitor.OperateLogService;
 import com.yonyou.dms.commonAS.domains.DTO.basedata.PartFlowDTO;
 import com.yonyou.dms.commonAS.domains.DTO.order.RepairOrderDTO;
+import com.yonyou.dms.framework.DAO.DAOUtil;
 import com.yonyou.dms.framework.DAO.PageInfoDto;
 import com.yonyou.dms.framework.service.CommonNoService;
 import com.yonyou.dms.framework.util.FrameworkUtil;
@@ -88,6 +90,7 @@ import com.yonyou.dms.repair.service.basedata.TtPartFlowService;
 import com.yonyou.dms.repair.service.order.WithDrawStuffService;
 import com.yonyou.f4.mvc.annotation.TxnConn;
 import com.yonyou.f4.mvc.controller.BaseController;
+
 
 /**
  * 工单信息
@@ -729,13 +732,15 @@ public class WithDrawStuffController extends BaseController {
             double oldPriceTrue = 0;// 修改前的配件单价 obc
             // 判断工单是否是索赔单，如果是索赔单，则根据"服务活动能否添加配件"参数判断，如果开关打开不能在添加其他配件
             List<TtMaintainTableDTO> maintainPickingTbl = listAdMaintainDTO.getMaintainPickingTbl();
-
+            Long itemIdAuto = commonNoService.getId("TT_RO_REPAIR_PART");
             if (null != maintainPickingTbl && maintainPickingTbl.size() > 0) {
                 for (int i = 0; i < maintainPickingTbl.size(); i++) {
-                    // 如果是新增
-                    repair = new TtRoRepairPartDTO();
                     TtMaintainTableDTO mainTainDto = maintainPickingTbl.get(i);
-                    if (mainTainDto.getPartQuantity() > 0 && Utility.round(String.valueOf(Utility.mul(String.valueOf(mainTainDto.getPartQuantity())
+                    repair = new TtRoRepairPartDTO();
+                    // 如果是新增
+                    if("A".equals(mainTainDto.getItemUpdateStatus())){
+                        
+                    if (!StringUtils.isNullOrEmpty(mainTainDto.getPartQuantity())  && !StringUtils.isNullOrEmpty(mainTainDto.getPartSalesPrice()) && Utility.round(String.valueOf(Utility.mul(String.valueOf(mainTainDto.getPartQuantity())
                            ,String.valueOf(mainTainDto.getPartSalesPrice()))),2) > 0) {
                         Map<String, Object> queryDefaultPara = new HashMap<String, Object>();
                         queryDefaultPara.put("itemCode", "3340");
@@ -745,6 +750,7 @@ public class WithDrawStuffController extends BaseController {
                         queryParams.put("dKey", DictCodeConstants.D_KEY);
                         List<Map> roPartList = withDrawStuffService.selectRoRepairPart(queryParams);
                         int count = 0;
+                        
                         if (roPartList != null && roPartList.size() > 0) {
                             String[] activityCodes = new String[roPartList.size()];
                             for (int j = 0; j < roPartList.size(); j++) {
@@ -769,19 +775,19 @@ public class WithDrawStuffController extends BaseController {
                             Map po1 = repairOrderList.get(0);
                             if ("12531004".equals(po1.get("roType")) && "12781001".equals(paraList)
                                 && count > 0) {
-                                String errMsg2 = "索赔单已添加下发活动，不能再添加配件";
-                                return 0;
+                                throw new ServiceBizException("索赔单已添加下发活动，不能再添加配件!");
                             }
                         }
                     }
                     // 标记为A进行插入操作
+                    repair.setITEM_ID(itemIdAuto);
                     repair.setIS_FINISHED(Utility.getInt(DictCodeConstants.DICT_IS_NO));
                     if (!StringUtils.isNullOrEmpty(mainTainDto.getActivityCode())) {
                         repair.setACTIVITY_CODE(mainTainDto.getActivityCode());
                     }
                     // 是否是老系统中的card_id 卡ID 有待确认
-                    if (!StringUtils.isNullOrEmpty(mainTainDto.getCardCode())) {
-                        repair.setCARD_ID(Utility.getInt(mainTainDto.getCardCode()));
+                    if (!StringUtils.isNullOrEmpty(mainTainDto.getCardId())) {
+                        repair.setCARD_ID(Utility.getInt(mainTainDto.getCardId()));
                     }
                     if (!StringUtils.isNullOrEmpty(mainTainDto.getBatchNo())) {
                         repair.setBATCH_NO(Utility.getInt(mainTainDto.getBatchNo()));
@@ -793,8 +799,6 @@ public class WithDrawStuffController extends BaseController {
                     if (!StringUtils.isNullOrEmpty(mainTainDto.getConsignExterior())) {
                         repair.setCONSIGN_EXTERIOR(Utility.getInt(mainTainDto.getConsignExterior()));
                     }
-                    repair.setCreatedBy(FrameworkUtil.getLoginInfo().getUserId().toString());
-                    repair.setCreatedAt(new Date(System.currentTimeMillis()));
                     if (!StringUtils.isNullOrEmpty(mainTainDto.getDiscount())) {
                         repair.setDISCOUNT(mainTainDto.getDiscount());
                     }
@@ -902,22 +906,28 @@ public class WithDrawStuffController extends BaseController {
                         }
                     }
                     // sIS_DXP 未知字段 和朱恒龙,郑聪沟通下
-                    if (!StringUtils.isNullOrEmpty("sIS_DXP")) {
-                        long Dxp = 6970002;
-                        repair.setFROM_TYPE(Dxp);
-                    }
+                    //if (!StringUtils.isNullOrEmpty("sIS_DXP")) {
+                    //    long Dxp = 6970002;
+                    //    repair.setFROM_TYPE(Dxp);
+                    //}
                     repair.setIS_DISCOUNT(Utility.getInt(mainTainDto.getIsDiscount()));
                     // 待确认 配件中缀
                     repair.setPART_INFIX(mainTainDto.getPartInfix());
-                    Long itemId = withDrawStuffService.addTtRoRepairPart(repair);
-                    itmeIdString[i] = itemId.toString();
+                    TtRoRepairPartPO partPo = withDrawStuffService.addTtRoRepairPart(repair);
+                    
                     //linked.add(Utility.getReturnDynaBeanNoVer("ITEM_ID", repair.getITEM_ID()
                      //                                         .toString(), Utility.getInt(mainTainDto.getRecordId())));
                       Map map2 = new HashMap();
                       map2.put("RECORD_ID", mainTainDto.getRecordId());
-                      map2.put("ITEM_ID", String.valueOf(repair.getITEM_ID()));
+                      if(!StringUtils.isNullOrEmpty(itemIdAuto)){
+                          itmeIdString[i] = itemIdAuto.toString();
+                      map2.put("ITEM_ID", itemIdAuto);
+                      }else{
+                          map2.put("ITEM_ID", null);
+                      }
                       tmPartStockA.add(map2);
                     // 如果是修改
+                    }else if("U".equals(mainTainDto.getItemUpdateStatus())){
                     Map<String, Object> queryParams = new HashMap<String, Object>();
                     queryParams.put("roNo", listAdMaintainDTO.getRoNo());
                     queryParams.put("dKey", DictCodeConstants.D_KEY);
@@ -932,8 +942,8 @@ public class WithDrawStuffController extends BaseController {
                         repair.setACTIVITY_CODE(mainTainDto.getActivityCode());
                     }
                     // 是否是老系统中的card_id 卡ID 有待确认
-                    if (!StringUtils.isNullOrEmpty(mainTainDto.getCardCode())) {
-                        repair.setCARD_ID(Utility.getInt(mainTainDto.getCardCode()));
+                    if (!StringUtils.isNullOrEmpty(mainTainDto.getCardId())) {
+                        repair.setCARD_ID(Utility.getInt(mainTainDto.getCardId()));
                     }
                     if (!StringUtils.isNullOrEmpty(mainTainDto.getBatchNo())) {
                         repair.setBATCH_NO(Utility.getInt(mainTainDto.getBatchNo()));
@@ -945,8 +955,8 @@ public class WithDrawStuffController extends BaseController {
                     if (!StringUtils.isNullOrEmpty(mainTainDto.getConsignExterior())) {
                         repair.setCONSIGN_EXTERIOR(Utility.getInt(mainTainDto.getConsignExterior()));
                     }
-                    repair.setUpdatedBy(FrameworkUtil.getLoginInfo().getUserId().toString());
-                    repair.setUpdatedAt(Utility.getCurrentDateTime());
+                    //repair.setUpdatedBy(FrameworkUtil.getLoginInfo().getUserId().toString());
+                    //repair.setUpdatedAt(Utility.getCurrentDateTime());
                     if (!StringUtils.isNullOrEmpty(mainTainDto.getDiscount())) {
                         repair.setDISCOUNT(mainTainDto.getDiscount());
                     }
@@ -1070,8 +1080,8 @@ public class WithDrawStuffController extends BaseController {
                     withDrawStuffService.modifyByItemId(mainTainDto.getItemId(), repair);
                      Map map3 = new HashMap();
                      map3.put("RECORD_ID", mainTainDto.getRecordId());
-                     //map3.put("ITEM_ID", String.valueOf(repairCon));
-                     tmPartStockA.add(map2);
+                     map3.put("ITEM_ID", String.valueOf(mainTainDto.getItemId()));
+                     tmPartStockA.add(map3);
                     // 判断此条记录是否已经入账
                     if (mainTainDto.getPartSalesPrice() != oldPriceTrue) {
                         List<Map> listRo = new ArrayList<Map>();
@@ -1141,41 +1151,61 @@ public class WithDrawStuffController extends BaseController {
                             partFlowService.addTtPartFlow(flow);
                         }
                     }
-                    // 如果是删除的话
-                    // 判断该工单的配件在缺料明细表中，是否已做BO，否则删除再插入。是则直接插入
-                    Map<String, Object> shortPartMap = new HashMap<String, Object>();
-                    shortPartMap.put("sheepNo", listAdMaintainDTO.getRoNo());
-                    shortPartMap.put("partNo", mainTainDto.getPartNo());
-                    shortPartMap.put("storageCode", mainTainDto.getStorageCode());
-                    shortPartMap.put("dKey", CommonConstants.D_KEY);
-                    shortPartMap.put("isBo", DictCodeConstants.DICT_IS_NO);
-                    if (!StringUtils.isNullOrEmpty(mainTainDto.getStoragePositionCode()))
-                        shortPartMap.put("storagePositionCode", mainTainDto.getStoragePositionCode());
-                    List<Map> shortPartList = shortPartService.queryShortPart(shortPartMap);
-                    if (null != shortPartList && shortPartList.size() > 0) {
-                        Map shortMap = shortPartList.get(0);
-                        shortPartService.deleteShortPartById(Utility.getLong(shortMap.get("shortId").toString()));
-                        String message5 = "该配件【" + mainTainDto.getPartNo() + "】" + mainTainDto.getPartName()
-                                          + "没有生成BO订单，故删除";
                     }
-                    // 入账的配件不允许删除
-                    if (listA != null && listA.size() > 0) {
-                        Map roRepairPartPo = listA.get(0);
-                        if (!(roRepairPartPo.get("isFinished").toString().trim().equals(DictCodeConstants.DICT_IS_YES))) {
-                            if (roRepairPartPo.get("cardId") != null
-                                && Utility.getLong(roRepairPartPo.get("cardId").toString()) != 0L
-                                && (roRepairPartPo.get("activityCode") == null
-                                    || "".equals(roRepairPartPo.get("activityCode")))) {
-                                this.operationMemberPartFlow(dealerCode, FrameworkUtil.getLoginInfo().getUserId(),
-                                                             FrameworkUtil.getLoginInfo().getEmployeeNo(), "2",
-                                                             roRepairPartPo, roRepairPartPo.get("roNo").toString(),
-                                                             "0");
+                }
+                    //else if("D".equals(mainTainDto.getItemUpdateStatus())){
+                if(!StringUtils.isNullOrEmpty(listAdMaintainDTO.getDeleteList())){
+                    
+                    String deleteList = listAdMaintainDTO.getDeleteList();
+                    if(!StringUtils.isNullOrEmpty(deleteList)){
+                        String[] deleteLists = deleteList.split(",");
+                        for(int d = 0; d < deleteLists.length; d ++){
+                            TtRoRepairPartPO partPo = DAOUtil.findFirstByDealer(TtRoRepairPartPO.class, " item_id = ? ", Long.valueOf(deleteLists[d]));
+                            //TtRoRepairPartPO partPo = TtRoRepairPartPO.findByCompositeKeys(dealerCode,Long.valueOf(deleteLists[d]));
+//                            TtRoRepairPartPO partPo = TtRoRepairPartPO.findFirst(" dealer_code = ? AND item_id = ? ", dealerCode,Long.valueOf(deleteLists[d]));
+                         // 如果是删除的话
+                            // 判断该工单的配件在缺料明细表中，是否已做BO，否则删除再插入。是则直接插入
+                            Map<String, Object> shortPartMap = new HashMap<String, Object>();
+                            shortPartMap.put("sheepNo", listAdMaintainDTO.getRoNo());
+                            shortPartMap.put("partNo", partPo.getString("PART_NO"));
+                            shortPartMap.put("storageCode", partPo.getString("STORAGE_CODE"));
+                            shortPartMap.put("dKey", CommonConstants.D_KEY);
+                            shortPartMap.put("isBo", DictCodeConstants.DICT_IS_NO);
+                            if (!StringUtils.isNullOrEmpty(partPo.getString("STORAGE_POSITION_CODE")))
+                                shortPartMap.put("storagePositionCode", partPo.getString("STORAGE_POSITION_CODE"));
+                            List<Map> shortPartList = shortPartService.queryShortPart(shortPartMap);
+                            if (null != shortPartList && shortPartList.size() > 0) {
+                                Map shortMap = shortPartList.get(0);
+                                shortPartService.deleteShortPartById(Utility.getLong(shortMap.get("shortId").toString()));
+                                logger.debug("该配件【" + partPo.getString("PART_NO") + "】" + partPo.getString("PART_NAME")
+                                                  + "没有生成BO订单，故删除");
                             }
-                            // 删除
-                            withDrawStuffService.deleteRoRepairPart(mainTainDto.getItemId());
+                            // 入账的配件不允许删除
+                            //List<TtRoRepairPartPO> listItem=TtRoRepairPartPO.findBySQL("select IS_FINISHED from TT_RO_REPAIR_PART where DEALER_CODE=? and ITEM_ID=? and D_KEY=?", dealerCode,mainTainDto.getItemId(),CommonConstants.D_KEY);
+                            Map<String, Object> repairCon = new HashMap<String, Object>();
+                            repairCon.put("itemId", partPo.getString("ITEM_ID"));
+                            repairCon.put("dKey", CommonConstants.D_KEY);
+                            List<Map> listItem = withDrawStuffService.selectRoRepairPart(repairCon);
+                            if (listItem != null && listItem.size() > 0) {
+                                Map roRepairPartPo = listItem.get(0);
+                                if (!(roRepairPartPo.get("isFinished").toString().trim().equals(DictCodeConstants.DICT_IS_YES))) {
+                                    if (roRepairPartPo.get("cardId") != null
+                                        && Utility.getLong(roRepairPartPo.get("cardId").toString()) != 0L
+                                        && (roRepairPartPo.get("activityCode") == null
+                                            || "".equals(roRepairPartPo.get("activityCode")))) {
+                                        this.operationMemberPartFlow(dealerCode, FrameworkUtil.getLoginInfo().getUserId(),
+                                                                     FrameworkUtil.getLoginInfo().getEmployeeNo(), "2",
+                                                                     roRepairPartPo, roRepairPartPo.get("roNo").toString(),
+                                                                     "0");
+                                    }
+                                    // 删除
+                                    withDrawStuffService.deleteRoRepairPart(Long.valueOf(partPo.getString("ITEM_ID")));
+                                }
+                            }
                         }
                     }
                 }
+                
                 // 待确认
                 // if (linked != null && linked.size() > 0)
                 // {
@@ -1185,26 +1215,23 @@ public class WithDrawStuffController extends BaseController {
                 // add by sf 2010-12-17 检查非OEM 配件出库
                 List<Map> listcheck = getNonOemPartListOutReturn(dealerCode, "TT_RO_REPAIR_PART", "RO_NO",
                                                                  String.valueOf(listAdMaintainDTO.getRoNo()), null);
-                String errPart = "";
+                StringBuilder errPart = new StringBuilder("");
                 if (listcheck != null && listcheck.size() > 0) {
                     // logger.debug("list size :"+listcheck.size());
                     for (int i = 0; i < listcheck.size(); i++) {
-                        // DynaBean dyna=null;
-                        // dyna = (DynaBean)listcheck.get(i);
-                        // if (errPart.equals("")){
-                        // errPart = dyna.getString("PART_NO");
-                        // }else{
-                        // errPart = errPart + ", "+dyna.getString("PART_NO");
-                        // }
+                         Map dyna = (Map)listcheck.get(i);
+                         if ("".equals(errPart)){
+                         errPart.append(dyna.get("PART_NO"));
+                         }else{
+                         errPart.append(", ").append(dyna.get("PART_NO"));
+                         }
                     }
 
                     // logger.debug("errPart :"+errPart);
                 }
-                if (!errPart.equals("")) {
-                    /// actionContext.setErrorContext(CommonErrorConstant.MSG_ERROR_SAVE, errPart+"
-                    /// 非OEM配件不允许出OEM库,请重新操作!", null); // edit by sf 2010-12-28
-                    // return 0;
-                }
+                //if (!StringUtils.isNullOrEmpty(errPart) && !"".equals(errPart)) {
+                //    throw new ServiceBizException(errPart+"  非OEM配件不允许出OEM库,请重新操作!");
+                //}
                 withDrawStuffService.reCalcRepairAmount(listAdMaintainDTO.getRoNo(), new RepairOrderDTO());
                 updateRoManage(dealerCode, String.valueOf(listAdMaintainDTO.getRoNo()),
                                FrameworkUtil.getLoginInfo().getUserId());
@@ -1213,19 +1240,14 @@ public class WithDrawStuffController extends BaseController {
                 // actionContext.setArrayValue("TM_PART_STOCK_A", tmPartStockA.toArray());
             }
             // 比较该工单中的配件与缺料明细中记录的配件，如果都有，则不删除，反之则删除在工单中没有但记录了缺料明细且没做BO订单的配件
-            deletePart(String.valueOf(listAdMaintainDTO.getRoNo()));// 注釋要去掉
-            // logger.debug("删除在维修配件中不存在的但记录了缺料明细的配件");
+            deletePart(String.valueOf(listAdMaintainDTO.getRoNo()));
+            logger.debug("删除在维修配件中不存在的但记录了缺料明细的配件");
             // end
-            // return 1;
+             return 1;
         } catch (Exception e) {
-            // TODO: handle exception
-            // 系统 异常处理
-            // actionContext.setErrorContext(CommonErrorConstant.MSG_ERROR_QUERY, MessageService
-            // .getInstance().getMessage(CommonErrorConstant.MSG_ERROR_QUERY), e);
-            // return 0;
             e.printStackTrace();
+            return 0;
         }
-        return 1;
     }
 
     public int QueryMonthPeriodIsFinished(ListAdMaintainDTO listAdMaintainDTO) {
@@ -1236,7 +1258,7 @@ public class WithDrawStuffController extends BaseController {
                 // BusinessErrorConstant.MSG_ASC_PM_MONTH,
                 // MessageService.getInstance().getMessage(BusinessErrorConstant.MSG_ASC_PM_MONTH),
                 // new Throwable());
-                return 0;
+                throw new ServiceBizException("当前配件月报没有正确执行!");
             }
             List list2 = getIsFinished();
             Map bean = null;
@@ -1247,13 +1269,14 @@ public class WithDrawStuffController extends BaseController {
                 // actionContext.setErrorContext(BusinessErrorConstant.MSG_ASC_PM_PERIOD,
                 // MessageService.getInstance().getMessage(BusinessErrorConstant.MSG_ASC_PM_PERIOD),
                 // new Throwable());
-                return 0;
+                throw new ServiceBizException("当前配件会计月报没有正确执行!");
             }
             return 1;
         } catch (Exception ex) {
             // actionContext.setErrorContext(CommonErrorConstant.MSG_ERROR_QUERY,
             // MessageService.getInstance().getMessage(
             // CommonErrorConstant.MSG_ERROR_QUERY), ex);
+            ex.printStackTrace();
             return 0;
         }
     }
@@ -1320,7 +1343,7 @@ public class WithDrawStuffController extends BaseController {
                         checkCostSizeParams.put("storageCode", tblDTO.getStorageCode());
                         List priceList = withDrawStuffService.checkCostSize(checkCostSizeParams);
                         // 沒有入账的配件
-                        if (tblDTO.getChargePartitionCode().trim().equals("S")) {
+                        if (!StringUtils.isNullOrEmpty(tblDTO.getChargePartitionCode()) && tblDTO.getChargePartitionCode().trim().equals("S")) {
                             break;
                         } else {
                             if (!(rightsFlag.trim().equals(DictCodeConstants.DICT_IS_YES))) {
@@ -1394,7 +1417,7 @@ public class WithDrawStuffController extends BaseController {
             List<Object> linked = new ArrayList<Object>();
             if (tblListDTO != null && tblListDTO.size() > 0) {
                 for (int j = 0; j < tblListDTO.size(); j++) {
-                    if (tblListDTO.get(j).getIsSelected().equals(DictCodeConstants.DICT_IS_YES)) {
+                    if (DictCodeConstants.DICT_IS_YES.equals(tblListDTO.get(j).getIsSelected())) {
                         // Id = Utility.GetBillNo(entityCode, BillType.SRV_FLDH, conn);
                         Id = commonNoService.getSystemOrderNo(CommonConstants.SRV_FLDH);// call p_getbillno(?,?,?,?)
                         break;
@@ -1707,7 +1730,6 @@ public class WithDrawStuffController extends BaseController {
                         period.setOpenAmount(costAmountStock);// 入帐前成本金额
                         period.setClosePrice(costPriceNew);// 入帐后成本单价
                         // end
-                        logger.debug(costPriceNew + "bbbbbbbbbbbbbb");
                         createOrUpdatePartPeriodReport(period, cycle, dealerCode);
                         // 如果是退料增加日志记录
                         // update wanghui 2010-01-28
@@ -1718,8 +1740,8 @@ public class WithDrawStuffController extends BaseController {
                     }
                         logger.debug("收费区分");
                         logger.debug("IS_FINISHED:" + tableDTO.getIsFinished());
-                        logger.debug("UPDATE_STATUS:" + tableDTO.getUpdateStatus());
-                        if (("A").equals(tableDTO.getUpdateStatus())) {
+                        logger.debug("ITEM_UPDATE_STATUS:" + tableDTO.getItemUpdateStatus());
+                        if (("A").equals(tableDTO.getItemUpdateStatus())) {
                             if (!oldPartPrice[i].toString().equals(tableDTO.getPartSalesPrice().toString())) {
                                 String content = "维修领料:工单号【" + tableDTO.getRoNo() + "】车牌号【"
                                                  + listAdMaintainDTO.getLicense() + "】仓库代码【" + tableDTO.getStorageCode()
@@ -1735,7 +1757,7 @@ public class WithDrawStuffController extends BaseController {
                         }
                         // 收费区分修改
                         if (DictCodeConstants.DICT_IS_YES.equals(tableDTO.getIsFinished())
-                            && ("U").equals(tableDTO.getUpdateStatus())) {
+                            && ("U").equals(tableDTO.getItemUpdateStatus())) {
                             // 完成入帐的和操作标示为U的进行记差价流水帐
                             Map partPO = null;
                             for (int j = 0; j < roRepairPartMap.size(); j++) {
@@ -1747,7 +1769,7 @@ public class WithDrawStuffController extends BaseController {
                                     logger.debug("PartSalesPrice:" + tableDTO.getPartSalesPrice());
                                     logger.debug("OLD:" + partPO.get("partSalesPrice"));
                                     logger.debug("new:" + tableDTO.getPartSalesPrice());
-                                    if (Utility.getLong(partPO.get("itemId").toString()) == Utility.getLong(partPO.get("itemId").toString())) {
+                                    if (!StringUtils.isNullOrEmpty(partPO.get("itemId")) && Utility.getLong(partPO.get("itemId").toString()) == Utility.getLong(partPO.get("itemId").toString())) {
                                         // DYZ 2010.5.6 记录操作日志
                                         // 修改发料单价增加日志记录
                                         if (!partPO.get("partSalesPrice").toString().equals(tableDTO.getPartSalesPrice().toString())) {
@@ -2673,7 +2695,9 @@ public class WithDrawStuffController extends BaseController {
 
     /**
      * 工单辅料管理费 TODO description
-     * 
+     * 1 删除 工单辅料管理费表记录
+     * 2 更新 会员配件项目流水表的修改人修改时间
+     * 3 工单维修项目明细 工单辅料管理费 工单附加项目明细
      * @author chenwei
      * @date 2017年4月19日
      * @param dealerCode
@@ -2737,20 +2761,15 @@ public class WithDrawStuffController extends BaseController {
      * @throws Exception
      */
     public void updateRepairOrder(String dealerCode, String roNO) throws Exception {
-        Map<String, Object> updateParams = new HashMap<String, Object>();
-        updateParams.put("OVER_ITEM_AMOUNT",
-                         "COALESCE((SELECT SUM(OVER_ITEM_AMOUNT) FROM TT_RO_MANAGE WHERE RO_NO='" + roNO + "'),0)");
-        updateParams.put("REPAIR_AMOUNT",
-                         "COALESCE(REPAIR_PART_AMOUNT,0)+COALESCE(ADD_ITEM_AMOUNT,0)+COALESCE((SELECT SUM(OVER_ITEM_AMOUNT) FROM TT_RO_MANAGE WHERE RO_NO='"
-                                          + roNO + "'),0)+COALESCE(LABOUR_AMOUNT,0)+COALESCE(SALES_PART_AMOUNT,0)");
-        updateParams.put("ESTIMATE_AMOUNT",
-                         "COALESCE(REPAIR_PART_AMOUNT,0)+COALESCE(ADD_ITEM_AMOUNT,0)+COALESCE((SELECT SUM(OVER_ITEM_AMOUNT) FROM TT_RO_MANAGE WHERE RO_NO='"
-                                            + roNO + "'),0)+COALESCE(LABOUR_AMOUNT,0)+COALESCE(SALES_PART_AMOUNT,0)");
-        Map<String, Object> whereParams = new HashMap<String, Object>();
-        whereParams.put("RO_NO", roNO);
-        whereParams.put("DEALER_CODE", dealerCode);
-        whereParams.put("D_KEY", CommonConstants.D_KEY);
-        withDrawStuffService.updateRepairOrder(updateParams, whereParams);
+        StringBuilder sql = new StringBuilder(" OVER_ITEM_AMOUNT = ");
+        sql.append("COALESCE((SELECT SUM(OVER_ITEM_AMOUNT) FROM TT_RO_MANAGE WHERE RO_NO='").append(roNO).append("'),0)");
+        sql.append(",REPAIR_AMOUNT = COALESCE(REPAIR_PART_AMOUNT,0)+COALESCE(ADD_ITEM_AMOUNT,0)+COALESCE((SELECT SUM(OVER_ITEM_AMOUNT) FROM TT_RO_MANAGE WHERE RO_NO='").append(roNO).append("'),0)");
+        sql.append("+COALESCE(LABOUR_AMOUNT,0)+COALESCE(SALES_PART_AMOUNT,0)");
+        sql.append(",ESTIMATE_AMOUNT = COALESCE(REPAIR_PART_AMOUNT,0)+COALESCE(ADD_ITEM_AMOUNT,0)+COALESCE((SELECT SUM(OVER_ITEM_AMOUNT) FROM TT_RO_MANAGE WHERE RO_NO='").append(roNO).append("'),0)");
+        sql.append("+COALESCE(LABOUR_AMOUNT,0)+COALESCE(SALES_PART_AMOUNT,0) ");
+        StringBuilder whereSql = new StringBuilder(" RO_NO='").append(roNO).append("' AND DEALER_CODE='");
+        whereSql.append(dealerCode).append("'").append(" AND  D_KEY=").append(CommonConstants.D_KEY).append(" ");
+        withDrawStuffService.updateRepairOrder(sql.toString(), whereSql.toString());
     }
 
     private static double getMul(Double v1, Float v2) {
@@ -2883,49 +2902,55 @@ public class WithDrawStuffController extends BaseController {
 
         for (int i = 0; i < labourList.size(); i++) {
             labour = (Map) labourList.get(i);
-            Map manageTypePO = getManageOld(labour.get("MANAGE_SORT_CODE").toString(), manageNoMap);
-            if (manageTypePO != null) {
+            if(!StringUtils.isNullOrEmpty(labour) && !StringUtils.isNullOrEmpty(labour.get("MANAGE_SORT_CODE"))){
+                Map manageTypePO = getManageOld(labour.get("MANAGE_SORT_CODE").toString(), manageNoMap);
+                if (manageTypePO != null) {
 
-                if (StringUtils.isNullOrEmpty(manageMap.get(manageTypePO.get("MANAGE_SORT_CODE").toString())))
-                    manageMap.put(manageTypePO.get("MANAGE_SORT_CODE").toString(),
-                                  getMul(Utility.getDouble(labour.get("LABOUR_AMOUNT").toString()),
-                                         Float.valueOf(manageTypePO.get("LABOUR_AMOUNT_RATE").toString())) + getMul(Utility.getDouble(labour.get("STD_LABOUR_HOUR").toString()),
-                                                                                                                    Float.valueOf(manageTypePO.get("LABOUR_AMOUNT_RATE").toString())));
-                else manageMap.put(manageTypePO.get("MANAGE_SORT_CODE").toString(),
-                                   manageMap.get(manageTypePO.get("MANAGE_SORT_CODE").toString())
-                                                                                    + getMul(Utility.getDouble(labour.get("LABOUR_AMOUNT").toString()),
-                                                                                             Float.valueOf(manageTypePO.get("LABOUR_AMOUNT_RATE").toString()))
-                                                                                    + getMul(Utility.getDouble(labour.get("STD_LABOUR_HOUR").toString()),
-                                                                                             Float.valueOf(manageTypePO.get("LABOUR_AMOUNT_RATE").toString())));
+                    if (StringUtils.isNullOrEmpty(manageMap.get(manageTypePO.get("MANAGE_SORT_CODE").toString())))
+                        manageMap.put(manageTypePO.get("MANAGE_SORT_CODE").toString(),
+                                      getMul(Utility.getDouble(labour.get("LABOUR_AMOUNT").toString()),
+                                             Float.valueOf(manageTypePO.get("LABOUR_AMOUNT_RATE").toString())) + getMul(Utility.getDouble(labour.get("STD_LABOUR_HOUR").toString()),
+                                                                                                                        Float.valueOf(manageTypePO.get("LABOUR_AMOUNT_RATE").toString())));
+                    else manageMap.put(manageTypePO.get("MANAGE_SORT_CODE").toString(),
+                                       manageMap.get(manageTypePO.get("MANAGE_SORT_CODE").toString())
+                                                                                        + getMul(Utility.getDouble(labour.get("LABOUR_AMOUNT").toString()),
+                                                                                                 Float.valueOf(manageTypePO.get("LABOUR_AMOUNT_RATE").toString()))
+                                                                                        + getMul(Utility.getDouble(labour.get("STD_LABOUR_HOUR").toString()),
+                                                                                                 Float.valueOf(manageTypePO.get("LABOUR_AMOUNT_RATE").toString())));
+                }
             }
         }
 
         for (int i = 0; i < addItemList.size(); i++) {
             addItem = (Map) addItemList.get(i);
-            Map manageTypePO = getManageOld(addItem.get("MANAGE_SORT_CODE").toString(), manageNoMap);
-            if (manageTypePO != null) {
-                if (manageMap.get(manageTypePO.get("MANAGE_SORT_CODE").toString()) == null)
-                    manageMap.put(manageTypePO.get("MANAGE_SORT_CODE").toString(),
-                                  getMul(Utility.getDouble(addItem.get("ADD_ITEM_AMOUNT").toString()),
-                                         Float.valueOf(manageTypePO.get("ADD_ITEM_RATE").toString())));
-                else manageMap.put(manageTypePO.get("MANAGE_SORT_CODE").toString(),
-                                   manageMap.get(manageTypePO.get("MANAGE_SORT_CODE").toString())
-                                                                                    + getMul(Utility.getDouble(addItem.get("ADD_ITEM_AMOUNT").toString()),
-                                                                                             Float.valueOf(manageTypePO.get("ADD_ITEM_RATE").toString())));
+            if(!StringUtils.isNullOrEmpty(addItem) && !StringUtils.isNullOrEmpty(addItem.get("MANAGE_SORT_CODE"))){
+                Map manageTypePO = getManageOld(addItem.get("MANAGE_SORT_CODE").toString(), manageNoMap);
+                if (manageTypePO != null) {
+                    if (manageMap.get(manageTypePO.get("MANAGE_SORT_CODE").toString()) == null)
+                        manageMap.put(manageTypePO.get("MANAGE_SORT_CODE").toString(),
+                                      getMul(Utility.getDouble(addItem.get("ADD_ITEM_AMOUNT").toString()),
+                                             Float.valueOf(manageTypePO.get("ADD_ITEM_RATE").toString())));
+                    else manageMap.put(manageTypePO.get("MANAGE_SORT_CODE").toString(),
+                                       manageMap.get(manageTypePO.get("MANAGE_SORT_CODE").toString())
+                                                                                        + getMul(Utility.getDouble(addItem.get("ADD_ITEM_AMOUNT").toString()),
+                                                                                                 Float.valueOf(manageTypePO.get("ADD_ITEM_RATE").toString())));
+                }
             }
         }
         for (int i = 0; i < repairPartList.size(); i++) {
             repairPart = (Map) repairPartList.get(i);
-            Map manageTypePO = getManageOld(repairPart.get("manageSortCode").toString(), manageNoMap);
-            if (manageTypePO != null) {
-                if (manageMap.get(manageTypePO.get("MANAGE_SORT_CODE").toString()) == null)
-                    manageMap.put(manageTypePO.get("MANAGE_SORT_CODE").toString(),
-                                  getMul(Utility.getDouble(repairPart.get("partSalesAmount").toString()),
-                                         Float.valueOf(manageTypePO.get("REPAIR_PART_RATE").toString())));
-                else manageMap.put(manageTypePO.get("MANAGE_SORT_CODE").toString(),
-                                   manageMap.get(manageTypePO.get("MANAGE_SORT_CODE").toString())
-                                                                                    + getMul(Utility.getDouble(repairPart.get("partSalesAmount").toString()),
-                                                                                             Float.valueOf(manageTypePO.get("REPAIR_PART_RATE").toString())));
+            if(!StringUtils.isNullOrEmpty(repairPart) && !StringUtils.isNullOrEmpty(repairPart.get("manageSortCode"))){
+                Map manageTypePO = getManageOld(repairPart.get("manageSortCode").toString(), manageNoMap);
+                if (manageTypePO != null) {
+                    if (manageMap.get(manageTypePO.get("MANAGE_SORT_CODE").toString()) == null)
+                        manageMap.put(manageTypePO.get("MANAGE_SORT_CODE").toString(),
+                                      getMul(Utility.getDouble(repairPart.get("partSalesAmount").toString()),
+                                             Float.valueOf(manageTypePO.get("REPAIR_PART_RATE").toString())));
+                    else manageMap.put(manageTypePO.get("MANAGE_SORT_CODE").toString(),
+                                       manageMap.get(manageTypePO.get("MANAGE_SORT_CODE").toString())
+                                                                                        + getMul(Utility.getDouble(repairPart.get("partSalesAmount").toString()),
+                                                                                                 Float.valueOf(manageTypePO.get("REPAIR_PART_RATE").toString())));
+                }
             }
         }
 

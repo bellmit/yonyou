@@ -17,7 +17,7 @@
 									<label class="control-label col-xs-4">工单号</label>
 									<div class="col-xs-8">
 										<div class="input-group">
-										    <input id="roNo" name="roNo" class="form-control" type="text" />
+										    <input id="roNo" name="roNo" class="form-control" type="text" data-fieldName="RO_NO"/>
 											<span class="input-group-btn">
 												<button class="btn default btn-sm" type="button" data-url="repair/order/repair/searchAbout/searchRepairOrder.html"
 													data-toggle="modal" data-width="modal-lg"
@@ -74,7 +74,7 @@
 										<div class="input-group date datetime" data-defaultNow="true" data-dateEndDate="now" data-pickerPosition="top-left">
 						                    <input class="form-control" id="estimateBeginTime" name="estimateBeginTime" 
 						                    data-fieldName="ESTIMATE_BEGIN_TIME" size="19" type="text" value="" readonly>
-						                    <span class="input-group-addon" ><span class="fa fa-calendar"  ></span></span>
+						                    <span id="s_estimateBeginTime" class="input-group-addon" ><span  class="fa fa-calendar"  ></span></span>
 						                </div>
 						            </fieldset>
 									</div>
@@ -89,7 +89,7 @@
 										data-dateEndDate="now" data-pickerPosition="top-left">
 						                    <input class="form-control" size="19" type="text" id="endTimeSupposed" 
 						                    name="endTimeSupposed" data-fieldName="END_TIME_SUPPOSED" value="">
-						                    <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+						                    <span id="s_endTimeSupposed" class="input-group-addon"><span class="fa fa-calendar"></span></span>
 						                </div>
 						            </fieldset> 
 									</div>
@@ -674,6 +674,27 @@
 								</div>
 								<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
 									<div class="form-group">
+										<label class="control-label col-xs-6">预计下次保养日期</label>
+										<div class="col-xs-6">
+											<div class="input-group date date-picker">
+												<input id="nextMaintainDate" name="nextMaintainDate"  data-fieldName="NEXT_MAINTAIN_DATE"
+													class="form-control" type="text" readonly="readonly"/> 
+												<span class="input-group-btn">
+													<button class="btn default date-set" type="button" 
+													id="nextMdateBtn" disabled="disabled">
+														<i class="fa fa-calendar"></i>
+													</button>
+												</span>
+											</div>
+										</div>
+										<!-- 因计算按钮和日期选择按钮放在一个span标签时,点击计算会触发日期按钮,所以将两个按钮分离 -->
+													<button class="btn default btn-sm hidden" type="button" id="calculate" 
+													 disabled="disabled" data-onclickEvent='true'> <i class="fa icon-search"></i>
+													</button>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+									<div class="form-group">
 										<div class="col-xs-1">
 											<input id="checkIsTrace" name="checkIsTrace" type="checkbox" data-fieldName="IS_TRACE"
 												data-dictCode="1057" disabled="disabled"/>
@@ -1035,7 +1056,7 @@
 					
 											<div class="modal-body">
 												<div class="panel panel-default table-panel">
-												<fieldset id="faccessoryTab" disabled="disabled"> 
+												<fieldset id="faccessoryTable" disabled="disabled"> 
 													<div class="panel-body">
 														<table
 															class="table table-striped table-bordered table-hover table-responsive"
@@ -1181,13 +1202,11 @@
 		<input type="hidden" id="lastMaintainDate"/>
 		<input type="hidden" id="averageMileage" name="averageMileage"/><!-- 日平均行驶里程 -->
 		<input type="hidden" id="nextMaintainMileage"/><!-- 下次保养里程 -->
-		<input type="hidden" id="nextMaintainDate"/><!-- 下次保养日期 -->
-		<input type="hidden" id="isLoadVehicle" name="isLoadVehicle"/><!-- 当前的车辆是否是从车辆库中载入。 -->
-		<input type="hidden" id="salesDate" name="salesDate"/><!-- 查询车辆带过来的销售日期,用于计算预计下次保养日期 -->
+		<input type="hidden" id="nextMaintainDate"/><!-- 下次保养日期 -->		
 		<input type="hidden" id="remark2" name="remark2"/>
 		<input type="hidden" id="modelLabourCode" name="modelLabourCode"/><!-- 维修车型分组代码 -->
-		<input type="hidden" id="isNewVehicle" name="isNewVehicle"/><!-- 如果用户点击了VIN选择页面的新建按钮，那么isNewVehicle返回1:True,0:false-->
-		<input type="hidden" id="isLoadVehicle" name="isLoadVehicle"/><!-- 判断是否从车库得到的数据 -->
+		<input type="hidden" id="FisNewVehicle" name="isNewVehicle"/><!-- 如果用户点击了VIN选择页面的新建按钮，那么isNewVehicle返回1:True,0:false-->
+		<input type="hidden" id="FisLoadVehicle" name="isLoadVehicle"/><!-- 判断是否从车库得到的数据 -->
 		<input type="hidden" id="toTalChangeMileage" name="toTalChangeMileage"/>
 		<input type="hidden" id="cardTypeCode" name="cardTypeCode"/><!-- 会员卡类型 -->
 		<input type="hidden" id="productCode" name="productCode"/><!-- 产品代码 -->
@@ -1215,40 +1234,441 @@
 		<input type="hidden" id="schemeStatus" name="schemeStatus" data-fieldName="SCHEME_STATUS"/><!-- 方案状态 -->
 		<input type="hidden" id="printRoTime" name="printRoTime" data-fieldName="PRINT_RO_TIME"/><!-- 工单打印时间 -->
 		<input type="hidden" id="occurInsuranceNo" name="occurInsuranceNo" data-fieldName="INSURANCE_NO"/><!-- 工单打印时间 -->
+		<input type="hidden" id="roStatus" name="roStatus" data-fieldName="RO_STATUS"/><!-- 工单状态 -->
+		<input type="hidden" id="FChangeMileage" name="FChangeMileage" /><!-- 记录载入车辆时的换表里程 -->
+		<input type="hidden" id="FToTalChangeMileage" name="FToTalChangeMileage" /><!-- 记录载入车辆时的累计换表里程 -->
+		<input type="hidden" id="fLastMaintenancedate" name="fLastMaintenancedate" /><!-- 上次保养日期 -->
+		<input type="hidden" id="fLastRepairDate" name="fLastRepairDate" /><!-- 上次维修日期 -->
+		<input type="hidden" id="fLastRepairMileage" name="fLastRepairMileage" /><!-- 上次维修里程 -->
+		<input type="hidden" id="flastMaintenanceMileage" name="flastMaintenanceMileage" /><!-- 上次保养里程 -->
+		<input type="hidden" id="fModifySaledate" name="fModifySaledate" /><!-- 标志不可以修改销售日期 True:不可以修改销售日期False:可以修改销售日期 -->
+		<input type="hidden" id="isSelfCompany" name="isSelfCompany" data-fieldName="IS_SELF_COMPANY"/><!-- 是否本公司购车 -->
+		<input type="hidden" id="fcdsRepairOrder_ReadOnly" name="fcdsRepairOrder_ReadOnly" /><!-- 工单数据集是否只读 -->
+		<input type='hidden' id='lastMaintenanceDate' name='lastMaintenanceDate' data-fieldName='LAST_MAINTENANCE_DATE'/><!--上次保养日期   -->
+		<input type='hidden' id='lastMaintainMileage' name='lastMaintainMileage' data-fieldName='LAST_MAINTAIN_MILEAGE'/><!--上次维修里程   -->
+		<input type='hidden' id='lastMaintenanceMileage' name='lastMaintenanceMileage' data-fieldName='LAST_MAINTENANCE_MILEAGE'/><!--上次保养里程   -->
+		<input type='hidden' id='FInMileage' name='FInMileage' /><!--进厂里程   -->
+		<input type='hidden' id='completeTag' name='completeTag' data-fieldName='COMPLETE_TAG'/><!--是否竣工   -->
+		<input type='hidden' id='frmRepairItem_Enabled' name='frmRepairItem_Enabled' /><!--工单的TAB页是否可用   -->
+		<input type='hidden' id='FIsRecallActivity' name='FIsRecallActivity' /><!--是否召回活动   -->
+		<input type="hidden" id="ver" name="ver"/>
+		<input type='hidden' id='FIsOpenTriplePack' name='FIsOpenTriplePack' /><!--三包预警   -->
+		<input type="hidden" id="isCustomerInAsc" name="isCustomerInAsc"/>
+
 		</div>
 	</form>
 </div>
-<script type="text/javascript"> 
+<script type="text/javascript">
+//设置全局变量用于各方法间传递值
+var FisNewVehicle;
+var FisLoadVehicle;
+var fcdsRepairOrder_ReadOnly;
+var FChangeMileage;
+var FToTalChangeMileage;
+var fLastMaintenancedate;
+var fLastRepairDate;
+var fLastRepairMileage;
+var flastMaintenanceMileage;
+var fModifySaledate;
+var frmRepairItem_Enabled;
+var FIsRecallActivity;
+var FIsOpenTriplePack;
 
-	 $(document).one("onload.dms",function(event,container){
+//创建 编辑按钮 方法
+var EditRepairOrder = function(){
+	alert( !isStringNull($.trim($("#roNo").val())) );
+
+	if( !isStringNull($.trim($("#roNo").val())) ){
+	  if(QueryRepairOrder( $.trim($("#roNo").val())) ){
+		  FisNewVehicle=false;
+		  FisLoadVehicle=true;
+		  fcdsRepairOrder_ReadOnly=false;
+		  FChangeMileage=$("#changeMileage").val();
+		  FToTalChangeMileage=$("#totalChangeMileage").val();
+		  fLastMaintenancedate=$("#lastMaintenanceDate").val();
+		  fLastRepairDate=$("#lastMaintainDate").val(); 
+		  fLastRepairMileage=$("#lastMaintainMileage").val(); 
+		  flastMaintenanceMileage=$("lastMaintenanceMileage").val();
+		  fModifySaledate = false;
+		//将变量的值传给对应的隐藏域，其他人是用隐藏域来传值的
+		  $('#FisNewVehicle').val(FisNewVehicle);
+		  $('#FisLoadVehicle').val(FisLoadVehicle);
+		  $('#fcdsRepairOrder_ReadOnly').val(fcdsRepairOrder_ReadOnly);
+		  $('#FChangeMileage').val(FChangeMileage);
+		  $('#FToTalChangeMileage').val(FToTalChangeMileage);
+		  $('#fLastMaintenancedate').val(fLastMaintenancedate);
+		  $('#fLastRepairDate ').val(fLastRepairDate );
+		  $('#fLastRepairMileage ').val(fLastRepairMileage );
+		  $('#flastMaintenanceMileage').val(flastMaintenanceMileage);
+		  $('#fModifySaledate').val(fModifySaledate);
+
+		  if($("#isSelfCompany").val()=="12781001"
+				  && !isStringNull($("#salesDate").val())
+				  && $("#salesDate").val()!="0"
+				  && $("#salesDate").val()!="1899-12-30"
+				  ){
+			  fModifySaledate = true; 
+			  $('#fModifySaledate').val(fModifySaledate);
+		  }
+		  FInMileage=$("#inMileage").val();
+		  $('#FInMileage').val(FInMileage);
+		 // MonitorRemind(); //监控提醒方法     待朱恒龙写完后调用该方法
+		  Modified();
+
+	  }		
+   }
+}
+
+//查询工单方法
+var QueryRepairOrder = function(roNo){
+	//方法体未创建目前只用于返回TRUE值
+	return true;
+}
+//工单修改公共方法
+var Modified = function(container){
+	//*********测试属性赋值，之后需要删除
+	$("#create").attr("disabled","disabled"); //禁用新建按钮
+	//*********测试属性赋值，之后需要删除
+	alert("Modified方法开始");	
+	var FDataSetReadOnly; //数据集是否可编辑。 True 不可编辑。 False 可编辑
+	var FROIsRepair; //工单是否为在修工单 True 在修工单、 False 非在修工单
+	var FIsCanEditRO; //在工单载入后，是否可编辑。
+	var Fdelete;
+	var SCHEME_STATUS;//获取工单的三包方案状态
+	var SCHEME_STATUS_CHECK;
+//	SCHEME_STATUS_CHECK用于保存以下公式获得的布尔值((isStringNull(SCHEME_STATUS) || SCHEME_STATUS=="0") 
+//    ||SCHEME_STATUS=="22021005" || SCHEME_STATUS=="22021006" 
+//    || SCHEME_STATUS=="22021002")
+	//几个常量的改变位置： 主要依照车牌号的变化。 车牌号的来源：工单、车库信息。新建
+    // FisNewVehicle 代表 新建  FisLoadVehicle 代表 载入 包含了来源于工单和车库信息
+    // FisNewVehicle FisLoadVehicle 界面初始化都为False；
+    // 车牌号回车时，如果点击了新建或者没有查询到车辆 FisNewVehicle := True; 同时FisLoadVehicle := False;
+    // 点击取消界面不变化。 FisNewVehicle,FisLoadVehicle 不变化
+    // 如果选择了车辆 FisLoadVehicle := True;
+    // 查询工单后，显示工单信息的时候 需要置 FisLoadVehicle := True;
+    // FRoStatusIsRepair 当前的工单是否是在修工单。True 是在修工单。False 不是在修工单。
+    //数据集是否可编辑。 True 不可编辑。 False 不可编辑 控制一些相关工单界面维护的栏位。
+    //而且存在记录。 页面初始化、保存后、载入的不是在修工单。这些时候数据集为只读。
+	 //判断是否需要显示销售材料TAB页
+
+	 if(dmsCommon.getSystemParamInfo("1205","1205")=="12781001"){
+		 $("#salesTab").removeClass("hidden");    
+	 }else{
+		 $("#salesTab").addClass("hidden");
+	 }
+	 alert(dmsCommon.getSystemParamInfo("1204","1204")=="12781001"); 
+	//判断是否启用会员按钮
+	 if(dmsCommon.getSystemParamInfo("1204","1204")=="12781001"){
+		 $("#memberBtn").removeClass("hidden");    
+	 }else{
+		 $("#memberBtn").addClass("hidden");
+	 } 
+	
+		// 22021001	2202	三包方案状态	待审核
+		// 22021002	2202	三包方案状态	方案调整
+		// 22021003	2202	三包方案状态	拒绝维修
+		// 22021004	2202	三包方案状态	审核通过
+		// 22021005	2202	三包方案状态	授权维修
+		// 22021006	2202	三包方案状态	未达预警
+	 SCHEME_STATUS=$('#schemeStatus').val();
+	 SCHEME_STATUS_CHECK=((isStringNull(SCHEME_STATUS) || SCHEME_STATUS=="0") 
+						    ||SCHEME_STATUS=="22021005" || SCHEME_STATUS=="22021006" 
+						    || SCHEME_STATUS=="22021002");	 
+	 if(SCHEME_STATUS=="22021004"){
+		 FDataSetReadOnly = true;
+	 }else{
+// 		 FDataSetReadOnly := (fcdsRepairOrder.Active) and (fcdsRepairOrder.ReadOnly)
+// 	      and (fcdsRepairOrder.RecordCount > 0);
+//       以上为老代码逻辑，由于新系统没有数据集是否Active状态，所以这里不做条件，fcdsRepairOrder_ReadOnly已经申明变量可用，
+//       fcdsRepairOrder.RecordCount判断数据集是否有记录，新系统以判断是否存在RO_NO或VIN来确认是否有记录
+		 FDataSetReadOnly =(fcdsRepairOrder_ReadOnly 
+								&& (!isStringNull($('#roNO').val())
+										|| !isStringNull($('#vin').val())) );
+	 
+	 }	 
+// 	  FDICT_RO_STATUS_TYPE_ON_REPAIR := '12551001'; //在修
+// 	  FDICT_RO_STATUS_TYPE_FOR_BALANCE := '12551005'; //已提交结算
+// 	  FDICT_RO_STATUS_TYPE_BALANCED := '12551010'; //已结算
+	  FROIsRepair=( (!isStringNull($('#roNO').val())
+					|| !isStringNull($('#vin').val())) 
+					&& $("#roStatus").val()=="12551001");
+					
+		$('#cancel').removeAttr("disabled"); //取消按钮
+		   
+		if((!FDataSetReadOnly) 
+				&& (FisNewVehicle || FisLoadVehicle)
+				&& SCHEME_STATUS_CHECK){
+			$('#save').removeAttr("disabled");  //保存按钮	 
+			$('#save').attr("data-url","/order/repair/btnSave");
+		//根据保存按钮的状态和参数表值判断是否可以点击自动计算下次预计保养日期按钮	
+		   if(dmsCommon.getSystemParamInfo("1074","1074")=="12781001"){
+			$("#calculate").removeAttr("disabled"); //计算下次保养日期按钮
+		   }
+		   if(isStringNull($("#vin").val())){
+				$("#wvinBtn").attr("disabled","disabled");  //VIN预警信息按钮
+			 }else{
+				$("#wvinBtn").removeAttr("disabled"); 
+			 }
+	    }
+		
+		 if((!FDataSetReadOnly) 
+					&& (FisNewVehicle || FisLoadVehicle)
+					&& SCHEME_STATUS_CHECK){		 
+			  if(!isStringNull($("#vin").val())
+					  && (!isStringNull($('#roNO').val())
+							|| !isStringNull($('#vin').val())) ){
+				  $("#monitorBtn").removeAttr("disabled"); //监控信息
+				  }
+				  $("#activeBtn").removeAttr("disabled"); //服务活动
+				  $("#reHistoryBtn").removeAttr("disabled"); //维修历史  
+				  $("#reGroupBtn").removeAttr("disabled"); //维修组合
+				  $("#mtActiveBtn").removeAttr("disabled"); //保养活动
+				  $("#adviceBtn").removeAttr("disabled");  //维修建议
+				  $("#adviceImportBtn").removeAttr("disabled"); //建议导入
+				  $("#complainBtn").removeAttr("disabled"); //投诉
+				  $("#maitenanceGroupBtn").removeAttr("disabled"); //保养套餐
+			}
+		 
+		  
+		  //编辑按钮 在保存后，而且fcdsRepairOrder的状态为browse状态,且工单只能为在修工单
+		  //编辑后  fcdsRepairOrder的readonly设置为False；
+		 if(FDataSetReadOnly && FROIsRepair
+				 && ($('#completeTag').val()!="12781001")
+				 && ((isStringNull(SCHEME_STATUS) || SCHEME_STATUS=="0") 
+				    ||SCHEME_STATUS=="22021005" || SCHEME_STATUS=="22021006")){
+			 $('#modify').removeAttr("disabled");
+		 }else{
+			 $('#modify').attr("disabled","disabled");  
+		 }
+		//作废按钮	 
+ 		if( (((FDataSetReadOnly && FROIsRepair
+				 && ($('#completeTag').val()!="12781001")
+				 && ((isStringNull(SCHEME_STATUS) || SCHEME_STATUS=="0") 
+				    || SCHEME_STATUS=="22021005" || SCHEME_STATUS=="22021006"))//编辑按钮的状态
+			 &&	 ((isStringNull(SCHEME_STATUS) || SCHEME_STATUS=="0") 
+					    ||SCHEME_STATUS=="22021005" || SCHEME_STATUS=="22021006"))
+			 || SCHEME_STATUS=="22021003" || SCHEME_STATUS=="22021004")
+			 && dmsCommon.getBusinessPurview("10380000")
+		  ){
+ 			$('#cancel').removeAttr("disabled");
+ 		   }else{
+ 			$('#cancel').attr("disabled","disabled");    
+ 		   }	 
+	
+ 	   //工单TAB栏位。 保存后可以查看。但不可编辑。
+ 	   frmRepairItem_Enabled = (FisNewVehicle || FisLoadVehicle);
+ 	  $('#frmRepairItem_Enabled').val(frmRepairItem_Enabled);
+ 		//启用工单中的几个TAB页及其table的可以编辑状态
+		if(frmRepairItem_Enabled){
+			 //取消维修项目TAB的区域禁用
+		    $('#fRepairTab').removeAttr("disabled");	   
+		    //维修材料 href="#tab_parts"
+		    $('#partTab').unbind('show.bs.tab');
+			$('#partTab').attr("href","#tab_parts");				 
+			//销售材料 href="#tab_sales"
+			$('#salesTab').unbind('show.bs.tab');
+			$('#salesTab').attr("href","#tab_sales");			 
+			  //附加项目  href="#tab_accessory"
+			$('#accessoryTab').unbind('show.bs.tab');
+			$('#accessoryTab').attr("href","#tab_accessory");
+		}	
+ 		
+		FIsRecallActivity=false;//正常是由其他方法赋值而来的，这里为了测试先赋值!!!!!!!!!!!!!!!!!!!!!!!!!1
+		//维修项目
+ 		if(frmRepairItem_Enabled
+ 			&& (!FDataSetReadOnly)
+ 			&& (!FIsRecallActivity)
+ 			&& SCHEME_STATUS_CHECK){
+ 			$("#labourAddBtn").removeAttr("disabled");  //维修项目新增按钮 
+ 			$("#flabourTable").removeAttr("disabled");  //维修项目数据TABLE是否可以编辑
+ 		}
+ 		Fdelete=dmsCommon.getBusinessPurview("10430000");
+ 		if(frmRepairItem_Enabled
+ 	 			&& (!FDataSetReadOnly)
+ 	 			&& ($("#dms_table").dmsTable().getTableRows()>0)
+ 	 			&& dmsCommon.getBusinessPurview("10430000")
+ 	 			&& SCHEME_STATUS_CHECK){
+ 			 $("#labourDelBtn").removeAttr("disabled");    //维修项目删除按钮  
+ 	 		}
+ 		if(frmRepairItem_Enabled
+ 	 			&& (!fcdsRepairOrder_ReadOnly)
+ 	 			&& dmsCommon.getBusinessPurview("10210000")
+ 	 			){
+ 			 $("#labourRate").removeAttr("disabled");   //维修项目折扣率
+ 	 		}
+ 		if(frmRepairItem_Enabled
+ 	 			&& (!FDataSetReadOnly)
+ 	 			&& ($("#dms_table").dmsTable().getTableRows()>0)
+ 	 			&& dmsCommon.getBusinessPurview("10260000")
+ 	 			&& SCHEME_STATUS_CHECK){
+ 			 $("#labourFeeTypeBtn").removeAttr("disabled"); //维修项目收费类别按钮
+ 	 		}
+ 		//维修配件
+ 		if(frmRepairItem_Enabled
+ 	 			&& (!FDataSetReadOnly)
+ 	 			&& (!FIsRecallActivity)
+ 	 			&& SCHEME_STATUS_CHECK){
+ 			  $("#partAddBtn").removeAttr("disabled");  //维修配件新增按钮  
+ 			  $("#fpartTable").removeAttr("disabled");  //维修配件数据TABLE是否可以编辑
+ 	 		}
+ 		if(frmRepairItem_Enabled
+ 	 			&& (!FDataSetReadOnly)
+ 	 			&& ($("#dms_part").dmsTable().getTableRows()>0)
+ 	 			&& SCHEME_STATUS_CHECK){
+ 			$("#partDelBtn").removeAttr("disabled");    //维修配件删除按钮
+ 	 		}
+ 		if(frmRepairItem_Enabled
+ 	 			&& (!fcdsRepairOrder_ReadOnly)
+ 	 			&& dmsCommon.getBusinessPurview("10220000")
+ 	 			){
+ 			$("#partRate").removeAttr("disabled"); //维修配件折扣率  
+ 	 		}
+ 		if(frmRepairItem_Enabled
+ 	 			&& (!FDataSetReadOnly)
+ 	 			&& ($("#dms_part").dmsTable().getTableRows()>0)
+ 	 			&& dmsCommon.getBusinessPurview("10260000")
+ 	 			&& SCHEME_STATUS_CHECK){
+ 			 $("#partFeeTypeBtn").removeAttr("disabled"); //维修配件收费类别按钮
+ 	 		}
+ 		//维修附加项目
+ 		if(frmRepairItem_Enabled
+ 	 			&& (!FDataSetReadOnly)
+ 	 			&& SCHEME_STATUS_CHECK){
+ 			  $("#accessoryAddBtn").removeAttr("disabled");  //维修附加项目新增按钮 
+ 			  $("#faccessoryTable").removeAttr("disabled");  //维修附加项目数据TABLE是否可以编辑
+ 	 		}
+ 		if(frmRepairItem_Enabled
+ 	 			&& (!FDataSetReadOnly)
+ 	 			&& ($("#dms_subjoinItem").dmsTable().getTableRows()>0)
+ 	 			&& SCHEME_STATUS_CHECK){
+ 			  $("#accessoryDelBtn").removeAttr("disabled");    //维修附加项目删除按钮
+ 	 		}
+ 		if(frmRepairItem_Enabled
+ 	 			&& (!fcdsRepairOrder_ReadOnly)
+ 	 			&& dmsCommon.getBusinessPurview("10240000")
+ 	 			){
+ 			 $("#accessoryRate").removeAttr("disabled"); //维修附加项目折扣率 
+ 	 		}
+ 		if(frmRepairItem_Enabled
+ 	 			&& (!FDataSetReadOnly)
+ 	 			&& ($("#dms_subjoinItem").dmsTable().getTableRows()>0)
+ 	 			&& dmsCommon.getBusinessPurview("10260000")
+ 	 			&& SCHEME_STATUS_CHECK){
+ 			 $("#accessoryFeeTypeBtn").removeAttr("disabled"); //维修附加项目收费类别按钮
+ 	 		}
+ 		//新建按钮 只有界面初始化的时候，其为可点击。其余时候均为不可点击. 在新系统中只在页面初始化时可以点击，其他时候不做判断
+        //工单号 只有界面初始化的时候，其为可点击。其余时候均为不可点击。和新建按钮同步
+        if($('#create').attr("disabled")!="disabled"){
+        	$('#roNo').removeAttr("readonly");    //工单编号框
+    		$('#roNoQueryBtn').removeAttr("disabled"); //工单查询按钮
+        }else{
+        	$('#roNo').attr("readonly","readonly");
+    		$('#roNoQueryBtn').attr("disabled","disabled");			
+        }
+		if( ($('#roNo').attr("readonly")=="readonly")
+				&& (!FDataSetReadOnly) 
+				&& SCHEME_STATUS_CHECK){
+			$('#froType').removeAttr("disabled");   //工单类型
+		}		
+        if(!fcdsRepairOrder_ReadOnly
+        	&& (!isStringNull($('#roNO').val()) || !isStringNull($('#vin').val()))
+        	&& (FisNewVehicle || (!FisLoadVehicle))	){
+        	$('#license').removeAttr("readonly");    //车牌号
+        	$('#licenseBtn').removeAttr("disabled");
+        }
+      //2076,是否显示会员卡到期日'
+    	if(dmsCommon.getSystemParamInfo("2076","2076")=="127810011"){
+    		$('#DmemOfMaturity').show();	
+    	}else{
+    		$('#DmemOfMaturity').hide();
+    	}
+    	//原工单号 调出工单，或者新建工单后 而且只有工单类型为返工工单，此按钮方可选择。
+    	$('#priRoNo').attr("disabled","disabled"); //原工单号文本框不可编辑
+		if(($('#roNo').attr("readonly")=="readonly")
+			&& !isStringNull($("#roType option:selected").val())
+			&& ($("#roType option:selected").val()=="12531003")	
+			&& (!FDataSetReadOnly)
+			&& FisLoadVehicle){
+			$('#priRoNoBtn').removeAttr("disabled"); //原工单号选择按钮
+		}
+		//VIN 只有新增的车辆 vin栏可编辑， 其他情况必须通过点击？选择
+    	if(FisNewVehicle && (!FDataSetReadOnly)){
+    		$('#vin').removeAttr("readonly");
+    	}
+    	$('#ownerNo').attr("readonly","readonly"); //车主编号不可编辑，防止乱输入
+		if( (FisNewVehicle || FisLoadVehicle) 
+				&& (!FDataSetReadOnly)
+				&& SCHEME_STATUS_CHECK){
+			$('#ownerNoBtn').removeAttr("disabled");//车主编号查询按钮
+			FIsCanEditRO=true;  //存在工单时，车主编号按钮可点击，此时可以编辑工单信息；
+		}else{
+			FIsCanEditRO=false;
+		}
+		if( (!FIsCanEditRO)
+			|| !isStringNull($.trim($('#ownerNo').val())) ){
+			$('#ownerName').attr("readonly","readonly");  //车主名称
+		}else{
+			$('#ownerName').removeAttr("readonly");
+		}
+		if(FIsCanEditRO){
+			$('#ownerNameBtn').removeAttr("disabled");   //车主名查询按钮
+			$('#qvinBtn').removeAttr("disabled");   //VIN查询按钮
+			$("#fcarTopNo").removeAttr("disabled");  //车顶号
+			if((!isStringNull($('#roNO').val()) || !isStringNull($('#vin').val()))){
+				$("#frepairType").removeAttr("disabled");//维修类型
+			}
+		}
+		
+		FIsOpenTriplePack=true;//正常是由其他方法赋值而来的，这里为了测试先赋值!!!!!!!!!!!!!!!!!!!!!!!!!1
+		if( FIsOpenTriplePack
+				&& CheckBrandIsOem()
+				&& !isStringNull($.trim($("#vin").val())) ){
+		}else{
+			if(FIsCanEditRO){
+				$("#fsalesDate").removeAttr("disabled");//开票日期	
+			}			
+		}
+  
+
+	  
+        alert("Modified方法结尾");				    
+} //Modified方法结尾
+
+
+//检查车辆品牌是否OEM方法
+var CheckBrandIsOem = function(){
+	if(dmsDict.getSelectedOptionData($("#brand")).OEM_TAG=="12781001" ){
+		return true;
+	}else{
+		return false;
+	}	
+}
+
+
+var test = function(roNo){
+	var tt=roNo;
+	return tt;
+}
+
+var test2 = function(){
+	alert(test(true));
+}
+
+$(document).one("onload.dms",function(event,container){
+
 
 //******************工单界面部件初始化管控-begin**************************************
-		 //工单界面根据tm_default_para参数表管控对应页面部件启用关闭	 
-		 //判断是否需要显示销售材料TAB页
-		 if(dmsCommon.getSystemParamInfo("1205","1205")=="12781001"){
-			 $("#salestab",container).removeClass("hidden");    
-		 }else if(dmsCommon.getSystemParamInfo("1205","1205")=="12781002"){
-			 $("#salestab",container).addClass("hidden");
-		 }
-		 
-		//判断是否启用会员按钮
-		 if(dmsCommon.getSystemParamInfo("1204","1204")=="12781001"){
-			 $("#memberBtn",container).removeClass("hidden");    
-		 }else if(dmsCommon.getSystemParamInfo("1204","1204")=="12781002"){
-			 $("#memberBtn",container).addClass("hidden");
-		 }
-		
-		 //判断是否显示 会员卡到期日框
-		 if(dmsCommon.getSystemParamInfo("2076","2076")=="12781001"){
-			 $("#DmemOfMaturity",container).show();    
-		 }else if(dmsCommon.getSystemParamInfo("2076","2076")=="12781002"){
-			 $("#DmemOfMaturity",container).hide();
-		 }
-		
-		 
-		 
-		 
-		//工单中的几个TAB页及其table的可以编辑状态,初始为不可编辑状态
+//VIN 只有新增的车辆 vin栏可编辑， 其他情况必须通过点击？选择  
+// FisNewVehicle 代表 新建  FisLoadVehicle 代表 载入 包含了来源于工单和车库信息
+// FisNewVehicle FisLoadVehicle 界面初始化都为False；
+// 车牌号回车时，如果点击了新建或者没有查询到车辆 FisNewVehicle := True; 同时FisLoadVehicle := False;
+// 点击取消界面不变化。 FisNewVehicle,FisLoadVehicle 不变化
+// 如果选择了车辆 FisLoadVehicle := True;
+// 查询工单后，显示工单信息的时候 需要置 FisLoadVehicle := True;
+// FRoStatusIsRepair 当前的工单是否是在修工单。True 是在修工单。False 不是在修工单。
+
+
+		      //工单中的几个TAB页及其table的可以编辑状态,初始为不可编辑状态
 			     //维修材料 href="#tab_parts"
 				 $('#partTab').removeAttr("href");
 				 $('#partTab').bind('show.bs.tab', function(e) {			
@@ -1268,11 +1688,15 @@
 				 });
 
 		
-         //初始化保存按钮禁用，将其出发的url去除，但允许保存时还原data-url="/order/repair/btnSave" 
+         //初始化保存按钮禁用，将其出发的url去除，启用保存按钮时还原data-url="/order/repair/btnSave" 
 		 $('#save').removeAttr("data-url");
+         
+         //初始化页面隐藏时间选择按钮，以免客户随意修改，目前通过SPAN实现的时间空间无法禁用，只能通过先隐藏再显示的方式实现管控
+         $("#s_estimateBeginTime").hide();  //预计开工时间
+         $("#s_endTimeSupposed").hide();    //预计交车时间
 
 		 
-
+         $('#vin').removeAttr("readonly");
 // 		 alert($("#tab_parts").dmsTable().getTableRows()==0);
 // 		 $('#fRepairTab').removeAttr("disabled");
 // 		 $("#labourAddBtn").removeAttr("disabled");  //维修项目新增按钮 
@@ -1282,220 +1706,20 @@
 
 
 //******************编辑按钮点击事件，控制工单界面各部件是否可编辑-begin**************************
-//VIN 只有新增的车辆 vin栏可编辑， 其他情况必须通过点击？选择  --老系统注释
-	   $("a[data-onclickEvent='true']",container).on("dms.click",function(event,returnResult){
+
+$("a[data-onclickEvent='true']",container).on("dms.click",function(event,returnResult){
+	
 		  if($(this).attr('id')=='modify'){
-			  var st=$("#schemeStatus").val();//获取工单的三包方案状态
-			  var oem=dmsDict.getSelectedOptionData($("#brand",container)).OEM_TAG; //判断品牌是否为OEM
-			  var threeGuarantees=dmsCommon.getSystemParamInfo("1180","1180");//'三包预警'标志
-			  var vinInfoControl=dmsCommon.getSystemParamInfo("1144","1144");//'工单车辆信息控制'
-			  var FIsWar=false;//老系统中的变量，查看老代码中，只有新建工单的时候才有一个赋值为false的操作
-			  
-			  //点击编辑后禁用编辑按钮
-// 			  $('#modify').attr("disabled","disabled");
-			  
-             //将工单号文本框置为只读，工单查询框不可用
-			$('#roNo').attr("readonly","readonly");
-			$('#roNoQueryBtn').attr("disabled","disabled");
-			
-			//根据工单类型是否为 返工 确认是否启用原工单号编辑状态
-            if($("#roType option:selected").val()=="12531003"){
-            	$('#priRoNoBtn').removeAttr("disabled");
-            }
-			
-          
+			  alert(( $.trim($("#roNo").val())));
+				
+			  EditRepairOrder();
 
-			  
-			  //启用工单中的几个TAB页及其table的可以编辑状态
-			    //取消维修项目TAB的区域禁用
-			    $('#fRepairTab').removeAttr("disabled");
-			    //维修材料 href="#tab_parts"
-			    $('#partTab').unbind('show.bs.tab');
-				$('#partTab').attr("href","#tab_parts");				 
-				//销售材料 href="#tab_sales"
-				$('#salesTab').unbind('show.bs.tab');
-				$('#salesTab').attr("href","#tab_sales");			 
-				  //附加项目  href="#tab_accessory"
-				$('#accessoryTab').unbind('show.bs.tab');
-				$('#accessoryTab').attr("href","#tab_accessory");
-			  		  
-			// 22021001	2202	三包方案状态	待审核
-			// 22021002	2202	三包方案状态	方案调整
-			// 22021003	2202	三包方案状态	拒绝维修
-			// 22021004	2202	三包方案状态	审核通过
-			// 22021005	2202	三包方案状态	授权维修
-			// 22021006	2202	三包方案状态	未达预警
-			  //根据三包方案状态判断启用状态
-		if(  (isStringNull(st) || st=="0") ||
-				st=="22021005" || st=="22021006" || st=="22021002"){
-				//根据条件判断是否可以启用保存按钮	  
-			  $('#save').removeAttr("disabled");
-			  $('#save').attr("data-url","/order/repair/btnSave");
-			  
-			  
-			  
-			  $("#froType").removeAttr("disabled");			//工单类型
-			  $("#ownerNoBtn").removeAttr("disabled");	  //车主编号查询按钮
-			  $("#ownerNameBtn").removeAttr("disabled");	  //车主查询按钮
-			  $("#qvinBtn").removeAttr("disabled");  //VIN查询按钮
-			  $("#fcarTopNo").removeAttr("disabled");  //车顶号
-			  $("#frepairType").removeAttr("disabled");			//维修类型
-			  
-				//根据三包预警是否开启；品牌是否OEM，VIN是否非空判断 开票日期是否可以修改
-	            if( threeGuarantees=="12781001" && oem=="12781001" 
-	            		&& !isStringNull($("#vin").val()) ){
-	            	$('#fsalesDate').attr("disabled","disabled");	
-	            }else{
-	            	$('#fsalesDate').removeAttr("disabled");
-	            }
-	  			  
-	          $('#flicenseDate').removeAttr("disabled");  // 上牌时间
-	          $('#fendTimeSupposed').removeAttr("disabled");  // 预交车时间
-	          $('#ftechnician').removeAttr("disabled");  // 指定技师
-	          $('#finsure').removeAttr("disabled");  // 保险公司
-	          $('#insuranceNO').removeAttr("readonly");  // 保险单号
-	          $('#insurationCode').removeAttr("readonly");  // 理赔单号
-	          $('#estimateAmount').removeAttr("readonly");  // 预估金额
-	          $('#finReason').removeAttr("disabled");  // 进厂原因
-	          $('#flabourPrice').removeAttr("disabled");  // 工时单价
-	          $('#fserviceAdvisor').removeAttr("disabled");  // 服务经理
-	          $('#fseriousSafetyStatus').removeAttr("disabled");  // 安全故障
-	          
-	          if(vinInfoControl=="12781002" 
-	        		  || $('#vin').attr("readonly")!="readonly"
-	        		  || trim($("#engineNo").val())=="" ){	        	  
-	        	  $("#engineNo").removeAttr("readonly"); 
-	          }
-	          if(vinInfoControl=="12781002" 
-        		  || $('#vin').attr("readonly")!="readonly"
-        		  || trim($("#brand option:selected").val())=="" ){	        	  
-        	     $("#fbrand").removeAttr("disabled");  //品牌
-              }
-	          if(vinInfoControl=="12781002" 
-        		  || $('#vin').attr("readonly")!="readonly"
-        		  || trim($("#series option:selected").val())=="" ){	        	  
-        	     $("#fseries").removeAttr("disabled");  //车系
-              }
-	          if(vinInfoControl=="12781002" 
-        		  || $('#vin').attr("readonly")!="readonly"
-        		  || trim($("#model option:selected").val())=="" ){	        	  
-        	     $("#fmodel").removeAttr("disabled");  //车型
-              }
-	          if(vinInfoControl=="12781002" 
-        		  || $('#vin').attr("readonly")!="readonly"
-        		  || trim($("#config option:selected").val())=="" ){	        	  
-        	     $("#fconfig").removeAttr("disabled");  //配置
-              }
-	          if(vinInfoControl=="12781002" 
-        		  || $('#vin').attr("readonly")!="readonly"
-        		  || trim($("#memCustomerDesc").val())=="" ){	        	  
-        	     $("#memCustomerDesc").removeAttr("readonly");  //送修问题
-              }
-	          if(vinInfoControl=="12781002" 
-        		  || $('#vin').attr("readonly")!="readonly"
-        		  || trim($("#troubleDesc").val())=="" ){	        	  
-        	     $("#troubleDesc").removeAttr("readonly");  //检查结果
-              }
-	          if(dmsCommon.getBusinessPurview("10440000")
-        		  || $('#vin').attr("readonly")!="readonly"
-        		  || trim($("#colors option:selected").val())=="" ){	        	  
-        	     $("#fcolors").removeAttr("disabled");  //颜色
-              }
-
-	          if(!((!dmsCommon.getBusinessPurview("10200000"))
-		        	  || (dmsCommon.getSystemParamInfo("1181","1181")=="12781001" && FIsWar))
-	        	){	        	  
-	        	   $("#inMileage").removeAttr("readonly");  //进厂行驶里程
-	          }
-	          $("#outMileage").removeAttr("readonly");  //出厂行驶里程
-	          $("#deliverer").removeAttr("readonly");  //送修人
-	          $("#fdelivvererGender").removeAttr("disabled");  //送修人性别
-	          $("#delivererMobile").removeAttr("readonly");  //送修人手机
-	          $("#delivererPhone").removeAttr("readonly");  //送修人电话
-	          
-	          $("#foilLevel").removeAttr("readonly"); //油位  只能控制只读，目前无法控制是否不可以拉动
-	          $("#freCommendEmp").removeAttr("disabled");   //推荐单位
-	          $("#freCommendCustomer").removeAttr("disabled");   //推荐人
-	          $("#remark").removeAttr("readonly");  //备注
-	          $("#remark1").removeAttr("readonly");  //备注1
-	          $("#memCustomerDesc").removeAttr("readonly");  //送修问题
-	          $("#troubleDesc").removeAttr("readonly");  //检查结果
-	            
-	          
-	            
-			  
-			  //vin为空时不能启用
-			  if(!isStringNull($("#vin").val())){
-			  $("#wvinBtn").removeAttr("disabled");  //VIN预警信息按钮
-			  $("#monitorBtn").removeAttr("disabled"); //监控信息
-			  }
-			  $("#activeBtn").removeAttr("disabled"); //服务活动
-			  $("#reHistoryBtn").removeAttr("disabled"); //维修历史  
-			  $("#reGroupBtn").removeAttr("disabled"); //维修组合
-			  $("#mtActiveBtn").removeAttr("disabled"); //保养活动
-			  $("#adviceBtn").removeAttr("disabled");  //维修建议
-			  $("#adviceImportBtn").removeAttr("disabled"); //建议导入
-			  $("#complainBtn").removeAttr("disabled"); //投诉
-			  $("#maitenanceGroupBtn").removeAttr("disabled"); //保养套餐
-
-			  $("#labourAddBtn").removeAttr("disabled");  //维修项目新增按钮 
-			  $("#flabourTable").removeAttr("disabled");  //维修项目数据TABLE是否可以编辑
-			  if( $("#dms_table").dmsTable().getTableRows()>0 ){
-				  if(dmsCommon.getBusinessPurview("10430000")){
-				    $("#labourDelBtn").removeAttr("disabled");    //维修项目删除按钮  
-				  }
-				  $("#labourFeeTypeBtn").removeAttr("disabled"); //维修项目收费类别按钮
-			  }
-			  if(dmsCommon.getBusinessPurview("10210000")){
-				  $("#labourRate").removeAttr("disabled");   //维修项目折扣率
-			  }
-			  
-			  $("#partAddBtn").removeAttr("disabled");  //维修配件新增按钮  
-			  $("#fpartTable").removeAttr("disabled");  //维修配件数据TABLE是否可以编辑
-			  if( $("#dms_part").dmsTable().getTableRows()>0){
-				  $("#partDelBtn").removeAttr("disabled");    //维修配件删除按钮
-				  $("#partFeeTypeBtn").removeAttr("disabled"); //维修配件收费类别按钮
-			  }
-			  if(dmsCommon.getBusinessPurview("10220000")){
-				  $("#partRate").removeAttr("disabled"); //维修配件折扣率  
-			  }
-			  
-			  $("#accessoryAddBtn").removeAttr("disabled");  //维修附加项目新增按钮 
-			  $("#faccessoryTable").removeAttr("disabled");  //维修附加项目数据TABLE是否可以编辑
-			  if( $("#dms_subjoinItem").dmsTable().getTableRows()>0){
-				  $("#accessoryDelBtn").removeAttr("disabled");    //维修附加项目删除按钮
-				  $("#accessoryFeeTypeBtn").removeAttr("disabled"); //维修附加项目收费类别按钮
-			  }
-			  if(dmsCommon.getBusinessPurview("10240000")){
-				  $("#accessoryRate").removeAttr("disabled"); //维修附加项目折扣率 
-			  }
-
-			 
-			  
-			  }
-			
-			 
-			  //根据参数表值判断是否可以点击自动计算下次预计保养日期按钮，是否可以修改下次保养里程，预计下次保养日期，1074
-			  if(dmsCommon.getSystemParamInfo("1074","1074")=="12781001"){
-				  $("#nextMaintainMileage").removeAttr("readonly");
-				  $("#nextMaintainDate").removeAttr("readonly");
-				  $("#nextMdateBtn").removeAttr("disabled");
-				  $("#calculate").removeAttr("disabled");	  
-			  }else if(dmsCommon.getSystemParamInfo("1074","1074")=="12781002"){
-				  $("#nextMaintainMileage").attr("readonly","readonly");
-				  $("#nextMaintainDate").attr("readonly","readonly");
-				  $("#nextMdateBtn").attr("disabled","disabled");
-				  $("#calculate").attr("disabled","disabled");
-			  }
-			  
-			//启用查询VIN按钮
-			  $("#qvinBtn").removeAttr("disabled");
-			     
-			  alert("11111");
-		
 		  }
 	   });		
 //******************编辑按钮点击事件，控制工单界面各部件是否可编辑-end**************************
+
+
+
 
 		
 		
@@ -1534,7 +1758,7 @@
 		
 		$("select[id='model']",container).on('change',function(){
 			var code = $(this).val();
-			dmsRepair.findModelByModelLabourCode(code,container);
+			dmsRepair.findModelLabourCodeByModel(code,container);
 		});
 		
 		var index = dmsCommon.getSystemParamInfo("1270","1270");//前台开关查询
@@ -1547,10 +1771,24 @@
 			b();
 		}
 		
-		$("#rate,#license",container).bindEnterEvent(function(obj){
+		$("#license",container).bindEnterEvent(function(obj){
 			var $id = obj.attr('id');
 			if($id=='license'){
 				dmsRepair.licenseKeyUp(obj,container);
+			}
+		});
+		
+		$("#roNo",container).bindEnterEvent(function(obj){
+			var $id = obj.attr('id');
+			if($id=='roNo'){
+				dmsRepair.roNoKeyUp(obj,container);
+			}
+		});
+
+		$("#vin",container).bindEnterEvent(function(obj){
+			var $id = obj.attr('id');
+			if($id=='vin'){
+				dmsRepair.vinKeyUp(obj,container);
 			}
 		});
 		
@@ -1588,6 +1826,7 @@
 			container:container,
 			rowID : "ITEM_ID",
 			columns : [ 
+				  {checkbox : true,sortable : false},
 				  {field : "",title : "操作",operateFormat : [
 				        {type:"edit",url:"repair/order/repair/repairOrderTab/editAccessoryItem.html",
 				         title:"修改",openWidth:"modal-sm",doubleClick:true,
@@ -1621,7 +1860,7 @@
 		
 		new Datatable().initPagination({
 			src : "dms_part",
-//	   		    url : dmsCommon.getDmsPath()["repair"] + "/basedata/freeSettlement/queryRoRepairPartByRoNO/"+nullToZero($("#roNo").val()),
+   		    url : dmsCommon.getDmsPath()["repair"] + "/basedata/freeSettlement/queryRoRepairPartByRoNO/"+nullToZero($("#roNo").val()),
    			rowID : "PART_NO",
    			sortName : "PART_NO",
    			sortOrder : "asc",

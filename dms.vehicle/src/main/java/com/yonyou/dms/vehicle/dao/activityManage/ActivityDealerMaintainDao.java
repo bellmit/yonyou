@@ -119,7 +119,8 @@ public class ActivityDealerMaintainDao extends OemBaseDAO{
 		//活动Id
 		sql.append("		AND  TWAD.ACTIVITY_ID ='"+activityId+"' \n");
 		if(!StringUtils.isNullOrEmpty(queryParam.get("dealerCode"))){
-			sql.append(" and D.DEALER_CODE in ("+queryParam.get("dealerCode")+") \n");
+			sql.append(" and D.DEALER_CODE in ( ? ) \n");
+			params.add(queryParam.get("dealerCode"));
 			
 		 }
 		if(!StringUtils.isNullOrEmpty(queryParam.get("dealerName"))){
@@ -156,7 +157,8 @@ public class ActivityDealerMaintainDao extends OemBaseDAO{
 		sql.append("		AND D.DEALER_LEVEL = 10851001  \n");
 		sql.append("        AND D.DEALER_CODE NOT IN (SELECT TWAD.DEALER_CODE FROM tt_wr_activity_dealer_dcs TWAD WHERE TWAD.ACTIVITY_ID = '"+acvtivityIdTyd+"' ) \n");
 		if(!StringUtils.isNullOrEmpty(queryParam.get("dealerCode"))){
-			sql.append(" and D.DEALER_CODE in ("+queryParam.get("dealerCode")+") \n");
+			sql.append(" and D.DEALER_CODE in ( ? ) \n");
+			params.add(queryParam.get("dealerCode"));
 			
 		 }
 		if(!StringUtils.isNullOrEmpty(queryParam.get("dealerName"))){

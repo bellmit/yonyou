@@ -39,8 +39,16 @@ public class AccountBalanceController {
 	@RequestMapping(value = "/accountBalanceQuery", method = RequestMethod.GET)
 	@ResponseBody
 	public PageInfoDto accountBalanceQuery(@RequestParam Map<String, String> queryParam) {
-		logger.info("============账户余额查询===============");
+		logger.info("============车厂账户余额查询===============");
 		PageInfoDto pageInfoDto = service.accountBalanceQuery(queryParam);
+		return pageInfoDto;
+	}
+
+	@RequestMapping(value = "/accountBalanceDealerQuery", method = RequestMethod.GET)
+	@ResponseBody
+	public PageInfoDto accountBalanceDealerQuery(@RequestParam Map<String, String> queryParam) {
+		logger.info("============经销商账户余额查询===============");
+		PageInfoDto pageInfoDto = service.accountBalanceDealerQuery(queryParam);
 		return pageInfoDto;
 	}
 

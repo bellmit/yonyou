@@ -129,8 +129,7 @@
 		                        </div>
 							</div>
 						</div>
-					</div>
-					
+				 </div>
 				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 					<div class="form-group">
 						<label class="control-label col-xs-4">客户编号</label>
@@ -261,15 +260,17 @@ $(document).one("onload.dms",function(event,container){
 		src : "dms_table",
 		container:container,
 		url : dmsCommon.getDmsPath()["customer"] + "/customerManage/salesTraceTask",
-			rowID : "VIN",
-			sortName : "VIN",
-			sortOrder : "asc",
+			rowID : "CUSTOMER_NO",
+			sortName : "CUSTOMER_NO",
+			sortOrder : "desc",
 			autoHeight: false,
 			undefinedText : "",
 			
 			columns : [ 
-				 {checkbox:true,sortable : true},
-
+				 {checkbox:true},
+				 {field : "CUSTOMER_NO",title : "客户编号"},
+             	 {field : "CUSTOMER_NAME",title : "客户名称"},
+             	 {field : "GENDER",title : "性别",codeFormat : {type:"dict",codeType:"1006"}},
 				 {field : "fpcs",title : "分配次数"},
              	 {field : "hfcs",title : "回访次数"},
              	 {field : "IFDISTRIBUTION",title : "是否分配",codeFormat : {type:"dict",codeType:"1278"}},
@@ -278,9 +279,6 @@ $(document).one("onload.dms",function(event,container){
 		         {field : "MODEL_NAME",title : "车型"},
 		         {field : "VIN",title : "VIN"},
              	 {field : "SALES_DATE",title : "开票日期",dateFormat : {format:"YYYY-MM-DD"}},
-             	 {field : "CUSTOMER_NO",title : "客户编号"},
-             	 {field : "CUSTOMER_NAME",title : "客户名称"},
-             	 {field : "GENDER",title : "性别",codeFormat : {type:"dict",codeType:"1006"}},
              	 {field : "PROVINCE",title : "省份",codeFormat : {type:"dict",codeType:"9001"}},
              	 {field : "CITY",title : "城市",codeFormat : {type:"dict",codeType:"9002"}},
              	 {field : "DISTRICT",title : "区县",codeFormat : {type:"dict",codeType:"9003"}},

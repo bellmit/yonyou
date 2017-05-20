@@ -124,7 +124,7 @@ public class DealerVehicleCheckMaintainServiceImpl implements DealerVehicleCheck
 					setOrderPo.setInteger("ORDER_STATUS", OemDictCodeConstants.SALE_ORDER_TYPE_12);
 					setOrderPo.saveIt();
 					
-					String arriveDate = tviDTO.getArriveDate().toString().replace("-", "");
+					String arriveDate = convertDate2Str(tviDTO.getArriveDate());
 					
 					// 插入国产车验收接口表
 					dao.insertTiK4VsNvdr(arriveDate, loginInfo.getDealerCode(), loginInfo.getUserId(), tviDTO.getVin());

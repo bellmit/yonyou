@@ -169,7 +169,13 @@
 				returnResult.status = false;
 				return;
 			}
-			if(new Date($("#lastStockInDateFrom").val()) < new Date()){
+			var now = new Date();
+			var year=now.getFullYear(); 
+			var month=now.getMonth()+1;debugger;
+			month = month < 10 ? "0"+month : month;
+			var date=now.getDate(); 
+			var today = year+"-"+month+"-"+date;
+			if($("#lastStockInDateFrom").val() < today){
 				dmsCommon.tip({status:"warning",msg:"生产订单任务下发上报开始日期不能小于当前日期!"});
 				returnResult.status = false;
 				return;

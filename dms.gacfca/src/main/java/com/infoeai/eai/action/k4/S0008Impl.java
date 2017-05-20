@@ -89,14 +89,12 @@ public class S0008Impl extends BaseService implements S0008 {
 					setPo.saveIt();
 				}
 
-				dbService.endTxn(true);
-
-				/******************** UPDATE 结束事物 ********************/
 			}
 
+			dbService.endTxn(true);
+			/******************** UPDATE 结束事物 ********************/
 			logger.info("========== S0008经销商SO导入处理更新方法结束 ==========");
 
-			return null;
 
 		} catch (Exception e) {
 			dbService.endTxn(false);
@@ -105,6 +103,7 @@ public class S0008Impl extends BaseService implements S0008 {
 			Base.detach();
 			dbService.clean();
 		}
+		return null;
 	}
 
 	/**

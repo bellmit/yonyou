@@ -1,5 +1,6 @@
 package com.yonyou.dms.manage.service.salesPlanManager;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,8 @@ import com.yonyou.dms.manage.domains.DTO.salesPlanManager.TtVsMonthlyForecastDTO
 import com.yonyou.dms.manage.domains.PO.salesPlanManager.TmpVsMonthlyForecastPO;
 import com.yonyou.dms.manage.domains.PO.salesPlanManager.TmpVsMonthlyPlanPO;
 import com.yonyou.dms.manage.domains.PO.salesPlanManager.TtForecastMaterialPO;
+import com.yonyou.dms.manage.domains.PO.salesPlanManager.TtVsMonthlyForecastDetailColorPO;
+import com.yonyou.dms.manage.domains.PO.salesPlanManager.TtVsMonthlyForecastDetailPO;
 import com.yonyou.dms.manage.domains.PO.salesPlanManager.TtVsMonthlyForecastPO;
 import com.yonyou.dms.manage.domains.PO.salesPlanManager.TtVsRetailTaskPO;
 
@@ -107,7 +110,11 @@ public class ForecastImportServiceImpl implements ForecastImportService{
 
 	@Override
 	public void modifyforecastOTDSubmit(Long taskId, TtVsMonthlyForecastDTO userDto) throws ServiceBizException {
-		forecastImportDao.modifyforecastOTDSubmit(taskId, userDto);
+//		forecastImportDao.modifyforecastOTDSubmit(taskId, userDto);
+		LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
+		TtVsMonthlyForecastPO.update("STATUS = ?,UPDATE_BY = ?,UPDATE_DATE = ?", "TASK_ID = ? AND DEALER_ID = ?", 
+				OemDictCodeConstants.TT_VS_MONTHLY_FORECAST_SUBMIT,loginInfo.getUserId(),new Date(),
+				taskId,loginInfo.getDealerId());
 	}
 
 	@Override
@@ -192,6 +199,73 @@ public class ForecastImportServiceImpl implements ForecastImportService{
 	public boolean delColorAndTrim(Long id) {
 		TmpVsMonthlyForecastPO.update("STATUS = ?", "MATERIAL_ID = ?", OemDictCodeConstants.STATUS_DISABLE,id);
 		return true;
+	}
+
+	@Override
+	public List<Map> getForecastColorOTDFilterList(String groupId, LoginInfoDto loginInfo, String taskId,
+			String detailId) {
+		List<Map> colorList = forecastImportDao.getForecastColorOTDFilterList(groupId,loginInfo,taskId,detailId);
+		return colorList;
+	}
+
+	@Override
+	public void saveOTDForecast2(String taskId, String colorDetailId, String groupId, String forecastAmount,
+			String[] numsColor, String[] materialIds, LoginInfoDto loginInfo) {
+		Calendar calendar = Calendar.getInstance();
+		TtVsRetailTaskPO tvrt = TtVsRetailTaskPO.findById(taskId);
+		List<TtVsMonthlyForecastDetailPO> tvfdList = TtVsMonthlyForecastDetailPO.find("DETAIL_ID = ?", !StringUtils.isNullOrEmpty(colorDetailId)?Long.parseLong(colorDetailId):-1l);
+		if(tvfdList.size()>0){
+			//若存在,更新数据
+			TtVsMonthlyForecastDetailPO tmpPO = tvfdList.get(0);
+			TtVsMonthlyForecastPO.update("UPDATE_DATE = ?,UPDATE_BY = ?,STATUS = ?", "FORECAST_ID = ?", 
+					calendar.getTime(),loginInfo.getUserId(),OemDictCodeConstants.TT_VS_MONTHLY_FORECAST_SAVE,
+					tmpPO.getLong("FORECAST_ID"));
+			
+			TtVsMonthlyForecastDetailPO.update("FORECAST_AMOUNT = ?,UPDATE_DATE = ?,UPDATE_BY = ?", "DETAIL_ID = ?", 
+					new Integer(forecastAmount),calendar.getTime(),loginInfo.getUserId(),
+					tmpPO.getLong("DETAIL_ID"));
+			
+			for(int i=0;i<materialIds.length;i++){
+				TtVsMonthlyForecastDetailColorPO.update("REQUIRE_NUM = ?,REPORT_STATUS = ?", "DETAIL_ID = ? AND MATERIAL_ID = ?", 
+						CommonUtils.checkNull(numsColor[i],"0"),OemDictCodeConstants.TT_VS_MONTHLY_FORECAST_DETAIL_COLOR_SAVE,
+						tmpPO.getLong("DETAIL_ID"),new Long(materialIds[i]));
+			}
+		}else{
+			//若不存在,直接插入数据
+			TtVsMonthlyForecastPO tvmfPO = new TtVsMonthlyForecastPO();				
+			tvmfPO.setLong("TASK_ID",new Long(taskId));
+			tvmfPO.setLong("COMPANY_ID",loginInfo.getCompanyId());				
+			tvmfPO.setInteger("ORG_TYPE",OemDictCodeConstants.ORG_TYPE_DEALER);		
+			tvmfPO.setLong("DEALER_ID",loginInfo.getDealerId());
+			tvmfPO.setTimestamp("CREATE_DATE",calendar.getTime());
+			tvmfPO.setLong("CREATE_BY",loginInfo.getUserId());					
+			tvmfPO.setInteger("FORECAST_YEAR",new Integer(tvrt.getString("YEAR")));
+			tvmfPO.setInteger("FORECAST_MONTH",new Integer(tvrt.getString("MONTH")));
+			tvmfPO.setInteger("STATUS",OemDictCodeConstants.TT_VS_MONTHLY_FORECAST_SAVE);
+			tvmfPO.saveIt();
+			
+			TtVsMonthlyForecastDetailPO tvmfdPO = new TtVsMonthlyForecastDetailPO();	
+			tvmfdPO.setLong("FORECAST_ID",tvmfPO.getLong("FORECAST_ID"));
+			tvmfdPO.setLong("MATERIAL_ID",Long.parseLong(groupId));//车款id						
+			tvmfdPO.setInteger("FORECAST_AMOUNT",Integer.parseInt(forecastAmount));
+			tvmfdPO.setTimestamp("CREATE_DATE",calendar.getTime());
+			tvmfdPO.setLong("CREATE_BY",loginInfo.getUserId());
+			tvmfdPO.saveIt();
+			
+			for(int i=0;i<materialIds.length;i++){
+				TtVsMonthlyForecastDetailColorPO tvmfdcPO = new TtVsMonthlyForecastDetailColorPO();					
+				tvmfdcPO.setLong("DETAIL_ID",new Long(tvmfdPO.getLong("DETAIL_ID")));
+				tvmfdcPO.setLong("MATERIAL_ID",new Long(materialIds[i]));
+				tvmfdcPO.setString("REQUIRE_NUM",CommonUtils.checkNull(numsColor[i],"0"));
+				/*tvmfdcPO.setColorName(colorName[i]);
+				tvmfdcPO.setColorCode(colorCodes[i]);
+				tvmfdcPO.setColorAmount(numsColor[i]);*/
+				tvmfdcPO.setTimestamp("CREATE_DATE",calendar.getTime());
+				tvmfdcPO.setLong("CREATE_BY",loginInfo.getUserId());
+				tvmfdcPO.setInteger("REPORT_STATUS",OemDictCodeConstants.TT_VS_MONTHLY_FORECAST_DETAIL_COLOR_SAVE);
+				tvmfdcPO.saveIt();
+			}	
+		}
 	}
 	
 

@@ -1,6 +1,7 @@
 package com.yonyou.dms.vehicle.service.saleOdditionalOrder;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -41,11 +42,11 @@ public class SaleOdditionalOrderServiceImpl implements SaleOdditionalOrderServic
 		StringBuffer sb = new StringBuffer();
 		sb.append("SELECT DISTINCT A.DEALER_CODE,A.CUSTOMER_NAME,B.BRAND_CODE,B.SERIES_CODE,B.MODEL_CODE,A.IS_SPEEDINESS,A.DELIVERY_MODE_ELEC,A.IS_ELECTRICITY,A.ESC_ORDER_STATUS,A.ESC_TYPE,A.EC_ORDER_NO,A.CUS_SOURCE,A.DEPOSIT_AMOUNT,A.EC_ORDER,A.VERIFICATION_TIMEOUT,");
 		sb.append(" B.CONFIG_CODE,COALESCE(A.COLOR_CODE,B.COLOR_CODE) as COLOR_CODE ,A.VIN,A.SOLD_BY,A.VEHICLE_PRICE, ");
-		sb.append(" A.SO_NO,A.SHEET_CREATE_DATE,A.SO_STATUS,A.CUSTOMER_NO,A.CONTRACT_NO,A.CONTRACT_DATE,A.OWNED_BY,A.LOCK_USER,A.CT_CODE,A.CERTIFICATE_NO,A.DELIVERING_DATE,C.IS_DIRECT,A.BUSINESS_TYPE, ");
+		sb.append(" A.SO_NO,A.SHEET_CREATE_DATE,A.SO_STATUS,A.CUSTOMER_NO,A.CONTRACT_NO,A.CONTRACT_DATE,A.OWNED_BY,A.LOCK_USER,A.CT_CODE,A.CERTIFICATE_NO,A.DELIVERING_DATE,A.BUSINESS_TYPE, ");
 		sb.append(" mo.MODEL_NAME,se.SERIES_NAME,br.BRAND_NAME,pa.CONFIG_NAME,co.COLOR_NAME,em.USER_NAME");
 		sb.append(" FROM TT_SALES_ORDER A  ");
 		sb.append(" LEFT JOIN ("+CommonConstants.VM_VS_PRODUCT+") B ON A.PRODUCT_CODE = B.PRODUCT_CODE AND A.DEALER_CODE = B.DEALER_CODE AND A.D_KEY = B.D_KEY ");
-		sb.append(" LEFT JOIN TM_VS_STOCK C ON A.DEALER_CODE = C.DEALER_CODE AND A.VIN = C.VIN");
+		//sb.append(" LEFT JOIN TM_VS_STOCK C ON A.DEALER_CODE = C.DEALER_CODE AND A.VIN = C.VIN");
 		sb.append(" LEFT JOIN TM_MODEL   mo   on   B.MODEL_CODE=mo.MODEL_CODE and B.DEALER_CODE=mo.DEALER_CODE");
 		sb.append(" LEFT JOIN TM_SERIES  se   on   B.SERIES_CODE=se.SERIES_CODE and B.DEALER_CODE=se.DEALER_CODE");
 		sb.append(" LEFT JOIN tm_brand   br   on   B.BRAND_CODE = br.BRAND_CODE and B.DEALER_CODE=br.DEALER_CODE");
@@ -99,7 +100,7 @@ public class SaleOdditionalOrderServiceImpl implements SaleOdditionalOrderServic
 		String tag = queryParam.get("tag");
 		System.err.println(tag);
 		if(tag.equals("1")){  //潜在客户			
-			sb.append(" SELECT A.*,13011010 AS SO_STATUS");
+			sb.append(" SELECT M.MEDIA_DETAIL_NAME,A.*,13011010 AS SO_STATUS");
 			sb.append(" ,c.INTENT_BRAND,c.INTENT_SERIES,c.INTENT_MODEL,c.INTENT_CONFIG,c.INTENT_COLOR,d.DEPOSIT_AMOUNT,c.IS_MAIN_MODEL, 'CUSTOMER' AS TAG  ");
 			sb.append(" ,br.BRAND_NAME,se.SERIES_NAME,mo.MODEL_NAME,cn.CONFIG_NAME,co.COLOR_NAME,'13861001' AS ORDER_SORT,'10251001' AS PAY_MODE,'13031001' AS INVOICE_MODE,'11931002' AS VEHICLE_PURPOSE");
 			sb.append(" from TM_POTENTIAL_CUSTOMER A ");
@@ -110,15 +111,17 @@ public class SaleOdditionalOrderServiceImpl implements SaleOdditionalOrderServic
 	        sb.append(" LEFT JOIN TM_SERIES  se   on   c.INTENT_SERIES=se.SERIES_CODE and c.DEALER_CODE=se.DEALER_CODE");
 	        sb.append(" LEFT JOIN TM_CONFIGURATION  cn   on   c.INTENT_CONFIG=cn.CONFIG_CODE and c.DEALER_CODE=cn.DEALER_CODE");
 	        sb.append(" LEFT JOIN tm_color   co   on   c.INTENT_COLOR = co.COLOR_CODE and c.DEALER_CODE=co.DEALER_CODE");
+	        sb.append(" LEFT JOIN tt_media_detail M ON M.MEDIA_DETAIL=A.MEDIA_DETAIL AND M.DEALER_CODE=A.DEALER_CODE");
 			sb.append(" WHERE A.DEALER_CODE=" + dealerCode);
 			sb.append(" and A.INTENT_LEVEL!="+DictCodeConstants.DICT_INTENT_LEVEL_F+" and  A.INTENT_LEVEL!="+DictCodeConstants.DICT_INTENT_LEVEL_FO);
+			sb.append(" AND A.INTENT_LEVEL!="+DictCodeConstants.DICT_INTENT_LEVEL_D);
 			sb.append(" AND a.D_KEY =  " + CommonConstants.D_KEY);
 			this.setCus(sb, queryParam, queryList);
 			PageInfoDto result = DAOUtil.pageQuery(sb.toString(), queryList);
 			System.err.println(sb.toString());
 			return result;
 		}else{                      //售后客户
-			sb.append(" SELECT A.DEALER_CODE,A.OWNER_NO AS CUSTOMER_NO,A.OWNER_NAME AS CUSTOMER_NAME,A.OWNER_PROPERTY AS CUSTOMER_TYPE, A.PHONE AS");
+			sb.append(" SELECT 13011010 AS SO_STATUS,A.DEALER_CODE,A.OWNER_NO AS CUSTOMER_NO,A.OWNER_NAME AS CUSTOMER_NAME,A.OWNER_PROPERTY AS CUSTOMER_TYPE, A.PHONE AS");
 			sb.append(" CONTACTOR_PHONE,MOBILE AS CONTACTOR_MOBILE,A.ADDRESS,A.CT_CODE,A.CERTIFICATE_NO,'OWNER' AS TAG,b.VIN,b.LICENSE,'13861001' AS ORDER_SORT,'10251001' AS PAY_MODE,'13031001' AS INVOICE_MODE,'11931002' AS VEHICLE_PURPOSE,");
 			sb.append(" B.BRAND AS BRAND_CODE,B.SERIES AS SERIES_CODE,B.MODEL AS MODEL_CODE,B.COLOR AS COLOR_CODE,B.PRODUCT_CODE,C.PRODUCT_NAME");
 			sb.append(" from TM_OWNER A");
@@ -160,7 +163,7 @@ public class SaleOdditionalOrderServiceImpl implements SaleOdditionalOrderServic
         }
 		if(queryParam.get("tag").equals("1")){
 			if (!StringUtils.isNullOrEmpty(queryParam.get("isMainModel"))) {
-	            sb.append(" and A.IS_MAIN_MODEL = ?");
+	            sb.append(" and C.IS_MAIN_MODEL = ?");
 	            queryList.add(queryParam.get("isMainModel"));
 	        }
 		}else{
@@ -320,8 +323,8 @@ public class SaleOdditionalOrderServiceImpl implements SaleOdditionalOrderServic
             }
 		}
 	    SalesOrderPO salesOrderPO = new SalesOrderPO();
-	    this.setSalesPO(salesOrderPO,salesOrderDTO, soNo);
-	    salesOrderPO.saveIt();
+	    this.setSalesPO(salesOrderPO,salesOrderDTO, soNo,true);
+	    //salesOrderPO.saveIt();
 	    //装潢项目保存
 	    if (salesOrderDTO.getSoDecrodateList().size() > 0 && salesOrderDTO.getSoDecrodateList()!= null) {
             List<Map> list  =  salesOrderDTO.getSoDecrodateList();
@@ -356,20 +359,20 @@ public class SaleOdditionalOrderServiceImpl implements SaleOdditionalOrderServic
 	 * @author Benzc
 	 * @date 2017年4月6日
 	 */
-	@SuppressWarnings({ "unused", "rawtypes" })
+	@SuppressWarnings({ "rawtypes" })
 	@Override
 	public void modifyOdditionalOrderInfo(String soNo, SalesOdditionalOrderDTO salesOrderDTO) throws ServiceBizException {
 		String DealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
-		SalesOrderPO updatePo = SalesOrderPO.findByCompositeKeys(DealerCode,soNo);
+	/*	SalesOrderPO updatePo = SalesOrderPO.findByCompositeKeys(DealerCode,soNo);
 		if(updatePo != null){
 			if(!StringUtils.isNullOrEmpty(updatePo.getString("VIN"))){
 				String uodateVin="";
                 uodateVin = updatePo.getString("VIN");
             }
-		}
+		}*/
 	    SalesOrderPO salesOrderPO = SalesOrderPO.findByCompositeKeys(DealerCode,soNo);
-	    this.setSalesPO(salesOrderPO,salesOrderDTO, soNo);
-	    salesOrderPO.saveIt();
+	    this.setSalesPO(salesOrderPO,salesOrderDTO, soNo,false);
+	    //salesOrderPO.saveIt();
 	    
 	    //装潢项目保存
 	    if (salesOrderDTO.getSoDecrodateList().size() > 0 && salesOrderDTO.getSoDecrodateList()!= null) {
@@ -396,7 +399,7 @@ public class SaleOdditionalOrderServiceImpl implements SaleOdditionalOrderServic
 	}
     
 	//新增字段
-	private void setSalesPO(SalesOrderPO po,SalesOdditionalOrderDTO salesOrderDTO, String soNo) {
+	private void setSalesPO(SalesOrderPO po,SalesOdditionalOrderDTO salesOrderDTO, String soNo,boolean flag) {
 		//订单信息
 		String dealerCode = FrameworkUtil.getLoginInfo().getDealerCode();
         if(!StringUtils.isNullOrEmpty(salesOrderDTO.getSoNo())&&salesOrderDTO.getSoNo().equals(soNo)){
@@ -408,7 +411,9 @@ public class SaleOdditionalOrderServiceImpl implements SaleOdditionalOrderServic
         po.setString("SERVICE_NO", salesOrderDTO.getServiceNo());
         po.setInteger("SO_STATUS", salesOrderDTO.getSoStatus());
         po.setString("CUSTOMER_NAME", salesOrderDTO.getCustomerName());
-        po.setDate("SHEET_CREATE_DATE", salesOrderDTO.getSheetCreateDate());
+        if(flag){
+        	po.setTimestamp("SHEET_CREATE_DATE", new Date());
+        }
         po.setString("CUSTOMER_NO", salesOrderDTO.getCustomerNo());
         po.setInteger("CUSTOMER_TYPE", salesOrderDTO.getCustomerType());
         po.setInteger("SHEET_CREATED_BY",salesOrderDTO.getSheetCreatedBy());
@@ -432,6 +437,9 @@ public class SaleOdditionalOrderServiceImpl implements SaleOdditionalOrderServic
         if(salesOrderDTO.getVin() == null && salesOrderDTO.getLicense() == null){
         	throw new ServiceBizException("VIN、车牌号不能同时为空！");
         }
+        if(salesOrderDTO.getVin().length() != 17){
+        	throw new ServiceBizException("VIN长度为17位!");
+        }
         po.setString("VIN", salesOrderDTO.getVin());
         po.setString("LICENSE", salesOrderDTO.getLicense());
         po.setString("COLOR_CODE", salesOrderDTO.getColor());
@@ -451,6 +459,7 @@ public class SaleOdditionalOrderServiceImpl implements SaleOdditionalOrderServic
         po.setDouble("CON_RECEIVABLE_SUM", salesOrderDTO.getConReceivableSum());
         po.setDouble("ORDER_SUM", salesOrderDTO.getOrderSum());
         po.setDouble("ORDER_RECEIVABLE_SUM", salesOrderDTO.getOrderReceivableSum());
+        po.saveIt();
 	}
 	
 	/**

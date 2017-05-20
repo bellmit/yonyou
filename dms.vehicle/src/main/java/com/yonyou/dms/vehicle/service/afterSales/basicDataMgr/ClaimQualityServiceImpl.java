@@ -65,7 +65,8 @@ public class ClaimQualityServiceImpl  implements ClaimQualityService{
 		            throw new ServiceBizException("已存在此索赔质保期数据！新增失败！");
 		        } 
 		        else{
-		   if(ptdto.getQualityTime()!=null&&ptdto.getQualityMileage()!=null){
+		        	if( ptdto.getQualityTime()>=24){        		
+		        if(ptdto.getQualityMileage()>=50000){
 			   ptPo.setDouble("QUALITY_TIME", ptdto.getQualityTime());
 			   ptPo.setInteger("QUALITY_MILEAGE",ptdto.getQualityMileage());
 			   ptPo.setInteger("THREEPACK_TIME",24);
@@ -78,10 +79,12 @@ public class ClaimQualityServiceImpl  implements ClaimQualityService{
 			   ptPo.setInteger("VER",0);
 			   ptPo.setInteger("IS_DEL",0);
 			   ptPo.saveIt();
-		  
-		   }else{
-			   throw new ServiceBizException("未填写完整重要信息，请输入！"); 
-		   }
+		        	}else{
+		        		 throw new ServiceBizException("质保里程（公里）不能小于  三包责任里程！新增失败！");
+		        	 }
+		        	}else{
+		        		 throw new ServiceBizException("质保期限（月）不能小于  三包责任期！新增失败！");
+		        	}
 		        }
 	
 	}
@@ -100,12 +103,20 @@ public class ClaimQualityServiceImpl  implements ClaimQualityService{
 	@Override
 	public void edit(Long id, TtWrWarrantyDTO ptdto) {
 		LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
+	  	if( ptdto.getQualityTime()>=24){        		
+	        if(ptdto.getQualityMileage()>=50000){
 		   TtWrWarrantyPO ptPo = TtWrWarrantyPO.findById(id);
 		   ptPo.setDouble("QUALITY_TIME", ptdto.getQualityTime());
 		   ptPo.setInteger("QUALITY_MILEAGE",ptdto.getQualityMileage());
 		   ptPo.setLong("UPDATE_BY", loginInfo.getUserId());
 		   ptPo.setDate("UPDATE_DATE", new Date());
 		   ptPo.saveIt();
+	        }else{
+       		 throw new ServiceBizException("质保里程（公里）不能小于  三包责任里程！新增失败！");
+       	 }
+	  	 }else{
+      		 throw new ServiceBizException("质保期限（月）不能小于  三包责任期！新增失败！");
+      	}
 		
 	}
 	

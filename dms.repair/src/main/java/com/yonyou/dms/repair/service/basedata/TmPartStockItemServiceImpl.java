@@ -49,7 +49,7 @@ public class TmPartStockItemServiceImpl implements TmPartStockItemService {
     @Override
     public List<Map> selectPartStockItem(Map<String, Object> queryParams) throws ServiceBizException {
         List<Object> params = new ArrayList<Object>();
-        StringBuilder sqlSb = new StringBuilder("SELECT A.DEALER_CODE as dealerCode,A.PART_BATCH_NO as partBatchNo,A.PART_NO as partNo,A.STORAGE_CODE as storageCode,A.D_KEY as dKey,A.STOCK_QUANTITY as stockQuantity,A.COST_PRICE as costPrice,A.COST_AMOUNT as costAmount FROM TM_PART_STOCK_ITEM A where 1=1 ");
+        StringBuilder sqlSb = new StringBuilder("SELECT A.DEALER_CODE,A.PART_BATCH_NO as partBatchNo,A.PART_NO as partNo,A.STORAGE_CODE as storageCode,A.D_KEY as dKey,A.STOCK_QUANTITY as stockQuantity,A.COST_PRICE as costPrice,A.COST_AMOUNT as costAmount FROM TM_PART_STOCK_ITEM A where 1=1 ");
         if(!StringUtils.isNullOrEmpty(queryParams.get("partBatchNo"))){
             sqlSb.append(" AND A.PART_BATCH_NO = ? ");
             params.add(queryParams.get("partBatchNo"));

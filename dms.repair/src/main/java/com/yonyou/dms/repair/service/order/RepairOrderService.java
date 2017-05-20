@@ -140,6 +140,29 @@ public interface RepairOrderService {
 	 * @return
 	 */
 	public List<Map> queryVinByVin(Map<String, String> query);
+
+	
+	/**
+	 * 判断是否服务专员
+	 * 1  表示是   0 表示不是
+	 * @param string
+	 * @return
+	 */
+	public String findServiceAdvisor(String string);
+
+	/**
+	 * 根据维修类型查询工时单价
+	 * @param string
+	 * @return
+	 */
+	String findLabourPriceByRepairTypeCode(String string);
+
+	/**
+	 * 根据车型代码查询工时单价
+	 * @param string
+	 * @return
+	 */
+	public String findLabourPriceByModelCode(Map<String, String> param);
 	
 
 }

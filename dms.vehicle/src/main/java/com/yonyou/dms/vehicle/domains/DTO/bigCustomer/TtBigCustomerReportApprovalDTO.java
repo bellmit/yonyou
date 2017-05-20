@@ -7,6 +7,7 @@ public class TtBigCustomerReportApprovalDTO {
 	private String wsno;
 	private String reportApprovalRemark;
 	private String dealerCode;
+	private String dmsFileIds;
 	
 	
 	public String getCustomerCompanyCode() {
@@ -47,5 +48,13 @@ public class TtBigCustomerReportApprovalDTO {
 
 	public void setDealerCode(String dealerCode) {
 		this.dealerCode = dealerCode;
+	}
+
+	public String getDmsFileIds() {
+		return dmsFileIds;
+	}
+
+	public void setDmsFileIds(String dmsFileIds) {
+		this.dmsFileIds = dmsFileIds;
 	}
 }

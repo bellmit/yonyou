@@ -37,7 +37,7 @@ import java.util.Date;
 public class TtMaintainTableDTO {
 
     private Boolean isSelected;
-    private String updateStatus;//新增或修改
+    private String itemUpdateStatus;//新增修改或删除
     private Long itemId;
     private String partInfix;//配件中缀
     private String consignExterior;//是否委外
@@ -51,7 +51,7 @@ public class TtMaintainTableDTO {
     private Integer printBatchNo;//预捡单打印流水号
     private Date printRpTime;//预先捡料单打印时间
     private String isFinished;
-    private String cardCode;
+    private String cardId;
     private String activityCode;
     private String storageName;
     private String storageCode;
@@ -81,6 +81,14 @@ public class TtMaintainTableDTO {
     private Integer nonOneOff;
     private String roNo;
     
+    public String getItemUpdateStatus() {
+        return itemUpdateStatus;
+    }
+    
+    public void setItemUpdateStatus(String itemUpdateStatus) {
+        this.itemUpdateStatus = itemUpdateStatus;
+    }
+
     //数据库不存在字段
     private String recordId;
     
@@ -88,29 +96,10 @@ public class TtMaintainTableDTO {
         return recordId;
     }
 
-
-
-
     
     public void setRecordId(String recordId) {
         this.recordId = recordId;
     }
-
-
-
-
-    public String getUpdateStatus() {
-        return updateStatus;
-    }
-
-
-
-    
-    public void setUpdateStatus(String updateStatus) {
-        this.updateStatus = updateStatus;
-    }
-
-
 
     public String getRoNo() {
         return roNo;
@@ -299,14 +288,15 @@ public class TtMaintainTableDTO {
         this.isFinished = isFinished;
     }
     
-    public String getCardCode() {
-        return cardCode;
+    public String getCardId() {
+        return cardId;
     }
+
     
-    public void setCardCode(String cardCode) {
-        this.cardCode = cardCode;
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
     }
-    
+
     public String getActivityCode() {
         return activityCode;
     }

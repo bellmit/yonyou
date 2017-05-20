@@ -383,7 +383,7 @@
 							<label class="control-label col-xs-4">VIN</label>
 							<div class="col-xs-8 ">
 								<div class="input-group">
-									<input type="text" class="form-control VIN" id="vin" name="vin" 
+									<input type="text" class="form-control" id="vin" name="vin" 
 										data-fieldName="VIN" onMouseMove="this.title=this.value"/>
 									<input type="hidden" class="form-control" id="vsStockId" name="vsStockId"
 										data-fieldName="VS_STOCK_ID" />
@@ -408,7 +408,7 @@
 								<label class="control-label col-xs-4 ">车牌号</label>
 								<div class="col-xs-8 ">
 									<input id="license" name="license" data-fieldName="LICENSE" 
-										class="form-control license" type="text" />
+										class="form-control" type="text" />
 								</div>
 							</div>
 					</div>
@@ -820,7 +820,7 @@
 	           {field : "UPHOLSTER_NAME",inputField:"upholsterName",inputHiddenFormat : {hiddenField:"UPHOLSTER_NAME"}, title : "<span style='color: blue;'>装潢项目名称</span>"},
 	           {field : "STD_LABOUR_HOUR",inputField:"stdLabourHour",inputHiddenFormat : {hiddenField:"STD_LABOUR_HOUR"}, title : "标准工时"},
 	           {field : "LABOUR_PRICE",inputField:"labourPrice",inputHiddenFormat : {hiddenField:"LABOUR_PRICE"}, title : "<span style='color: blue;'>工时单价</span>",inputSelectFormat : {url:"/ordermanage/salesOdditionalOrder/hourPrice/dicts",model:"vehicle",validate:{validateClass:"required"},labelValue:"LABOUR_PRICE_CODE",lableDesc:"LABOUR_PRICE"}},
-	           {field : "ACCOUNT_MODE", inputField : "accountMode", title : "<span style='color: blue;'>结算方式</span>", inputHiddenFormat : {hiddenField:"ACCOUNT_MODE"},inputSelectFormat : { type : "dict", codeType : "1406" ,defaultValue:"14061001",validate:{validateClass:"required"}} },
+	           {field : "ACCOUNT_MODE", inputField : "accountMode", title : "<span style='color: blue;'>结算方式</span>", inputHiddenFormat : {hiddenField:"ACCOUNT_MODE"},inputSelectFormat : { type : "dict", codeType : "1312" ,defaultValue:"13121004",validate:{validateClass:"required"}} },
 	           {field : "DISCOUNT",inputField:"discount",inputHiddenFormat : {hiddenField:"DISCOUNT"}, title : "<span style='color: blue;'>折扣率</span>",inputNumberFormat : {decimal : 2,validate:{validateClass:"required money",validateAttr:'maxDigit="30"'}}},
 	           {field : "DISCOUNT_AMOUNT",inputField:"discountAmount",inputHiddenFormat : {hiddenField:"DISCOUNT_AMOUNT"}, title : "优惠金额",numberFormat : {decimal : 2,validate:{validateClass:"money",validateAttr:'maxDigit="30"'}}},
 	           {field : "RECEIVE_AMOUNT",inputField:"receiveAmount",inputHiddenFormat : {hiddenField:"RECEIVE_AMOUNT"}, title : "实收金额",numberFormat : {decimal : 2,validate:{validateClass:"money",validateAttr:'maxDigit="30"'}}},
@@ -859,7 +859,7 @@
 		           {field : "PART_SALES_PRICE",inputField : "partSalesPrice", title : "配件销售单价",numberFormat : {decimal : 2,validate:{validateClass:"money",validateAttr:'maxDigit="30"'}}},
 		           {field : "REAL_PRICE",inputField:"realPrice", title : "<span style='color: blue;'>实际销售单价</span>",inputNumberFormat : {decimal : 2,validate:{validateClass:"required money",validateAttr:'maxDigit="30"'}}},
 		           {field : "PART_QUANTITY",inputField:"partQuantity", title : "<span style='color: blue;'>配件数量</span>",inputNumberFormat : {decimal : 2,validate:{validateClass:"required digits",validateAttr:'maxDigit="30"'}}},
-		           {field : "ACCOUNT_MODE",inputField : "accountModeList", title : "<span style='color: blue;'>结算方式</span>", inputHiddenFormat : {hiddenField:"ACCOUNT_MODE"},inputSelectFormat : { type : "dict", codeType : "1406" ,defaultValue:"14061001",validate:{validateClass:"required"}} },
+		           {field : "ACCOUNT_MODE",inputField : "accountModeList", title : "<span style='color: blue;'>结算方式</span>", inputHiddenFormat : {hiddenField:"ACCOUNT_MODE"},inputSelectFormat : { type : "dict", codeType : "1312" ,defaultValue:"13121004",validate:{validateClass:"required"}} },
 		           {field : "DISCOUNT",inputField :"discount",title : "<span style='color: blue;'>折扣率</span>",inputNumberFormat : {decimal : 2,validate:{validateClass:"required money",validateAttr:'maxDigit="30"'}}},
 		           {field : "PART_SALES_AMOUNT",inputField:"partSalesAmount", title : "配件销售金额",numberFormat : {decimal : 2,autoValueFormat:{autoValue:"#realPrice*#partQuantity*#discount" },validate:{validateClass:"money",validateAttr:'maxDigit="30"'}}},
 		           {field : "REMARK",inputField : remark, title : "<span style='color: blue;'>备注</span>"},
@@ -885,7 +885,7 @@
 		           {field : "SERVICE_TYPE", inputField : "serviceType",inputHiddenFormat : {hiddenField:"SERVICE_TYPE"}, title : "服务类别",codeFormat : {type:"dict",codeType:"1402"}},
 		           {field : "DIRECTIVE_PRICE", inputField : "directivePrice",inputHiddenFormat : {hiddenField:"DIRECTIVE_PRICE"}, title : "销售指导价",numberFormat : {decimal : 2,validate:{validateClass:"money",validateAttr:'maxDigit="30"'}}},
 		           {field : "REAL_PRICE", inputField : "realPrice", title : "实际销售价", numberFormat : {hiddenField:"REAL_PRICE"}, numberFormat : {decimal : 2,validate:{validateClass:" money"}} },		     
-		           {field : "ACCOUNT_MODE", inputField : "accountMode", title : "<span style='color: blue;'>结算方式</span>", inputHiddenFormat : {hiddenField:"ACCOUNT_MODE"},inputSelectFormat : { type : "dict", codeType : "1406" ,defaultValue:"14061001",validate:{validateClass:"required"}} },
+		           {field : "ACCOUNT_MODE", inputField : "accountMode", title : "<span style='color: blue;'>结算方式</span>", inputHiddenFormat : {hiddenField:"ACCOUNT_MODE"},inputSelectFormat : { type : "dict", codeType : "1312" ,defaultValue:"13121004",validate:{validateClass:"required"}} },
 		           {field : "RECEIVEABLE_AMOUNT", inputField : "receiveableAmount",inputHiddenFormat : {hiddenField:"RECEIVEABLE_AMOUNT"}, title : "实际发生金额",numberFormat : {decimal : 2,validate:{validateClass:"money",validateAttr:'maxDigit="30"'}}},
 		           {field : "CONSIGNED_AMOUNT", inputField : "consignedAmount", title : "<span style='color: blue;'>代办预收金额</span>", inputHiddenFormat : {hiddenField:"CONSIGNED_AMOUNT"}, inputNumberFormat : {decimal : 2,validate:{validateClass:"required money"}} },		     
 		           {field : "REMARK",inputField : "remark",inputHiddenFormat : {hiddenField:"REMARK"}, title : "备注"}
@@ -896,7 +896,7 @@
 								.getRowDataByIndex();
 						for (var i = 0; i < table.length; i++) {
 							var am = table[i].ACCOUNT_MODE;
-							if(am == '14061001'){
+							if(am == '13121004'){
 								var ra = table[i].RECEIVEABLE_AMOUNT;//获取所有实际发生金额
 								ra += ra;
 							}

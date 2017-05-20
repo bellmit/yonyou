@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.javalite.activejdbc.Base;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import com.yonyou.dms.common.domains.PO.basedata.TtOrderSendTimeManagePO;
 import com.yonyou.dms.common.domains.PO.basedata.TtVsOrderPO;
 import com.yonyou.dms.framework.DAO.OemDAOUtil;
 import com.yonyou.dms.function.common.OemDictCodeConstants;
+import com.yonyou.dms.function.utils.common.CommonUtils;
 
 @Service
 public class S0002Impl extends BaseService implements S0002 {
@@ -35,24 +37,9 @@ public class S0002Impl extends BaseService implements S0002 {
 		
 		try {
 			
-			dbService.beginTxn();	// 开启事物
+			beginDbService();;	// 开启事物
 			
 			s0002List = getS0002Info();	// 订单数据抽取
-			
-//			if (null != s0002List && s0002List.size() > 0) {
-//				
-//				// 迭代集合将SO创建失败原因清空
-//				for (int i = 0; i < s0002List.size(); i++) {
-//					
-//					TtVsOrderPO conOrderPo = new TtVsOrderPO();
-//					conOrderPo.setOrderNo(s0002List.get(i).getORDER_NO());
-//					
-//					TtVsOrderPO setOrderPo = new TtVsOrderPO();
-//					setOrderPo.setSoCrFailureReason(" ");
-//					
-//					factory.update(conOrderPo, setOrderPo);
-//				}
-//			}
 			
 			dbService.endTxn(true);	// 结束事物
 			
@@ -64,6 +51,7 @@ public class S0002Impl extends BaseService implements S0002 {
 			dbService.endTxn(false);
 			throw new Exception("============S0002查询数据异常==================" + e.getMessage(), e.getCause());
 		} finally {
+			Base.detach();
 			dbService.clean();
 		}
 	}
@@ -72,12 +60,14 @@ public class S0002Impl extends BaseService implements S0002 {
 	 * 发送成功修改状态
 	 * @param list_zpod
 	 */
+	@Override
 	public List<S0002XmlVO> updateVoMethod(List<S0002XmlVO> list_s0002) throws Exception {
 		
 		try {
+			beginDbService();	// 开启事物
 			//******************************UPDATE 开启事物 *********************//*
 			if (null != list_s0002 && list_s0002.size() > 0) {
-				dbService.beginTxn();	// 开启事物
+				
 				for (int i = 0; i < list_s0002.size(); i++) {
 					
 					S0002XmlVO tempPO = new S0002XmlVO();
@@ -100,18 +90,19 @@ public class S0002Impl extends BaseService implements S0002 {
 					ttOrderPO.setDate("UPDATE_DATE", sysDate.getTime());
 					ttOrderPO.saveIt();
 				}
-				dbService.endTxn(true);
-				//******************************UPDATE 结束事物 *********************//*
 			}
+			dbService.endTxn(true);
+			//******************************UPDATE 结束事物 *********************//*
 			logger.info("============S0002经销商SO导入处理更新方法结束==================");
-			return null;
 			
 		} catch (Exception e) {
 			dbService.endTxn(false);
 			throw new Exception("============S0002修改状态处理异常==================" + e.getMessage());
 		} finally {
+			Base.detach();
 			dbService.clean();
 		}
+		return null;
 	}
 	
 	
@@ -120,11 +111,11 @@ public class S0002Impl extends BaseService implements S0002 {
 		Integer[] workWY = CommonDAO.getNowWrokWeekAndYear();
 		
 		StringBuffer sql = new StringBuffer(" \n");
-		sql.append("SELECT @rownum:=@rownum+1 rank, T.* From( \n");
+		sql.append("SELECT @rownum:=@rownum+1 RANK, T.* From ( \n");
 		sql.append("SELECT O.IF_ID, -- 主键ID \n");
 		sql.append("       @rownum:=0, \n");
 		sql.append("       O.ORDER_NO, -- 订单号 \n");
-		sql.append("       ROW_NUMBER() OVER() AS SORT_CODE, \n");
+		sql.append("    -- ROW_NUMBER() OVER() AS SORT_CODE, \n");
 		sql.append("       O.CREATE_DATE, -- 订单创建日期 \n");
 		sql.append("       O.CREATE_TIME, -- 订单创建时间 \n");
 		sql.append("    -- O.DEALER_CODE, -- 经销商代码 \n");
@@ -189,37 +180,37 @@ public class S0002Impl extends BaseService implements S0002 {
 		
 		sql.append("          O.DEAL_ORDER_AFFIRM_DATE ASC \n");
 		sql.append("         )T \n");
-		logger.info("订单数据抽取SQL"+sql.toString());
 		List<Map> listMap = OemDAOUtil.findAll(sql.toString(), null);
 		List<S0002XmlVO> list = new ArrayList<S0002XmlVO>();
-		if (null != list && list.size() > 0) {
-			S0002XmlVO bean = new S0002XmlVO();
+		if (null != listMap && listMap.size() > 0) {
+			S0002XmlVO bean = null;
 			for (int i=0;i<listMap.size();i++) {
 				Map map = listMap.get(i);
-				bean.setCOLOR_CODE(Utility.stringIsNull(map.get("COLOR_CODE").toString()));
-				bean.setCREATE_DATE(Utility.stringIsNull(map.get("CREATE_DATE").toString()));
-				bean.setCREATE_TIME(Utility.stringIsNull(map.get("CREATE_TIME").toString()));
-				bean.setDEALER_CODE(Utility.stringIsNull(map.get("DEALER_CODE").toString()));	// SAP 经销商代码
-				bean.setFACTORY_OPTIONS(Utility.stringIsNull(map.get("FACTORY_OPTIONS").toString()));
-				bean.setIS_REBATE(Utility.stringIsNull(map.get("IS_REBATE").toString()));
-				bean.setLOCAL_OPTION(Utility.stringIsNull(map.get("LOCAL_OPTION").toString()));
-				bean.setMODEL_CODE(Utility.stringIsNull(map.get("MODEL_CODE").toString()));
-				bean.setMODEL_YEAR(Utility.stringIsNull(map.get("MODEL_YEAR").toString()));
-				bean.setORDER_NO(Utility.stringIsNull(map.get("ORDER_NO").toString()));
-				bean.setORDER_NUM(Utility.stringIsNull(String.valueOf(map.get("ORDER_NUM"))));
-				bean.setPAYMENT_TYPE(Utility.stringIsNull(map.get("PAYMENT_TYPE").toString()));
-				bean.setRECEIVES_DEALER_CODE(Utility.stringIsNull(map.get("RECEIVES_DEALER_CODE").toString()));	// SAP 送达方经销商代码
-				bean.setREQUEST_DATE(Utility.stringIsNull(map.get("REQUEST_DATE").toString()));
-				bean.setROW_ID(Utility.stringIsNull(map.get("ROW_ID").toString()));
-				bean.setSAP_ORDER_TYPE(Utility.stringIsNull(map.get("SAP_ORDER_TYPE").toString()));
-				bean.setSO_NO(Utility.stringIsNull(map.get("SO_NO").toString()));
-				bean.setSORT_CODE(Utility.stringIsNull(map.get("SORT_CODE").toString()));
-				bean.setSTANDARD_OPTION(Utility.stringIsNull(map.get("STANDARD_OPTION").toString()));
-				bean.setTRIM_CODE(Utility.stringIsNull(map.get("TRIM_CODE").toString()));
-				bean.setVEHICLE_USE(Utility.stringIsNull(map.get("VEHICLE_USE").toString()));
-                bean.setVIN(Utility.stringIsNull(map.get("VIN").toString()));
-                bean.setSPECIAL_SERIES(Utility.stringIsNull(map.get("SPECIAL_SERIES").toString()));
-                list.add(i, bean);
+				bean = new S0002XmlVO();
+				bean.setCOLOR_CODE(CommonUtils.checkNull(map.get("COLOR_CODE")));
+				bean.setCREATE_DATE(CommonUtils.checkNull(map.get("CREATE_DATE")));
+				bean.setCREATE_TIME(CommonUtils.checkNull(map.get("CREATE_TIME")));
+				bean.setDEALER_CODE(CommonUtils.checkNull(map.get("DEALER_CODE")));	// SAP 经销商代码
+				bean.setFACTORY_OPTIONS(CommonUtils.checkNull(map.get("FACTORY_OPTIONS")));
+				bean.setIS_REBATE(CommonUtils.checkNull(map.get("IS_REBATE")));
+				bean.setLOCAL_OPTION(CommonUtils.checkNull(map.get("LOCAL_OPTION")));
+				bean.setMODEL_CODE(CommonUtils.checkNull(map.get("MODEL_CODE")));
+				bean.setMODEL_YEAR(CommonUtils.checkNull(map.get("MODEL_YEAR")));
+				bean.setORDER_NO(CommonUtils.checkNull(map.get("ORDER_NO")));
+				bean.setORDER_NUM(CommonUtils.checkNull(String.valueOf(map.get("ORDER_NUM"))));
+				bean.setPAYMENT_TYPE(CommonUtils.checkNull(map.get("PAYMENT_TYPE")));
+				bean.setRECEIVES_DEALER_CODE(CommonUtils.checkNull(map.get("RECEIVES_DEALER_CODE")));	// SAP 送达方经销商代码
+				bean.setREQUEST_DATE(CommonUtils.checkNull(map.get("REQUEST_DATE")));
+				bean.setROW_ID(CommonUtils.checkNull(map.get("ROW_ID")));
+				bean.setSAP_ORDER_TYPE(CommonUtils.checkNull(map.get("SAP_ORDER_TYPE")));
+				bean.setSO_NO(CommonUtils.checkNull(map.get("SO_NO")));
+				bean.setSORT_CODE(CommonUtils.checkNull(map.get("RANK")));
+				bean.setSTANDARD_OPTION(CommonUtils.checkNull(map.get("STANDARD_OPTION")));
+				bean.setTRIM_CODE(CommonUtils.checkNull(map.get("TRIM_CODE")));
+				bean.setVEHICLE_USE(CommonUtils.checkNull(map.get("VEHICLE_USE")));
+                bean.setVIN(CommonUtils.checkNull(map.get("VIN")));
+                bean.setSPECIAL_SERIES(CommonUtils.checkNull(map.get("SPECIAL_SERIES")));
+                list.add(bean);
 			}
 		}
 		

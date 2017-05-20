@@ -13,7 +13,7 @@ public class SalesOdditionalOrderDTO {
 	private String serviceNo;
 	private Integer soStatus;
 	private String customerName;
-	private Date sheetCreateDate;
+	//private Date sheetCreateDate;
 	private String customerNo;
 	private Integer customerType;
 	private Integer sheetCreatedBy;
@@ -125,12 +125,12 @@ public class SalesOdditionalOrderDTO {
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
 	}
-	public Date getSheetCreateDate() {
+	/*public Date getSheetCreateDate() {
 		return sheetCreateDate;
 	}
 	public void setSheetCreateDate(Date sheetCreateDate) {
 		this.sheetCreateDate = sheetCreateDate;
-	}
+	}*/
 	public String getCustomerNo() {
 		return customerNo;
 	}

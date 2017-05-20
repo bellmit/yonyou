@@ -93,7 +93,7 @@
 				</div>
 				<div class="panel-body">
 					<table class="table table-striped table-bordered table-hover table-responsive"
-						id="dealerList"></table>
+						id="dealerListTable"></table>
 				</div>
 				
 		</div>
@@ -111,28 +111,25 @@
 		$("#recallId1",container).val(recallId1);
 		
     	new Datatable().initPagination({
-			src : "dealerList",
+			src : "dealerListTable",
 			container:container,
 			url : dmsCommon.getDmsPath()["vehicle"] + "/recallActivityBuild/recallDealer/query",
 			rowID : "ID",
 			//detailView : true, //当需要显示明细时，打开此开关，否则不需要写
 			sortName : "DEALER_CODE", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
 			sortOrder : "asc",
-			isQueryFirst:false,
+			//isQueryFirst:false,
 			autoHeight:false,
-			mergeTotal:{
-				megerCellNumber:5,
-				megerCellName:"合计"
-			},
 			columns : [ 
 				{checkbox:true,sortable : false}, 
+				//{field : "ID",title : "ID"},
 			    {field : "DEALER_CODE",title : "经销商编码"},
 				{field : "DEALER_SHORTNAME",title : "经销商简称"} 
 
 			
 			],
 			onLoadSuccess : function() {
-				$("#dealerList",container).dmsTable().bootstrapTable('resetView');
+				$("#dealerListTable",container).dmsTable().bootstrapTable('resetView');
 			}
 		});		
 		
@@ -146,12 +143,12 @@
 			//关闭窗口
 			$("a[data-dismiss='modal']",container).click();
 			//刷新表格
-			$("#dealerList",getElementContext()).dmsTable().refreshTableWithForm();
+			$("#dealerListTable",getElementContext()).dmsTable().refreshTableWithForm();
 		});
 		
 		//批量删除的前执行函数
 		$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
-			var selectRow = $("#dealerList",container).dmsTable().getSelections();
+			var selectRow = $("#dealerListTable",container).dmsTable().getSelections();
 			debugger;
 			if(!selectRow){
 				dmsCommon.tip({status:"warning",msg:"请选择经销商"});//总共的状态类型：info、success、error、warning
@@ -164,14 +161,14 @@
 				for(var i = 0 ;i<selectRow.length;i++){										
 					if(ids=="" ){ //第一次循环为空值
 						ids = selectRow[i]["ID"];
+						
 					}else{
-						ids = ids+","+selectRow[i]["ID"];
-
+						ids = ids+","+selectRow[i]["ID"];						
 						
 					}
 					
 				}
-				$("#ids",getElementContext()).setDmsValue(ids);
+				$("#ids",container).setDmsValue(ids);
 				//alert(ids);
 			}
 

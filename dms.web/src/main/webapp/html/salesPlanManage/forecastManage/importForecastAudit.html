@@ -1,41 +1,54 @@
 <div class="dms-add">
 	<form class="form-horizontal">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<div class="pannel-name">生产订单审核明细</div>
-			</div>
-			<div class="panel-body">
-				<div class="row">
-					<div class="col-xs-12">	
-						<div class="form-group">
-							<label class="control-label col-xs-4 ">描述导入对象</label>
-							<div class="col-xs-6">
-                             	<input type="text" id="fileParam" name="fileParam">
-                            </div>
-                            <div class="col-xs-2"></div>
-                            <input type="hidden" id="taskCodeId" name="taskCodeName">
+		<div class="modal-header">
+				<div class="modal-title">生产订单审核明细</div>
+				<div class="modal-close">
+					<a data-dismiss="modal" class="btn btn-lg">
+					<i class="fa fa-remove"></i></a>
+				</div>
+		</div>
+		<div class="modal-body">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<input type="hidden" id="taskId" name="taskId">
+						<div class="col-xs-12">	
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">1.确认Excel导入文件的格式为生产需求审核查询导出的格式</label>
+								<!-- <div class="col-xs-6">
+	                             	<input type="text" id="fileParam" name="fileParam">
+	                            </div>
+	                            <div class="col-xs-2"></div>
+	                            <input type="hidden" id="taskCodeId" name="taskCodeName"> -->
+							</div>
 						</div>
-					</div>
-					<div class="col-xs-12">	
-						<div class="form-group">
-							<label class="control-label col-xs-4 ">确认Excel导入文件的格式为生产需求审核导出的格式</label>
-							<div class="col-xs-6">
-                             	<input type="file" class="importData" id="fileupload" name="file">
-                            </div>
-                            <div class="col-xs-2"></div>
+						<div class="col-xs-12">	
+							<div class="form-group">
+								<label class="control-label col-xs-4 " >2.点"<font color="red">选择</font>"按钮,找到您所要上载的文件：</label>
+								<div class="col-xs-6">
+	                             	<input type="file" class="importData" id="fileupload" name="file">
+	                            </div>
+							</div>
+						</div>
+						<div class="col-xs-12">	
+							<div class="form-group">
+								<label class="control-label col-xs-4 ">3.选择好文件后,点"确定"按钮完成粘贴</label>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="form-actions">
-			<a class="btn blue"  data-url="/forecastAudit/importforecastAudit" data-model="manage" 
-				data-callBack="true" data-errorCallBack="true"  data-toggle="confirmation"
-				 data-method="importData">
-				<i class="fa fa-save"></i>导入</a>
-			<a data-goback="page" href="salesPlanManage/forecastManage/forecastOTDAudit.html"
-				 class="btn blue ajaxify">
-			<i class="fa fa-reply"></i>返回</a>
+		<div class="modal-footer">
+			<div class="form-actions">
+				<a class="btn blue"  data-url="/forecastAudit/importforecastAudit" data-model="manage" 
+					data-callBack="true" data-errorCallBack="true"  data-toggle="confirmation" data-beforeRequest="true"
+					 data-method="importData"><i class="fa fa-save"></i>确定</a>
+				<a data-dismiss="modal" class="btn blue">
+					<i class="fa fa-remove"></i>返回</a>
+			</div>
 		</div>
 	</form>
 	<div class="panel panel-default table-panel margin-top-5" id="errorInfoPanpel">
@@ -54,34 +67,45 @@
 
 
 <script type="text/javascript">
-	//页面加载后初始化
-	$(document).one("onload.dms",function(event,container){
-		//创建表格
-		new Datatable().initLocale({
-			src : "errorList",
-			container:container,
-			columns : [ 
-			            {field : "rowNO",title : "行号"},
-			            {field : "BIG_AREA",title : "大区",},
-			            {field : "errorMsg",title : "错误原因"}
-			         ]
-		});
+//页面加载后初始化
+$(document).one("onload.dms",function(event,container){
 		
-		$("#errorInfoPanpel",container).hide();
-		
-		//当导入成功后的回调
-		$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
-			$("a[data-goback='page']",container).click();
-		});
-		
-		//当错误的情况下的回调
-		$("a[data-errorCallBack='true']",container).on("errorCallBack.dms",function(event,response){
-			//显示
-			$("#errorInfoPanpel",container).show();
-			
-			$("#errorList",getElementContext()).dmsTable().refreshLocalData(response);
-		});
+	//创建表格
+	new Datatable().initLocale({
+		src : "errorList",
+		container:container,
+		columns : [ 
+		            {field : "rowNO",title : "行号"},
+		            {field : "BIG_AREA",title : "大区",},
+		            {field : "errorMsg",title : "错误原因"}
+		         ]
 	});
-
 	
+	$("#errorInfoPanpel",container).hide();
+	
+	//当导入成功后的回调
+	$("a[data-callBack='true']",container).on("callBack.dms",function(event,response){
+		$("a[data-goback='page']",container).click();
+	});
+	
+	//当错误的情况下的回调
+	$("a[data-errorCallBack='true']",container).on("errorCallBack.dms",function(event,response){
+		//显示
+		$("#errorInfoPanpel",container).show();
+		
+		$("#errorList",getElementContext()).dmsTable().refreshLocalData(response);
+	});
+	var taskId = $("#taskCodeId",getElementContext()).val();
+	if(taskId == undefined || taskId == null || taskId == ""){
+		taskId = "0";
+	}
+	$("#taskId").val(taskId);
+	alert($("#taskId").val());
+	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){debugger;
+		url = "/forecastAudit/importforecastAudit/" + $("#taskId").val();
+		$(this).attr("data-url",url);
+		returnResult.status = true;
+	});
+	
+});
 </script>

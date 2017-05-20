@@ -100,6 +100,8 @@ public class TtWrForeotheritemsRuleServiceImpl implements TtWrForeotheritemsRule
 	    			setDealerPaymentPo(ptPo,ptdto);
 	    			boolean flag = ptPo.saveIt();
 	    			id = ptPo.getLongId();
+		    	}else{
+		    		  throw new ServiceBizException(" 至少选择一种授权角色！");
 		    	}
 		      return id;
 		      }

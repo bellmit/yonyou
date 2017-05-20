@@ -42,8 +42,19 @@ public interface ServiceActivityManageService {
     
     public PageInfoDto query(Map map) throws ServiceBizException;
     
+    public PageInfoDto queryVehicle(Map map) throws ServiceBizException;
+    
+    public PageInfoDto queryModel(Map map) throws ServiceBizException;
+    
     public Map<String,Object> querys(String id) throws ServiceBizException;
     
     public String save(ServiceActivityManageDTO dto) throws ServiceBizException;
     
+    public void UpdateActivityReleaseTag(String id,String ids) throws ServiceBizException;
+    
+    public PageInfoDto selectpart(String id) throws ServiceBizException;
+    
+    public PageInfoDto selectlabour(String id) throws ServiceBizException;
+    
+    public PageInfoDto selectsubjoin(String id) throws ServiceBizException;
 }

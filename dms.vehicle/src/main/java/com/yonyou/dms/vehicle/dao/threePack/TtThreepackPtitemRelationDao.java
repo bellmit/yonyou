@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.yonyou.dms.common.domains.PO.basedata.TtThreepackPtitemRelationPO;
 import com.yonyou.dms.framework.DAO.DAOUtil;
 import com.yonyou.dms.framework.DAO.OemBaseDAO;
 import com.yonyou.dms.framework.DAO.OemDAOUtil;
@@ -20,7 +21,6 @@ import com.yonyou.dms.function.domains.DTO.ImportResultDto;
 import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.StringUtils;
 import com.yonyou.dms.vehicle.domains.DTO.threePack.TtThreepackPtitemRelationDTO;
-import com.yonyou.dms.vehicle.domains.PO.threePack.TtThreepackPtitemRelationPO;
 /**
  * 配件及项目队应关系dao
  * @author zhoushijie

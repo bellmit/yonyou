@@ -20,7 +20,7 @@
 										data-model="repair" data-labelValue="ADD_ITEM_CODE"
 										data-lableDesc="ADD_ITEM_NAME">
 									</select>
-									<input type="hidden" id="addItemName" name="addItemName" value="">
+									<input type="hidden" id="addItemName" name="ADD_ITEM_NAME" value="">
 								</div>
 							</div>
 						</div>
@@ -28,7 +28,7 @@
 							<div class="form-group">
 								<label class="control-label col-xs-4">附加项目代码</label>
 								<div class="col-xs-8">
-									<input id="addItemCode" name="addItemCode" type="text" class="form-control" disabled="disabled"/>		
+									<input id="addItemCode" name="ADD_ITEM_CODE" type="text" class="form-control" disabled="disabled"/>		
 								</div>
 							</div>
 						</div>
@@ -36,7 +36,7 @@
 							<div class="form-group">
 								<label class="control-label col-xs-4">附加项目收费</label>
 								<div class="col-xs-8">
-								<input id="addItemAmount" name="addItemAmount" class="form-control" type="text" disabled="disabled"/>
+								<input id="addItemAmount" name="ADD_ITEM_AMOUNT" class="form-control" type="text" disabled="disabled"/>
 								<input id="disAddItemAmount" name="disAddItemAmount" class="form-control" type="hidden" />
 								</div>
 							</div>
@@ -45,7 +45,7 @@
 								<div class="form-group">
 									<label class="control-label col-xs-4">收费区分代码</label>
 									<div class="col-xs-8">
-										<select id="chargePartitionCode" name="chargePartitionCode" data-info="charge"
+										<select id="chargePartitionCode" name="CHARGE_PARTITION_CODE" data-info="charge"
 											class="bs-select form-control required" data-url="/basedata/ChargeCO/Charge/dictexs"
 											data-model="retail" data-labelValue="CHARGE_PARTITION_CODE"
 											data-lableDesc="CHARGE_PARTITION_NAME" data-ajaxSync = "true">
@@ -87,9 +87,9 @@
 			var addItemCode=$("#addItemCodes",container).val();
 			var addItemName=$('option:selected',$("#addItemCodes",container)).text();
 			var addItemAmount=dmsDict.getSelectedOptionData($("#addItemCodes",container)).ADD_ITEM_AMOUNT;
-			$("input[name='addItemName']",container).setDmsValue(addItemName);
-			$("input[name='addItemCode']",container).setDmsValue(addItemCode);
-			$("input[name='addItemAmount']",container).setDmsValue(addItemAmount);
+			$("input[name='ADD_ITEM_NAME']",container).setDmsValue(addItemName);
+			$("input[name='ADD_ITEM_CODE']",container).setDmsValue(addItemCode);
+			$("input[name='ADD_ITEM_AMOUNT']",container).setDmsValue(addItemAmount);
 			$("input[name='disAddItemAmount']",container).setDmsValue(addItemAmount);
 			var chargePartitionCode=$("#chargePartitionCode",container).val();
 			var chargePartitionName=$('option:selected',$("#chargePartitionCode",container)).text();
@@ -97,14 +97,26 @@
 		$("a[data-onclickEvent='true']",container).on("dms.click",function(event){
 			var addItemAmount=$("#addItemAmount",container).val();
 			var formJson = $("div[data-parentTable='roAddItemInfoTable']",container).serializeFormJson();
-			$("#subjoinList",getElementContext()).dmsTable().appendRow(formJson);
+			$("#subjoinList",getElementContext()).dmsTable().appendRow({
+				"ADD_ITEM_CODE":$("#addItemCode",container).val(),
+				"ADD_ITEM_NAME":$("#addItemCodes",container).val(),
+				"CHARGE_PARTITION_CODE":$("#chargePartitionCode",container).val(),
+				"ADD_ITEM_AMOUNT":$("#addItemAmount",container).val(),
+				"RECEIVE_AMOUNT":$("#addItemAmount",container).val(),	
+			});
 			//计算总金额
 			var disAddItemAmount=$("#disAddItemAmount",container).val();
 			if(disAddItemAmount=="NaN"||disAddItemAmount==""){
 				disAddItemAmount=0;
 			}
 			var addItemAmount=parseFloat($("#addItemAmount",getElementContext()).val())+parseFloat(disAddItemAmount);
-			$("#addItemAmount",getElementContext()).setDmsValue(addItemAmount.toFixed(2));
+			var selectRow = $("#subjoinList",getElementContext()).dmsTable().getRowDataByIndex();
+			var Str = 0;
+			$.each(selectRow,function(index,row){
+        		Str += parseInt(row.RECEIVE_AMOUNT);
+			});
+			$("#aftersub",getElementContext()).setDmsValue(Str);
+			$("a[data-dismiss='modal']",container).click();
 		});
 	});
 </script>

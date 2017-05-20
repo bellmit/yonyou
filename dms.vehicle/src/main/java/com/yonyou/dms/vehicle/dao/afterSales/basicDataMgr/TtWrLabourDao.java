@@ -51,7 +51,7 @@ public class TtWrLabourDao extends OemBaseDAO{
 		sql.append("     where  twcs.IS_DEL="+OemDictCodeConstants.IS_DEL_00+"       \n");
 
 		  if (!StringUtils.isNullOrEmpty(queryParam.get("labourCode"))) {
-				sql.append("AND twcs.LABOUR_CODE = "+queryParam.get("labourCode")+"  \n");
+				sql.append("AND twcs.LABOUR_CODE like '%"+queryParam.get("labourCode")+"%'  \n");
 			}
 		  if (!StringUtils.isNullOrEmpty(queryParam.get("labourName"))) {
 				sql.append("AND twcs.LABOUR_NAME  like '%"+queryParam.get("labourName")+"%'  \n");

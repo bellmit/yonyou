@@ -282,6 +282,9 @@
 							<div class="form-group">
 								<label class="control-label col-xs-4">出库数量</label>
 								<div class="col-xs-8">
+									<input type="hidden" id="stockQuantity" name="stockQuantity" data-fieldName="STOCK_QUANTITY"/>
+									<input type="hidden" id="borrowQuantity" name="borrowQuantity" data-fieldName="BORROW_QUANTITY"/>
+									<input type="hidden" id="lendQuantity" name="lendQuantity" data-fieldName="LEND_QUANTITY"/>
 									<input type="text" class="form-control number" id="outQuantity" name="outQuantity" value="0" data-fieldName="OUT_QUANTITY" />
 								</div>
 							</div>
@@ -350,7 +353,7 @@
 			
 			columns : [
 				{radio:true,sortable : false},
-			   {field : "STORAGE_CODE",title : "仓库"},
+			   {field : "STORAGE_NAME",title : "仓库"},
 			   {field : "STORAGE_POSITION_CODE",title : "库位"},
 			   {field : "PART_NO",title : "配件代码"},
 			   {field : "PART_MODEL_GROUP_CODE_SET",title : "车型组集"},
@@ -417,10 +420,10 @@
 			var selectRow3 = $("#dms_checkout",getElementContext()).dmsTable().getRowDataByIndex();
 			
 			//执行校验
-			if(isStringNull($("#outPrice",container).val())&&isStringNull($("#outQuantity",container).val())&&$("#outPrice",container).val()==0&&$("#outQuantity",container).val()==0){
-				dmsCommon.tip({status:"warning",msg:"请输入出库单价和出库数量!"});
+			if(isStringNull($("#partNo2",container).val())){
+				dmsCommon.tip({status:"warning",msg:"请选择配件!"});
 				returnResult.status = false;
-				return ;
+				return;
 			}
 			
 			//执行校验
@@ -430,6 +433,14 @@
 				return ;
 			}
 			
+			//执行校验
+			if(isStringNull($("#outPrice",container).val())&&isStringNull($("#outQuantity",container).val())&&$("#outPrice",container).val()==0&&$("#outQuantity",container).val()==0){
+				dmsCommon.tip({status:"warning",msg:"请输入出库单价和出库数量!"});
+				returnResult.status = false;
+				return ;
+			}
+			
+			//从上一个页面中的值赋值到下一个页面的列表中
 			//执行校验
 			if($("#partNo2",container).validateElement()){
 				var formJson = $("div[data-parentTable='dms_repertory']",container).serializeFormJson();
@@ -448,6 +459,9 @@
 				rows['PRICE_RATE']=formJson.priceRate;	
 				rows['SALES_BASE_PRICE_TYPE']=formJson.salesBasePriceType;
 				rows['IS_FINISHED']=formJson.isFinished;
+				rows['STOCK_QUANTITY']=formJson.stockQuantity;	
+				rows['BORROW_QUANTITY']=formJson.borrowQuantity;
+				rows['LEND_QUANTITY']=formJson.lendQuantity;
 				
 				$("#dms_checkout",getElementContext()).dmsTable().appendRow(rows);
 				$("#dms_checkout",getElementContext()).dmsTable().refreshTableWithForm();
@@ -456,8 +470,7 @@
 				$("#save",getElementContext()).removeAttr("disabled");
 				$('#edit',getElementContext()).removeAttr("disabled");
 				$('#localDel',getElementContext()).removeAttr("disabled");
-				
-				/* $("#outter", container).setElementReadOnly(); */
+				$('#exit',getElementContext()).removeAttr("disabled");
 				
 			}else{
 				dmsCommon.tip({status:"warning",msg:"库存可用数量不能大于借出数量!"});

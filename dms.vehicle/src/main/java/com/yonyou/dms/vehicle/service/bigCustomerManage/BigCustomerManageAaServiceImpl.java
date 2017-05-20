@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.yonyou.dcs.gacfca.SADCS015Cloud;
 import com.yonyou.dms.common.domains.DTO.basedata.TtBigCustomerReportApprovalHisPO;
@@ -17,8 +16,9 @@ import com.yonyou.dms.common.domains.PO.basedata.TtBigCustomerReportApprovalPO;
 import com.yonyou.dms.common.domains.PO.customer.TtBigCustomerRebateApprovalPO;
 import com.yonyou.dms.framework.DAO.PageInfoDto;
 import com.yonyou.dms.framework.domain.LoginInfoDto;
-import com.yonyou.dms.framework.service.FileStoreService;
+import com.yonyou.dms.framework.domains.PO.file.FileUploadInfoPO;
 import com.yonyou.dms.framework.util.bean.ApplicationContextHelper;
+import com.yonyou.dms.function.common.CommonConstants;
 import com.yonyou.dms.function.common.OemDictCodeConstants;
 import com.yonyou.dms.function.exception.ServiceBizException;
 import com.yonyou.dms.function.utils.common.StringUtils;
@@ -40,17 +40,12 @@ import com.yonyou.f4.filestore.FileStore;
 @Service
 public class BigCustomerManageAaServiceImpl implements BigCustomerManageAaService {
 
-	@Autowired
-	BigCustomerManageAaDao customerdao;
+	@Autowired BigCustomerManageAaDao customerdao;
 
-	@Autowired
-	private FileStoreService fileStoreService;
-	@Autowired
-	SADCS015Cloud sadcs015cloud;
+	@Autowired SADCS015Cloud sadcs015cloud;
 	// 定义文件存储的实现类
-	@Autowired
-	FileStore fileStore;
-
+	@Autowired FileStore fileStore;
+	
 	/**
 	 * 根据状态查询大客户
 	 */
@@ -126,8 +121,7 @@ public class BigCustomerManageAaServiceImpl implements BigCustomerManageAaServic
 	public PageInfoDto getApprovalHisInfos(String wsno, String customerCode) throws ServiceBizException {
 		return customerdao.approvalHisInfos(wsno, customerCode);
 	}
-	
-	
+
 	/**
 	 * 查询审批信息
 	 */
@@ -183,134 +177,20 @@ public class BigCustomerManageAaServiceImpl implements BigCustomerManageAaServic
 		System.out.println(loginUser.getUserId());
 		bigCustomerApprovalHisPo.setBigDecimal("REPORT_APPROVAL_USER_ID", loginUser.getUserId());
 		bigCustomerApprovalHisPo.setBigDecimal("CREATE_BY", loginUser.getUserId());
-		bigCustomerApprovalHisPo.saveIt();
-		
-			
 
+		flag = bigCustomerApprovalHisPo.saveIt();
+		bigCustomerApprovalHisPo.saveIt();
 		if (!flag) {
 			throw new ServiceBizException("审批历史插入失败!");
 		}
 	}
-	
-	
+
 	/**
 	 * 功能描述：保存大客户申请审批信息(申请未审批)
 	 */
-	
+
 	@Override
 	public void saveApprovalInfos1(TtBigCustomerReportApprovalDTO dto, String wsno) throws ServiceBizException {
-				LoginInfoDto loginUser = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
-				TtBigCustomerReportApprovalPO tbcraPO = TtBigCustomerReportApprovalPO.findFirst("WS_NO LIKE ?", wsno);
-				if (StringUtils.isNullOrEmpty(tbcraPO.getString("CUSTOMER_COMPANY_CODE"))) {
-					throw new ServiceBizException("大客户代码为空,请联系管理员！");
-				}
-				if (StringUtils.isNullOrEmpty(wsno)) {
-					throw new ServiceBizException("报备单号为空,请联系管理员!");
-				}
-				if (StringUtils.isNullOrEmpty(dto.getReportApprovalStatus())) {
-					throw new ServiceBizException("审批状态为空,请联系管理员!");
-				}
-
-	          /*  TtBigCustomerRebateApprovalPO bigCustomerApprovalKey = new TtBigCustomerRebateApprovalPO(); 
-	            bigCustomerApprovalKey.setString("BIG_CUSTOMER_CODE",tbcraPO.getString("CUSTOMER_COMPANY_CODE")); //大客户代码
-	            bigCustomerApprovalKey.setString("WS_NO", wsno);//报备单号
-	            //未审批
-	            if ("15950001".equals(dto.getReportApprovalStatus().toString())) {
-	            	bigCustomerApprovalKey.setInteger("REPORT_APPROVAL_STATUS", 15950001);
-	    		}*/
-				
-				String bigCustomerCode = tbcraPO.getString("CUSTOMER_COMPANY_CODE");
-				String dealerCode = dto.getDealerCode();
-				 List<TtBigCustomerRebateApprovalPO> rebateApproval  = null;
-				 //查询出申请未审批的数据
-				if(!StringUtils.isNullOrEmpty(dealerCode)) {
-					  rebateApproval  = TtBigCustomerRebateApprovalPO.findBySQL("SELECT * FROM tt_big_customer_rebate_approval WHERE BIG_CUSTOMER_CODE ='"+bigCustomerCode+"' AND WS_NO= '"+wsno+"' AND REBATE_APPROVAL_STATUS='"+15950001+"' AND ENABLE = '"+10011001+"' AND DealerCode= '"+dealerCode+"' ", null);
-				}else{
-					  rebateApproval  = TtBigCustomerRebateApprovalPO.findBySQL("SELECT * FROM tt_big_customer_rebate_approval WHERE BIG_CUSTOMER_CODE ='"+bigCustomerCode+"' AND WS_NO= '"+wsno+"' AND REBATE_APPROVAL_STATUS='"+15950001+"' AND ENABLE = '"+10011001+"'  ", null);
-				}
-	           
-	          
-	            
-	            /************************************** 防止同时审批 *************************************************/
-	            //List<TtBigCustomerRebateApprovalPO> rebateApproval = factory.select(bigCustomerApprovalKey);
-	            if(null != rebateApproval && rebateApproval.size() > 0 ){
-	            	/************************************** 更新大客户返利审批表 *************************************************/
-	               
-	                
-	                TtBigCustomerRebateApprovalPO updateBigCustomerPo = new TtBigCustomerRebateApprovalPO();
-	                 //上传附件
-	                /*if(approvalStatus.equals(Constant.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_PASS.toString())){
-	                	FileObject fo = (FileObject)request.getParamObject("approval_file");
-	                	if(null!=fo && fo.getLength()>0){
-	                    	FileStore fs = FileStore.getInstance();
-	        				fidStr = fs.write(fo.getFileName(), fo.getContent()); //上传到服务器并返回地址
-	                    }
-	                	//else{
-	                    	//throw new Exception("审批通过附件为空,请检查！");
-	                    //}
-	                	//updateBigCustomerPo.setApprovalFile(FileStore.getInstance().getDomainURL(fidStr));
-	                	updateBigCustomerPo.setApprovalFile(fidStr);
-	                }*/
-	                
-	                // 第二次驳回时直接将“驳回转拒绝”的状态下发给经销商
-	                int overNumber = 0;
-	                if(dto.getReportApprovalStatus().equals(OemDictCodeConstants.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_OVER.toString())){
-	                	overNumber = rebateApproval.get(0).getInteger("OVER_NUMBER");
-	                    updateBigCustomerPo.setInteger("OVER_NUMBER", overNumber+1);
-	                }
-	                if(overNumber >= 2){
-	                	updateBigCustomerPo.setString("REBATE_APPROVAL_STATUS", OemDictCodeConstants.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_OVER_RUS);
-	                	updateBigCustomerPo.setString("REBATE_APPROVAL_REMARK", OemDictCodeConstants.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_OVER_RUS_REMARK);
-	                }else{
-	                	updateBigCustomerPo.setString("REBATE_APPROVAL_STATUS", dto.getReportApprovalStatus());
-	                	updateBigCustomerPo.setString("REBATE_APPROVAL_REMARK", dto.getReportApprovalRemark());
-	                }
-	                //end
-	                updateBigCustomerPo.setDate("REBATE_APPROVAL_DATE", new Date(System.currentTimeMillis()));
-	                updateBigCustomerPo.setBigDecimal("REBATE_APPROVAL_USER_ID", loginUser.getUserId());
-	                updateBigCustomerPo.setBigDecimal("UPDATE_BY", loginUser.getUserId());
-	                updateBigCustomerPo.setDate("UPDATE_DATE", new Date(System.currentTimeMillis()));
-	                boolean flag = false;
-	        		flag = updateBigCustomerPo.saveIt();
-	        		if (!flag) {
-	        			throw new ServiceBizException("审批失败,更新大客户按失败！");
-	        		}
-	                
-	                /************************************** 写入大客户返利审批历史表 *************************************************/
-	                TtBigCustomerRebateApprovalHisPO bigCustomerApprovalHisPo = new TtBigCustomerRebateApprovalHisPO();
-	                //bigCustomerApprovalHisPo.setApprovalHisId(factory.getLongPK(bigCustomerApprovalHisPo));
-	                bigCustomerApprovalHisPo.setString("BIG_CUSTOMER_CODE", bigCustomerCode);
-	                bigCustomerApprovalHisPo.setString("WS_NO", wsno);
-	                if(overNumber >= 2){
-	                	//驳回次数超过二次状态自动改为驳回转拒绝
-	                	bigCustomerApprovalHisPo.setString("REBATE_APPROVAL_STATUS", OemDictCodeConstants.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_OVER_RUS);
-	                	bigCustomerApprovalHisPo.setString("REBATE_APPROVAL_REMARK", OemDictCodeConstants.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_OVER_RUS_REMARK);
-	                }else{
-	                	bigCustomerApprovalHisPo.setString("REBATE_APPROVAL_STATUS", dto.getReportApprovalStatus());
-	                	bigCustomerApprovalHisPo.setString("REBATE_APPROVAL_REMARK", dto.getReportApprovalRemark());
-	                }
-	                bigCustomerApprovalHisPo.setDate("REBATE_APPROVAL_DATE", new Date(System.currentTimeMillis()));
-	                bigCustomerApprovalHisPo.setBigDecimal("REBATE_APPROVAL_USER_ID", loginUser.getUserId());
-	                bigCustomerApprovalHisPo.setString("ENABLE", "10011001");
-	                bigCustomerApprovalHisPo.setBigDecimal("UPDATE_BY", loginUser.getUserId());
-	                bigCustomerApprovalHisPo.setDate("UPDATE_DATE", new Date(System.currentTimeMillis()));
-	        		flag = bigCustomerApprovalHisPo.saveIt();
-	        		if (!flag) {
-	        			throw new ServiceBizException("审批失败,更新大客户审批历史失败！");
-	        		}
-	            }else{
-	            	  throw new ServiceBizException("无法进行审批,请确认是否已被审批过!");
-	            }
-	}
-	
-	
-	/**
-	 * 功能描述：保存大客户申请审批信息(资料完整待签字)
-	 */
-	
-	@Override
-	public void saveApprovalInfos2(TtBigCustomerReportApprovalDTO dto, String wsno) throws ServiceBizException {
-		
 		LoginInfoDto loginUser = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
 		TtBigCustomerReportApprovalPO tbcraPO = TtBigCustomerReportApprovalPO.findFirst("WS_NO LIKE ?", wsno);
 		if (StringUtils.isNullOrEmpty(tbcraPO.getString("CUSTOMER_COMPANY_CODE"))) {
@@ -321,87 +201,221 @@ public class BigCustomerManageAaServiceImpl implements BigCustomerManageAaServic
 		}
 		if (StringUtils.isNullOrEmpty(dto.getReportApprovalStatus())) {
 			throw new ServiceBizException("审批状态为空,请联系管理员!");
-		}	
+		}
+
+		/*
+		 * TtBigCustomerRebateApprovalPO bigCustomerApprovalKey = new
+		 * TtBigCustomerRebateApprovalPO();
+		 * bigCustomerApprovalKey.setString("BIG_CUSTOMER_CODE",tbcraPO.
+		 * getString("CUSTOMER_COMPANY_CODE")); //大客户代码
+		 * bigCustomerApprovalKey.setString("WS_NO", wsno);//报备单号 //未审批 if
+		 * ("15950001".equals(dto.getReportApprovalStatus().toString())) {
+		 * bigCustomerApprovalKey.setInteger("REPORT_APPROVAL_STATUS",
+		 * 15950001); }
+		 */
+
 		String bigCustomerCode = tbcraPO.getString("CUSTOMER_COMPANY_CODE");
 		String dealerCode = dto.getDealerCode();
-		 List<TtBigCustomerRebateApprovalPO> rebateApproval  = null;
-		//查询出资料完成待签字的数据
-		if(!StringUtils.isNullOrEmpty(dealerCode)) {
-			  rebateApproval  = TtBigCustomerRebateApprovalPO.findBySQL("SELECT * FROM tt_big_customer_rebate_approval WHERE BIG_CUSTOMER_CODE ='"+bigCustomerCode+"' AND WS_NO= '"+wsno+"' AND REBATE_APPROVAL_STATUS='"+15950005+"' AND ENABLE = '"+10011001+"' AND Dealer_Code= '"+dealerCode+"' ", null);
-		}else{
-			  rebateApproval  = TtBigCustomerRebateApprovalPO.findBySQL("SELECT * FROM tt_big_customer_rebate_approval WHERE BIG_CUSTOMER_CODE ='"+bigCustomerCode+"' AND WS_NO= '"+wsno+"' AND REBATE_APPROVAL_STATUS='"+15950005+"' AND ENABLE = '"+10011001+"'  ", null);
-		}        
-        /************************************** 防止同时审批 *************************************************/
-        if(null != rebateApproval && rebateApproval.size() > 0 ){
-            /************************************** 更新大客户返利审批表 *************************************************/ 
-            TtBigCustomerRebateApprovalPO updateBigCustomerPo = rebateApproval.get(0);
-           /*  //上传附件
-            if(approvalStatus.equals(Constant.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_PASS.toString())){
-            	FileObject fo = (FileObject)request.getParamObject("approval_file");
-            	if(null!=fo && fo.getLength()>0){
-                	FileStore fs = FileStore.getInstance();
-    				fidStr = fs.write(fo.getFileName(), fo.getContent()); //上传到服务器并返回地址
-                }
-            	//else{
-                	//throw new Exception("审批通过附件为空,请检查！");
-                //}
-            	//updateBigCustomerPo.setApprovalFile(FileStore.getInstance().getDomainURL(fidStr));
-            	updateBigCustomerPo.setApprovalFile(fidStr);
-            }*/
-            
-            // 第二次驳回时直接将“驳回转拒绝”的状态下发给经销商
-            int overNumber = 0;
-            if(dto.getReportApprovalStatus().toString().equals(OemDictCodeConstants.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_OVER.toString())){
-            	overNumber = rebateApproval.get(0).getInteger("OVER_NUMBER");
-                updateBigCustomerPo.setInteger("OVER_NUMBER", overNumber+1);
-            }
-            //驳回次数超过二次状态自动改为驳回转拒绝
-            if(overNumber >= 2){
-            	updateBigCustomerPo.setString("REBATE_APPROVAL_STATUS", OemDictCodeConstants.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_OVER_RUS);
-            	updateBigCustomerPo.setString("REBATE_APPROVAL_REMARK", OemDictCodeConstants.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_OVER_RUS_REMARK);
-            }else{
-            	updateBigCustomerPo.setString("REBATE_APPROVAL_STATUS", dto.getReportApprovalStatus());
-            	updateBigCustomerPo.setString("REBATE_APPROVAL_REMARK", dto.getReportApprovalRemark());
-            }
-            //end
-            updateBigCustomerPo.setDate("REBATE_APPROVAL_DATE", new Date(System.currentTimeMillis()));
-            updateBigCustomerPo.setBigDecimal("REBATE_APPROVAL_USER_ID", loginUser.getUserId());
-            updateBigCustomerPo.setBigDecimal("UPDATE_BY", loginUser.getUserId());
-            updateBigCustomerPo.setDate("UPDATE_DATE", new Date(System.currentTimeMillis()));
-            boolean flag = false;
-    		flag = updateBigCustomerPo.saveIt();
-    		if (!flag) {
-    			throw new ServiceBizException("审批失败,更新大客户按失败！");
-    		}
-            
-            /************************************** 写入大客户返利审批历史表 *************************************************/
-            TtBigCustomerRebateApprovalHisPO bigCustomerApprovalHisPo = new TtBigCustomerRebateApprovalHisPO();
-            bigCustomerApprovalHisPo.setString("BIG_CUSTOMER_CODE", bigCustomerCode);
-            bigCustomerApprovalHisPo.setString("WS_NO", wsno);
-            //驳回次数超过二次状态自动改为驳回转拒绝
-            if(overNumber >= 2){
-            	bigCustomerApprovalHisPo.setString("REBATE_APPROVAL_STATUS", OemDictCodeConstants.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_OVER_RUS);
-            	bigCustomerApprovalHisPo.setString("REBATE_APPROVAL_REMARK", OemDictCodeConstants.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_OVER_RUS_REMARK);
-            }else{
-            	bigCustomerApprovalHisPo.setString("REBATE_APPROVAL_STATUS", dto.getReportApprovalStatus());
-            	bigCustomerApprovalHisPo.setString("REBATE_APPROVAL_REMARK", dto.getReportApprovalRemark());
-            }
-            bigCustomerApprovalHisPo.setDate("REBATE_APPROVAL_DATE", new Date(System.currentTimeMillis()));
-            bigCustomerApprovalHisPo.setBigDecimal("REBATE_APPROVAL_USER_ID", loginUser.getUserId());
-            bigCustomerApprovalHisPo.setString("ENABLE", "10011001");
-            bigCustomerApprovalHisPo.setBigDecimal("CREATE_BY", loginUser.getUserId());
-            bigCustomerApprovalHisPo.setDate("CREATE_DATE", new Date(System.currentTimeMillis()));
-    		flag = bigCustomerApprovalHisPo.saveIt();
-    		if (!flag) {
-    			throw new ServiceBizException("审批失败,更新大客户审批历史失败！");
-    		}
-        }else{
-        	  throw new ServiceBizException("无法进行审批,请确认是否已被审批过!");
-        }
+		List<TtBigCustomerRebateApprovalPO> rebateApproval = null;
+		// 查询出申请未审批的数据
+		if (!StringUtils.isNullOrEmpty(dealerCode)) {
+			rebateApproval = TtBigCustomerRebateApprovalPO
+					.findBySQL("SELECT * FROM tt_big_customer_rebate_approval WHERE BIG_CUSTOMER_CODE ='"
+							+ bigCustomerCode + "' AND WS_NO= '" + wsno + "' AND REBATE_APPROVAL_STATUS='" + 15950001
+							+ "' AND ENABLE = '" + 10011001 + "' AND DealerCode= '" + dealerCode + "' ", null);
+		} else {
+			rebateApproval = TtBigCustomerRebateApprovalPO
+					.findBySQL("SELECT * FROM tt_big_customer_rebate_approval WHERE BIG_CUSTOMER_CODE ='"
+							+ bigCustomerCode + "' AND WS_NO= '" + wsno + "' AND REBATE_APPROVAL_STATUS='" + 15950001
+							+ "' AND ENABLE = '" + 10011001 + "'  ", null);
+		}
+
+		/************************************** 防止同时审批 *************************************************/
+		// List<TtBigCustomerRebateApprovalPO> rebateApproval =
+		// factory.select(bigCustomerApprovalKey);
+		if (null != rebateApproval && rebateApproval.size() > 0) {
+			/************************************** 更新大客户返利审批表 *************************************************/
+
+			TtBigCustomerRebateApprovalPO updateBigCustomerPo = new TtBigCustomerRebateApprovalPO();
+			// 上传附件
+			/*
+			 * if(approvalStatus.equals(Constant.
+			 * BIG_CUSTOMER_REBATE_APPROVAL_TYPE_PASS.toString())){ FileObject
+			 * fo = (FileObject)request.getParamObject("approval_file");
+			 * if(null!=fo && fo.getLength()>0){ FileStore fs =
+			 * FileStore.getInstance(); fidStr = fs.write(fo.getFileName(),
+			 * fo.getContent()); //上传到服务器并返回地址 } //else{ //throw new
+			 * Exception("审批通过附件为空,请检查！"); //}
+			 * //updateBigCustomerPo.setApprovalFile(FileStore.getInstance().
+			 * getDomainURL(fidStr));
+			 * updateBigCustomerPo.setApprovalFile(fidStr); }
+			 */
+
+			// 第二次驳回时直接将“驳回转拒绝”的状态下发给经销商
+			int overNumber = 0;
+			if (dto.getReportApprovalStatus()
+					.equals(OemDictCodeConstants.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_OVER.toString())) {
+				overNumber = rebateApproval.get(0).getInteger("OVER_NUMBER");
+				updateBigCustomerPo.setInteger("OVER_NUMBER", overNumber + 1);
+			}
+			if (overNumber >= 2) {
+				updateBigCustomerPo.setString("REBATE_APPROVAL_STATUS",
+						OemDictCodeConstants.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_OVER_RUS);
+				updateBigCustomerPo.setString("REBATE_APPROVAL_REMARK",
+						OemDictCodeConstants.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_OVER_RUS_REMARK);
+			} else {
+				updateBigCustomerPo.setString("REBATE_APPROVAL_STATUS", dto.getReportApprovalStatus());
+				updateBigCustomerPo.setString("REBATE_APPROVAL_REMARK", dto.getReportApprovalRemark());
+			}
+			// end
+			updateBigCustomerPo.setDate("REBATE_APPROVAL_DATE", new Date(System.currentTimeMillis()));
+			updateBigCustomerPo.setBigDecimal("REBATE_APPROVAL_USER_ID", loginUser.getUserId());
+			updateBigCustomerPo.setBigDecimal("UPDATE_BY", loginUser.getUserId());
+			updateBigCustomerPo.setDate("UPDATE_DATE", new Date(System.currentTimeMillis()));
+			boolean flag = false;
+			flag = updateBigCustomerPo.saveIt();
+			if (!flag) {
+				throw new ServiceBizException("审批失败,更新大客户按失败！");
+			}
+
+			/************************************** 写入大客户返利审批历史表 *************************************************/
+			TtBigCustomerRebateApprovalHisPO bigCustomerApprovalHisPo = new TtBigCustomerRebateApprovalHisPO();
+			// bigCustomerApprovalHisPo.setApprovalHisId(factory.getLongPK(bigCustomerApprovalHisPo));
+			bigCustomerApprovalHisPo.setString("BIG_CUSTOMER_CODE", bigCustomerCode);
+			bigCustomerApprovalHisPo.setString("WS_NO", wsno);
+			if (overNumber >= 2) {
+				// 驳回次数超过二次状态自动改为驳回转拒绝
+				bigCustomerApprovalHisPo.setString("REBATE_APPROVAL_STATUS",
+						OemDictCodeConstants.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_OVER_RUS);
+				bigCustomerApprovalHisPo.setString("REBATE_APPROVAL_REMARK",
+						OemDictCodeConstants.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_OVER_RUS_REMARK);
+			} else {
+				bigCustomerApprovalHisPo.setString("REBATE_APPROVAL_STATUS", dto.getReportApprovalStatus());
+				bigCustomerApprovalHisPo.setString("REBATE_APPROVAL_REMARK", dto.getReportApprovalRemark());
+			}
+			bigCustomerApprovalHisPo.setDate("REBATE_APPROVAL_DATE", new Date(System.currentTimeMillis()));
+			bigCustomerApprovalHisPo.setBigDecimal("REBATE_APPROVAL_USER_ID", loginUser.getUserId());
+			bigCustomerApprovalHisPo.setString("ENABLE", "10011001");
+			bigCustomerApprovalHisPo.setBigDecimal("UPDATE_BY", loginUser.getUserId());
+			bigCustomerApprovalHisPo.setDate("UPDATE_DATE", new Date(System.currentTimeMillis()));
+			flag = bigCustomerApprovalHisPo.saveIt();
+			if (!flag) {
+				throw new ServiceBizException("审批失败,更新大客户审批历史失败！");
+			}
+		} else {
+			throw new ServiceBizException("无法进行审批,请确认是否已被审批过!");
+		}
 	}
-	
+
+	/**
+	 * 功能描述：保存大客户申请审批信息(资料完整待签字)
+	 */
+
+	@Override
+	public void saveApprovalInfos2(TtBigCustomerReportApprovalDTO dto, String wsno) throws ServiceBizException {
+
+		LoginInfoDto loginUser = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
+		TtBigCustomerReportApprovalPO tbcraPO = TtBigCustomerReportApprovalPO.findFirst("WS_NO LIKE ?", wsno);
+		if (StringUtils.isNullOrEmpty(tbcraPO.getString("CUSTOMER_COMPANY_CODE"))) {
+			throw new ServiceBizException("大客户代码为空,请联系管理员！");
+		}
+		if (StringUtils.isNullOrEmpty(wsno)) {
+			throw new ServiceBizException("报备单号为空,请联系管理员!");
+		}
+		if (StringUtils.isNullOrEmpty(dto.getReportApprovalStatus())) {
+			throw new ServiceBizException("审批状态为空,请联系管理员!");
+		}
+		String bigCustomerCode = tbcraPO.getString("CUSTOMER_COMPANY_CODE");
+		String dealerCode = dto.getDealerCode();
+		List<TtBigCustomerRebateApprovalPO> rebateApproval = null;
+		// 查询出资料完成待签字的数据
+		if (!StringUtils.isNullOrEmpty(dealerCode)) {
+			rebateApproval = TtBigCustomerRebateApprovalPO
+					.findBySQL("SELECT * FROM tt_big_customer_rebate_approval WHERE BIG_CUSTOMER_CODE ='"
+							+ bigCustomerCode + "' AND WS_NO= '" + wsno + "' AND REBATE_APPROVAL_STATUS='" + 15950005
+							+ "' AND ENABLE = '" + 10011001 + "' AND Dealer_Code= '" + dealerCode + "' ", null);
+		} else {
+			rebateApproval = TtBigCustomerRebateApprovalPO
+					.findBySQL("SELECT * FROM tt_big_customer_rebate_approval WHERE BIG_CUSTOMER_CODE ='"
+							+ bigCustomerCode + "' AND WS_NO= '" + wsno + "' AND REBATE_APPROVAL_STATUS='" + 15950005
+							+ "' AND ENABLE = '" + 10011001 + "'  ", null);
+		}
+		/************************************** 防止同时审批 *************************************************/
+		if (null != rebateApproval && rebateApproval.size() > 0) {
+			/************************************** 更新大客户返利审批表 *************************************************/
+			TtBigCustomerRebateApprovalPO updateBigCustomerPo = rebateApproval.get(0);
+			/*
+			 * //上传附件 if(approvalStatus.equals(Constant.
+			 * BIG_CUSTOMER_REBATE_APPROVAL_TYPE_PASS.toString())){ FileObject
+			 * fo = (FileObject)request.getParamObject("approval_file");
+			 * if(null!=fo && fo.getLength()>0){ FileStore fs =
+			 * FileStore.getInstance(); fidStr = fs.write(fo.getFileName(),
+			 * fo.getContent()); //上传到服务器并返回地址 } //else{ //throw new
+			 * Exception("审批通过附件为空,请检查！"); //}
+			 * //updateBigCustomerPo.setApprovalFile(FileStore.getInstance().
+			 * getDomainURL(fidStr));
+			 * updateBigCustomerPo.setApprovalFile(fidStr); }
+			 */
+
+			// 第二次驳回时直接将“驳回转拒绝”的状态下发给经销商
+			int overNumber = 0;
+			if (dto.getReportApprovalStatus().toString()
+					.equals(OemDictCodeConstants.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_OVER.toString())) {
+				overNumber = rebateApproval.get(0).getInteger("OVER_NUMBER");
+				updateBigCustomerPo.setInteger("OVER_NUMBER", overNumber + 1);
+			}
+			// 驳回次数超过二次状态自动改为驳回转拒绝
+			if (overNumber >= 2) {
+				updateBigCustomerPo.setString("REBATE_APPROVAL_STATUS",
+						OemDictCodeConstants.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_OVER_RUS);
+				updateBigCustomerPo.setString("REBATE_APPROVAL_REMARK",
+						OemDictCodeConstants.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_OVER_RUS_REMARK);
+			} else {
+				updateBigCustomerPo.setString("REBATE_APPROVAL_STATUS", dto.getReportApprovalStatus());
+				updateBigCustomerPo.setString("REBATE_APPROVAL_REMARK", dto.getReportApprovalRemark());
+			}
+			// end
+			updateBigCustomerPo.setDate("REBATE_APPROVAL_DATE", new Date(System.currentTimeMillis()));
+			updateBigCustomerPo.setBigDecimal("REBATE_APPROVAL_USER_ID", loginUser.getUserId());
+			updateBigCustomerPo.setBigDecimal("UPDATE_BY", loginUser.getUserId());
+			updateBigCustomerPo.setDate("UPDATE_DATE", new Date(System.currentTimeMillis()));
+			boolean flag = false;
+			flag = updateBigCustomerPo.saveIt();
+			if (!flag) {
+				throw new ServiceBizException("审批失败,更新大客户按失败！");
+			}
+
+			/************************************** 写入大客户返利审批历史表 *************************************************/
+			TtBigCustomerRebateApprovalHisPO bigCustomerApprovalHisPo = new TtBigCustomerRebateApprovalHisPO();
+			bigCustomerApprovalHisPo.setString("BIG_CUSTOMER_CODE", bigCustomerCode);
+			bigCustomerApprovalHisPo.setString("WS_NO", wsno);
+			// 驳回次数超过二次状态自动改为驳回转拒绝
+			if (overNumber >= 2) {
+				bigCustomerApprovalHisPo.setString("REBATE_APPROVAL_STATUS",
+						OemDictCodeConstants.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_OVER_RUS);
+				bigCustomerApprovalHisPo.setString("REBATE_APPROVAL_REMARK",
+						OemDictCodeConstants.BIG_CUSTOMER_REBATE_APPROVAL_TYPE_OVER_RUS_REMARK);
+			} else {
+				bigCustomerApprovalHisPo.setString("REBATE_APPROVAL_STATUS", dto.getReportApprovalStatus());
+				bigCustomerApprovalHisPo.setString("REBATE_APPROVAL_REMARK", dto.getReportApprovalRemark());
+			}
+			bigCustomerApprovalHisPo.setDate("REBATE_APPROVAL_DATE", new Date(System.currentTimeMillis()));
+			bigCustomerApprovalHisPo.setBigDecimal("REBATE_APPROVAL_USER_ID", loginUser.getUserId());
+			bigCustomerApprovalHisPo.setString("ENABLE", "10011001");
+			bigCustomerApprovalHisPo.setBigDecimal("CREATE_BY", loginUser.getUserId());
+			bigCustomerApprovalHisPo.setDate("CREATE_DATE", new Date(System.currentTimeMillis()));
+			flag = bigCustomerApprovalHisPo.saveIt();
+			if (!flag) {
+				throw new ServiceBizException("审批失败,更新大客户审批历史失败！");
+			}
+		} else {
+			throw new ServiceBizException("无法进行审批,请确认是否已被审批过!");
+		}
+	}
+
 	/**
 	 * 大客户激活
+	 * 
 	 * @param dto
 	 * @param wsno
 	 */
@@ -525,40 +539,71 @@ public class BigCustomerManageAaServiceImpl implements BigCustomerManageAaServic
 	}
 
 	@Override
-	public void downBigCustomerPolicy(BigDecimal policyFileId) throws ServiceBizException {
-		// 文件名称 待完善，功能未实现
-		// String fileName =
-		// customerdao.findFileNameByPolicyFileId(policyFileId);
-		/*
-		 * act.getResponse().setContentType("text/html; charset=utf-8");
-		 * act.getResponse().addHeader("Content-disposition",
-		 * "attachment;filename="+URLEncoder.encode("文件:"+fileName, "UTF-8"));
-		 * byte[] inst=FileStore.getInstance().read(fileId); OutputStream out =
-		 * act.getResponse().getOutputStream(); out.write(inst); out.flush();
-		 */
+	public int downBigCustomerPolicy(BigDecimal policyFileId) throws ServiceBizException {
+		int msg = 1;
+		try {
+			// 文件名称 待完善，功能未实现
+//			String fileName = customerdao.findFileNameByPolicyFileId(policyFileId);
+//			act.getResponse().setContentType("text/html; charset=utf-8");
+//			act.getResponse().addHeader("Content-disposition",
+//					"attachment;filename=" + URLEncoder.encode("文件:" + fileName, "UTF-8"));
+//			byte[] inst = FileStore.getInstance().read(fileId);
+//			OutputStream out = act.getResponse().getOutputStream();
+//			out.write(inst);
+//			out.flush();
+		} catch (Exception e) {
+			msg = 0;
+			e.printStackTrace();
+		}
+		return msg;
 	}
 
 	@Override
-	public void uploadFiles(MultipartFile importFile) throws ServiceBizException {
-		String fidStr = fileStoreService.writeFile(importFile);
-		TtBigCustomerPolicyFilePO po = new TtBigCustomerPolicyFilePO();
-		po.setString("POLICY_FILE_NAME", importFile.getOriginalFilename().substring(
-				importFile.getOriginalFilename().lastIndexOf("\\") + 1, importFile.getOriginalFilename().length()));// 文件名称
-		po.setString("POLICY_FILE_ID", fidStr);// 文件服务器的文件ID
+	public int uploadFiles(String dmsFileIds) throws ServiceBizException {
+		int msg = 0;
 		try {
-			po.setString("POLICY_FILE_URL", fileStore.getInputStream(fidStr));
+			String[] fileIds = dmsFileIds.split(CommonConstants.FILEUPLOADID_SPLIT_STR_TYPE);
+			//如果存在已经上传的附件
+			if(fileIds.length>=1){
+				String fileUploadId = fileIds[1];
+				FileUploadInfoPO filePO = FileUploadInfoPO.findById(fileUploadId);
+				String fileUrl = filePO.getString("FILE_ID");
+				String[] fileId = fileUrl.split("/");
+				String fileId2 = fileId[fileId.length-1]; 
+				String fileName = filePO.getString("FILE_NAME");
+				TtBigCustomerPolicyFilePO po = TtBigCustomerPolicyFilePO.findFirst("POLICY_FILE_NAME = ? ", fileName);
+				if(po != null){
+					po.setLong("UPDATE_BY", new Long(111111));
+					po.setTimestamp("UPDATE_DATE", new Date());
+				}else{
+					po = new TtBigCustomerPolicyFilePO();
+					po.setString("POLICY_FILE_NAME", fileName);// 文件名称
+					po.setLong("CREATE_BY", new Long(111111));
+					po.setTimestamp("CREATE_DATE", new Date());
+				}
+				po.setString("POLICY_FILE_ID", fileId2);// 文件服务器的文件ID
+				po.setString("POLICY_FILE_URL", fileUrl); // URL
+				po.setInteger("FILE_ENABLE", OemDictCodeConstants.STATUS_ENABLE);// 有效
+				po.saveIt();
+			}
+			msg = 1;
 		} catch (Exception e) {
-			throw new ServiceBizException("设置文件URL失败", e);
+			e.printStackTrace();
 		}
-		po.setInteger("FILE_ENABLE", OemDictCodeConstants.STATUS_ENABLE);// 有效
-		po.setLong("CREATE_BY", new Long(111111));
-		po.setTimestamp("CREATE_DATE", new Date());
-		po.saveIt();
+		return msg;
+		
 	}
 
 	@Override
 	public Map<String, Object> QueryCustomerByStatus1(String wsno, int flag) {
 		return customerdao.QueryCustomer1(wsno, flag);
+	}
+
+	@Override
+	public void delete(BigDecimal id) throws ServiceBizException {
+		TtBigCustomerPolicyFilePO po = TtBigCustomerPolicyFilePO.findById(id);
+		po.setInteger("FILE_ENABLE", OemDictCodeConstants.STATUS_DISABLE);
+		po.saveIt();
 	}
 
 }

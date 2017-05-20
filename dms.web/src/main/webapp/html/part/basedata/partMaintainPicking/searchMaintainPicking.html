@@ -270,21 +270,22 @@
 									isQueryFirst : false,
 									columns : [
 											{
-												radio : true,
+												checkbox : true,
 												sortable : false
 											},
 											{
 												field : "",
 												title : "操作",
-												operateFormat : [ {
-													type : "localDel",
+												operateFormat : [ 
+													{type : "localDel",
 													onBeforeEvent:function(value, row, index){
 														if (row.ITEM_UPDATE_STATUS == "R" || row.ITEM_UPDATE_STATUS == "U"){
 															if($("#deleteList",container).val()!=''){
-																$("#deleteList",container).val($("#deleteList",container).val()+";{storageCode:"+row.STORAGE_CODE+",partNo:"+row.PART_NO+"}");
+																$("#deleteList",container).val($("#deleteList",container).val()+","+row.ITEM_ID);
 															}else{
-																$("#deleteList",container).val("{storageCode:"+row.STORAGE_CODE+",partNo:"+row.PART_NO+"}");
+																$("#deleteList",container).val(row.ITEM_ID);
 															}
+															console.log($("#deleteList",container).val());
 														}
 															//$("#maintainPickingTbl",container).dmsTable().refreshTableWithForm();
 										            },
@@ -301,10 +302,18 @@
 												field : "IS_FINISHED",
 												title : "是否入账",
 												inputHiddenFormat : {
-													hiddenFieldName : "isFinished,itemUpdateStatus,storageCode",
-													hiddenField : "IS_FINISHED,ITEM_UPDATE_STATUS,STORAGE_CODE"
+													hiddenFieldName : "isFinished,storageCode,itemId,priceType",
+													hiddenField : "IS_FINISHED,STORAGE_CODE,ITEM_ID,PRICE_TYPE"
 												}
 												,codeFormat : {type : "dict",codeType : "1278"}
+											},
+											{
+												field : "ITEM_UPDATE_STATUS",
+												title : "修改类型",
+												inputHiddenFormat : {
+													hiddenFieldName : "itemUpdateStatus",
+													hiddenField : "ITEM_UPDATE_STATUS"
+												}
 											},
 											{
 												field : "CARD_ID",
@@ -343,7 +352,7 @@
 												field : "IS_MAIN_PART",
 												inputField : "isMainPart",
 												title : "主要配件"
-											,inputCheckBoxFormat : {type : "dict",codeType : "1057"}
+											,codeFormat : {type : "dict",codeType : "1278"}
 											},
 											{
 												field : "PART_NO",
@@ -425,7 +434,7 @@
 												inputHiddenFormat : {
 													hiddenField : "CHARGE_PARTITION_CODE"
 												}
-											,codeFormat : {type:"dict",codeType:"1214"}
+											
 											},
 											{
 												field : "SENDER",
@@ -547,8 +556,7 @@
 								});
 
 						//当点击出库按钮成功后的回调
-						$("a[data-callBack='true']", container).on(
-								"callBack.dms", function(event, response) {
+						$("a[data-callBack='true']", container).on("callBack.dms", function(event, response) {
 									$("#btnEdit").removeAttr("disabled");//编辑按钮变为可以点击
 									$("#btnRepair").removeAttr("disabled");
 									$("#btnPrint").removeAttr("disabled");
@@ -559,44 +567,33 @@
 									$("#btnStockOut").attr("disabled", "true");
 									$("#btnBorrow").attr("disabled", "true");
 									$("#btnReturn").attr("disabled", "true");
+									if(event.target.id == 'btnStockOut'){
+										$("#maintainPickingTbl", container).dmsTable().refreshTableWithForm();
+									}
 								});
 
 						//点击 按钮事件
-						$("button[data-onclickEvent='true']", container).on(
-								"dms.click", function(event) {
+						$("button[data-onclickEvent='true']", container).on("dms.click", function(event) {
 									if (this.id == "btnSearchRoNo") {
 
 									}
-								});
+						});
 						//点击 按钮事件
 						$("a[data-onclickEvent='true']", container).on("dms.click",function(event) {
 											if (this.id == "btnCancel") {
-												dmsCommon
-														.refreshPageByUrl(
-																"part/basedata/partMaintainPicking/searchMaintainPicking.html",
-																container);
+												dmsCommon.refreshPageByUrl("part/basedata/partMaintainPicking/searchMaintainPicking.html",container);
 											} else if (this.id == "btnEdit") {
-												$("#btnAdd").removeAttr(
-														"disabled");
-												$("#btnUpdate").removeAttr(
-														"disabled");
-												$("#btnStockOut").removeAttr(
-														"disabled");
-												$("#btnCancel").removeAttr(
-														"disabled");
-												$("#btnReturn").removeAttr(
-														"disabled");
-												$("#btnBorrow").removeAttr(
-														"disabled");
-												$("btnRepair").removeAttr(
-														"disabled");
+												$("#btnAdd").removeAttr("disabled");
+												$("#btnUpdate").removeAttr("disabled");
+												$("#btnStockOut").removeAttr("disabled");
+												$("#btnCancel").removeAttr("disabled");
+												$("#btnReturn").removeAttr("disabled");
+												$("#btnBorrow").removeAttr("disabled");
+												$("btnRepair").removeAttr("disabled");
 
-												$("#btnPrint").attr("disabled",
-														"true");
-												$("#btnRePrint").attr(
-														"disabled", "true");
-												$("#btnEdit").attr("disabled",
-														"true");
+												$("#btnPrint").attr("disabled","true");
+												$("#btnRePrint").attr("disabled", "true");
+												$("#btnEdit").attr("disabled","true");
 											}
 										});
 
@@ -631,8 +628,8 @@
 						
 						//点击出库之前校验
 						$("a[data-beforeShowEvent='true']",container).on("beforeShow.dms",function(event,returnResult) {
+							var selectMasterRow = $("#maintainPickingTbl",container).dmsTable().getSelections();
 							if(this.id == 'btnReturn'){
-								var selectMasterRow = $("#maintainPickingTbl",container).dmsTable().getSelections();
 								if(selectMasterRow){
 									returnResult.status = true;
 								}else{
@@ -640,9 +637,12 @@
 									returnResult.status = false;
 								}
 							}else{
-								var selectMasterRow = $("#maintainPickingTbl",container).dmsTable().getRowDataByIndex();
-								console.log(JSON.stringify(selectMasterRow[1]))
-								returnResult.status = true;
+								if(selectMasterRow){
+									returnResult.status = true;
+								}else{
+									dmsCommon.tip({status:"warning",msg:"请选择一条工单配件信息！"});//总共的状态类型：info、success、error、warning
+									returnResult.status = false;
+								}
 							}
 						});
 

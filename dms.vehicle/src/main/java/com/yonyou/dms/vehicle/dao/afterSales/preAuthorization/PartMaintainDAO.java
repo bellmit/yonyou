@@ -59,10 +59,10 @@ public class PartMaintainDAO extends OemBaseDAO{
 		sql.append("     from TT_PT_PART_BASE_dcs t where IS_DEL="+OemDictCodeConstants.IS_DEL_00 +" \n");
 		
 		  if (!StringUtils.isNullOrEmpty(queryParam.get("partCode"))) {
-				sql.append("   and t.part_code='"+queryParam.get("partCode")+"'  \n");
+				sql.append("   and t.part_code like  '%"+queryParam.get("partCode")+"%'  \n");
 			}
 		  if (!StringUtils.isNullOrEmpty(queryParam.get("partName"))) {
-				sql.append("   and t.part_name='"+queryParam.get("partName")+"'  \n");
+				sql.append("   and t.part_name like '%"+queryParam.get("partName")+"%'  \n");
 			}
 		  System.out.println(sql.toString());
     return OemDAOUtil.findAll(sql.toString(),null); 

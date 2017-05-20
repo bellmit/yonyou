@@ -110,7 +110,7 @@
 							autoHeight:false,
 							pageSize:300,
 							uniqueDataName:"PART_NO",
-							columns : [{radio:true}, {
+							columns : [{
 								field : "TRANSFER_NO",
 								title : "操作",
 								operateFormat : [ {type : "localDel",
@@ -134,11 +134,11 @@
 									title : "计量单位"
 								},{field : "TRANSFER_QUANTITY",inputField:"TRANSFER_QUANTITY",inputNumberFormat : {validate:{validateClass:"required decimal",validateAttr:'maxDigit="10" maxPrecision="2"'}}, 
 									title : "移库数量"
-								},{field : "COST_PRICE",inputField:"COST_PRICE",
+								},{field : "COST_PRICE",inputField:"COST_PRICE",inputHiddenFormat:{},
 									title : "成本单价"
-								},{field : "COST_AMOUNT",inputField:"COST_AMOUNT",
-									title : "成本金额",formatter:function(value,row,index){return row.TRANSFER_QUANTITY * row.COST_PRICE}
-								}],
+								},
+								{field : "COST_AMOUNT", inputField :"COST_AMOUNT", title :"成本金额", inputHiddenFormat : {}, numberFormat:{decimal : 2,validate:{validateClass:" money",validateAttr:'maxDigit="16" maxPrecision="2"'},autoValueFormat:{autoValue:"#TRANSFER_QUANTITY*#COST_PRICE"}}}
+								],
 								onLoadSuccess:function(data){
 									$("input[id^='TRANSFER_QUANTITY0']",container).blur(function(event){
 										var selectedRow = $("#partMoveItemTable",container).bootstrapTable("getSelections");

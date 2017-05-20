@@ -143,6 +143,10 @@ $(document).one("onload.dms",function(event,container){
 			dmsRepair.chooseRoNoInfo(selectItem[0].RO_NO);
 			$("#cancel",getElementContext()).show();
 			//$("#roNo",getElementContext()).val(selectItem[0].RO_NO);
+			
+			$("#dms_table",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["repair"] + "/basedata/freeSettlement/queryRoLabourByRoNO/"+selectItem[0].RO_NO);
+			$("#dms_part",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["repair"] + "/basedata/freeSettlement/queryRoRepairPartByRoNO/"+selectItem[0].RO_NO);
+			$("#dms_sales",getElementContext()).dmsTable().refreshUrl(dmsCommon.getDmsPath()["repair"] + "/basedata/queryByLinsence/queryRoLabourByRoNO/"+selectItem[0].RO_NO);
 			$("a[data-dismiss='modal']",container).click();
 		});
 });

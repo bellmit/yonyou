@@ -86,8 +86,8 @@ public class PartAllocateInController extends BaseController {
      */
      @RequestMapping(value = "/Items/{ALLOCATE_IN_NO}",method = RequestMethod.GET)
      @ResponseBody
-     public PageInfoDto getPartAllocateInItems(@PathVariable(value = "ALLOCATE_IN_NO") String allocateInNo) {
-         PageInfoDto pageInfoDto = partAllocateInService.getAllocateInItemsByAllocateInNo(allocateInNo);
+     public List<Map> getPartAllocateInItems(@PathVariable(value = "ALLOCATE_IN_NO") String allocateInNo) {
+         List<Map> pageInfoDto = partAllocateInService.getAllocateInItemsByAllocateInNo(allocateInNo);
          return pageInfoDto;
      }
      /**

@@ -2419,8 +2419,9 @@ sql.append("  AND COALESCE(A.DEAL_STATUS,12871001)=12871001 ");
         isAf = " and A.INTENT_LEVEL <> "+DictCodeConstants.DICT_INTENT_LEVEL_F+" and A.INTENT_LEVEL <> "+DictCodeConstants.DICT_INTENT_LEVEL_FO+"  ";
         StringBuilder sqlSb = new StringBuilder("select * from tm_user_CTRL where DEALER_CODE= ? AND USER_ID= ? AND CTRL_CODE=80900000 ");
         List<Object> params = new ArrayList<Object>();
-        params.add(loginInfo.getUserId());
         params.add(loginInfo.getDealerCode());
+        params.add(loginInfo.getUserId());
+      
         List<Map> list = DAOUtil.findAll(sqlSb.toString(), params);
         if(list!=null&&list.size()>0){
             strBF = " and 1 = 1";

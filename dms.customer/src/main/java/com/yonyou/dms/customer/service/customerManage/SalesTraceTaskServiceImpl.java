@@ -215,11 +215,11 @@ public class SalesTraceTaskServiceImpl implements SalesTraceTaskService {
 						+ "where ta1.DEALER_CODE=a1.DEALER_CODE \n" + "and  ta1.SO_NO=a1.sec_so_no and ta1.vin=a1.vin\n"
 						+ ")<=0 ");
 			}
-			sb.append("  ) ) aa  " + "  LEFT JOIN tm_brand bb ON aa.brand_code = bb.BRAND_CODE  ");
+			sb.append("  ) ) aa  " + "  LEFT JOIN tm_brand bb ON aa.brand_code = bb.BRAND_CODE   AND aa.dealer_code=bb.dealer_code ");
 			sb.append(
-					"  LEFT JOIN tm_series cc ON aa.brand_code = cc.BRAND_CODE AND aa.series_code = cc.`SERIES_CODE`  ");
+					"  LEFT JOIN tm_series cc ON aa.brand_code = cc.BRAND_CODE AND aa.series_code = cc.`SERIES_CODE`   AND aa.dealer_code=cc.dealer_code");
 			sb.append(
-					"  LEFT JOIN tm_model dd ON aa.brand_code = dd.BRAND_CODE AND aa.series_code = dd.`SERIES_CODE`  AND aa.model_code = dd.`MODEL_CODE`  ");
+					"  LEFT JOIN tm_model dd ON aa.brand_code = dd.BRAND_CODE AND aa.series_code = dd.`SERIES_CODE`  AND aa.model_code = dd.`MODEL_CODE`   AND aa.dealer_code=dd.dealer_code ");
 			sb.append("where 1=1 ");
 			if (!StringUtils.isNullOrEmpty(queryParam.get("fpcs"))) {
 				sb.append(" and aa.fpcs = '" + queryParam.get("fpcs") + "'");

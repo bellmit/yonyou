@@ -177,24 +177,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-xs-12 col-sm-8 col-md-4 col-lg-3">
-						<div class="form-group">
-							<label class="control-label col-xs-4">节点时间</label>
-							<div class="col-xs-8 col-sm-8">
-								<div class="input-group input-daterange" 
-									data-opens="right">
-									<input type="text" class="form-control" readonly
-										name="nodeDate1"> <span class="input-group-addon">至</span>
-									<input type="text" class="form-control" readonly
-										name="nodeDate2"> <span class="input-group-btn">
-										<button class="btn default input-clear" type="button">
-											<i class="fa fa-close"></i>
-										</button>
-									</span>
-								</div>
-							</div>
-						</div>
-					</div>
+				
 					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 						<div class="form-group">
 							<label class="control-label col-xs-4">车辆用途</label>
@@ -236,7 +219,24 @@
 							</div>
 						</div>
 					</div>
-					
+						<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+						<div class="form-group">
+							<label class="control-label col-xs-4 col-sm-2">节点时间</label>
+							<div class="col-xs-8 col-sm-10">
+								<div class="input-group input-daterange" 
+									data-opens="right">
+									<input type="text" class="form-control" readonly
+										name="nodeDate1"> <span class="input-group-addon">至</span>
+									<input type="text" class="form-control" readonly
+										name="nodeDate2"> <span class="input-group-btn">
+										<button class="btn default input-clear" type="button">
+											<i class="fa fa-close"></i>
+										</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 
 				<div class="row ">
@@ -314,11 +314,10 @@
 						codeFormat : {
 							type : "oemDict",
 							codeType : "7030"
-						}
-					}, {
-						field : "BIG_AREA",
-						title : "大区"
-					}, {
+						}}, 
+						{field : "RESOURCE",title : "RESOURCE",visible :false}, 
+						{field : "BIG_AREA",title : "大区"}, 
+						{
 						field : "SMALL_AREA",
 						title : "小区"
 					}, {

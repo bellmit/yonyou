@@ -25,6 +25,7 @@ public interface SaveRepairOrderService {
 	 * @param query
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	List<Map> getAllEnterableActivityInfo(Map<String, String> query);
 
 	/**
@@ -38,6 +39,7 @@ public interface SaveRepairOrderService {
 	 * @param param
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	Map getTripleInfo(Map<String, String> param);
 
 	/**
@@ -52,4 +54,18 @@ public interface SaveRepairOrderService {
 	 */
 	void saveSettlementOldpart(Map<String, String> param);
 
+	/**
+	 * 操作时工单更新车主车辆信息
+	 * @param dto
+	 * @return
+	 */
+	int updateOwnerAndVehicle(RepairOrderDetailsDTO dto);
+	
+	
+	/**
+	 * 判断收费区分字段是否含有S
+	 * @param list
+	 * @return
+	 */
+	Boolean checkChargePartitionCode(List<Map<String, String>> list);
 }

@@ -89,6 +89,7 @@ public class RebateDao extends OemBaseDAO{
 			sql.append("   AND DATE(trcl.END_MONTH) <= ? \n");
 			params.add(queryParam.get("endDateTB"));
 		}
+		
 			return sql.toString();
 	}
 	/**

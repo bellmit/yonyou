@@ -82,7 +82,7 @@ public class SADCS010CloudImpl extends BaseCloudImpl implements SADCS010Cloud {
 		//2014-07-14 insert hslReplace salesReplace
 		showPO.setInteger("HSL_REPLACE", vo.getHslReplace());
 		showPO.setInteger("SALES_REPLACE", vo.getSalesReplace());
-		showPO.setTimestamp("CURRENT_DATE", vo.getCurrentDate());
+		showPO.setTimestamp("CURRENT_DATET", vo.getCurrentDate());
 		showPO.setBigDecimal("CURRENT_WEEK", week);
 		showPO.setInteger("IS_ARC", 0);
 		showPO.setInteger("IS_DEL", 0);

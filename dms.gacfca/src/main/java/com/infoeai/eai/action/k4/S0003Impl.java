@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.javalite.activejdbc.Base;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,7 @@ public class S0003Impl extends BaseService implements S0003 {
 		String[] returnVo = null;
 
 		// 开启事物
-		dbService.beginTxn();	// 开启事物
+		beginDbService();	// 开启事物
 		
 		try {
 			
@@ -97,6 +98,7 @@ public class S0003Impl extends BaseService implements S0003 {
 			throw new Exception("S0003业务处理异常！" + e);
 		} finally {
 			logger.info("====S0003 is finish====");
+			Base.detach();
 			dbService.clean();
 		}
 		
@@ -296,7 +298,7 @@ public class S0003Impl extends BaseService implements S0003 {
 			TtVsOrderPO orderPo = ordList.get(0);
 			
 			// 查询物料
-			List<TmMaterialPricePO> materialPricePoList = TmMaterialPricePO.find("MATERAIL_ID = ? ", ordList.get(0).getLong("MATERAIL_ID"));
+			List<TmMaterialPricePO> materialPricePoList = TmMaterialPricePO.find("MATERIAL_ID = ? ", ordList.get(0).getLong("MATERAIL_ID"));
 			
 			// 根据传来的VIN，查询该车辆信息
 			List<TmVehiclePO> vehList = TmVehiclePO.find("VIN = ? ", s0003Vo.getVin());
@@ -352,7 +354,7 @@ public class S0003Impl extends BaseService implements S0003 {
 				if (null != materialPricePoList && materialPricePoList.size() > 0) {
 					vehiclePO.setDouble("RETAIL_PRICE", materialPricePoList.get(0).getDouble("MSRP"));// 车辆表写入零售价格
 				}
-				vehiclePO.insert();
+				vehiclePO.saveIt();
 				
 				// 新增车辆节点日期记录表（存储日期）
 				TtVehicleNodeHistoryPO vehicleNodeHistory = new TtVehicleNodeHistoryPO();
@@ -361,7 +363,7 @@ public class S0003Impl extends BaseService implements S0003 {
 				vehicleNodeHistory.setInteger("IS_DEL", 0);
 				vehicleNodeHistory.setLong("CREATE_BY", OemDictCodeConstants.K4_S0003);
 				vehicleNodeHistory.setDate("CREATE_DATE", new Date());
-				vehicleNodeHistory.insert();
+				vehicleNodeHistory.saveIt();
 				
 				// 新增车辆节点变更记录表数据
 				Map<String, Object> params = new HashMap<String, Object>();
@@ -376,7 +378,7 @@ public class S0003Impl extends BaseService implements S0003 {
 			}
 			
 			// 更新订单表
-			TtVsOrderPO vsOrder = TtVsOrderPO.findFirst("OEDER_NO = ? ", s0003Vo.getOrderNo());
+			TtVsOrderPO vsOrder = TtVsOrderPO.findFirst("ORDER_NO = ? ", s0003Vo.getOrderNo());
 			vsOrder.setString("SO_NO", s0003Vo.getSoNo());
 			vsOrder.setString("VIN", s0003Vo.getVin());
 			vsOrder.setDouble("ORDER_AMOUNT", Utility.getDouble(s0003Vo.getOrderAmount()));
@@ -411,7 +413,7 @@ public class S0003Impl extends BaseService implements S0003 {
 			// 国产车订单接口表更新值
 			TiK4VsOrderPO setTiK4VsOrder = TiK4VsOrderPO.findFirst("ORDER_NO = ? ", s0003Vo.getOrderNo());	// 订单号
 			setTiK4VsOrder.setString("SO_NO", s0003Vo.getSoNo());	// 销售订单号
-			setTiK4VsOrder.setString("VIN = ? ", s0003Vo.getVin());	// 车架号
+			setTiK4VsOrder.setString("VIN", s0003Vo.getVin());	// 车架号
 			setTiK4VsOrder.setLong("UPDATE_BY", OemDictCodeConstants.K4_S0003);	// 更新人ID
 			setTiK4VsOrder.setDate("UPDATE_DATE", new Date());	// 更新日期
 			setTiK4VsOrder.saveIt();
@@ -457,7 +459,7 @@ public class S0003Impl extends BaseService implements S0003 {
 			}
 			
 			// 失败原因、订单号、更新日期
-			dao.updateOrder(reason, s0003Vo.getOrderNo(), new Timestamp(new Date().getTime()));
+			dao.updateOrder(reason, s0003Vo.getOrderNo());
 			
 			// 国产车订单接口表更新条件
 			// 国产车订单接口表更新值
@@ -486,7 +488,7 @@ public class S0003Impl extends BaseService implements S0003 {
 		soReturn.setString("CREATE_TIME", vo.getCreateTime());	// 订单创建时间
 		soReturn.setString("VIN", vo.getVin());	// 车架号
 		soReturn.setString("ORDER_AMOUNT", vo.getOrderAmount());	// 最终付款金额(含税)
-		soReturn.setString("REVATE_AMOUNT", vo.getRebateAmount());	// 使用返利金额
+		soReturn.setString("REBATE_AMOUNT", vo.getRebateAmount());	// 使用返利金额
 		soReturn.setString("SO_CR_RESULT", vo.getSoCrResult());	// SO创建是否成功
 		soReturn.setString("SO_CR_RESULT_DEC", vo.getSoCrResultDec());	// SO创建消息文本
 		soReturn.setString("ROW_ID", vo.getRowId());	// ROW_ID
@@ -495,7 +497,7 @@ public class S0003Impl extends BaseService implements S0003 {
 		soReturn.setInteger("IS_DEL", OemDictCodeConstants.IS_DEL_00);	// 逻辑删除标识
 		soReturn.setString("IS_RESULT", vo.getIsResult());	// 结果标识
 		soReturn.setString("IS_MESSAGE", vo.getIsMessage());	// 校验未通过返回消息
-		soReturn.insert();
+		soReturn.saveIt();
 	}
 
 }

@@ -15,11 +15,11 @@
 					
 					<div class="col-xs-12 col-sm-6 " data-tableSelect="true">
 						<div class="form-group">
-								<label class="control-label col-xs-4">车型代码：</label>
+								<label class="control-label col-xs-4">车型代码</label>
 								<div class="col-xs-8">
 									<div class="input-group">
 									<input id="groupCode" readonly
-										name="groupCode" class="form-control" type="text"
+										name="groupCode" class="form-control required" type="text"
 										data-fieldName="GROUP_CODE" /> 
 					                 <input id="groupId" readonly name="modelId" class="form-control" type="hidden"/> 
 										<span
@@ -41,18 +41,23 @@
 					
 				<div class="col-xs-12 col-sm-6">
 						<div class="form-group">
-							<label class="control-label col-xs-4 ">质保期限（月）：</label>
+							<label class="control-label col-xs-4 ">质保期限（月）</label>
 							<div class="col-xs-8">
-								<input type="text" class="bs-select form-control"  id="qualityTime" name="qualityTime"  data-fieldName="QUALITY_TIME"/>
+								<input type="text" class="bs-select form-control"  id="qualityTime" name="qualityTime"  data-fieldName="QUALITY_TIME"  
+								onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"
+								
+								/>
 							</div>
 						</div>
 					</div>
 					
 				<div class="col-xs-12 col-sm-6">
 						<div class="form-group">
-							<label class="control-label col-xs-4 ">质保里程（公里）：</label>
+							<label class="control-label col-xs-4 ">质保里程（公里）</label>
 							<div class="col-xs-8">
-								<input type="text" class="bs-select form-control"  id="qualityMileage" name="qualityMileage"  data-fieldName="QUALITY_MILEAGE" />
+								<input type="text" class="bs-select form-control"  id="qualityMileage" name="qualityMileage"  data-fieldName="QUALITY_MILEAGE" 
+								onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"
+								/>
 							</div>
 						</div>
 					</div>

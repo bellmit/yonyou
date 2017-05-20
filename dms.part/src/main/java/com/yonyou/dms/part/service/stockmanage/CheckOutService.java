@@ -37,7 +37,7 @@ public interface CheckOutService {
 	 * @return
 	 */
 	List<Map> lendDetail2(String id) throws SerialException;
-	
+
 	/**
 	 * 新增查询借出登记单明细
 	 * 
@@ -71,23 +71,15 @@ public interface CheckOutService {
 	 * @throws ServiceBizException
 	 */
 	@SuppressWarnings("rawtypes")
-	public List<Map> btnOutter(List<Map> list, String partNo2s, String storageCodes, String outQuantitys, Float tag,
+	public List<Map> btnOutter(List<Map> list, String partNo2s, String storageCodes, String outQuantitys,
 			TmPartStockItemDTO tmPartStockItemDTO) throws Exception;
 
 	/**
 	 * 
 	 */
 	@SuppressWarnings("rawtypes")
-	public List<Map> btnOutter2(List<Map> list, String split,String split2,String split3, Float tag,
+	public List<Map> btnOutter2(List<Map> list, String split, String split2, String split3,
 			TmPartStockItemDTO tmPartStockItemDTO) throws Exception;
-
-	/**
-	 * 查询库存是否为零或者金额为零
-	 * 
-	 * @param queryParam
-	 * @return
-	 */
-	PageInfoDto findAccount(Map<String, String> queryParam) throws SerialException;
 
 	/**
 	 * 查询出库
@@ -97,13 +89,14 @@ public interface CheckOutService {
 	 */
 	@SuppressWarnings("rawtypes")
 	public String btnOut(String lendNo, List<Map> lendDetail2) throws Exception;
-	
+
 	/**
 	 * 作废
+	 * 
 	 * @param customerCode
 	 * @param allocateInNo
 	 * @throws ServiceBizException
 	 */
-	public void deleteAllocateIn(String lendNo)throws ServiceBizException;
+	public void deleteAllocateIn(String lendNo) throws ServiceBizException;
 
 }

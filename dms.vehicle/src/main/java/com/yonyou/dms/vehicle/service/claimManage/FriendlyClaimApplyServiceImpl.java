@@ -198,9 +198,7 @@ public class FriendlyClaimApplyServiceImpl implements FriendlyClaimApplyService 
 	 */
 	@Override
 	public Map queryDealerCodeAndName(Map<String, String> queryParam) throws ServiceBizException {
-		//获取当前用户
-		LoginInfoDto loginInfo = ApplicationContextHelper.getBeanByType(LoginInfoDto.class);
-		
+
 		Map map = fcaDao.getClaimBaseParamByDealer();
 		return map;
 	}
@@ -443,6 +441,8 @@ public class FriendlyClaimApplyServiceImpl implements FriendlyClaimApplyService 
 	@Override
 	public Map queryEditMessage(Long claimId,Map<String, String> queryParam) throws ServiceBizException {
 		Map map  = fcaDao.getQueryEditMessage(claimId, queryParam);
+		Map mapAdd = fcaDao.getClaimBaseParamByDealer();
+		map.putAll(mapAdd);
 		return map;
 	}
 

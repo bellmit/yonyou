@@ -1,5 +1,7 @@
 package com.yonyou.dcs.de;
 
+import java.util.List;
+
 /**
  * 经销商之间车辆调拨下发
  * @author Benzc
@@ -7,6 +9,6 @@ package com.yonyou.dcs.de;
  */
 public interface SADCS007 {
 	
-	public String sendData(Long vehicleId,Long inDealerId,Long outDealerId) throws Exception ;
+	public String sendData(List<Long> dealerIds,Long vehicleId,Long inDealerId,Long outDealerId) throws Exception ;
 
 }

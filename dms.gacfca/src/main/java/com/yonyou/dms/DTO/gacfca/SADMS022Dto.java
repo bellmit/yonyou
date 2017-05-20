@@ -54,8 +54,18 @@ public class SADMS022Dto {
     private Long              createBy;             // 创建时间
     private Long              updateBy;             // 修改时间
     private Integer           isValid;
+    private String dealerCode;
+    
 
-    public String getId() {
+    public String getDealerCode() {
+		return dealerCode;
+	}
+
+	public void setDealerCode(String dealerCode) {
+		this.dealerCode = dealerCode;
+	}
+
+	public String getId() {
         return id;
     }
 

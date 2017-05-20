@@ -186,7 +186,7 @@
 						<div class="form-group">
 							<label class="control-label col-xs-4">领料人</label>
 							<div class="col-xs-8 ">
-								<select id="receiver" name="receiver" data-url="/basedata/employees/-1/salesConsultant"
+								<select id="receiver" class=" form-control required " name="receiver" data-url="/basedata/employees/-1/salesConsultant"
 								data-model="manage" data-labelValue="USER_ID" data-value="{[userInfo.USER_ID]}"
 								data-lableDesc="USER_NAME" class="bs-select form-control" data-live-search="true">
 							  </select>
@@ -274,7 +274,7 @@
 										<div class="form-group">
 											<div class="col-xs-12">
 												<input type="checkbox" name="isMainPart"
-													id="isMainPart" data-dictCode="1278"
+													id="isMainPart" data-dictCode="1057"
 													data-dictLabel="主要配件" />
 											</div>
 										</div>
@@ -460,11 +460,17 @@
 							if (row.length >= 1){
 								jsonTr['USEABLE_STOCK'] = row[0].USEABLE_STOCK;
 							}
+							var isChecked = $("[name='isMainPart']",container).is(':checked');
 							jsonTr['ITEM_UPDATE_STATUS'] = 'A';
 							jsonTr['IS_FINISHED']='12781002';
 							jsonTr['STORAGE_CODE']=selectMasterRow['STORAGE_CODE'];
 							jsonTr['STORAGE_NAME']=selectMasterRow['STORAGE_NAME'];
 							jsonTr['STORAGE_POSITION_CODE'] = selectMasterRow['STORAGE_POSITION_CODE'];
+							if(isChecked){
+								jsonTr['IS_MAIN_PART']= '12781001';
+							}else{
+								jsonTr['IS_MAIN_PART']= '12781002';
+							}
 							jsonTr['PART_NO']=selectMasterRow['PART_NO'];
 							jsonTr['PART_NAME']=selectMasterRow['PART_NAME'];
 							jsonTr['USEABLE_STOCK']=selectMasterRow['USEABLE_STOCK'];

@@ -115,12 +115,7 @@ $(document).one(
 				 url : dmsCommon.getDmsPath()["vehicle"]
 						+ "/inventoryManage/oemVehicleVinDetailQuery/{[vehicle_id]}", 
 				rowID : "oemvehicle",
-				detailView : true, //当需要显示明细时，打开此开关，否则不需要写
-				//sortName : "USER_NAME,AGE", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
-				//sortOrder : "asc,desc",
-				isQueryFirst : true,
 				pageSize : 5,
-				isQueryFirst:false,
 				//当需要开启显示明细时才实现，否则不实现
 				/* detailFormatter : function(index, row, element) {
 					return row.NAME;
@@ -130,12 +125,16 @@ $(document).one(
 					field : "VIN",
 					title : "VIN"
 				}, {
-					field : "CHANGE_DATE",
-					title : "变更类型"
+					field : "CHANGE_CODE",
+					title : "变更类型",
+					codeFormat : {
+						type : "oemDict",
+						codeType : "2021"
+					}
 					}
 				, {
-					field : "CHANGE_CODE",
-					title : "变更时间"
+					field : "CHANGE_DATE",
+					title : "变更时间",dateFormat : {format:"YYYY-MM-DD HH:mm:ss"}
 				}, {
 					field : "CHANGE_DESC",
 					title : "变更描述"

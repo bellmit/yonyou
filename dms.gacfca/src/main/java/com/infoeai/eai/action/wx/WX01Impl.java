@@ -33,7 +33,6 @@ public class WX01Impl extends  BaseService implements WX01 {
 
 	public boolean updateIsScan(Long id, String resultValue)
 			throws Exception {
-	
 		TiWxCustomerPO desCustomer = TiWxCustomerPO.findByCompositeKeys(id);
 	
 		desCustomer.setString("Is_Scan", "1");
@@ -53,36 +52,32 @@ public class WX01Impl extends  BaseService implements WX01 {
 		dbService();
 		for (int i = 0; i < resultList.size(); i++) {
 			try {
-				
 				Map<String, String> params = bulidParam4Send(resultList.get(i));
 				String resultXml = HttpUtil.httpPost(WX_ADDOWNER_ACTION_URL,params);
 
 				Map<String, String> result = WxUtil.readWxActionResult(resultXml);
 				String stateCode = result.get("StateCode");
 				updateIsScan( Long.parseLong(resultList.get(i).get("Business_Id").toString()), stateCode);
-			}
-			catch(SocketTimeoutException ex)
-			{
+			}catch (SocketTimeoutException ex){
 				ex.printStackTrace();
 				logger.error(ex.getMessage(), ex);
 				//若出现java.net.SocketTimeoutException: connect timed out 则停止本次传送
 				logger.info("====WX01 SocketTimeout break====");
 				break;
 			}catch (Exception ex) {
-				
 				ex.printStackTrace();
 				logger.error(ex.getMessage(), ex);
 				updateIsScan(Long.parseLong(resultList.get(i).get("Business_Id").toString()), "POST_ERROR");
 				continue;
-			}
-			finally{
-					dbService.endTxn(true);
-					Base.detach();
-					dbService.clean();
-					beginDbService();
+			}finally {
+				dbService.endTxn(true);
+				Base.detach();
+				dbService.clean();
+				beginDbService();
 			}
 		}
 		dbService.endTxn(true);
+		Base.detach();
 		dbService.clean();
 		logger.info("====WX01 is finish====");
 		return null;

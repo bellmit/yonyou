@@ -26,7 +26,7 @@
 package com.yonyou.dms.common.domains.PO.basedata;
 
 import org.javalite.activejdbc.annotations.BelongsTo;
-import org.javalite.activejdbc.annotations.IdName;
+import org.javalite.activejdbc.annotations.CompositePK;
 import org.javalite.activejdbc.annotations.Table;
 
 import com.yonyou.dms.framework.domain.BaseModel;
@@ -36,7 +36,7 @@ import com.yonyou.dms.framework.domain.BaseModel;
 * @date 2016年12月22日
 */
 @Table("tt_activity_part")
-@IdName("ACTIVITY_PART_ID")
+@CompositePK({"ITEM_ID","dealer_code"})
 @BelongsTo(parent=TtActivityPO.class, foreignKeyName ="")
 public class TtActivityPartPO extends BaseModel{
 

@@ -75,7 +75,7 @@
 		</div>
 		<div class="modal-footer center-block">
 			<a class="btn blue" data-url="repair/order/repair/searchOwnerDetails.html" data-toggle="modal" data-width="modal-lg"><i class="fa fa-save"></i>新增</a>
-			<a class="btn blue" data-onclickEvent='true' data-callBack="true"><i class="fa fa-save"></i>确定</a>
+			<a class="btn blue" data-toggle="confirmation" data-beforeRequest="true"><i class="fa fa-save" ></i>确定</a>
 			<a data-dismiss="modal" class="btn blue"> <i class="fa fa-undo"></i>取消</a>
 		</div>
 </form>
@@ -101,18 +101,27 @@
 			            {field : "ADDRESS",title : "地址"}
 			         ]
 		});
-	 	$("a[data-onclickEvent='true']", container).on(
-				"dms.click",
-				function(event, response) {
-					debugger
-					var selectRow = $("#customerList", container)
-					.dmsTable().getFirstSelection();
-					$("div[data-seldate2='true']",getElementContext()).initHtmlContent(selectRow);
+// 	 	$("a[data-onclickEvent='true']", container).on(
+// 				"dms.click",
+// 				function(event, response) {
+// 					debugger
+// 					var selectRow = $("#customerList", container)
+// 					.dmsTable().getFirstSelection();
+// 					$("div[data-seldate2='true']",getElementContext()).initHtmlContent(selectRow);
+// 					$("#reCommendCustomer",getElementContext()).val(selectRow[0].OWNER_NAME);
+// 					//关闭窗口
+// 					$("a[data-dismiss='modal']", container).click();
 					
-					//关闭窗口
-					$("a[data-dismiss='modal']", container).click();
-				});
-		
+// 				});
+	 	$("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			
+			//将选中的表格里的数据写入到前一个页面的查询条件中
+			$("a[data-dismiss='modal']",container).click();//关闭窗口
+		 	var selectRow = $("#customerList",container).dmsTable().getSelections();//获取选中行内的数据
+			//将表格里的数据传到前一个页面
+		 	$("#reCommendCustomer",getElementContext()).val(selectRow[0].OWNER_NAME);
+		   returnResult.status =true;
+		});
 	});
 	
 	

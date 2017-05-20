@@ -479,6 +479,11 @@ public class CommonConstants {
 	
 	public static int DEFAULT_PARA_SUBMIT_CAR=1022;
 	
+    /**
+	 * 收款时是否需要输入会员卡密码
+	 */
+    public static final String DEFAULT_IS_NEED_CHECK_CARD_PASSWORD="1028";
+	
 	/**
 	 * 维修类型-新车装潢
 	 */
@@ -831,6 +836,10 @@ public class CommonConstants {
 	 */
 	
 	public static int DEFAULT_PARA_BOOKING_COME_AFTER=1048;
+	/**
+	 * 配件报损单号
+	 */
+	public static final String SRV_PJBSDH = "SF";
 	
 	 /**
      * 辅料管理费积分基数

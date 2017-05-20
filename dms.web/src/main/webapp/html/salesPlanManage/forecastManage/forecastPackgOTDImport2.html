@@ -1,87 +1,205 @@
-<div class="dms-search">
-	<div class="panel panel-default table-panel">
-		<div class="panel-heading">
-			<div class="pannel-name" >生产订单任务录入</div>
-		</div>
-		<div class="panel-body">
-			<table class="table table-striped table-bordered table-hover table-responsive"
-				id="forecast_OTD_import_List_table"></table>
-		</div>
-		<div class="panel-heading">
-			<div class="pannel-name" ></div>
-		</div>
-		<div class="panel-body">
-			<table class="table table-striped table-bordered table-hover table-responsive"
-				id="forecast_OTD_import_List_table2"></table>
-		</div>
-		&nbsp;
-		<div class="panel-heading">
-			<div class="pannel-name" ></div>
-		</div>
-		<div class="panel-body">
-			<table class="table table-striped table-bordered table-hover table-responsive"
-				id="forecast_OTD_import_List_table3"></table>
+<div class="dms-edit">
+<form class="form-horizontal">
+	<div class="modal-header">
+			<div class="modal-title">生产订单任务录入</div>
+			<div class="modal-close">
+				<a data-dismiss="modal" class="btn btn-lg">
+				<i class="fa fa-remove"></i></a>
+			</div>
+	</div>
+	<div class="modal-body">
+		<input type="hidden" id="groupIds" name="groupIds" >
+		<input type="hidden" id="tvdids" name="tvdids" >
+		<input type="hidden" id="nums" name="nums" >
+		<input type="hidden" id="numsColor" name="numsColor" >
+		<input type="hidden" id="materialIds" name="materialIds" >
+		<input type="hidden" id="taskId" name="taskId" value={[TASK_ID]} >
+		<input type="hidden" id="forecastAmount" name="forecastAmount" >
+		<input type="hidden" id="groupId" name="groupId" >
+		<input type="hidden" id="colorDetailId" name="colorDetailId" >
+		<input type="hidden" id="FORECAST_TOTAL" name="FORECAST_TOTAL" >
+		<input type="hidden" id="LOWER_LIMIT" name="LOWER_LIMIT" >
+		<input type="hidden" id="UP_LIMIT" name="UP_LIMIT" >
+		<input type="hidden" id="packgNumber" name="packgNumber" >
+		<div class="panel panel-default table-panel">
+			<div class="panel-heading">
+				<div class="pannel-name" >生产订单任务录入</div>
+			</div>
+			<div class="panel-body">
+				<table class="table table-striped table-bordered table-hover table-responsive"
+					id="forecast_OTD_import_List_table"></table>
+			</div>
+			<div class="panel-heading">
+				<div class="pannel-name" ></div>
+			</div>
+			<div class="panel-body" id="paPanel" >
+				<table class="table table-striped table-bordered table-hover table-responsive"
+					id="forecast_OTD_import_List_table2"></table>
+			</div>
+			<div class="panel-body hide" id="childPanel">
+				<table class="table table-striped table-bordered table-hover table-responsive"
+					id="forecast_OTD_import_List_table3"></table>
+					
+			</div>
 		</div>
 	</div>
 	<div class="modal-footer">
-		<a data-goback="page"  href="salesPlanManage/forecastManage/forecastOTDQueryInit.html"
-			class="btn blue ajaxify"><i class="fa fa-reply"></i>返回</a>
+	    <a data-url="/forecastImport/saveForecastColorList" data-model="manage" data-beforeRequest="true"
+				data-method="PUT" data-callBack="true" class="btn blue hide" id="save"
+				data-toggle="confirmation"><i class="fa fa-save"></i>保存 </a>
+		<a data-dismiss="modal" class="btn blue" data-callBack="true" id="clear">
+				<i class="fa fa-remove">返回</i></a>
 	</div>
+</form>
 </div>
 <script type="text/javascript">
-
-    $(document).one("onload.dms",function(event,container){
-    	new Datatable().initLocale({
-    		src : "forecast_OTD_import_List_table",
-    		container:container,   
-    		   url : dmsCommon.getDmsPath()["manage"] + "/forecastImport/forecastOTDImportList/{[TASK_ID]}",
-    		   columns : [ 
-                    {field : "GROUP_NAME",title : "车系"},
-                   	{field : "UP_LIMIT",title : "生产订单数量上限"},
-                    {field : "LOWER_LIMIT",title : "生产订单数量下限"},
-                    {field : "FORECAST_TOTAL",title : "数量"}
-    			]
-    		});
-    	
-    	  new Datatable().initLocale({
-    		src : "forecast_OTD_import_List_table2",
-    		container:container,   
-    		   url : dmsCommon.getDmsPath()["manage"] + "/forecastImport/forecastOTDImportList2/{[TASK_ID]}/{[SERIES_CODE]}",
-    		  
-    		   columns : [ 
-                    {field : "SERIES_NAME",title : "车系"},
-                    {field : "MODEL_NAME",title : "车型"},
-                    {field : "PACKAGE_NAME",title : "车款"},
-                    {field : "DETAIL_ID",title : "DETAIL_ID"},
-                    {field : "FORECAST_AMOUNT",inputField:"forecastAmount",title : "数量",
-                    	inputNumberFormat : {defaultValue:0 },onclick:function(value, row, index){
-                			alert(1);
-                		}
-                    	/* operateFormat : [{type:"event",
-                    		onclick:function(value, row, index){
-                    			alert(1);
-                    		}
-                        }] */
-                   	}
-    			],
-    		}); 
-    	  
-    	
-    	  new Datatable().initPagination({
-      		src : "forecast_OTD_import_List_table3",
-      		container:container,
-      		url : dmsCommon.getDmsPath()["manage"] + "/forecastImport/forecastOTDImportList3/{[GROUP_CODE]}/{[DETAIL_ID]}/{[TASK_ID]}",
-      		parentTable:"forecast_OTD_import_List_table2",
-      		columns : [ 
-                     {field : "COLOR_NAME",title : "颜色"},
-                     {field : "TRIM_NAME",title : "内饰"},
-                     {field : "FORECAST_AMOUNT",inputField:"forecastAmount",title : "数量",
-                        	inputNumberFormat : {defaultValue:0 },onclick:function(value, row, index){
-                    			alert(1);
-                      }
-                    }   	
-      			]
-      		});
-    });
+$(document).one("onload.dms",function(event,container){
+	new Datatable().initLocale({
+		src : "forecast_OTD_import_List_table",
+		container:container, 
+		autoHeight:false,
+		   url : dmsCommon.getDmsPath()["manage"] + "/forecastImport/forecastOTDImportList/{[TASK_ID]}/{[SERIES_ID]}",
+		   columns : [ 
+                {field : "GROUP_NAME",title : "车系"},
+               	{field : "UP_LIMIT",title : "生产订单数量上限"},
+                {field : "LOWER_LIMIT",title : "生产订单数量下限"},
+                {field : "FORECAST_TOTAL",title : "数量"}
+			],onLoadSuccess: function (data) {
+	            $("#FORECAST_TOTAL").val(data.FORECAST_TOTAL);
+	            $("#LOWER_LIMIT").val(data.LOWER_LIMIT);
+	            $("#UP_LIMIT").val(data.UP_LIMIT);
+	        }
+		});
+	
+	  new Datatable().initLocale({
+		src : "forecast_OTD_import_List_table2",
+		container:container,
+		autoHeight:false,
+		   url : dmsCommon.getDmsPath()["manage"] + "/forecastImport/forecastOTDImportList2/{[TASK_ID]}/{[SERIES_ID]}",    		  
+		   columns : [ 
+                {field : "SERIES_NAME",title : "车系"},
+                {field : "MODEL_NAME",title : "车型"},
+                {field : "PACKAGE_NAME",title : "车款"},
+                {field : "FORECAST_AMOUNT",inputField:"forecastAmount",title : "数量",
+                	inputNumberFormat : {defaultValue:0,validate:{validateAttr:' disabled'}}
+               	}
+			]  ,
+			onClickRow(rowData, element){
+			   $("#save").removeClass("hide");
+			   $("#childPanel").removeClass("hide");
+			   $("#groupId").val(rowData.GROUP_ID);
+			   $("#forecastAmount").val(rowData.FORECAST_AMOUNT);
+			   $("#colorDetailId").val(rowData.DETAIL_ID);
+			   $("#packgNumber").val(element.attr("data-index"));
+			   //$("#forecast_OTD_import_List_table3", container).dmsTable().refreshTableWithForm();
+		   }  
+		}); 
+	  
+	
+	  new Datatable().initLocale({
+  		src : "forecast_OTD_import_List_table3",
+  		container:container,
+  		autoHeight:false,
+  		url : dmsCommon.getDmsPath()["manage"] + "/forecastImport/forecastColorList/{[GROUP_ID]}/{[DETAIL_ID]}/{[TASK_ID]}",
+  		parentTable:"forecast_OTD_import_List_table2",
+  		columns : [ 
+                 {field : "COLOR_NAME",title : "颜色"},
+                 {field : "TRIM_NAME",title : "内饰"},
+                 {field : "FORECAST_AMOUNT",inputField:"colorAmount",title : "数量",
+                    	inputNumberFormat : {validate:{validateClass:"digits",validateAttr:'maxDigit="30"'}}
+                }   	
+  			],onLoadSuccess: function (data) {
+  				$("#forecast_OTD_import_List_table3 input").attr("onkeyup"," var total = 0;var ele = $('#forecast_OTD_import_List_table3 input');for(var i = 0; i < ele.length; i++){var count = ele[i].value == '' ? 0 : Number(ele[i].value);total += count;}var packgNumber = $('#packgNumber').val(); $('#forecastAmount'+packgNumber).val(total);$('#forecast_OTD_import_List_table td').last().html(total)");
+	        }
+  		});
+ 
+	  $("a[data-beforeRequest='true']",container).on("beforeRequest.dms",function(event,returnResult){
+			var rownum = $("#forecast_OTD_import_List_table2",container).dmsTable().getTableRows();
+			var rows = $("#forecast_OTD_import_List_table2",container).dmsTable().getRowDataByIndex();
+			var groupIds = "",tvdids = "",nums = "",numsColor = "",materialIds = "";
+			for(var i = 0; i < rownum; i++){
+				groupIds += rows[i].GROUP_ID + ",";
+				tvdids += rows[i].DETAIL_ID + ",";
+				nums += rows[i].FORECAST_AMOUNT + ",";
+			}
+			var table3rownum = $("#forecast_OTD_import_List_table3",container).dmsTable().getTableRows();
+			var table3rows = $("#forecast_OTD_import_List_table3",container).dmsTable().getRowDataByIndex();
+			for(var i = 0; i< table3rownum; i++){
+				//numsColor += table3rows[i].FORECAST_AMOUNT + ",";
+				materialIds += table3rows[i].MATERIAL_ID + ",";
+			}
+			var colorNums = $("#forecast_OTD_import_List_table3 input");
+			for(var i = 0; i < colorNums.length; i++){
+				numsColor += colorNums[i].value + ",";
+			}
+			$("#groupIds").val(groupIds.substring(0,groupIds.length -1));
+			$("#tvdids").val(tvdids.substring(0,tvdids.length -1));
+			$("#nums").val(nums.substring(0,nums.length -1));
+			$("#numsColor").val(numsColor.substring(0,numsColor.length -1));
+			$("#materialIds").val(materialIds.substring(0,materialIds.length -1));
+			var packgNumber = $("#packgNumber").val();
+			$("#forecastAmount").val($("#forecastAmount"+packgNumber).val());
+			if(!checkData()){
+				returnResult.status = false;
+				return;
+			}
+			returnResult.status = true;
+	  });
+	  
+	  $("a#save[data-callBack='true']").on("callBack.dms",function(event,response){
+		  $("#save").addClass("hide");
+		   $("#childPanel").addClass("hide");
+		   $("#forecast_OTD_import_List_table", container).dmsTable().refreshTableWithForm();
+		   $("#forecast_OTD_import_List_table2", container).dmsTable().refreshTableWithForm();
+		   $("#forecast_OTD_query_init_table", getElementContext()).dmsTable().refreshTableWithForm();
+	  });
+	  
+	  
+	  $("#forecast_OTD_import_List_table3 input").attr("onkeyup"," var total = 0;var ele = $('#forecast_OTD_import_List_table3 input');for(var i = 0; i < ele.length; i++){var count = ele[i].value == '' ? 0 : Number(ele[i].value);total += count;}var packgNumber = $('#packgNumber').val(); $('#forecastAmount'+packgNumber).val(total);$('#forecast_OTD_import_List_table').dmsTable().updateRowByIndex(0,{FORECAST_AMOUNT:total});");
+	  /* function calculate(){
+		  var total = '';var ele = $('#forecast_OTD_import_List_table3 input');
+		  for(var i = 0; i < ele.length; i++){
+			  var count = ele[i].value == '' ? 0 : Number(ele[i].value);
+			  total += count;
+		  }
+		  var packgNumber = $('#packgNumber').val(); 
+		  $('#forecastAmount'+packgNumber).val(total);
+		  $('#forecast_OTD_import_List_table').dmsTable().updateRowByIndex(0,{FORECAST_AMOUNT:total});
+	  } */ 
+	  
+	  //校验
+	  function checkData(){
+	    	var total=document.getElementById("FORECAST_TOTAL").value;
+	    	var LOWER_LIMIT=document.getElementById("LOWER_LIMIT").value;
+	    	var UP_LIMIT=document.getElementById("UP_LIMIT").value;
+	    	if(LOWER_LIMIT!=""&&UP_LIMIT!=""){
+	    		if(total>=LOWER_LIMIT&&total<=UP_LIMIT){
+	    			  return true;
+	    		}else if(total<LOWER_LIMIT){
+	    			alert("录入总数据不能小于生产订单下限");
+			    	  return false;
+	    		}else if(total>UP_LIMIT){
+	    			alert("录入总数据不能大于生产订单上限");
+			    	  return false;
+	  			}
+	    	}else if(LOWER_LIMIT!=""&&UP_LIMIT==""){
+			      if(total<LOWER_LIMIT){
+			    	  alert("录入总数据不能小于生产订单下限");
+			    	  return false;
+			      }
+			}else if(LOWER_LIMIT==""&&UP_LIMIT!=""){
+			      if(total>UP_LIMIT){
+			    	  alert("录入总数据不能大于生产订单上限");
+			    	  return false;
+			      }
+			}else if(LOWER_LIMIT==""&&UP_LIMIT==""){
+			      return true;
+			}
+	    	return true;
+	    }
+	  
+	  
+	  
+});
 
 </script>

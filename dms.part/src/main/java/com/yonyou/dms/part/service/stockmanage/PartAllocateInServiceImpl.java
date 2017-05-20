@@ -157,7 +157,7 @@ from TT_PART_ALLOCATE_IN
      * @see com.yonyou.dms.part.service.stockmanage.PartAllocateInService#getPartAllocateInItemsById(java.lang.Long)
      */
     @Override
-    public PageInfoDto getAllocateInItemsByAllocateInNo(String allocateInNo) throws ServiceBizException {
+    public  List<Map> getAllocateInItemsByAllocateInNo(String allocateInNo) throws ServiceBizException {
       //根据核对加锁得到 LOCK_USER的值，进行锁定，如果LOCK_USER的值不为锁定，则查询该单号下的明细，否则抛出异常
         // 核对是否加锁
 //        String tableName = actionContext.getStringValue("TABLE_NAME");//TT_PART_ALLOCATE_IN
@@ -189,7 +189,7 @@ from TT_PART_ALLOCATE_IN
             sb.append(" and  A.Allocate_IN_No=? ");
             params.add(allocateInNo);
         }
-        PageInfoDto pageInfoDto = DAOUtil.pageQuery(sb.toString(), params);
+        List<Map> pageInfoDto = DAOUtil.findAll(sb.toString(), params);
         return pageInfoDto;
     }
 

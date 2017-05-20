@@ -144,6 +144,13 @@
 					</div>
 				</div>
 				
+				<div class=" col-sm-6 col-md-3 hidden"  >
+						<div class="query-btn ">
+							<a href="javascript:;" class="btn blue"> <i
+								class="fa fa-search"></i> 查询
+							</a> 
+						</div>
+				</div>	
 				</div>
 			</div>
 		</div>
@@ -207,11 +214,15 @@ function isEmptyObject(obj) {
 	$(document).one("onload.dms",function(event,container){
 		var items=[];
 		$("#stockInDate", container).setElementReadOnly();
-		new Datatable().initPagination({
+		new Datatable().initLocale({
 			src : "dms_part_allocate_in",
 			container:container,
 			autoHeight: false,
-			uniqueDataName:"PART_NO,STORAGE_CODE",
+			isFormParam:true,
+			undefinedText : "",
+			mergeTotal:{
+				megerCellNumber:8,
+			},uniqueDataName:"PART_NO,STORAGE_CODE",
 			columns : [ 
 			    {title : "操作",operateFormat : [
                        {type:"edit",openWidth:"modal-lg",url:"part/stockmanage/partallocatein/editPartAllocateInItem.html",

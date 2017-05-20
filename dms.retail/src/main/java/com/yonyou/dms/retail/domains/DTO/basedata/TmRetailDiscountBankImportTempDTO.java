@@ -1,5 +1,7 @@
 package com.yonyou.dms.retail.domains.DTO.basedata;
 
+import java.util.Date;
+
 import com.yonyou.dms.framework.service.excel.ExcelColumnDefine;
 import com.yonyou.dms.function.domains.DTO.DataImportDto;
 import com.yonyou.dms.function.utils.validate.define.Required;
@@ -29,7 +31,7 @@ public class TmRetailDiscountBankImportTempDTO extends DataImportDto{
 	private String appState;
 	@ExcelColumnDefine(value=6)
 	@Required
-	private String applyDate;
+	private Date applyDate;
 	@ExcelColumnDefine(value=10)
 	@Required
 	private String firstPerment;
@@ -61,7 +63,7 @@ public class TmRetailDiscountBankImportTempDTO extends DataImportDto{
 	private String firstPermentRatio;
 	@ExcelColumnDefine(value=7)
 	@Required
-	private String dealDate;
+	private Date dealDate;
 	@ExcelColumnDefine(value=17)
 	@Required
 	private String interestRate;
@@ -136,11 +138,11 @@ public class TmRetailDiscountBankImportTempDTO extends DataImportDto{
 		return this.appState;
 	}
 
-	public void setApplyDate(String applyDate){
+	public void setApplyDate(Date applyDate){
 		this.applyDate=applyDate;
 	}
 
-	public String getApplyDate(){
+	public Date getApplyDate(){
 		return this.applyDate;
 	}
 
@@ -232,11 +234,11 @@ public class TmRetailDiscountBankImportTempDTO extends DataImportDto{
 		return this.firstPermentRatio;
 	}
 
-	public void setDealDate(String dealDate){
+	public void setDealDate(Date dealDate){
 		this.dealDate=dealDate;
 	}
 
-	public String getDealDate(){
+	public Date getDealDate(){
 		return this.dealDate;
 	}
 

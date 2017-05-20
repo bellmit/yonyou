@@ -48,6 +48,7 @@ import com.yonyou.dms.framework.util.bean.ApplicationContextHelper;
 import com.yonyou.dms.function.common.CommonConstants;
 import com.yonyou.dms.function.common.DictCodeConstants;
 import com.yonyou.dms.function.exception.ServiceBizException;
+import com.yonyou.dms.function.utils.common.CommonUtils;
 import com.yonyou.dms.function.utils.common.StringUtils;
 
 /**
@@ -633,9 +634,9 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 		params.add(DictCodeConstants.DICT_INVOICE_FEE_VEHICLE);
 		sql.append(" ) ");
 		List<Map> map = DAOUtil.findAll(sql.toString(), params);
-		if(map.size()>0){
+		if (map.size() > 0) {
 			return map.get(0);
-		}else{
+		} else {
 			return new HashMap();
 		}
 	}
@@ -647,9 +648,9 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 		sql.append(" select * from TT_REPAIR_ORDER where RO_STATUS = 12251001 and DEALER_CODE = " + dealerCode
 				+ " and vin = '" + param.get("vin") + "'");
 		List<Map> map = DAOUtil.findAll(sql.toString(), null);
-		if(map.size()>0){
+		if (map.size() > 0) {
 			return map.get(0);
-		}else{
+		} else {
 			return new HashMap();
 		}
 	}
@@ -1932,8 +1933,10 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 	@Override
 	public List<Map> queryVinByVin(Map<String, String> query) {
 		StringBuffer sb = new StringBuffer();
-		sb.append("SELECT A.*,B.OWNER_NAME,B.OWNER_PROPERTY,C.MEMO_INFO ").append(" FROM ("+CommonConstants.VM_VEHICLE+") A")
-				.append(" LEFT JOIN ("+CommonConstants.VM_OWNER+") B ON A.DEALER_CODE = B. DEALER_CODE AND A.OWNER_NO = B.OWNER_NO ")
+		sb.append("SELECT A.*,B.OWNER_NAME,B.OWNER_PROPERTY,C.MEMO_INFO ")
+				.append(" FROM (" + CommonConstants.VM_VEHICLE + ") A")
+				.append(" LEFT JOIN (" + CommonConstants.VM_OWNER
+						+ ") B ON A.DEALER_CODE = B. DEALER_CODE AND A.OWNER_NO = B.OWNER_NO ")
 				.append(" LEFT JOIN TM_VEHICLE_MEMO C ON C.DEALER_CODE = A.DEALER_CODE AND C.VIN = A.VIN")
 				.append(" WHERE A.VIN = '").append(query.get("vin")).append("' AND A.DEALER_CODE = '")
 				.append(FrameworkUtil.getLoginInfo().getDealerCode()).append("' ");
@@ -1943,15 +1946,62 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 		String zipCode = null;
 		List<Map> result = new ArrayList<Map>();
 		for (Map db : findAll) {
-			vipNo = db.get("VIP_NO")==null?"":db.get("VIP_NO").toString();
+			vipNo = db.get("VIP_NO") == null ? "" : db.get("VIP_NO").toString();
 			db.put("VIP_NO", vipNo);
-			insuranceBillNo = db.get("INSURANCE_BILL_NO")==null?"":db.get("INSURANCE_BILL_NO").toString();
+			insuranceBillNo = db.get("INSURANCE_BILL_NO") == null ? "" : db.get("INSURANCE_BILL_NO").toString();
 			db.put("INSURANCE_BILL_NO", insuranceBillNo);
-			zipCode = db.get("ZIP_CODE")==null?"":db.get("ZIP_CODE").toString();
+			zipCode = db.get("ZIP_CODE") == null ? "" : db.get("ZIP_CODE").toString();
 			db.put("ZIP_CODE", zipCode);
 			result.add(db);
 		}
 		return result;
+	}
+
+	@Override
+	public String findServiceAdvisor(String str) {
+		String sql = "SELECT DEALER_CODE,SERVICE_ADVISOR FROM TM_EMPLOYEE WHERE EMPLOYEE_NO = ?";
+		List queryParam = new ArrayList();
+		queryParam.add(str);
+		List<Map> findAll = DAOUtil.findAll(sql, queryParam);
+		if (!CommonUtils.isNullOrEmpty(findAll) && findAll.size() == 1) {
+			Map map = findAll.get(0);
+			if (DictCodeConstants.DICT_IS_YES.equals(map.get("SERVICE_ADVISOR"))) {
+				return "1";
+			}
+		}
+		return "0";
+	}
+
+	@Override
+	public String findLabourPriceByRepairTypeCode(String string) {
+		String sql = "SELECT DEALER_CODE,LABOUR_PRICE FROM TM_REPAIR_TYPE WHERE REPAIR_TYPE_CODE = ? AND DEALER_CODE = ?";
+		List queryParam = new ArrayList();
+		queryParam.add(string);
+		queryParam.add(FrameworkUtil.getLoginInfo().getDealerCode());
+		List<Map> findAll = DAOUtil.findAll(sql, queryParam);
+		if(!CommonUtils.isNullOrEmpty(findAll)&&findAll.size()>0){
+			if(!StringUtils.isNullOrEmpty(findAll.get(0).get("LABOUR_PRICE"))){
+				return findAll.get(0).get("LABOUR_PRICE").toString();
+			}
+		}
+		return "";
+	}
+
+	@Override
+	public String findLabourPriceByModelCode(Map<String, String> param) {
+		String sql = "SELECT DEALER_CODE,LABOUR_PRICE FROM TM_MODEL WHERE BRAND_CODE = ? AND SERIES_CODE = ? AND MODEL_CODE = ? AND DEALER_CODE = ?";
+		List queryParam = new ArrayList();
+		queryParam.add(param.get("brand"));
+		queryParam.add(param.get("series"));
+		queryParam.add(param.get("model"));
+		queryParam.add(FrameworkUtil.getLoginInfo().getDealerCode());
+		List<Map> findAll = DAOUtil.findAll(sql, queryParam);
+		if(!CommonUtils.isNullOrEmpty(findAll)&&findAll.size()>0){
+			if(!StringUtils.isNullOrEmpty(findAll.get(0).get("LABOUR_PRICE"))){
+				return findAll.get(0).get("LABOUR_PRICE").toString();
+			}
+		}
+		return "";
 	}
 
 }

@@ -179,7 +179,6 @@ public class S0009Impl extends BaseService implements S0009 {
 
 				/******************** UPDATE 开启事物 ********************/
 
-
 				for (int i = 0; i < list_s0009.size(); i++) {
 
 					// 更新接口表的发送状态
@@ -193,14 +192,12 @@ public class S0009Impl extends BaseService implements S0009 {
 					setPo.saveIt();
 				}
 
-				dbService.endTxn(true);
-
-				/******************** UPDATE 结束事物 ********************/
 			}
+			dbService.endTxn(true);
+			/******************** UPDATE 结束事物 ********************/
 
 			logger.info("========== S0009经销商SO导入处理更新方法结束 ==========");
 
-			return null;
 
 		} catch (Exception e) {
 			dbService.endTxn(false);
@@ -210,6 +207,7 @@ public class S0009Impl extends BaseService implements S0009 {
 			Base.detach();
 			dbService.clean();
 		}
+		return null;
 
 	}
 

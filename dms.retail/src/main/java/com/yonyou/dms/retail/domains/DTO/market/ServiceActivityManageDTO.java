@@ -25,7 +25,6 @@
 	
 package com.yonyou.dms.retail.domains.DTO.market;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -38,16 +37,16 @@ import java.util.Map;
 public class ServiceActivityManageDTO {
     private String activityCode;
     private String activityName;
-    private Date beginDate;
-    private Date endDate;
+    private String beginDate;
+    private String endDate;
     private String brand;
     private String series;
     private String model;
     private String apAckAge;
-    private Date salesDateBegin;
-    private Date salesendDate;
-    private Date mileageBegin;
-    private Date mileageEnd;
+    private String salesDateBegin;
+    private String salesendDate;
+    private Double mileageBegin;
+    private Double mileageEnd;
     private String activityAmount;
     private String activityKind;
     private String vehiclePurpose;
@@ -58,117 +57,192 @@ public class ServiceActivityManageDTO {
     private String memberLevelAllowed;
     private String businessType;
     private String creditTimes;
-    private Date maintainBeginDay;
-    private Date maintainEndDay;
+    private String maintainBeginDay;
+    private String maintainEndDay;
+    private List<Map> modelList;
+    private List<Map> vehicleList;
+    private String sub;
+    private String part;
+    private String add;
+    private String vehic;
+    private String mod;
     
-    public Date getBeginDate() {
-        return beginDate;
+    
+    public String getVehic() {
+        return vehic;
     }
 
 
 
     
-    public void setBeginDate(Date beginDate) {
-        this.beginDate = beginDate;
+    public void setVehic(String vehic) {
+        this.vehic = vehic;
     }
 
 
 
     
-    public Date getEndDate() {
-        return endDate;
+    public String getMod() {
+        return mod;
     }
 
 
 
     
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setMod(String mod) {
+        this.mod = mod;
     }
 
 
 
-    
-    public Date getSalesDateBegin() {
-        return salesDateBegin;
+    public String getSub() {
+        return sub;
     }
 
 
-
     
-    public void setSalesDateBegin(Date salesDateBegin) {
-        this.salesDateBegin = salesDateBegin;
+    public void setSub(String sub) {
+        this.sub = sub;
     }
 
 
-
     
-    public Date getSalesendDate() {
-        return salesendDate;
+    public String getPart() {
+        return part;
     }
 
 
-
     
-    public void setSalesendDate(Date salesendDate) {
-        this.salesendDate = salesendDate;
+    public void setPart(String part) {
+        this.part = part;
     }
 
 
+    
+    public String getAdd() {
+        return add;
+    }
+
 
     
-    public Date getMileageBegin() {
+    public void setAdd(String add) {
+        this.add = add;
+    }
+
+
+    public List<Map> getModelList() {
+        return modelList;
+    }
+
+    
+    public void setModelList(List<Map> modelList) {
+        this.modelList = modelList;
+    }
+
+    
+    public List<Map> getVehicleList() {
+        return vehicleList;
+    }
+
+    
+    public void setVehicleList(List<Map> vehicleList) {
+        this.vehicleList = vehicleList;
+    }
+
+
+    
+    
+    public Double getMileageBegin() {
         return mileageBegin;
     }
 
-
-
     
-    public void setMileageBegin(Date mileageBegin) {
+    public void setMileageBegin(Double mileageBegin) {
         this.mileageBegin = mileageBegin;
     }
 
-
-
     
-    public Date getMileageEnd() {
+    public Double getMileageEnd() {
         return mileageEnd;
     }
 
-
-
     
-    public void setMileageEnd(Date mileageEnd) {
+    public void setMileageEnd(Double mileageEnd) {
         this.mileageEnd = mileageEnd;
     }
 
 
+    
+    public String getBeginDate() {
+        return beginDate;
+    }
+
 
     
-    public Date getMaintainBeginDay() {
+    public void setBeginDate(String beginDate) {
+        this.beginDate = beginDate;
+    }
+
+
+    
+    public String getEndDate() {
+        return endDate;
+    }
+
+
+    
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+
+    
+    public String getSalesDateBegin() {
+        return salesDateBegin;
+    }
+
+
+    
+    public void setSalesDateBegin(String salesDateBegin) {
+        this.salesDateBegin = salesDateBegin;
+    }
+
+
+    
+    public String getSalesendDate() {
+        return salesendDate;
+    }
+
+
+    
+    public void setSalesendDate(String salesendDate) {
+        this.salesendDate = salesendDate;
+    }
+
+
+    
+    public String getMaintainBeginDay() {
         return maintainBeginDay;
     }
 
 
-
     
-    public void setMaintainBeginDay(Date maintainBeginDay) {
+    public void setMaintainBeginDay(String maintainBeginDay) {
         this.maintainBeginDay = maintainBeginDay;
     }
 
 
-
     
-    public Date getMaintainEndDay() {
+    public String getMaintainEndDay() {
         return maintainEndDay;
     }
 
 
-
     
-    public void setMaintainEndDay(Date maintainEndDay) {
+    public void setMaintainEndDay(String maintainEndDay) {
         this.maintainEndDay = maintainEndDay;
     }
+
 
     private String activityProperty;
     private String modelYear;

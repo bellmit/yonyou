@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.javalite.activejdbc.Base;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,7 +107,7 @@ public class S0005Impl extends BaseService implements S0005 {
 		String[] returnVo = null;
 
 		/******************** 开启事物 ********************/
-		dbService.beginTxn();
+		beginDbService();
 
 		try {
 
@@ -130,23 +131,23 @@ public class S0005Impl extends BaseService implements S0005 {
 					po.setString("Invoice_Type", voList.get(i).getInvoiceType()); // 发票类型
 					po.setString("Invoice_No", voList.get(i).getInvoiceNo()); // 发票号码
 					po.setString("Billing_By", voList.get(i).getBillingBy()); // 开票方
-					po.setTimestamp("Billing_Date", voList.get(i).getBillingDate()); // 开票日期
-					po.setTimestamp("Billing_Time", voList.get(i).getBillingTime()); // 开票时间
-					po.setTimestamp("Posting_Status", voList.get(i).getPostingStatus()); // 过账状态
-					po.setTimestamp("Posting_Date", voList.get(i).getPostingDate()); // 过账日期
-					po.setTimestamp("Posting_Time", voList.get(i).getPostingTime()); // 过账时间
+					po.setString("Billing_Date", voList.get(i).getBillingDate()); // 开票日期
+					po.setString("Billing_Time", voList.get(i).getBillingTime()); // 开票时间
+					po.setString("Posting_Status", voList.get(i).getPostingStatus()); // 过账状态
+					po.setString("Posting_Date", voList.get(i).getPostingDate()); // 过账日期
+					po.setString("Posting_Time", voList.get(i).getPostingTime()); // 过账时间
 					po.setString("Vin", voList.get(i).getVin()); // VIN
 					po.setString("Billing_Num", voList.get(i).getBillingNum()); // 开票数量
 					po.setString("Billing_Amount", voList.get(i).getBillingAmount()); // 开票金额
 					po.setString("Tax_Amount", voList.get(i).getTaxAmount()); // 税额
 					po.setString("Cancel_Invoice_No", voList.get(i).getCancelInvoiceNo()); // 被取消发票号码
-					po.setInteger("Row_Id", voList.get(i).getRowId()); // ROW_ID
-					po.setInteger("Is_Result", OemDictCodeConstants.IF_TYPE_NO.toString()); // 是否成功（否）
+					po.setString("Row_Id", voList.get(i).getRowId()); // ROW_ID
+					po.setString("Is_Result", OemDictCodeConstants.IF_TYPE_NO.toString()); // 是否成功（否）
 					po.setString("Is_Message", returnVo[1]); // 错误
-					po.setInteger("Create_By", OemDictCodeConstants.K4_S0005); // 创建人ID
+					po.setLong("Create_By", OemDictCodeConstants.K4_S0005); // 创建人ID
 					po.setTimestamp("Create_Date", format); // 创建日期
 					po.setInteger("Is_Del", OemDictCodeConstants.IS_DEL_00); // 逻辑删除
-					po.insert();
+					po.saveIt();
 
 					/*
 					 * 返回错误信息
@@ -169,6 +170,7 @@ public class S0005Impl extends BaseService implements S0005 {
 			throw new Exception("S0005业务处理异常！" + e);
 		} finally {
 			logger.info("====S0005 is finish====");
+			Base.detach();
 			dbService.clean();
 		}
 		return retVoList;
@@ -407,7 +409,7 @@ public class S0005Impl extends BaseService implements S0005 {
 		po.setInteger("Create_By", OemDictCodeConstants.K4_S0005); // 创建人ID
 		po.setTimestamp("Create_Date", new Date()); // 创建日期
 		po.setInteger("Is_Del", OemDictCodeConstants.IS_DEL_00); // 逻辑删除
-		po.insert();
+		po.saveIt();
 
 		String invoiceDate = (vo.getBillingDate() + vo.getBillingTime()).toString();
 		Date invoiceD = DateUtil.yyyyMMddHHmmss2Date(invoiceDate);
@@ -442,7 +444,7 @@ public class S0005Impl extends BaseService implements S0005 {
 			TtDealerAccountPO dealerAccount = new TtDealerAccountPO();
 			dealerAccount.setLong("Dealer_Id", vsOrderList.get(0).get("Dealer_Id"));
 			dealerAccount.setString("Acc_Type", vsOrderList.get(0).get("Payment_Type"));
-			List<TtDealerAccountPO> dealerAccountList = TtDealerAccountPO.find("Dealer_Id=? and Payment_Type=?",
+			List<TtDealerAccountPO> dealerAccountList = TtDealerAccountPO.find("Dealer_Id=? and Acc_Type=?",
 					vsOrderList.get(0).get("Dealer_Id"), vsOrderList.get(0).get("Payment_Type"));
 
 			Long accId = 0l;
@@ -455,7 +457,7 @@ public class S0005Impl extends BaseService implements S0005 {
 				dealerAccount.setInteger("Status", OemDictCodeConstants.STATUS_ENABLE);
 				dealerAccount.setTimestamp("Create_Date", new Date());
 				dealerAccount.setInteger("Create_By", OemDictCodeConstants.K4_S0005);
-				dealerAccount.insert();
+				dealerAccount.saveIt();
 			}
 
 			// 经销商账户异动明细表
@@ -486,7 +488,7 @@ public class S0005Impl extends BaseService implements S0005 {
 			dealerAccountDtl.setInteger("Create_By", OemDictCodeConstants.K4_S0005); // 创建人ID
 			dealerAccountDtl.setTimestamp("Create_Date", format); // 创建时间
 			dealerAccountDtl.setInteger("Is_Del", OemDictCodeConstants.IS_DEL_00); // 逻辑删除
-			dealerAccountDtl.insert();
+			dealerAccountDtl.saveIt();
 
 			// 更新车辆表状态
 
@@ -530,22 +532,20 @@ public class S0005Impl extends BaseService implements S0005 {
 			orderSql.append("       O.BILLING_AMOUNT = NULL, \n");
 			orderSql.append("       O.TAX_AMOUNT = NULL, \n");
 			orderSql.append("       O.UPDATE_BY = '" + OemDictCodeConstants.K4_S0005 + "', \n");
-			orderSql.append("       O.UPDATE_DATE = CURRENT TIMESTAMP \n");
+			orderSql.append("       O.UPDATE_DATE = now() \n");
 			orderSql.append(" WHERE O.SO_NO = '" + vo.getSoNo() + "' \n");
 			OemDAOUtil.execBatchPreparement(orderSql.toString(), new ArrayList<>());
 
 			// 获得经销商账户信息
-			List<Map<String, String>> dealerAccountList = this.getDealerAccountInfo(vo.getSoNo());
+			List<Map> dealerAccountList = this.getDealerAccountInfo(vo.getSoNo());
 
 			Long accId = 0l;
 			Long orderId = 0l;
 			if (dealerAccountList != null && dealerAccountList.size() > 0) {
 				// 转型经销商账户ID
-				String strAccId = dealerAccountList.get(0).get("ACC_ID");
-				accId = Long.parseLong(strAccId);
+				accId = (Long) dealerAccountList.get(0).get("ACC_ID");
 				// 转型订单ID
-				String strOrderId = dealerAccountList.get(0).get("ORDER_ID");
-				orderId = Long.parseLong(strOrderId);
+				orderId = (Long) dealerAccountList.get(0).get("ORDER_ID");
 			} else {
 
 				// accId = new Long(SequenceManager.getSequence(""));
@@ -556,7 +556,7 @@ public class S0005Impl extends BaseService implements S0005 {
 				dealerAccount.setInteger("Status", OemDictCodeConstants.STATUS_ENABLE); // 有效状态
 				dealerAccount.setInteger("Create_By", OemDictCodeConstants.K4_S0005); // 创建人ID
 				dealerAccount.setTimestamp("CreateDate", format); // 创建日期
-				dealerAccount.insert();
+				dealerAccount.saveIt();
 			}
 
 			// 经销商账户异动明细表
@@ -588,7 +588,7 @@ public class S0005Impl extends BaseService implements S0005 {
 			dealerAccountDtl.setInteger("Create_By", OemDictCodeConstants.K4_S0005); // 创建人ID
 			dealerAccountDtl.setTimestamp("Create_Date", format); // 创建时间
 			dealerAccountDtl.setInteger("Is_Del", OemDictCodeConstants.IS_DEL_00); // 逻辑删除
-			dealerAccountDtl.insert();
+			dealerAccountDtl.saveIt();
 
 			// 更新车辆表状态
 
@@ -658,7 +658,7 @@ public class S0005Impl extends BaseService implements S0005 {
 	 * @param soNo
 	 * @return
 	 */
-	public List<Map<String, String>> getDealerAccountInfo(String soNo) {
+	public List<Map> getDealerAccountInfo(String soNo) {
 
 		StringBuffer sql = new StringBuffer();
 		sql.append(" \n");
@@ -667,11 +667,8 @@ public class S0005Impl extends BaseService implements S0005 {
 		sql.append("  FROM TT_DEALER_ACCOUNT DA \n");
 		sql.append(" INNER JOIN TT_VS_ORDER O ON O.DEALER_ID = DA.DEALER_ID AND O.PAYMENT_TYPE = DA.ACC_TYPE \n");
 		sql.append(" WHERE O.SO_NO = '" + soNo + "' \n");
-		Map findFirst = OemDAOUtil.findFirst(sql.toString(), null);
-		List<Map<String, String>> ll = new ArrayList<>();
-		ll.add(findFirst);
-
-		return ll;
+		List<Map> list = OemDAOUtil.findAll(sql.toString(),null);
+		return list;
 	}
 
 }

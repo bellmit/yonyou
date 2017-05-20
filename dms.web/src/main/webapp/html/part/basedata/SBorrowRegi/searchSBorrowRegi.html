@@ -128,11 +128,15 @@ function isEmptyObject(obj) {
 	$(document).one("onload.dms",function(event,container){
 		var items=[];
 		$("#borrowDate", container).setElementReadOnly();
-		new Datatable().initPagination({
+		new Datatable().initLocale({
 			src : "dms_Borrow_Regi",
 			container:container,
 			autoHeight: false,
-			uniqueDataName:"PART_NO,STORAGE_CODE",
+			isFormParam:true,
+			undefinedText : "",
+			mergeTotal:{
+				megerCellNumber:8,
+			},uniqueDataName:"PART_NO,STORAGE_CODE",
 			columns : [ 
 			    {title : "操作",operateFormat : [
                        {type:"edit",openWidth:"modal-lg",url:"part/basedata/SBorrowRegi/editPartBorrowRegiItem.html",

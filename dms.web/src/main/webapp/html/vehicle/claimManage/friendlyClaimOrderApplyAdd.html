@@ -698,36 +698,26 @@ $(document).one("onload.dms",function(event,container){
 	
 	
 	//索赔情形
-	new Datatable().initPagination({
+	
+	new Datatable().initLocale({
 		src : "claimCaseTable",
-		container:container,
-		//url : dmsCommon.getDmsPath()["vehicle"] + "",
-		rowID : "",	
-		sortName : "", //当需要默认排序时写，否则不写，默认情况下不写，sortOrder同样
-		sortOrder : "",
-		isQueryFirst:false,
-		autoHeight:false,
-		columns : [ 
-			{field : "ID",title : "操作",operateFormat :[                  			
-	             {type : "localDel",operateIcon:'<i class="glyphicon glyphicon-remove"></i>',onBeforeEvent:function(value, row, index){
-	              },onAfterEvent:function(value, row, index){
-	            	  //alert("OnAfter");
-	            	  deleteCase();
-	              },isShow:function(value, row, index){    	
-	                		return true;
-	              }
-	         }]}, 		           
-	    	//{field : "CASE_CODE",title : "情形"},
-	    	{field : "CASE_CODE",inputField:"CASE_CODE", title : "情形", inputTextFormat : {}},
-	    	{field : "TECHPERSON",inputField:"TECHPERSON",title : "技术人员",inputTextFormat : {}},
-	    	{field : "FAULT_CAUSE",inputField:"FAULT_CAUSE",title : "故障说明",inputTextFormat : {}},	
-	    	{field : "APPLY_REMARK",inputField:"APPLY_REMARK",title : "申请备注",inputTextFormat : {}}
-		],
-		onLoadSuccess : function() {
-			$("#claimCaseTable",container).dmsTable().bootstrapTable('resetView');
-		}
+		//container:container,
+		columns : [ {field : "ID",title : "操作",operateFormat :[                  			
+		            {type : "localDel",onBeforeEvent:function(value, row, index){
+		            },onAfterEvent:function(value, row, index){
+		            	//alert("onAfterEvent");
+		            	updateCaseCodeNumber(); //修改情形序列
+		            	changeCaseCode();		//刷新下拉选
+		            }
+		         }]}, 
+				{field : "CASE_CODE",inputField:"CASE_CODE",title : "情形", inputTextFormat : {}},
+    			//{field : "CASE_CODE",inputField:"CASE_CODE", title : "情形", inputTextFormat : {}},
+    			{field : "TECHPERSON",inputField:"TECHPERSON",title : "技术人员",inputTextFormat : {}},
+    			{field : "FAULT_CAUSE",inputField:"FAULT_CAUSE",title : "故障说明",inputTextFormat : {}},	
+    			{field : "APPLY_REMARK",inputField:"APPLY_REMARK",title : "申请备注",inputTextFormat : {}}
+		         ]
 	});
-
+	
 	//配件
 	new Datatable().initPagination({
 		src : "claimPartsTable",
@@ -743,8 +733,6 @@ $(document).one("onload.dms",function(event,container){
 				{type : "localDel",operateIcon:'<i class="glyphicon glyphicon-remove"></i>',onBeforeEvent:function(value, row, index){
 				},onAfterEvent:function(value, row, index){
 					
-				},isShow:function(value, row, index){    	
-					  return true;
 				}
 			}]}, 			        
             {field : "CASE_CODE_PART",inputField:"CASE_CODE_PART",title : "情形",inputSelectFormat : {}},
@@ -854,7 +842,7 @@ $(document).one("onload.dms",function(event,container){
 		}
 	});
 
-	//事件点击
+	//索赔新增事件点击
 	$("#addcase[data-onclickEvent='true']",container).on("dms.click",function(event){
 		var rownu = $("#claimCaseTable",container).dmsTable().getRowDataByIndex();
 		//alert(rownu.length);
@@ -863,9 +851,8 @@ $(document).one("onload.dms",function(event,container){
 			returnResult.status =false;
 			return ;		
 		}		
-		$("#claimCaseTable",container).dmsTable().appendBlankRow();	
-		caseCode();
-		
+		$("#claimCaseTable",container).dmsTable().appendRow({'CASE_CODE':rownu.length+1});	
+		changeCaseCode();
 		
 	});
 	
@@ -875,10 +862,10 @@ $(document).one("onload.dms",function(event,container){
 		var rownu = $("#claimCaseTable",container).dmsTable().getRowDataByIndex();
 		//alert(rownu.length);
 		if(rownu.length<1){
-			$("#claimCaseTable",container).dmsTable().appendBlankRow();	
-			caseCode();
-			
+			$("#claimCaseTable",container).dmsTable().appendRow({'CASE_CODE':rownu.length+1});
+			changeCaseCode();
 		}
+		
 		
 	});
 
@@ -971,6 +958,7 @@ $(document).one("onload.dms",function(event,container){
 		 $('#allAmount',container).val(allAmount);
 		
 	}
+	//初始化input值
 	var init = function(){
 		$('#labTaxRate',container).val(0);
 		$('#partTaxRate',container).val(0);
@@ -982,6 +970,7 @@ $(document).one("onload.dms",function(event,container){
 		
 	}
 	
+	//动态修改下拉选列表
 	var changeCaseCode=function(number){	
 		
 		var rownuCase = $("#claimCaseTable",container).dmsTable().getRowDataByIndex();
@@ -993,8 +982,8 @@ $(document).one("onload.dms",function(event,container){
 			  });
 		}					 		 
 		//配件下拉选
-		var rownum = $("#claimPartsTable",container).dmsTable().getTableRows();
-		var rownu = $("#claimPartsTable",container).dmsTable().getRowDataByIndex();
+			var rownum = $("#claimPartsTable",container).dmsTable().getTableRows();
+			var rownu = $("#claimPartsTable",container).dmsTable().getRowDataByIndex();
 			 //alert(rownum);
 			 //alert(rownu);
 			 if(rownum>0){
@@ -1014,46 +1003,39 @@ $(document).one("onload.dms",function(event,container){
 							dmsDict.refreshSelectByData($( "#CASE_CODE_LABOUR"+index ,container),selectData,"id","name");		
 						  });
 					 }
-						//其他下拉选
-						var rownum = $("#claimOtherTable",container).dmsTable().getTableRows();
-						var rownu = $("#claimOtherTable",container).dmsTable().getRowDataByIndex();
+				//其他下拉选
+				var rownum = $("#claimOtherTable",container).dmsTable().getTableRows();
+				var rownu = $("#claimOtherTable",container).dmsTable().getRowDataByIndex();
 							 //alert(rownum);
 							 //alert(rownu);
-							 if(rownum>0){
-								 $(rownu).each(function(index){					 
-									console.log(JSON.stringify(rownu));					
-									dmsDict.refreshSelectByData($( "#CASE_CODE_OTHER"+index ,container),selectData,"id","name");		
-								  });
-							 }
+						if(rownum>0){
+							$(rownu).each(function(index){					 
+								console.log(JSON.stringify(rownu));					
+							dmsDict.refreshSelectByData($( "#CASE_CODE_OTHER"+index ,container),selectData,"id","name");		
+							});
+						 }
 		
-	}
-	//情形序列
-	var caseCode=function(){
-		var rownu = $("#claimCaseTable",container).dmsTable().getRowDataByIndex();
-		alert( "情形序列："+rownu.length);
+		}
+	//刷新情形序号
+	var updateCaseCodeNumber=function(){
+	    var rownu = $("#claimCaseTable",container).dmsTable().getRowDataByIndex();
+		//alert( "情形序列："+rownu.length);
 		if(rownu.length>0){
 			$(rownu).each(function(index){					 				
-				$('#CASE_CODE'+index,container).val(index+1);		
+				//$('#CASE_CODE'+index,container).setDmsValue(index+1);
+				alert("CASE_CODE:"+index);
+				 $("#claimCaseTable",container).dmsTable().updateRowByIndex(index,{
+						CASE_CODE: index+1						
+						});
+					
 			  });
-		}
-	}
-	
-	//删除索赔情形
-	var deleteCase = function(){
-		var rownu = $("#claimCaseTable",container).dmsTable().getRowDataByIndex();
-		if(rownu.length < 2){
-			dmsCommon.tip({status:"warning",msg:"情形数量至少存在1个！"});
-			returnResult.status =false;
-			return ;		
-		}
-		for(var i=0; i< rownu.length; i++ ){
-			$(rownu).each(function(index){					 				
-				$('#CASE_CODE'+index,container).val(index+1);		
-			  });
-		}
-
+		}  
+		
+		 
 		
 	}
+	
+	
 	
 	
 });

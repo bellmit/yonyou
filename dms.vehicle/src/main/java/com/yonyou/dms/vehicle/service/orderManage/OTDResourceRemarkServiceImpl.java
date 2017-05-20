@@ -191,13 +191,13 @@ public class OTDResourceRemarkServiceImpl implements OTDResourceRemarkService {
 		for (TmpCommonResourceRemarkPO tempPO : find) {
 			Integer codeId = OemDictCodeConstantsUtils.getDictCodeByName(OemDictCodeConstants.OTD_REMARK.toString(),
 					tempPO.get("REMARK").toString());
-			LazyList<TtResourceRemarkPO> find2 = TtResourceRemarkPO.findBySQL("select *from tt_resource_remark where vin=?",
-					tempPO.get("VIN"));
+			LazyList<TtResourceRemarkPO> find2 = TtResourceRemarkPO
+					.findBySQL("select *from tt_resource_remark where vin=?", tempPO.get("VIN"));
 			if (find2.size() > 0 && find2 != null) {
 				for (TtResourceRemarkPO trPO : find2) {
 
 					trPO.setInteger("SPECIAL_REMARK", codeId);
-					trPO.setInteger("UPDATE_BY", loginInfo.getUserId());
+					trPO.setLong("UPDATE_BY", loginInfo.getUserId());
 					trPO.setTimestamp("UPDATE_DATE", format);
 					trPO.saveIt();
 				}
@@ -207,8 +207,8 @@ public class OTDResourceRemarkServiceImpl implements OTDResourceRemarkService {
 				tpo.setInteger("REMARK", 0);
 				tpo.setInteger("SPECIAL_REMARK", codeId);
 				tpo.setInteger("IS_LOCK", 0);
-				tpo.setInteger("CREATE_BY", loginInfo.getUserId());
-				tpo.setInteger("UPDATE_BY", loginInfo.getUserId());
+				tpo.setLong("CREATE_BY", loginInfo.getUserId());
+				tpo.setLong("UPDATE_BY", loginInfo.getUserId());
 				tpo.setTimestamp("UPDATE_DATE", format);
 				tpo.setTimestamp("CREATE_DATE", format);
 				tpo.saveIt();

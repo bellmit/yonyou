@@ -151,7 +151,7 @@ public class CommonResorceRemarkServiceImpl implements CommonResorceRemarkServic
 			if (poa != null) {
 				poa.setInteger("IS_LOCK", 0);
 				poa.setTimestamp("UPDATE_DATE", currdate2);
-				poa.setInteger("UPDATE_BY", loginInfo.getUserId());
+				poa.setLong("UPDATE_BY", loginInfo.getUserId());
 				poa.saveIt();
 			}
 		}
@@ -385,7 +385,7 @@ public class CommonResorceRemarkServiceImpl implements CommonResorceRemarkServic
 				ttpo.setInteger("IS_LOCK", 1);
 				ttpo.setInteger("REMARK", codeId);
 				ttpo.setString("OTHER_REMARK", other);
-				ttpo.setInteger("UPDATE_BY", loginInfo.getUserId());
+				ttpo.setLong("UPDATE_BY", loginInfo.getUserId());
 				ttpo.setTimestamp("UPDATE_DATE", currdate2);
 				ttpo.saveIt();
 			} else {
@@ -395,7 +395,7 @@ public class CommonResorceRemarkServiceImpl implements CommonResorceRemarkServic
 					tpo.setInteger("REMARK", codeId);
 					tpo.setString("VIN", Vin);
 					tpo.setString("OTHER_REMARK", "其他用途");
-					tpo.setInteger("UPDATE_BY", loginInfo.getUserId());
+					tpo.setLong("UPDATE_BY", loginInfo.getUserId());
 					tpo.setInteger("CREATE_BY", loginInfo.getUserId());
 					tpo.setTimestamp("UPDATE_DATE", currdate2);
 					tpo.setTimestamp("CREATE_DATE", currdate2);
@@ -406,8 +406,8 @@ public class CommonResorceRemarkServiceImpl implements CommonResorceRemarkServic
 					to.setString("VIN", Vin);
 					to.setInteger("REMARK", codeId);
 					to.setString("OTHER_REMARK", "其他用途");
-					to.setInteger("UPDATE_BY", loginInfo.getUserId());
-					to.setInteger("CREATE_BY", loginInfo.getUserId());
+					to.setLong("UPDATE_BY", loginInfo.getUserId());
+					to.setLong("CREATE_BY", loginInfo.getUserId());
 					to.setTimestamp("UPDATE_DATE", currdate2);
 					to.setTimestamp("CREATE_DATE", currdate2);
 					to.saveIt();

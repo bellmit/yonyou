@@ -1,6 +1,7 @@
 package com.yonyou.dms.part.service.basedata;
 
 import java.text.ParseException;
+import java.util.List;
 import java.util.Map;
 
 import com.yonyou.dms.framework.DAO.PageInfoDto;
@@ -15,7 +16,7 @@ import com.yonyou.dms.part.domains.DTO.basedata.ListTtPartBorrowItemDTO;
  */
 public interface PartBorrowRegiService {
     PageInfoDto searchPartBorrowRegi(String borrowNo)throws ServiceBizException;
-    PageInfoDto searchPartBorrowRegiItem( String borrowNo)throws ServiceBizException;
+    List<Map> searchPartBorrowRegiItem( String borrowNo)throws ServiceBizException;
     String savePartBorrowRegi(ListTtPartBorrowItemDTO listTtPartBorrowItemDTO)throws ServiceBizException,ParseException;
     void deletePartBorrowRegi(String borrowNo)throws ServiceBizException,ParseException;
     void accountPartBorrowRegi(Map<String, String> queryParam)throws ServiceBizException,Exception;

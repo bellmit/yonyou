@@ -81,7 +81,7 @@ public class ReturnToFactoryVehicleSeraceDao extends OemBaseDAO{
 		sql.append("WHERE  1=1 \n");
 		
 		//条件RECALL_STATUS暂时注释		
-		//sql.append(" 	  s.RECALL_STATUS = '70451002' AND v.RECALL_STATUS = '40331001' \n");
+		sql.append("   AND  s.RECALL_STATUS = '70451002' AND v.RECALL_STATUS = '40331001' \n");
 		sql.append("   AND d.DEALER_CODE IS NOT NULL  \n");
 		//条件
 		//召回编号
@@ -138,6 +138,6 @@ public class ReturnToFactoryVehicleSeraceDao extends OemBaseDAO{
 		sql.append("	v.RECALL_STATUS, \n");
 		sql.append("	d.DEALER_CODE, \n");
 		sql.append("	d.DEALER_SHORTNAME  ) tt \n");
-		return sql.toString();
+		 return sql.toString();
 	}
 }

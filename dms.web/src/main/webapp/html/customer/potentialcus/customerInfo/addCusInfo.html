@@ -1448,10 +1448,13 @@ $(document).one("onload.dms",function(event,container){
 				return ;
 			}
 			var gender=$("#gender",container).val();
-			if(gender==null||gender==undefined||gender==""){
-				dmsCommon.tip({status:"warning",msg:"性别不能为空!"});
-				returnResult.status =false;
-				return ;
+			var customerType=$("#customerType",container).val();
+			if(customerType=='10181001'){
+				if(gender==null||gender==undefined||gender==""){
+					dmsCommon.tip({status:"warning",msg:"性别不能为空!"});
+					returnResult.status =false;
+					return ;
+				}
 			}
 			var contactorMobile=$("#contactorMobile",container).val();
 			if(contactorMobile==null||contactorMobile==undefined||contactorMobile==""){
